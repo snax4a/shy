@@ -23,7 +23,9 @@ The Angular Fullstack generator for Yeoman was used to scaffold out the initial 
 
 1. Run `npm install` to install server dependencies.
 
-2. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
+2. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. Note: the project will still run if you provide bogus credentials.
+
+3. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
 
 ## Build & development
 
