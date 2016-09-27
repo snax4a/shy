@@ -1,0 +1,136 @@
+[
+	{
+		"expires": "2016-11-11T20:00:00.000-04:00",
+		"title": "Moon Salutations with Kendell Romanelli",
+		"image": "/assets/images/workshops/moonsalutations.jpg",
+		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
+		"sections":
+		[
+			{
+				"title": "The Harvest Moon: Welcoming the Abundance of Fall",
+				"start": "2016-09-16T18:30:00.000-04:00",
+				"expires": "2016-09-16T20:00:00.000-04:00",
+				"productID": 9,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "The Moon of Falling Leaves: Releasing What We No Longer Need",
+				"start": "2016-10-14T18:30:00.000-04:00",
+				"expires": "2016-10-14T20:00:00.000-04:00",
+				"productID": 10,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "The Frost Moon: Finding Peace and Light Within",
+				"start": "2016-11-11T18:30:00.000-05:00",
+				"expires": "2016-11-11T20:00:00.000-05:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			}
+		]
+	},
+	{
+		"expires": "2016-09-11T16:30:00.000-04:00",
+		"title": "Getting Unstuck with Yoga and Positive Psychology with Joni Sturgill",
+		"image": "/assets/images/workshops/meditation.jpg",
+		"description": "Feel like you’re getting overwhelmed by stress? Not living the life you wanted? Learn compassion for yourself so you can move beyond your emotional pain, to live a purposeful, joyful, happy life! This class includes yoga, meditation, positive psychology exercises, journaling, laughter, and conscious breathing.",
+		"sections":
+		[
+			{
+				"start": "2016-09-11T14:00:00.000-04:00",
+				"expires": "2016-09-11T16:30:00.000-04:00",
+				"productID": 51,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+	{
+		"expires": "2016-10-01T15:00:00.000-04:00",
+		"title": "Ayurveda Workshop with Abby Ritter",
+		"image": "/assets/images/workshops/menopause.jpg",
+		"description": "The transition to cooler and drier air in the Fall from the warm heat of the summer can wreak havoc on both our bodies and our minds. This workshop will include an asana practice designed to balance the vata effects of this time of the year.",
+		"sections":
+		[
+			{
+				"start": "2016-10-01T13:00:00.000-04:00",
+				"expires": "2016-10-01T15:00:00.000-04:00",
+				"productID": 57,
+				"cost": 30,
+				"location": "Squirrel Hill"
+			}
+		]
+	},
+
+	{
+		"expires": "2016-10-02T15:00:00.000-04:00",
+		"title": "Prenatal Partner Yoga Workshop with Kristie Lindblom",
+		"image": "/assets/images/workshops/prenatalpartner.jpg",
+		"description": "Moms to be! Bring your partners, a family member or a friend to share a fun prenatal yoga experience where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and to prepare for the arrival of your little one into the world! All stages of pregnancy and levels of experience are welcome.",
+		"sections":
+		[
+			{
+				"start": "2016-10-02T13:30:00.000-04:00",
+				"expires": "2016-10-02T15:00:00.000-04:00",
+				"productID": 14,
+				"cost": 35,
+				"location": "Squirrel Hill"
+			}
+		]
+	},
+
+	{
+		"expires": "2016-10-09T16:00:00.000-04:00",
+		"title": "Restorative Yoga with Joni Sturgill",
+		"image": "/assets/images/workshops/restorative.jpg",
+		"description": "Nurture yourself and learn to relax deeply in this restorative yoga workshop. Restorative yoga uses blankets, bolsters and blocks to support the body in restful postures. This encourages the body to relax, open, renew and heal. As the body releases deeply, the mind grows quiet and reflective, bringing your whole being into a more balanced state. Joni will assist you in setting up each pose, and will also teach you how to practice on your own, so you can experience this blissful state regularly! Please bring one or two thin blankets. Studio props are available for use, but are limited depending on the number of attendees. Register early, limit of 15 students.",
+		"sections":
+		[
+			{
+				"start": "2016-10-09T14:00:00.000-04:00",
+				"expires": "2016-10-09T16:00:00.000-04:00",
+				"productID": 21,
+				"cost": 30,
+				"location": "Squirrel Hill"
+			}
+		]
+	},
+
+	{
+		"expires": "2016-11-06T16:30:00.000-04:00",
+		"title": "Meditation and Restorative Yoga for those in the Helping Professions with Joni Sturgill",
+		"image": "/assets/images/workshops/fertility.jpg",
+		"description": "Are you a caretaker by profession or by nature? If you are a counselor, social worker, teacher, physician, nurse or parent - or anyone in the social/helping professions - do you really take the time to restore your own body, mind, emotions or energy? Are you finding ways to manage stress in your life? Join Joni in this workshop and learn techniques you can practice regularly to renew yourself, so you can avoid or minimize burnout. You&rsquo;ll learn meditation techniques to calm and focus the mind, plus how to position the body, using props, to encourage complete relaxation. No experience necessary. Open to anyone who needs to relax.",
+		"sections":
+		[
+			{
+				"start": "2016-11-06T14:00:00.000-05:00",
+				"expires": "2016-11-06T16:30:00.000-05:00",
+				"productID": 22,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+	{
+		"expires": "2016-11-12T14:30:00.000-04:00",
+		"title": "Total Yoga Therapy: Tune-up for Shoulders, Mid-Back and Neck with Linda Meacci, E-RYT, and Jamie DeMarco, DPT",
+		"image": "/assets/images/workshops/shoulder.jpg",
+		"description": "The shoulder girdle is the most mobile joint system in the body and thus is prone to overuse, tension, stiffness and injury. Without good mobility and strength in this system, we tend to slouch, lose strength and can suffer cyclical pain in the shoulders, mid-back, neck or wrists. Postural issues are some of the leading causes of poor shoulder girdle function. In this therapeutic workshop, Linda Meacci, an Experienced Registered Yoga Teacher, and Jamie DeMarco, a Doctor of Physical Therapy and yoga teacher, help you understand how to restore and maintain stability and pain-free movement. Physiological factors involved include the skeletal structure, muscles and soft tissue of the upper back, chest, shoulders and arms. Linda and Jamie show you how to rebalance the system from both a yoga and physical therapy point of view. They will address underlying issues&mdash;including the relationship between the shoulders, hips and spine&mdash;and give you practical tools to release physical and emotional tension. By identifying the muscle chains that stabilize the shoulders and becoming aware of simple movement that support the system, we can achieve a more upright posture and better function. This workshop is ideal for fellow yoga teachers, long-time yogis, new students and anyone plagued with shoulder, upper back or neck tension.",
+		"sections":
+		[
+			{
+				"start": "2016-11-12T12:00:00.000-05:00",
+				"expires": "2016-11-12T14:30:00.000-05:00",
+				"productID": 15,
+				"cost": 50,
+				"location": "East Liberty"
+			}
+		]
+	}
+]

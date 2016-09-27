@@ -1,0 +1,28 @@
+.navbar.navbar-default.navbar-static-top
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', ng-click='$ctrl.isCollapsed = !$ctrl.isCollapsed')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') Schoolhouse Yoga
+
+    #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
+      ul.nav.navbar-nav
+        li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
+          a(ui-sref='{{item.state}}') {{item.title}}
+      ul.nav.navbar-nav.navbar-right
+        li(uib-dropdown='')
+          a(href='#', uib-dropdown-toggle='')
+            | Contact
+            span.caret
+          ul.dropdown-menu(uib-dropdown-menu='')
+            li
+              a(ng-click='$ctrl.contactModalOpen()')
+                span.glyphicon.glyphicon-envelope(aria-hidden='true')
+                | &nbsp;&nbsp;Send a message online
+            li
+              a(href='tel:+1-412-401-4444')
+                span.glyphicon.glyphicon-earphone(aria-hidden='true')
+                | &nbsp;&nbsp;Call +1 (412) 401-4444

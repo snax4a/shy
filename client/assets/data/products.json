@@ -1,0 +1,92 @@
+[
+  {
+    "id":1,
+    "name":"One class pass",
+    "price":15
+  },
+  {
+    "id":2,
+    "name":"Four class pass",
+    "price":50
+  },
+  {
+    "id":3,
+    "name":"Eight class pass",
+    "price":80
+  },
+  {
+    "id":4,
+    "name":"Twelve class pass",
+    "price":100
+  },
+  {
+    "id":5,
+    "name":"Gift card - One class pass",
+    "price":15
+  },
+  {
+    "id":6,
+    "name":"Gift card - Four class pass",
+    "price":50
+  },
+  {
+    "id":7,
+    "name":"Gift card - Eight class pass",
+    "price":80
+  },
+  {
+    "id":8,
+    "name":"Gift card - Twelve class pass",
+    "price":100
+  },
+  {
+    "id":9,
+    "name":"Workshop: Moon Salutations (September 16th)",
+    "price":20
+  },
+  {
+    "id":10,
+    "name":"Workshop: Moon Salutations (October 14th)",
+    "price":20
+  },
+  {
+    "id":11,
+    "name":"Workshop: Moon Salutations (November 11th)",
+    "price":20
+  },
+  {
+    "id":12,
+    "name":"Workshop: Women's Healing Circle (July 17th)",
+    "price":15
+  },
+  {
+    "id":13,
+    "name":"Workshop: Women's Healing Circle (August 14th)",
+    "price":15
+  },
+  {
+    "id":14,
+    "name":"Workshop: Meditation and Restorative Yoga  (August 2nd)",
+    "price":25
+  },
+  {
+    "id":15,
+    "name":"Workshop: 4-6 Year Old Class",
+    "price":80
+  },
+  {
+    "id":16,
+    "name":"Workshop: 7-9 Year Old Class",
+    "price":80
+  },
+  {
+    "id":17,
+    "name":"Workshop: 10-12 Year Old Class",
+    "price":80
+  },
+  {
+    "id":18,
+    "name":"Workshop: Yoga for Fertility",
+    "price":25
+  }
+]

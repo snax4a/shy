@@ -1,0 +1,57 @@
+.container
+  .row
+    .col-md-6
+      img.img-responsive.teacher-training(src='assets/images/teachers/ttphoto.jpg', alt='Teacher training')
+    .col-md-6
+      h2 Schoolhouse Yoga Teacher Training
+      p
+        | Schoolhouse Yoga is excited to offer this comprehensive teacher training and yoga intensive led by the top yoga instructors in the city of Pittsburgh. The program will run February through October and will cover content in the following areas: the history of Yoga, Yogic philosophy, Yoga Sutras, anatomy and physiology, adjustments and teaching techniques, meditation, Ayurveda, Ashtanga Yoga, Kundalini Yoga, Yin Yoga, Restorative Yoga, Therapeutic Yoga, and much much more! Schoolhouse Yoga&apos;s curriculum has been approved and certified by Yoga Alliance.
+      h3 Benefits of Our Program
+      ul
+        li
+          | Taught by top yoga instructors in the city of Pittsburgh, each teaching in their area of expertise
+        li
+          | Participants in our program will receive a discount on weekly yoga classes (only $5/class)
+        li
+          | Program will cover training in Hatha Yoga, Kundalini Yoga, Ashtanga Yoga, Flow Yoga, Yin Yoga, Restorative Yoga, Iyengar Yoga, Therapeutic Yoga, Ayurveda, Meditation, Anatomy and Physiology, Philosophy, the Yoga Sutras and the history of Yoga, adjustments, teaching techniques and much more
+      h3 Program Requirements
+      ul
+        li Attend teacher training sessions (or make arrangements to make-up missed hours)
+        li Complete homework assignments
+        li Complete 10 hours of volunteer teaching
+        li Attend 4 workshops
+        li
+          | Attend at least one yoga class per week (classes at SHY are only $5/class for teacher trainees!)
+        li Maintain a personal journal
+        li Read books on required reading list
+        li Complete take-home final exam
+      h3 Required Reading List
+      ul
+        li Susi Hately&apos;s Anatomy and Asana: Preventing Yoga Injuries
+        li Light on Yoga by BKS Iyengar
+        li Light on the Yoga Sutras by BKS Iyengar
+        li Donna Farhi: The Breathing Book
+        li Blandine Calais-Germain: Anatomy of Movement (newest edition)
+        li Anatomy Trains by Tom Myers
+      p
+        | Interested in joining next year&apos;s program? Please contact us at 
+        a(href='mailto:leta@schoolhouseyoga.com') info@schoolhouseyoga.com
+        | .
+        br
+        |  The fee for the 2017 training is $2750. Deadline to withdraw from the program is February 10th.
+        br
+        |  There is a non-refundable fee of $100 to withdraw. No refunds will be granted after February 10th.
+        br
+      .checkbox
+        label
+          input#MasterBody_agreedCheckbox(type='checkbox', name='ctl00$MasterBody$agreedCheckbox')
+          | I agree to these terms and conditions.
+        |  
+        span#MasterBody_CheckBoxRequired.has-error(style='visibility:hidden;') You must select this checkbox to proceed.
+      br
+      |  
+      input#MasterBody_agreedButton.btn.btn-warning(type='submit', name='ctl00$MasterBody$agreedButton', value='Register', onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$agreedButton", "", true, "", "", false, false))')
+  script.
+    function CheckBoxRequired_ClientValidate(sender, e) {
+    e.IsValid = jQuery("input:checkbox").is(':checked');
+    }

@@ -1,0 +1,47 @@
+.logo {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    height: 200px;
+    width: 200px;
+}
+
+.seal {
+    margin-top: 20px;
+}
+
+.faq {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.callout {
+    padding: 20px 20px 15px 20px;
+    margin: 15px 0 10px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    border-left-color: #f0ad4e;
+}
+
+.callout h3 {
+    margin-top: 0;
+    color: orange;
+}
+
+.callout h4 {
+	margin-top: 20px;
+}
+
+.callout > h4 {
+    color: #5f4884;
+}
+
+.callout > div > p {
+    margin: 5px 0 0;
+}
+
+.right.carousel-control, .left.carousel-control {
+    display: none;
+}

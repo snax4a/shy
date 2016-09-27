@@ -1,0 +1,42 @@
+[
+  {
+    "section": "New Fall Classes",
+    "announcements": [
+      {
+        "title": "Yoga 1",
+        "description": "with Laura Herrmann, Mondays at 9:30am at the East Liberty school",
+        "expires": "2016-11-01T00:00:00.000-05:00"
+      },
+      {
+        "title": "Yoga 2",
+        "description": "with Mita, Mondays at 6pm at the Squirrel Hill school",
+        "expires": "2016-11-01T00:00:00.000-05:00"
+      },
+      {
+        "title": "Chair/Seated Yoga",
+        "description": "with Lizzie, Tuesdays at 11:30am at the North Hills school",
+        "expires": "2016-11-01T00:00:00.000-05:00"
+      }
+    ]
+  },
+  {
+    "section": "Fall Class Changes",
+    "announcements": [
+      {
+        "title": "Yoga 1",
+        "description": "- Kendell's Sunday class at the North Hills school will move to 4-5:30pm",
+        "expires": "2016-11-01T00:00:00.000-05:00"
+      }    
+    ]
+  },
+  {
+    "section": "Holiday Schedule",
+    "announcements": [
+      {
+        "title": "Monday, Sept 5",
+        "description": "– 9:30am Yoga 1 in Squirrel Hill running; All other classes cancelled",
+        "expires": "2016-09-06T00:00:00.000-05:00"
+      }    
+    ]
+  }
+]

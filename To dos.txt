@@ -1,0 +1,6 @@
+- Use https://www.dunebook.com/create-shopping-cart-with-angularjs/ to customize ngCart
+- Build server API for Contact, Subscribe, and Checkout
+- Connect Contact modal to Contact method (including validation)
+- Connect Subscribe on Workshops to Subscribe method (including validation)
+- Connect Checkout to on Cart to Checkout method
+- Add google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info

@@ -1,0 +1,43 @@
+.container
+  h2 Classes
+  p
+    b Studios
+    | : 
+    a(href='#squirrelhill') Squirrel Hill
+    |  | 
+    a(href='#eastliberty') East Liberty
+    |  | 
+    a(href='#northhills') North Hills
+    br
+    |  The class schedule updates at midnight on Saturday evenings.
+    br
+    |  The weekly schedule posted below is our Summer Class Schedule and will run through the end of August.
+    br
+    |  You do not have to register in advance, just show up 15 minutes before class begins, you can pay at the door.
+  .row
+    .col-sm-6
+
+      table.table.table-striped.table-hover
+        //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
+        tbody(ng-repeat='studio in $ctrl.data')
+          tr
+            td.location(colspan='3')
+              a(id='{{studio.location | htmlid}}')
+              h3 {{studio.location}}
+          tr(ng-repeat-start='day in studio.days')
+            td.day(colspan='3') {{day.name | daytodate | date:'fullDate'}}
+          tr(ng-repeat-end,ng-repeat='class in day.classes')
+            td.time(ng-class='{canceled: class.canceled=="true"}') {{class.time}}
+            td(ng-class='{canceled: class.canceled=="true"}')
+              a(href='/classes#{{class.name | htmlid}}') {{class.name}} 
+              span(ng-if='class.canceled=="true"') (Canceled)
+            td(ng-class='{canceled: class.canceled=="true"}') 
+              a(href='/teachers#{{class.teacher | htmlid}}') {{class.teacher}}
+
+    .col-sm-6
+      div(ng-repeat="class in $ctrl.classes | orderBy:'title'")
+        a(id='{{ class.title.split(" ").join("") | lowercase }}')
+        h3 {{ class.title }} 
+        p {{ class.description }}
+
+script(src='dates.js')
