@@ -1,6 +1,15 @@
 # Schoolhouse Yoga Website
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.0.4.
+This yoga school website is built using angularJS 1.5.x, expressJS, and nodeJS (MEAN minus Mongo).
+All JavaScript is ES6 via babel. It includes a shopping cart (ngCart) and will be processing
+payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
+of newsletter subscribers, it uses Google Docs Spreadsheet. Credit card information is
+intentionally not retained.
+
+The website is under construction. Most of the work that remains centers on customizing
+the look and feel of the shopping cart and building the server API.
+
+The Angular Fullstack generator for Yeoman was used to scaffold out the initial project.
 
 ## Getting Started
 
