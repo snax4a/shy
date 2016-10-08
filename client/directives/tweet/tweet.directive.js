@@ -1,6 +1,6 @@
 'use strict';
-const angular = require('angular');
-var debounce = require('es6-promise-debounce');
+import angular from 'angular';
+import debounce from 'es6-promise-debounce';
 
 // Loads Twitter's script to body
 window.twttr = (function(d, s, id) {
@@ -13,24 +13,24 @@ window.twttr = (function(d, s, id) {
   js.src = '//platform.twitter.com/widgets.js';
   fjs.parentNode.insertBefore(js, fjs);
   t._e = [];
-  t.ready = function(f) {
+  t.ready = f => {
     t._e.push(f);
   };
   return t;
 }(document, 'script', 'twitter-wjs'));
 
 export default angular.module('shyApp.tweet', [])
-  .directive('tweet', ['$timeout', function($timeout) {
+  .directive('tweet', ['$timeout', $timeout => {
     return {
       link: (scope, element, attr) => {
-        var renderTwitterButton = debounce(function() {
+        var renderTwitterButton = debounce(() => {
           if(attr.url) {
-            $timeout(function() {
+            $timeout(() => {
               element[0].innerHTML = '';
               window.twttr.widgets.createShareButton(
                 attr.url,
                 element[0],
-                function() {}, {
+                () => {}, {
                   count: attr.count,
                   text: attr.text,
                   via: attr.via,

@@ -1,13 +1,11 @@
 'use strict';
-const angular = require('angular');
+import angular from 'angular';
 
 /*@ngInject*/
 export function htmlIdFilter() {
-  return function(input) {
-    return input.toLowerCase()
+  return input => input.toLowerCase()
     .split(' ')
     .join('');
-  };
 }
 
 export default angular.module('shyApp.htmlId', [])
