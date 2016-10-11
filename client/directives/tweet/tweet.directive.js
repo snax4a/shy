@@ -19,30 +19,33 @@ window.twttr = (function(d, s, id) {
   return t;
 }(document, 'script', 'twitter-wjs'));
 
+/*@ngInject*/
+export function Tweet($timeout) {
+  return {
+    link: (scope, element, attr) => {
+      var renderTwitterButton = debounce(() => {
+        if(attr.url) {
+          $timeout(() => {
+            element[0].innerHTML = '';
+            window.twttr.widgets.createShareButton(
+              attr.url,
+              element[0],
+              () => {}, {
+                count: attr.count,
+                text: attr.text,
+                via: attr.via,
+                size: attr.size
+              }
+            );
+          });
+        }
+      }, 75);
+      attr.$observe('url', renderTwitterButton);
+      attr.$observe('text', renderTwitterButton);
+    }
+  };
+}
+
 export default angular.module('shyApp.tweet', [])
-  .directive('tweet', ['$timeout', $timeout => {
-    return {
-      link: (scope, element, attr) => {
-        var renderTwitterButton = debounce(() => {
-          if(attr.url) {
-            $timeout(() => {
-              element[0].innerHTML = '';
-              window.twttr.widgets.createShareButton(
-                attr.url,
-                element[0],
-                () => {}, {
-                  count: attr.count,
-                  text: attr.text,
-                  via: attr.via,
-                  size: attr.size
-                }
-              );
-            });
-          }
-        }, 75);
-        attr.$observe('url', renderTwitterButton);
-        attr.$observe('text', renderTwitterButton);
-      }
-    };
-  }])
+  .directive('tweet', Tweet)
   .name;
