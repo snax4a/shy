@@ -18,7 +18,7 @@ import { NgCartFulfillmentLogService } from './ngCart.fulfillment.log.service';
 //import { NgCartFulfillmentHttpService } from './ngCart.fulfillment.http.service';
 
 export default angular.module('ngCart', [])
-  .run(['$rootScope', 'ngCart.service', 'ngCart.item', 'ngCart.store.service', ($rootScope, ngCart, ngCartItem, store) => {
+  .run(['$rootScope', 'ngCart.service', 'NgCartItem', 'ngCart.store.service', ($rootScope, ngCart, ngCartItem, store) => {
     $rootScope.$on('ngCart:change', () => {
       ngCart.$save();
     });
@@ -31,7 +31,7 @@ export default angular.module('ngCart', [])
   }])
   .provider('$ngCart', NgCartProvider)
   .service('ngCart.service', NgCartService)
-  .factory('ngCart.item', NgCartItemFactory)
+  .factory('NgCartItem', NgCartItemFactory)
   .service('ngCart.store.service', NgCartStoreService)
   .controller('ngCart.cart.controller', NgCartCartController)
   .service('ngCart.fulfillment.provider', NgCartFulfillmentProviderService)

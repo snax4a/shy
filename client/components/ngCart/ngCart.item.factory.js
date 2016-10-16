@@ -2,7 +2,7 @@
 
 /*@ngInject*/
 export function NgCartItemFactory($rootScope, $log) {
-  class item {
+  return class NgCartItem {
     constructor(id, name, price, quantity, data) {
       this.setId(id);
       this.setName(name);
@@ -92,7 +92,5 @@ export function NgCartItemFactory($rootScope, $log) {
         total: this.getTotal()
       };
     }
-  }
-
-  return item;
+  };
 }
