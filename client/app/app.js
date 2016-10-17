@@ -21,7 +21,7 @@ import footer from '../components/footer/footer.component';
 // General components
 import util from '../components/util/util.module';
 import constants from './app.constants';
-import ngCart from '../components/ngCart/ngCart.module';
+import Cart from '../components/Cart/Cart.module';
 
 // Page components
 import main from './main/main.component';
@@ -46,7 +46,7 @@ import './app.scss';
 
 angular.module('shyApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, navbar, banner, footer,
     main, classes, workshops, locations, teachers, cart, register, privacy, terms, constants, util, upcoming,
-    htmlid, daytodate, tweet, ngCart
+    htmlid, daytodate, tweet, Cart
   ])
   .config(routeConfig);
 
