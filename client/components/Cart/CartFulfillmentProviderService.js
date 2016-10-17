@@ -19,6 +19,7 @@ export class CartFulfillmentProviderService {
   }
 
   checkout() {
+    console.log(`_obj.service = ${this._obj.service}`);
     let provider = this.$injector.get(this._obj.service);
     return provider.checkout(this._obj.settings);
   }

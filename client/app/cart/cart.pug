@@ -1,2 +1,51 @@
 .container
   h2 Shopping Cart
+  .row
+    .col-xs-offset-8.col-xs-4
+      h3
+        | Summary 
+        span (summary)
+      cart-summary
+  hr
+  h3
+    | Add to Cart 
+    span (addToCart)
+  .row
+    .col-xs-6.col-sm-3
+      h4 My Item #1
+      p  $10.99
+      cart-addtocart#item1(name='My Item #1', price='10.99', quantity='1', quantity-max='5') Add to Cart
+    .col-xs-6.col-sm-3
+      h4 My Item #2
+      p  $15.29
+      cart-addtocart#item2(name='My Item #2', price='15.29', quantity='1', quantity-max='5') Add to Cart
+    .col-xs-6.col-sm-3
+      h4 My Item #3
+      p  $25.75
+      cart-addtocart#item3(name='My Item #3', price='25.75', quantity='3', quantity-max='10') Add to Cart
+    .col-xs-6.col-sm-3
+      h4 My Item #4
+      p  $29.25
+      cart-addtocart#item4(name='My Item #4', price='29.25', quantity='1', quantity-max='10') Add to Cart
+  hr
+  h3
+    | Cart 
+    span (cart)
+  cart-editor
+  hr
+  .row
+    .col-md-12
+      h3
+        | Checkout 
+        span (checkout)
+      .row
+        .col-xs-4
+          h4 service &apos;log&apos;
+          cart-checkout(service='log') Checkout
+        .col-xs-4
+          h4 service &apos;http&apos;
+          cart-checkout(service='http', settings='httpSettings') Checkout
+        .col-xs-4
+          h4 service &apos;paypal&apos;
+          cart-checkout(service='paypal', settings='payPalSettings')
+

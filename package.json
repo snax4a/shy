@@ -1,6 +1,6 @@
 {
   "name": "shy",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Website for Schoolhouse Yoga using MEAN stack",
   "main": "server/index.js",
   "dependencies": {
@@ -10,7 +10,7 @@
     "angular-cookies": "~1.5.8",
     "angular-resource": "~1.5.8",
     "angular-sanitize": "~1.5.8",
-    "angular-ui-bootstrap": "~2.1.4",
+    "angular-ui-bootstrap": "~2.2.0",
     "angular-ui-router": "~0.3.1",
     "babel-polyfill": "^6.16.0",
     "babel-runtime": "^6.11.6",
@@ -30,7 +30,6 @@
     "lusca": "^1.4.1",
     "method-override": "^2.3.6",
     "morgan": "~1.7.0",
-    "ngCart": "^1.0.0",
     "pug": "2.0.0-beta6",
     "serve-favicon": "^2.3.0",
     "shrink-ray": "^0.1.3",

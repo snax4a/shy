@@ -23,7 +23,7 @@ window.twttr = (function(d, s, id) {
 export function Tweet($timeout) {
   return {
     link: (scope, element, attr) => {
-      var renderTwitterButton = debounce(() => {
+      let renderTwitterButton = debounce(() => {
         if(attr.url) {
           $timeout(() => {
             element[0].innerHTML = '';

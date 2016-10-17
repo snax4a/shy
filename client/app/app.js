@@ -21,18 +21,18 @@ import footer from '../components/footer/footer.component';
 // General components
 import util from '../components/util/util.module';
 import constants from './app.constants';
-import Cart from '../components/Cart/Cart.module';
+import cartModule from '../components/Cart/Cart.module';
 
 // Page components
-import main from './main/main.component';
-import classes from './classes/classes.component';
-import workshops from './workshops/workshops.component';
-import locations from './locations/locations.component';
-import teachers from './teachers/teachers.component';
-import cart from './cart/cart.component';
-import register from './register/register.component';
-import privacy from './privacy/privacy.component';
-import terms from './terms/terms.component';
+import mainPage from './main/main.component';
+import classesPage from './classes/classes.component';
+import workshopsPage from './workshops/workshops.component';
+import locationsPage from './locations/locations.component';
+import teachersPage from './teachers/teachers.component';
+import cartPage from './cart/cart.component';
+import registerPage from './register/register.component';
+import privacyPage from './privacy/privacy.component';
+import termsPage from './terms/terms.component';
 
 // Filters
 import upcoming from '../filters/upcoming/upcoming.filter';
@@ -45,8 +45,8 @@ import tweet from '../directives/tweet/tweet.directive';
 import './app.scss';
 
 angular.module('shyApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, navbar, banner, footer,
-    main, classes, workshops, locations, teachers, cart, register, privacy, terms, constants, util, upcoming,
-    htmlid, daytodate, tweet, Cart
+    mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
+    htmlid, daytodate, tweet, cartModule
   ])
   .config(routeConfig);
 

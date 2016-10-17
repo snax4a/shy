@@ -15,9 +15,9 @@ import { CartAddToCartDirective } from './CartAddToCartDirective';
 import { CartDirective } from './CartDirective';
 import { CartSummaryDirective } from './CartSummaryDirective';
 import { CartCheckoutDirective } from './CartCheckoutDirective';
-//import { CartFulfillmentPayPalService } from './CartFulfillmentPayPalService';
+import { CartFulfillmentPayPalService } from './CartFulfillmentPayPalService';
 
-export default angular.module('Cart', [])
+export default angular.module('cartModule', [])
   .provider('$Cart', CartProvider)
   .config(CartConfig)
   .run(['$rootScope', 'CartService', 'CartStoreService', ($rootScope, cart, store) => {
@@ -38,9 +38,9 @@ export default angular.module('Cart', [])
   .service('CartFulfillmentProviderService', CartFulfillmentProviderService)
   .service('CartFulfillmentLogService', CartFulfillmentLogService)
   .service('CartFulfillmentHttpService', CartFulfillmentHttpService)
-  .directive('addToCart', CartAddToCartDirective)
-  .directive('cart', CartDirective)
-  .directive('summary', CartSummaryDirective)
-  .directive('checkout', CartCheckoutDirective)
+  .service('CartFulfillmentPayPalService', CartFulfillmentPayPalService)
+  .directive('cart-addtocart', CartAddToCartDirective)
+  .directive('cart-editor', CartDirective)
+  .directive('cart-summary', CartSummaryDirective)
+  .directive('cart-checkout', CartCheckoutDirective)
   .name;
-//  .service('CartFulfillmentPayPalService', CartFulfillmentPayPalService)
