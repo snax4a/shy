@@ -1,5 +1,6 @@
 'use strict';
 
+// snapjay's ngCart ported to ES6 and included without bower
 import angular from 'angular';
 
 import { CartProvider } from './CartProvider';

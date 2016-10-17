@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import routes from './register.routes';
+//import uiRouter from 'angular-ui-router';
 
 export class RegisterComponent {
   /*@ngInject*/
@@ -10,7 +10,7 @@ export class RegisterComponent {
   }
 }
 
-export default angular.module('shyApp.register', [uiRouter])
+export default angular.module('shyApp.register', [])
   .config(routes)
   .component('register', {
     template: require('./register.pug'),

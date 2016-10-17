@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import routes from './teachers.routes';
+//import uiRouter from 'angular-ui-router';
 
 export class TeachersComponent {
   /*@ngInject*/
@@ -18,7 +18,7 @@ export class TeachersComponent {
   }
 }
 
-export default angular.module('shyApp.teachers', [uiRouter])
+export default angular.module('shyApp.teachers', [])
   .config(routes)
   .component('teachers', {
     template: require('./teachers.pug'),

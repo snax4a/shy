@@ -1,6 +1,6 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import routing from './main.routes';
+//import uiRouter from 'angular-ui-router';
 
 export class MainController {
 
@@ -24,7 +24,7 @@ export class MainController {
   }
 }
 
-export default angular.module('shyApp.main', [uiRouter])
+export default angular.module('shyApp.main', [])
   .config(routing)
   .component('main', {
     template: require('./main.pug'),

@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import routes from './locations.routes';
+//import uiRouter from 'angular-ui-router';
 
 export class LocationsComponent {
   /*@ngInject*/
@@ -10,7 +10,7 @@ export class LocationsComponent {
   }
 }
 
-export default angular.module('shyApp.locations', [uiRouter])
+export default angular.module('shyApp.locations', [])
   .config(routes)
   .component('locations', {
     template: require('./locations.pug'),

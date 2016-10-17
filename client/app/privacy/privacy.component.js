@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import routes from './privacy.routes';
+//import uiRouter from 'angular-ui-router';
 
 export class PrivacyComponent {
   /*@ngInject*/
@@ -10,7 +10,7 @@ export class PrivacyComponent {
   }
 }
 
-export default angular.module('shyApp.privacy', [uiRouter])
+export default angular.module('shyApp.privacy', [])
   .config(routes)
   .component('privacy', {
     template: require('./privacy.pug'),

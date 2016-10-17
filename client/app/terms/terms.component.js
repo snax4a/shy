@@ -1,8 +1,5 @@
 'use strict';
-const angular = require('angular');
-
-const uiRouter = require('angular-ui-router');
-
+import angular from 'angular';
 import routes from './terms.routes';
 
 export class TermsComponent {
@@ -12,7 +9,7 @@ export class TermsComponent {
   }
 }
 
-export default angular.module('shyApp.terms', [uiRouter])
+export default angular.module('shyApp.terms', [])
   .config(routes)
   .component('terms', {
     template: require('./terms.pug'),
