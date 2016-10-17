@@ -1,8 +1,6 @@
 'use strict';
-const angular = require('angular');
-
-const uiRouter = require('angular-ui-router');
-
+import angular from 'angular';
+import uiRouter from 'angular-ui-router';
 import routes from './privacy.routes';
 
 export class PrivacyComponent {

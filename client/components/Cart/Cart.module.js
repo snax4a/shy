@@ -17,7 +17,7 @@ import { CartSummaryDirective } from './CartSummaryDirective';
 import { CartCheckoutDirective } from './CartCheckoutDirective';
 import { CartFulfillmentPayPalService } from './CartFulfillmentPayPalService';
 
-export default angular.module('cartModule', [])
+export default angular.module('shyApp.cartModule', [])
   .provider('$Cart', CartProvider)
   .config(CartConfig)
   .run(['$rootScope', 'CartService', 'CartStoreService', ($rootScope, cart, store) => {
