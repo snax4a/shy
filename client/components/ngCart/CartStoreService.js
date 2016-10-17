@@ -2,11 +2,11 @@
 import angular from 'angular';
 
 /*@ngInject*/
-export function NgCartStoreService($window) {
+export function CartStoreService($window) {
   return {
     get: key => {
       if($window.localStorage[key]) {
-        var cart = angular.fromJson($window.localStorage[key]);
+        let cart = angular.fromJson($window.localStorage[key]);
         return JSON.parse(cart);
       }
       return false;

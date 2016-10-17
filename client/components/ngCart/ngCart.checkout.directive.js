@@ -4,18 +4,18 @@
 export function NgCartCheckoutDirective() {
   return {
     restrict: 'E',
-    controller: ('ngCart.cart.controller', ['$rootScope', '$scope', 'ngCart.service', 'ngCart.fulfillment.provider', ($rootScope, $scope, ngCart, fulfillmentProvider) => {
-      $scope.ngCart = ngCart;
+    controller: ('CartController', ['$rootScope', '$scope', 'CartService', 'CartFulfillmentProvider', ($rootScope, $scope, cart, fulfillmentProvider) => {
+      $scope.Cart = cart;
 
       $scope.checkout = () => {
         fulfillmentProvider.setService($scope.service);
         fulfillmentProvider.setSettings($scope.settings);
         fulfillmentProvider.checkout()
           .success((data, status, headers, config) => {
-            $rootScope.$broadcast('ngCart:checkout_succeeded', data);
+            $rootScope.$broadcast('Cart:checkout_succeeded', data);
           })
           .error((data, status, headers, config) => {
-            $rootScope.$broadcast('ngCart:checkout_failed', {
+            $rootScope.$broadcast('Cart:checkout_failed', {
               statusCode: status,
               error: data
             });

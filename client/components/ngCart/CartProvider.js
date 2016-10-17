@@ -1,6 +1,6 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartProvider() {
+export function CartProvider() {
   this.$get = () => {};
 }

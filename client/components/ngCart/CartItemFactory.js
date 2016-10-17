@@ -1,14 +1,13 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartItemFactory($rootScope, $log) {
-  return class NgCartItem {
-    constructor(id, name, price, quantity, data) {
+export function CartItemFactory($rootScope, $log) {
+  return class CartItem {
+    constructor(id, name, price, quantity) {
       this.setId(id);
       this.setName(name);
       this.setPrice(price);
       this.setQuantity(quantity);
-      this.setData(data);
     }
 
     setId(id) {
@@ -37,7 +36,7 @@ export function NgCartItemFactory($rootScope, $log) {
       const priceFloat = parseFloat(price);
       if(priceFloat) {
         if(priceFloat <= 0) {
-          $log.error('A price must be over 0');
+          $log.error('Price must be more than $0');
         } else {
           this._price = priceFloat;
         }
@@ -69,15 +68,6 @@ export function NgCartItemFactory($rootScope, $log) {
       return this._quantity;
     }
 
-    setData(data) {
-      if(data) this._data = data;
-    }
-
-    getData() {
-      if(this._data) return this._data;
-      else $log.info('This item has no data');
-    }
-
     getTotal() {
       return +parseFloat(this.getQuantity() * this.getPrice()).toFixed(2);
     }
@@ -88,7 +78,6 @@ export function NgCartItemFactory($rootScope, $log) {
         name: this.getName(),
         price: this.getPrice(),
         quantity: this.getQuantity(),
-        data: this.getData(),
         total: this.getTotal()
       };
     }

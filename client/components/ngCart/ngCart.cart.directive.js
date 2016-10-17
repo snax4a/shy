@@ -4,7 +4,7 @@
 export function NgCartCartDirective() {
   return {
     restrict: 'E',
-    controller: 'ngCart.cart.controller',
+    controller: 'CartController',
     scope: {},
     templateUrl: (element, attrs) => {
       if(typeof attrs.templateUrl == 'undefined') {

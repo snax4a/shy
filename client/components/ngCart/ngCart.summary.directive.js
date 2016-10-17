@@ -4,7 +4,7 @@
 export function NgCartSummaryDirective() {
   return {
     restrict: 'E',
-    controller: 'ngCart.cart.controller',
+    controller: 'CartController',
     scope: {},
     transclude: true,
     templateUrl: (element, attrs) => {

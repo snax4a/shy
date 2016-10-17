@@ -1,7 +1,7 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartFulfillmentProviderService($injector) {
+export function CartFulfillmentProviderService($injector) {
   this._obj = {
     service: undefined,
     settings: undefined
@@ -16,7 +16,7 @@ export function NgCartFulfillmentProviderService($injector) {
   };
 
   this.checkout = () => {
-    let provider = $injector.get(`ngCart.fulfillment.${this._obj.service}`);
+    let provider = $injector.get(`CartFulfillment${this._obj.service}`);
     return provider.checkout(this._obj.settings);
   };
 }

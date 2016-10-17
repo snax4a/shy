@@ -4,7 +4,7 @@
 export function NgCartAddToCartDirective(NgCartService) {
   return {
     restrict: 'E',
-    controller: 'ngCart.cart.controller',
+    controller: 'CartController',
     scope: {
       id: '@',
       name: '@',
