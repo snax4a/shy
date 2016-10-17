@@ -11,10 +11,10 @@ import { CartController } from './CartController';
 import { CartFulfillmentProviderService } from './CartFulfillmentProviderService';
 import { CartFulfillmentLogService } from './CartFulfillmentLogService';
 import { CartFulfillmentHttpService } from './CartFulfillmentHttpService';
-//import { NgCartAddToCartDirective } from './ngCart.addtocart.directive';
-//import { NgCartCartDirective } from './ngCart.cart.directive';
-//import { NgCartSummaryDirective } from './ngCart.summary.directive';
-//import { NgCartCheckoutDirective } from './ngCart.checkout.directive';
+import { CartAddToCartDirective } from './CartAddToCartDirective';
+import { CartDirective } from './CartDirective';
+import { CartSummaryDirective } from './CartSummaryDirective';
+import { CartCheckoutDirective } from './CartCheckoutDirective';
 //import { CartFulfillmentPayPalService } from './CartFulfillmentPayPalService';
 
 export default angular.module('Cart', [])
@@ -38,9 +38,9 @@ export default angular.module('Cart', [])
   .service('CartFulfillmentProviderService', CartFulfillmentProviderService)
   .service('CartFulfillmentLogService', CartFulfillmentLogService)
   .service('CartFulfillmentHttpService', CartFulfillmentHttpService)
+  .directive('addToCart', CartAddToCartDirective)
+  .directive('cart', CartDirective)
+  .directive('summary', CartSummaryDirective)
+  .directive('checkout', CartCheckoutDirective)
   .name;
 //  .service('CartFulfillmentPayPalService', CartFulfillmentPayPalService)
-//  .directive('ngCart.addtocart', NgCartAddToCartDirective)
-//  .directive('ngCart.cart', NgCartCartDirective)
-//  .directive('ngCart.summary', NgCartSummaryDirective)
-//  .directive('ngCart.checkout', NgCartCheckoutDirective)

@@ -1,7 +1,7 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartCheckoutDirective() {
+export function CartCheckoutDirective() {
   return {
     restrict: 'E',
     controller: ('CartController', ['$rootScope', '$scope', 'CartService', 'CartFulfillmentProvider', ($rootScope, $scope, cart, fulfillmentProvider) => {
@@ -29,7 +29,7 @@ export function NgCartCheckoutDirective() {
     transclude: true,
     templateUrl: (element, attrs) => {
       if(typeof attrs.templateUrl == 'undefined') {
-        return 'template/ngCart/checkout.html';
+        return 'template/checkout.html';
       } else {
         return attrs.templateUrl;
       }

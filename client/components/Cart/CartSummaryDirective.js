@@ -1,7 +1,7 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartSummaryDirective() {
+export function CartSummaryDirective() {
   return {
     restrict: 'E',
     controller: 'CartController',
@@ -9,7 +9,7 @@ export function NgCartSummaryDirective() {
     transclude: true,
     templateUrl: (element, attrs) => {
       if(typeof attrs.templateUrl == 'undefined') {
-        return 'template/ngCart/summary.html';
+        return 'template/summary.html';
       } else {
         return attrs.templateUrl;
       }

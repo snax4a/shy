@@ -1,22 +1,25 @@
 'use strict';
 
 /*@ngInject*/
-export function CartFulfillmentProviderService($injector) {
-  this._obj = {
-    service: undefined,
-    settings: undefined
-  };
+export class CartFulfillmentProviderService {
+  constructor($injector) {
+    this.$injector = $injector;
+    this._obj = {
+      service: undefined,
+      settings: undefined
+    };
+  }
 
-  this.setService = service => {
+  setService(service) {
     this._obj.service = service;
-  };
+  }
 
-  this.setSettings = settings => {
+  setSettings(settings) {
     this._obj.settings = settings;
-  };
+  }
 
-  this.checkout = () => {
-    let provider = $injector.get(`CartFulfillment${this._obj.service}`);
+  checkout() {
+    let provider = this.$injector.get(this._obj.service);
     return provider.checkout(this._obj.settings);
-  };
+  }
 }

@@ -1,14 +1,14 @@
 'use strict';
 
 /*@ngInject*/
-export function NgCartCartDirective() {
+export function CartDirective() {
   return {
     restrict: 'E',
     controller: 'CartController',
     scope: {},
     templateUrl: (element, attrs) => {
       if(typeof attrs.templateUrl == 'undefined') {
-        return 'template/ngCart/cart.html';
+        return 'template/cart.html';
       } else {
         return attrs.templateUrl;
       }
