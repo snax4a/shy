@@ -32,8 +32,6 @@ export class NavbarComponent {
   }
 
   contactModalOpen() {
-    //BUG: If invoked by UI Bootstrap Dropdown, gets "TypeError: null is not an object (evaluating 'openScope.$apply')" during closeDropdowns
-    //  Only occurs on macOS with Safari
     var modalDialog = this.$uibModal.open({
       template: require('./contactmodal.pug'),
       ariaLabelledBy: 'modal-title',

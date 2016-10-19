@@ -9,9 +9,7 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 // import ngMessages from 'angular-messages';
 
-import {
-  routeConfig
-} from './app.config';
+import { routeConfig} from './app.config';
 
 // Sub-page components
 import navbar from '../components/navbar/navbar.component';
