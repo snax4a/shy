@@ -7,7 +7,7 @@ import routes from './cart.routes';
 export class CartComponent {
   /*@ngInject*/
   constructor() {
-    this.message = 'Hello';
+    console.log('CartComponent initiated');
   }
 }
 

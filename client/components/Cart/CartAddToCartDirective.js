@@ -1,11 +1,12 @@
 'use strict';
 import { CartService } from './CartService';
+import { CartController } from './CartController';
 
 /*@ngInject*/
 export function CartAddToCartDirective() {
   return {
     restrict: 'E',
-    controller: 'CartController',
+    controller: CartController,
     scope: {
       id: '@',
       name: '@',
