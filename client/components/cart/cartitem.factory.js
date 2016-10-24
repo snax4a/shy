@@ -1,4 +1,5 @@
 'use strict';
+import angular from 'angular';
 
 /*@ngInject*/
 export function CartItemFactory($rootScope, $log) {
@@ -83,3 +84,7 @@ export function CartItemFactory($rootScope, $log) {
     }
   };
 }
+
+export default angular.module('shyApp.cartitem', [])
+  .factory('CartItem', CartItemFactory)
+  .name;

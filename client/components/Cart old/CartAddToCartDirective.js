@@ -12,8 +12,7 @@ export function CartAddToCartDirective() {
       name: '@',
       quantity: '@',
       quantityMax: '@',
-      price: '@',
-      data: '='
+      price: '@'
     },
     transclude: true,
     templateUrl: (element, attrs) => {

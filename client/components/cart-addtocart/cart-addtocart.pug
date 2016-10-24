@@ -1,0 +1,11 @@
+div(ng-hide='attrs.id')
+  a.btn.btn-lg.btn-primary(ng-disabled='true', ng-transclude='')
+div(ng-show='attrs.id')
+  div
+    span(ng-show='quantityMax')
+      select#quantity(name='quantity', ng-model='q', ng-options=' v for v in qtyOpt')
+    a.btn.btn-sm.btn-primary(ng-click='Cart.addItem(id, name, price, q)', ng-transclude='')
+  |  
+  mark(ng-show='inCart()')
+    | This item is in your cart. 
+    a(ng-click='Cart.removeItemById(id)', style='cursor:pointer;') Remove

@@ -19,7 +19,7 @@ import footer from '../components/footer/footer.component';
 // General components
 import util from '../components/util/util.module';
 import constants from './app.constants';
-import cartModule from '../components/Cart/Cart.module';
+//import cartModule from '../components/Cart/Cart.module';
 
 // Page components
 import mainPage from './main/main.component';
@@ -32,19 +32,25 @@ import registerPage from './register/register.component';
 import privacyPage from './privacy/privacy.component';
 import termsPage from './terms/terms.component';
 
+// Services and Factories
+import CartService from '../components/cart/cart.service';
+import CartItemFactory from '../components/cart/cartitem.factory';
+import CartStoreService from '../components/cart/cartstore.service';
+
 // Filters
-import upcoming from '../filters/upcoming/upcoming.filter';
-import htmlid from '../filters/htmlid/htmlid.filter';
-import daytodate from '../filters/daytodate/daytodate.filter';
+import upcoming from '../components/upcoming/upcoming.filter';
+import htmlid from '../components/htmlid/htmlid.filter';
+import daytodate from '../components/daytodate/daytodate.filter';
 
 // Directives
-import tweet from '../directives/tweet/tweet.directive';
+import tweet from '../components/tweet/tweet.directive';
+import cartAddToCart from '../components/cart-addtocart/cart-addtocart.directive';
 
 import './app.scss';
 
 angular.module('shyApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, navbar, banner, footer,
     mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-    htmlid, daytodate, tweet, cartModule
+    htmlid, daytodate, tweet, CartService, CartItemFactory, CartStoreService, cartAddToCart
   ])
   .config(routeConfig);
 

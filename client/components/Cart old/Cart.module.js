@@ -5,14 +5,10 @@ import angular from 'angular';
 
 import { CartProvider } from './CartProvider';
 import { CartConfig } from './CartConfig';
-import { CartService } from './CartService';
-import { CartItemFactory } from './CartItemFactory';
-import { CartStoreService } from './CartStoreService';
 import { CartController } from './CartController';
 import { CartFulfillmentProviderService } from './CartFulfillmentProviderService';
 import { CartFulfillmentLogService } from './CartFulfillmentLogService';
 import { CartFulfillmentHttpService } from './CartFulfillmentHttpService';
-import { CartAddToCartDirective } from './CartAddToCartDirective';
 import { CartDirective } from './CartDirective';
 import { CartSummaryDirective } from './CartSummaryDirective';
 import { CartCheckoutDirective } from './CartCheckoutDirective';
@@ -32,15 +28,11 @@ export default angular.module('shyApp.cartModule', [])
       cart.init();
     }
   }])
-  .service('CartService', CartService)
-  .factory('CartItemFactory', CartItemFactory)
-  .service('CartStoreService', CartStoreService)
   .controller('CartController', CartController)
   .service('CartFulfillmentProviderService', CartFulfillmentProviderService)
   .service('CartFulfillmentLogService', CartFulfillmentLogService)
   .service('CartFulfillmentHttpService', CartFulfillmentHttpService)
   .service('CartFulfillmentPayPalService', CartFulfillmentPayPalService)
-  .directive('cart-addtocart', CartAddToCartDirective)
   .directive('cart-editor', CartDirective)
   .directive('cart-summary', CartSummaryDirective)
   .directive('cart-checkout', CartCheckoutDirective)

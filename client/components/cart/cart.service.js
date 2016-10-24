@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
-import { CartItemFactory } from './CartItemFactory';
-import { CartStoreService } from './CartStoreService';
+import { CartItemFactory } from './cartitem.factory';
+import { CartStoreService } from './cartstore.service';
 
 export class CartService {
   /*@ngInject*/
@@ -135,3 +135,7 @@ export class CartService {
     return CartStoreService.set('cart', JSON.stringify(this.getCart()));
   }
 }
+
+export default angular.module('shyApp.cart', [])
+  .service('Cart', CartService)
+  .name;
