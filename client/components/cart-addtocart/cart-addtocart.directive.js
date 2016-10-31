@@ -1,13 +1,13 @@
 'use strict';
 import angular from 'angular';
-import CartService from '../cart/cart.service';
+import { CartService } from '../cart/cart.service';
 
 export default angular.module('shyApp.cartAddToCart', [])
   .directive('cart-addtocart', function() {
     return {
-      template: require('./cart-addtocart.pug'),
       restrict: 'E',
       controller: $scope => {
+        console.log('Controller for add to cart');
         $scope.Cart = CartService;
       },
       scope: {
@@ -18,6 +18,14 @@ export default angular.module('shyApp.cartAddToCart', [])
         price: '@'
       },
       transclude: true,
+      templateUrl: (element, attrs) => {
+        console.log('cart-addtocart loading');
+        if(typeof attrs.templateUrl == 'undefined') {
+          return './cart-addtocart.html';
+        } else {
+          return attrs.templateUrl;
+        }
+      },
       link: (scope, element, attrs) => {
         scope.attrs = attrs;
         scope.inCart = () => CartService.getItemById(attrs.id);

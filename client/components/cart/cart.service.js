@@ -6,6 +6,7 @@ import { CartStoreService } from './cartstore.service';
 export class CartService {
   /*@ngInject*/
   constructor($rootScope) {
+    console.log('CartService initialized.');
     this.$rootScope = $rootScope;
     this.init();
   }

@@ -5,6 +5,7 @@ import angular from 'angular';
 export function CartItemFactory($rootScope, $log) {
   return class CartItem {
     constructor(id, name, price, quantity) {
+      $log.info('CartItemFactory initialized.');
       this.setId(id);
       this.setName(name);
       this.setPrice(price);
