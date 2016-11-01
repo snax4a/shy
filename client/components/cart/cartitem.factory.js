@@ -1,8 +1,7 @@
 'use strict';
-import angular from 'angular';
 
-/*@ngInject*/
 export function CartItemFactory($rootScope, $log) {
+  'ngInject';
   return class CartItem {
     constructor(id, name, price, quantity) {
       $log.info('CartItemFactory initialized.');
@@ -62,7 +61,7 @@ export function CartItemFactory($rootScope, $log) {
         if(this._quantity < 1) this._quantity = 1;
       } else {
         this._quantity = 1;
-        $log.info('Quantity must be an integer and was defaulted to 1');
+        $log.info('Quantity must be an integer and defaulted to 1');
       }
     }
 
@@ -85,7 +84,3 @@ export function CartItemFactory($rootScope, $log) {
     }
   };
 }
-
-export default angular.module('shyApp.cartitem', [])
-  .factory('CartItem', CartItemFactory)
-  .name;

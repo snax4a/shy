@@ -2,14 +2,14 @@
 
 // snapjay's ngCart ported to ES6 and included without bower
 import angular from 'angular';
-
-import { CartProvider } from './CartProvider';
-import { CartConfig } from './CartConfig';
-import { CartController } from './CartController';
+//import ngCookies from 'angular-cookies';
+import { CartProvider } from './cart.provider';
+import { CartConfig } from './cart.config';
+import { CartController } from './cart.controller';
 import { CartFulfillmentProviderService } from './CartFulfillmentProviderService';
 import { CartFulfillmentLogService } from './CartFulfillmentLogService';
 import { CartFulfillmentHttpService } from './CartFulfillmentHttpService';
-import { CartDirective } from './CartDirective';
+import { CartDirective } from './cart.directive';
 import { CartSummaryDirective } from './CartSummaryDirective';
 import { CartCheckoutDirective } from './CartCheckoutDirective';
 import { CartFulfillmentPayPalService } from './CartFulfillmentPayPalService';

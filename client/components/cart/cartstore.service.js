@@ -21,7 +21,3 @@ export function CartStoreService($window) {
     }
   };
 }
-
-export default angular.module('shyApp.CartStore', [])
-  .service('CartStore', CartStoreService)
-  .name;

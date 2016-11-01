@@ -1,18 +1,21 @@
 'use strict';
 import angular from 'angular';
-import { CartItemFactory } from './cartitem.factory';
-import { CartStoreService } from './cartstore.service';
+// Import the factory instead of injecting it into the constructor
+import { CartItem } from './cartitem.factory';
 
 export class CartService {
   /*@ngInject*/
-  constructor($rootScope) {
+  constructor($rootScope, CartStore) {
     console.log('CartService initialized.');
     this.$rootScope = $rootScope;
+    this.CartStore = CartStore;
+    // BUG: throws error
+    // this.CartItem = CartItem;
     this.init();
   }
 
   init() {
-    this.$cart = {
+    this.$cart = { // Pseudo-private member
       items: []
     };
   }
@@ -25,7 +28,8 @@ export class CartService {
       inCart.setQuantity(quantity, false);
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
-      let newItem = new CartItemFactory(id, name, price, quantity);
+      // BUG: need to inject CartItemFactory somehow
+      let newItem = new CartItem(id, name, price, quantity);
       this.$cart.items.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }
@@ -35,14 +39,14 @@ export class CartService {
 
   getItemById(itemId) {
     let items = this.getCart().items;
-    let build = false;
+    let foundItem = false;
 
     angular.forEach(items, item => {
       if(item.getId() === itemId) {
-        build = item;
+        foundItem = item;
       }
     });
-    return build;
+    return foundItem;
   }
 
   setCart(cart) {
@@ -127,16 +131,12 @@ export class CartService {
     that.init();
 
     angular.forEach(storedCart.items, item => {
-      that.$cart.items.push(new CartItemFactory(item._id, item._name, item._price, item._quantity));
+      that.$cart.items.push(new CartItem(item._id, item._name, item._price, item._quantity));
     });
     this.$save();
   }
 
   $save() {
-    return CartStoreService.set('cart', JSON.stringify(this.getCart()));
+    return this.CartStore.set('cart', JSON.stringify(this.getCart()));
   }
 }
-
-export default angular.module('shyApp.cart', [])
-  .service('Cart', CartService)
-  .name;
