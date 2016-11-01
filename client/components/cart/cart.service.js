@@ -123,6 +123,7 @@ export class CartService {
   }
 
   $restore(storedCart) {
+    this.$log.info('Restored cart');
     let that = this;
     that.init();
     let CartItem = that.CartItem;
@@ -134,6 +135,7 @@ export class CartService {
   }
 
   $save() {
+    this.$log.info('Saved cart');
     return this.CartStore.set('cart', JSON.stringify(this.getCart()));
   }
 

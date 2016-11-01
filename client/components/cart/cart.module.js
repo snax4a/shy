@@ -10,6 +10,7 @@ import { CartService } from './cart.service';
 import { CartItemFactory } from './cartitem.factory';
 import { CartStoreService } from './cartstore.service';
 
+// Future: include addtocart component here
 export default angular.module('shyApp.cart', [])
   .provider('$Cart', CartProvider)
   .config(CartConfig)
