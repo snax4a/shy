@@ -1,16 +1,13 @@
 'use strict';
 import angular from 'angular';
-// Import the factory instead of injecting it into the constructor
-import { CartItem } from './cartitem.factory';
 
 export class CartService {
   /*@ngInject*/
-  constructor($rootScope, CartStore) {
-    console.log('CartService initialized.');
+  constructor($rootScope, $log, CartStore, CartItem) {
     this.$rootScope = $rootScope;
+    this.$log = $log;
     this.CartStore = CartStore;
-    // BUG: throws error
-    // this.CartItem = CartItem;
+    this.CartItem = CartItem;
     this.init();
   }
 
@@ -22,19 +19,18 @@ export class CartService {
 
   addItem(id, name, price, quantity) {
     let inCart = this.getItemById(id);
-
+    let CartItem = this.CartItem;
     if(typeof inCart === 'object') {
       //Update quantity of an item if it's already in the cart
       inCart.setQuantity(quantity, false);
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
-      // BUG: need to inject CartItemFactory somehow
       let newItem = new CartItem(id, name, price, quantity);
       this.$cart.items.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }
-
     this.$rootScope.$broadcast('Cart:change', {});
+    this.$log.info(this.$cart);
   }
 
   getItemById(itemId) {
@@ -129,6 +125,7 @@ export class CartService {
   $restore(storedCart) {
     let that = this;
     that.init();
+    let CartItem = that.CartItem;
 
     angular.forEach(storedCart.items, item => {
       that.$cart.items.push(new CartItem(item._id, item._name, item._price, item._quantity));
@@ -139,4 +136,5 @@ export class CartService {
   $save() {
     return this.CartStore.set('cart', JSON.stringify(this.getCart()));
   }
+
 }

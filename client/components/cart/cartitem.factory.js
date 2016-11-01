@@ -4,7 +4,6 @@ export function CartItemFactory($rootScope, $log) {
   'ngInject';
   return class CartItem {
     constructor(id, name, price, quantity) {
-      $log.info('CartItemFactory initialized.');
       this.setId(id);
       this.setName(name);
       this.setPrice(price);
@@ -63,6 +62,7 @@ export function CartItemFactory($rootScope, $log) {
         this._quantity = 1;
         $log.info('Quantity must be an integer and defaulted to 1');
       }
+      $log.info(this);
     }
 
     getQuantity() {
