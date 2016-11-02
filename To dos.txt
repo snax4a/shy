@@ -1,4 +1,4 @@
-- addToCart not incrementing CartItem quantity
+- Cart service's addToCart not incrementing CartItem quantity
 - Use https://www.dunebook.com/create-shopping-cart-with-angularjs/ to customize ngCart
 - Build server API for Contact, Subscribe, and Checkout
 - Connect Contact modal to Contact method (including validation)
