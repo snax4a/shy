@@ -1,22 +1,25 @@
 'use strict';
 import angular from 'angular';
 
-export class CartService {
+export class Cart {
   /*@ngInject*/
   constructor($rootScope, $log, CartStore, CartItem) {
     this.$rootScope = $rootScope;
     this.$log = $log;
     this.CartStore = CartStore;
     this.CartItem = CartItem;
-    this.init();
   }
 
+  // Clear the CartItems
   init() {
     this.$cart = { // Pseudo-private member
       items: []
     };
   }
 
+  // Add a CartItem
+  // This is where we need to trim out the name and price that should come
+  // from products.json
   addItem(id, name, price, quantity) {
     let inCart = this.getItemById(id);
     let CartItem = this.CartItem;
@@ -33,6 +36,7 @@ export class CartService {
     this.$log.info(this.$cart);
   }
 
+  // Get item by its id
   getItemById(itemId) {
     let items = this.getCart().items;
     let foundItem = false;
@@ -45,19 +49,23 @@ export class CartService {
     return foundItem;
   }
 
+  // Set the $cart object
   setCart(cart) {
     this.$cart = cart;
     return this.getCart();
   }
 
+  // Get the $cart object
   getCart() {
     return this.$cart;
   }
 
+  // Get just the array of items from $cart object
   getItems() {
     return this.getCart().items;
   }
 
+  // Sum of quantities in the Cart (not very useful)
   getTotalItems() {
     let count = 0;
     let items = this.getItems();
@@ -67,10 +75,12 @@ export class CartService {
     return count;
   }
 
+  // Get the unique number of products in the Cart
   getTotalUniqueItems() {
     return this.getCart().items.length;
   }
 
+  // Calculate the total cost of all items
   totalCost() {
     let total = 0;
     angular.forEach(this.getCart().items, item => {
@@ -79,35 +89,40 @@ export class CartService {
     return +parseFloat(total).toFixed(2);
   }
 
+  // Remove CartItem by index
   removeItem(index) {
     let item = this.$cart.items.splice(index, 1)[0] || {};
     this.$rootScope.$broadcast('Cart:itemRemoved', item);
     this.$rootScope.$broadcast('Cart:change', {});
   }
 
+  // Remove CartItem by id
   removeItemById(id) {
-    let item;
+    let removedItem;
     let cart = this.getCart();
     angular.forEach(cart.items, (item, index) => {
       if(item.getId() === id) {
-        item = cart.items.splice(index, 1)[0] || {};
+        removedItem = cart.items.splice(index, 1)[0] || {};
       }
     });
     this.setCart(cart);
-    this.$rootScope.$broadcast('Cart:itemRemoved', item);
+    this.$rootScope.$broadcast('Cart:itemRemoved', removedItem);
     this.$rootScope.$broadcast('Cart:change', {});
   }
 
+  // Clear the items in the cart
   empty() {
     this.$rootScope.$broadcast('Cart:change', {});
     this.$cart.items = [];
     localStorage.removeItem('cart');
   }
 
+  // Are there any items in Cart?
   isEmpty() {
     return this.$cart.items.length > 0;
   }
 
+  // Return a simple object with the totalCost and array of items
   toObject() {
     if(this.getItems().length === 0) return false;
 
@@ -122,6 +137,7 @@ export class CartService {
     };
   }
 
+  // Read Cart from persistent storage
   $restore(storedCart) {
     this.$log.info('Restored cart');
     let that = this;
@@ -134,8 +150,8 @@ export class CartService {
     this.$save();
   }
 
+  // Write Cart to persistent storage
   $save() {
-    this.$log.info('Saved cart');
     return this.CartStore.set('cart', JSON.stringify(this.getCart()));
   }
 

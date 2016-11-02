@@ -62,7 +62,6 @@ export function CartItemFactory($rootScope, $log) {
         this._quantity = 1;
         $log.info('Quantity must be an integer and defaulted to 1');
       }
-      $log.info(this);
     }
 
     getQuantity() {

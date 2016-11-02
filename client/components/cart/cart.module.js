@@ -6,7 +6,7 @@ import angular from 'angular';
 import { CartProvider } from './cart.provider';
 import { CartConfig } from './cart.config';
 import { CartRun } from './cart.run';
-import { CartService } from './cart.service';
+import { Cart } from './cart.service';
 import { CartItemFactory } from './cartitem.factory';
 import { CartStoreService } from './cartstore.service';
 
@@ -15,7 +15,7 @@ export default angular.module('shyApp.cart', [])
   .provider('$Cart', CartProvider)
   .config(CartConfig)
   .run(CartRun)
-  .service('Cart', CartService)
+  .service('Cart', Cart)
   .factory('CartItem', CartItemFactory)
   .service('CartStore', CartStoreService)
   .name;
