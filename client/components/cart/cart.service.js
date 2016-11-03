@@ -3,11 +3,12 @@ import angular from 'angular';
 
 export class Cart {
   /*@ngInject*/
-  constructor($rootScope, $log, CartStore, CartItem) {
+  constructor($rootScope, $log, CartStore, CartItem, ProductList) {
     this.$rootScope = $rootScope;
     this.$log = $log;
     this.CartStore = CartStore;
     this.CartItem = CartItem;
+    this.ProductList = ProductList;
   }
 
   // Clear the CartItems
@@ -20,15 +21,18 @@ export class Cart {
   // Add a CartItem
   // This is where we need to trim out the name and price that should come
   // from products.json
-  addItem(id, name, price, quantity) {
+  addItem(id, quantity) {
+    // Bag quantity and just update based on number of times clicked
     let inCart = this.getItemById(id);
     let CartItem = this.CartItem;
+
     if(typeof inCart === 'object') {
       //Update quantity of an item if it's already in the cart
       inCart.setQuantity(quantity, false);
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
-      let newItem = new CartItem(id, name, price, quantity);
+      let product = this.ProductList.lookup(id);
+      let newItem = new CartItem(id, product.name, product.price, quantity);
       this.$cart.items.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }

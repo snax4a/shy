@@ -11,7 +11,7 @@ export class addToCartComponent {
   // Later, replace $ctrl.addItem() in addtocart.pug with Cart.addItem()
   addItem(productID) {
     console.log(`Adding product with ID ${productID} from addtocart.component.js:13`);
-    this.Cart.addItem(productID, 'Testy McTest', 100, 1);
+    this.Cart.addItem(productID, 1);
   }
 }
 

@@ -9,6 +9,7 @@ import { CartRun } from './cart.run';
 import { Cart } from './cart.service';
 import { CartItemFactory } from './cartitem.factory';
 import { CartStoreService } from './cartstore.service';
+import { ProductList } from './productlist.service';
 
 // Future: include addtocart component here
 export default angular.module('shyApp.cart', [])
@@ -18,4 +19,5 @@ export default angular.module('shyApp.cart', [])
   .service('Cart', Cart)
   .factory('CartItem', CartItemFactory)
   .service('CartStore', CartStoreService)
+  .service('ProductList', ProductList)
   .name;
