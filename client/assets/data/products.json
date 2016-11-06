@@ -41,17 +41,17 @@
   },
   {
     "id":9,
-    "name":"Workshop: Moon Salutations (September 16th)",
+    "name":"Workshop: Moon Salutations (Sep 16th)",
     "price":20
   },
   {
     "id":10,
-    "name":"Workshop: Moon Salutations (October 14th)",
+    "name":"Workshop: Moon Salutations (Oct 14th)",
     "price":20
   },
   {
     "id":11,
-    "name":"Workshop: Moon Salutations (November 11th)",
+    "name":"Workshop: Moon Salutations (Nov 11th)",
     "price":20
   },
   {
@@ -61,18 +61,18 @@
   },
   {
     "id":13,
-    "name":"Workshop: Women's Healing Circle (August 14th)",
+    "name":"Workshop: Women's Healing Circle (Aug 14th)",
     "price":15
   },
   {
     "id":14,
-    "name":"Workshop: Meditation and Restorative Yoga  (August 2nd)",
+    "name":"Workshop: Meditation and Restorative Yoga (Aug 2nd)",
     "price":25
   },
   {
     "id":15,
-    "name":"Workshop: 4-6 Year Old Class",
-    "price":80
+    "name":"Workshop: Total Yoga Therapy (Nov 12th)",
+    "price":50
   },
   {
     "id":16,
@@ -88,5 +88,25 @@
     "id":18,
     "name":"Workshop: Yoga for Fertility",
     "price":25
+  },
+  {
+    "id":21,
+    "name":"Workshop: Restorative Yoga (Oct 9th)",
+    "price":30    
+  },
+  {
+    "id":22,
+    "name":"Workshop: Meditation and Restorative Yoga (Nov 6th)",
+    "price":30    
+  },
+  {
+    "id":51,
+    "name":"Workshop: Getting Unstuck with Yoga (Sep 11th)",
+    "price":30
+  },
+  {
+    "id":57,
+    "name":"Workshop: Ayurveda (Oct 1st)",
+    "price":30    
   }
 ]

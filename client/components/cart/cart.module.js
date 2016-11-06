@@ -1,14 +1,15 @@
 'use strict';
 import angular from 'angular';
 
-//import { CartProvider } from './cart.provider';
-//import { CartConfig } from './cart.config';
 import { CartRun } from './cart.run';
 import { Cart } from './cart.service';
 import { ProductList } from './productlist.service';
 import { AddToCartComponent } from './addtocart.component';
 
-// Future: include addtocart component here
+// Not sure I need these (may need the provider)
+//import { CartProvider } from './cart.provider';
+//import { CartConfig } from './cart.config';
+
 export default angular.module('shyApp.cart', [])
 //  .provider('$Cart', CartProvider)
 //  .config(CartConfig)

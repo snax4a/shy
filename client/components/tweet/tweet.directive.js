@@ -20,7 +20,7 @@ window.twttr = (function(d, s, id) {
 }(document, 'script', 'twitter-wjs'));
 
 export function Tweet($timeout) {
-  /*@ngInject*/
+  'ngInject';
   return {
     link: (scope, element, attr) => {
       let renderTwitterButton = debounce(() => {

@@ -128,7 +128,6 @@ export class Cart {
 
   // Load Cart from persistent storage during CartRun
   loadFromStorage() {
-    this.$log.info('Load cart from storage');
     // Check to see if the cart is stored
     let storedCart = false;
     let retrievedValue = this.$window.localStorage[this.key];
@@ -144,7 +143,6 @@ export class Cart {
 
   // Save Cart to persistent storage
   saveToStorage() {
-    this.$log.info('Save cart to storage');
     let valueToStore = JSON.stringify(this.cartItems);
     this.$window.localStorage[this.key] = valueToStore;
   }
