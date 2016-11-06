@@ -25,8 +25,7 @@ export class Cart {
     this.cartItems = [];
   }
 
-  // Clear the cartItems (not sure I need this method)
-  // Called by placeOrder()
+  // Clear the cartItems during checkout()
   clearCartItems() {
     this.$log.info('clearCartItems');
     this.cartItems = []; // Clear the array of Items
@@ -59,7 +58,7 @@ export class Cart {
     });
   }
 
-  placeOrder() {
+  checkout() {
     // Iterate through cartItems and get total
     // Use PayPal Payflow Pro to capture transaction
     this.$log.info('Placing order...');
@@ -105,7 +104,7 @@ export class Cart {
 
   // Remove CartItem by index
   removeItem(index) {
-    let item = this.$cart.items.splice(index, 1)[0] || {};
+    let item = this.cartItems.splice(index, 1)[0] || {};
     this.$rootScope.$broadcast('Cart:itemRemoved', item);
     this.$rootScope.$broadcast('Cart:change', {});
   }
@@ -135,7 +134,7 @@ export class Cart {
     let retrievedValue = this.$window.localStorage[this.key];
     this.$log.info(retrievedValue);
     if(retrievedValue) {
-      storedCart = JSON.parse(angular.fromJson(retrievedValue));
+      storedCart = JSON.parse(retrievedValue);
     }
     if(angular.isObject(storedCart)) {
       angular.forEach(storedCart.items, item => {
@@ -148,13 +147,7 @@ export class Cart {
   saveToStorage() {
     this.$log.info('Save cart to storage');
     let valueToStore = JSON.stringify(this.cartItems);
-
-    if(valueToStore === undefined) {
-      this.$window.localStorage.removeItem(this.key); // Why bother?
-    } else {
-      this.$window.localStorage[this.key] = angular.toJson(valueToStore);
-    }
-    return this.$window.localStorage[this.key];
+    this.$window.localStorage[this.key] = valueToStore;
   }
 
 }

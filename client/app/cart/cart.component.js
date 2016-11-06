@@ -3,8 +3,8 @@ import angular from 'angular';
 import routes from './cart.routes';
 
 export class CartComponent {
+  /*@ngInject*/
   constructor() {
-    console.log('cartPage constructor.');
   }
 }
 
