@@ -5,7 +5,7 @@ import angular from 'angular';
 // Modules
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-import CartModule from '../components/cart/cart.module';
+import CartModule from '../components/cartmodule/cart.module';
 
 // Disabled modules
 // import ngMessages from 'angular-messages'; // used for validation error messages

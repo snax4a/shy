@@ -1,7 +1,6 @@
-- Cart service's addToCart not incrementing CartItem quantity
-- Use https://www.dunebook.com/create-shopping-cart-with-angularjs/ to customize ngCart
+- Iterate through cart to build view of what's in it
 - Build server API for Contact, Subscribe, and Checkout
 - Connect Contact modal to Contact method (including validation)
 - Connect Subscribe on Workshops to Subscribe method (including validation)
-- Connect Checkout to on Cart to Checkout method
+- Connect Checkout to Cart Checkout method
 - Add google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info
