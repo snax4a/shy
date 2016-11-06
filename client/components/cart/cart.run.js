@@ -1,16 +1,10 @@
 'use strict';
 
-import angular from 'angular';
-
-export function CartRun($rootScope, Cart, CartStore) {
+export function CartRun($rootScope, Cart) {
   'ngInject';
   $rootScope.$on('Cart:change', () => {
-    Cart.$save();
+    Cart.saveToStorage();
   });
 
-  if(angular.isObject(CartStore.get('cart'))) {
-    Cart.$restore(CartStore.get('cart'));
-  } else {
-    Cart.init();
-  }
+  Cart.loadFromStorage();
 }

@@ -8,10 +8,6 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import _Cart from '../components/cart/cart.module';
 
 // Disabled modules
-// import ngAnimate from 'angular-animate';
-// import ngCookies from 'angular-cookies';
-// import ngResource from 'angular-resource'; // RESTful service support
-// import ngSanitize from 'angular-sanitize'; // strips dangerous tokens
 // import ngMessages from 'angular-messages'; // used for validation error messages
 
 import { routeConfig} from './app.config';

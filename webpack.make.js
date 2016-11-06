@@ -16,17 +16,17 @@ module.exports = function makeWebpackConfig(options) {
      * BUILD is for generating minified builds
      * TEST is for generating test builds
      */
-    var BUILD = !!options.BUILD;
-    var TEST = !!options.TEST;
-    var E2E = !!options.E2E;
-    var DEV = !!options.DEV;
+  var BUILD = !!options.BUILD;
+  var TEST = !!options.TEST;
+  var E2E = !!options.E2E;
+  var DEV = !!options.DEV;
 
     /**
      * Config
      * Reference: http://webpack.github.io/docs/configuration.html
      * This is the object where all configuration gets set
      */
-    var config = {};
+  var config = {};
 
     /**
      * Entry
@@ -42,13 +42,11 @@ module.exports = function makeWebpackConfig(options) {
             polyfills: './client/polyfills.js',
             vendor: [
                 'angular',
-                'angular-animate',
                 'angular-aria',
-                'angular-cookies',
-                'angular-resource',
-
-                'angular-sanitize',
-
+    //                'angular-animate',
+    //                'angular-cookies',
+    //                'angular-resource',
+    //                'angular-sanitize',
                 'angular-ui-bootstrap',
                 'angular-ui-router',
                 'lodash'
@@ -244,11 +242,11 @@ module.exports = function makeWebpackConfig(options) {
      */
     config.plugins = [
         /*
-         * Plugin: ForkCheckerPlugin
-         * Description: Do type checking in a separate process, so webpack don't need to wait.
-         *
-         * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-         */
+            * Plugin: ForkCheckerPlugin
+            * Description: Do type checking in a separate process, so webpack don't need to wait.
+            *
+            * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
+            */
         new ForkCheckerPlugin(),
 
         // Reference: https://github.com/webpack/extract-text-webpack-plugin
@@ -281,8 +279,8 @@ module.exports = function makeWebpackConfig(options) {
         alwaysWriteToDisk: true
     }
     config.plugins.push(
-      new HtmlWebpackPlugin(htmlConfig),
-      new HtmlWebpackHarddiskPlugin()
+        new HtmlWebpackPlugin(htmlConfig),
+        new HtmlWebpackHarddiskPlugin()
     );
 
     // Add build specific plugins

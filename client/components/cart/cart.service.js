@@ -1,93 +1,103 @@
 'use strict';
 import angular from 'angular';
 
+class Item {
+  constructor(id, name, price, quantity) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
+  }
+
+  getTotal() {
+    return +parseFloat(this.quantity * this.price.toFixed(2));
+  }
+}
+
 export class Cart {
   /*@ngInject*/
-  constructor($rootScope, $log, CartStore, CartItem, ProductList) {
+  constructor($rootScope, $log, $window, ProductList) {
     this.$rootScope = $rootScope;
     this.$log = $log;
-    this.CartStore = CartStore;
-    this.CartItem = CartItem;
+    this.$window = $window;
+    this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
+    this.cartItems = [];
   }
 
-  // Clear the CartItems
-  init() {
-    this.$cart = { // Pseudo-private member
-      items: []
-    };
+  // Clear the cartItems (not sure I need this method)
+  // Called by placeOrder()
+  clearCartItems() {
+    this.$log.info('clearCartItems');
+    this.cartItems = []; // Clear the array of Items
+    localStorage.removeItem(this.key); // Do I need this (from old empty function)?
+    this.$rootScope.$broadcast('Cart:change', {}); // Same for this one
   }
 
-  // Add a CartItem
-  // This is where we need to trim out the name and price that should come
-  // from products.json
+  // Add a product to the cart
   addItem(id, quantity) {
     // Bag quantity and just update based on number of times clicked
     let inCart = this.getItemById(id);
-    let CartItem = this.CartItem;
 
-    if(typeof inCart === 'object') {
+    if(typeof inCart === 'object') { // then increment instead of set the quantity
       //Update quantity of an item if it's already in the cart
-      inCart.setQuantity(quantity, false);
+      inCart.quantity = quantity;
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
       let product = this.ProductList.lookup(id);
-      let newItem = new CartItem(id, product.name, product.price, quantity);
-      this.$cart.items.push(newItem);
+      let newItem = new Item(id, product.name, product.price, quantity);
+      this.cartItems.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }
     this.$rootScope.$broadcast('Cart:change', {});
-    this.$log.info(this.$cart);
+    this.$log.info({
+      cartItems: this.cartItems,
+      total: this.getTotalCost(),
+      uniqueItems: this.getTotalUniqueItems(),
+      numberOfItems: this.getTotalItems(),
+      isEmpty: this.isEmpty()
+    });
+  }
+
+  placeOrder() {
+    // Iterate through cartItems and get total
+    // Use PayPal Payflow Pro to capture transaction
+    this.$log.info('Placing order...');
+
+    // Once the order is successfully placed, clear the cart
+    this.clearCartItems();
   }
 
   // Get item by its id
   getItemById(itemId) {
-    let items = this.getCart().items;
     let foundItem = false;
 
-    angular.forEach(items, item => {
-      if(item.getId() === itemId) {
+    angular.forEach(this.cartItems, item => {
+      if(item.id === itemId) {
         foundItem = item;
       }
     });
     return foundItem;
   }
 
-  // Set the $cart object
-  setCart(cart) {
-    this.$cart = cart;
-    return this.getCart();
-  }
-
-  // Get the $cart object
-  getCart() {
-    return this.$cart;
-  }
-
-  // Get just the array of items from $cart object
-  getItems() {
-    return this.getCart().items;
-  }
-
   // Sum of quantities in the Cart (not very useful)
   getTotalItems() {
     let count = 0;
-    let items = this.getItems();
-    angular.forEach(items, item => {
-      count += item.getQuantity();
+    angular.forEach(this.cartItems, item => {
+      count += item.quantity;
     });
     return count;
   }
 
   // Get the unique number of products in the Cart
   getTotalUniqueItems() {
-    return this.getCart().items.length;
+    return this.cartItems.length;
   }
 
   // Calculate the total cost of all items
-  totalCost() {
+  getTotalCost() {
     let total = 0;
-    angular.forEach(this.getCart().items, item => {
+    angular.forEach(this.cartItems, item => {
       total += item.getTotal();
     });
     return +parseFloat(total).toFixed(2);
@@ -103,60 +113,48 @@ export class Cart {
   // Remove CartItem by id
   removeItemById(id) {
     let removedItem;
-    let cart = this.getCart();
-    angular.forEach(cart.items, (item, index) => {
-      if(item.getId() === id) {
-        removedItem = cart.items.splice(index, 1)[0] || {};
+    angular.forEach(this.cartItems, (item, index) => {
+      if(item.id === id) {
+        removedItem = this.cartItems.splice(index, 1)[0] || {};
       }
     });
-    this.setCart(cart);
     this.$rootScope.$broadcast('Cart:itemRemoved', removedItem);
     this.$rootScope.$broadcast('Cart:change', {});
   }
 
-  // Clear the items in the cart
-  empty() {
-    this.$rootScope.$broadcast('Cart:change', {});
-    this.$cart.items = [];
-    localStorage.removeItem('cart');
-  }
-
-  // Are there any items in Cart?
+  // Are there any items in Cart? Not used anywhere
   isEmpty() {
-    return this.$cart.items.length > 0;
+    return this.cartItems.length == 0;
   }
 
-  // Return a simple object with the totalCost and array of items
-  toObject() {
-    if(this.getItems().length === 0) return false;
-
-    let items = [];
-    angular.forEach(this.getItems(), item => {
-      items.push(item.toObject());
-    });
-
-    return {
-      totalCost: this.totalCost(),
-      items
-    };
+  // Load Cart from persistent storage during CartRun
+  loadFromStorage() {
+    this.$log.info('Load cart from storage');
+    // Check to see if the cart is stored
+    let storedCart = false;
+    let retrievedValue = this.$window.localStorage[this.key];
+    this.$log.info(retrievedValue);
+    if(retrievedValue) {
+      storedCart = JSON.parse(angular.fromJson(retrievedValue));
+    }
+    if(angular.isObject(storedCart)) {
+      angular.forEach(storedCart.items, item => {
+        this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
+      });
+    }
   }
 
-  // Read Cart from persistent storage
-  $restore(storedCart) {
-    this.$log.info('Restored cart');
-    let that = this;
-    that.init();
-    let CartItem = that.CartItem;
+  // Save Cart to persistent storage
+  saveToStorage() {
+    this.$log.info('Save cart to storage');
+    let valueToStore = JSON.stringify(this.cartItems);
 
-    angular.forEach(storedCart.items, item => {
-      that.$cart.items.push(new CartItem(item._id, item._name, item._price, item._quantity));
-    });
-    this.$save();
-  }
-
-  // Write Cart to persistent storage
-  $save() {
-    return this.CartStore.set('cart', JSON.stringify(this.getCart()));
+    if(valueToStore === undefined) {
+      this.$window.localStorage.removeItem(this.key); // Why bother?
+    } else {
+      this.$window.localStorage[this.key] = angular.toJson(valueToStore);
+    }
+    return this.$window.localStorage[this.key];
   }
 
 }
