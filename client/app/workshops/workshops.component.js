@@ -3,7 +3,7 @@ import angular from 'angular';
 import routes from './workshops.routes';
 //import uiRouter from 'angular-ui-router';
 
-export class WorkshopsComponent {
+export class WorkshopsController {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
@@ -33,6 +33,6 @@ export default angular.module('shyApp.workshops', [])
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),
-    controller: WorkshopsComponent
+    controller: WorkshopsController
   })
   .name;

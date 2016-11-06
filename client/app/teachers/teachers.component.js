@@ -3,7 +3,7 @@ import angular from 'angular';
 import routes from './teachers.routes';
 //import uiRouter from 'angular-ui-router';
 
-export class TeachersComponent {
+export class TeachersController {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
@@ -22,6 +22,6 @@ export default angular.module('shyApp.teachers', [])
   .config(routes)
   .component('teachers', {
     template: require('./teachers.pug'),
-    controller: TeachersComponent
+    controller: TeachersController
   })
   .name;

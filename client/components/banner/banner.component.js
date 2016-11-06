@@ -3,11 +3,11 @@
 
 import angular from 'angular';
 
-export class BannerComponent {}
+export class BannerController {}
 
 export default angular.module('directives.banner', [])
   .component('banner', {
     template: require('./banner.pug'),
-    controller: BannerComponent
+    controller: BannerController
   })
   .name;

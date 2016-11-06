@@ -3,7 +3,7 @@
 
 import angular from 'angular';
 
-export class NavbarComponent {
+export class NavbarController {
   /*@ngInject*/
   constructor($uibModal) {
     this.$uibModal = $uibModal;
@@ -65,6 +65,6 @@ export class ModalInstanceController {
 export default angular.module('directives.navbar', [])
   .component('navbar', {
     template: require('./navbar.pug'),
-    controller: NavbarComponent
+    controller: NavbarController
   })
   .name;
