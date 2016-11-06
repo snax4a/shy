@@ -1,0 +1,29 @@
+.what {
+    font-weight: bold;
+}
+.what-column {
+    width: 50%;
+}
+.qty {
+    width: 62px;
+}
+.total, .extd {
+    font-weight: bold;
+    text-align: right;
+}
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
+.center {
+    text-align: center;
+}
+.cvv {
+    width: 100px;
+}
+input[type="radio"]
+{
+    margin: 4px 4px 4px 4px;   
+}
+label {
+    font-weight: normal;
+}

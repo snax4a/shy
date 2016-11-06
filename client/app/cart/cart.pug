@@ -1,6 +1,43 @@
 .container
   h2 Shopping Cart
-  .row(ng-repeat='product in $ctrl.ProductList.products')
-    .col-xs-4
-      p(style='height:60px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
-        addtocart(product='{{ product.id }}')
+
+  .col-md-6
+    .panel.panel-default(aria-labelledby='cartPanelTitle')
+      .panel-heading
+        #cartPanelTitle.panel-title Items in your cart
+      .panel-body
+        table.table.table-hover
+          thead
+            tr
+              th.what-column What
+              th Each
+              th &nbsp;&nbsp;&nbsp;Qty
+              th.extd Amount
+              th &nbsp;
+          tbody
+            tr
+              td.what.vert-align Twelve class pass
+              td.vert-align $100
+              td.vert-align
+                input#MasterBody_repCart_Quantity_0.form-control.qty(name='ctl00$MasterBody$repCart$ctl01$Quantity', type='number', value='2', maxlength='2', onchange='javascript:setTimeout(\'WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$repCart$ctl01$Quantity", "", true, "", "", false, true))\', 0)', onkeypress='if (WebForm_TextBoxKeyHandler(event) == false) return false;', productid='4')
+                |  
+                span#MasterBody_repCart_v1Quantity_0.has-error(style='display:none;') The quantity must be between one and 99.
+                |  
+                span#MasterBody_repCart_v2Quantity_0.has-error(style='display:none;') Please specify a quantity.
+              td.extd.vert-align $200
+              td.vert-align
+                a#MasterBody_repCart_btnRemove_0(href='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$repCart$ctl01$btnRemove", "", true, "", "", false, true))')
+                  span.glyphicon.glyphicon-trash.pull-right.has-error
+          tfoot
+            tr
+              td.total(colspan='4') Total&nbsp;&nbsp;$200
+              td
+      #MasterBody_cartPanelFooter.panel-footer
+        input#MasterBody_KeepShopping.btn.btn-default(type='button', name='ctl00$MasterBody$KeepShopping', value='Keep Shopping', onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$KeepShopping", "", true, "", "", false, true))')
+        |  
+        input#MasterBody_CheckOut.btn.btn-warning.pull-right(type='submit', name='ctl00$MasterBody$CheckOut', value='Check Out »', onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$CheckOut", "", true, "", "", false, false))')
+
+
+  .col-md-6(ng-repeat='product in $ctrl.ProductList.products')
+    p(style='height:60px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
+      addtocart(product='{{ product.id }}')
