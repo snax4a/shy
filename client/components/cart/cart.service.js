@@ -29,21 +29,20 @@ export class Cart {
   clearCartItems() {
     this.$log.info('clearCartItems');
     this.cartItems = []; // Clear the array of Items
-    localStorage.removeItem(this.key); // Do I need this (from old empty function)?
-    this.$rootScope.$broadcast('Cart:change', {}); // Same for this one
+    localStorage.removeItem(this.key);
+    this.$rootScope.$broadcast('Cart:change', {});
   }
 
   // Add a product to the cart
-  addItem(id, quantity) {
-    // Bag quantity and just update based on number of times clicked
+  addItem(id) {
     let inCart = this.getItemById(id);
-    if(typeof inCart === 'object') { // then increment instead of set the quantity
-      //Update quantity of an item if it's already in the cart
-      inCart.quantity = quantity;
+    if(typeof inCart === 'object') { // then it is in the cart already
+      // Increment the quantity instead of starting at 1
+      inCart.quantity += 1;
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
       let product = this.ProductList.lookup(id);
-      let newItem = new Item(id, product.name, product.price, quantity);
+      let newItem = new Item(id, product.name, product.price, 1);
       this.cartItems.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }
@@ -67,18 +66,18 @@ export class Cart {
   }
 
   // Get item by its id
-  getItemById(itemId) {
+  getItemById(id) {
     let foundItem = false;
 
     angular.forEach(this.cartItems, item => {
-      if(item.id === itemId) {
+      if(item.id == id) {
         foundItem = item;
       }
     });
     return foundItem;
   }
 
-  // Sum of quantities in the Cart (not very useful)
+  // Sum of quantities in the Cart, not used yet
   getTotalItems() {
     let count = 0;
     angular.forEach(this.cartItems, item => {
@@ -87,7 +86,7 @@ export class Cart {
     return count;
   }
 
-  // Get the unique number of products in the Cart
+  // Get the unique number of products in the Cart, not used yet
   getTotalUniqueItems() {
     return this.cartItems.length;
   }
