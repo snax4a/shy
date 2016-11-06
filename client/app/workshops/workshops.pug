@@ -1,6 +1,5 @@
 .container
   h2 Workshops
-  
   .row
     .col-sm-5
       form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-if='!$ctrl.subscribed')
@@ -12,7 +11,6 @@
             .input-group-btn
                   input.btn.btn-warning(type='submit', value='Subscribe')
       p(ng-if='$ctrl.subscribed') Thanks for subscribing to our newsletter.
-
   hr(ng-repeat-start='workshop in $ctrl.data | upcoming')
   .row
     .col-md-5
@@ -32,5 +30,5 @@
         | &nbsp;&nbsp;|&nbsp;&nbsp;{{section.start | date:'shortTime'}} - {{section.expires | date:'shortTime'}}
         | &nbsp;&nbsp;|&nbsp;&nbsp;{{section.cost | currency:"$":0}}
         br
-        a(href='/locations#{{section.location | htmlid}}') {{section.location}}, id:{{section.productID}}
+        a(href='/locations#{{section.location | htmlid}}') {{section.location}} {{section.productID}}
   span(ng-repeat-end)

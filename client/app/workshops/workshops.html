@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Workshops</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <form name="subscriptionform" class="form" ng-submit="$ctrl.subscribe(subscriberform)" ng-if="!$ctrl.subscribed">
+        <div class="form-group">
+          <label class="sr-only">Email address</label>
+          <label class="has-error" for="email" ng-show="!subscriberform.email.$valid && $ctrl.submitted">
+            Please provide a valid email address.
+          </label>
+          <div class="input-group">
+            <input class="form-control" name="email" ng-model="$ctrl.subscriberEmail" type="email" maxlength="50" placeholder="Email address for newsletter" autofocus required />
+            <div class="input-group-btn">
+              <input type="submit" value="Subscribe" class="btn btn-warning" />
+            </div>
+          </div>
+        </div>
+      </form>
+      <p ng-if="$ctrl.subscribed">Thanks for subscribing to our newsletter.</p>
+    </div><!--col-sm-5-->
+  </div><!--row-->
+  <hr ng-repeat-start="workshop in $ctrl.data | upcoming" />
+  <div class="row">
+    <div class="col-md-5">
+      <img class="img-responsive workshop-photo" src="{{workshop.image}}" alt="Workshop photo" />
+    </div><!--col-md-5-->
+    <div class="col-md-7">
+      <a id="{{workshop.title | htmlid | limitTo: 20}}" />
+      <h4>{{workshop.title}}</h4>
+      <p>{{workshop.description}}</p>
+      <p><a tweet data-url="https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}" data-text="{{workshop.title}} #shyoga" data-via="schoolhouseyoga" data-count="none">Tweet</a></p>
+      <p ng-repeat="section in workshop.sections | upcoming">
+        <addtocart product="15" />
+        <span ng-if="section.title">{{section.title}}</span><br/>
+        <b>{{section.start | date:'EEEE, MMMM d'}}</b>
+        &nbsp;&nbsp;|&nbsp;&nbsp;{{section.start | date:'shortTime'}} - {{section.expires | date:'shortTime'}}
+        &nbsp;&nbsp;|&nbsp;&nbsp;{{section.cost | currency:"$":0}}
+        <br/>
+        <a href="/locations#{{section.location | htmlid}}">{{section.location}} {{section.productID}}</a>
+      </p>
+    </div><!--col-md-7-->
+  </div><!--row-->
+  <span ng-repeat-end></span>
+</div><!--container-->
