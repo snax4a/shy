@@ -10,7 +10,7 @@ class Item {
   }
 
   getTotal() {
-    return +parseFloat(this.quantity * this.price.toFixed(2));
+    return parseFloat(this.quantity * this.price.toFixed(2));
   }
 }
 
@@ -99,7 +99,7 @@ export class Cart {
     angular.forEach(this.cartItems, item => {
       total += item.getTotal();
     });
-    return +parseFloat(total).toFixed(2);
+    return parseFloat(total).toFixed(2);
   }
 
   // Remove CartItem by index
@@ -132,7 +132,6 @@ export class Cart {
     // Check to see if the cart is stored
     let storedCart = false;
     let retrievedValue = this.$window.localStorage[this.key];
-    this.$log.info(retrievedValue);
     if(retrievedValue) {
       storedCart = JSON.parse(retrievedValue);
     }

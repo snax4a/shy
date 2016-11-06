@@ -1,7 +1,6 @@
 'use strict';
-import angular from 'angular';
 
-export class addToCartComponent {
+export class AddToCartComponent {
   /*@ngInject*/
   constructor(Cart) {
     this.Cart = Cart;
@@ -15,10 +14,3 @@ export class addToCartComponent {
   }
 }
 
-export default angular.module('shyApp.addtocart', [])
-  .component('addtocart', {
-    template: require('./addtocart.pug'),
-    bindings: { product: '<' },
-    controller: addToCartComponent
-  })
-  .name;

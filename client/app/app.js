@@ -5,18 +5,17 @@ import angular from 'angular';
 // Modules
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-import _Cart from '../components/cart/cart.module';
+import CartModule from '../components/cart/cart.module';
 
 // Disabled modules
 // import ngMessages from 'angular-messages'; // used for validation error messages
 
-import { routeConfig} from './app.config';
+import { routeConfig } from './app.config';
 
 // Sub-page components
 import navbar from '../components/navbar/navbar.component';
 import banner from '../components/banner/banner.component';
 import footer from '../components/footer/footer.component';
-import addToCart from '../components/addtocart/addtocart.component';
 
 // General components
 import util from '../components/util/util.module';
@@ -45,7 +44,7 @@ import './app.scss';
 
 angular.module('shyApp', [uiRouter, uiBootstrap, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-  htmlid, daytodate, tweet, _Cart, addToCart])
+  htmlid, daytodate, tweet, CartModule])
   .config(routeConfig);
 
 angular.element(document)
