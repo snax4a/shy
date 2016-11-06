@@ -42,9 +42,7 @@ export class Cart {
       inCart.quantity = quantity;
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
-      this.$log.info(id);
       let product = this.ProductList.lookup(id);
-      this.$log.info(product);
       let newItem = new Item(id, product.name, product.price, quantity);
       this.cartItems.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);
