@@ -4,7 +4,6 @@ import angular from 'angular';
 import routes from './classes.routes';
 
 export class ClassesController {
-
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;

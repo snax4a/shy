@@ -37,13 +37,14 @@ export class Cart {
   addItem(id, quantity) {
     // Bag quantity and just update based on number of times clicked
     let inCart = this.getItemById(id);
-
     if(typeof inCart === 'object') { // then increment instead of set the quantity
       //Update quantity of an item if it's already in the cart
       inCart.quantity = quantity;
       this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
+      this.$log.info(id);
       let product = this.ProductList.lookup(id);
+      this.$log.info(product);
       let newItem = new Item(id, product.name, product.price, quantity);
       this.cartItems.push(newItem);
       this.$rootScope.$broadcast('Cart:itemAdded', newItem);

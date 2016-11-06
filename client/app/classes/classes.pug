@@ -32,7 +32,7 @@
               a(href='/classes#{{class.name | htmlid}}') {{class.name}} 
               span(ng-if='class.canceled=="true"') (Canceled)
             td(ng-class='{canceled: class.canceled=="true"}') 
-              a(href='/teachers#{{class.teacher | htmlid}}') {{class.teacher}}
+              a(href='/teachers#{{ class.teacher | htmlid }}') {{class.teacher}}
 
     .col-sm-6
       div(ng-repeat="class in $ctrl.classes | orderBy:'title'")

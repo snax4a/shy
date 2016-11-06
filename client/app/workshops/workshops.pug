@@ -16,19 +16,19 @@
     .col-md-5
       img.img-responsive.workshop-photo(src='{{workshop.image}}', alt='Workshop photo')
     .col-md-7
-      a(id='{{workshop.title | htmlid | limitTo: 20}}')
+      a(id='{{ workshop.title | htmlid | limitTo: 20 }}')
       h4 {{workshop.title}}
       p
         | {{workshop.description}}
       p
-        a(tweet, data-url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', data-text='{{workshop.title}} #shyoga', data-via='schoolhouseyoga', data-count='none') Tweet
+        a(tweet, data-url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', data-text='{{ workshop.title }} #shyoga', data-via='schoolhouseyoga', data-count='none') Tweet
       p(ng-repeat='section in workshop.sections | upcoming')
-        addtocart(product='15')
-        span(ng-if='section.title') {{section.title}}
+        addtocart(product='{{ section.productID }}')
+        span(ng-if='section.title') {{ section.title }}
           br
-        b {{section.start | date:'EEEE, MMMM d'}}
-        | &nbsp;&nbsp;|&nbsp;&nbsp;{{section.start | date:'shortTime'}} - {{section.expires | date:'shortTime'}}
-        | &nbsp;&nbsp;|&nbsp;&nbsp;{{section.cost | currency:"$":0}}
+        b {{ section.start | date:'EEEE, MMMM d' }}
+        | &nbsp;&nbsp;|&nbsp;&nbsp;{{ section.start | date:'shortTime' }} - {{ section.expires | date:'shortTime' }}
+        | &nbsp;&nbsp;|&nbsp;&nbsp;{{ section.cost | currency:"$":0 }}
         br
-        a(href='/locations#{{section.location | htmlid}}') {{section.location}} {{section.productID}}
+        a(href='/locations#{{ section.location | htmlid }}') {{ section.location }}
   span(ng-repeat-end)

@@ -3,7 +3,11 @@ import angular from 'angular';
 import routes from './cart.routes';
 
 export class CartController {
-  /*@ngInject*/
+  constructor($log, ProductList) {
+    'ngInject';
+    this.$log = $log;
+    this.ProductList = ProductList;
+  }
 }
 
 export default angular.module('shyApp.cartPage', [])

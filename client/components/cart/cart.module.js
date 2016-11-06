@@ -18,7 +18,7 @@ export default angular.module('shyApp.cart', [])
   .service('ProductList', ProductList)
   .component('addtocart', {
     template: require('./addtocart.pug'),
-    bindings: { product: '<' },
+    bindings: { product: '@' },
     controller: AddToCartComponent
   })
   .name;

@@ -1,20 +1,6 @@
 .container
   h2 Shopping Cart
-  .row
+  .row(ng-repeat='product in $ctrl.ProductList.products')
     .col-xs-4
-      p One class pass
-        addtocart(product='1')
-      p Four class pass
-        addtocart(product='2')
-      p Eight class pass
-        addtocart(product='3')
-      p Twelve class pass
-         addtocart(product='4')     
-      p One class gift card
-        addtocart(product='5')
-      p Four class gift card
-        addtocart(product='6')
-      p Eight class gift card
-        addtocart(product='7')
-      p Twelve class gift card
-        addtocart(product='8')
+      p(style='height:60px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
+        addtocart(product='{{ product.id }}')
