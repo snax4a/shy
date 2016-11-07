@@ -15,9 +15,9 @@
                 th.extd Amount
                 th &nbsp;
             tbody
-              tr
-                td.what.vert-align Twelve class pass
-                td.vert-align $100
+              tr(ng-repeat='cartitem in $ctrl.Cart.cartItems')
+                td.what.vert-align Twelve class pass {{ cartItem.name }}
+                td.vert-align $100 {{ cartItem.price }}
                 td.vert-align
                   input.form-control.qty(value='2', name='quantity', type='number', maxlength='2', min='0', max='20', required='', step='1')
                 td.extd.vert-align $200
