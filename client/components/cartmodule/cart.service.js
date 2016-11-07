@@ -16,8 +16,7 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($rootScope, $log, $window, ProductList) {
-    this.$rootScope = $rootScope;
+  constructor($log, $window, ProductList) {
     this.$log = $log;
     this.$window = $window;
     this.key = 'cart'; // name of local storage key
@@ -30,7 +29,6 @@ export class Cart {
     this.$log.info('clearCartItems');
     this.cartItems = []; // Clear the array of Items
     localStorage.removeItem(this.key);
-    this.$rootScope.$broadcast('Cart:change', {});
   }
 
   // Add a product to the cart
@@ -39,14 +37,12 @@ export class Cart {
     if(typeof inCart === 'object') { // then it is in the cart already
       // Increment the quantity instead of starting at 1
       inCart.quantity += 1;
-      this.$rootScope.$broadcast('Cart:itemUpdated', inCart);
     } else {
       let product = this.ProductList.lookup(id);
       let newItem = new Item(id, product.name, product.price, 1);
       this.cartItems.push(newItem);
-      this.$rootScope.$broadcast('Cart:itemAdded', newItem);
     }
-    this.$rootScope.$broadcast('Cart:change', {});
+    this.saveToStorage();
     this.$log.info({
       cartItems: this.cartItems,
       total: this.getTotalCost(),
@@ -102,21 +98,18 @@ export class Cart {
 
   // Remove CartItem by index
   removeItem(index) {
-    let item = this.cartItems.splice(index, 1)[0] || {};
-    this.$rootScope.$broadcast('Cart:itemRemoved', item);
-    this.$rootScope.$broadcast('Cart:change', {});
+    this.cartItems.splice(index, 1);
+    this.saveToStorage();
   }
 
   // Remove CartItem by id
   removeItemById(id) {
-    let removedItem;
     angular.forEach(this.cartItems, (item, index) => {
       if(item.id === id) {
-        removedItem = this.cartItems.splice(index, 1)[0] || {};
+        this.cartItems.splice(index, 1);
       }
     });
-    this.$rootScope.$broadcast('Cart:itemRemoved', removedItem);
-    this.$rootScope.$broadcast('Cart:change', {});
+    this.saveToStorage();
   }
 
   // Are there any items in Cart? Not used anywhere
