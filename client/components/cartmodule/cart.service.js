@@ -63,8 +63,15 @@ export class Cart {
 
   // Get item by its id
   getItemById(id) {
+    /*
+    // Native way
+    for(let cartItem of this.cartItems) {
+      if(cartItem.id == id) {
+        return cartItem;
+      }
+    }
+    */
     let foundItem = false;
-
     angular.forEach(this.cartItems, item => {
       if(item.id == id) {
         foundItem = item;
@@ -76,6 +83,12 @@ export class Cart {
   // Sum of quantities in the Cart, not used yet
   getTotalItems() {
     let count = 0;
+    /*
+    // Native way
+    for(let cartItem of this.cartItems) {
+      count += cartItem.quantity;
+    }
+    */
     angular.forEach(this.cartItems, item => {
       count += item.quantity;
     });
@@ -90,6 +103,12 @@ export class Cart {
   // Calculate the total cost of all items
   getTotalCost() {
     let total = 0;
+    /*
+    // Native way
+    for(let cartItem of this.cartItems) {
+      total += cartItem.getTotal();
+    }
+    */
     angular.forEach(this.cartItems, item => {
       total += item.getTotal();
     });
@@ -104,6 +123,15 @@ export class Cart {
 
   // Remove CartItem by id
   removeItemById(id) {
+    /*
+    // Native way
+    for(let index in this.cartItems) {
+      if(this.cartItems[index].id === id) {
+        this.cartItems.splice(index,1);
+        break;
+      }
+    }
+    */
     angular.forEach(this.cartItems, (item, index) => {
       if(item.id === id) {
         this.cartItems.splice(index, 1);
@@ -125,7 +153,16 @@ export class Cart {
     if(retrievedValue) {
       storedCart = JSON.parse(retrievedValue);
     }
+    // Use typeof instead (note: nulls are not considered objects)
+    this.$log(typeof storedCart);
+    this.$log(angular.isObject(storedCart));
     if(angular.isObject(storedCart)) {
+      /*
+      // Native way
+      for(let item of storedCart.items) {
+        this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
+      }
+      */
       angular.forEach(storedCart.items, item => {
         this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
       });
