@@ -1,6 +1,6 @@
 'use strict';
 
-export function CartRun($rootScope, Cart, ProductList) {
+export function CartRun($rootScope, $log, Cart, ProductList) {
   'ngInject';
   $rootScope.$on('Cart:change', () => {
     Cart.saveToStorage();

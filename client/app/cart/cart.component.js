@@ -3,10 +3,12 @@ import angular from 'angular';
 import routes from './cart.routes';
 
 export class CartController {
-  constructor($log, ProductList) {
+  constructor($log, ProductList, Cart) {
     'ngInject';
     this.$log = $log;
     this.ProductList = ProductList;
+    this.Cart = Cart;
+    $log.info(this.Cart);
   }
 }
 
