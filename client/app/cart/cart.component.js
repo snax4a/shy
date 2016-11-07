@@ -6,9 +6,9 @@ export class CartController {
   constructor($log, ProductList, Cart) {
     'ngInject';
     this.$log = $log;
-    this.ProductList = ProductList;
-    this.Cart = Cart;
-    $log.info(this.Cart);
+    this.products = ProductList.products;
+    this.cartItems = Cart.cartItems;
+    $log.info(this.cartItems);
   }
 }
 

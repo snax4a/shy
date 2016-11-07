@@ -15,7 +15,7 @@
                 th.extd Amount
                 th &nbsp;
             tbody
-              tr(ng-repeat='cartitem in $ctrl.Cart.cartItems')
+              tr(ng-repeat='cartitem in $ctrl.cartItems')
                 td.what.vert-align Twelve class pass {{ cartItem.name }}
                 td.vert-align $100 {{ cartItem.price }}
                 td.vert-align
@@ -31,6 +31,6 @@
           input.btn.btn-default(ng-click='', type='button', name='keepShopping', value='Keep Shopping')
           input.btn.btn-warning.pull-right(ng-click='', type='submit', name='checkOut', value='Check Out »')
 
-    .col-md-6(ng-repeat='product in $ctrl.ProductList.products')
-      p(style='height:60px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
+    .col-md-6(ng-repeat='product in $ctrl.products')
+      p(style='height:50px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
         addtocart(product='{{ product.id }}')
