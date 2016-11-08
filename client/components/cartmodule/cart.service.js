@@ -1,5 +1,5 @@
 'use strict';
-import angular from 'angular';
+//import angular from 'angular';
 
 class Item {
   constructor(id, name, price, quantity) {
@@ -63,14 +63,14 @@ export class Cart {
 
   // Get item by its id
   getItemById(id) {
-    /*
     // Native way
     for(let cartItem of this.cartItems) {
       if(cartItem.id == id) {
         return cartItem;
       }
     }
-    */
+    /*
+    // angular way
     let foundItem = false;
     angular.forEach(this.cartItems, item => {
       if(item.id == id) {
@@ -78,20 +78,22 @@ export class Cart {
       }
     });
     return foundItem;
+    */
   }
 
   // Sum of quantities in the Cart, not used yet
   getTotalItems() {
     let count = 0;
-    /*
     // Native way
     for(let cartItem of this.cartItems) {
       count += cartItem.quantity;
     }
-    */
+    /*
+    // angular way
     angular.forEach(this.cartItems, item => {
       count += item.quantity;
     });
+    */
     return count;
   }
 
@@ -103,15 +105,16 @@ export class Cart {
   // Calculate the total cost of all items
   getTotalCost() {
     let total = 0;
-    /*
     // Native way
     for(let cartItem of this.cartItems) {
       total += cartItem.getTotal();
     }
-    */
+    /*
+    // angular way
     angular.forEach(this.cartItems, item => {
       total += item.getTotal();
     });
+    */
     return parseFloat(total).toFixed(2);
   }
 
@@ -123,20 +126,21 @@ export class Cart {
 
   // Remove CartItem by id
   removeItemById(id) {
-    /*
     // Native way
     for(let index in this.cartItems) {
       if(this.cartItems[index].id === id) {
-        this.cartItems.splice(index,1);
+        this.cartItems.splice(index, 1);
         break;
       }
     }
-    */
+    /*
+    // angular way
     angular.forEach(this.cartItems, (item, index) => {
       if(item.id === id) {
         this.cartItems.splice(index, 1);
       }
     });
+    */
     this.saveToStorage();
   }
 
@@ -148,24 +152,24 @@ export class Cart {
   // Load Cart from persistent storage during CartRun
   loadFromStorage() {
     // Check to see if the cart is stored
-    let storedCart = false;
+    let storedItems = false;
     let retrievedValue = this.$window.localStorage[this.key];
     if(retrievedValue) {
-      storedCart = JSON.parse(retrievedValue);
+      storedItems = JSON.parse(retrievedValue);
     }
-    // Use typeof instead (note: nulls are not considered objects)
-    this.$log(typeof storedCart);
-    this.$log(angular.isObject(storedCart));
-    if(angular.isObject(storedCart)) {
-      /*
-      // Native way
-      for(let item of storedCart.items) {
+    this.$log.info(storedItems);
+    // angular way - difference is that angular does not see nulls as objects
+    // if(angular.isObject(storedCart)) {
+    if(typeof storedCart === 'object') {
+      for(let item of storedItems) {
         this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
       }
-      */
+      /*
+      // angular way
       angular.forEach(storedCart.items, item => {
         this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
       });
+      */
     }
   }
 
