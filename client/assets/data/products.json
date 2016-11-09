@@ -21,22 +21,22 @@
   },
   {
     "id":5,
-    "name":"Gift card - One class pass",
+    "name":"Gift card - One class",
     "price":15
   },
   {
     "id":6,
-    "name":"Gift card - Four class pass",
+    "name":"Gift card - Four classes",
     "price":50
   },
   {
     "id":7,
-    "name":"Gift card - Eight class pass",
+    "name":"Gift card - Eight classes",
     "price":80
   },
   {
     "id":8,
-    "name":"Gift card - Twelve class pass",
+    "name":"Gift card - Twelve classes",
     "price":100
   },
   {
