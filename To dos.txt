@@ -1,4 +1,7 @@
-- Iterate through cart to build view of what's in it
+- Implement deletion of lines in the Cart
+- Display something better when nothing is in the cart
+- Implement Keep Shopping button on Cart Page
+- Update all the links to addItem(productId)
 - Build server API for Contact, Subscribe, and Checkout
 - Connect Contact modal to Contact method (including validation)
 - Connect Subscribe on Workshops to Subscribe method (including validation)

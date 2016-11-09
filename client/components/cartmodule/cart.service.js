@@ -140,9 +140,8 @@ export class Cart {
     return this.cartItems.length == 0;
   }
 
-  // Load Cart from persistent storage during CartRun
+  // Load Cart from local storage during CartRun
   loadFromStorage() {
-    // Check to see if the cart is in local storage
     let storedItems = false;
     let retrievedValue = this.$window.localStorage[this.key];
     if(retrievedValue) {
