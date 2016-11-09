@@ -1,5 +1,4 @@
 'use strict';
-//import angular from 'angular';
 
 class Item {
   constructor(id, name, price, quantity) {
@@ -63,7 +62,6 @@ export class Cart {
 
   // Get item by its id
   getItemById(id) {
-    // Native way
     for(let cartItem of this.cartItems) {
       if(cartItem.id == id) {
         return cartItem;
@@ -105,16 +103,9 @@ export class Cart {
   // Calculate the total cost of all items
   getTotalCost() {
     let total = 0;
-    // Native way
     for(let cartItem of this.cartItems) {
       total += cartItem.getTotal();
     }
-    /*
-    // angular way
-    angular.forEach(this.cartItems, item => {
-      total += item.getTotal();
-    });
-    */
     return parseFloat(total).toFixed(2);
   }
 
@@ -151,29 +142,20 @@ export class Cart {
 
   // Load Cart from persistent storage during CartRun
   loadFromStorage() {
-    // Check to see if the cart is stored
+    // Check to see if the cart is in local storage
     let storedItems = false;
     let retrievedValue = this.$window.localStorage[this.key];
     if(retrievedValue) {
       storedItems = JSON.parse(retrievedValue);
     }
-    this.$log.info(storedItems);
-    // angular way - difference is that angular does not see nulls as objects
-    // if(angular.isObject(storedCart)) {
-    if(typeof storedCart === 'object') {
+    if(typeof storedItems === 'object') {
       for(let item of storedItems) {
         this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
       }
-      /*
-      // angular way
-      angular.forEach(storedCart.items, item => {
-        this.cartItems.push(new Item(item.id, item.name, item.price, item.quantity));
-      });
-      */
     }
   }
 
-  // Save Cart to persistent storage
+  // Save Cart to local storage
   saveToStorage() {
     let valueToStore = JSON.stringify(this.cartItems);
     this.$window.localStorage[this.key] = valueToStore;
