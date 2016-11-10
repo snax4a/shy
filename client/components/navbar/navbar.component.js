@@ -5,8 +5,9 @@ import angular from 'angular';
 
 export class NavbarController {
   /*@ngInject*/
-  constructor($uibModal) {
+  constructor($uibModal, Cart) {
     this.$uibModal = $uibModal;
+    this.Cart = Cart;
     this.menu = [
       {
         title: 'Classes',
