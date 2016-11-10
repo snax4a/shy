@@ -52,9 +52,9 @@ export class Cart {
     */
   }
 
+  // Iterate through cartItems and get total
+  // Use PayPal Payflow Pro (or Braintree) to capture transaction
   checkout() {
-    // Iterate through cartItems and get total
-    // Use PayPal Payflow Pro (or Braintree) to capture transaction
     this.$log.info('Placing order...');
 
     // Once the order is successfully placed, clear the cart
@@ -70,7 +70,7 @@ export class Cart {
     }
   }
 
-  // Sum of quantities in the Cart, not used yet
+  // Sum of quantities in the Cart, used by navbar badge and cart page header panel
   getTotalItems() {
     let count = 0;
     // Native way
@@ -111,7 +111,7 @@ export class Cart {
     this.saveToStorage();
   }
 
-  // Are there any items in Cart? Not used anywhere
+  // Checks whether cart is empty, used on Cart Page to display empty cart message
   isEmpty() {
     return this.cartItems.length == 0;
   }
