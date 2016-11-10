@@ -3,7 +3,12 @@
 
 import angular from 'angular';
 
-export class BannerController {}
+export class BannerController {
+  constructor(Cart) {
+    'ngInject';
+    this.Cart = Cart;
+  }
+}
 
 export default angular.module('directives.banner', [])
   .component('banner', {

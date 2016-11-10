@@ -25,7 +25,6 @@ export class Cart {
 
   // Clear the cartItems during checkout()
   clearCartItems() {
-    this.$log.info('clearCartItems');
     this.cartItems = []; // Clear the array of Items
     localStorage.removeItem(this.key);
   }
@@ -53,7 +52,7 @@ export class Cart {
 
   checkout() {
     // Iterate through cartItems and get total
-    // Use PayPal Payflow Pro to capture transaction
+    // Use PayPal Payflow Pro (or Braintree) to capture transaction
     this.$log.info('Placing order...');
 
     // Once the order is successfully placed, clear the cart
@@ -102,7 +101,6 @@ export class Cart {
 
   // Remove CartItem by id, not used currently
   removeItemById(id) {
-    // Native way
     for(let index in this.cartItems) {
       if(this.cartItems[index].id === id) {
         this.cartItems.splice(index, 1);

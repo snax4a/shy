@@ -1,12 +1,17 @@
 'use strict';
 import angular from 'angular';
 import routes from './register.routes';
-//import uiRouter from 'angular-ui-router';
 
 export class RegisterController {
-  /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
+  constructor(Cart) {
+    'ngInject';
+    this.Cart = Cart;
+  }
+
+  register() {
+    if(this.agreed) {
+      this.Cart.addItem(0);
+    }
   }
 }
 

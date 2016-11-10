@@ -35,7 +35,7 @@
         li Anatomy Trains by Tom Myers
       p
         | Interested in joining next year&apos;s program? Please contact us at 
-        a(href='mailto:leta@schoolhouseyoga.com') info@schoolhouseyoga.com
+        a(href='mailto:info@schoolhouseyoga.com') info@schoolhouseyoga.com
         | .
         br
         |  The fee for the 2017 training is $2750. Deadline to withdraw from the program is February 10th.
@@ -44,14 +44,10 @@
         br
       .checkbox
         label
-          input#MasterBody_agreedCheckbox(type='checkbox', name='ctl00$MasterBody$agreedCheckbox')
+          input(type='checkbox', ng-model='$ctrl.agreed')
           | I agree to these terms and conditions.
         |  
-        span#MasterBody_CheckBoxRequired.has-error(style='visibility:hidden;') You must select this checkbox to proceed.
+        span.has-error(ng-hide='$ctrl.agreed') You must select this checkbox to proceed. {{ $ctrl.agreed }}
       br
       |  
-      input#MasterBody_agreedButton.btn.btn-warning(type='submit', name='ctl00$MasterBody$agreedButton', value='Register', onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$agreedButton", "", true, "", "", false, false))')
-  script.
-    function CheckBoxRequired_ClientValidate(sender, e) {
-    e.IsValid = jQuery("input:checkbox").is(':checked');
-    }
+      input.btn.btn-warning(type='button', ng-click='$ctrl.register()', value='Register')

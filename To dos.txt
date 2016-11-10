@@ -1,7 +1,6 @@
-- If I change quantity of an item in the cart, save to storage
-- Display something better when nothing is in the cart
+- Whenever I add something to the cart, perhaps go to Cart page?
 - Implement Keep Shopping button on Cart Page
-- Update all the links to addItem(productId)
+- Consider wrapping main page's sections in .col-md-6 so that they'll wrap
 - Build server API for Contact, Subscribe, and Checkout
 - Connect Contact modal to Contact method (including validation)
 - Connect Subscribe on Workshops to Subscribe method (including validation)
