@@ -6,13 +6,7 @@ import { Cart } from './cart.service';
 import { ProductList } from './productlist.service';
 import { AddToCartController } from './addtocart.component';
 
-// Not sure I need these (may need the provider)
-//import { CartProvider } from './cart.provider';
-//import { CartConfig } from './cart.config';
-
 export default angular.module('shyApp.cart', [])
-//  .provider('$Cart', CartProvider)
-//  .config(CartConfig)
   .run(CartRun)
   .service('Cart', Cart)
   .service('ProductList', ProductList)
