@@ -67,16 +67,6 @@ export class Cart {
         return cartItem;
       }
     }
-    /*
-    // angular way
-    let foundItem = false;
-    angular.forEach(this.cartItems, item => {
-      if(item.id == id) {
-        foundItem = item;
-      }
-    });
-    return foundItem;
-    */
   }
 
   // Sum of quantities in the Cart, not used yet
@@ -86,12 +76,6 @@ export class Cart {
     for(let cartItem of this.cartItems) {
       count += cartItem.quantity;
     }
-    /*
-    // angular way
-    angular.forEach(this.cartItems, item => {
-      count += item.quantity;
-    });
-    */
     return count;
   }
 
@@ -109,13 +93,13 @@ export class Cart {
     return parseFloat(total).toFixed(2);
   }
 
-  // Remove CartItem by index
+  // Remove CartItem by index used in cart.pug
   removeItem(index) {
     this.cartItems.splice(index, 1);
     this.saveToStorage();
   }
 
-  // Remove CartItem by id
+  // Remove CartItem by id, not used currently
   removeItemById(id) {
     // Native way
     for(let index in this.cartItems) {
@@ -124,14 +108,6 @@ export class Cart {
         break;
       }
     }
-    /*
-    // angular way
-    angular.forEach(this.cartItems, (item, index) => {
-      if(item.id === id) {
-        this.cartItems.splice(index, 1);
-      }
-    });
-    */
     this.saveToStorage();
   }
 
