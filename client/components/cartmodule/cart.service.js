@@ -41,6 +41,7 @@ export class Cart {
       this.cartItems.push(newItem);
     }
     this.saveToStorage();
+    /*
     this.$log.info({
       cartItems: this.cartItems,
       total: this.getTotalCost(),
@@ -48,6 +49,7 @@ export class Cart {
       numberOfItems: this.getTotalItems(),
       isEmpty: this.isEmpty()
     });
+    */
   }
 
   checkout() {
@@ -75,7 +77,6 @@ export class Cart {
     for(let cartItem of this.cartItems) {
       count += cartItem.quantity;
     }
-    this.$log.info(count);
     return count;
   }
 
