@@ -15,9 +15,10 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, ProductList) {
+  constructor($log, $window, $location, ProductList) {
     this.$log = $log;
     this.$window = $window;
+    this.$location = $location;
     this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
     this.cartItems = [];
@@ -41,6 +42,7 @@ export class Cart {
       this.cartItems.push(newItem);
     }
     this.saveToStorage();
+    this.$location.path('/cart');
     /*
     this.$log.info({
       cartItems: this.cartItems,

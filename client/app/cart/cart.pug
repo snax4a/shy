@@ -30,5 +30,5 @@
               tr
                 td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
         .panel-footer
-          input.btn.btn-default(ng-click='', type='button', name='keepShopping', value='Keep Shopping')
+          input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
           input.btn.btn-warning.pull-right(ng-click='', type='submit', name='checkOut', value='Check Out »')

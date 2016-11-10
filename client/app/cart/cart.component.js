@@ -3,10 +3,15 @@ import angular from 'angular';
 import routes from './cart.routes';
 
 export class CartController {
-  constructor(ProductList, Cart) {
+  constructor($window, ProductList, Cart) {
     'ngInject';
+    this.$window = $window;
     this.products = ProductList.products;
     this.Cart = Cart;
+  }
+
+  keepShopping() {
+    this.$window.history.back();
   }
 }
 

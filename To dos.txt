@@ -1,5 +1,3 @@
-- Whenever I add something to the cart, perhaps go to Cart page?
-- Implement Keep Shopping button on Cart Page
 - Build Billing and Shipping section on Cart page
 - Consider wrapping main page's sections in .col-md-6 so that they'll wrap
 - Build server API for Contact, Subscribe, and Checkout
