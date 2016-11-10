@@ -76,6 +76,7 @@ export class Cart {
     for(let cartItem of this.cartItems) {
       count += cartItem.quantity;
     }
+    this.$log.info(count);
     return count;
   }
 
