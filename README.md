@@ -9,7 +9,8 @@ intentionally not retained.
 The website is under construction. Most of the work that remains is around completing the billing and
 shipping info on the shopping cart and building the server API.
 
-The Angular Fullstack generator for Yeoman was used to scaffold out the initial project.
+The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. Most of the angularJS
+code is ready to move to 2.0.
 
 ## Getting Started
 
