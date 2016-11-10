@@ -15,14 +15,14 @@
                 th.extd Amount
                 th &nbsp;
             tbody
-              tr(ng-repeat='cartItem in $ctrl.Cart.cartItems')
+              tr(ng-repeat='cartItem in $ctrl.Cart.cartItems track by $index')
                 td.what.vert-align {{ cartItem.name }}
                 td.vert-align {{ cartItem.price | currency:"$":0 }}
                 td.vert-align
                   input.form-control.qty(ng-model='cartItem.quantity', name='quantity', type='number', maxlength='2', min='1', max='20', required='', step='1')
                 td.extd.vert-align {{ cartItem.getTotal() | currency:"$":0 }}
                 td.vert-align
-                  a(ng-click='')
+                  a(ng-click='$ctrl.Cart.removeItem($index)')
                     span.glyphicon.glyphicon-trash.pull-right.has-error
             tfoot
               tr

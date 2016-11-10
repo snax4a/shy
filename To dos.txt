@@ -1,3 +1,4 @@
+- If I change quantity of an item in the cart, save to storage
 - Implement deletion of lines in the Cart
 - Display something better when nothing is in the cart
 - Implement Keep Shopping button on Cart Page
