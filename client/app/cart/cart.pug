@@ -4,7 +4,7 @@
     .col-md-6
       .panel.panel-default(aria-labelledby='cartPanelTitle')
         .panel-heading
-          #cartPanelTitle.panel-title Items in your cart
+          #cartPanelTitle.panel-title {{ $cart.Cart.getTotalItems() }} Items in your cart
         .panel-body
           table.table.table-hover
             thead
@@ -30,7 +30,6 @@
         .panel-footer
           input.btn.btn-default(ng-click='', type='button', name='keepShopping', value='Keep Shopping')
           input.btn.btn-warning.pull-right(ng-click='', type='submit', name='checkOut', value='Check Out »')
-
     .col-md-6(ng-repeat='product in $ctrl.products')
       p(style='height:50px;') {{ product.name }} (id = {{ product.id }}, price = {{ product.price }})
         addtocart(product='{{ product.id }}')
