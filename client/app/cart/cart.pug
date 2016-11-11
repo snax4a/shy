@@ -16,7 +16,7 @@
                 th &nbsp;
             tbody
               tr(ng-show='$ctrl.Cart.isEmpty()')
-                td There are no items in your cart.
+                td(colspan='4') There are no items in your cart.
               tr(ng-repeat='cartItem in $ctrl.Cart.cartItems track by $index')
                 td.what.vert-align {{ cartItem.name }}
                 td.vert-align {{ cartItem.price | currency:"$":0 }}
@@ -32,3 +32,293 @@
         .panel-footer
           input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
           input.btn.btn-warning.pull-right(ng-click='', type='submit', name='checkOut', value='Check Out »')
+    .col-md-6
+      .panel.panel-default(aria-labelledby='paymentPanelTitle')
+        .panel-heading
+          #paymentPanelTitle.panel-title Payment Information
+        .panel-body
+          .form-group
+            label.sr-only Credit card number
+            |  
+            input.form-control.card-number(name='cardnumber', type='text', maxlength='16', placeholder='Debit/credit card number')
+            |  
+            span.has-error(style='display:none;') Please provide card number.
+            |  
+            span.has-error(style='display:none;') Please supply a valid card number.
+          .form-group
+            label.sr-only Expires
+            .input-group
+              select.form-control(name='monthexpires')
+                option(selected='selected', value='0') Month
+                option(value='01') 01
+                option(value='02') 02
+                option(value='03') 03
+                option(value='04') 04
+                option(value='05') 05
+                option(value='06') 06
+                option(value='07') 07
+                option(value='08') 08
+                option(value='09') 09
+                option(value='10') 10
+                option(value='11') 11
+                option(value='12') 12
+              |  
+              span.input-group-addon /
+              |  
+              select.form-control(name='yearexpires')
+                option(selected='selected', value='0') Year
+                option(value='15') 2015
+                option(value='16') 2016
+                option(value='17') 2017
+                option(value='18') 2018
+                option(value='19') 2019
+                option(value='20') 2020
+                option(value='21') 2021
+                option(value='22') 2022
+                option(value='23') 2023
+                option(value='24') 2024
+            |  
+            span#MasterBody_vMonth.has-error(style='display:none;') Please select a month for your card&apos;s expiration date.
+            |  
+            span#MasterBody_vYear.has-error(style='display:none;') Please select a year for your card&apos;s expiration date.
+          .form-group
+            label.sr-only Credit card security code
+            |  
+            input#MasterBody_CSC.form-control.cvv(name='ctl00$MasterBody$CSC', type='text', maxlength='4', placeholder='CSC')
+            |  
+            span#MasterBody_vCSC.has-error(style='display:none;') Please provide the card security code.
+            |  
+            span#MasterBody_v2CSC.has-error(style='display:none;') Please supply a valid security code.
+          .form-group
+            label.sr-only First name
+            |  
+            input#MasterBody_FirstName.form-control(name='ctl00$MasterBody$FirstName', type='text', maxlength='20', placeholder='First name')
+            |  
+            span#MasterBody_vFirstName.has-error(style='display:none;') Please provide the cardholder&apos;s first name.
+          .form-group
+            label.sr-only Last name
+            |  
+            input#MasterBody_LastName.form-control(name='ctl00$MasterBody$LastName', type='text', maxlength='20', placeholder='Last name')
+            |  
+            span#MasterBody_vLastName.has-error(style='display:none;') Please provide the cardholder&apos;s last name.
+          .form-group
+            label.sr-only Address
+            |  
+            input#MasterBody_Address.form-control(name='ctl00$MasterBody$Address', type='text', maxlength='255', placeholder='Street address')
+            |  
+            span#MasterBody_vAddress.has-error(style='display:none;') Please provide the billing address.
+          .form-group
+            label.sr-only City
+            |  
+            input#MasterBody_City.form-control(name='ctl00$MasterBody$City', type='text', maxlength='20', placeholder='City')
+            |  
+            span#MasterBody_vCity.has-error(style='display:none;') Please provide the billing city.
+          .form-group
+            label.sr-only State
+            |  
+            select#MasterBody_State.form-control(name='ctl00$MasterBody$State')
+              option(value='AL') AL
+              option(value='AK') AK
+              option(value='AZ') AZ
+              option(value='AR') AR
+              option(value='CA') CA
+              option(value='CO') CO
+              option(value='CT') CT
+              option(value='DE') DE
+              option(value='DC') DC
+              option(value='FL') FL
+              option(value='GA') GA
+              option(value='HI') HI
+              option(value='ID') ID
+              option(value='IL') IL
+              option(value='IN') IN
+              option(value='IA') IA
+              option(value='KS') KS
+              option(value='KY') KY
+              option(value='LA') LA
+              option(value='ME') ME
+              option(value='MD') MD
+              option(value='MA') MA
+              option(value='MI') MI
+              option(value='MN') MN
+              option(value='MS') MS
+              option(value='MO') MO
+              option(value='MT') MT
+              option(value='NE') NE
+              option(value='NV') NV
+              option(value='NH') NH
+              option(value='NJ') NJ
+              option(value='NM') NM
+              option(value='NY') NY
+              option(value='NC') NC
+              option(value='ND') ND
+              option(value='OH') OH
+              option(value='OK') OK
+              option(value='OR') OR
+              option(selected='selected', value='PA') PA
+              option(value='PR') PR
+              option(value='RI') RI
+              option(value='SC') SC
+              option(value='SD') SD
+              option(value='TN') TN
+              option(value='TX') TX
+              option(value='UT') UT
+              option(value='VT') VT
+              option(value='VA') VA
+              option(value='WA') WA
+              option(value='WV') WV
+              option(value='WI') WI
+              option(value='WY') WY
+          .form-group
+            label.sr-only ZIP code
+            |  
+            input#MasterBody_ZIPCode.form-control(name='ctl00$MasterBody$ZIPCode', type='text', maxlength='10', placeholder='ZIP code')
+            |  
+            span#MasterBody_vZIPCode.has-error(style='display:none;') Please provide the billing ZIP code.
+          .form-group
+            label.sr-only Email address
+            |  
+            input#MasterBody_Email.form-control(name='ctl00$MasterBody$Email', type='email', maxlength='80', placeholder='Email address')
+            |  
+            span#MasterBody_vEmail.has-error(style='display:none;') Please provide the cardholder&apos;s email address.
+            |  
+            span#MasterBody_v2Email.has-error(style='display:none;') Please supply a valid email address for the cardholder.
+          .form-group
+            label.sr-only Phone
+            |  
+            input#MasterBody_Phone.form-control(name='ctl00$MasterBody$Phone', type='tel', maxlength='14', placeholder='Phone')
+            |  
+            span#MasterBody_vPhone.has-error(style='display:none;') Please provide the cardholder&apos;s phone number.
+          .form-group
+            label.sr-only Instructions
+            textarea#MasterBody_Instructions.form-control(name='ctl00$MasterBody$Instructions', rows='2', cols='20', placeholder='Instructions')
+          .checkbox
+            label
+              input#MasterBody_ForSomeoneElse(type='checkbox', name='ctl00$MasterBody$ForSomeoneElse', onclick="javascript:setTimeout('__doPostBack(\'ctl00$MasterBody$ForSomeoneElse\',\'\')', 0)")
+              |  This is for someone else. Please supply their info below.
+          #MasterBody_StudentInfo.aspNetDisabled
+            .form-group
+              label.sr-only Student&apos;s first name
+              |  
+              input#MasterBody_StudentFirstName.form-control(name='ctl00$MasterBody$StudentFirstName', type='text', maxlength='14', disabled='disabled', placeholder="Student's first name")
+              |  
+              span#MasterBody_vStudentFirstName.has-error(style='display:none;') Please provide the student&apos;s first name.
+            .form-group
+              label.sr-only Student&apos;s last name
+              |  
+              input#MasterBody_StudentLastName.form-control(name='ctl00$MasterBody$StudentLastName', type='text', maxlength='20', disabled='disabled', placeholder="Student's last name")
+              |  
+              span#MasterBody_vStudentLastName.has-error(style='display:none;') Please provide the student&apos;s last name.
+            .form-group
+              label.sr-only Student&apos;s address
+              |  
+              input#MasterBody_StudentAddress.form-control(name='ctl00$MasterBody$StudentAddress', type='text', maxlength='255', disabled='disabled', placeholder="Student's address")
+              |  
+              span#MasterBody_vStudentAddress.has-error(style='display:none;') Please provide the student&apos;s street address.
+            .form-group
+              label.sr-only Student&apos;s city
+              |  
+              input#MasterBody_StudentCity.form-control(name='ctl00$MasterBody$StudentCity', type='text', maxlength='20', disabled='disabled', placeholder="Student's city")
+              |  
+              span#MasterBody_vStudentCity.has-error(style='display:none;') Please provide the student&apos;s city.
+            .form-group
+              label.sr-only Student&apos;s state
+              |  
+              select#MasterBody_StudentState.form-control(name='ctl00$MasterBody$StudentState', disabled='disabled')
+                option(value='AL') AL
+                option(value='AK') AK
+                option(value='AZ') AZ
+                option(value='AR') AR
+                option(value='CA') CA
+                option(value='CO') CO
+                option(value='CT') CT
+                option(value='DE') DE
+                option(value='DC') DC
+                option(value='FL') FL
+                option(value='GA') GA
+                option(value='HI') HI
+                option(value='ID') ID
+                option(value='IL') IL
+                option(value='IN') IN
+                option(value='IA') IA
+                option(value='KS') KS
+                option(value='KY') KY
+                option(value='LA') LA
+                option(value='ME') ME
+                option(value='MD') MD
+                option(value='MA') MA
+                option(value='MI') MI
+                option(value='MN') MN
+                option(value='MS') MS
+                option(value='MO') MO
+                option(value='MT') MT
+                option(value='NE') NE
+                option(value='NV') NV
+                option(value='NH') NH
+                option(value='NJ') NJ
+                option(value='NM') NM
+                option(value='NY') NY
+                option(value='NC') NC
+                option(value='ND') ND
+                option(value='OH') OH
+                option(value='OK') OK
+                option(value='OR') OR
+                option(selected='selected', value='PA') PA
+                option(value='PR') PR
+                option(value='RI') RI
+                option(value='SC') SC
+                option(value='SD') SD
+                option(value='TN') TN
+                option(value='TX') TX
+                option(value='UT') UT
+                option(value='VT') VT
+                option(value='VA') VA
+                option(value='WA') WA
+                option(value='WV') WV
+                option(value='WI') WI
+                option(value='WY') WY
+            .form-group
+              label.sr-only Student&apos;s ZIP code
+              |  
+              input#MasterBody_StudentZIPCode.form-control(name='ctl00$MasterBody$StudentZIPCode', type='text', maxlength='10', disabled='disabled', placeholder="Student's ZIP code")
+              |  
+              span#MasterBody_vStudentZIPCode(style='display:none;') Please provide the student&apos;s ZIP code.
+            .form-group
+              label.sr-only Student&apos;s email address
+              |  
+              input#MasterBody_StudentEmail.form-control(name='ctl00$MasterBody$StudentEmail', type='email', maxlength='80', disabled='disabled', placeholder="Student's email address")
+              |  
+              span#MasterBody_vStudentEmail(style='display:none;') Please provide the student&apos;s email address.
+              |  
+              span#MasterBody_v2StudentEmail(style='display:none;') Please supply a valid email address for the student.
+            .form-group
+              label.sr-only Student&apos;s phone
+              |  
+              input#MasterBody_StudentPhone.form-control(name='ctl00$MasterBody$StudentPhone', type='tel', maxlength='14', disabled='disabled', placeholder="Student's phone")
+              |  
+              span#MasterBody_vStudentPhone(style='display:none;') Please provide the student&apos;s phone number.
+          |  
+          span#MasterBody_methodToSend.aspNetDisabled(disabled='disabled')
+            span.aspNetDisabled
+              input#MasterBody_methodToSend_0(type='radio', name='ctl00$MasterBody$methodToSend', value='Mail gift card to Purchaser', disabled='disabled')
+              label(for='MasterBody_methodToSend_0') Mail gift card to Purchaser
+            br
+            span.aspNetDisabled
+              input#MasterBody_methodToSend_1(type='radio', name='ctl00$MasterBody$methodToSend', value='Mail gift card to Student', disabled='disabled')
+              label(for='MasterBody_methodToSend_1') Mail gift card to Student
+            br
+            span.aspNetDisabled
+              input#MasterBody_methodToSend_2(type='radio', name='ctl00$MasterBody$methodToSend', value='Email gift card to Student', disabled='disabled')
+              label(for='MasterBody_methodToSend_2') Email gift card to Student
+            br
+            span.aspNetDisabled
+              input#MasterBody_methodToSend_3(type='radio', name='ctl00$MasterBody$methodToSend', value="Apply credit to Student's account (default)", checked='checked', disabled='disabled')
+              label(for='MasterBody_methodToSend_3') Apply credit to Student&apos;s account (default)
+          br
+          br
+          p
+            | Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
+        .panel-footer
+          input#MasterBody_PlaceOrder.btn.btn-warning.pull-right(type='submit', name='ctl00$MasterBody$PlaceOrder', value='Place Order', onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$MasterBody$PlaceOrder", "", true, "", "", false, false))')
+          br
+          br
