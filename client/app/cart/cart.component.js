@@ -4,7 +4,8 @@ import routes from './cart.routes';
 
 export class CartController {
   /*@ngInject*/
-  constructor($window, ProductList, Cart) {
+  constructor($log, $window, ProductList, Cart) {
+    this.$log = $log;
     this.$window = $window;
     // These have to be set here and not $onInit()
     this.products = ProductList.products;
@@ -13,7 +14,7 @@ export class CartController {
 
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
-    this.billing = {
+    this.checkOutInfo = {
       ccExpMonth: 'Month',
       ccExpYear: 'Year',
       state: 'PA',
@@ -33,34 +34,53 @@ export class CartController {
       'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH', 'MI', 'MN', 'MO', 'MS',
       'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'PW',
       'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
+    this.checkOutInfo.forSomeoneElse = false;
+    this.checkOutInfo.methodToSend = 'Apply credit to recipient\'s account (default)';
   }
 
+  // Go to previous page
+  keepShopping() {
+    this.$window.history.back();
+  }
+
+  // Set the focus to the credit card number field
+  checkOut() {
+     // Set focus to recipientFirstName
+    let fieldToGetFocus = this.$window.document.getElementById('ccNumber');
+    fieldToGetFocus.focus();
+  }
+
+  // As we enter the billing info, copy to recipient fields
   updateRecipient() {
-    if(!this.billing.forSomeoneElse) {
-      this.billing.recipientFirstName = this.billing.ccFirstName;
-      this.billing.recipientLastName = this.billing.ccLastName;
-      this.billing.recipientAddress = this.billing.streetAddress;
-      this.billing.recipientCity = this.billing.city;
-      this.billing.recipientState = this.billing.state;
-      this.billing.recipientZipCode = this.billing.zipCode;
-      this.billing.recipientEmail = this.billing.email;
-      this.billing.recipientPhone = this.billing.phone;
+    if(!this.checkOutInfo.forSomeoneElse) {
+      this.checkOutInfo.recipientFirstName = this.checkOutInfo.ccFirstName;
+      this.checkOutInfo.recipientLastName = this.checkOutInfo.ccLastName;
+      this.checkOutInfo.recipientAddress = this.checkOutInfo.streetAddress;
+      this.checkOutInfo.recipientCity = this.checkOutInfo.city;
+      this.checkOutInfo.recipientState = this.checkOutInfo.state;
+      this.checkOutInfo.recipientZipCode = this.checkOutInfo.zipCode;
+      this.checkOutInfo.recipientEmail = this.checkOutInfo.email;
+      this.checkOutInfo.recipientPhone = this.checkOutInfo.phone;
     }
   }
 
+  // Handle when the order has a different recipient
   forSomeoneElse() {
+    // Clear fields that must be different (leave last name in case family member)
+    this.checkOutInfo.recipientFirstName = '';
+    this.checkOutInfo.recipientEmail = '';
+    this.checkOutInfo.recipientPhone = '';
+
+    // This will not work because the disabled state of the fieldset interferes
     // Set focus to recipientFirstName
     let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
     fieldToGetFocus.focus();
-
-    // Clear fields that must be different (leave last name in case family member)
-    this.billing.recipientFirstName = '';
-    this.billing.recipientEmail = '';
-    this.billing.recipientPhone = '';
   }
 
-  keepShopping() {
-    this.$window.history.back();
+  // Initiate the order process
+  placeOrder() {
+    this.$log.info(this.checkOutInfo);
+    //this.Cart.placeOrder(this.checkOutInfo);
   }
 }
 
