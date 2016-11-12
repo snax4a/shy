@@ -49,7 +49,7 @@
             label.sr-only Expires
             .input-group
               select.form-control(name='ccExpMonth', ng-model='$ctrl.billing.ccExpMonth', autocomplete='cc-exp-month')
-                option(selected='selected', value='0') Month
+                option(value='Month') Month
                 option(value='01') 01
                 option(value='02') 02
                 option(value='03') 03
@@ -66,7 +66,7 @@
               span.input-group-addon /
               |  
               select.form-control(name='ccExpYear', ng-model='$ctrl.billing.ccExpYear', autocomplete='cc-exp-year')
-                option(selected='selected', value='0') Year
+                option(value='Year') Year
                 option(value='15') 2015
                 option(value='16') 2016
                 option(value='17') 2017
@@ -155,7 +155,7 @@
               option(value='OH') OH
               option(value='OK') OK
               option(value='OR') OR
-              option(selected='selected', value='PA') PA
+              option(value='PA') PA
               option(value='PR') PR
               option(value='RI') RI
               option(value='SC') SC
@@ -263,7 +263,7 @@
                 option(value='OH') OH
                 option(value='OK') OK
                 option(value='OR') OR
-                option(selected='selected', value='PA') PA
+                option(value='PA') PA
                 option(value='PR') PR
                 option(value='RI') RI
                 option(value='SC') SC
@@ -322,3 +322,5 @@
           input.btn.btn-warning.pull-right(type='submit', ng-click='', name='placeOrder', value='Place Order')
           br
           br
+    .col-md-6
+      p {{ $ctrl.billing | json }}
