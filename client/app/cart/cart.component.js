@@ -35,6 +35,30 @@ export class CartController {
       'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
   }
 
+  updateRecipient() {
+    if(!this.billing.forSomeoneElse) {
+      this.billing.recipientFirstName = this.billing.ccFirstName;
+      this.billing.recipientLastName = this.billing.ccLastName;
+      this.billing.recipientAddress = this.billing.streetAddress;
+      this.billing.recipientCity = this.billing.city;
+      this.billing.recipientState = this.billing.state;
+      this.billing.recipientZipCode = this.billing.zipCode;
+      this.billing.recipientEmail = this.billing.email;
+      this.billing.recipientPhone = this.billing.phone;
+    }
+  }
+
+  forSomeoneElse() {
+    // Set focus to recipientFirstName
+    let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
+    fieldToGetFocus.focus();
+
+    // Clear fields that must be different (leave last name in case family member)
+    this.billing.recipientFirstName = '';
+    this.billing.recipientEmail = '';
+    this.billing.recipientPhone = '';
+  }
+
   keepShopping() {
     this.$window.history.back();
   }
