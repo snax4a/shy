@@ -40,7 +40,7 @@
           .form-group
             label.sr-only Credit card number
             |  
-            input.form-control.card-number(name='ccNumber', autocomplete='cc-number', type='text', maxlength='16', placeholder='Debit/credit card number')
+            input.form-control.card-number(name='ccNumber', ng-model='$ctrl.billing.ccNumber', autocomplete='cc-number', type='text', maxlength='16', placeholder='Debit/credit card number')
             |  
             span.has-error(style='display:none;') Please provide card number.
             |  
@@ -48,7 +48,7 @@
           .form-group
             label.sr-only Expires
             .input-group
-              select.form-control(name='ccExpMonth', autocomplete='cc-exp-month')
+              select.form-control(name='ccExpMonth', ng-model='$ctrl.billing.ccExpMonth', autocomplete='cc-exp-month')
                 option(selected='selected', value='0') Month
                 option(value='01') 01
                 option(value='02') 02
@@ -65,7 +65,7 @@
               |  
               span.input-group-addon /
               |  
-              select.form-control(name='ccExpYear', autocomplete='cc-exp-year')
+              select.form-control(name='ccExpYear', ng-model='$ctrl.billing.ccExpYear', autocomplete='cc-exp-year')
                 option(selected='selected', value='0') Year
                 option(value='15') 2015
                 option(value='16') 2016
@@ -84,7 +84,7 @@
           .form-group
             label.sr-only Credit card security code
             |  
-            input.form-control.cvv(name='ccCSC', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
+            input.form-control.cvv(name='ccCSC', ng-model='$ctrl.billing.ccCSC', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
             |  
             span.has-error(style='display:none;') Please provide the card security code.
             |  
@@ -92,31 +92,31 @@
           .form-group
             label.sr-only First name
             |  
-            input.form-control(name='ccFirstName', autocomplete='cc-given-name', type='text', maxlength='20', placeholder='First name')
+            input.form-control(name='ccFirstName', ng-model='$ctrl.billing.ccFirstName', autocomplete='cc-given-name', type='text', maxlength='20', placeholder='First name')
             |  
             span.has-error(style='display:none;') Please provide the cardholder&apos;s first name.
           .form-group
             label.sr-only Last name
             |  
-            input.form-control(name='ccLastName', autocomplete='cc-family-name', type='text', maxlength='20', placeholder='Last name')
+            input.form-control(name='ccLastName', ng-model='$ctrl.billing.ccLastName', autocomplete='cc-family-name', type='text', maxlength='20', placeholder='Last name')
             |  
             span.has-error(style='display:none;') Please provide the cardholder&apos;s last name.
           .form-group
             label.sr-only Address
             |  
-            input.form-control(name='streetAddress', autocomplete='street-address', type='text', maxlength='255', placeholder='Street address')
+            input.form-control(name='streetAddress', ng-model='$ctrl.billing.streetAddress', autocomplete='street-address', type='text', maxlength='255', placeholder='Street address')
             |  
             span.has-error(style='display:none;') Please provide the billing address.
           .form-group
             label.sr-only City
             |  
-            input.form-control(name='city', autocomplete='address-level2', type='text', maxlength='20', placeholder='City')
+            input.form-control(name='city', ng-model='$ctrl.billing.city', autocomplete='address-level2', type='text', maxlength='20', placeholder='City')
             |  
             span.has-error(style='display:none;') Please provide the billing city.
           .form-group
             label.sr-only State
             |  
-            select.form-control(name='state', autocomplete='address-level1')
+            select.form-control(name='state', ng-model='$ctrl.billing.state', autocomplete='address-level1')
               option(value='AL') AL
               option(value='AK') AK
               option(value='AZ') AZ
@@ -172,13 +172,13 @@
           .form-group
             label.sr-only ZIP code
             |  
-            input.form-control(name='zipCode', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
+            input.form-control(name='zipCode', ng-model='$ctrl.billing.zipCode', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
             |  
             span.has-error(style='display:none;') Please provide the billing ZIP code.
           .form-group
             label.sr-only Email address
             |  
-            input.form-control(name='email', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
+            input.form-control(name='email', ng-model='$ctrl.billing.email', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
             |  
             span.has-error(style='display:none;') Please provide the cardholder&apos;s email address.
             |  
@@ -186,45 +186,45 @@
           .form-group
             label.sr-only Phone
             |  
-            input.form-control(name='phone', autocomplete='tel', type='tel', maxlength='14', placeholder='Phone')
+            input.form-control(name='phone', ng-model='$ctrl.billing.phone', autocomplete='tel', type='tel', maxlength='14', placeholder='Phone')
             |  
             span.has-error(style='display:none;') Please provide the cardholder&apos;s phone number.
           .form-group
             label.sr-only Instructions
-            textarea.form-control(name='instructions', rows='2', cols='20', placeholder='Instructions')
+            textarea.form-control(name='instructions', ng-model='$ctrl.billing.instructions', rows='2', cols='20', placeholder='Instructions')
           .checkbox
             label
               input(type='checkbox', name='forSomeoneElse', ng-click='')
               |  This is for someone else. Please supply their info below.
           .aspNetDisabled
             .form-group
-              label.sr-only Student&apos;s first name
+              label.sr-only Recipient&apos;s first name
               |  
-              input.form-control(name='studentFirstName', type='text', maxlength='14', disabled='disabled', placeholder="Student's first name")
+              input.form-control(name='recipientFirstName', ng-model='$ctrl.billing.recipientFirstName', type='text', maxlength='14', disabled='disabled', placeholder="Recipient's first name")
               |  
-              span.has-error(style='display:none;') Please provide the student&apos;s first name.
+              span.has-error(style='display:none;') Please provide the recipient&apos;s first name.
             .form-group
-              label.sr-only Student&apos;s last name
+              label.sr-only Recipient&apos;s last name
               |  
-              input.form-control(name='studentLastName', type='text', maxlength='20', disabled='disabled', placeholder="Student's last name")
+              input.form-control(name='recipientLastName', ng-model='$ctrl.billing.recipientLastName', type='text', maxlength='20', disabled='disabled', placeholder="Recipient's last name")
               |  
-              span.has-error(style='display:none;') Please provide the student&apos;s last name.
+              span.has-error(style='display:none;') Please provide the recipient&apos;s last name.
             .form-group
-              label.sr-only Student&apos;s address
+              label.sr-only Recipient&apos;s address
               |  
-              input.form-control(name='studentAddress', type='text', maxlength='255', disabled='disabled', placeholder="Student's address")
+              input.form-control(name='recipientAddress', ng-model='$ctrl.billing.recipientAddress', type='text', maxlength='255', disabled='disabled', placeholder="Recipient's address")
               |  
-              span.has-error(style='display:none;') Please provide the student&apos;s street address.
+              span.has-error(style='display:none;') Please provide the recipient&apos;s street address.
             .form-group
-              label.sr-only Student&apos;s city
+              label.sr-only Recipient&apos;s city
               |  
-              input.form-control(name='studentCity', autocomplete='address-level2', type='text', maxlength='20', disabled='disabled', placeholder="Student's city")
+              input.form-control(name='recipientCity', ng-model='$ctrl.billing.recipientCity', autocomplete='address-level2', type='text', maxlength='20', disabled='disabled', placeholder="Recipient's city")
               |  
-              span.has-error(style='display:none;') Please provide the student&apos;s city.
+              span.has-error(style='display:none;') Please provide the recipient&apos;s city.
             .form-group
-              label.sr-only Student&apos;s state
+              label.sr-only Recipient&apos;s state
               |  
-              select.form-control(name='studentState', autocomplete='address-level1', disabled='disabled')
+              select.form-control(name='recipientState', ng-model='$ctrl.billing.recipientState', autocomplete='address-level1', disabled='disabled')
                 option(value='AL') AL
                 option(value='AK') AK
                 option(value='AZ') AZ
@@ -278,42 +278,42 @@
                 option(value='WI') WI
                 option(value='WY') WY
             .form-group
-              label.sr-only Student&apos;s ZIP code
+              label.sr-only Recipient&apos;s ZIP code
               |  
-              input.form-control(name='studentZIPCode', autocomplete='postal-code', type='text', maxlength='10', disabled='disabled', placeholder="Student's ZIP code")
+              input.form-control(name='recipientZipCode', ng-model='$ctrl.billing.recipientZipCode', autocomplete='postal-code', type='text', maxlength='10', disabled='disabled', placeholder="Recipient's ZIP code")
               |  
               span(style='display:none;') Please provide the student&apos;s ZIP code.
             .form-group
-              label.sr-only Student&apos;s email address
+              label.sr-only Recipient&apos;s email address
               |  
-              input.form-control(name='studentEmail', autocomplete='email', type='email', maxlength='80', disabled='disabled', placeholder="Student's email address")
+              input.form-control(name='recipientEmail', ng-model='$ctrl.billing.recipientEmail', autocomplete='email', type='email', maxlength='80', disabled='disabled', placeholder="Recipient's email address")
               |  
               span(style='display:none;') Please provide the student&apos;s email address.
               |  
               span(style='display:none;') Please supply a valid email address for the student.
             .form-group
-              label.sr-only Student&apos;s phone
+              label.sr-only Recipient&apos;s phone
               |  
-              input.form-control(name='studentPhone', autocomplete='tel', type='tel', maxlength='14', disabled='disabled', placeholder="Student's phone")
+              input.form-control(name='recipientPhone', ng-model='$ctrl.billing.recipientEmail', autocomplete='tel', type='tel', maxlength='14', disabled='disabled', placeholder="Student's phone")
               |  
-              span(style='display:none;') Please provide the student&apos;s phone number.
+              span(style='display:none;') Please provide the recipient&apos;s phone number.
           |  
           span.aspNetDisabled(disabled='disabled')
             span.aspNetDisabled
-              input(type='radio', name='methodToSend', value='Mail gift card to Purchaser', disabled='disabled')
-              label(for='methodToSend_0') Mail gift card to Purchaser
+              input(type='radio', name='methodToSend', ng-model='$ctrl.billing.methodToSend', value='Mail gift card to Purchaser', disabled='disabled')
+              label(for='methodToSend_0') Mail gift card to purchaser
             br
             span.aspNetDisabled
-              input(type='radio', name='methodToSend', value='Mail gift card to Student', disabled='disabled')
-              label(for='methodToSend_1') Mail gift card to Student
+              input(type='radio', name='methodToSend', ng-model='$ctrl.billing.methodToSend', value='Mail gift card to Student', disabled='disabled')
+              label(for='methodToSend_1') Mail gift card to recipient
             br
             span.aspNetDisabled
-              input(type='radio', name='methodToSend', value='Email gift card to Student', disabled='disabled')
-              label(for='methodToSend_2') Email gift card to Student
+              input(type='radio', name='methodToSend', ng-model='$ctrl.billing.methodToSend', value='Email gift card to Student', disabled='disabled')
+              label(for='methodToSend_2') Email gift card to recipient
             br
             span.aspNetDisabled
-              input(type='radio', name='methodToSend', value="Apply credit to Student's account (default)", checked='checked', disabled='disabled')
-              label(for='methodToSend_3') Apply credit to Student&apos;s account (default)
+              input(type='radio', name='methodToSend', ng-model='$ctrl.billing.methodToSend', value="Apply credit to Student's account (default)", checked='checked', disabled='disabled')
+              label(for='methodToSend_3') Apply credit to recipient&apos;s account (default)
           br
           br
           p

@@ -43,15 +43,6 @@ export class Cart {
     }
     this.saveToStorage();
     this.$location.path('/cart');
-    /*
-    this.$log.info({
-      cartItems: this.cartItems,
-      total: this.getTotalCost(),
-      uniqueItems: this.getTotalUniqueItems(),
-      numberOfItems: this.getTotalItems(),
-      isEmpty: this.isEmpty()
-    });
-    */
   }
 
   // Iterate through cartItems and get total
