@@ -38,6 +38,17 @@ export class CartController {
     this.checkOutInfo.methodToSend = 'Apply credit to recipient\'s account (default)';
   }
 
+  // Evaluate the quantity entered
+  updateQuantity(oldValue, cartItem) {
+    let quantity = cartItem.quantity;
+    this.$log.info(quantity);
+    if(quantity === undefined) {
+      this.$log.info('Must prevent this change');
+      cartItem.quantity = oldValue;
+    }
+    this.Cart.saveToStorage();
+  }
+
   // Go to previous page
   keepShopping() {
     this.$window.history.back();

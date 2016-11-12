@@ -7,9 +7,10 @@ export function IntegerOnly() {
     restrict: 'A',
     link: (scope, element, attrs) => {
       element.on('keypress', event => {
-        let typedCharacter = String.fromCharCode(event.which);
+        let typedCharacter = String.fromCharCode(event.keyCode);
         console.log(typedCharacter);
         console.log(attrs);
+        console.log(event);
         let isInteger = /[0-9]|-/.test(typedCharacter);
         if(!isInteger) event.preventDefault();
       });
