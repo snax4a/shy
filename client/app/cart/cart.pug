@@ -124,36 +124,44 @@
               .form-group
                 label.sr-only Recipient&apos;s first name
                 input#recipientFirstName.form-control(name='recipientFirstName', ng-model='$ctrl.checkOutInfo.recipientFirstName', required='', type='text', maxlength='14', placeholder="Recipient's first name")
-                span.has-error(style='display:none;') Please provide the recipient&apos;s first name.
+                .has-error(ng-messages='checkout.recipientFirstName.$error', ng-show='checkout.recipientFirstName.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s first name.
               .form-group
                 label.sr-only Recipient&apos;s last name
                 input.form-control(name='recipientLastName', ng-model='$ctrl.checkOutInfo.recipientLastName', required='', type='text', maxlength='20', placeholder="Recipient's last name")
-                span.has-error(style='display:none;') Please provide the recipient&apos;s last name.
+                .has-error(ng-messages='checkout.recipientLastName.$error', ng-show='checkout.recipientLastName.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s last name.
               .form-group
                 label.sr-only Recipient&apos;s address
                 input.form-control(name='recipientAddress', ng-model='$ctrl.checkOutInfo.recipientAddress', required='', type='text', maxlength='255', placeholder="Recipient's address")
-                span.has-error(style='display:none;') Please provide the recipient&apos;s street address.
+                .has-error(ng-messages='checkout.recipientAddress.$error', ng-show='checkout.recipientAddress.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s street address.
               .form-group
                 label.sr-only Recipient&apos;s city
                 input.form-control(name='recipientCity', ng-model='$ctrl.checkOutInfo.recipientCity', required='', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
-                span.has-error(style='display:none;') Please provide the recipient&apos;s city.
+                .has-error(ng-messages='checkout.recipientCity.$error', ng-show='checkout.recipientCity.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s city.
               .form-group
                 label.sr-only Recipient&apos;s state
-                select.form-control(name='recipientState', ng-model='$ctrl.checkOutInfo.recipientState', required='', autocomplete='address-level1')
-                  option(ng-repeat='state in $ctrl.states') {{ state }}
+                select.form-control(name='recipientState', ng-options='state for state in $ctrl.states', ng-model='$ctrl.checkOutInfo.recipientState', required='', autocomplete='address-level1')
+                .help-block.has-error(ng-messages='checkout.recipientState.$error', ng-show='checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s state.
               .form-group
                 label.sr-only Recipient&apos;s ZIP code
                 input.form-control(name='recipientZipCode', ng-model='$ctrl.checkOutInfo.recipientZipCode', required='', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
-                span(style='display:none;') Please provide the recipient&apos;s ZIP code.
+                .has-error(ng-messages='checkout.recipientZipCode.$error', ng-show='checkout.recipientZipCode.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s ZIP code.
               .form-group
                 label.sr-only Recipient&apos;s email address
                 input.form-control(name='recipientEmail', ng-model='$ctrl.checkOutInfo.recipientEmail', required='', type='email', maxlength='80', placeholder="Recipient's email address")
-                span(style='display:none;') Please provide the student&apos;s email address.
-                span(style='display:none;') Please supply a valid email address for the student.
+                .has-error(ng-messages='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s email address.
+                  div(ng-message='email') Please supply a valid email address for the recipient.
               .form-group
                 label.sr-only Recipient&apos;s phone
                 input.form-control(name='recipientPhone', ng-model='$ctrl.checkOutInfo.recipientPhone', required='', type='tel', maxlength='14', placeholder="Recipient's phone")
-                span(style='display:none;') Please provide the recipient&apos;s phone number.
+                .has-error(ng-messages='checkout.recipientPhone.$error', ng-show='checkout.recipientPhone.$dirty', role='alert')
+                  div(ng-message='required') Please provide the recipient&apos;s phone number.
               p 
                 b How to apply the credit
               .form-group
