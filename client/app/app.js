@@ -40,7 +40,6 @@ import daytodate from '../components/daytodate/daytodate.filter';
 
 // Directives
 import tweet from '../components/tweet/tweet.directive';
-import integeronly from '../components/integeronly/integeronly.directive';
 
 // SASS styling
 import './app.scss';
@@ -48,7 +47,7 @@ import './app.scss';
 // Inject everything into shyApp
 angular.module('shyApp', [uiRouter, uiBootstrap, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-  htmlid, daytodate, tweet, integeronly, CartModule])
+  htmlid, daytodate, tweet, CartModule])
   .config(routeConfig);
 
 // Load shyApp
