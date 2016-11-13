@@ -47,6 +47,7 @@ export class Cart {
 
   // Iterate through cartItems and get total
   // Use PayPal Payflow Pro (or Braintree) to capture transaction
+  // In the CartController, we'll need to unhide the order confirmation (if successful)
   placeOrder() {
     this.$log.info('Placing order...');
 
