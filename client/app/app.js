@@ -1,14 +1,12 @@
 'use strict';
 
 import angular from 'angular';
+import ngMessages from 'angular-messages';
 
 // Modules
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import CartModule from '../components/cartmodule/cart.module';
-
-// Disabled modules
-// import ngMessages from 'angular-messages'; // used for validation error messages
 
 // Config for module
 import { routeConfig } from './app.config';
@@ -45,7 +43,7 @@ import tweet from '../components/tweet/tweet.directive';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [uiRouter, uiBootstrap, navbar, banner, footer,
+angular.module('shyApp', [uiRouter, uiBootstrap, ngMessages, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
   htmlid, daytodate, tweet, CartModule])
   .config(routeConfig);

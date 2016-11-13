@@ -6,6 +6,7 @@
   "dependencies": {
     "angular": "~1.5.8",
     "angular-aria": "~1.5.8",
+    "angular-messages": "^1.5.8",
     "angular-ui-bootstrap": "~2.2.0",
     "angular-ui-router": "~0.3.2",
     "babel-polyfill": "^6.16.0",

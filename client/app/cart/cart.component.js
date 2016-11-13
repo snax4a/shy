@@ -41,7 +41,7 @@ export class CartController {
   // Update the quantity only if it's an acceptable value
   updateQuantity(oldValue, cartItem) {
     if(cartItem.quantity === undefined) {
-      cartItem.quantity = parseInt(oldValue, 10);
+      cartItem.quantity = parseInt(oldValue, 10); // revert and don't saveToStorage()
     } else this.Cart.saveToStorage();
   }
 
