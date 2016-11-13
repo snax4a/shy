@@ -15,6 +15,7 @@ import { routeConfig } from './app.config';
 import navbar from '../components/navbar/navbar.component';
 import banner from '../components/banner/banner.component';
 import footer from '../components/footer/footer.component';
+import tweet from '../components/tweet/tweet.component';
 
 // General components
 import util from '../components/util/util.module';
@@ -35,9 +36,6 @@ import termsPage from './terms/terms.component';
 import upcoming from '../components/upcoming/upcoming.filter';
 import htmlid from '../components/htmlid/htmlid.filter';
 import daytodate from '../components/daytodate/daytodate.filter';
-
-// Directives
-import tweet from '../components/tweet/tweet.component';
 
 // SASS styling
 import './app.scss';
