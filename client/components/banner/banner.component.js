@@ -10,7 +10,7 @@ export class BannerController {
   }
 }
 
-export default angular.module('directives.banner', [])
+export default angular.module('shyApp.banner', [])
   .component('banner', {
     template: require('./banner.pug'),
     controller: BannerController

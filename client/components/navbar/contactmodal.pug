@@ -5,32 +5,29 @@ form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidat
   .modal-body
     .form-group
       label.sr-only(for='firstname') First name
-      |  
-      input.form-control(name='firstname', ng-model='$ctrl.contact.firstname', type='text', maxlength='20', autofocus='', placeholder='First name', required='')
-      |  
-      span.has-error(ng-if='!contactform.firstname.$valid && contactform.$submitted') Please provide your first name.
+      input.form-control(name='firstname', focusme='', autofocus='', ng-model='$ctrl.contact.firstname', type='text', maxlength='20', placeholder='First name', required='')
+      .help-block.has-error(ng-messages='contactform.firstname.$error', ng-show='contactform.firstname.$dirty || contactform.$submitted', role='alert')
+        div(ng-message='required') Please provide your first name.
     .form-group
       label.sr-only(for='lastname') Last name
-      |  
       input.form-control(name='lastname', ng-model='$ctrl.contact.lastname', type='text', maxlength='20', placeholder='Last name', required='')
-      |  
-      span.has-error(ng-if='!contactform.lastname.$valid && contactform.$submitted') Please provide your last name.
+      .help-block.has-error(ng-messages='contactform.lastname.$error', ng-show='contactform.lastname.$dirty || contactform.$submitted', role='alert')
+        div(ng-message='required') Please provide your last name.
     .form-group
       label.sr-only(for='email') Email address
-      |  
       input.form-control(name='email', ng-model='$ctrl.contact.email', type='email', maxlength='80', placeholder='Email (optional)')
-      |  
-      span.has-error(ng-if='!contactform.email.$valid && contactform.$submitted') Please supply a valid email address.
+      .help-block.has-error(ng-messages='contactform.email.$error', ng-show='contactform.email.$dirty || contactform.$submitted', role='alert')
+        div(ng-message='required') Please supply an email address.
+        div(ng-message='email') Please supply a valid email address.
     .form-group
       label.sr-only(for='question') Question or comment
       textarea.form-control(name='question', ng-model='$ctrl.contact.question', rows='5', cols='20', placeholder='Your question or comment', required='')
-      |  
-      span.has-error(ng-if='!contactform.question.$valid && contactform.$submitted') Please provide a question or comment.
+      .help-block.has-error(ng-messages='contactform.question.$error', ng-show='contactform.question.$dirty || contactform.$submitted', role='alert')
+        div(ng-message='required') Please provide a question or comment.
     .checkbox
       label
         input(type='checkbox', name='optout', ng-model='$ctrl.contact.optout')
-        |  Do not subscribe to newsletter
+        | Do not subscribe to newsletter
   .modal-footer
     button.btn.btn-default(type='button', id='cancelButton' ng-click='$dismiss()') Cancel
-    |  
     button.btn.btn-warning(type='submit', id='submitButton') Submit

@@ -5,11 +5,13 @@
       form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-if='!$ctrl.subscribed')
         .form-group
           label.sr-only(for='email') Email address
-          label.has-error(for='email', ng-show='!subscriberform.email.$valid && $ctrl.submitted') Please provide a valid email address.
+          .help-block.has-error(ng-messages='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
+            div(ng-message='required') Please provide an email address.
+            div(ng-message='email') Please provide a valid email address.
           .input-group
             input.form-control(name='email', ng-model='$ctrl.subscriberEmail', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
             .input-group-btn
-                  input.btn.btn-warning(type='submit', value='Subscribe')
+              input.btn.btn-warning(type='submit', value='Subscribe')
       p(ng-if='$ctrl.subscribed') Thanks for subscribing to our newsletter.
   hr(ng-repeat-start='workshop in $ctrl.data | upcoming')
   .row

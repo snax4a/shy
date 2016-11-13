@@ -33,7 +33,7 @@ export class NavbarController {
   }
 
   contactModalOpen() {
-    var modalDialog = this.$uibModal.open({
+    let modalDialog = this.$uibModal.open({
       template: require('./contactmodal.pug'),
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
@@ -49,21 +49,26 @@ export class NavbarController {
 
 export class ModalInstanceController {
   /*@ngInject*/
-  constructor($uibModalInstance) {
+  constructor($log, $uibModalInstance, $window) {
+    this.$log = $log;
     this.$uibModalInstance = $uibModalInstance;
+    this.$window = $window;
+    this.contact = {};
+    // let fieldToGetFocus = this.$window.document.getElementById('firstname');
+    // fieldToGetFocus.focus();
   }
 
   submitContact(form) {
     // Now we have the form data in this.contact
     if(form.$valid) {
       // Implement HTTP PUT to server
-      console.log(this.contact);
+      this.$log.info(this.contact);
       this.$uibModalInstance.close();
     }
   }
 }
 
-export default angular.module('directives.navbar', [])
+export default angular.module('shyApp.navbar', [])
   .component('navbar', {
     template: require('./navbar.pug'),
     controller: NavbarController
