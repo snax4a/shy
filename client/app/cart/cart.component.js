@@ -15,8 +15,8 @@ export class CartController {
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
     this.checkOutInfo = {
-      ccExpMonth: 'Month',
-      ccExpYear: 'Year',
+      ccExpMonth: '',
+      ccExpYear: '',
       state: 'PA',
       recipientState: 'PA'
     };
