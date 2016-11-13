@@ -37,7 +37,7 @@ import htmlid from '../components/htmlid/htmlid.filter';
 import daytodate from '../components/daytodate/daytodate.filter';
 
 // Directives
-import tweet from '../components/tweet/tweet.directive';
+import tweet from '../components/tweet/tweet.component';
 
 // SASS styling
 import './app.scss';

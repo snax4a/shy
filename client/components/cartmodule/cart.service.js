@@ -47,7 +47,7 @@ export class Cart {
 
   // Iterate through cartItems and get total
   // Use PayPal Payflow Pro (or Braintree) to capture transaction
-  checkout() {
+  placeOrder() {
     this.$log.info('Placing order...');
 
     // Once the order is successfully placed, clear the cart

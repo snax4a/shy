@@ -1,31 +1,31 @@
 [
 	{
-		"expires": "2016-11-11T20:00:00.000-04:00",
+		"expires": "2017-02-10T20:00:00.000-04:00",
 		"title": "Moon Salutations with Kendell Romanelli",
 		"image": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
 		"sections":
 		[
 			{
-				"title": "The Harvest Moon: Welcoming the Abundance of Fall",
-				"start": "2016-09-16T18:30:00.000-04:00",
-				"expires": "2016-09-16T20:00:00.000-04:00",
+				"title": "The Winter Solstice Cold Moon",
+				"start": "2016-12-16T18:30:00.000-05:00",
+				"expires": "2016-12-16T20:00:00.000-05:00",
 				"productID": 9,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
-				"title": "The Moon of Falling Leaves: Releasing What We No Longer Need",
-				"start": "2016-10-14T18:30:00.000-04:00",
-				"expires": "2016-10-14T20:00:00.000-04:00",
+				"title": "The Quiet Wolf Moon",
+				"start": "2017-01-13T18:30:00.000-04:00",
+				"expires": "2017-01-13T20:00:00.000-04:00",
 				"productID": 10,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
-				"title": "The Frost Moon: Finding Peace and Light Within",
-				"start": "2016-11-11T18:30:00.000-05:00",
-				"expires": "2016-11-11T20:00:00.000-05:00",
+				"title": "The Snow Moon",
+				"start": "2017-02-10T18:30:00.000-04:00",
+				"expires": "2017-02-10T20:00:00.000-04:00",
 				"productID": 11,
 				"cost": 20,
 				"location": "North Hills"
