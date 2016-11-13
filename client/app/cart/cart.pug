@@ -2,37 +2,39 @@
   h2 Shopping Cart
   .row
     .col-md-6
-      .panel.panel-default(aria-labelledby='cartPanelTitle')
-        .panel-heading
-          #cartPanelTitle.panel-title {{ $ctrl.Cart.getTotalItems() }} Items in your cart
-        .panel-body
-          table.table.table-hover.table-striped
-            thead
-              tr
-                th.what-column What
-                th Each
-                th &nbsp;&nbsp;&nbsp;Qty
-                th.extd Amount
-                th &nbsp;
-            tbody
-              tr(ng-show='$ctrl.Cart.isEmpty()')
-                td(colspan='4') There are no items in your cart.
-              tr(ng-repeat='cartItem in $ctrl.Cart.cartItems track by $index')
-                td.what.vert-align {{ cartItem.name }}
-                td.vert-align {{ cartItem.price | currency:"$":0 }}
-                td.vert-align
-                  input.form-control.qty(ng-model='cartItem.quantity', ng-change="$ctrl.updateQuantity('{{ cartItem.quantity }}', cartItem)", name='quantity', type='number', maxlength='2', min='1', max='20', required='', step='1')
-                td.extd.vert-align {{ cartItem.getTotal() | currency:"$":0 }}
-                td.vert-align
-                  a(ng-click='$ctrl.Cart.removeItem($index)')
-                    span.glyphicon.glyphicon-trash.pull-right.has-error
-            tfoot
-              tr
-                td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
-        .panel-footer
-          input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
-          input.btn.btn-warning.pull-right(ng-click='$ctrl.checkOut()', type='submit', name='checkOut', value='Check Out »')
+      form(name='cart')
+        .panel.panel-default(aria-labelledby='cartPanelTitle')
+          .panel-heading
+            #cartPanelTitle.panel-title {{ $ctrl.Cart.getTotalItems() }} Items in your cart
+          .panel-body
+            table.table.table-hover.table-striped
+              thead
+                tr
+                  th.what-column What
+                  th Each
+                  th &nbsp;&nbsp;&nbsp;Qty
+                  th.extd Amount
+                  th &nbsp;
+              tbody
+                tr(ng-show='$ctrl.Cart.isEmpty()')
+                  td(colspan='4') There are no items in your cart.
+                tr(ng-repeat='cartItem in $ctrl.Cart.cartItems track by $index')
+                  td.what.vert-align {{ cartItem.name }}
+                  td.vert-align {{ cartItem.price | currency:"$":0 }}
+                  td.vert-align
+                    input.form-control.qty(ng-model='cartItem.quantity', ng-change="$ctrl.updateQuantity('{{ cartItem.quantity }}', cartItem)", name='quantity', type='number', maxlength='2', min='1', max='20', required='', step='1')
+                  td.extd.vert-align {{ cartItem.getTotal() | currency:"$":0 }}
+                  td.vert-align
+                    a(ng-click='$ctrl.Cart.removeItem($index)')
+                      span.glyphicon.glyphicon-trash.pull-right.has-error
+              tfoot
+                tr
+                  td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
+          .panel-footer
+            input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
+            input.btn.btn-warning.pull-right(ng-click='$ctrl.checkOut()', type='button', name='checkOut', value='Check Out »')
     .col-md-6
+      form(name='checkout')
       .panel.panel-default(aria-labelledby='paymentPanelTitle')
         .panel-heading
           #paymentPanelTitle.panel-title Checkout
@@ -41,7 +43,12 @@
             b Payment information
           .form-group
             label.sr-only Credit card number
-            input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.checkOutInfo.ccNumber', autocomplete='cc-number', required='', type='text', maxlength='16', placeholder='Debit/credit card number')
+            input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.checkOutInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', autocomplete='cc-number', required='', type='text', maxlength='19', placeholder='Debit/credit card number')
+            div.has-error(ng-messages='checkout.ccNumber.$error')
+              div(ng-message='required') Please provide card number.
+              div(ng-message='minlength') Card number must at least 15 numbers.
+              div(ng-message='maxlength') Card number must no more than 19 numbers.              
+              div(ng-message='pattern') Card number must be numbers only.
             span.has-error(style='display:none;') Please provide card number.
             span.has-error(style='display:none;') Please supply a valid card number.
           .form-group
@@ -90,6 +97,9 @@
           .form-group
             label.sr-only Email address
             input.form-control(name='email', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.checkOutInfo.email', required='', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
+            div(ng-messages='checkout.email.$error')
+              div.has-error(ng-message='required') Please provide the cardholder&apos;s email address.
+              div.has-error(ng-message='email') Please supply a valid email address for the cardholder.
             span.has-error(style='display:none;') Please provide the cardholder&apos;s email address.
             span.has-error(style='display:none;') Please supply a valid email address for the cardholder.
           .form-group

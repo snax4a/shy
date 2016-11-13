@@ -6,8 +6,8 @@ payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to 
 of newsletter subscribers, it uses a Google Docs Spreadsheet. Credit card information is
 intentionally not retained.
 
-The website is under construction. Most of the work that remains is around completing the billing and
-shipping info on the shopping cart and building the server API.
+The website is under construction. Most of the work that remains is around validation during checkout,
+the order confirmation and building the server API.
 
 The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. Most of the angularJS
 code is ready to move to 2.0.
