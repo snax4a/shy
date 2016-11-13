@@ -5,7 +5,8 @@ import angular from 'angular';
 
 export class NavbarController {
   /*@ngInject*/
-  constructor($uibModal, Cart) {
+  constructor($log, $uibModal, Cart) {
+    this.$log = $log;
     this.$uibModal = $uibModal;
     this.Cart = Cart;
     this.menu = [
@@ -41,8 +42,8 @@ export class NavbarController {
       controller: ModalInstanceController
     });
     // Stub for anything that needs to happen after closing dialog
-    modalDialog.result.then(function() {
-      console.log('Closed dialog.');
+    modalDialog.result.then(() => {
+      this.$log.info('Closed dialog.');
     });
   }
 }

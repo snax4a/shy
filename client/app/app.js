@@ -38,16 +38,13 @@ import upcoming from '../components/upcoming/upcoming.filter';
 import htmlid from '../components/htmlid/htmlid.filter';
 import daytodate from '../components/daytodate/daytodate.filter';
 
-// Directives
-import focusme from '../components/focusme/focusme.directive';
-
 // SASS styling
 import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngMessages, uiRouter, uiBootstrap, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-  htmlid, daytodate, tweet, CartModule, focusme])
+  htmlid, daytodate, tweet, CartModule])
   .config(routeConfig);
 
 // Load shyApp
