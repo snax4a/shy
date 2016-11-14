@@ -1,7 +1,8 @@
-- Build Billing and Shipping section on Cart page
+- Build confirmation section on Cart page
 - Consider wrapping main page's sections in .col-md-6 so that they'll wrap
 - Build server API for Contact, Subscribe, and Checkout
 - Connect Contact modal to Contact method (including validation)
 - Connect Subscribe on Workshops to Subscribe method (including validation)
 - Connect Checkout to Cart Checkout method
 - Add google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info
+- Maybe revisit how I create the tweet button (use JavaScript instead of HTML)

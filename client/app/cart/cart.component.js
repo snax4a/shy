@@ -87,6 +87,8 @@ export class CartController {
   // Initiate the order process
   placeOrder() {
     this.$log.info(this.checkOutInfo);
+    // Don't forget that if we clear the Cart once the order is placed, there won't be a list of cartItems for the
+    // order confirmation. Need to pass that list of items back in the response from the server.
     //this.Cart.placeOrder(this.checkOutInfo);
   }
 }
