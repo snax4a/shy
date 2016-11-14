@@ -33,7 +33,7 @@
                   td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
           .panel-footer
             input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
-            input.btn.btn-warning.pull-right(ng-click='$ctrl.checkOut()', type='button', name='checkOut', value='Check Out »')
+            input.btn.btn-warning.pull-right(ng-click='$ctrl.checkOut()', type='button', name='checkOut', value='Check Out »', ng-disabled='$ctrl.Cart.isEmpty()')
     .col-md-6
       form(name='checkout', ng-submit='', novalidate='')
         .panel.panel-default(aria-labelledby='paymentPanelTitle')
@@ -175,6 +175,6 @@
                 label(for='methodToSend_2') Email gift card to recipient
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
-            input.btn.btn-warning.pull-right(type='submit', ng-click='$ctrl.placeOrder()', name='placeOrder', value='Place Order')
+            input.btn.btn-warning.pull-right(type='submit', ng-click='$ctrl.placeOrder()', name='placeOrder', value='Place Order', ng-disabled='$ctrl.Cart.isEmpty()')
             br
             br
