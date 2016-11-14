@@ -4,19 +4,21 @@ import routes from './workshops.routes';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($http, $timeout) {
+  constructor($http, $timeout, $window) {
     this.$http = $http;
     this.$timeout = $timeout;
+    this.$window = $window;
     this.subscriberEmail = '';
     this.submitted = false;
     this.subscribed = false;
   }
 
   $onInit() {
-    // Wait for Twitter widgets to load
-    this.$timeout(function() {
-      window.twttr.widgets.load();
-    }, 250);
+    // Wait for Twitter widgets to load (visual flash - hate it)
+    this.$timeout(() => {
+      this.$window.twttr.widgets.load();
+    }, 50);
+
     // Load the workshops from the JSON file
     this.$http.get('/assets/data/workshops.json')
       .then(response => {

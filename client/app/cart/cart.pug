@@ -5,7 +5,8 @@
       form(name='cart', novalidate='')
         .panel.panel-default(aria-labelledby='cartPanelTitle')
           .panel-heading
-            #cartPanelTitle.panel-title {{ $ctrl.Cart.getTotalItems() }} Items in your cart
+            #cartPanelTitle.panel-title 
+              ng-pluralize(count='$ctrl.Cart.getTotalItems()', when="{'0': 'No items in your cart', '1': '1 item in your cart','other': '{{ $ctrl.Cart.getTotalItems() }} items in your cart'}")
           .panel-body
             table.table.table-hover.table-striped
               thead
@@ -22,7 +23,7 @@
                   td.what.vert-align {{ cartItem.name }}
                   td.vert-align {{ cartItem.price | currency:"$":0 }}
                   td.vert-align
-                    input.form-control.qty(ng-model='cartItem.quantity', ng-change="$ctrl.updateQuantity('{{ cartItem.quantity }}', cartItem)", name='quantity', type='number', maxlength='2', min='1', max='20', required='', step='1')
+                    input.form-control.qty(ng-model='cartItem.quantity', ng-change="$ctrl.updateQuantity('{{ cartItem.quantity }}', cartItem)", name='quantity', type='number', maxlength='2', min='1', max='10', required='', step='1')
                   td.extd.vert-align {{ cartItem.getTotal() | currency:"$":0 }}
                   td.vert-align
                     a(ng-click='$ctrl.Cart.removeItem($index)')
