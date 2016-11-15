@@ -1,8 +1,8 @@
-- Build confirmation section on Cart page
-- Consider wrapping main page's sections in .col-md-6 so that they'll wrap
-- Build server API for Contact, Subscribe, and Checkout
-- Connect Contact modal to Contact method (including validation)
-- Connect Subscribe on Workshops to Subscribe method (including validation)
-- Connect Checkout to Cart Checkout method
-- Add google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info
+High
+- Server /subscribe with google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info
+- Server /contact method (leverages /subscribe and nodemailer)
+- Server /placeorder method with PayPal PayFlow Pro or Braintree
+
+Low/cosmetic
 - Maybe revisit how I create the tweet button (use JavaScript instead of HTML)
+- Consider wrapping main page's sections in .col-md-6 so that they'll wrap

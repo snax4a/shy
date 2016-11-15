@@ -4,38 +4,67 @@ import routes from './cart.routes';
 
 export class CartController {
   /*@ngInject*/
-  constructor($log, $window, ProductList, Cart) {
+  constructor($log, $window, $timeout, ProductList, Cart) {
     this.$log = $log;
     this.$window = $window;
+    this.$timeout = $timeout;
+    this.pageName = '';
     // These have to be set here and not $onInit()
     this.products = ProductList.products;
     this.Cart = Cart;
+    this.confirmation = {};
+    this.confirmation.purchaser = {};
+    this.confirmation.recipient = {};
+    this.confirmation.cartItems = [];
   }
 
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
-    this.checkOutInfo = {
-      ccExpMonth: '',
-      ccExpYear: '',
-      state: 'PA',
-      recipientState: 'PA'
+    this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
+    // TESTING DATA needs to be removed before go-live
+    this.paymentInfo = {
+      ccNumber: '4111111111111111',
+      ccExpMonth: 12,
+      ccExpYear: 2020,
+      ccCSC: 656
     };
+    this.purchaser = {
+      firstName: 'John',
+      lastName: 'Doe',
+      address: '123 Main Street',
+      city: 'Pittsburgh',
+      state: 'PA',
+      zipCode: '15222',
+      email: 'jdoe@gmail.com',
+      phone: '412-555-1212',
+    };
+    // Copy initial purchaser values to recipient
+    this.recipient = {};
+    angular.copy(this.purchaser, this.recipient);
+
+    // Dynamically link controller objects to the Cart
+    this.Cart.paymentInfo = this.paymentInfo;
+    this.Cart.purchaser = this.purchaser;
+    this.Cart.recipient = this.recipient;
+
+    // Populate the months array
     this.months = [];
     for(let i = 1; i < 13; i++) {
       this.months.push(i);
     }
+    // Populate the years array
     this.years = [];
     let currentYear = new Date().getFullYear();
     for(let i = currentYear; i < currentYear + 10; i++) {
       this.years.push(i);
     }
-    // Not needed elsewhere so avoid separate JSON file
+    // Populate states array - not needed elsewhere so avoid separate JSON file
     this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI',
       'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH', 'MI', 'MN', 'MO', 'MS',
       'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'PW',
       'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
-    this.checkOutInfo.forSomeoneElse = false;
-    this.checkOutInfo.methodToSend = 'Apply credit to recipient\'s account (default)';
+    this.Cart.forSomeoneElse = false;
+    this.Cart.methodToSend = 'Apply credit to recipient\'s account (default)';
   }
 
   // Update the quantity only if it's an acceptable value
@@ -59,37 +88,56 @@ export class CartController {
 
   // As we enter the billing info, copy to recipient fields
   updateRecipient() {
-    if(!this.checkOutInfo.forSomeoneElse) {
-      this.checkOutInfo.recipientFirstName = this.checkOutInfo.ccFirstName;
-      this.checkOutInfo.recipientLastName = this.checkOutInfo.ccLastName;
-      this.checkOutInfo.recipientAddress = this.checkOutInfo.streetAddress;
-      this.checkOutInfo.recipientCity = this.checkOutInfo.city;
-      this.checkOutInfo.recipientState = this.checkOutInfo.state;
-      this.checkOutInfo.recipientZipCode = this.checkOutInfo.zipCode;
-      this.checkOutInfo.recipientEmail = this.checkOutInfo.email;
-      this.checkOutInfo.recipientPhone = this.checkOutInfo.phone;
-    }
+    if(!this.Cart.forSomeoneElse) angular.copy(this.purchaser, this.recipient);
   }
 
   // Handle when the order has a different recipient
   forSomeoneElse() {
     // Clear fields that must be different (leave last name in case family member)
-    this.checkOutInfo.recipientFirstName = '';
-    this.checkOutInfo.recipientEmail = '';
-    this.checkOutInfo.recipientPhone = '';
+    this.recipient.firstName = '';
+    this.recipient.email = '';
+    this.recipient.phone = '';
 
-    // This will not work because the disabled state of the fieldset interferes
-    // Set focus to recipientFirstName
+    // Set focus to recipientFirstName using $timeout (because fields are disabled now)
     let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
-    fieldToGetFocus.focus();
+    this.$timeout(() => {
+      fieldToGetFocus.focus();
+    }, 50);
   }
 
   // Initiate the order process
-  placeOrder() {
-    this.$log.info(this.checkOutInfo);
-    // Don't forget that if we clear the Cart once the order is placed, there won't be a list of cartItems for the
-    // order confirmation. Need to pass that list of items back in the response from the server.
-    //this.Cart.placeOrder(this.checkOutInfo);
+  placeOrder(form) {
+    if(form.$valid) {
+      // Attempt to process the payment via PayPal or braintree and set orderProcessed appropriately
+      // this.Cart.placeOrder(); // for the real processing
+      let orderProcessed = true; // for testing only
+      if(orderProcessed) {
+        this.pageName = 'Order Confirmation';
+        // Confirmation will come from the server once this is real
+        // TEST DATA ONLY to mess around with the view
+        this.confirmation.orderNumber = 'BL0PDFDF348D';
+        this.confirmation.placedOn = new Date().toLocaleString('en-US');
+        this.confirmation.ccNumber = `**** **** **** ${this.paymentInfo.ccNumber.slice(-4)}`;
+        this.confirmation.forSomeoneElse = this.Cart.forSomeoneElse;
+        this.confirmation.methodToSend = this.Cart.methodToSend;
+        this.confirmation.instructions = this.Cart.instructions;
+        angular.copy(this.purchaser, this.confirmation.purchaser);
+        angular.copy(this.recipient, this.confirmation.recipient);
+        angular.copy(this.Cart.cartItems, this.confirmation.cartItems);
+        this.confirmation.grandTotal = this.Cart.getTotalCost();
+        this.$log.info(this.confirmation);
+        // Need to use a property to ng-show the order confirmation row while hiding the other one
+        // Clear the cartItems
+        this.Cart.clearCartItems();
+        // Clear credit card fields (or possibly other children of this.Cart)
+        // this.paymentInfo = {}; // only if super-paranoid
+        form.$setPristine(); // treat the fields as untouched
+      } else {
+        this.$log.info('Order Error: whatever');
+        this.pageName = 'Shopping Cart'; // changes view back
+        // Put the error in the credit card number area (ng-message='paymentgateway')
+      }
+    }
   }
 }
 

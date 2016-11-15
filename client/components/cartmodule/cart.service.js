@@ -22,6 +22,11 @@ export class Cart {
     this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
     this.cartItems = [];
+    this.paymentInfo = {
+      ccNumber: '3839476385937493'
+    };
+    this.purchaser = {};
+    this.recipient = {};
   }
 
   // Clear the cartItems during checkout()

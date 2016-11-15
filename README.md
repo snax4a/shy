@@ -1,16 +1,15 @@
 # Schoolhouse Yoga Website
 
-This yoga school website is built using angularJS 1.5.x, expressJS, and nodeJS (MEAN minus Mongo).
+This yoga school website is built using angularJS 1.5.8, expressJS, and nodeJS (MEAN w/o Mongo).
 All JavaScript is ES6 via babel. It includes a shopping cart (loosely based on ngCart) and will be processing
 payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
 of newsletter subscribers, it uses a Google Docs Spreadsheet. Credit card information is
 intentionally not retained.
 
-The website is under construction. Most of the work that remains is around validation during checkout,
-the order confirmation and building the server API.
+The website is under construction. Most of the work that remains is implementing the server API.
 
-The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. Most of the angularJS
-code is ready to move to 2.0.
+The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. The angularJS
+components are ready for migration to 2.0.
 
 ## Getting Started
 
