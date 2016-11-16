@@ -163,17 +163,17 @@
               p 
                 b How to apply the credit
               .form-group
-                input(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value="Apply credit to recipient's account (default)") 
-                label(for='methodToSend_3') Apply credit to recipient&apos;s account (default)
+                input#methodToSend0(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value="Apply credit to recipient's account (default)") 
+                label(for='methodToSend0') Apply credit to recipient&apos;s account (default)
                 br
-                input(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Mail gift card to purchaser') 
-                label(for='methodToSend_0') Mail gift card to purchaser
+                input#methodToSend1(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Mail gift card to purchaser') 
+                label(for='methodToSend1') Mail gift card to purchaser
                 br
-                input(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Mail gift card to recipient') 
-                label(for='methodToSend_1') Mail gift card to recipient
+                input#methodToSend2(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Mail gift card to recipient') 
+                label(for='methodToSend2') Mail gift card to recipient
                 br
-                input(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Email gift card to recipient') 
-                label(for='methodToSend_2') Email gift card to recipient
+                input#methodToSend3(type='radio', name='methodToSend', ng-model='$ctrl.Cart.methodToSend', value='Email gift card to recipient') 
+                label(for='methodToSend3') Email gift card to recipient
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
             input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='$ctrl.Cart.isEmpty()')
