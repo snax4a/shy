@@ -1,7 +1,8 @@
 High
+- Server / mail sending from /subscribe, /contact and /order
 - Server /subscribe with google-spreadsheet (https://www.npmjs.com/package/google-spreadsheet) to project to take subscriber info
 - Server /contact method (leverages /subscribe and nodemailer)
-- Server /placeorder method with PayPal PayFlow Pro or Braintree
+- Server /order method with PayPal PayFlow Pro or Braintree
 
 Low/cosmetic
 - Maybe revisit how I create the tweet button (use JavaScript instead of HTML)
