@@ -15,10 +15,11 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, ProductList) {
+  constructor($log, $window, $location, $http, ProductList) {
     this.$log = $log;
     this.$window = $window;
     this.$location = $location;
+    this.$http = $http;
     this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
     this.cartItems = [];
@@ -55,7 +56,20 @@ export class Cart {
   // In the CartController, we'll need to unhide the order confirmation (if successful)
   placeOrder() {
     this.$log.info('Placing order...');
-
+    // Maybe trim what I'm sending (instead of whole Cart)
+    this.$http.post('/api/order/place', this)
+      .success(data => {
+        // Stay in this location and display the Order confirmation
+        this.$log.info(data);
+      })
+      .error(err => {
+        this.$log.error('Order failed', err);
+        err = err.data;
+        // Instead, pass the error back to the page Controller to display
+        for(let error of err.errors) {
+          this.$log.info(error);
+        }
+      });
     // Once the order is successfully placed, clear the cart
     this.clearCartItems();
   }
