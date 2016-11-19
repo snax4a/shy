@@ -3,26 +3,26 @@
 var app = require('../..');
 import request from 'supertest';
 
-describe('Thing API:', function() {
-  describe('GET /api/things', function() {
-    var things;
+describe('Subscribe API:', function() {
+  describe('GET /api/subscribe', function() {
+    var subscribes;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/subscribe')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          things = res.body;
+          subscribes = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      expect(things).to.be.instanceOf(Array);
+      expect(subscribes).to.be.instanceOf(Array);
     });
   });
 });

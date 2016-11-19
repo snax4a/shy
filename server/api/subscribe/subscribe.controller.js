@@ -1,11 +1,11 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/things              ->  index
+ * GET     /api/subscribe              ->  index
  */
 
 'use strict';
 
-// Gets a list of Things
+// Gets a list of Subscribes
 export function index(req, res) {
   res.json([]);
 }
