@@ -1,8 +1,8 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./subscribe.controller');
-var router = express.Router();
+import express from 'express';
+const controller = require('./subscribe.controller');
+const router = express.Router();
 router.get('/', controller.index);
 
 module.exports = router;
