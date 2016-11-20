@@ -16,10 +16,11 @@ const sendMail = message => {
 
 // Subscribes to the newsletter
 export function subscribe(req, res) {
+  console.log(req);
   sendMail({
-    to: req.body.email,
+    to: config.mail.transport.auth.user,
     subject: 'Subscriber from Workshops page',
-    html: req.body.firstName
+    html: `Name: ${req.contact.firstName} ${req.contact.lastName} (${req.contact.email})`
   });
   res.status(200).send('OK');
 }
