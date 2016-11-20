@@ -33,10 +33,11 @@ export class WorkshopsController {
       // Implement a way to save the email address submitted
       this.$http.post('/api/newsletter/subscribe', this.subscriber)
         .success(data => {
-          this.$log.info('Success', data);
+          // Put data onto the page where the Thanks goes
+          this.$log.info('HTTP 200', data);
         })
         .error(err => {
-          this.$log.error('Failure', err);
+          this.$log.error('HTTP 500', err);
         });
       this.subscribed = true;
     }
