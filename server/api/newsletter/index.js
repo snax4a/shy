@@ -1,9 +1,10 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./newsletter.controller');
+import express from 'express';
 
-var router = express.Router();
+const controller = require('./newsletter.controller');
+
+const router = express.Router();
 
 router.post('/subscribe', controller.subscribe);
 

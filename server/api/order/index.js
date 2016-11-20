@@ -1,9 +1,9 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./order.controller');
+import express from 'express';
+const controller = require('./order.controller');
 
-var router = express.Router();
+const router = express.Router();
 
 router.post('/place', controller.placeOrder);
 

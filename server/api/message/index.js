@@ -1,9 +1,9 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./message.controller');
+import express from 'express';
+const controller = require('./message.controller');
 
-var router = express.Router();
+const router = express.Router();
 
 router.post('/send', controller.send);
 
