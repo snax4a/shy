@@ -12,7 +12,7 @@
             input.form-control(name='email', ng-model='$ctrl.subscriber.email', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
             .input-group-btn
               input.btn.btn-warning(type='submit', value='Subscribe')
-      p(ng-if='$ctrl.subscribed') Thanks for subscribing to our newsletter.
+      p(ng-if='$ctrl.subscribed') {{ $ctrl.subscriptionResult }}
   hr(ng-repeat-start='workshop in $ctrl.data | upcoming')
   .row
     .col-md-5

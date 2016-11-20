@@ -12,6 +12,7 @@ export class WorkshopsController {
     this.subscriber = {};
     this.submitted = false;
     this.subscribed = false;
+    this.subscriptionResult = '';
   }
 
   $onInit() {
@@ -34,9 +35,10 @@ export class WorkshopsController {
       this.$http.post('/api/newsletter/subscribe', this.subscriber)
         .success(data => {
           // Put data onto the page where the Thanks goes
-          this.$log.info('HTTP 200', data);
+          this.subscriptionResult = data;
         })
         .error(err => {
+          this.subscriptionResult = err;
           this.$log.error('HTTP 500', err);
         });
       this.subscribed = true;
