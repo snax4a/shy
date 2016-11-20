@@ -36,7 +36,7 @@ export class WorkshopsController {
           this.$log.info('Success', data);
         })
         .error(err => {
-          this.$log.info(err);
+          this.$log.error('Failure', err);
         });
       this.subscribed = true;
     }
