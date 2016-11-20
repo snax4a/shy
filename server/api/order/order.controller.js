@@ -6,6 +6,6 @@
 'use strict';
 
 // Attempt to place the order
-export function place(req, res) {
+export function placeOrder(req, res) {
   res.json([]);
 }

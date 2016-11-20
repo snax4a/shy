@@ -9,7 +9,7 @@
             div(ng-message='required') Please provide an email address.
             div(ng-message='email') Please provide a valid email address.
           .input-group
-            input.form-control(name='email', ng-model='$ctrl.subscriberEmail', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
+            input.form-control(name='email', ng-model='$ctrl.subscriber.email', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
             .input-group-btn
               input.btn.btn-warning(type='submit', value='Subscribe')
       p(ng-if='$ctrl.subscribed') Thanks for subscribing to our newsletter.

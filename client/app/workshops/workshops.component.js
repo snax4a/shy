@@ -4,11 +4,12 @@ import routes from './workshops.routes';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($http, $timeout, $window) {
+  constructor($log, $http, $timeout, $window) {
+    this.$log = $log;
     this.$http = $http;
     this.$timeout = $timeout;
     this.$window = $window;
-    this.subscriberEmail = '';
+    this.subscriber = {};
     this.submitted = false;
     this.subscribed = false;
   }
@@ -29,8 +30,14 @@ export class WorkshopsController {
   subscribe(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Do an $http.put to add a subscriber to Google docs spreadsheet
-      this.$log.info('Email is valid. Doing HTTP PUT to server.', this.subscriberEmail);
+      // Implement a way to save the email address submitted
+      this.$http.post('/api/newsletter/subscribe', this.subscriber)
+        .success(data => {
+          this.$log.info('Success', data);
+        })
+        .error(err => {
+          this.$log.info(err);
+        });
       this.subscribed = true;
     }
   }
