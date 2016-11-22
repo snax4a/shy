@@ -50,8 +50,9 @@ export class NavbarController {
 
 export class ModalInstanceController {
   /*@ngInject*/
-  constructor($log, $uibModalInstance, $window) {
+  constructor($log, $http, $uibModalInstance, $window) {
     this.$log = $log;
+    this.$http = $http;
     this.$uibModalInstance = $uibModalInstance;
     this.$window = $window;
     this.contact = {};
@@ -62,8 +63,15 @@ export class ModalInstanceController {
   submitContact(form) {
     // Now we have the form data in this.contact
     if(form.$valid) {
-      // Implement HTTP PUT to server
-      this.$log.info(this.contact);
+      this.$http.post('/api/message/send', this.contact)
+        .success(data => {
+          // Don't really need to do anything so just log data
+          this.$log.info(data);
+        })
+        .error(err => {
+          // Handle the error - perhaps don't dismiss dialog?
+          this.$log.error(err);
+        });
       this.$uibModalInstance.close();
     }
   }

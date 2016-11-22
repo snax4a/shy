@@ -2,7 +2,7 @@ High
 - /api/newsletter/subscribe - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL
-- /api/message/send - send email and save subscriber info, if appropriate
+- /api/message/send - save subscriber info, if appropriate
 - /api/order/place - send order email, process w/PayPal PayFlow Pro or Braintree
 
 Low/cosmetic
