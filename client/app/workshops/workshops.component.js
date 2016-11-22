@@ -39,7 +39,7 @@ export class WorkshopsController {
         })
         .error(err => {
           this.subscriptionResult = err;
-          this.$log.error('HTTP 500', err);
+          this.$log.error('Error on server subscribing this person', err);
         });
       this.subscribed = true;
     }
