@@ -1,5 +1,5 @@
 High
-- cart.pug / Order Confirmation: not calling Item.getTotal()
+- cart.pug: cartItems for Cart.confirmation do not have a getTotal() method
 - /api/newsletter/subscribe - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL
