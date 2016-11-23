@@ -1,9 +1,13 @@
 High
+- cart.pug / Order Confirmation: not calling Item.getTotal()
 - /api/newsletter/subscribe - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL
 - /api/message/send - save subscriber info, if appropriate
-- /api/order/place - send order email, process w/PayPal PayFlow Pro or Braintree
+- /api/order/place
+  - reset the cartItem.price based on products.json to prevent hacking
+  - finalize order email format
+  - process payment w/PayPal PayFlow Pro or Braintree
 
 Low/cosmetic
 - Maybe revisit how I create the tweet button (use JavaScript instead of HTML)

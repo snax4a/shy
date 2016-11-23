@@ -1,4 +1,5 @@
 'use strict';
+import angular from 'angular';
 
 class Item {
   constructor(id, name, price, quantity) {
@@ -50,28 +51,33 @@ export class Cart {
     this.$location.path('/cart');
   }
 
-  // Iterate through cartItems and get total
-  // Use PayPal Payflow Pro (or Braintree) to capture transaction
-  // In the CartController, we'll need to unhide the order confirmation (if successful)
+  // Post cart properties to server and handle response
   placeOrder() {
-    // Maybe trim what I'm sending (instead of whole Cart)
-    this.$http.post('/api/order/place', this)
-      .success(data => {
-        // Stay in this location and display the Order confirmation
-        // The confirmation object will be in data
-        this.$log.info('Returned from order.controller.js to cart.service.js', data);
-        this.confirmation = data;
+    // Send a subset of the Cart's properties
+    let orderInformation = {
+      paymentInfo: this.paymentInfo,
+      purchaser: this.purchaser,
+      recipient: this.recipient,
+      forSomeoneElse: this.forSomeoneElse,
+      methodToSend: this.methodToSend,
+      instructions: this.instructions,
+      cartItems: this.cartItems
+    };
+    return this.$http.post('/api/order/place', orderInformation)
+      .success(result => {
+        // Copy the result to the cart's confirmation
+        // Implement: replace angular.copy
+        angular.copy(result, this.confirmation);
+
+        // Once the order is successfully placed, clear the cart to avoid duplicate orders
+        this.clearCartItems();
+
+        return result; // Pass the promise out
       })
       .error(err => {
         this.$log.error('Order failed', err);
-        err = err.data;
-        // Instead, pass the error back to the page Controller to display
-        for(let error of err.errors) {
-          this.$log.info(error);
-        }
+        return err;
       });
-    // Once the order is successfully placed, clear the cart
-    this.clearCartItems();
   }
 
   // Get item by its id

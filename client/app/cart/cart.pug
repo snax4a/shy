@@ -184,33 +184,33 @@
       img.img-responsive(src='/assets/images/seal.jpg')
     .col-md-6
       h2 Schoolhouse Yoga
-      p Order {{ $ctrl.confirmation.orderNumber }}
+      p Order {{ $ctrl.Cart.confirmation.orderNumber }}
         br
-        | Placed on {{ $ctrl.confirmation.placedOn }}
+        | Placed on {{ $ctrl.Cart.confirmation.placedOn }}
         br
-        | Card number {{ $ctrl.confirmation.ccNumber }}
+        | Card number {{ $ctrl.Cart.confirmation.ccNumber }}
       .row
         .col-md-4
           b Purchaser:
           br
-          | {{ $ctrl.confirmation.purchaser.firstName }} {{ $ctrl.confirmation.purchaser.lastName }}
+          | {{ $ctrl.Cart.confirmation.purchaser.firstName }} {{ $ctrl.Cart.confirmation.purchaser.lastName }}
           br
-          | {{ $ctrl.confirmation.purchaser.address }}
+          | {{ $ctrl.Cart.confirmation.purchaser.address }}
           br
-          | {{ $ctrl.confirmation.purchaser.city }}, {{ $ctrl.confirmation.purchaser.state }} {{ $ctrl.confirmation.purchaser.zipCode }}
+          | {{ $ctrl.Cart.confirmation.purchaser.city }}, {{ $ctrl.Cart.confirmation.purchaser.state }} {{ $ctrl.Cart.confirmation.purchaser.zipCode }}
           br
-          | {{ $ctrl.confirmation.purchaser.phone }}
+          | {{ $ctrl.Cart.confirmation.purchaser.phone }}
           br
         .col-md-4
           b Recipient:
           br
-          | {{ $ctrl.confirmation.recipient.firstName }} {{ $ctrl.confirmation.recipient.lastName }}
+          | {{ $ctrl.Cart.confirmation.recipient.firstName }} {{ $ctrl.Cart.confirmation.recipient.lastName }}
           br
-          | {{ $ctrl.confirmation.recipient.address }}
+          | {{ $ctrl.Cart.confirmation.recipient.address }}
           br
-          | {{ $ctrl.confirmation.recipient.city }}, {{ $ctrl.confirmation.recipient.state }} {{ $ctrl.confirmation.recipient.zipCode }}
+          | {{ $ctrl.Cart.confirmation.recipient.city }}, {{ $ctrl.Cart.confirmation.recipient.state }} {{ $ctrl.Cart.confirmation.recipient.zipCode }}
           br
-          | {{ $ctrl.confirmation.recipient.phone }}
+          | {{ $ctrl.Cart.confirmation.recipient.phone }}
           br
           br
       table.table.table-striped
@@ -221,7 +221,7 @@
             th Each
             th.right Cost
         tbody
-          tr(ng-repeat='cartItem in $ctrl.confirmation.cartItems')
+          tr(ng-repeat='cartItem in $ctrl.Cart.confirmation.cartItems')
             td {{ cartItem.name }}
             td {{ cartItem.quantity }}
             td {{ cartItem.price | currency:"$":0 }}
@@ -229,17 +229,17 @@
         tfoot
           tr
             th.right(colspan='3') Grand Total
-            th.right {{ $ctrl.confirmation.grandTotal | currency:"$":0 }}
+            th.right {{ $ctrl.Cart.confirmation.grandTotal | currency:"$":0 }}
       p
         b Order comments:
         br
-        | Gift: {{ $ctrl.confirmation.forSomeoneElse?'Yes':'No' }}
+        | Gift: {{ $ctrl.Cart.confirmation.forSomeoneElse?'Yes':'No' }}
         br
-        | {{ $ctrl.confirmation.methodToSend }}
+        | {{ $ctrl.Cart.confirmation.methodToSend }}
         br
         br
         | Instructions:
         br
-        | {{ $ctrl.confirmation.instructions }}
+        | {{ $ctrl.Cart.confirmation.instructions }}
         br
       p Thanks for your order.

@@ -52,12 +52,14 @@ export class CartController {
     for(let i = 1; i < 13; i++) {
       this.months.push(i);
     }
+
     // Populate the years array
     this.years = [];
     let currentYear = new Date().getFullYear();
     for(let i = currentYear; i < currentYear + 10; i++) {
       this.years.push(i);
     }
+
     // Populate states array - not needed elsewhere so avoid separate JSON file
     this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI',
       'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH', 'MI', 'MN', 'MO', 'MS',
@@ -108,35 +110,24 @@ export class CartController {
   // Initiate the order process
   placeOrder(form) {
     if(form.$valid) {
-      // Attempt to process the payment via PayPal or braintree and set orderProcessed appropriately
-      this.Cart.placeOrder(); // for the real processing
-      let orderProcessed = true; // for testing only
-      if(orderProcessed) {
-        this.pageName = 'Order Confirmation';
-        // Confirmation will come from the server once this is real
-        // TEST DATA ONLY to mess around with the view
-        this.confirmation.orderNumber = 'BL0PDFDF348D';
-        this.confirmation.placedOn = new Date().toLocaleString('en-US');
-        this.confirmation.ccNumber = `**** **** **** ${this.paymentInfo.ccNumber.slice(-4)}`;
-        this.confirmation.forSomeoneElse = this.Cart.forSomeoneElse;
-        this.confirmation.methodToSend = this.Cart.methodToSend;
-        this.confirmation.instructions = this.Cart.instructions;
-        angular.copy(this.purchaser, this.confirmation.purchaser);
-        angular.copy(this.recipient, this.confirmation.recipient);
-        angular.copy(this.Cart.cartItems, this.confirmation.cartItems);
-        this.confirmation.grandTotal = this.Cart.getTotalCost();
-        this.$log.info(this.confirmation);
-        // Need to use a property to ng-show the order confirmation row while hiding the other one
-        // Clear the cartItems
-        this.Cart.clearCartItems();
-        // Clear credit card fields (or possibly other children of this.Cart)
-        // this.paymentInfo = {}; // only if super-paranoid
-        form.$setPristine(); // treat the fields as untouched
-      } else {
-        this.$log.info('Order Error: whatever');
-        this.pageName = 'Shopping Cart'; // changes view back
-        // Put the error in the credit card number area (ng-message='paymentgateway')
-      }
+      // Implement: Change cursor to beach ball
+      // Handle order confirmation via promise
+      let orderPromise = this.Cart.placeOrder();
+      orderPromise.then(result => {
+        if(result.data.resultCode == 0) {
+          this.$log.info(this.Cart);
+          this.pageName = 'Order Confirmation';
+          // Implement: fix binding to this.Cart.confirmation on cart.pug
+          // Clear credit card fields (or possibly other children of this.Cart)
+          // this.paymentInfo = {}; // only if super-paranoid
+          form.$setPristine(); // treat the fields as untouched
+        } else {
+          this.$log.info(`Order Error ${this.confirmation.resultCode}`);
+          this.pageName = 'Shopping Cart'; // changes view back
+          // Put the error in the credit card number area (ng-message='paymentgateway')
+        }
+        // Implement: Change cursor to arrow
+      });
     }
   }
 }
