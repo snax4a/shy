@@ -23,11 +23,10 @@ export class Cart {
     this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
     this.cartItems = [];
-    this.paymentInfo = {
-      ccNumber: '3839476385937493'
-    };
+    this.paymentInfo = {}; // was setting bogus ccNumber for testing
     this.purchaser = {};
     this.recipient = {};
+    this.confirmation = {};
   }
 
   // Clear the cartItems during checkout()
@@ -55,12 +54,13 @@ export class Cart {
   // Use PayPal Payflow Pro (or Braintree) to capture transaction
   // In the CartController, we'll need to unhide the order confirmation (if successful)
   placeOrder() {
-    this.$log.info('Placing order...');
     // Maybe trim what I'm sending (instead of whole Cart)
     this.$http.post('/api/order/place', this)
       .success(data => {
         // Stay in this location and display the Order confirmation
-        this.$log.info(data);
+        // The confirmation object will be in data
+        this.$log.info('Returned from order.controller.js to cart.service.js', data);
+        this.confirmation = data;
       })
       .error(err => {
         this.$log.error('Order failed', err);

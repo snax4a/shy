@@ -109,7 +109,7 @@ export class CartController {
   placeOrder(form) {
     if(form.$valid) {
       // Attempt to process the payment via PayPal or braintree and set orderProcessed appropriately
-      // this.Cart.placeOrder(); // for the real processing
+      this.Cart.placeOrder(); // for the real processing
       let orderProcessed = true; // for testing only
       if(orderProcessed) {
         this.pageName = 'Order Confirmation';
