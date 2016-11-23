@@ -1,14 +1,13 @@
 High
-- cart.pug: cartItems for Cart.confirmation do not have a getTotal() method
 - /api/newsletter/subscribe - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL
 - /api/message/send - save subscriber info, if appropriate
 - /api/order/place
-  - reset the cartItem.price based on products.json to prevent hacking
+  - reset the cartItem.price based on products.json to prevent hacking (adapt ProductList for nodeJS?)
   - finalize order email format
   - process payment w/PayPal PayFlow Pro or Braintree
 
 Low/cosmetic
-- Maybe revisit how I create the tweet button (use JavaScript instead of HTML)
-- Consider wrapping main page's sections in .col-md-6 so that they'll wrap
+- Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
+- Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap

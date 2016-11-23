@@ -9,6 +9,7 @@ class Item {
     this.quantity = quantity;
   }
 
+  // Calculate the item total
   getTotal() {
     return parseFloat(this.quantity * this.price.toFixed(2));
   }
@@ -24,7 +25,7 @@ export class Cart {
     this.key = 'cart'; // name of local storage key
     this.ProductList = ProductList;
     this.cartItems = [];
-    this.paymentInfo = {}; // was setting bogus ccNumber for testing
+    this.paymentInfo = {};
     this.purchaser = {};
     this.recipient = {};
     this.confirmation = {};
@@ -63,16 +64,20 @@ export class Cart {
       instructions: this.instructions,
       cartItems: this.cartItems
     };
+
+    // Setup handler for promise once order is processed
     return this.$http.post('/api/order/place', orderInformation)
       .success(result => {
         // Copy the result to the cart's confirmation
-        // Implement: replace angular.copy
-        angular.copy(result, this.confirmation);
+        this.confirmation = result; // Previously: angular.copy(result, this.confirmation);
+        this.confirmation.cartItems = [];
+        angular.copy(this.cartItems, this.confirmation.cartItems); // Get rid of my only dependency on angular in the class
 
-        // Once the order is successfully placed, clear the cart to avoid duplicate orders
+        // Clear the cart to avoid duplicate orders
         this.clearCartItems();
 
-        return result; // Pass the promise out
+        // Pass the promise out for async handling in controller
+        return result;
       })
       .error(err => {
         this.$log.error('Order failed', err);

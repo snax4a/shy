@@ -21,7 +21,8 @@ export class CartController {
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
-    // TESTING DATA needs to be removed before go-live
+
+    // Implement: Remove test data before go-live
     this.paymentInfo = {
       ccNumber: '4111111111111111',
       ccExpMonth: 12,
@@ -38,6 +39,7 @@ export class CartController {
       email: 'jdoe@gmail.com',
       phone: '412-555-1212',
     };
+
     // Copy initial purchaser values to recipient
     this.recipient = {};
     angular.copy(this.purchaser, this.recipient);
@@ -115,14 +117,14 @@ export class CartController {
       let orderPromise = this.Cart.placeOrder();
       orderPromise.then(result => {
         if(result.data.resultCode == 0) {
-          this.$log.info(this.Cart);
+          this.$log.info('Successful order', this.Cart);
           this.pageName = 'Order Confirmation';
           // Implement: fix binding to this.Cart.confirmation on cart.pug
           // Clear credit card fields (or possibly other children of this.Cart)
           // this.paymentInfo = {}; // only if super-paranoid
           form.$setPristine(); // treat the fields as untouched
         } else {
-          this.$log.info(`Order Error ${this.confirmation.resultCode}`);
+          this.$log.info(`Order Error ${this.confirmation.resultCode}`, this.Cart);
           this.pageName = 'Shopping Cart'; // changes view back
           // Put the error in the credit card number area (ng-message='paymentgateway')
         }
