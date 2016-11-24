@@ -19,10 +19,11 @@ components are ready for migration to 2.0.
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.1
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
+- [Sass](http://sass-lang.com) (`gem install sass`)
 
 ### Developing
 
-1. Run `gem install sass` to install SASS.
+1. Make sure prerequisites are installed for your operating system.
 
 2. Run `npm install` to install server dependencies.
 
