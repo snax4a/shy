@@ -1,12 +1,13 @@
 # Schoolhouse Yoga Website
 
 This yoga school website is built using angularJS 1.5.8, expressJS, and nodeJS (MEAN w/o Mongo).
-All JavaScript is ES6 via babel. It includes a shopping cart (loosely based on ngCart) and will be processing
+All JavaScript is ES6 via Babel. It includes a shopping cart (loosely based on ngCart) and will be processing
 payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
-of newsletter subscribers, it uses a Google Docs Spreadsheet. Credit card information is
+of newsletter subscribers, we'll either use PostgreSQL or a Google Docs Spreadsheet. Credit card information is
 intentionally not retained.
 
-The website is under construction. Most of the work that remains is implementing the server API.
+The website is under construction. What remains is storing subscriber contact info and implementing the payment
+gateway.
 
 The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. The angularJS
 components are ready for migration to 2.0.
@@ -21,11 +22,13 @@ components are ready for migration to 2.0.
 
 ### Developing
 
-1. Run `npm install` to install server dependencies.
+1. Run `gem install sass` to install SASS.
 
-2. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. Note: the project will still run if you provide bogus credentials.
+2. Run `npm install` to install server dependencies.
 
-3. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
+3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. Note: the project will still run if you provide bogus credentials.
+
+4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
 
 ## Build & development
 

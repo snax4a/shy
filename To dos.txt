@@ -5,7 +5,6 @@ High
 - /api/message/send - save subscriber info, if appropriate
 - /api/order/place
   - reset the cartItem.price based on products.json to prevent hacking (adapt ProductList for nodeJS?)
-  - finalize order email format
   - process payment w/PayPal PayFlow Pro or Braintree
 
 Low/cosmetic
