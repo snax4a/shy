@@ -32,7 +32,7 @@ export class WorkshopsController {
     this.submitted = true;
     if(form.$valid) {
       // Implement a way to save the email address submitted
-      this.$http.post('/api/newsletter/subscribe', this.subscriber)
+      this.$http.post('/api/newsletter', this.subscriber)
         .success(data => {
           // Put data onto the page where the Thanks goes
           this.subscriptionResult = data;

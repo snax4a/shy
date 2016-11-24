@@ -25,10 +25,10 @@ describe('Newsletter API Router:', function() {
     expect(newsletterIndex).to.equal(routerStub);
   });
 
-  describe('POST /api/newsletter/subscribe', function() {
+  describe('POST /api/newsletter', function() {
     it('should route to newsletter.controller.subscribe', function() {
       expect(routerStub.post
-        .withArgs('/subscribe', 'newsletterCtrl.subscribe')
+        .withArgs('/', 'newsletterCtrl.subscribe')
         ).to.have.been.calledOnce;
     });
   });

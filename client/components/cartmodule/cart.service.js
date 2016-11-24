@@ -66,7 +66,7 @@ export class Cart {
     };
 
     // Setup handler for promise once order is processed
-    return this.$http.post('/api/order/place', orderInformation)
+    return this.$http.post('/api/order', orderInformation)
       .success(result => {
         // Copy the result to the cart's confirmation
         this.confirmation = result; // Previously: angular.copy(result, this.confirmation);

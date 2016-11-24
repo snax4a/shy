@@ -25,10 +25,10 @@ describe('Order API Router:', function() {
     expect(orderIndex).to.equal(routerStub);
   });
 
-  describe('POST /api/order/place', function() {
+  describe('POST /api/order', function() {
     it('should route to order.controller.placeOrder', function() {
       expect(routerStub.post
-        .withArgs('/place', 'orderCtrl.placeOrder')
+        .withArgs('/', 'orderCtrl.placeOrder')
         ).to.have.been.calledOnce;
     });
   });

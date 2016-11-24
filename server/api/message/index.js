@@ -5,6 +5,6 @@ const controller = require('./message.controller');
 
 const router = express.Router();
 
-router.post('/send', controller.send);
+router.post('/', controller.send);
 
 module.exports = router;

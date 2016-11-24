@@ -63,7 +63,7 @@ export class ModalInstanceController {
   submitContact(form) {
     // Now we have the form data in this.contact
     if(form.$valid) {
-      this.$http.post('/api/message/send', this.contact)
+      this.$http.post('/api/message', this.contact)
         .success(data => {
           // Don't really need to do anything so just log data
           this.$log.info(data);

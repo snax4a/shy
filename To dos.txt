@@ -1,11 +1,14 @@
 High
-- /api/newsletter/subscribe - save email to subscribers table
+- /api/newsletter - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL
-- /api/message/send - save subscriber info, if appropriate
-- /api/order/place
+- /api/message - save subscriber info, if appropriate
+- /api/order
   - reset the cartItem.price based on products.json to prevent hacking (adapt ProductList for nodeJS?)
   - process payment w/PayPal PayFlow Pro or Braintree
+- /api/order/index.spec.js - expect confirmation as json
+- /api/message/index.spec.js - pass in req.body.firstname, lastname, email, question, optout and expect email to be sent with res=200
+- /api/newsletter/index.spec.js - pass in req.body.email and expect an email to be sent and for a res code of 200
 
 Low/cosmetic
 - Maybe update api/order/order.controller.js to use class instead

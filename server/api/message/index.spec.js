@@ -25,10 +25,10 @@ describe('Message API Router:', function() {
     expect(messageIndex).to.equal(routerStub);
   });
 
-  describe('POST /api/message/send', function() {
+  describe('POST /api/message', function() {
     it('should route to message.controller.send', function() {
       expect(routerStub.post
-        .withArgs('/send', 'messageCtrl.send')
+        .withArgs('/', 'messageCtrl.send')
         ).to.have.been.calledOnce;
     });
   });

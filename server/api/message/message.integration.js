@@ -4,12 +4,12 @@ const app = require('../..');
 import request from 'supertest';
 
 describe('Message API:', function() {
-  describe('POST /api/message/send', function() {
+  describe('POST /api/message', function() {
     var messages;
 
     beforeEach(function(done) {
       request(app)
-        .post('/api/message/send')
+        .post('/api/message')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
