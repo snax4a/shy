@@ -37,7 +37,7 @@ export class CartController {
       state: 'PA',
       zipCode: '15222',
       email: 'jdoe@gmail.com',
-      phone: '412-555-1212',
+      phone: '412-555-1212'
     };
 
     // Copy initial purchaser values to recipient
