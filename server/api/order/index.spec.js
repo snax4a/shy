@@ -1,17 +1,17 @@
 'use strict';
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var orderCtrlStub = {
-  index: 'orderCtrl.index'
+const orderCtrlStub = {
+  placeOrder: 'orderCtrl.placeOrder'
 };
 
-var routerStub = {
-  get: sinon.spy()
+const routerStub = {
+  post: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var orderIndex = proxyquire('./index.js', {
+const orderIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
@@ -25,10 +25,10 @@ describe('Order API Router:', function() {
     expect(orderIndex).to.equal(routerStub);
   });
 
-  describe('GET /api/order', function() {
-    it('should route to order.controller.index', function() {
-      expect(routerStub.get
-        .withArgs('/', 'orderCtrl.index')
+  describe('POST /api/order/place', function() {
+    it('should route to order.controller.placeOrder', function() {
+      expect(routerStub.post
+        .withArgs('/place', 'orderCtrl.placeOrder')
         ).to.have.been.calledOnce;
     });
   });

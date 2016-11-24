@@ -3,11 +3,11 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var newsletterCtrlStub = {
-  index: 'newsletterCtrl.index'
+  subscribe: 'newsletterCtrl.subscribe'
 };
 
 var routerStub = {
-  get: sinon.spy()
+  post: sinon.spy()
 };
 
 // require the index with our stubbed out modules
@@ -25,10 +25,10 @@ describe('Newsletter API Router:', function() {
     expect(newsletterIndex).to.equal(routerStub);
   });
 
-  describe('GET /api/newsletter', function() {
-    it('should route to newsletter.controller.index', function() {
-      expect(routerStub.get
-        .withArgs('/', 'newsletterCtrl.index')
+  describe('POST /api/newsletter/subscribe', function() {
+    it('should route to newsletter.controller.subscribe', function() {
+      expect(routerStub.post
+        .withArgs('/subscribe', 'newsletterCtrl.subscribe')
         ).to.have.been.calledOnce;
     });
   });

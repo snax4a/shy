@@ -1,17 +1,17 @@
 'use strict';
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var messageCtrlStub = {
-  index: 'messageCtrl.index'
+const messageCtrlStub = {
+  send: 'messageCtrl.send'
 };
 
-var routerStub = {
-  get: sinon.spy()
+const routerStub = {
+  post: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var messageIndex = proxyquire('./index.js', {
+const messageIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
@@ -25,10 +25,10 @@ describe('Message API Router:', function() {
     expect(messageIndex).to.equal(routerStub);
   });
 
-  describe('GET /api/message', function() {
-    it('should route to message.controller.index', function() {
-      expect(routerStub.get
-        .withArgs('/', 'messageCtrl.index')
+  describe('POST /api/message/send', function() {
+    it('should route to message.controller.send', function() {
+      expect(routerStub.post
+        .withArgs('/send', 'messageCtrl.send')
         ).to.have.been.calledOnce;
     });
   });

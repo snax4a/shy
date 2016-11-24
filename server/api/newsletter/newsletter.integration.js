@@ -4,12 +4,12 @@ var app = require('../..');
 import request from 'supertest';
 
 describe('Newsletter API:', function() {
-  describe('GET /api/newsletter', function() {
+  describe('POST /api/newsletter/subscribe', function() {
     var newsletters;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/newsletter')
+        .post('/api/newsletter/subscribe')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {

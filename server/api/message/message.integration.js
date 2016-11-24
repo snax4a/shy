@@ -1,15 +1,15 @@
 'use strict';
 
-var app = require('../..');
+const app = require('../..');
 import request from 'supertest';
 
 describe('Message API:', function() {
-  describe('GET /api/message', function() {
+  describe('POST /api/message/send', function() {
     var messages;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/message')
+        .post('/api/message/send')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
