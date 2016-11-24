@@ -67,14 +67,15 @@ export function placeOrder(req, res) {
           font-family: HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue',Helvetica,sans-serif;
           font-size: 11px;
         }
-        td.left {
+        .left {
           width: 240px;
+          text-align: left!important;
+        }
+        .center {
           text-align: center!important;
+          width: 40px;
         }
-        td.center {
-          text-align: center;
-        }
-        td.right {
+        .right {
           text-align: right!important;
           width: 60px;
         }
@@ -97,7 +98,7 @@ export function placeOrder(req, res) {
                   <table style="width:100%;margin-top:20px;">
                     <tr style="vertical-align:top;">
                       <td>
-                        <b>Purchaser:</b><br/>
+                        <b>Purchaser</b><br/>
                         ${confirmation.purchaser.firstName} ${confirmation.purchaser.lastName}<br />
                         ${confirmation.purchaser.address}<br/>
                         ${confirmation.purchaser.city}, ${confirmation.purchaser.state} ${confirmation.purchaser.zipCode}<br />
@@ -105,7 +106,7 @@ export function placeOrder(req, res) {
                         ${confirmation.purchaser.email}
                       </td>
                       <td>
-                        <b>Recipient:</b><br/>
+                        <b>Recipient</b><br/>
                         ${confirmation.recipient.firstName} ${confirmation.recipient.lastName}<br/>
                         ${confirmation.recipient.address}<br/>
                         ${confirmation.recipient.city}, ${confirmation.recipient.state} ${confirmation.recipient.zipCode}<br/>
@@ -120,13 +121,13 @@ export function placeOrder(req, res) {
             <table style="margin-top:30px;">
               <tr>
                 <th class="left">Item</th>
-                <th style="width:40px;">Qty</th>
+                <th class="center">Qty</th>
                 <th class="right">Each</th>
                 <th class="right">Cost</th>
               </tr>
               ${cartItemsHtml}
               <tr>
-                <td colspan="3" style="text-align:right;font-weight:bold;padding-top:10px">Grand Total:</td>
+                <td colspan="3" style="text-align:right;font-weight:bold;padding-top:10px">Grand Total</td>
                 <td style="text-align:right;font-weight:bold;padding-top:10px;">$${confirmation.grandTotal}</td>
               </tr>
             </table>
