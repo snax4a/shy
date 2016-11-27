@@ -10,6 +10,12 @@ describe('Message API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/message')
+        .send({
+          firstName: 'John',
+          lastName: 'Doe',
+          question: 'This is a question',
+          optout: false
+        })
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -21,7 +27,7 @@ describe('Message API:', function() {
         });
     });
 
-    it('should respond with JSON array', function() {
+    it('should respond an HTTP result of 200', function() {
       expect(messages).to.be.instanceOf(Array);
     });
   });

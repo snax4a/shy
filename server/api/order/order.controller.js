@@ -1,3 +1,6 @@
+/*
+ POST    /api/order ->  placeOrder
+*/
 'use strict';
 import email from '../../components/email';
 
@@ -18,6 +21,34 @@ function getTotalCost(cartItems) {
   return parseFloat(total).toFixed(0);
 }
 
+/*
+import jsonpatch from 'fast-json-patch';
+import {Thing} from '../../sqldb';
+
+function respondWithResult(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function(entity) {
+    if(entity) {
+      return res.status(statusCode).json(entity);
+    }
+    return null;
+  };
+}
+
+function handleError(res, statusCode) {
+  statusCode = statusCode || 500;
+  return function(err) {
+    res.status(statusCode).send(err);
+  };
+}
+
+// Creates a new Thing in the DB
+export function create(req, res) {
+  return Thing.create(req.body)
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+*/
 // Attempt to place the order
 export function placeOrder(req, res) {
   let confirmation = {
