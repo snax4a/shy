@@ -33,6 +33,7 @@ export class NavbarController {
     ];
   }
 
+  // Use UI-Bootstrap to open a modal
   contactModalOpen() {
     let modalDialog = this.$uibModal.open({
       template: require('./contactmodal.pug'),
@@ -41,6 +42,7 @@ export class NavbarController {
       controllerAs: '$ctrl',
       controller: ModalInstanceController
     });
+
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       this.$log.info('Closed dialog.');
