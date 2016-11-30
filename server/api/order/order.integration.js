@@ -50,6 +50,7 @@ describe('Order API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
+          //console.log('RES', res.body);
           if(err) {
             return done(err);
           }
