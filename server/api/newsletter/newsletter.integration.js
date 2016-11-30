@@ -10,6 +10,9 @@ describe('Newsletter API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/newsletter')
+        .send({
+          email: 'jdoe@gmail.com'
+        })
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
