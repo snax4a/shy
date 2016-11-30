@@ -5,12 +5,12 @@ form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidat
   .modal-body
     .form-group
       label.sr-only(for='firstname') First name
-      input.form-control(name='firstname', autofocus='', ng-model='$ctrl.contact.firstname', type='text', maxlength='20', placeholder='First name', required='')
+      input.form-control(name='firstname', autofocus='', ng-model='$ctrl.contact.firstName', type='text', maxlength='20', placeholder='First name', required='')
       .help-block.has-error(ng-messages='contactform.firstname.$error', ng-show='contactform.firstname.$dirty || contactform.$submitted', role='alert')
         div(ng-message='required') Please provide your first name.
     .form-group
       label.sr-only(for='lastname') Last name
-      input.form-control(name='lastname', ng-model='$ctrl.contact.lastname', type='text', maxlength='20', placeholder='Last name', required='')
+      input.form-control(name='lastname', ng-model='$ctrl.contact.lastName', type='text', maxlength='20', placeholder='Last name', required='')
       .help-block.has-error(ng-messages='contactform.lastname.$error', ng-show='contactform.lastname.$dirty || contactform.$submitted', role='alert')
         div(ng-message='required') Please provide your last name.
     .form-group

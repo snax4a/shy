@@ -5,7 +5,7 @@ import request from 'supertest';
 
 describe('Message API:', function() {
   describe('POST /api/message', function() {
-    var messages;
+    var response;
 
     beforeEach(function(done) {
       request(app)
@@ -13,6 +13,7 @@ describe('Message API:', function() {
         .send({
           firstName: 'John',
           lastName: 'Doe',
+          email: 'jdoe@gmail.com',
           question: 'This is a question',
           optout: false
         })
@@ -22,13 +23,13 @@ describe('Message API:', function() {
           if(err) {
             return done(err);
           }
-          messages = res.body;
+          response = res.body;
           done();
         });
     });
 
-    it('should respond an HTTP result of 200', function() {
-      expect(messages).to.be.instanceOf(Array);
+    it('should thank the user for submitting a question or comment', function() {
+      expect(response).to.equal('Thanks for submitting your question or comment. We will respond shortly.');
     });
   });
 });

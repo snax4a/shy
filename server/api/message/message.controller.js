@@ -6,7 +6,7 @@ export function send(req, res) {
   email({
     subject: 'Question/comment from website',
     text:
-`Name: ${req.body.firstname} ${req.body.lastname}
+`Name: ${req.body.firstName} ${req.body.lastName}
 Email: ${req.body.email}
 
 Question/comment:
