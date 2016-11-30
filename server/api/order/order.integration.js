@@ -11,11 +11,22 @@ describe('Order API:', function() {
       request(app)
         .post('/api/order')
         .send({
+          cartItems: [
+            {
+              id: 3,
+              name: 'One card pass',
+              price: 15,
+              quantity: 1
+            }
+          ],
+          forSomeoneElse: false,
+          instructions: 'Test instructions',
+          methodToSend: 'Apply credit to recipient\'s account (default)',
           paymentInfo: {
-            ccNumber: '4111111111111111',
+            ccCSC: 656,
             ccExpMonth: 12,
             ccExpYear: 2020,
-            ccCSC: 656
+            ccNumber: '4111111111111111'
           },
           purchaser: {
             firstName: 'John',
@@ -36,16 +47,7 @@ describe('Order API:', function() {
             zipCode: '15222',
             email: 'jdoe@gmail.com',
             phone: '412-555-1212'
-          },
-          methodToSend: 'Apply credit to recipient\'s account (default)',
-          forSomeoneElse: false,
-          cartItems: [
-            {
-              quantity: 1,
-              name: 'One card pass',
-              price: '15'
-            }
-          ]
+          }
         })
         .expect(200)
         .expect('Content-Type', /json/)
