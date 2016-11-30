@@ -5,7 +5,7 @@ import request from 'supertest';
 
 describe('Message API:', function() {
   describe('POST /api/message', function() {
-    var response;
+    var response = '';
 
     beforeEach(function(done) {
       request(app)
@@ -18,17 +18,17 @@ describe('Message API:', function() {
           optout: false
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect('Content-Type', /html/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          response = res.body;
+          response = res.text;
           done();
         });
     });
 
-    it('should thank the user for submitting a question or comment', function() {
+    it('should send response thanking the user for submitting a question or comment', function() {
       expect(response).to.equal('Thanks for submitting your question or comment. We will respond shortly.');
     });
   });

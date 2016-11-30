@@ -5,7 +5,7 @@ import request from 'supertest';
 
 describe('Newsletter API:', function() {
   describe('POST /api/newsletter', function() {
-    var newsletters;
+    var response = '';
 
     beforeEach(function(done) {
       request(app)
@@ -14,18 +14,17 @@ describe('Newsletter API:', function() {
           email: 'jdoe@gmail.com'
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect('Content-Type', /html/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          newsletters = res.body;
+          response = res.text;
           done();
         });
     });
-
-    it('should respond with JSON array', function() {
-      expect(newsletters).to.be.instanceOf(Array);
+    it('should send response thanking the user for subscribing to the newsletter', function() {
+      expect(response).to.equal('Thanks for subscribing to our newsletter.');
     });
   });
 });

@@ -50,7 +50,7 @@ export function create(req, res) {
 }
 */
 // Attempt to place the order
-export function placeOrder(req, res) {
+export default function placeOrder(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     ccNumber: `**** **** **** ${req.body.paymentInfo.ccNumber.slice(-4)}`,
