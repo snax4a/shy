@@ -16,8 +16,8 @@ components are ready for migration to 2.0.
 
 ### Prerequisites
 
-- [Git](https://git-scm.com/)
-- [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.1
+- [Git](https://git-scm.com/) (`brew install git`)
+- [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.1 (`brew install node`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [Sass](http://sass-lang.com) (`gem install sass`)
 
@@ -27,7 +27,7 @@ components are ready for migration to 2.0.
 
 2. Run `npm install` to install server dependencies.
 
-3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. Note: the project will still run if you provide bogus credentials.
+3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, only the SMTP parameters need to be set.
 
 4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
 
@@ -37,4 +37,4 @@ Run `gulp build` for building and `gulp serve` for preview.
 
 ## Testing
 
-Running `npm test` will run the unit tests with karma.
+Running `gulp test` will run the unit and integration tests.
