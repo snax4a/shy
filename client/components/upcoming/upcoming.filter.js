@@ -2,14 +2,16 @@
 import angular from 'angular';
 
 export function upcomingFilter() {
-  return input => {
-    if(input === undefined) return false;
-    return input.filter(function(item) {
-      if(item.expires === null) return false;
-      const today = new Date();
-      const inputUpcoming = new Date(item.expires);
-      return inputUpcoming > today;
-    });
+  return items => {
+    let filtered = [];
+    if(items !== undefined) {
+      for(let item of items) {
+        if(item.expires !== null && new Date(item.expires) > new Date()) {
+          filtered.push(item);
+        }
+      }
+    }
+    return filtered;
   };
 }
 

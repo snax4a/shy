@@ -1,7 +1,6 @@
 'use strict';
 import angular from 'angular';
 
-/*@ngInject*/
 export function htmlIdFilter() {
   return input => input.toLowerCase()
     .split(' ')
