@@ -1,8 +1,11 @@
 'use strict';
+import angular from 'angular';
+import teachersPage from './teachers.component';
 
 describe('Component: TeachersComponent', function() {
   // load the controller's module
-  beforeEach(module('shyApp.teachers'));
+  //beforeEach(module('shyApp.teachers'));
+  beforeEach(angular.mock.module(teachersPage));
 
   var TeachersComponent;
 

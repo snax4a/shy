@@ -1,8 +1,11 @@
 'use strict';
+import angular from 'angular';
+import htmlId from './htmlid.filter';
 
 describe('Filter: htmlid', function() {
   // load the filter's module
-  beforeEach(module('shyApp.htmlid'));
+  //beforeEach(module('shyApp.htmlid'));
+  beforeEach(angular.mock.module(htmlId));
 
   // initialize a new instance of the filter before each test
   var htmlid;
@@ -10,8 +13,8 @@ describe('Filter: htmlid', function() {
     htmlid = $filter('htmlid');
   }));
 
-  it('should return the input prefixed with "htmlid filter:"', function() {
-    var text = 'angularjs';
-    expect(htmlid(text)).to.equal('htmlid filter: ' + text);
+  it('should return the input without spaces in lowercase', function() {
+    var text = 'Big Test';
+    expect(htmlid(text)).to.equal('bigtest');
   });
 });

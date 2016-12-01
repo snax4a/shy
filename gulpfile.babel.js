@@ -25,20 +25,18 @@ var config;
 const clientPath = 'client';
 const serverPath = 'server';
 const paths = {
-    client: {
-        assets: `${clientPath}/assets/**/*`,
-        images: `${clientPath}/assets/images/**/*`,
-        revManifest: `${clientPath}/assets/rev-manifest.json`,
-        scripts: [
-            `${clientPath}/**/!(*.spec|*.mock).js`
-        ],
-        styles: [`${clientPath}/{app,components}/**/*.scss`],
-        mainStyle: `${clientPath}/app/app.scss`,
-        views: `${clientPath}/{app,components}/**/*.pug`,
-        mainView: `${clientPath}/index.html`,
-        test: [`${clientPath}/{app,components}/**/*.{spec,mock}.js`],
-        e2e: ['e2e/**/*.spec.js']
-    },
+  client: {
+    assets: `${clientPath}/assets/**/*`,
+    images: `${clientPath}/assets/images/**/*`,
+    revManifest: `${clientPath}/assets/rev-manifest.json`,
+    scripts: [`${clientPath}/**/!(*.spec|*.mock).js`],
+    styles: [`${clientPath}/{app,components}/**/*.scss`],
+    mainStyle: `${clientPath}/app/app.scss`,
+    views: `${clientPath}/{app,components}/**/*.pug`,
+    mainView: `${clientPath}/index.html`,
+    test: [`${clientPath}/{app,components}/**/*.{spec,mock}.js`],
+    e2e: ['e2e/**/*.spec.js']
+  },
     server: {
         scripts: [
           `${serverPath}/**/!(*.spec|*.integration).js`,
@@ -422,14 +420,14 @@ gulp.task('coverage:pre', () => {
 gulp.task('coverage:unit', () => {
     return gulp.src(paths.server.test.unit)
         .pipe(mocha())
-        .pipe(istanbul())
+        .pipe(istanbul());
         // Creating the reports after tests ran
 });
 
 gulp.task('coverage:integration', () => {
     return gulp.src(paths.server.test.integration)
         .pipe(mocha())
-        .pipe(istanbul())
+        .pipe(istanbul());
         // Creating the reports after tests ran
 });
 
@@ -446,13 +444,13 @@ gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'we
 });
 
 gulp.task('test:client', done => {
-    new KarmaServer({
-      configFile: `${__dirname}/${paths.karma}`,
-      singleRun: true
-    }, err => {
-        done(err);
-        process.exit(err);
-    }).start();
+  new KarmaServer({
+    configFile: `${__dirname}/${paths.karma}`,
+    singleRun: true
+  }, err => {
+    done(err);
+    process.exit(err);
+  }).start();
 });
 
 /********************

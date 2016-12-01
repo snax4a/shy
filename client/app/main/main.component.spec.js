@@ -1,9 +1,7 @@
 'use strict';
-
+import angular from 'angular';
 import main from './main.component';
-import {
-  MainController
-} from './main.component';
+//import { MainController } from './main.component';
 
 describe('Component: MainComponent', function() {
   beforeEach(angular.mock.module(main));

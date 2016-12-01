@@ -52,7 +52,6 @@ module.exports = function(config) {
       require('karma-firefox-launcher'),
       require('karma-mocha'),
       require('karma-chai-plugins'),
-
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-script-launcher'),

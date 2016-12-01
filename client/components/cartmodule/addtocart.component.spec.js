@@ -1,8 +1,11 @@
 'use strict';
+import angular from 'angular';
+import addToCart from './addtocart.component';
 
 describe('Component: addtocart', function() {
   // load the component's module
-  beforeEach(module('shyApp.addtocart'));
+  //beforeEach(module('shyApp.addtocart'));
+  beforeEach(angular.mock.module(addToCart));
 
   var addtocartComponent;
 

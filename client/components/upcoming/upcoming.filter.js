@@ -1,7 +1,6 @@
 'use strict';
 import angular from 'angular';
 
-/*@ngInject*/
 export function upcomingFilter() {
   return input => {
     if(input === undefined) return false;
