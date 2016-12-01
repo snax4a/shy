@@ -37,4 +37,4 @@ Run `gulp build` for building and `gulp serve` for preview.
 
 ## Testing
 
-Running `gulp test` will run the unit and integration tests.
+Running `npm test` will run the unit and integration tests.
