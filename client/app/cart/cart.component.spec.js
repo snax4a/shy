@@ -17,7 +17,6 @@ describe('Component: CartComponent', function() {
   }));
 
   it('should ...', function() {
-    'ngInject';
     expect(1).to.equal(1);
   });
 });
