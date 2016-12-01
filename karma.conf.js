@@ -14,7 +14,7 @@ module.exports = function(config) {
 
     client: {
       mocha: {
-        timeout: 5000 // set default mocha spec timeout
+        timeout: 10000 // set default mocha spec timeout
       }
     },
 
