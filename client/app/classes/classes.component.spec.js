@@ -4,10 +4,9 @@ import classesPage from './classes.component';
 
 describe('Component: ClassesComponent', function() {
   // load the controller's module
-  //beforeEach(module('shyApp.classes'));
   beforeEach(angular.mock.module(classesPage));
 
-  var ClassesComponent;
+  let ClassesComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
