@@ -1,6 +1,6 @@
 'use strict';
 import angular from 'angular';
-//import uiRouter from 'angular-ui-router';
+import uiRouter from 'angular-ui-router';
 import routes from './classes.routes';
 
 export class ClassesController {
@@ -21,7 +21,7 @@ export class ClassesController {
   }
 }
 
-export default angular.module('shyApp.classes', [])
+export default angular.module('shyApp.classes', [uiRouter])
   .config(routes)
   .component('classes', {
     template: require('./classes.pug'),

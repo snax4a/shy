@@ -1,6 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './workshops.routes';
+import uiRouter from 'angular-ui-router';
 
 export class WorkshopsController {
   /*@ngInject*/
@@ -46,7 +47,7 @@ export class WorkshopsController {
   }
 }
 
-export default angular.module('shyApp.workshops', [])
+export default angular.module('shyApp.workshops', [uiRouter])
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),

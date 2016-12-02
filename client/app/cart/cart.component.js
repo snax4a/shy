@@ -1,6 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './cart.routes';
+import uiRouter from 'angular-ui-router';
 
 export class CartController {
   /*@ngInject*/
@@ -134,7 +135,7 @@ export class CartController {
   }
 }
 
-export default angular.module('shyApp.cartPage', [])
+export default angular.module('shyApp.cartPage', [uiRouter])
   .config(routes)
   .component('cart', {
     template: require('./cart.pug'),

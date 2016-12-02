@@ -1,13 +1,12 @@
 import angular from 'angular';
-import routing from './main.routes';
-//import uiRouter from 'angular-ui-router';
+import uiRouter from 'angular-ui-router';
+import routes from './main.routes';
 
 export class MainController {
 
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
-    //this.upcoming = upcoming;
     this.slides = [
       { src: '/assets/images/home/closeup1.jpg' },
       { src: '/assets/images/home/closeup2.jpg' },
@@ -24,8 +23,8 @@ export class MainController {
   }
 }
 
-export default angular.module('shyApp.main', [])
-  .config(routing)
+export default angular.module('shyApp.main', [uiRouter])
+  .config(routes)
   .component('main', {
     template: require('./main.pug'),
     controller: MainController
