@@ -4,7 +4,7 @@
 
 import makeWebpackConfig from './webpack.make';
 
-module.exports = function(config) {
+module.exports = config => {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',

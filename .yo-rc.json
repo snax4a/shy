@@ -31,10 +31,10 @@
   },
   "generator-ng-component": {
     "routeDirectory": "client/app/",
-    "directiveDirectory": "client/app/",
-    "componentDirectory": "client/app/components/",
-    "filterDirectory": "client/app/",
-    "serviceDirectory": "client/app/",
+    "directiveDirectory": "client/components/",
+    "componentDirectory": "client/components/",
+    "filterDirectory": "client/components/",
+    "serviceDirectory": "client/components/",
     "basePath": "client",
     "moduleName": "",
     "modulePrompt": true,
@@ -42,7 +42,6 @@
       "uirouter",
       "mocha",
       "expect",
-      "uirouter",
       "es6",
       "webpack"
     ],

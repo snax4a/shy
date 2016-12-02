@@ -1,6 +1,6 @@
 # Schoolhouse Yoga Website
 
-This yoga school website is built using angularJS 1.5.8, expressJS, and nodeJS (MEAN w/o Mongo).
+This yoga school website is built using angularJS 1.5.9, expressJS, and nodeJS (MEAN w/o Mongo).
 All JavaScript is ES6 via Babel. It includes a shopping cart (loosely based on ngCart) and will be processing
 payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
 of newsletter subscribers, we'll either use PostgreSQL or a Google Docs Spreadsheet. Credit card information is
@@ -17,7 +17,7 @@ components are ready for migration to 2.0.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (`brew install git`)
-- [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.1 (`brew install node`)
+- [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.3 (`brew install node`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [Sass](http://sass-lang.com) (`gem install sass`)
 
@@ -37,4 +37,4 @@ Run `gulp build` for building and `gulp serve` for preview.
 
 ## Testing
 
-Running `npm test` will run the unit and integration tests.
+Running `npm test` will run the unit, integration and client tests. Ignore the Error: EACCES: permission denied, mkdir '/client' - Karma seems to be trying to create a directory off of root.
