@@ -1,6 +1,6 @@
 import app from './';
 
-after(function(done) {
+after(done => {
   app.angularFullstack.on('close', () => done());
   app.angularFullstack.close();
 });
