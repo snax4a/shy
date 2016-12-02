@@ -246,125 +246,125 @@ module.exports = function makeWebpackConfig(options) {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
-        /*
-            * Plugin: ForkCheckerPlugin
-            * Description: Do type checking in a separate process, so webpack don't need to wait.
-            *
-            * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-            */
-        new ForkCheckerPlugin(),
-
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Extract css files
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin('[name].[hash].css', {
-            disable: !BUILD || TEST
-        })
-    ];
-
-    if(!TEST) {
-        config.plugins.push(new CommonsChunkPlugin({
-            name: 'vendor',
-
-            // filename: "vendor.js"
-            // (Give the chunk a different name)
-
-            minChunks: Infinity
-            // (with more entries, this ensures that no other module
-            //  goes into the vendor chunk)
-        }));
-    }
-
-    // Skip rendering index.html in test mode
-    // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
-    let htmlConfig = {
-        template: 'client/_index.html',
-        filename: '../client/index.html',
-        alwaysWriteToDisk: true
-    };
-    config.plugins.push(
-        new HtmlWebpackPlugin(htmlConfig),
-        new HtmlWebpackHarddiskPlugin()
-    );
-
-    // Add build specific plugins
-    if(BUILD) {
-        config.plugins.push(
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-            // Only emit files when there are no errors
-            new webpack.NoErrorsPlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-            // Dedupe modules in the output
-            new webpack.optimize.DedupePlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-            // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin({
-                mangle: false,
-                output: {
-                    comments: false
-                },
-                compress: {
-                    warnings: false
-                }
-            }),
-
-            // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-            // Define free global variables
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: '"production"'
-                }
-            })
-        );
-    }
-
-    if(DEV) {
-        config.plugins.push(
-            // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-            // Define free global variables
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: '"development"'
-                }
-            })
-        );
-    }
-
-    config.cache = DEV;
-
-    if(TEST) {
-        config.stats = {
-            colors: true,
-            reasons: true
-        };
-        config.debug = false;
-    }
-
-    /**
-     * Dev server configuration
-     * Reference: http://webpack.github.io/docs/configuration.html#devserver
-     * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+    /*
+     * Plugin: ForkCheckerPlugin
+     * Description: Do type checking in a separate process, so webpack don't need to wait.
+     *
+     * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
      */
-    config.devServer = {
-        contentBase: './client/',
-        stats: {
-            modules: false,
-            cached: false,
-            colors: true,
-            chunk: false
+    new ForkCheckerPlugin(),
+
+    // Reference: https://github.com/webpack/extract-text-webpack-plugin
+    // Extract css files
+    // Disabled when in test mode or not in build mode
+    new ExtractTextPlugin('[name].[hash].css', {
+      disable: !BUILD || TEST
+    })
+  ];
+
+  if(!TEST) {
+    config.plugins.push(new CommonsChunkPlugin({
+      name: 'vendor',
+
+      // filename: "vendor.js"
+      // (Give the chunk a different name)
+
+      minChunks: Infinity
+      // (with more entries, this ensures that no other module
+      //  goes into the vendor chunk)
+    }));
+  }
+
+  // Skip rendering index.html in test mode
+  // Reference: https://github.com/ampedandwired/html-webpack-plugin
+  // Render index.html
+  let htmlConfig = {
+    template: 'client/_index.html',
+    filename: '../client/index.html',
+    alwaysWriteToDisk: true
+  };
+  config.plugins.push(
+    new HtmlWebpackPlugin(htmlConfig),
+    new HtmlWebpackHarddiskPlugin()
+  );
+
+  // Add build specific plugins
+  if(BUILD) {
+    config.plugins.push(
+      // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
+      // Only emit files when there are no errors
+      new webpack.NoErrorsPlugin(),
+
+      // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
+      // Dedupe modules in the output
+      new webpack.optimize.DedupePlugin(),
+
+      // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+      // Minify all javascript, switch loaders to minimizing mode
+      new webpack.optimize.UglifyJsPlugin({
+        mangle: false,
+        output: {
+          comments: false
+        },
+        compress: {
+          warnings: false
         }
-    };
+      }),
 
-    config.node = {
-        global: 'window',
-        process: true,
-        crypto: 'empty',
-        clearImmediate: false,
-        setImmediate: false
-    };
+      // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+      // Define free global variables
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      })
+    );
+  }
 
-    return config;
+  if(DEV) {
+    config.plugins.push(
+      // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+      // Define free global variables
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"development"'
+        }
+      })
+    );
+  }
+
+  config.cache = DEV;
+
+  if(TEST) {
+    config.stats = {
+      colors: true,
+      reasons: true
+    };
+    config.debug = false;
+  }
+
+  /**
+   * Dev server configuration
+   * Reference: http://webpack.github.io/docs/configuration.html#devserver
+   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+   */
+  config.devServer = {
+    contentBase: './client/',
+    stats: {
+      modules: false,
+      cached: false,
+      colors: true,
+      chunk: false
+    }
+  };
+
+  config.node = {
+    global: 'window',
+    process: true,
+    crypto: 'empty',
+    clearImmediate: false,
+    setImmediate: false
+  };
+
+  return config;
 };
