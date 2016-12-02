@@ -2,7 +2,7 @@
 	{
 		"firstname": "Leta",
 		"lastname": "Koontz",
-		"photo": "/assets/images/teachers/leta-koontz.jpg",
+		"photo": "../../assets/images/teachers/leta-koontz.jpg",
 		"bio": "Leta Koontz, E-RYT, has been studying yoga since 1998. Her first instructor was Lori Brungard. Leta has trained at the Ashtanga Yoga Research Institute in Mysore, India, and has been certified to teach yoga by the Himalayan Institute. She also completed Ashtanga Yoga teacher training with Tim Miller. Leta is the founder of Schoolhouse Yoga.",
 		"url": "http://www.leta.guru"
 	},
