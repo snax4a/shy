@@ -105,13 +105,48 @@
     "price":30    
   },
   {
-    "id":51,
-    "name":"Workshop: Getting Unstuck with Yoga (Sep 11th)",
-    "price":30
+    "id":29,
+    "name":"Workshop: Women's Healing Circle (Dec 30th)",
+    "price":10    
   },
   {
-    "id":57,
-    "name":"Workshop: Ayurveda (Oct 1st)",
-    "price":30    
+    "id":30,
+    "name":"Workshop: Women's Healing Circle (Jan 27th)",
+    "price":10    
+  },
+  {
+    "id":31,
+    "name":"Workshop: Women's Healing Circle (Feb 24th)",
+    "price":10    
+  },
+  {
+    "id":41,
+    "name":"Workshop: New Year's Day (Jan 1st)",
+    "price":35
+  },
+  {
+    "id":51,
+    "name":"Workshop: Meditation (Jan 15th)",
+    "price":40
+  },
+  {
+    "id":58,
+    "name":"Workshop: Family Yoga (Dec 4th)",
+    "price":10
+  },
+  {
+    "id":59,
+    "name":"Workshop: Family Yoga (Jan 8th)",
+    "price":10
+  },
+  {
+    "id":60,
+    "name":"Workshop: Family Yoga (Feb 5th)",
+    "price":10
+  },
+  {
+    "id":100,
+    "name":"Teacher Training Open House",
+    "price":0
   }
 ]

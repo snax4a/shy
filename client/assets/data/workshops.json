@@ -33,38 +33,116 @@
 		]
 	},
 	{
-		"expires": "2016-09-11T16:30:00.000-04:00",
-		"title": "Getting Unstuck with Yoga and Positive Psychology with Joni Sturgill",
-		"image": "/assets/images/workshops/meditation.jpg",
-		"description": "Feel like you’re getting overwhelmed by stress? Not living the life you wanted? Learn compassion for yourself so you can move beyond your emotional pain, to live a purposeful, joyful, happy life! This class includes yoga, meditation, positive psychology exercises, journaling, laughter, and conscious breathing.",
+		"expires": "2017-02-24T20:00:00.000-04:00",
+		"title": "Women's Healing Circle with Kendell Romanelli",
+		"image": "/assets/images/workshops/womenscircle.jpg",
+		"description": "This class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and uplift all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in five words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
 		"sections":
 		[
 			{
-				"start": "2016-09-11T14:00:00.000-04:00",
-				"expires": "2016-09-11T16:30:00.000-04:00",
-				"productID": 51,
-				"cost": 30,
+				"start": "2016-12-30T18:30:00.000-05:00",
+				"expires": "2016-12-16T20:00:00.000-05:00",
+				"productID": 29,
+				"cost": 10,
+				"location": "North Hills"
+			},
+			{
+				"start": "2017-01-27T18:30:00.000-04:00",
+				"expires": "2017-01-13T20:00:00.000-04:00",
+				"productID": 30,
+				"cost": 10,
+				"location": "North Hills"
+			},
+			{
+				"start": "2017-02-24T18:30:00.000-04:00",
+				"expires": "2017-02-10T20:00:00.000-04:00",
+				"productID": 31,
+				"cost": 10,
+				"location": "North Hills"
+			}
+		]
+	},
+	{
+		"expires": "2017-02-05T15:00:00.000-04:00",
+		"title": "Family Yoga Workshops with Bailey Zembower",
+		"image": "/assets/images/workshops/mothering.jpg",
+		"description": "In our family yoga workshop, we will focus on fun and playful movement as well as calming breath work to bring the family together in a lighthearted practice. We will move through a physical asana practice designed to be mindful of the bodies and minds of children and teenagers. Join us to unite your practice with your family as we include a brief guided meditation to help to focus busy minds of children and parents alike. Family members and friends of young yogis (ages 4 and over) are welcome.",
+		"sections":
+		[
+			{
+				"start": "2016-12-04T14:00:00.000-05:00",
+				"expires": "2016-12-04T15:00:00.000-05:00",
+				"productID": 58,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-01-08T14:00:00.000-04:00",
+				"expires": "2017-01-13T15:00:00.000-04:00",
+				"productID": 59,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-02-05T14:00:00.000-04:00",
+				"expires": "2017-02-10T15:00:00.000-04:00",
+				"productID": 60,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			}
+		]
+	},
+	{
+		"expires": "2016-12-04T15:00:00.000-04:00",
+		"title": "Teacher Training Open House",
+		"image": "/assets/images/workshops/gentleyogatt.jpg",
+		"description": "Are you interested becoming a yoga instructor? Are you interested in learning more about yoga history, philosophy, anatomy, alignment, chakra, meditation and Ayurveda? Then join us for this informational get-together! We will discuss our upcoming 2017 Teacher Training and Yoga Intensive and answer any questions you have.",
+		"sections":
+		[
+			{
+				"start": "2016-12-04T14:00:00.000-05:00",
+				"expires": "2016-12-04T15:00:00.000-05:00",
+				"productID": 100,
+				"cost": 0,
 				"location": "East Liberty"
 			}
 		]
 	},
 
 	{
-		"expires": "2016-10-01T15:00:00.000-04:00",
-		"title": "Ayurveda Workshop with Abby Ritter",
-		"image": "/assets/images/workshops/menopause.jpg",
-		"description": "The transition to cooler and drier air in the Fall from the warm heat of the summer can wreak havoc on both our bodies and our minds. This workshop will include an asana practice designed to balance the vata effects of this time of the year.",
+		"expires": "2017-01-15T17:00:00.000-04:00",
+		"title": "Meditation Workshop for Teachers with Joni Sturgill",
+		"image": "/assets/images/workshops/meditation.jpg",
+		"description": "Whether you are a yoga teacher looking to incorporate meditation into your classes, a school teacher looking to teach students to relax and focus, a human resources professional looking to help employees reduce stress, or a parent wanting to help your children relax and learn the lifelong skill of focused meditation, join Joni in this course to experience basic meditations and learn how to break them down and teach them to others. There will be time for practice, lecture and questions. A handout will be emailed after the course.",
 		"sections":
 		[
 			{
-				"start": "2016-10-01T13:00:00.000-04:00",
-				"expires": "2016-10-01T15:00:00.000-04:00",
-				"productID": 57,
-				"cost": 30,
-				"location": "Squirrel Hill"
+				"start": "2017-01-15T14:00:00.000-04:00",
+				"expires": "2017-01-15T17:00:00.000-04:00",
+				"productID": 51,
+				"cost": 40,
+				"location": "East Liberty"
 			}
 		]
 	},
+	{
+		"expires": "2017-01-01T12:30:00.000-04:00",
+		"title": "New Year's Day Workshop with Linda Meacci",
+		"image": "/assets/images/workshops/nyd.jpg",
+		"description": "Jivanmukti—Be Here Now: There’s no better place than on your yoga mat to start the New Year! Invigorate body, mind and spirit and step into a shining 2017. This mindful, energetic practice—a blend of asana, contemplation, revelation and music—will make for an auspicious start to your New Year. We will reflect upon life principles as we move fluidly in Sun Salutes, Warrior postures and stabilizing balance postures. Rhythm and playfulness will be explored in backbends and hip asanas. A deep relaxation ties it all together. Walk into the New Year with a strong intention for harmony, self-care, and levity! Jivanmukti—freedom here and now! All levels welcome. Modifications will be provided. Sign-up early. Space is limited!",
+		"sections":
+		[
+			{
+				"start": "2017-01-01T10:00:00.000-04:00",
+				"expires": "2017-01-01T12:30:00.000-04:00",
+				"productID": 41,
+				"cost": 35,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+
 
 	{
 		"expires": "2016-10-02T15:00:00.000-04:00",
