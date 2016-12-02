@@ -2,7 +2,7 @@
 	{
 		"expires": "2017-02-10T20:00:00.000-04:00",
 		"title": "Moon Salutations with Kendell Romanelli",
-		"image": "/assets/images/workshops/moonsalutations.jpg",
+		"photo": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
 		"sections":
 		[
@@ -35,7 +35,7 @@
 	{
 		"expires": "2017-02-24T20:00:00.000-04:00",
 		"title": "Women's Healing Circle with Kendell Romanelli",
-		"image": "/assets/images/workshops/womenscircle.jpg",
+		"photo": "/assets/images/workshops/womenscircle.jpg",
 		"description": "This class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and uplift all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in five words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
 		"sections":
 		[
@@ -65,7 +65,7 @@
 	{
 		"expires": "2017-02-05T15:00:00.000-04:00",
 		"title": "Family Yoga Workshops with Bailey Zembower",
-		"image": "/assets/images/workshops/mothering.jpg",
+		"photo": "/assets/images/workshops/mothering.jpg",
 		"description": "In our family yoga workshop, we will focus on fun and playful movement as well as calming breath work to bring the family together in a lighthearted practice. We will move through a physical asana practice designed to be mindful of the bodies and minds of children and teenagers. Join us to unite your practice with your family as we include a brief guided meditation to help to focus busy minds of children and parents alike. Family members and friends of young yogis (ages 4 and over) are welcome.",
 		"sections":
 		[
@@ -95,7 +95,7 @@
 	{
 		"expires": "2016-12-04T15:00:00.000-04:00",
 		"title": "Teacher Training Open House",
-		"image": "/assets/images/workshops/gentleyogatt.jpg",
+		"photo": "/assets/images/workshops/gentleyogatt.jpg",
 		"description": "Are you interested becoming a yoga instructor? Are you interested in learning more about yoga history, philosophy, anatomy, alignment, chakra, meditation and Ayurveda? Then join us for this informational get-together! We will discuss our upcoming 2017 Teacher Training and Yoga Intensive and answer any questions you have.",
 		"sections":
 		[
@@ -112,7 +112,7 @@
 	{
 		"expires": "2017-01-15T17:00:00.000-04:00",
 		"title": "Meditation Workshop for Teachers with Joni Sturgill",
-		"image": "/assets/images/workshops/meditation.jpg",
+		"photo": "/assets/images/workshops/meditation.jpg",
 		"description": "Whether you are a yoga teacher looking to incorporate meditation into your classes, a school teacher looking to teach students to relax and focus, a human resources professional looking to help employees reduce stress, or a parent wanting to help your children relax and learn the lifelong skill of focused meditation, join Joni in this course to experience basic meditations and learn how to break them down and teach them to others. There will be time for practice, lecture and questions. A handout will be emailed after the course.",
 		"sections":
 		[
@@ -128,7 +128,7 @@
 	{
 		"expires": "2017-01-01T12:30:00.000-04:00",
 		"title": "New Year's Day Workshop with Linda Meacci",
-		"image": "/assets/images/workshops/nyd.jpg",
+		"photo": "/assets/images/workshops/nyd.jpg",
 		"description": "Jivanmukti—Be Here Now: There’s no better place than on your yoga mat to start the New Year! Invigorate body, mind and spirit and step into a shining 2017. This mindful, energetic practice—a blend of asana, contemplation, revelation and music—will make for an auspicious start to your New Year. We will reflect upon life principles as we move fluidly in Sun Salutes, Warrior postures and stabilizing balance postures. Rhythm and playfulness will be explored in backbends and hip asanas. A deep relaxation ties it all together. Walk into the New Year with a strong intention for harmony, self-care, and levity! Jivanmukti—freedom here and now! All levels welcome. Modifications will be provided. Sign-up early. Space is limited!",
 		"sections":
 		[
@@ -142,12 +142,10 @@
 		]
 	},
 
-
-
 	{
 		"expires": "2016-10-02T15:00:00.000-04:00",
 		"title": "Prenatal Partner Yoga Workshop with Kristie Lindblom",
-		"image": "/assets/images/workshops/prenatalpartner.jpg",
+		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms to be! Bring your partners, a family member or a friend to share a fun prenatal yoga experience where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and to prepare for the arrival of your little one into the world! All stages of pregnancy and levels of experience are welcome.",
 		"sections":
 		[
@@ -164,7 +162,7 @@
 	{
 		"expires": "2016-10-09T16:00:00.000-04:00",
 		"title": "Restorative Yoga with Joni Sturgill",
-		"image": "/assets/images/workshops/restorative.jpg",
+		"photo": "/assets/images/workshops/restorative.jpg",
 		"description": "Nurture yourself and learn to relax deeply in this restorative yoga workshop. Restorative yoga uses blankets, bolsters and blocks to support the body in restful postures. This encourages the body to relax, open, renew and heal. As the body releases deeply, the mind grows quiet and reflective, bringing your whole being into a more balanced state. Joni will assist you in setting up each pose, and will also teach you how to practice on your own, so you can experience this blissful state regularly! Please bring one or two thin blankets. Studio props are available for use, but are limited depending on the number of attendees. Register early, limit of 15 students.",
 		"sections":
 		[
@@ -181,7 +179,7 @@
 	{
 		"expires": "2016-11-06T16:30:00.000-04:00",
 		"title": "Meditation and Restorative Yoga for those in the Helping Professions with Joni Sturgill",
-		"image": "/assets/images/workshops/fertility.jpg",
+		"photo": "/assets/images/workshops/fertility.jpg",
 		"description": "Are you a caretaker by profession or by nature? If you are a counselor, social worker, teacher, physician, nurse or parent - or anyone in the social/helping professions - do you really take the time to restore your own body, mind, emotions or energy? Are you finding ways to manage stress in your life? Join Joni in this workshop and learn techniques you can practice regularly to renew yourself, so you can avoid or minimize burnout. You&rsquo;ll learn meditation techniques to calm and focus the mind, plus how to position the body, using props, to encourage complete relaxation. No experience necessary. Open to anyone who needs to relax.",
 		"sections":
 		[
@@ -198,7 +196,7 @@
 	{
 		"expires": "2016-11-12T14:30:00.000-04:00",
 		"title": "Total Yoga Therapy: Tune-up for Shoulders, Mid-Back and Neck with Linda Meacci, E-RYT, and Jamie DeMarco, DPT",
-		"image": "/assets/images/workshops/shoulder.jpg",
+		"photo": "/assets/images/workshops/shoulder.jpg",
 		"description": "The shoulder girdle is the most mobile joint system in the body and thus is prone to overuse, tension, stiffness and injury. Without good mobility and strength in this system, we tend to slouch, lose strength and can suffer cyclical pain in the shoulders, mid-back, neck or wrists. Postural issues are some of the leading causes of poor shoulder girdle function. In this therapeutic workshop, Linda Meacci, an Experienced Registered Yoga Teacher, and Jamie DeMarco, a Doctor of Physical Therapy and yoga teacher, help you understand how to restore and maintain stability and pain-free movement. Physiological factors involved include the skeletal structure, muscles and soft tissue of the upper back, chest, shoulders and arms. Linda and Jamie show you how to rebalance the system from both a yoga and physical therapy point of view. They will address underlying issues&mdash;including the relationship between the shoulders, hips and spine&mdash;and give you practical tools to release physical and emotional tension. By identifying the muscle chains that stabilize the shoulders and becoming aware of simple movement that support the system, we can achieve a more upright posture and better function. This workshop is ideal for fellow yoga teachers, long-time yogis, new students and anyone plagued with shoulder, upper back or neck tension.",
 		"sections":
 		[

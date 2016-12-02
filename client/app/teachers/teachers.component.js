@@ -2,6 +2,7 @@
 import angular from 'angular';
 import routes from './teachers.routes';
 import uiRouter from 'angular-ui-router';
+import teachers from '../../assets/data/teachers.json';
 
 export class TeachersController {
   /*@ngInject*/
@@ -10,11 +11,8 @@ export class TeachersController {
   }
 
   $onInit() {
-    this.$http.get('/assets/data/teachers.json')
-      .then(response => {
-        // Use faculty so as to not conflict with component name
-        this.faculty = response.data;
-      });
+    // Load teachers from JSON
+    this.faculty = teachers;
   }
 }
 

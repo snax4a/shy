@@ -1,12 +1,13 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './main.routes';
+import announcementsJson from '../../assets/data/announcements.json';
 
 export class MainController {
 
   /*@ngInject*/
-  constructor($http) {
-    this.$http = $http;
+  constructor() {
+    this.data = [];
     this.slides = [
       { src: '/assets/images/home/closeup1.jpg' },
       { src: '/assets/images/home/closeup2.jpg' },
@@ -16,10 +17,8 @@ export class MainController {
   }
 
   $onInit() {
-    this.$http.get('/assets/data/announcements.json')
-      .then(response => {
-        this.data = response.data;
-      });
+    // Load announcements from JSON file
+    this.data = announcementsJson;
   }
 }
 

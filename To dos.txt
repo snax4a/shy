@@ -1,4 +1,6 @@
 High
+- file-loader for webpack is not revising the image URLs in the JSON files (causing image 404s on heroku)
+  - Revise webpack.make.js to resolve
 - /api/newsletter - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL

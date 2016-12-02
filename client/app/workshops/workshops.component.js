@@ -2,6 +2,7 @@
 import angular from 'angular';
 import routes from './workshops.routes';
 import uiRouter from 'angular-ui-router';
+import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
@@ -14,6 +15,7 @@ export class WorkshopsController {
     this.submitted = false;
     this.subscribed = false;
     this.subscriptionResult = '';
+    this.workshops = [];
   }
 
   $onInit() {
@@ -23,10 +25,7 @@ export class WorkshopsController {
     }, 50);
 
     // Load the workshops from the JSON file
-    this.$http.get('/assets/data/workshops.json')
-      .then(response => {
-        this.data = response.data;
-      });
+    this.workshops = workshops;
   }
 
   subscribe(form) {
