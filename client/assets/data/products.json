@@ -71,8 +71,8 @@
   },
   {
     "id":14,
-    "name":"Workshop: Meditation and Restorative Yoga (Aug 2nd)",
-    "price":25
+    "name":"Workshop: Prenatal Partner Yoga (Jan 15th)",
+    "price":35
   },
   {
     "id":15,
@@ -86,8 +86,8 @@
   },
   {
     "id":17,
-    "name":"Workshop: 10-12 Year Old Class",
-    "price":80
+    "name":"Workshop: Sitting is Killing Me (Jan 28th)",
+    "price":25
   },
   {
     "id":18,
@@ -101,8 +101,8 @@
   },
   {
     "id":22,
-    "name":"Workshop: Meditation and Restorative Yoga (Nov 6th)",
-    "price":30    
+    "name":"Workshop: Meditation (Jan 8th)",
+    "price":35    
   },
   {
     "id":29,
@@ -125,9 +125,29 @@
     "price":35
   },
   {
+    "id":44,
+    "name":"Trauma-Informed Yoga Teacher Training (Feb 18th)",
+    "price":90
+  },
+  {
+    "id":45,
+    "name":"Trauma-Informed Yoga Teacher Training (Feb 18-19)",
+    "price":180
+  },
+  {
     "id":51,
     "name":"Workshop: Meditation (Jan 15th)",
     "price":40
+  },
+  {
+    "id":53,
+    "name":"Workshop: Partner Meditation (Feb 12th)",
+    "price":35
+  },
+  {
+    "id": 57,
+    "name":"Workshop: Inside Out Asana (Feb 4th)",
+    "price":30
   },
   {
     "id":58,
