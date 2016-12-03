@@ -4,6 +4,8 @@
 'use strict';
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
+import { Order } from '../../sqldb';
+// import jsonpatch from 'fast-json-patch';
 
 // Implement: possibly share the client-side Item class
 // so we don't need to repeat ourselves with getTotal and getTotalCost.
@@ -22,10 +24,6 @@ function getTotalCost(cartItems) {
   return parseFloat(total).toFixed(0);
 }
 
-/*
-import jsonpatch from 'fast-json-patch';
-import {Thing} from '../../sqldb';
-
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -43,15 +41,8 @@ function handleError(res, statusCode) {
   };
 }
 
-// Creates a new Thing in the DB
+// Attempt to create the order - payment gateway, save to database, generate email
 export function create(req, res) {
-  return Thing.create(req.body)
-    .then(respondWithResult(res, 201))
-    .catch(handleError(res));
-}
-*/
-// Attempt to place the order
-export function placeOrder(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     ccNumber: `**** **** **** ${req.body.paymentInfo.ccNumber.slice(-4)}`,
@@ -85,14 +76,20 @@ export function placeOrder(req, res) {
   // Log order details to console in case email fails (do same for errors)
   console.log(`Order ${confirmation.orderNumber} received`, confirmation);
 
+  // Save to the PostgreSQL
+  // return Order.create(req.body)
+  //   .then(respondWithResult(res, 201))
+  //   .catch(handleError(res));
+
+  // Send email confirmation to the purchaser and BCC SHY admin
+
   // Build block of HTML for cartItems
   let cartItemsHtml = '';
   cartItems.forEach(cartItem => {
     cartItemsHtml += `<tr><td class="left">${cartItem.name}</td><td class="center">${cartItem.quantity}</td>
       <td class="right">$${cartItem.price}</td><td class="right">$${getTotal(cartItem)}</td></tr>`;
   });
-
-  // Send email confirmation to the purchaser and BCC SHY admin
+  // Now send it
   email({
     to: req.body.purchaser.email,
     subject: 'Schoolhouse Yoga Order Confirmation',
@@ -182,4 +179,5 @@ export function placeOrder(req, res) {
     success: 'Thank you for your order.',
     failure: 'Error occurred with your order. Please try again later.'
   });
+
 }
