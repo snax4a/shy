@@ -62,11 +62,15 @@ export function placeOrder(req, res) {
     recipient: req.body.recipient
   };
 
-  // Implement: use imported products to revise pricing to prevent tampering
-  console.log(products);
+  // Load cartItems array from body of request
+  let cartItems = req.body.cartItems;
+
+  // Overwrite prices in case of tampering on the client
+  for(let cartItem of cartItems) {
+    cartItem.price = products.find(product => product.id === cartItem.id).price;
+  }
 
   // Set the grandTotal based on revised pricing
-  let cartItems = req.body.cartItems;
   confirmation.grandTotal = getTotalCost(cartItems);
 
   // Implement: Send confirmation details to payment gateway and get result

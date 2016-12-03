@@ -13,14 +13,14 @@ describe('Order API:', function() {
         .send({
           cartItems: [
             {
-              id: 3,
+              id: 1,
               name: 'One card pass',
-              price: 15,
-              quantity: 1
+              price: 10, // Intentionally falsified price that should be overwritten automatically
+              quantity: 2
             }
           ],
           forSomeoneElse: false,
-          instructions: 'Test instructions',
+          instructions: 'One for John and one for Jane.',
           methodToSend: 'Apply credit to recipient\'s account (default)',
           paymentInfo: {
             ccCSC: 656,
@@ -39,7 +39,7 @@ describe('Order API:', function() {
             phone: '412-555-1212'
           },
           recipient: {
-            firstName: 'Basyl',
+            firstName: 'Jane',
             lastName: 'Doe',
             address: '123 Main Street',
             city: 'Pittsburgh',
@@ -52,7 +52,6 @@ describe('Order API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          //console.log('RES', res.body);
           if(err) {
             return done(err);
           }

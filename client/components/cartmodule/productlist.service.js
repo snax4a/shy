@@ -14,14 +14,6 @@ export class ProductList {
 
   // Iterates through array of products to retrieve one with matching id
   lookup(id) {
-    let selectedProduct = {};
-    for(let product of this.products) {
-      if(product.id == id) {
-        selectedProduct = product;
-        break;
-      }
-    }
-
-    return selectedProduct;
+    return this.products.find(product => product.id === id);
   }
 }
