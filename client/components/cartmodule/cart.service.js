@@ -45,8 +45,7 @@ export class Cart {
       inCart.quantity += 1;
     } else {
       let product = this.ProductList.lookup(id);
-      let newItem = new Item(id, product.name, product.price, 1);
-      this.cartItems.push(newItem);
+      this.cartItems.push(new Item(id, product.name, product.price, 1));
     }
     this.saveToStorage();
     this.$location.path('/cart');

@@ -14,6 +14,6 @@ export class ProductList {
 
   // Iterates through array of products to retrieve one with matching id
   lookup(id) {
-    return this.products.find(product => product.id === id);
+    return this.products.find(product => product.id === parseInt(id, 10));
   }
 }
