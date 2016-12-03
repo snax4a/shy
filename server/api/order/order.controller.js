@@ -3,6 +3,7 @@
 */
 'use strict';
 import email from '../../components/email';
+import products from '../../../client/assets/data/products.json';
 
 // Implement: possibly share the client-side Item class
 // so we don't need to repeat ourselves with getTotal and getTotalCost.
@@ -61,8 +62,8 @@ export function placeOrder(req, res) {
     recipient: req.body.recipient
   };
 
-  // Implement: $http.get - get list of products and prices
-  // Implement: Update price of each cartItem using ProductList to prevent tampering
+  // Implement: use imported products to revise pricing to prevent tampering
+  console.log(products);
 
   // Set the grandTotal based on revised pricing
   let cartItems = req.body.cartItems;

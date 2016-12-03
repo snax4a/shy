@@ -1,30 +1,27 @@
 'use strict';
-import angular from 'angular';
+import products from '../../assets/data/products.json';
 
 export class ProductList {
-  /*@ngInject*/
-  constructor($http, $log) {
-    this.$http = $http;
-    this.$log = $log;
+  constructor() {
+    this.products = [];
   }
 
   // Load an array of products from the products.json file
   // Called by CartRun
   loadProductsFromJson() {
-    this.$http.get('/assets/data/products.json')
-      .then(response => {
-        this.products = response.data;
-      });
+    this.products = products;
   }
 
   // Iterates through array of products to retrieve one with matching id
   lookup(id) {
     let selectedProduct = {};
-    angular.forEach(this.products, product => {
+    for(let product of this.products) {
       if(product.id == id) {
         selectedProduct = product;
+        break;
       }
-    });
+    }
+
     return selectedProduct;
   }
 }
