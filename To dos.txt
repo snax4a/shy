@@ -1,4 +1,6 @@
 High
+- Remove old MongoDB code
+- Add PostgreSQL URIs to config
 - /api/newsletter - save email to subscribers table
   - Could be https://www.npmjs.com/package/google-spreadsheet or
   - Heroku PostgreSQL

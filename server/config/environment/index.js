@@ -47,13 +47,13 @@ var all = {
   seedDB: false,
 
   // MongoDB connection options
-  mongo: {
-    options: {
-      db: {
-        safe: true
-      }
-    }
-  }
+  // mongo: {
+  //   options: {
+  //     db: {
+  //       safe: true
+  //     }
+  //   }
+  // }
 };
 
 // Export the config object based on the NODE_ENV

@@ -13,8 +13,11 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-
 import config from './environment';
+// import session from 'express-session';
+// import sqldb from '../sqldb';
+// import expressSequelizeSession from 'express-sequelize-session';
+// let Store = expressSequelizeSession(session.Store);
 
 export default function(app) {
   var env = app.get('env');

@@ -179,5 +179,4 @@ export function create(req, res) {
     success: 'Thank you for your order.',
     failure: 'Error occurred with your order. Please try again later.'
   });
-
 }

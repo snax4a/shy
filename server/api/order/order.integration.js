@@ -14,7 +14,7 @@ describe('Order API:', function() {
           cartItems: [
             {
               id: 1,
-              name: 'One card pass',
+              name: 'One class pass',
               price: 10, // Intentionally falsified price that should be overwritten automatically
               quantity: 2
             }
