@@ -10,7 +10,7 @@ The website is under construction. What remains is storing subscriber contact in
 gateway.
 
 The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. The angularJS
-components are ready for migration to 2.0.
+components are ready for migration to 2.0. Support for node > 7 is waiting on Gulp 4.0.
 
 ## Getting Started
 
@@ -19,7 +19,6 @@ components are ready for migration to 2.0.
 - [Git](https://git-scm.com/) (`brew install git`)
 - [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.3 (`brew install node`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
-- [Sass](http://sass-lang.com) (`gem install sass`)
 
 ### Developing
 
