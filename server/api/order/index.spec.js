@@ -3,7 +3,7 @@
 const proxyquire = require('proxyquire').noPreserveCache();
 
 const orderCtrlStub = {
-  placeOrder: 'orderCtrl.placeOrder'
+  placeOrder: 'orderCtrl.create'
 };
 
 const routerStub = {
@@ -26,9 +26,9 @@ describe('Order API Router:', function() {
   });
 
   describe('POST /api/order', function() {
-    it('should route to order.controller.placeOrder', function() {
+    it('should route to order.controller.create', function() {
       expect(routerStub.post
-        .withArgs('/', 'orderCtrl.placeOrder')
+        .withArgs('/', 'orderCtrl.create')
         ).to.have.been.calledOnce;
     });
   });

@@ -1,12 +1,9 @@
 High
-- Remove old MongoDB code
-- Add PostgreSQL URIs to config
-- /api/newsletter - save email to subscribers table
-  - Could be https://www.npmjs.com/package/google-spreadsheet or
-  - Heroku PostgreSQL
-- /api/message - save subscriber info, if appropriate
+- Connect /server/api/newsletter, order and message to Subscriber object to save contact info
 - /api/order
+  - save order to database (without credit card info)
   - process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
+- Setup PostgreSQL URI for Heroku (/server/config/environment/production.js) - override
 
 Low/cosmetic
 - Maybe update api/order/order.controller.js to use class instead
