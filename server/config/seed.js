@@ -12,8 +12,7 @@ Order.sync()
   .then(() => {
     Order.bulkCreate([{
       orderNumber: 'TEST-0001',
-      placedOn: '2017-01-13T18:30:00.000-05:00',
-      grandTotal: 15,
+      grandTotal: 15.00,
       instructions: 'Split between John and Jane',
       forSomeoneElse: true,
       methodToSend: 'Apply credit to recipient\'s account (default)',
@@ -34,5 +33,8 @@ Order.sync()
       recipientEmail: 'j2doe@gmail.com',
       recipientPhone: '412-555-1212',
       itemsOrdered: [{id: 1, name: 'One class pass', price: 15, quantity: 1}]
-    }]);
+    }])
+    .then(() => {
+      console.log('SEQUELIZE: Finished recreating test order');
+    });
   });

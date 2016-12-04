@@ -5,8 +5,14 @@
 'use strict';
 
 import express from 'express';
+import sqldb from './sqldb';
 import config from './config/environment';
 import http from 'http';
+
+// Populate databases with sample data
+if(config.seedDB) {
+  require('./config/seed');
+}
 
 // Setup server
 const app = express();
@@ -21,7 +27,13 @@ function startServer() {
   });
 }
 
-setImmediate(startServer);
+// Synchronize the database then startServer
+sqldb.sequelize.sync()
+  .then(startServer)
+  .catch(function(err) {
+    console.log('Server failed to start due to error: %s', err);
+  });
+// setImmediate(startServer);
 
 // Expose app
 exports = module.exports = app;

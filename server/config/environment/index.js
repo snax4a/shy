@@ -44,7 +44,7 @@ var all = {
   },
 
   // Default to not seeding the database unless required
-  seedDB: true
+  seedDB: false
 
 };
 
