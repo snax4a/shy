@@ -8,10 +8,10 @@ import sqldb from '../sqldb';
 let Order = sqldb.Order;
 
 Order.sync()
-  .then(() => Order.destroy({ where: { orderNumber: 'BL0PDFDF348D'} }))
+  .then(() => Order.destroy({ where: { orderNumber: 'TEST-0001'} }))
   .then(() => {
     Order.bulkCreate([{
-      orderNumber: 'BL0PDFDF348D',
+      orderNumber: 'TEST-0001',
       placedOn: '2017-01-13T18:30:00.000-05:00',
       grandTotal: 15,
       instructions: 'Split between John and Jane',

@@ -6,10 +6,13 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
-  DOMAIN: 'http://localhost:9000',
-  SESSION_SECRET: 'shy-secret',
-  // Control debug level for modules using visionmedia/debug
-  DEBUG: '',
+  SMTP_USER: 'someuser@somedomain.com',
+  SMTP_PASSWORD: 'Password',
+  SMTP_HOST: 'smtp.office365.com',
+  SMTP_PORT: 587, //secure
+  SMTP_TLS_CIPHERS: 'SSLv3',
+  SEQUELIZE_URI: 'postgres://user:pass@localhost:5432/dbname',
+
   BRAINTREE_ENVIRONMENT: 'braintree.Environment.Sandbox', // not to be in quotes - use require
   BRAINTREE_MERCHANT_ID: 'replace with braintree merchant id',
   BRAINTREE_PUBLIC_KEY: 'replace with braintree public key',
@@ -21,10 +24,5 @@ module.exports = {
   PAYFLOW_PRO_PASSWORD: 'Password',
   PAYFLOW_PRO_PARTNER: 'PayPal',
   PAYFLOW_PRO_VENDOR: 'Vendor',
-  PAYFLOW_PRO_TESTING: true,
-  SMTP_USER: 'someuser@somedomain.com',
-  SMTP_PASSWORD: 'Password',
-  SMTP_HOST: 'smtp.office365.com',
-  SMTP_PORT: 587, //secure
-  SMTP_TLS_CIPHERS: 'SSLv3'
+  PAYFLOW_PRO_TESTING: true
 };

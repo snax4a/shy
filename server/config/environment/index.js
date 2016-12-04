@@ -43,17 +43,9 @@ var all = {
     }
   },
 
-  // Should we populate the DB with sample data?
-  seedDB: false,
+  // Default to not seeding the database unless required
+  seedDB: true
 
-  // MongoDB connection options
-  // mongo: {
-  //   options: {
-  //     db: {
-  //       safe: true
-  //     }
-  //   }
-  // }
 };
 
 // Export the config object based on the NODE_ENV

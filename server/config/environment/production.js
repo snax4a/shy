@@ -16,14 +16,10 @@ module.exports = {
 
   // Sequelize
   sequelize: {
-    uri: process.env.SEQUELIZE_URI
-      || 'postgres://user:pass@example.com:5432/dbname',
-    options: {
-      logging: false,
-      storage: 'dist.sqlite',
-      define: {
-        timestamps: false
-      }
-    }
-  }
+    uri: process.env.SEQUELIZE_URI,
+    options: {}
+  },
+
+  // Seed database on startup
+  seedDB: false
 };
