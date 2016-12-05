@@ -8,11 +8,10 @@ import sqldb from '../sqldb';
 let Order = sqldb.Order;
 let Subscriber = sqldb.Subscriber;
 
-// Delete the test order and re-insert
+// Upsert the order
 Order.sync()
-  .then(() => Order.destroy({ where: { orderNumber: 'TEST-0001'} }))
   .then(() => {
-    Order.bulkCreate([{
+    Order.upsert({
       orderNumber: 'TEST-0001',
       grandTotal: 15.00,
       instructions: 'Split between John and Jane',
@@ -35,28 +34,27 @@ Order.sync()
       recipientEmail: 'j2doe@gmail.com',
       recipientPhone: '412-555-1212',
       itemsOrdered: [{id: 1, name: 'One class pass', price: 15, quantity: 1}]
-    }])
+    })
     .then(() => {
-      console.log('SEQUELIZE: Test order inserted');
+      console.log('SEQUELIZE: Test order upserted');
     });
   });
 
-// Delete the test subscriber and re-insert
+// Upsert  test subscriber and re-insert
 Subscriber.sync()
-  .then(() => Subscriber.destroy({ where: { email: 'jdoe@gmail.com' } }))
   .then(() => {
-    Subscriber.bulkCreate([{
+    Subscriber.upsert({
+      email: 'jdoe@gmail.com',
       firstName: 'John',
       lastName: 'Doe',
       address: '123 Main Street',
       city: 'Pittsburgh',
       state: 'PA',
       zipCode: '15217',
-      email: 'jdoe@gmail.com',
       phone: '412-555-1212',
       optout: false
-    }])
+    })
     .then(() => {
-      console.log('SEQUELIZE: Test subscriber inserted');
+      console.log('SEQUELIZE: Test subscriber upserted');
     });
   });
