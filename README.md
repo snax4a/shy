@@ -17,7 +17,7 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install homebrew/versions/node6-lts`)
+- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install node@6`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
