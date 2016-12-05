@@ -16,8 +16,8 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 ### Prerequisites
 
-- [Git](https://git-scm.com/) (`brew install git`)
-- [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.3 (`brew install node`)
+- [Git](https://git-scm.com/) (on macOS `brew install git`)
+- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install homebrew/versions/node6-lts`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
@@ -30,7 +30,7 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, only the SMTP parameters need to be set.
 
-4. Start PostgreSQL on your local computer (`brew services start postgresql`)
+4. Start PostgreSQL on your local computer (on macOS `brew services start postgresql`).
 
 4. Open pgAdmin and connect to localhost.
 
