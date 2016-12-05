@@ -19,8 +19,10 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 - [Git](https://git-scm.com/) (`brew install git`)
 - [Node.js and npm](nodejs.org) Node = 6.9.1, npm = 4.0.3 (`brew install node`)
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
+- [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
+- [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 
-### Developing
+### Project setup
 
 1. Make sure prerequisites are installed for your operating system.
 
@@ -28,12 +30,20 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, only the SMTP parameters need to be set.
 
-4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
+4. Start PostgreSQL on your local computer (`brew services start postgresql`)
 
-## Build & development
+4. Open pgAdmin and connect to localhost.
 
-Run `gulp build` for building and `gulp serve` for preview.
+5. Create a database called `shy` the adjust the SEQUELIZE_URI in local.env.js to connect to this database.
 
-## Testing
+## Running tests, creating builds & deploying to Heroku
 
-Running `npm test` will run the unit, integration and client tests. Ignore the Error: EACCES: permission denied, mkdir '/client' - Karma seems to be trying to create a directory off of root.
+1. Run `npm test` to execute unit, integration and client tests. Ignore the Error: EACCES: permission denied, mkdir '/client' - Karma seems to be trying to create a directory off of root.
+
+1. Run `gulp build` to create a build in the /dist directory. If you get errors, try (`npm install semver jpegtran-bin optipng-bin`). These should have been installed during the initial (`npm install`) but sometimes installing these separately helps.
+
+2. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
+
+3. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have the Heroku CLI installed.
+
+
