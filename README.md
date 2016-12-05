@@ -28,13 +28,13 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 2. Run `npm install` to install server dependencies.
 
-3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, only the SMTP parameters need to be set.
+3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, the SMTP_ and SEQUELIZE_URI parameters need to be set.
 
 4. Start PostgreSQL on your local computer (on macOS `brew services start postgresql`).
 
 4. Open pgAdmin and connect to localhost.
 
-5. Create a database called `shy` the adjust the SEQUELIZE_URI in local.env.js to connect to this database.
+5. Create a database called `shy` then adjust the SEQUELIZE_URI in local.env.js to connect to this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
