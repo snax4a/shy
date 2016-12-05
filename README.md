@@ -1,24 +1,18 @@
 # Schoolhouse Yoga Website
 
-This yoga school website is built using angularJS 1.5.9, expressJS, and nodeJS (MEAN minus Mongo plus PostgreSQL).
-All JavaScript is ES6 via Babel. It includes a shopping cart (loosely based on ngCart) and will be processing
-payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
-of newsletter subscribers, it uses PostgreSQL as a database. Credit card information is
-intentionally not retained.
+Schoolhouse Yoga's website is built using AngularJS (1.5.x), Express, Node.js, and PostgreSQL. It provides
+a home page, class schedule, workshop information, teachers' page, method to contact
+the school and a shopping cart tied to a payment gateway.
 
 The website is under construction. What remains is storing subscriber contact info and implementing the payment
 gateway.
-
-The Angular Fullstack generator for Yeoman was used to scaffold out the initial project. The angularJS
-components are ready for migration to 2.0. Support for node > 7 is waiting on Gulp 4.0.
 
 ## Getting Started
 
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install node@6`)
-- [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
+- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 
@@ -34,7 +28,7 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 4. Open pgAdmin and connect to localhost.
 
-5. Create a database called `shy` then adjust the SEQUELIZE_URI in local.env.js to connect to this database.
+5. Create a database called `shy` then adjust the SEQUELIZE_URI in local.env.js to add your credentials and connect to this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
@@ -45,5 +39,3 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 2. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
 3. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have the Heroku CLI installed.
-
-
