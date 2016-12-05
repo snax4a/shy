@@ -40,7 +40,7 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 1. Run `npm test` to execute unit, integration and client tests. Ignore the Error: EACCES: permission denied, mkdir '/client' - Karma seems to be trying to create a directory off of root.
 
-1. Run `gulp build` to create a build in the /dist directory. If you get errors, try (`npm install semver jpegtran-bin optipng-bin`). These should have been installed during the initial (`npm install`) but sometimes installing these separately helps.
+1. Run `gulp build` to create a build in the /dist directory.
 
 2. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
