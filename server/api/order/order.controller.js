@@ -4,11 +4,7 @@
 'use strict';
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
-import { Order } from '../../sqldb';
-// import jsonpatch from 'fast-json-patch';
-
-// Implement: possibly share the client-side Item class
-// so we don't need to repeat ourselves with getTotal and getTotalCost.
+import { Order, Subscriber } from '../../sqldb';
 
 // Calculate the cartItem total
 function getTotal(cartItem) {
