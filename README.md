@@ -1,9 +1,9 @@
 # Schoolhouse Yoga Website
 
-This yoga school website is built using angularJS 1.5.9, expressJS, and nodeJS (MEAN w/o Mongo).
+This yoga school website is built using angularJS 1.5.9, expressJS, and nodeJS (MEAN minus Mongo plus PostgreSQL).
 All JavaScript is ES6 via Babel. It includes a shopping cart (loosely based on ngCart) and will be processing
 payments via Braintree or PayPal PayFlow Pro (haven't decided yet). In order to keep track
-of newsletter subscribers, we'll either use PostgreSQL or a Google Docs Spreadsheet. Credit card information is
+of newsletter subscribers, it uses PostgreSQL as a database. Credit card information is
 intentionally not retained.
 
 The website is under construction. What remains is storing subscriber contact info and implementing the payment
