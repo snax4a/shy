@@ -24,7 +24,7 @@ components are ready for migration to 2.0. Support for node > 7 is waiting on Gu
 
 ### Project setup
 
-1. Make sure prerequisites are installed for your operating system.
+1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS)
 
 2. Run `npm install` to install server dependencies.
 
