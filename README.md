@@ -4,8 +4,7 @@ Schoolhouse Yoga's website is built using AngularJS (1.5.x), Express, Node.js, a
 a home page, class schedule, workshop information, teachers' page, method to contact
 the school and a shopping cart tied to a payment gateway.
 
-The website is under construction. What remains is storing subscriber contact info and implementing the payment
-gateway.
+The website is under construction. What remains is implementing the payment gateway.
 
 ## Getting Started
 

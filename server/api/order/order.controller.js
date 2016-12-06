@@ -54,7 +54,7 @@ export function create(req, res) {
 
   // Overwrite prices in case of tampering on the client
   for(let cartItem of cartItems) {
-    cartItem.price = products.find(product => product.id === cartItem.id).price;
+    cartItem.price = products.find(product => product.id === parseInt(cartItem.id, 10)).price;
   }
 
   // Set the grandTotal based on revised pricing
@@ -72,10 +72,51 @@ export function create(req, res) {
   // Log order details to console in case email fails (do same for errors)
   console.log(`Order ${confirmation.orderNumber} received`, confirmation);
 
-  // Save to the PostgreSQL
-  // return Order.create(req.body)
-  //   .then(respondWithResult(res, 201))
-  //   .catch(handleError(res));
+  // Save order to the database
+  // Implement: replace 'TEST-0001' with PNREF from Payflow Pro
+  Order.upsert({
+    orderNumber: 'TEST-0001',
+    grandTotal: getTotalCost(cartItems),
+    instructions: confirmation.instructions,
+    forSomeoneElse: confirmation.forSomeoneElse,
+    methodToSend: confirmation.methodToSend,
+    purchaserFirstName: confirmation.purchaser.firstName,
+    purchaserLastName: confirmation.purchaser.lastName,
+    purchaserAddress: confirmation.purchaser.address,
+    purchaserCity: confirmation.purchaser.city,
+    purchaserState: confirmation.purchaser.state,
+    purchaserZipCode: confirmation.purchaser.zipCode,
+    purchaserEmail: confirmation.purchaser.email,
+    purchaserPhone: confirmation.purchaser.phone,
+    recipientFirstName: confirmation.recipient.firstName,
+    recipientLastName: confirmation.recipient.lastName,
+    recipientAddress: confirmation.recipient.address,
+    recipientCity: confirmation.recipient.city,
+    recipientState: confirmation.recipient.state,
+    recipientZipCode: confirmation.recipient.zipCode,
+    recipientEmail: confirmation.recipient.email,
+    recipientPhone: confirmation.recipient.phone,
+    itemsOrdered: cartItems
+  })
+  // Implement: send the res.status(200).json(confirmation) from above here - test it
+  .then(respondWithResult(res, 201))
+  .catch(handleError(res));
+
+  // Save subscriber to the database
+  Subscriber.create({
+    email: confirmation.recipient.email,
+    firstName: confirmation.recipient.firstName,
+    lastName: confirmation.recipient.lastName,
+    address: confirmation.recipient.address,
+    city: confirmation.recipient.city,
+    state: confirmation.recipient.state,
+    zipCode: confirmation.recipient.zipCode,
+    phone: confirmation.recipient.phone,
+    optout: false
+  })
+  // Implement: don't send the response a third time!
+  .then(respondWithResult(res, 201))
+  .catch(handleError(res));
 
   // Send email confirmation to the purchaser and BCC SHY admin
 

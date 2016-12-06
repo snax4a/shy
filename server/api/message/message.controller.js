@@ -6,17 +6,14 @@ import { Subscriber } from '../../sqldb';
 export function send(req, res) {
   // Add them to the subscribers list if they didn't opt out
   if(!req.body.optout) {
-    Subscriber.sync()
-      .then(() => {
-        Subscriber.upsert({
-          email: req.body.email,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName
-        })
-        .then(() => {
-          console.log('Added subscriber from contact form');
-        });
-      });
+    Subscriber.upsert({
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    })
+    .then(() => {
+      console.log('Added subscriber from contact form');
+    });
   }
 
   email({

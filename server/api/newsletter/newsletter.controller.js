@@ -5,15 +5,12 @@ import { Subscriber } from '../../sqldb';
 // Subscribes to the newsletter
 export function subscribe(req, res) {
   // Save subscriber to databse
-  Subscriber.sync()
+  Subscriber.upsert({
+    email: req.body.email,
+    optout: false
+  })
   .then(() => {
-    Subscriber.upsert({
-      email: req.body.email,
-      optout: false
-    })
-    .then(() => {
-      console.log('Added subscriber from workshops page');
-    });
+    console.log('Added subscriber from workshops page');
   });
 
   // Send email to SHY staff

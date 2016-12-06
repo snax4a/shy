@@ -5,7 +5,11 @@ export default function(sequelize, DataTypes) {
     {
       email: {
         type: DataTypes.STRING(80),
-        primaryKey: true
+        primaryKey: true,
+        validate: {
+          isEmail: true,
+          notEmpty: true
+        }
       },
       firstName: DataTypes.STRING(20),
       lastName: DataTypes.STRING(20),

@@ -3,13 +3,19 @@
 export default function(sequelize, DataTypes) {
   return sequelize.define('Order',
     {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+      orderNumber: {
+        type: DataTypes.STRING(12),
+        primaryKey: true,
+        validate: {
+          notEmpty: true
+        }
       },
-      orderNumber: DataTypes.STRING(12),
-      grandTotal: DataTypes.DECIMAL(10, 2),
+      grandTotal: {
+        type: DataTypes.DECIMAL(10, 2),
+        validate: {
+          isDecimal: true
+        }
+      },
       instructions: DataTypes.STRING,
       forSomeoneElse: DataTypes.BOOLEAN,
       methodToSend: DataTypes.STRING,
@@ -19,7 +25,13 @@ export default function(sequelize, DataTypes) {
       purchaserCity: DataTypes.STRING(20),
       purchaserState: DataTypes.STRING(2),
       purchaserZipCode: DataTypes.STRING(10),
-      purchaserEmail: DataTypes.STRING(80),
+      purchaserEmail: {
+        type: DataTypes.STRING(80),
+        validate: {
+          isEmail: true,
+          notEmpty: true
+        }
+      },
       purchaserPhone: DataTypes.STRING(23),
       recipientFirstName: DataTypes.STRING(20),
       recipientLastName: DataTypes.STRING(20),
@@ -27,9 +39,20 @@ export default function(sequelize, DataTypes) {
       recipientCity: DataTypes.STRING(20),
       recipientState: DataTypes.STRING(2),
       recipientZipCode: DataTypes.STRING(10),
-      recipientEmail: DataTypes.STRING(80),
+      recipientEmail: {
+        type: DataTypes.STRING(80),
+        validate: {
+          isEmail: true,
+          notEmpty: true
+        }
+      },
       recipientPhone: DataTypes.STRING(23),
-      itemsOrdered: DataTypes.JSON
+      itemsOrdered: {
+        type: DataTypes.JSON,
+        validate: {
+          notEmpty: true
+        }
+      }
     }
   );
 }

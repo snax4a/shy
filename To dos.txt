@@ -1,7 +1,10 @@
 High
 - /api/order
-  - save order, purchasing and recipient subscribers to database (without credit card info)
-  - process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
+  - Cleanup so there's only one response.
+  - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
+- cartPage:
+  - Disable PlaceOrder button once submitted
+  - Pass back database and payment gateway errors to page
 - Setup PostgreSQL URI for Heroku (/server/config/environment/production.js) - override
 
 Low/cosmetic
