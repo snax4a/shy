@@ -5,9 +5,11 @@
 
 'use strict';
 import sqldb from '../sqldb';
-let Order = sqldb.Order;
+// let Order = sqldb.Order;
 let Subscriber = sqldb.Subscriber;
 
+/*
+// Saving orders is redundant with payment gateway
 // Upsert the order
 Order.sync()
   .then(() => {
@@ -36,6 +38,7 @@ Order.sync()
       console.log('SEQUELIZE: Test order upserted');
     });
   });
+*/
 
 // Upsert  test subscriber and re-insert
 Subscriber.sync()

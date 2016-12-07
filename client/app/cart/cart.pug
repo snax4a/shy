@@ -213,10 +213,10 @@
           tr
             th.right(colspan='3') Grand Total
             th.right {{ $ctrl.Cart.confirmation.grandTotal | currency:"$":0 }}
-      p
+      p(ng-show='$ctrl.Cart.confirmation.isGift || $ctrl.Cart.confirmation.instructions')
         b Order comments:
         br
-        | Treatment: {{ $ctrl.Cart.confirmation.treatment }}
+        | {{ $ctrl.Cart.confirmation.isGift ? 'Send gift card via ' + $ctrl.Cart.confirmation.treatment : '' }}
         br
       p(ng-show='$ctrl.Cart.confirmation.instructions') Instructions:
         br

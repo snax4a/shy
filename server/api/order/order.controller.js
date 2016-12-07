@@ -4,7 +4,7 @@
 'use strict';
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
-import { Order, Subscriber } from '../../sqldb';
+import { Subscriber } from '../../sqldb';
 
 // Calculate the cartItem total
 function getTotal(cartItem) {
@@ -20,9 +20,12 @@ function getTotalCost(cartItems) {
   return parseFloat(total).toFixed(0);
 }
 
+/*
+// These functions would be fine except that we need to send the response after the payment gateway returns a result.
+// Don't make the user wait for emails to be sent and to save the subscriber in the database (low priority).
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
-  return function(entity) {
+  return entity => {
     if(entity) {
       return res.status(statusCode).json(entity);
     }
@@ -36,6 +39,7 @@ function handleError(res, statusCode) {
     res.status(statusCode).send(err);
   };
 }
+*/
 
 // Attempt to create the order - payment gateway, save to database, generate email
 export function create(req, res) {
@@ -66,14 +70,15 @@ export function create(req, res) {
   confirmation.resultCode = 0;
   confirmation.resultDescription = 'Success';
 
-  // Implement: If payment gateway returned success then email confirmation
+  // Don't make the user wait for the database saves
   res.status(200).json(confirmation);
 
   // Log order details to console in case email fails (do same for errors)
   console.log(`Order ${confirmation.orderNumber} received`, confirmation);
 
+/*
+  // Not necessary to save to DB when the payment gateway does the same thing
   // Save order to the database
-  // Implement: replace 'TEST-0001' with PNREF from Payflow Pro
   Order.upsert({
     orderNumber: 'TEST-0001',
     grandTotal: getTotalCost(cartItems),
@@ -98,7 +103,7 @@ export function create(req, res) {
   // Implement: send the res.status(200).json(confirmation) from above here - test it
   .then(respondWithResult(res, 201))
   .catch(handleError(res));
-
+*/
   // Save subscriber to the database
   Subscriber.create({
     email: confirmation.recipient.email,
@@ -107,9 +112,9 @@ export function create(req, res) {
     phone: confirmation.recipient.phone,
     optout: false
   })
-  // Implement: don't send the response a third time!
-  .then(respondWithResult(res, 201))
-  .catch(handleError(res));
+  .then(() => {
+    console.log('Subscriber created from order.controller.js:create()');
+  });
 
   // Send email confirmation to the purchaser and BCC SHY admin
 
