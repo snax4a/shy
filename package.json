@@ -1,7 +1,7 @@
 {
   "name": "shy",
-  "version": "0.9.5",
-  "description": "Website for Schoolhouse Yoga using MEAN stack",
+  "version": "0.9.8",
+  "description": "Schoolhouse Yoga's Website",
   "main": "server/index.js",
   "dependencies": {
     "angular": "~1.5.9",
@@ -126,7 +126,7 @@
   },
   "engines": {
     "node": "^6.9.1",
-    "npm": "^4.0.5"
+    "npm": "^3.10.8"
   },
   "scripts": {
     "test": "gulp test",
