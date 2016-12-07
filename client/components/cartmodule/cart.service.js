@@ -59,7 +59,7 @@ export class Cart {
       purchaser: this.purchaser,
       recipient: this.recipient,
       forSomeoneElse: this.forSomeoneElse,
-      methodToSend: this.methodToSend,
+      treatment: this.treatment,
       instructions: this.instructions,
       cartItems: this.cartItems
     };

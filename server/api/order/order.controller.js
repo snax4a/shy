@@ -42,8 +42,7 @@ export function create(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     ccNumber: `**** **** **** ${req.body.paymentInfo.ccNumber.slice(-4)}`,
-    forSomeoneElse: req.body.forSomeoneElse,
-    methodToSend: req.body.methodToSend,
+    treatment: req.body.treatment,
     instructions: req.body.instructions,
     purchaser: req.body.purchaser,
     recipient: req.body.recipient
@@ -78,13 +77,9 @@ export function create(req, res) {
     orderNumber: 'TEST-0001',
     grandTotal: getTotalCost(cartItems),
     instructions: confirmation.instructions,
-    forSomeoneElse: confirmation.forSomeoneElse,
-    methodToSend: confirmation.methodToSend,
+    treatment: confirmation.treatment,
     purchaserFirstName: confirmation.purchaser.firstName,
     purchaserLastName: confirmation.purchaser.lastName,
-    purchaserAddress: confirmation.purchaser.address,
-    purchaserCity: confirmation.purchaser.city,
-    purchaserState: confirmation.purchaser.state,
     purchaserZipCode: confirmation.purchaser.zipCode,
     purchaserEmail: confirmation.purchaser.email,
     purchaserPhone: confirmation.purchaser.phone,
@@ -107,10 +102,6 @@ export function create(req, res) {
     email: confirmation.recipient.email,
     firstName: confirmation.recipient.firstName,
     lastName: confirmation.recipient.lastName,
-    address: confirmation.recipient.address,
-    city: confirmation.recipient.city,
-    state: confirmation.recipient.state,
-    zipCode: confirmation.recipient.zipCode,
     phone: confirmation.recipient.phone,
     optout: false
   })
@@ -163,15 +154,14 @@ export function create(req, res) {
                     <span style="font-size:18px">Schoolhouse Yoga</span><br/>
                     Order ${confirmation.orderNumber}<br />
                     Placed on ${confirmation.placedOn}<br />
-                    Card number ${confirmation.ccNumber}
+                    Card number ${confirmation.ccNumber}<br />
+                    Zip code ${confirmation.purchaser.zipCode}<br />
                   </p>
                   <table style="width:100%;margin-top:20px;">
                     <tr style="vertical-align:top;">
                       <td>
                         <b>Purchaser</b><br/>
                         ${confirmation.purchaser.firstName} ${confirmation.purchaser.lastName}<br />
-                        ${confirmation.purchaser.address}<br/>
-                        ${confirmation.purchaser.city}, ${confirmation.purchaser.state} ${confirmation.purchaser.zipCode}<br />
                         ${confirmation.purchaser.phone}<br/>
                         ${confirmation.purchaser.email}
                       </td>
@@ -203,9 +193,8 @@ export function create(req, res) {
             </table>
             <p>
               <b>Order Comments:</b><br />
-              Gift: ${(confirmation.forSomeoneElse ? 'Yes' : 'No')}<br />
-              ${confirmation.methodToSend}<br />
-              ${(confirmation.instructions !== undefined ? confirmation.instructions : '')}
+              Treatment: ${confirmation.treatment}<br />
+              ${(confirmation.instructions !== undefined ? `Instructions: ${confirmation.instructions}` : '')}
             </p>
             <p style="margin-top:20px;">
               Thanks for your order. Visit us again at <a href="https://www.schoolhouseyoga.com">https://www.schoolhouseyoga.com</a>.

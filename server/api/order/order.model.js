@@ -17,13 +17,9 @@ export default function(sequelize, DataTypes) {
         }
       },
       instructions: DataTypes.STRING,
-      forSomeoneElse: DataTypes.BOOLEAN,
-      methodToSend: DataTypes.STRING,
+      treatment: DataTypes.STRING,
       purchaserFirstName: DataTypes.STRING(20),
       purchaserLastName: DataTypes.STRING(20),
-      purchaserAddress: DataTypes.STRING,
-      purchaserCity: DataTypes.STRING(20),
-      purchaserState: DataTypes.STRING(2),
       purchaserZipCode: DataTypes.STRING(10),
       purchaserEmail: {
         type: DataTypes.STRING(80),

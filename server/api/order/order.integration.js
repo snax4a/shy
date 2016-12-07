@@ -19,9 +19,8 @@ describe('Order API:', function() {
               quantity: 2
             }
           ],
-          forSomeoneElse: false,
           instructions: 'One for John and one for Jane.',
-          methodToSend: 'Apply credit to recipient\'s account (default)',
+          treatment: 'Mail gift card to purchaser',
           paymentInfo: {
             ccCSC: 656,
             ccExpMonth: 12,
@@ -31,9 +30,6 @@ describe('Order API:', function() {
           purchaser: {
             firstName: 'John',
             lastName: 'Doe',
-            address: '123 Main Street',
-            city: 'Pittsburgh',
-            state: 'PA',
             zipCode: '15222',
             email: 'jdoe@gmail.com',
             phone: '412-555-1212'
@@ -66,30 +62,3 @@ describe('Order API:', function() {
     });
   });
 });
-
-/*
-  describe('POST /api/things', function() {
-    beforeEach(function(done) {
-      request(app)
-        .post('/api/things')
-        .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
-        })
-        .expect(201)
-        .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) {
-            return done(err);
-          }
-          newThing = res.body;
-          done();
-        });
-    });
-
-    it('should respond with the newly created thing', function() {
-      expect(newThing.name).to.equal('New Thing');
-      expect(newThing.info).to.equal('This is the brand new thing!!!');
-    });
-  });
-  */

@@ -15,13 +15,19 @@ export class CartController {
     this.Cart = Cart;
     this.confirmation = {};
     this.confirmation.purchaser = {};
+    this.recipient = {};
     this.confirmation.recipient = {};
     this.confirmation.cartItems = [];
   }
 
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
+    // Set defaults
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
+    this.Cart.treatment = 'Apply credit to purchaser';
+    this.recipient = {
+      state: 'PA'
+    };
 
     // Implement: Remove test data before go-live
     this.paymentInfo = {
@@ -33,17 +39,10 @@ export class CartController {
     this.purchaser = {
       firstName: 'John',
       lastName: 'Doe',
-      address: '123 Main Street',
-      city: 'Pittsburgh',
-      state: 'PA',
       zipCode: '15222',
       email: 'jdoe@gmail.com',
       phone: '412-555-1212'
     };
-
-    // Copy initial purchaser values to recipient
-    this.recipient = {};
-    angular.copy(this.purchaser, this.recipient);
 
     // Dynamically link controller objects to the Cart
     this.Cart.paymentInfo = this.paymentInfo;
@@ -68,8 +67,6 @@ export class CartController {
       'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH', 'MI', 'MN', 'MO', 'MS',
       'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'PW',
       'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
-    this.Cart.forSomeoneElse = false;
-    this.Cart.methodToSend = 'Apply credit to recipient\'s account (default)';
   }
 
   // Update the quantity only if it's an acceptable value
@@ -98,11 +95,11 @@ export class CartController {
 
   // Handle when the order has a different recipient
   forSomeoneElse() {
-    // Clear fields that must be different (leave last name in case family member)
-    this.recipient.firstName = '';
-    this.recipient.email = '';
-    this.recipient.phone = '';
+    // Implement: make certain fields required based on treatment selection
+    if(this.Cart.treatment !== 'Apply credit to purchaser') this.focusOnRecipient();
+  }
 
+  focusOnRecipient() {
     // Set focus to recipientFirstName using $timeout (because fields are disabled now)
     let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
     this.$timeout(() => {
