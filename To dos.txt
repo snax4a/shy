@@ -1,5 +1,4 @@
 High
-- Hamburger menu won't auto-collapse on small devices
 - /api/order
   - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
 - cartPage:
