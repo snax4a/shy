@@ -11,7 +11,7 @@ The website is under construction. What remains is implementing the payment gate
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 6.9.1 and npm 4.0.x](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
+- [Node.js 6.9.1 and npm 4.0.5](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 

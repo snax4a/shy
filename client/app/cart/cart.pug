@@ -42,61 +42,66 @@
           .panel-body
             p 
               b Payment information
-            .form-group
-              label.sr-only Credit card number
-              input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19' autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
-              .help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide a card number.
-                div(ng-message='minlength') Card number must at least 15 digits.
-                div(ng-message='maxlength') Card number must be less than 19 digits.              
-                div(ng-message='pattern') Please only enter numbers.
-            .form-group
-              label.sr-only Expires
-              .input-group
-                select.form-control(name='ccExpMonth', ng-options='month for month in $ctrl.months', ng-model='$ctrl.paymentInfo.ccExpMonth', required='', autocomplete='cc-exp-month')
-                  option(value='', ng-disabled='true') Expiration Month
-                span.input-group-addon /
-                select.form-control(name='ccExpYear', ng-options='year for year in $ctrl.years', ng-model='$ctrl.paymentInfo.ccExpYear', required='', autocomplete='cc-exp-year')
-                  option(value='', ng-disabled='true') Expiration Year
-              .help-block.has-error(ng-messages='checkout.ccExpMonth.$error', ng-show='checkout.$submitted', role='alert')
-                div(ng-message='required') Please select a month for your card&apos;s expiration date.
-              .help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
-                div(ng-message='required') Please select a year for your card&apos;s expiration date.
-            .form-group
-              label.sr-only Credit card security code
-              input.form-control.cvv(name='ccCSC', ng-model='$ctrl.paymentInfo.ccCSC', required='', ng-pattern='/^[0-9]+$/', ng-minlength='3', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
-              .help-block.has-error(ng-messages='checkout.ccCSC.$error', ng-show='checkout.ccCSC.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the card security code.            
-                div(ng-message='pattern') Please only enter numbers.
-                div(ng-message='minlength') Must be at least 3 digits.
+            .row
+              .form-group.col-xs-6
+                label.sr-only Credit card number
+                input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19' autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
+                .help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide a card number.
+                  div(ng-message='minlength') Card number must at least 15 digits.
+                  div(ng-message='maxlength') Card number must be less than 19 digits.              
+                  div(ng-message='pattern') Please only enter numbers.
+              .form-group.col-xs-6
+                label.sr-only Expires
+                .input-group
+                  select.form-control(name='ccExpMonth', ng-options='month for month in $ctrl.months', ng-model='$ctrl.paymentInfo.ccExpMonth', required='', autocomplete='cc-exp-month')
+                    option(value='', ng-disabled='true') Expiration Month
+                  span.input-group-addon /
+                  select.form-control(name='ccExpYear', ng-options='year for year in $ctrl.years', ng-model='$ctrl.paymentInfo.ccExpYear', required='', autocomplete='cc-exp-year')
+                    option(value='', ng-disabled='true') Expiration Year
+                .help-block.has-error(ng-messages='checkout.ccExpMonth.$error', ng-show='checkout.$submitted', role='alert')
+                  div(ng-message='required') Please select a month for your card&apos;s expiration date.
+                .help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
+                  div(ng-message='required') Please select a year for your card&apos;s expiration date.
+            .row
+
+              .form-group.col-xs-3
+                label.sr-only Credit card security code
+                input.form-control.cvv(name='ccCSC', ng-model='$ctrl.paymentInfo.ccCSC', required='', ng-pattern='/^[0-9]+$/', ng-minlength='3', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
+                .help-block.has-error(ng-messages='checkout.ccCSC.$error', ng-show='checkout.ccCSC.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the card security code.            
+                  div(ng-message='pattern') Please only enter numbers.
+                  div(ng-message='minlength') Must be at least 3 digits.
+              .form-group.col-xs-4
+                label.sr-only ZIP code
+                input.form-control(name='zipCode', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.zipCode', required='', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
+                .help-block.has-error(ng-messages='checkout.zipCode.$error', ng-show='checkout.zipCode.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the billing ZIP code.
             p 
               b Purchaser
-            .form-group
-              label.sr-only First name
-              input.form-control(name='ccFirstName', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.firstName', required='', autocomplete='cc-given-name', type='text', maxlength='20', placeholder='First name')
-              .help-block.has-error(ng-messages='checkout.ccFirstName.$error', ng-show='checkout.ccFirstName.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the cardholder&apos;s first name.
-            .form-group
-              label.sr-only Last name
-              input.form-control(name='ccLastName', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.lastName', required='', autocomplete='cc-family-name', type='text', maxlength='20', placeholder='Last name')
-              .help-block.has-error(ng-messages='checkout.ccLastName.$error', ng-show='checkout.ccLastName.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the cardholder&apos;s last name.
-            .form-group
-              label.sr-only ZIP code
-              input.form-control(name='zipCode', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.zipCode', required='', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
-              .help-block.has-error(ng-messages='checkout.zipCode.$error', ng-show='checkout.zipCode.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the billing ZIP code.
-            .form-group
-              label.sr-only Email address
-              input.form-control(name='email', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.email', required='', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
-              .has-error(ng-messages='checkout.email.$error', ng-show='checkout.email.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the cardholder&apos;s email address.
-                div(ng-message='email') Please supply a valid email address for the cardholder.
-            .form-group
-              label.sr-only Phone
-              input.form-control(name='phone', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.phone', required='', autocomplete='tel', type='tel', maxlength='23', placeholder='Phone')
-              .has-error(ng-messages='checkout.phone.$error', ng-show='checkout.phone.$dirty || checkout.$submitted', role='alert')
-                div(ng-message='required') Please provide the cardholder&apos;s phone number.
+            .row
+              .form-group.col-xs-6
+                label.sr-only First name
+                input.form-control(name='ccFirstName', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.firstName', required='', autocomplete='cc-given-name', type='text', maxlength='20', placeholder='First name')
+                .help-block.has-error(ng-messages='checkout.ccFirstName.$error', ng-show='checkout.ccFirstName.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the cardholder&apos;s first name.
+              .form-group.col-xs-6
+                label.sr-only Last name
+                input.form-control(name='ccLastName', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.lastName', required='', autocomplete='cc-family-name', type='text', maxlength='20', placeholder='Last name')
+                .help-block.has-error(ng-messages='checkout.ccLastName.$error', ng-show='checkout.ccLastName.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the cardholder&apos;s last name.
+            .row
+              .form-group.col-xs-7
+                label.sr-only Email address
+                input.form-control(name='email', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.email', required='', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
+                .has-error(ng-messages='checkout.email.$error', ng-show='checkout.email.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the cardholder&apos;s email address.
+                  div(ng-message='email') Please supply a valid email address for the cardholder.
+              .form-group.col-xs-5
+                label.sr-only Phone
+                input.form-control(name='phone', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.phone', required='', autocomplete='tel', type='tel', maxlength='23', placeholder='Phone')
+                .has-error(ng-messages='checkout.phone.$error', ng-show='checkout.phone.$dirty || checkout.$submitted', role='alert')
+                  div(ng-message='required') Please provide the cardholder&apos;s phone number.
             .form-group
               label.sr-only Instructions
               textarea.form-control(name='instructions', ng-model='$ctrl.Cart.instructions', rows='2', cols='20', placeholder='Instructions for this purchase')
