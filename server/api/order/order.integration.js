@@ -20,7 +20,8 @@ describe('Order API:', function() {
             }
           ],
           instructions: 'One for John and one for Jane.',
-          treatment: 'Mail gift card to purchaser',
+          isGift: true,
+          treatment: 'Mail',
           paymentInfo: {
             ccCSC: 656,
             ccExpMonth: 12,

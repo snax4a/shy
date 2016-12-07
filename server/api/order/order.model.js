@@ -16,6 +16,7 @@ export default function(sequelize, DataTypes) {
           isDecimal: true
         }
       },
+      isGift: DataTypes.BOOLEAN,
       instructions: DataTypes.STRING,
       treatment: DataTypes.STRING,
       purchaserFirstName: DataTypes.STRING(20),

@@ -58,7 +58,7 @@ export class Cart {
       paymentInfo: this.paymentInfo,
       purchaser: this.purchaser,
       recipient: this.recipient,
-      forSomeoneElse: this.forSomeoneElse,
+      isGift: this.isGift,
       treatment: this.treatment,
       instructions: this.instructions,
       cartItems: this.cartItems

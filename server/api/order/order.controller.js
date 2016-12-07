@@ -42,6 +42,7 @@ export function create(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     ccNumber: `**** **** **** ${req.body.paymentInfo.ccNumber.slice(-4)}`,
+    isGift: req.body.isGift,
     treatment: req.body.treatment,
     instructions: req.body.instructions,
     purchaser: req.body.purchaser,
@@ -77,6 +78,7 @@ export function create(req, res) {
     orderNumber: 'TEST-0001',
     grandTotal: getTotalCost(cartItems),
     instructions: confirmation.instructions,
+    isGift: confirmation.isGift,
     treatment: confirmation.treatment,
     purchaserFirstName: confirmation.purchaser.firstName,
     purchaserLastName: confirmation.purchaser.lastName,
@@ -165,7 +167,7 @@ export function create(req, res) {
                         ${confirmation.purchaser.phone}<br/>
                         ${confirmation.purchaser.email}
                       </td>
-                      <td>
+                      <td style="display: ${confirmation.isGift ? 'inline' : 'none'}">
                         <b>Recipient</b><br/>
                         ${confirmation.recipient.firstName} ${confirmation.recipient.lastName}<br/>
                         ${confirmation.recipient.address}<br/>
@@ -193,7 +195,7 @@ export function create(req, res) {
             </table>
             <p>
               <b>Order Comments:</b><br />
-              Treatment: ${confirmation.treatment}<br />
+              ${confirmation.isGift ? `Send gift via ${confirmation.treatment}` : ''}<br/>
               ${(confirmation.instructions !== undefined ? `Instructions: ${confirmation.instructions}` : '')}
             </p>
             <p style="margin-top:20px;">
