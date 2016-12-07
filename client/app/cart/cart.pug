@@ -43,7 +43,7 @@
             p 
               b Payment information
             .row
-              .form-group.col-xs-6
+              .form-group.col-sm-6
                 label.sr-only Credit card number
                 input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19' autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
                 .help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
@@ -51,7 +51,7 @@
                   div(ng-message='minlength') Card number must at least 15 digits.
                   div(ng-message='maxlength') Card number must be less than 19 digits.              
                   div(ng-message='pattern') Please only enter numbers.
-              .form-group.col-xs-6
+              .form-group.col-sm-6
                 label.sr-only Expires
                 .input-group
                   select.form-control(name='ccExpMonth', ng-options='month for month in $ctrl.months', ng-model='$ctrl.paymentInfo.ccExpMonth', required='', autocomplete='cc-exp-month')
@@ -59,20 +59,19 @@
                   span.input-group-addon /
                   select.form-control(name='ccExpYear', ng-options='year for year in $ctrl.years', ng-model='$ctrl.paymentInfo.ccExpYear', required='', autocomplete='cc-exp-year')
                     option(value='', ng-disabled='true') Expiration Year
-                .help-block.has-error(ng-messages='checkout.ccExpMonth.$error', ng-show='checkout.$submitted', role='alert')
-                  div(ng-message='required') Please select a month for your card&apos;s expiration date.
-                .help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
-                  div(ng-message='required') Please select a year for your card&apos;s expiration date.
+              .help-block.has-error(ng-messages='checkout.ccExpMonth.$error', ng-show='checkout.$submitted', role='alert')
+                div(ng-message='required') Please select a month for your card&apos;s expiration date.
+              .help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
+                div(ng-message='required') Please select a year for your card&apos;s expiration date.
             .row
-
-              .form-group.col-xs-3
+              .form-group.col-sm-3.col-xs-6
                 label.sr-only Credit card security code
                 input.form-control.cvv(name='ccCSC', ng-model='$ctrl.paymentInfo.ccCSC', required='', ng-pattern='/^[0-9]+$/', ng-minlength='3', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
                 .help-block.has-error(ng-messages='checkout.ccCSC.$error', ng-show='checkout.ccCSC.$dirty || checkout.$submitted', role='alert')
                   div(ng-message='required') Please provide the card security code.            
                   div(ng-message='pattern') Please only enter numbers.
                   div(ng-message='minlength') Must be at least 3 digits.
-              .form-group.col-xs-4
+              .form-group.col-sm-4.col-xs-6
                 label.sr-only ZIP code
                 input.form-control(name='zipCode', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.zipCode', required='', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
                 .help-block.has-error(ng-messages='checkout.zipCode.$error', ng-show='checkout.zipCode.$dirty || checkout.$submitted', role='alert')
@@ -113,45 +112,49 @@
             fieldset(ng-hide='!$ctrl.Cart.isGift')
               p 
                 b Recipient
-              .form-group
-                label.sr-only Recipient&apos;s first name
-                input#recipientFirstName.form-control(name='recipientFirstName', ng-model='$ctrl.recipient.firstName', ng-required='$ctrl.Cart.isGift', type='text', maxlength='14', placeholder="Recipient's first name")
-                .has-error(ng-messages='checkout.recipientFirstName.$error', ng-show='checkout.recipientFirstName.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s first name.
-              .form-group
-                label.sr-only Recipient&apos;s last name
-                input.form-control(name='recipientLastName', ng-model='$ctrl.recipient.lastName', ng-required='$ctrl.Cart.isGift', type='text', maxlength='20', placeholder="Recipient's last name")
-                .has-error(ng-messages='checkout.recipientLastName.$error', ng-show='checkout.recipientLastName.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s last name.
-              .form-group
-                label.sr-only Recipient&apos;s email address
-                input.form-control(name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Email"', type='email', maxlength='80', placeholder="Recipient's email address")
-                .has-error(ng-messages='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s email address.
-                  div(ng-message='email') Please supply a valid email address for the recipient.
-              .form-group
-                label.sr-only Recipient&apos;s phone
-                input.form-control(name='recipientPhone', ng-model='$ctrl.recipient.phone', ng-required='$ctrl.Cart.isGift', type='tel', maxlength='14', placeholder="Recipient's phone")
-                .has-error(ng-messages='checkout.recipientPhone.$error', ng-show='checkout.recipientPhone.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s phone number.
+              .row
+                .form-group.col-xs-6
+                  label.sr-only Recipient&apos;s first name
+                  input#recipientFirstName.form-control(name='recipientFirstName', ng-model='$ctrl.recipient.firstName', ng-required='$ctrl.Cart.isGift', type='text', maxlength='14', placeholder="Recipient's first name")
+                  .has-error(ng-messages='checkout.recipientFirstName.$error', ng-show='checkout.recipientFirstName.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s first name.
+                .form-group.col-xs-6
+                  label.sr-only Recipient&apos;s last name
+                  input.form-control(name='recipientLastName', ng-model='$ctrl.recipient.lastName', ng-required='$ctrl.Cart.isGift', type='text', maxlength='20', placeholder="Recipient's last name")
+                  .has-error(ng-messages='checkout.recipientLastName.$error', ng-show='checkout.recipientLastName.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s last name.
+              .row
+                .form-group.col-xs-7
+                  label.sr-only Recipient&apos;s email address
+                  input.form-control(name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Email"', type='email', maxlength='80', placeholder="Recipient's email address")
+                  .has-error(ng-messages='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s email address.
+                    div(ng-message='email') Please supply a valid email address for the recipient.
+                .form-group.col-xs-5
+                  label.sr-only Recipient&apos;s phone
+                  input.form-control(name='recipientPhone', ng-model='$ctrl.recipient.phone', ng-required='$ctrl.Cart.isGift', type='tel', maxlength='14', placeholder="Recipient's phone")
+                  .has-error(ng-messages='checkout.recipientPhone.$error', ng-show='checkout.recipientPhone.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s phone number.
               .form-group
                   label.sr-only Recipient&apos;s address
                   input.form-control(name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', type='text', maxlength='255', placeholder="Recipient's address")
                   .has-error(ng-messages='checkout.recipientAddress.$error', ng-show='checkout.recipientAddress.$dirty || checkout.$submitted', role='alert')
                     div(ng-message='required') Please provide the recipient&apos;s street address.
-              .form-group
-                label.sr-only Recipient&apos;s city
-                input.form-control(name='recipientCity', ng-model='$ctrl.recipient.city', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
-                .has-error(ng-messages='checkout.recipientCity.$error', ng-show='checkout.recipientCity.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s city.
-              .form-group
-                label.sr-only Recipient&apos;s state
-                select.form-control(name='recipientState', ng-options='state for state in $ctrl.states', ng-model='$ctrl.recipient.state', autocomplete='address-level1')
-              .form-group
-                label.sr-only Recipient&apos;s ZIP code
-                input.form-control(name='recipientZipCode', ng-model='$ctrl.recipient.zipCode', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
-                .has-error(ng-messages='checkout.recipientZipCode.$error', ng-show='checkout.recipientZipCode.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the recipient&apos;s ZIP code.
+              .row
+                .form-group.col-xs-7
+                  label.sr-only Recipient&apos;s city
+                  input.form-control(name='recipientCity', ng-model='$ctrl.recipient.city', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
+                  .has-error(ng-messages='checkout.recipientCity.$error', ng-show='checkout.recipientCity.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s city.
+                .form-group.col-xs-5
+                  label.sr-only Recipient&apos;s state
+                  select.form-control(name='recipientState', ng-options='state for state in $ctrl.states', ng-model='$ctrl.recipient.state', autocomplete='address-level1')
+              .row
+                .form-group.col-xs-5
+                  label.sr-only Recipient&apos;s ZIP code
+                  input.form-control(name='recipientZipCode', ng-model='$ctrl.recipient.zipCode', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
+                  .has-error(ng-messages='checkout.recipientZipCode.$error', ng-show='checkout.recipientZipCode.$dirty || checkout.$submitted', role='alert')
+                    div(ng-message='required') Please provide the recipient&apos;s ZIP code.
               | Send gift card via &nbsp;&nbsp;
               label.radio-inline
                 input(type='radio', name='treatment', ng-model='$ctrl.Cart.treatment', value='Email') 

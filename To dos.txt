@@ -1,12 +1,14 @@
 High
-- Finish layout on cart page
 - Hamburger menu won't auto-collapse on small devices
 - /api/order
   - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
 - cartPage:
   - Disable PlaceOrder button once submitted
   - Pass back database and payment gateway errors to page
-- Setup PostgreSQL URI for Heroku (/server/config/environment/production.js) - override
+- Setup PostgreSQL URI for Heroku (/server/config/environment/production.js)
+  - heroku addons:create heroku-postgresql:hobby-dev -a schoolhouseyoga
+  - heroku addons:create heroku-postgresql:hobby-basic -a schoolhouseyoga
+  - heroku pg:credentials DATABASE -a schoolhouseyoga
 - Fix Heroku deployment issues (probably just PostgreSQL configuration)
 
 Low/cosmetic
@@ -14,5 +16,5 @@ Low/cosmetic
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 - Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap
 
-- Removed this from devdependencies in package.json on 6-Dec-16
+- Removed semantic versioner from devdependencies in package.json on 6-Dec-16
     "semver": "5.3.0",
