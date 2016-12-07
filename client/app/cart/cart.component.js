@@ -24,7 +24,7 @@ export class CartController {
   $onInit() {
     // Set defaults
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
-    this.Cart.treatment = 'Apply credit to purchaser';
+    this.Cart.treatment = 'Email';
     this.recipient = {
       state: 'PA'
     };
@@ -88,15 +88,9 @@ export class CartController {
     fieldToGetFocus.focus();
   }
 
-  // As we enter the billing info, copy to recipient fields
-  updateRecipient() {
-    if(!this.Cart.forSomeoneElse) angular.copy(this.purchaser, this.recipient);
-  }
-
   // Handle when the order has a different recipient
-  forSomeoneElse() {
-    // Implement: make certain fields required based on treatment selection
-    if(this.Cart.treatment !== 'Apply credit to purchaser') this.focusOnRecipient();
+  isGift() {
+    this.focusOnRecipient();
   }
 
   focusOnRecipient() {
