@@ -11,7 +11,7 @@
     #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
         li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
-          a(ui-sref='{{item.state}}') {{item.title}} 
+          a(ui-sref='{{item.state}}', ng-click='$ctrl.isCollapsed = true') {{item.title}} 
             span.badge(ng-show='item.title == "Cart"') {{ $ctrl.Cart.getTotalItems() }}
       ul.nav.navbar-nav.navbar-right
         li(uib-dropdown='')

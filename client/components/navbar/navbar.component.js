@@ -9,6 +9,7 @@ export class NavbarController {
     this.$log = $log;
     this.$uibModal = $uibModal;
     this.Cart = Cart;
+    this.isCollapsed = true;
     this.menu = [
       {
         title: 'Classes',
