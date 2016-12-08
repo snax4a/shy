@@ -54,25 +54,6 @@ export class CartController {
     this.Cart.paymentInfo = this.paymentInfo;
     this.Cart.purchaser = this.purchaser;
     this.Cart.recipient = this.recipient;
-
-    // Populate the months array
-    this.months = [];
-    for(let i = 1; i < 13; i++) {
-      this.months.push(i);
-    }
-
-    // Populate the years array
-    this.years = [];
-    let currentYear = new Date().getFullYear();
-    for(let i = currentYear; i < currentYear + 10; i++) {
-      this.years.push(i);
-    }
-
-    // Populate states array - not needed elsewhere so avoid separate JSON file
-    this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI',
-      'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH', 'MI', 'MN', 'MO', 'MS',
-      'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'PW',
-      'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
   }
 
   // Update the quantity only if it's an acceptable value
