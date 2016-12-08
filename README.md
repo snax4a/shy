@@ -14,6 +14,7 @@ The website is under construction. What remains is implementing the payment gate
 - [Node.js 6.9.1 and npm 4.0.5](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
+- Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 ### Project setup
 
@@ -37,4 +38,4 @@ The website is under construction. What remains is implementing the payment gate
 
 2. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
-3. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have the Heroku CLI installed.
+3. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have a Herok account and CLI installed.

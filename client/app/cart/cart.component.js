@@ -103,8 +103,10 @@ export class CartController {
 
   // Initiate the order process
   placeOrder(form) {
+    this.$log.info(form);
     if(form.$valid) {
       // Implement: Change cursor to beach ball
+      // Implement: Disable button
       // Handle order confirmation via promise
       let orderPromise = this.Cart.placeOrder();
       orderPromise.then(result => {
@@ -116,6 +118,7 @@ export class CartController {
           // this.paymentInfo = {}; // only if super-paranoid
           form.$setPristine(); // treat the fields as untouched
         } else {
+          // Implement: Enable button
           this.$log.info(`Order Error ${this.confirmation.resultCode}`, this.Cart);
           this.pageName = 'Shopping Cart'; // changes view back
           // Put the error in the credit card number area (ng-message='paymentgateway')
