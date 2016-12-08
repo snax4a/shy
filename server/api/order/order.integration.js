@@ -32,7 +32,7 @@ describe('Order API:', function() {
             firstName: 'John',
             lastName: 'Doe',
             zipCode: '15222',
-            email: 'jdoe@gmail.com',
+            email: 'john.doe@bitbucket.com',
             phone: '412-555-1212'
           },
           recipient: {
@@ -42,8 +42,8 @@ describe('Order API:', function() {
             city: 'Pittsburgh',
             state: 'PA',
             zipCode: '15222',
-            email: 'jdoe@gmail.com',
-            phone: '412-555-1212'
+            email: 'john.doe@bitbucket.com',
+            phone: '724-555-1212'
           }
         })
         .expect(200)

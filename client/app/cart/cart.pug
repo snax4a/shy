@@ -45,7 +45,7 @@
             .row
               .form-group.col-sm-6
                 label.sr-only Credit card number
-                input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19' autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
+                input#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
                 .help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
                   div(ng-message='required') Please provide a card number.
                   div(ng-message='minlength') Card number must at least 15 digits.
@@ -71,11 +71,6 @@
                   div(ng-message='required') Please provide the card security code.            
                   div(ng-message='pattern') Please only enter numbers.
                   div(ng-message='minlength') Must be at least 3 digits.
-              .form-group.col-sm-4.col-xs-6
-                label.sr-only ZIP code
-                input.form-control(name='zipCode', ng-change='$ctrl.updateRecipient()', ng-model='$ctrl.purchaser.zipCode', required='', autocomplete='postal-code', type='text', maxlength='10', placeholder='ZIP code')
-                .help-block.has-error(ng-messages='checkout.zipCode.$error', ng-show='checkout.zipCode.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide the billing ZIP code.
             p 
               b Purchaser
             .row
@@ -166,7 +161,7 @@
               br
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='$ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='(form.$valid && form.$submitted) || $ctrl.Cart.isEmpty()')
             br
             br
 

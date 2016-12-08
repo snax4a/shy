@@ -25,9 +25,6 @@ export class CartController {
     // Set defaults
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
     this.Cart.treatment = 'Email';
-    this.recipient = {
-      state: 'PA'
-    };
 
     // Implement: Remove test data before go-live
     this.paymentInfo = {
@@ -40,9 +37,18 @@ export class CartController {
       firstName: 'John',
       lastName: 'Doe',
       zipCode: '15222',
-      email: 'jdoe@gmail.com',
+      email: 'john.doe@bitbucket.com',
       phone: '412-555-1212'
     };
+    this.recipient = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      zipCode: '15222',
+      email: 'jane.doe@bitbucket.com',
+      phone: '724-555-1212'
+    };
+
+    this.recipient.state = 'PA';
 
     // Dynamically link controller objects to the Cart
     this.Cart.paymentInfo = this.paymentInfo;
@@ -107,7 +113,6 @@ export class CartController {
     // Add form.$valid && form.$submitted to disable Place Order button
     if(form.$valid) {
       // Implement: Change cursor to beach ball
-      // Implement: Disable button
       // Handle order confirmation via promise
       let orderPromise = this.Cart.placeOrder();
       orderPromise.then(result => {
@@ -118,7 +123,7 @@ export class CartController {
           // this.paymentInfo = {}; // only if super-paranoid
           form.$setPristine(); // treat the fields as untouched
         } else {
-          // Implement: Enable button
+          form.$submitted = false; // Re-enables the Place Order button
           this.$log.info(`Order Error ${this.confirmation.resultCode}`, this.Cart);
           this.pageName = 'Shopping Cart'; // changes view back
           // Put the error in the credit card number area (ng-message='paymentgateway')

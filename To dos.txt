@@ -2,7 +2,7 @@ High
 - /api/order
   - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
 - cartPage:
-  - /client/cart/cart.pug - Add form.$valid && form.$submitted to disable Place Order button after submitting
+  - /client/cart/cart.pug - replace SELECTs with INPUTs (expiration MM YY and state)
   - Pass back database and payment gateway errors to page
 
 Low/cosmetic
