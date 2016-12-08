@@ -5,7 +5,7 @@
 // ===========================
 module.exports = {
   sequelize: {
-    uri: process.env.SEQUELIZE_URI,
+    uri: process.env.DATABASE_URL,
     options: {}
   },
 

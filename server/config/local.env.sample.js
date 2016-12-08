@@ -11,7 +11,7 @@ module.exports = {
   SMTP_HOST: 'smtp.office365.com',
   SMTP_PORT: 587, //secure
   SMTP_TLS_CIPHERS: 'SSLv3',
-  SEQUELIZE_URI: 'postgres://user:pass@localhost:5432/dbname',
+  DATABASE_URL: 'postgres://user:pass@localhost:5432/dbname',
 
   BRAINTREE_ENVIRONMENT: 'braintree.Environment.Sandbox', // not to be in quotes - use require
   BRAINTREE_MERCHANT_ID: 'replace with braintree merchant id',

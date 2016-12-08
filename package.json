@@ -1,6 +1,6 @@
 {
   "name": "shy",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "Schoolhouse Yoga's Website",
   "main": "server/index.js",
   "dependencies": {
@@ -126,7 +126,7 @@
   },
   "engines": {
     "node": "^6.9.2",
-    "npm": "^4.0.5"
+    "npm": "~3.10.0"
   },
   "scripts": {
     "test": "gulp test",

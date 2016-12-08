@@ -16,7 +16,7 @@ module.exports = {
 
   // Sequelize
   sequelize: {
-    uri: process.env.SEQUELIZE_URL_HEROKU,
+    uri: process.env.DATABASE_URL,
     options: {}
   },
 

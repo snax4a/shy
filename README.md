@@ -27,7 +27,7 @@ The website is under construction. What remains is implementing the payment gate
 
 4. Open pgAdmin and connect to localhost.
 
-5. Create a database called `shy` then adjust the SEQUELIZE_URI in local.env.js to add your credentials and connect to this database.
+5. Create a database called `shy` then adjust the DATABASE_URL in local.env.js to add your credentials and connect to this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
