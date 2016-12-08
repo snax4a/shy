@@ -30,7 +30,7 @@ export class CartController {
     this.paymentInfo = {
       ccNumber: '4111111111111111',
       ccExpMonth: 12,
-      ccExpYear: 2020,
+      ccExpYear: 20,
       ccCSC: 656
     };
     this.purchaser = {
