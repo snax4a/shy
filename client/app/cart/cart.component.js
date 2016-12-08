@@ -104,6 +104,7 @@ export class CartController {
   // Initiate the order process
   placeOrder(form) {
     this.$log.info(form);
+    // Add form.$valid && form.$submitted to disable Place Order button
     if(form.$valid) {
       // Implement: Change cursor to beach ball
       // Implement: Disable button
@@ -113,7 +114,6 @@ export class CartController {
         if(result.data.resultCode == 0) {
           this.$log.info('Successful order', this.Cart);
           this.pageName = 'Order Confirmation';
-          // Implement: fix binding to this.Cart.confirmation on cart.pug
           // Clear credit card fields (or possibly other children of this.Cart)
           // this.paymentInfo = {}; // only if super-paranoid
           form.$setPristine(); // treat the fields as untouched

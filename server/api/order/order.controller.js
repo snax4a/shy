@@ -45,7 +45,6 @@ function handleError(res, statusCode) {
 export function create(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
-    ccNumber: `**** **** **** ${req.body.paymentInfo.ccNumber.slice(-4)}`,
     isGift: req.body.isGift,
     treatment: req.body.treatment,
     instructions: req.body.instructions,
@@ -87,7 +86,7 @@ export function create(req, res) {
     treatment: confirmation.treatment,
     purchaserFirstName: confirmation.purchaser.firstName,
     purchaserLastName: confirmation.purchaser.lastName,
-    purchaserZipCode: confirmation.purchaser.zipCode,
+    // purchaserZipCode: confirmation.purchaser.zipCode,
     purchaserEmail: confirmation.purchaser.email,
     purchaserPhone: confirmation.purchaser.phone,
     recipientFirstName: confirmation.recipient.firstName,
@@ -161,8 +160,7 @@ export function create(req, res) {
                     <span style="font-size:18px">Schoolhouse Yoga</span><br/>
                     Order ${confirmation.orderNumber}<br />
                     Placed on ${confirmation.placedOn}<br />
-                    Card number ${confirmation.ccNumber}<br />
-                    Zip code ${confirmation.purchaser.zipCode}<br />
+                    Paid via Credit Card<br />
                   </p>
                   <table style="width:100%;margin-top:20px;">
                     <tr style="vertical-align:top;">

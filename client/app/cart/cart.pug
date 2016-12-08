@@ -179,9 +179,7 @@
         br
         | Placed on {{ $ctrl.Cart.confirmation.placedOn }}
         br
-        | Card number {{ $ctrl.Cart.confirmation.ccNumber }}
-        br
-        | Zip code {{ $ctrl.Cart.confirmation.purchaser.zipCode }}
+        | Paid via Credit Card
       .row
         .col-md-4
           b Purchaser:
@@ -200,6 +198,8 @@
           | {{ $ctrl.Cart.confirmation.recipient.address }}
           br
           | {{ $ctrl.Cart.confirmation.recipient.city }}, {{ $ctrl.Cart.confirmation.recipient.state }} {{ $ctrl.Cart.confirmation.recipient.zipCode }}
+          br
+          | {{ $ctrl.Cart.confirmation.recipient.email }}
           br
           | {{ $ctrl.Cart.confirmation.recipient.phone }}
           br
