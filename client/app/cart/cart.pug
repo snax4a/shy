@@ -53,7 +53,7 @@
                   div(ng-message='pattern') Please only enter numbers.
               .form-group.col-sm-6
                 label.sr-only Expires
-                .input-group
+                .input-group(style='margin-bottom: 0px!important')
                   select.form-control(name='ccExpMonth', ng-options='month for month in $ctrl.months', ng-model='$ctrl.paymentInfo.ccExpMonth', required='', autocomplete='cc-exp-month')
                     option(value='', ng-disabled='true') Expiration Month
                   span.input-group-addon /

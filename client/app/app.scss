@@ -48,16 +48,16 @@ h4 {
 
 // Component styles are injected through gulp
 /* inject:scss */
-@import '../components/navbar/navbar';
+@import 'cart/cart';
+@import 'classes/classes';
+@import 'locations/locations';
+@import 'main/main';
+@import 'privacy/privacy';
+@import 'register/register';
+@import 'teachers/teachers';
+@import 'terms/terms';
+@import 'workshops/workshops';
 @import '../components/banner/banner';
 @import '../components/footer/footer';
-@import 'main/main';
-@import 'classes/classes';
-@import 'workshops/workshops';
-@import 'locations/locations';
-@import 'teachers/teachers';
-@import 'cart/cart';
-@import 'register/register';
-@import 'privacy/privacy';
-@import 'terms/terms';
+@import '../components/navbar/navbar';
 /* endinject */
