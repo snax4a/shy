@@ -11,7 +11,7 @@ class Item {
 
   // Calculate the item total
   getTotal() {
-    return parseFloat(this.quantity * this.price.toFixed(2));
+    return parseFloat(this.quantity * this.price.toFixed(0));
   }
 }
 
@@ -57,8 +57,8 @@ export class Cart {
     let orderInformation = {
       paymentInfo: this.paymentInfo,
       purchaser: this.purchaser,
-      recipient: this.recipient,
-      isGift: this.isGift,
+      recipient: this.isGift ? this.recipient : this.purchaser,
+      isGift: this.isGift || false,
       treatment: this.treatment,
       instructions: this.instructions,
       cartItems: this.cartItems
@@ -114,7 +114,7 @@ export class Cart {
     for(let cartItem of this.cartItems) {
       total += cartItem.getTotal();
     }
-    return parseFloat(total).toFixed(2);
+    return parseFloat(total).toFixed(0);
   }
 
   // Remove CartItem by index used in cart.pug

@@ -6,49 +6,54 @@ import uiRouter from 'angular-ui-router';
 export class CartController {
   /*@ngInject*/
   constructor($log, $window, $timeout, ProductList, Cart) {
+    // Angular services
     this.$log = $log;
     this.$window = $window;
     this.$timeout = $timeout;
-    this.pageName = '';
-    // These have to be set here and not $onInit()
     this.products = ProductList.products;
     this.Cart = Cart;
-    this.confirmation = {};
-    this.confirmation.purchaser = {};
-    this.recipient = {};
-    this.confirmation.recipient = {};
-    this.confirmation.cartItems = [];
   }
 
   // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
-    // Set defaults
-    this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
-    this.Cart.treatment = 'Email';
-
-    // Implement: Remove test data before go-live
+    // Set defaults for elements in the view
     this.paymentInfo = {
+    /*
+      // Test data
       ccNumber: '4111111111111111',
       ccExpMonth: 12,
       ccExpYear: 20,
       ccCSC: 656
+    */
     };
     this.purchaser = {
+    /*
+      // Test data
       firstName: 'John',
       lastName: 'Doe',
       zipCode: '15222',
       email: 'john.doe@bitbucket.com',
       phone: '412-555-1212'
+    */
     };
     this.recipient = {
+    /*
+      // Test data
       firstName: 'Jane',
       lastName: 'Doe',
       zipCode: '15222',
       email: 'jane.doe@bitbucket.com',
-      phone: '724-555-1212'
+      phone: '724-555-1212',
+    */
+      state: 'PA' // Default
     };
+    this.confirmation = {};
+    this.confirmation.purchaser = {};
+    this.confirmation.recipient = {};
+    this.confirmation.cartItems = [];
 
-    this.recipient.state = 'PA';
+    this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
+    this.Cart.treatment = 'Email';
 
     // Dynamically link controller objects to the Cart
     this.Cart.paymentInfo = this.paymentInfo;
@@ -90,8 +95,6 @@ export class CartController {
 
   // Initiate the order process
   placeOrder(form) {
-    this.$log.info(form);
-    // Add form.$valid && form.$submitted to disable Place Order button
     if(form.$valid) {
       // Implement: Change cursor to beach ball
       // Handle order confirmation via promise

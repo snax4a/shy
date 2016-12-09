@@ -15,13 +15,12 @@ Order.sync()
   .then(() => {
     Order.upsert({
       orderNumber: 'TEST-0001',
-      grandTotal: 15.00,
+      grandTotal: 15,
       instructions: 'Split between John and Jane',
       isGift: true,
       treatment: 'Mail',
       purchaserFirstName: 'John',
       purchaserLastName: 'Doe',
-      purchaserZipCode: '15217',
       purchaserEmail: 'jdoe@gmail.com',
       purchaserPhone: '412-555-1212',
       recipientFirstName: 'Jane',

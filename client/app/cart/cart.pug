@@ -161,11 +161,10 @@
       img.img-responsive(src='/assets/images/seal.jpg')
     .col-md-6
       h2 Schoolhouse Yoga
-      p Order {{ $ctrl.Cart.confirmation.orderNumber }}
+      p 
+        b Order {{ $ctrl.Cart.confirmation.orderNumber }}
         br
-        | Placed on {{ $ctrl.Cart.confirmation.placedOn }}
-        br
-        | Paid via Credit Card
+        | Paid via Credit Card on {{ $ctrl.Cart.confirmation.placedOn }}
       .row
         .col-md-4
           b Purchaser:
@@ -182,7 +181,7 @@
           | {{ $ctrl.Cart.confirmation.recipient.firstName }} {{ $ctrl.Cart.confirmation.recipient.lastName }}
           br
           | {{ $ctrl.Cart.confirmation.recipient.address }}
-          br
+          br(ng-show='$ctrl.Cart.confirmation.recipient.city && $ctrl.Cart.confirmation.recipient.state && $ctrl.Cart.confirmation.recipient.zipCode')
           | {{ $ctrl.Cart.confirmation.recipient.city }}, {{ $ctrl.Cart.confirmation.recipient.state }} {{ $ctrl.Cart.confirmation.recipient.zipCode }}
           br
           | {{ $ctrl.Cart.confirmation.recipient.email }}

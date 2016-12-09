@@ -8,7 +8,7 @@ import { Subscriber } from '../../sqldb';
 
 // Calculate the cartItem total
 function getTotal(cartItem) {
-  return parseFloat(cartItem.quantity * cartItem.price.toFixed(2));
+  return parseFloat(cartItem.quantity * cartItem.price.toFixed(0));
 }
 
 // Calculate the total cost of all items
@@ -86,7 +86,6 @@ export function create(req, res) {
     treatment: confirmation.treatment,
     purchaserFirstName: confirmation.purchaser.firstName,
     purchaserLastName: confirmation.purchaser.lastName,
-    // purchaserZipCode: confirmation.purchaser.zipCode,
     purchaserEmail: confirmation.purchaser.email,
     purchaserPhone: confirmation.purchaser.phone,
     recipientFirstName: confirmation.recipient.firstName,
@@ -104,7 +103,7 @@ export function create(req, res) {
   .catch(handleError(res));
 */
   // Save subscriber to the database
-  Subscriber.create({
+  Subscriber.upsert({
     email: confirmation.recipient.email,
     firstName: confirmation.recipient.firstName,
     lastName: confirmation.recipient.lastName,
@@ -159,8 +158,7 @@ export function create(req, res) {
                   <p>
                     <span style="font-size:18px">Schoolhouse Yoga</span><br/>
                     Order ${confirmation.orderNumber}<br />
-                    Placed on ${confirmation.placedOn}<br />
-                    Paid via Credit Card<br />
+                    Paid via credit card on ${confirmation.placedOn}
                   </p>
                   <table style="width:100%;margin-top:20px;">
                     <tr style="vertical-align:top;">
