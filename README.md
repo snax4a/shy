@@ -20,15 +20,17 @@ The website is under construction. What remains is implementing the payment gate
 
 1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS)
 
-2. Run `npm install` to install server dependencies.
+2. Run `git clone https://github.com/nstuyvesant/shy.git` then connect to the /shy directory.
 
-3. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, the SMTP_ and SEQUELIZE_URI parameters need to be set.
+3. Run `npm install` to install server dependencies.
 
-4. Start PostgreSQL on your local computer (on macOS `brew services start postgresql`).
+4. Copy /server/config/local.env.sample.js to local.env.js then provide your own credentials. At the moment, the SMTP_ and SEQUELIZE_URI parameters need to be set.
 
-4. Open pgAdmin and connect to localhost.
+5. Start PostgreSQL on your local computer (on macOS `brew services start postgresql`).
 
-5. Create a database called `shy` then adjust the DATABASE_URL in local.env.js to add your credentials and connect to this database.
+6. Open pgAdmin and connect to localhost.
+
+7. Create a database called `shy` then adjust the DATABASE_URL in local.env.js to add your credentials and connect to this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
