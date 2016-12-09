@@ -5,9 +5,6 @@ import uiRouter from 'angular-ui-router';
 
 export class LocationsController {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
-  }
 }
 
 export default angular.module('shyApp.locations', [uiRouter])
