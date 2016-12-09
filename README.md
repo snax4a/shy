@@ -34,8 +34,8 @@ The website is under construction. What remains is implementing the payment gate
 
 1. Run `npm test` to execute unit, integration and client tests. Ignore the Error: EACCES: permission denied, mkdir '/client' - Karma seems to be trying to create a directory off of root.
 
-1. Run `gulp build` to create a build in the /dist directory.
+2. Run `gulp build` to create a build in the /dist directory. Connect to the /dist directory then type `git init` then define Heroku as the remote repo with `heroku git:remote -a APPNAME'.
 
-2. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
+3. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
-3. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have a Herok account and CLI installed.
+4. Run `gulp buildcontrol:heroku` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
