@@ -6,7 +6,7 @@ import uiRouter from 'angular-ui-router';
 export class CartController {
   /*@ngInject*/
   constructor($log, $window, $timeout, ProductList, Cart) {
-    // Angular services
+    // Dependencies injected (only)
     this.$log = $log;
     this.$window = $window;
     this.$timeout = $timeout;
@@ -14,9 +14,8 @@ export class CartController {
     this.Cart = Cart;
   }
 
-  // Starts the binding (works in constructor but better practice to put here)
   $onInit() {
-    // Set defaults for elements in the view
+    // Initialize here to guarantee bindings are assigned before using them
     this.paymentInfo = {
     /*
       // Test data
@@ -82,10 +81,6 @@ export class CartController {
 
   // Handle when the order has a different recipient
   isGift() {
-    this.focusOnRecipient();
-  }
-
-  focusOnRecipient() {
     // Set focus to recipientFirstName using $timeout (because fields are disabled now)
     let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
     this.$timeout(() => {
