@@ -52,6 +52,9 @@ export function create(req, res) {
     recipient: req.body.recipient
   };
 
+  // Capitalize the state before storing
+  confirmation.recipient.state = confirmation.recipient.state.toUpperCase();
+
   // Load cartItems array from body of request
   let cartItems = req.body.cartItems;
 
@@ -92,7 +95,7 @@ export function create(req, res) {
     recipientLastName: confirmation.recipient.lastName,
     recipientAddress: confirmation.recipient.address,
     recipientCity: confirmation.recipient.city,
-    recipientState: confirmation.recipient.state,
+    recipientState: confirmation.recipient.state.toUpperCase(),
     recipientZipCode: confirmation.recipient.zipCode,
     recipientEmail: confirmation.recipient.email,
     recipientPhone: confirmation.recipient.phone,

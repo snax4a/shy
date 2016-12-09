@@ -134,7 +134,7 @@
                     div(ng-message='required') Please provide the recipient&apos;s city.
                 .form-group.col-xs-5
                   label State
-                  input.form-control(name='recipientState', type='text', ng-model='$ctrl.recipient.state', maxlength='2', autocomplete='address-level1')
+                  input.form-control(name='recipientState', type='text', ng-model='$ctrl.recipient.state', ng-change='$ctrl.recipient.state = $ctrl.recipient.state.toUpperCase()', maxlength='2', autocomplete='address-level1')
               .row
                 .form-group.col-xs-5
                   label ZIP code
