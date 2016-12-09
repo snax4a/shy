@@ -7,11 +7,12 @@ export class RegisterController {
   constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
+    this.paymentTerms = '98';
   }
 
   register() {
     if(this.agreed) {
-      this.Cart.addItem(0);
+      this.Cart.addItem(parseInt(this.paymentTerms, 10));
     }
   }
 }

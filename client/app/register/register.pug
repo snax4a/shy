@@ -37,11 +37,18 @@
         | Interested in joining next year&apos;s program? Please contact us at 
         a(href='mailto:info@schoolhouseyoga.com') info@schoolhouseyoga.com
         | .
+      p
+        b Terms &amp; conditions
         br
-        |  The fee for the 2017 training is $2750. Deadline to withdraw from the program is February 10th.
-        br
-        |  There is a non-refundable fee of $100 to withdraw. No refunds will be granted after February 10th.
-        br
+        | The deadline to withdraw from the program is February 10th. A non-refundable fee
+        | of $100 will apply. No refunds will be granted after February 10th.
+      p
+        label.radio-inline
+          input(type='radio', name='paymentTerms', ng-model='$ctrl.paymentTerms', value='98')
+          | Payment in full ($2,750) 
+        label.radio-inline
+          input(type='radio', name='paymentTerms', ng-model='$ctrl.paymentTerms', value='99')
+          | 12 x Monthly payments ($334/each)
       .checkbox
         label
           input(type='checkbox', ng-model='$ctrl.agreed')
@@ -50,4 +57,4 @@
         span.has-error(ng-hide='$ctrl.agreed') You must select this checkbox to proceed. {{ $ctrl.agreed }}
       br
       |  
-      input.btn.btn-warning(type='button', ng-click='$ctrl.register()', value='Register')
+      input.btn.btn-warning(type='button', ng-disabled='!$ctrl.agreed', ng-click='$ctrl.register()', value='Register')
