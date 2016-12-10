@@ -6,6 +6,7 @@ import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
 import { Subscriber } from '../../sqldb';
 import braintree from 'braintree';
+const config = require('../../config/environment');
 
 // Calculate the cartItem total
 function getTotal(cartItem) {
@@ -67,7 +68,23 @@ export function create(req, res) {
   // Set the grandTotal based on revised pricing
   confirmation.grandTotal = getTotalCost(cartItems);
 
-  // Implement: Send confirmation details to payment gateway and get result
+  // Grab Braintree gateway settings from config
+  const gateway = braintree.connect(config.gateway);
+
+  // Process sale
+  gateway.transaction.sale({
+    amount: '10.00',
+    // Implement: Add other fields later
+    paymentMethodNonce: req.body.payment_method_nonce,
+    options: {
+      submitForSettlement: true
+    }
+  }, (err, result) => {
+    if(err) throw err;
+    console.log('BRAINTREE RESULT:', result);
+    // Implement: move the stuff for successful orders (and failures) here
+  });
+
   // Implement: Change next 3 lines to be set by payment gateway
   confirmation.orderNumber = 'BL0PDFDF348D';
   confirmation.resultCode = 0;

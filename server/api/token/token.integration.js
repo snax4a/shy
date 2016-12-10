@@ -11,7 +11,7 @@ describe('Token API:', function() {
       request(app)
         .get('/api/token')
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect('Content-Type', /json/) // Need to see whether it's going to be JSON
         .end((err, res) => {
           if(err) {
             return done(err);
@@ -21,8 +21,8 @@ describe('Token API:', function() {
         });
     });
 
-    it('should respond with JSON array', function() {
-      expect(tokens).to.be.instanceOf(Array);
+    it('should respond with a client token', () => {
+      expect(tokens).to.equal('Some client token'); // Fix later when I know what these look like
     });
   });
 });

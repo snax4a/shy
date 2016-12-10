@@ -1,6 +1,7 @@
 High
+- Implement Braintree client requesting nonce then combine with other order info
 - /api/order
-  - Process payment w/Braintree
+  - Add callback to deal with success/failure of gateway.transaction.sale
   - Change /server/config/environment/index.js gateway.environment from Sandbox
 - cartPage:
   - Pass back payment gateway errors to page
