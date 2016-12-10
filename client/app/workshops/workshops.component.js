@@ -6,12 +6,19 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($log, $http) {
+  constructor($log, $http, $timeout, $window) {
     this.$log = $log;
     this.$http = $http;
+    this.$timeout = $timeout;
+    this.$window = $window;
   }
 
   $onInit() {
+    // Wait for Twitter widgets to load (visual flash - hate it)
+    this.$timeout(() => {
+      this.$window.twttr.widgets.load();
+    }, 50);
+
     this.subscriber = {};
 
     // Load the workshops from the JSON file
