@@ -2,7 +2,7 @@ High
 - /api/order
   - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
 - cartPage:
-  - Pass back database and payment gateway errors to page
+  - Pass back payment gateway errors to page
 
 Low/cosmetic
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
