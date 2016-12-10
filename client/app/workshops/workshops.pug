@@ -2,7 +2,7 @@
   h2 Workshops
   .row
     .col-sm-5
-      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-if='!$ctrl.subscribed')
+      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-hide='subscriberform.$submitted', novalidate='')
         .form-group
           label.sr-only(for='email') Email address
           .help-block.has-error(ng-messages='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
@@ -11,8 +11,8 @@
           .input-group
             input.form-control(name='email', ng-model='$ctrl.subscriber.email', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
             .input-group-btn
-              input.btn.btn-warning(type='submit', value='Subscribe')
-      p(ng-if='$ctrl.subscribed') {{ $ctrl.subscriptionResult }}
+              input.btn.btn-warning(type='submit', value='Subscribe', ng-disabled='subscriberform.$submitted && subscriberform.$valid')
+      div(uib-alert='', ng-repeat="alert in $ctrl.alerts", ng-class='alert.type', close='$ctrl.closeAlert($index)') {{ alert.message }}
   hr(ng-repeat-start='workshop in $ctrl.workshops | upcoming')
   .row
     .col-md-5

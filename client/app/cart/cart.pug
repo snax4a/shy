@@ -155,7 +155,7 @@
               br
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='(form.$valid && form.$submitted) || $ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='(checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
             br
             br
 

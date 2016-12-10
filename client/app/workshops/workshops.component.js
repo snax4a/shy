@@ -6,40 +6,40 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($log, $http, $timeout, $window) {
+  constructor($log, $http) {
     this.$log = $log;
     this.$http = $http;
-    this.$timeout = $timeout;
-    this.$window = $window;
-    this.subscriber = {};
-    this.submitted = false;
-    this.subscribed = false;
-    this.subscriptionResult = '';
-    this.workshops = [];
   }
 
   $onInit() {
-    // Wait for Twitter widgets to load (visual flash - hate it)
-    this.$timeout(() => {
-      this.$window.twttr.widgets.load();
-    }, 50);
+    this.subscriber = {};
 
     // Load the workshops from the JSON file
+    this.workshops = [];
     this.workshops = workshops;
   }
 
+  // close the alert by deleting the element in the array
+  closeAlert(index) {
+    this.alerts.splice(index, 1);
+  }
+
   subscribe(form) {
-    this.submitted = true;
     if(form.$valid) {
+      // Post to the server then create an alerts array (undefined, zero or one item) to give user feedback
       this.$http
         .post('/api/newsletter', this.subscriber)
         .then(response => { // Could use destructuring here {data} instead but it doesn't read as well
-          // Put data onto the page where the Thanks goes
-          this.subscriptionResult = response.data;
-          this.subscribed = true;
+          this.alerts = [{
+            type: 'alert-success',
+            message: response.data
+          }];
         })
         .catch(response => {
-          this.subscriptionResult = `Error subscribing: ${response.err}`;
+          this.alerts = [{
+            type: 'alert-danger',
+            message: `Error subscribing: ${response.err}`
+          }];
         });
     }
   }
