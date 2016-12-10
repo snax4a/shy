@@ -14,6 +14,7 @@
     "body-parser": "^1.15.2",
     "bootstrap": "~3.3.7",
     "bootstrap-sass": "~3.3.7",
+    "braintree": "^1.44.0",
     "braintree-web": "^3.6.1",
     "composable-middleware": "^0.3.0",
     "cookie-parser": "^1.4.3",
