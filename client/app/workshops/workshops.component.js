@@ -36,9 +36,10 @@ export class WorkshopsController {
           }];
         })
         .catch(response => {
+          this.$log.info('Failed', response);
           this.alerts = [{
             type: 'alert-danger',
-            message: `Error subscribing: ${response.err}`
+            message: response.data
           }];
         });
     }
