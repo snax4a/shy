@@ -20,13 +20,13 @@ const orderIndex = proxyquire('./index.js', {
   './order.controller': orderCtrlStub
 });
 
-describe('Order API Router:', function() {
-  it('should return an express router instance', function() {
+describe('Order API Router:', () => {
+  it('should return an express router instance', () => {
     expect(orderIndex).to.equal(routerStub);
   });
 
-  describe('POST /api/order', function() {
-    it('should route to order.controller.create', function() {
+  describe('POST /api/order', () => {
+    it('should route to order.controller.create', () => {
       expect(routerStub.post
         .withArgs('/', 'orderCtrl.create')
         ).to.have.been.calledOnce;

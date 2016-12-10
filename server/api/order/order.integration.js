@@ -3,11 +3,11 @@
 const app = require('../..');
 import request from 'supertest';
 
-describe('Order API:', function() {
-  describe('POST /api/order', function() {
+describe('Order API:', () => {
+  describe('POST /api/order', () => {
     let confirmation;
 
-    beforeEach(function(done) {
+    beforeEach(done => {
       request(app)
         .post('/api/order')
         .send({
@@ -31,7 +31,6 @@ describe('Order API:', function() {
           purchaser: {
             firstName: 'John',
             lastName: 'Doe',
-            zipCode: '15222',
             email: 'john.doe@bitbucket.com',
             phone: '412-555-1212'
           },
@@ -57,7 +56,7 @@ describe('Order API:', function() {
         });
     });
 
-    it('should respond with a JSON confirmation', function() {
+    it('should respond with a JSON confirmation', () => {
       expect(confirmation.purchaser.firstName).to.equal('John');
       expect(confirmation.purchaser.lastName).to.equal('Doe');
     });
