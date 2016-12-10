@@ -1,6 +1,7 @@
 High
 - /api/order
-  - Process payment w/PayPal PayFlow Pro (npm install paypal-rest-sdk) or Braintree
+  - Process payment w/Braintree
+  - Change /server/config/environment/index.js gateway.environment from Sandbox
 - cartPage:
   - Pass back payment gateway errors to page
 

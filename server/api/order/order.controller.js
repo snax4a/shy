@@ -5,6 +5,7 @@
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
 import { Subscriber } from '../../sqldb';
+import braintree from 'braintree';
 
 // Calculate the cartItem total
 function getTotal(cartItem) {
