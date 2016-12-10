@@ -3,7 +3,7 @@
 const proxyquire = require('proxyquire').noPreserveCache();
 
 const orderCtrlStub = {
-  placeOrder: 'orderCtrl.create'
+  create: 'orderCtrl.create'
 };
 
 const routerStub = {

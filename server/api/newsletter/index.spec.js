@@ -20,13 +20,13 @@ var newsletterIndex = proxyquire('./index.js', {
   './newsletter.controller': newsletterCtrlStub
 });
 
-describe('Newsletter API Router:', function() {
-  it('should return an express router instance', function() {
+describe('Newsletter API Router:', () => {
+  it('should return an express router instance', () => {
     expect(newsletterIndex).to.equal(routerStub);
   });
 
-  describe('POST /api/newsletter', function() {
-    it('should route to newsletter.controller.subscribe', function() {
+  describe('POST /api/newsletter', () => {
+    it('should route to newsletter.controller.subscribe', () => {
       expect(routerStub.post
         .withArgs('/', 'newsletterCtrl.subscribe')
         ).to.have.been.calledOnce;
