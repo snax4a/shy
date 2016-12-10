@@ -11,11 +11,7 @@ export function index(req, res) {
   const gateway = braintree.connect(config.gateway);
   // Generate the client token
   gateway.clientToken.generate({}, (err, response) => {
-    if(err) throw err;
+    if(err) throw err; // Usually authentication issues
     res.send(response.clientToken);
-    // Perhaps wrap as a JSON response?
-    // res.json({
-    //   "client_token": res.clientToken
-    // });
   });
 }

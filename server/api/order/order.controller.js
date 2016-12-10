@@ -75,7 +75,7 @@ export function create(req, res) {
   gateway.transaction.sale({
     amount: '10.00',
     // Implement: Add other fields later
-    paymentMethodNonce: req.body.payment_method_nonce,
+    paymentMethodNonce: req.body.nonceFromClient,
     options: {
       submitForSettlement: true
     }
