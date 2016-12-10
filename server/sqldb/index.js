@@ -23,7 +23,7 @@ let db = {
 //   });
 
 // Insert models below
-db.Order = db.sequelize.import('../api/order/order.model');
+//db.Order = db.sequelize.import('../api/order/order.model');
 db.Subscriber = db.sequelize.import('../api/subscriber/subscriber.model');
 
 module.exports = db;

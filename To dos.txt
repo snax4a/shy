@@ -5,6 +5,7 @@ High
   - Pass back database and payment gateway errors to page
 
 Low/cosmetic
+- Decide if I want to retain order information for better reporting than provided by payment gateway
 - Maybe update api/order/order.controller.js to use class instead
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 - Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap

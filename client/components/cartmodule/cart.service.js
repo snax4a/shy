@@ -66,9 +66,9 @@ export class Cart {
 
     // Setup handler for promise once order is processed
     return this.$http.post('/api/order', orderInformation)
-      .success(result => {
+      .then(response => {
         // Copy the result to the cart's confirmation
-        this.confirmation = result; // Previously: angular.copy(result, this.confirmation);
+        this.confirmation = response.data; // Previously: angular.copy(result, this.confirmation);
         this.confirmation.cartItems = [];
         angular.copy(this.cartItems, this.confirmation.cartItems); // Get rid of my only dependency on angular in the class
 
@@ -76,11 +76,11 @@ export class Cart {
         this.clearCartItems();
 
         // Pass the promise out for async handling in controller
-        return result;
+        return response;
       })
-      .error(err => {
-        this.$log.error('Order failed', err);
-        return err;
+      .catch(response => {
+        this.$log.error('Order failed', response.err);
+        return response;
       });
   }
 

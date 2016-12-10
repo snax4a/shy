@@ -31,17 +31,16 @@ export class WorkshopsController {
   subscribe(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Implement a way to save the email address submitted
-      this.$http.post('/api/newsletter', this.subscriber)
-        .success(data => {
+      this.$http
+        .post('/api/newsletter', this.subscriber)
+        .then(response => { // Could use destructuring here {data} instead but it doesn't read as well
           // Put data onto the page where the Thanks goes
-          this.subscriptionResult = data;
+          this.subscriptionResult = response.data;
+          this.subscribed = true;
         })
-        .error(err => {
-          this.subscriptionResult = err;
-          this.$log.error('Error on server subscribing this person', err);
+        .catch(response => {
+          this.subscriptionResult = `Error subscribing: ${response.err}`;
         });
-      this.subscribed = true;
     }
   }
 }
