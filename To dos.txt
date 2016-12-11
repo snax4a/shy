@@ -1,4 +1,5 @@
 High
+- Move BraintreeConnect() to cart.component.js out of cart.service.js
 - /app/cart/cart.pug
   - Implement Braintree Hosted Fields
   - Place Order button - disable if !this.Cart.clientInstance - also change form to payment

@@ -32,7 +32,11 @@ export class CartController {
     //braintree.client.create({authorization: this.Cart.token}, this._cbClientCreate);
 
     // Setup Braintree Hosted Fields
-    this.$log.info('Setting up Braintree Hosted Fields', this.Cart.clientInstance);
+    this.Cart.braintreeConnect()
+      .then(() => {
+        this.$log.info('Setting up Braintree Hosted Fields', this.Cart.clientInstance);
+      });
+
     // This needs to happen after braintree.client.create does a callback
     //braintree.hostedFields.create(this._hostedFieldsOptions, this._cbHostedFieldsCreate);
     // this.Cart.clientInstance
