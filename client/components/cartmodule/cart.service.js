@@ -1,6 +1,6 @@
 'use strict';
 import angular from 'angular';
-//import braintreeWeb from 'braintree-web';
+import braintree from 'braintree-web';
 
 class Item {
   constructor(id, name, price, quantity) {
@@ -29,10 +29,35 @@ export class Cart {
     // Stuff to initialize
     this.key = 'cart'; // name of local storage key
     this.cartItems = [];
-    this.paymentInfo = {}; // REMOVE THIS
+    // this.paymentInfo = {}; // REMOVE THIS
     this.purchaser = {};
     this.recipient = {};
     this.confirmation = {};
+
+    // Populate this.clientInstance by passing async result from braintreeConnect (token) to a promise that handles braintree.client.create's callback
+    this.braintreeConnect()
+      .then(function(token) {
+        // Wrap the callback in an ES6 promise (do for all Braintree callbacks)
+        return new Promise((resolve, reject) => {
+          braintree.client.create({authorization: token}, function(clientErr, clientInstance) { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
+            return clientErr ? reject(clientErr) : resolve(clientInstance);
+          });
+        });
+      })
+      .then(clientInstance => {
+        this.clientInstance = clientInstance;
+      });
+  }
+
+  // Returns a promise for the token
+  braintreeConnect() {
+    return this.$http
+      .get('api/token')
+      .then(tokenResponse => tokenResponse.data)
+      .catch(tokenResponse => {
+        this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.', tokenResponse);
+        return tokenResponse;
+      });
   }
 
   // Clear the cartItems during checkout()
@@ -55,59 +80,60 @@ export class Cart {
     this.$location.path('/cart');
   }
 
+  _processSale(orderInformation) {
+    this.$http
+      .post('/api/order', orderInformation)
+      .then(orderResponse => {
+        // Copy response data to the cart's confirmation
+        this.confirmation = orderResponse.data;
+        this.confirmation.cartItems = [];
+        angular.copy(this.cartItems, this.confirmation.cartItems); // Implement: Get rid of my only dependency on angular in the class
+
+        // Clear the cart to avoid duplicate orders
+        this.clearCartItems();
+      })
+      .catch(orderResponse => {
+        this.$log.error('Order failed', orderResponse.data);
+      });
+  }
+
+  _cbHostedFieldsTokenize(tokenizeErr, payload) {
+    // Handle any errors
+    if(tokenizeErr) {
+      this.$log.info('Error tokenizing hosted fields', tokenizeErr);
+      return;
+    }
+
+    // Order info to be submitted (subset of Cart properties)
+    let orderInformation = {
+      nonceFromClient: payload.nonce,
+      //paymentInfo: this.paymentInfo, // Not using this any longer (remove all references to it)
+      purchaser: this.purchaser,
+      recipient: this.isGift ? this.recipient : this.purchaser,
+      isGift: this.isGift || false,
+      treatment: this.treatment,
+      instructions: this.instructions,
+      cartItems: this.cartItems
+    };
+
+    // Process the sale
+    this._processSale(orderInformation);
+  }
+
+
+
   // Post cart properties to server and handle response
   placeOrder() {
-    // Send request for a token
+    // GET /api/token -> create client -> create hosted fields -> tokenize hosted fields -> processSale
     this.$http
       .get('api/token')
       .then(tokenResponse => {
-        this.$log.info('tokenResponse', tokenResponse);
-        const braintree = require('braintree-web');
-        const client = braintree.api.Client({clientToken: tokenResponse.data.client_token});
-        client.tokenizeCard({
-          number: this.paymentInfo.ccNumber, // Not using Hosted Fields approach here
-          expirationDate: this.paymentInfo.expDate // Not using Hosted Fields approach here
-        }, (err, nonce) => {
-          if(err) throw err; // Temporary - we can do better
-
-          // Setup order info to be submitted (subset of Cart properties)
-          let orderInformation = {
-            nonceFromClient: nonce,
-            //paymentInfo: this.paymentInfo,
-            purchaser: this.purchaser,
-            recipient: this.isGift ? this.recipient : this.purchaser,
-            isGift: this.isGift || false,
-            treatment: this.treatment,
-            instructions: this.instructions,
-            cartItems: this.cartItems
-          };
-
-          // Process the sale
-          return this.$http
-            .post('/api/order', orderInformation)
-            .then(orderResponse => {
-              // Copy the result to the cart's confirmation
-              this.confirmation = orderResponse.data;
-              this.confirmation.cartItems = [];
-              angular.copy(this.cartItems, this.confirmation.cartItems); // Get rid of my only dependency on angular in the class
-
-              // Clear the cart to avoid duplicate orders
-              this.clearCartItems();
-
-              // Pass the promise out for async handling in controller
-              // Seems unneeded because of return on this.$http
-              //return orderResponse;
-            })
-            .catch(orderResponse => {
-              this.$log.error('Order failed', orderResponse.data);
-              // Seems unneeded because of return on this.$http
-              //return orderResponse;
-            });
-        });
+        // const braintree = require('braintree-web');
+        braintree.client.create({authorization: tokenResponse.data}, this._cbClientCreate);
       })
-      .catch(response => {
+      .catch(tokenResponse => {
         this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.');
-        return response;
+        return tokenResponse;
       });
   }
 

@@ -1,5 +1,7 @@
 High
-- Implement Braintree client requesting nonce then combine with other order info
+- /app/cart/cart.pug
+  - Implement Braintree Hosted Fields
+  - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
 - /api/order
   - Add callback to deal with success/failure of gateway.transaction.sale
   - Change /server/config/environment/index.js gateway.environment from Sandbox
