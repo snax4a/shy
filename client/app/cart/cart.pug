@@ -41,18 +41,18 @@
             #paymentPanelTitle.panel-title Payment Info
           .panel-body
             .row
-              .form-group.col-sm-5
+              .form-group.col-xs-6
                 label Credit card number
-                .form-control.card-number(id='card-number', placeholder='Debit/credit card number')
+                .form-control.card-number(id='card-number')
                 // div#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
                 //.help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
                   div(ng-message='required') Please provide a card number.
                   div(ng-message='minlength') Card number must at least 15 digits.
                   div(ng-message='maxlength') Card number must be less than 19 digits.              
                   div(ng-message='pattern') Please only enter numbers.
-              .form-group.col-sm-4
+              .form-group.col-xs-3
                 label Expires
-                .form-control(id='expiration-date', placeholder='MM / YYYY')
+                .form-control(id='expiration-date')
                   //.input-group(style='margin-bottom: 0px!important')
                   // input.form-control(name='ccExpMonth', ng-model='$ctrl.paymentInfo.ccExpMonth', placeholder='MM', type='text', maxlength='2', required='', autocomplete='cc-exp-month')
                   //span.input-group-addon /
@@ -61,9 +61,9 @@
                   // div(ng-message='required') Please select a month for your card&apos;s expiration date.
                   //.help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
                     // div(ng-message='required') Please select a year for your card&apos;s expiration date.
-              .form-group.col-sm-3.col-xs-2
+              .form-group.col-xs-2
                 label CVV
-                .form-control.cvv(id='cvv', placeholder='CSC')
+                .form-control.cvv(id='cvv')
                 //input.form-control.cvv(name='ccCSC', ng-model='$ctrl.paymentInfo.ccCSC', required='', ng-pattern='/^[0-9]+$/', ng-minlength='3', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
                 //.help-block.has-error(ng-messages='checkout.ccCSC.$error', ng-show='checkout.ccCSC.$dirty || checkout.$submitted', role='alert')
                   div(ng-message='required') Please provide the card security code.            

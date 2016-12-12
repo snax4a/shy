@@ -1,13 +1,15 @@
 High
+- Report auto-entry issue from Safari to Braintree (won't enter expiration date)
+- Possibly drop Braintree Hosted Fields in favor of custom UI for better control
 - Break up cart.service.js _postOrderInformation into 2 methods so I can chain results
 - /app/cart/cart.pug
-  - Implement Braintree Hosted Fields
+  - Change border color of hosted fields when they have focus (not working right now but the
+    example at https://developers.braintreepayments.com/guides/hosted-fields/overview/javascript/v3 works.
   - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
+  - Pass back payment gateway errors to the page
 - /api/order
-  - Add callback to deal with success/failure of gateway.transaction.sale
+  - Handle promise to deal with success/failure of gateway.transaction.sale
   - Change /server/config/environment/index.js gateway.environment from Sandbox
-- cartPage:
-  - Pass back payment gateway errors to page
 
 Low/cosmetic
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
