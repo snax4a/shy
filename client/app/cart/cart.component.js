@@ -30,28 +30,26 @@ export class CartController {
     */
 
     // Chain to get a hostedFieldsInstance and log it
-    if(!this.Cart.hostedFieldsInstance) {
-      this.Cart.braintreeGetToken()
-        .then(this.Cart.braintreeClientCreate)
-      /*
-        .then(clientInstance => {
-          this.clientInstance = clientInstance;
-          this.$log.info('clientInstance', clientInstance);
-        })
-      */
-        .then(this.Cart.braintreeHostedFieldsCreate)
-      /*
-        .then(this.Cart.braintreeHostedFieldsTokenize)
-        .then(payload => {
-          this.$log.info('Nonce', payload.nonce);
-        });
-      */
-        .then(hostedFieldsInstance => {
-          this.$log.info('hostedFieldsInstance', hostedFieldsInstance);
-          // Assocate with Cart Service for check out time
-          this.Cart.hostedFieldsInstance = hostedFieldsInstance;
-        });
-    }
+    this.Cart.braintreeGetToken()
+      .then(this.Cart.braintreeClientCreate)
+    /*
+      .then(clientInstance => {
+        this.clientInstance = clientInstance;
+        this.$log.info('clientInstance', clientInstance);
+      })
+    */
+      .then(this.Cart.braintreeHostedFieldsCreate)
+    /*
+      .then(this.Cart.braintreeHostedFieldsTokenize)
+      .then(payload => {
+        this.$log.info('Nonce', payload.nonce);
+      });
+    */
+      .then(hostedFieldsInstance => {
+        this.$log.info('hostedFieldsInstance', hostedFieldsInstance);
+        // Assocate with Cart Service for check out time
+        this.Cart.hostedFieldsInstance = hostedFieldsInstance;
+      });
 
     this.purchaser = {
     /*

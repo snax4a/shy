@@ -44,7 +44,7 @@
               .form-group.col-xs-6
                 label Credit card number
                 .form-control.card-number(id='card-number')
-                // div#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='text', placeholder='Debit/credit card number')
+                // div#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='tel', placeholder='Debit/credit card number')
                 //.help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
                   div(ng-message='required') Please provide a card number.
                   div(ng-message='minlength') Card number must at least 15 digits.
@@ -54,9 +54,9 @@
                 label Expires
                 .form-control(id='expiration-date')
                   //.input-group(style='margin-bottom: 0px!important')
-                  // input.form-control(name='ccExpMonth', ng-model='$ctrl.paymentInfo.ccExpMonth', placeholder='MM', type='text', maxlength='2', required='', autocomplete='cc-exp-month')
+                  // input.form-control(name='ccExpMonth', ng-model='$ctrl.paymentInfo.ccExpMonth', placeholder='MM', type='tel', maxlength='2', required='', autocomplete='cc-exp-month')
                   //span.input-group-addon /
-                  //input.form-control(name='ccExpYear', ng-model='$ctrl.paymentInfo.ccExpYear', placeholder='YY', type='text', maxlength='2', required='', autocomplete='cc-exp-year')
+                  //input.form-control(name='ccExpYear', ng-model='$ctrl.paymentInfo.ccExpYear', placeholder='YY', type='tel', maxlength='2', required='', autocomplete='cc-exp-year')
                   //.help-block.has-error(ng-messages='checkout.ccExpMonth.$error', ng-show='checkout.$submitted', role='alert')
                   // div(ng-message='required') Please select a month for your card&apos;s expiration date.
                   //.help-block.has-error(ng-messages='checkout.ccExpYear.$error', ng-show='checkout.$submitted', role='alert')
