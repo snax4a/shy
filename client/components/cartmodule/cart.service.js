@@ -33,24 +33,12 @@ export class Cart {
     this.purchaser = {};
     this.recipient = {};
     this.confirmation = {};
-
-    // Populate this.clientInstance by passing async result from braintreeConnect (token) to a promise that handles braintree.client.create's callback
-    this.braintreeConnect()
-      .then(function(token) {
-        // Wrap the callback in an ES6 promise (do for all Braintree callbacks)
-        return new Promise((resolve, reject) => {
-          braintree.client.create({authorization: token}, function(clientErr, clientInstance) { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
-            return clientErr ? reject(clientErr) : resolve(clientInstance);
-          });
-        });
-      })
-      .then(clientInstance => {
-        this.clientInstance = clientInstance;
-      });
   }
 
+  // Maybe break out the next 4 methods into their own angular service
+
   // Returns a promise for the token
-  braintreeConnect() {
+  braintreeGetToken() {
     return this.$http
       .get('api/token')
       .then(tokenResponse => tokenResponse.data)
@@ -58,6 +46,66 @@ export class Cart {
         this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.', tokenResponse);
         return tokenResponse;
       });
+  }
+
+  // Returns a promise for the clientInstance
+  braintreeClientCreate(token) {
+    return new Promise((resolve, reject) => {
+      braintree.client.create({authorization: token}, function(clientErr, clientInstance) { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
+        return clientErr ? reject(clientErr) : resolve(clientInstance);
+      });
+    });
+  }
+
+  // Returns a promise for the hostedFieldsInstance
+  // Unfortunately, it violates separation of concerns but it's Braintree's API
+  braintreeHostedFieldsCreate(clientInstance) {
+    return new Promise((resolve, reject) => {
+      braintree.hostedFields.create({
+        client: clientInstance,
+        fields: {
+          number: {
+            selector: '#card-number',
+            placeholder: '4111 1111 1111 1111'
+          },
+          cvv: {
+            selector: '#cvv',
+            placeholder: '123'
+          },
+          expirationDate: {
+            selector: '#expiration-date',
+            placeholder: '10/2019'
+          }
+        },
+        styles: {
+          input: {
+            'font-size': '14px',
+            'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
+            'color': '#555'
+          },
+          ':focus': {
+            'border-color': '#66afe9'
+          },
+          'input.invalid': {
+            'color': 'red'
+          },
+          'input.valid': {
+            'color': 'green'
+          }
+        }
+      }, function(hostedFieldsErr, hostedFieldsInstance) {
+        return hostedFieldsErr ? reject(hostedFieldsErr) : resolve(hostedFieldsInstance);
+      });
+    });
+  }
+
+  // Return a promise to the payload (for submitting orders)
+  braintreeHostedFieldsTokenize(hostedFieldsInstance) {
+    return new Promise((resolve, reject) => {
+      hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
+        return tokenizeErr ? reject(tokenizeErr) : resolve(payload);
+      });
+    });
   }
 
   // Clear the cartItems during checkout()
@@ -119,8 +167,6 @@ export class Cart {
     // Process the sale
     this._processSale(orderInformation);
   }
-
-
 
   // Post cart properties to server and handle response
   placeOrder() {

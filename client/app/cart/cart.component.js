@@ -28,22 +28,27 @@ export class CartController {
       ccCSC: 656
     };
     */
-    // Setup Braintree Hosted Fields
-    //braintree.client.create({authorization: this.Cart.token}, this._cbClientCreate);
 
-    // Setup Braintree Hosted Fields
-    this.Cart.braintreeConnect()
-      .then(() => {
-        this.$log.info('Setting up Braintree Hosted Fields', this.Cart.clientInstance);
+    // Chain to get a hostedFieldsInstance and log it
+    this.Cart.braintreeGetToken()
+      .then(this.Cart.braintreeClientCreate)
+    /*
+      .then(clientInstance => {
+        this.clientInstance = clientInstance;
+        this.$log.info('clientInstance', clientInstance);
+      })
+    */
+      .then(this.Cart.braintreeHostedFieldsCreate)
+    /*
+      .then(this.Cart.braintreeHostedFieldsTokenize)
+      .then(payload => {
+        this.$log.info('Nonce', payload.nonce);
+      });
+    */
+      .then(hostedFieldsInstance => {
+        this.$log.info('hostedFieldsInstance', hostedFieldsInstance);
       });
 
-    // This needs to happen after braintree.client.create does a callback
-    //braintree.hostedFields.create(this._hostedFieldsOptions, this._cbHostedFieldsCreate);
-    // this.Cart.clientInstance
-    //   .then(() => {
-    //     this.$log.info('this.clientInstance', this.Cart.clientInstance);
-    //   })
-    //   .catch();
     this.purchaser = {
     /*
       // Test data
@@ -77,65 +82,6 @@ export class CartController {
     this.Cart.paymentInfo = this.paymentInfo;
     this.Cart.purchaser = this.purchaser;
     this.Cart.recipient = this.recipient;
-  }
-
-    // Kind of a violation of separation of concerns but that's the way Braintree's API works
-  _hostedFieldsOptions() {
-    return {
-      client: this.Cart.clientInstance,
-      fields: {
-        number: {
-          selector: '#card-number',
-          placeholder: '4111 1111 1111 1111'
-        },
-        cvv: {
-          selector: '#cvv',
-          placeholder: '123'
-        },
-        expirationDate: {
-          selector: '#expiration-date',
-          placeholder: '10/2019'
-        }
-      },
-      styles: {
-        input: {
-          'font-size': '14px',
-          'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
-          'color': '#555'
-        },
-        ':focus': {
-          'border-color': '#66afe9'
-        },
-        'input.invalid': {
-          'color': 'red'
-        },
-        'input.valid': {
-          'color': 'green'
-        }
-      }
-    };
-  }
-
-  // Callback for braintree.hostedFields.create
-  _cbHostedFieldsCreate(hostedFieldsErr, hostedFieldsInstance) {
-    // Handle any errors
-    if(hostedFieldsErr) {
-      this.$log.info('Error with hosted fields', hostedFieldsErr);
-      return;
-    }
-
-    // Tokenize the hosted fields
-    this.$log.info('Tokenizing hosted fields');
-    hostedFieldsInstance.tokenize(this._cbHostedFieldsTokenize);
-  }
-
-  _cbHostedFieldsTokenize(tokenizeErr, payload) {
-    // Handle any errors
-    if(tokenizeErr) {
-      this.$log.info('Error tokenizing hosted fields', tokenizeErr);
-      return;
-    }
-    this.$log.info('Nonce', payload.nonce); // Is it the same as the token?
   }
 
   // Update the quantity only if it's an acceptable value
