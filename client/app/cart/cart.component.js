@@ -2,7 +2,6 @@
 import angular from 'angular';
 import routes from './cart.routes';
 import uiRouter from 'angular-ui-router';
-import braintree from 'braintree-web';
 
 export class CartController {
   /*@ngInject*/
@@ -46,7 +45,6 @@ export class CartController {
       });
     */
       .then(hostedFieldsInstance => {
-        this.$log.info('hostedFieldsInstance', hostedFieldsInstance);
         // Assocate with Cart Service for check out time
         this.Cart.hostedFieldsInstance = hostedFieldsInstance;
       });
