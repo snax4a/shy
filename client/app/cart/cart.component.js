@@ -47,6 +47,8 @@ export class CartController {
     */
       .then(hostedFieldsInstance => {
         this.$log.info('hostedFieldsInstance', hostedFieldsInstance);
+        // Assocate with Cart Service for check out time
+        this.Cart.hostedFieldsInstance = hostedFieldsInstance;
       });
 
     this.purchaser = {

@@ -128,8 +128,9 @@ export class Cart {
     this.$location.path('/cart');
   }
 
-  _processSale(orderInformation) {
-    this.$http
+  // Return a promise to the confirmation
+  _postOrderInformation(orderInformation) {
+    return this.$http
       .post('/api/order', orderInformation)
       .then(orderResponse => {
         // Copy response data to the cart's confirmation
@@ -145,42 +146,36 @@ export class Cart {
       });
   }
 
-  _cbHostedFieldsTokenize(tokenizeErr, payload) {
-    // Handle any errors
-    if(tokenizeErr) {
-      this.$log.info('Error tokenizing hosted fields', tokenizeErr);
-      return;
-    }
-
-    // Order info to be submitted (subset of Cart properties)
-    let orderInformation = {
-      nonceFromClient: payload.nonce,
-      //paymentInfo: this.paymentInfo, // Not using this any longer (remove all references to it)
-      purchaser: this.purchaser,
-      recipient: this.isGift ? this.recipient : this.purchaser,
-      isGift: this.isGift || false,
-      treatment: this.treatment,
-      instructions: this.instructions,
-      cartItems: this.cartItems
-    };
-
-    // Process the sale
-    this._processSale(orderInformation);
+  // Returns a promise to the orderInformation
+  _getOrderInformation(payload) {
+    return new Promise((resolve, reject) => {
+      if(payload) {
+        resolve({
+          // Order info to be submitted (subset of Cart properties)
+          nonceFromClient: payload.nonce,
+          //paymentInfo: this.paymentInfo, // Not using this any longer (remove all references to it)
+          purchaser: this.purchaser,
+          recipient: this.isGift ? this.recipient : this.purchaser,
+          isGift: this.isGift || false,
+          treatment: this.treatment,
+          instructions: this.instructions,
+          cartItems: this.cartItems
+        });
+      } else {
+        reject('Error creating orderInformation');
+      }
+    });
   }
 
-  // Post cart properties to server and handle response
+  // Return a promise to the orderConfirmation
   placeOrder() {
-    // GET /api/token -> create client -> create hosted fields -> tokenize hosted fields -> processSale
-    this.$http
-      .get('api/token')
-      .then(tokenResponse => {
-        // const braintree = require('braintree-web');
-        braintree.client.create({authorization: tokenResponse.data}, this._cbClientCreate);
-      })
-      .catch(tokenResponse => {
-        this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.');
-        return tokenResponse;
-      });
+    // cart.component controller sets this.hostedFieldsInstance in $onInit()
+    // Now, tokenize hosted fields to get nonce then process the sale
+    // Perhaps add return to next line to return the promise from the chain?
+    this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
+      .then(this._getOrderInformation)
+      .then(this._postOrderInformation)
+      .then();
   }
 
   // Get item by its id
