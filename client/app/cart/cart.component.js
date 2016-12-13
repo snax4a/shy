@@ -18,20 +18,6 @@ export class CartController {
   $onInit() {
     // Initialize here to guarantee bindings are assigned before using them
 
-    /* No longer using this.paymentInfo b/c Braintree hosted fields - REMOVE
-    this.paymentInfo = {
-      // Test data
-      ccNumber: '4111111111111111',
-      ccExpMonth: 12,
-      ccExpYear: 20,
-      ccCSC: 656
-    };
-    */
-    // if(!this.Cart.clientToken) {
-    //   this.Cart.braintreeGetToken()
-    //     .then
-    // }
-
     // Chain to get a hostedFieldsInstance and log it
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate)
@@ -53,31 +39,14 @@ export class CartController {
         this.Cart.hostedFieldsInstance = hostedFieldsInstance;
       });
 
-    // Set focus to the credit card number using $timeout (because fields are disabled now)
+    // Wait a second then set the focus to the credit card number by clicking its label
     let fieldToClick = this.$window.document.getElementById('labelCardNumber');
     this.$timeout(() => {
       fieldToClick.click();
     }, 1000);
 
-    this.purchaser = {
-    /*
-      // Test data
-      firstName: 'John',
-      lastName: 'Doe',
-      zipCode: '15222',
-      email: 'john.doe@bitbucket.com',
-      phone: '412-555-1212'
-    */
-    };
+    this.purchaser = {};
     this.recipient = {
-    /*
-      // Test data
-      firstName: 'Jane',
-      lastName: 'Doe',
-      zipCode: '15222',
-      email: 'jane.doe@bitbucket.com',
-      phone: '724-555-1212',
-    */
       state: 'PA' // Default
     };
     this.confirmation = {};

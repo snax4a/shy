@@ -1,5 +1,5 @@
 High
-- Report auto-entry issue from Safari to Braintree (won't enter expiration date)
+- Speed up loading of cart page
 - Possibly drop Braintree Hosted Fields in favor of custom UI for better control
 - Break up cart.service.js _postOrderInformation into 2 methods so I can chain results
 - /app/cart/cart.pug

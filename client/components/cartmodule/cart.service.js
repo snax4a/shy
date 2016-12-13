@@ -58,7 +58,7 @@ export class Cart {
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
     // If we already have one, return that
-    // if(this.clientInstance) return new Promise(resolve => resolve(this.clientToken));
+    //if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
     return new Promise((resolve, reject) => {
@@ -92,16 +92,16 @@ export class Cart {
           input: {
             'font-size': '14px',
             'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            'color': '#555'
+            color: '#555'
           },
           ':focus': {
             'border-color': '#66afe9'
           },
           'input.invalid': {
-            'color': 'red'
+            color: 'red'
           },
           'input.valid': {
-            'color': 'green'
+            color: 'green'
           }
         }
       }, function(hostedFieldsErr, hostedFieldsInstance) {
