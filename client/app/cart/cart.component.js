@@ -27,6 +27,10 @@ export class CartController {
       ccCSC: 656
     };
     */
+    // if(!this.Cart.clientToken) {
+    //   this.Cart.braintreeGetToken()
+    //     .then
+    // }
 
     // Chain to get a hostedFieldsInstance and log it
     this.Cart.braintreeGetToken()
@@ -48,6 +52,12 @@ export class CartController {
         // Assocate with Cart Service for check out time
         this.Cart.hostedFieldsInstance = hostedFieldsInstance;
       });
+
+    // Set focus to the credit card number using $timeout (because fields are disabled now)
+    let fieldToClick = this.$window.document.getElementById('labelCardNumber');
+    this.$timeout(() => {
+      fieldToClick.click();
+    }, 1000);
 
     this.purchaser = {
     /*

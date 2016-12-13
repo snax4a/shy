@@ -39,9 +39,16 @@ export class Cart {
 
   // Returns a promise for the token
   braintreeGetToken() {
+    // If we already have one, return that
+    if(this.clientToken) return new Promise(resolve => resolve(this.clientToken));
+
+    // Otherwise, request one from the server
     return this.$http
       .get('api/token')
-      .then(tokenResponse => tokenResponse.data)
+      .then(tokenResponse => {
+        this.clientToken = tokenResponse.data;
+        return tokenResponse.data;
+      })
       .catch(tokenResponse => {
         this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.', tokenResponse);
         return tokenResponse;
@@ -50,6 +57,10 @@ export class Cart {
 
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
+    // If we already have one, return that
+    // if(this.clientInstance) return new Promise(resolve => resolve(this.clientToken));
+
+    // Otherwise, get the promise to a clientInstance
     return new Promise((resolve, reject) => {
       braintree.client.create({authorization: token}, function(clientErr, clientInstance) { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
         return clientErr ? reject(clientErr) : resolve(clientInstance);
