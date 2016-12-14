@@ -1,10 +1,7 @@
 High
-- Speed up loading of cart page
-- Possibly drop Braintree Hosted Fields in favor of custom UI for better control
 - Break up cart.service.js _postOrderInformation into 2 methods so I can chain results
 - /app/cart/cart.pug
-  - Change border color of hosted fields when they have focus (not working right now but the
-    example at https://developers.braintreepayments.com/guides/hosted-fields/overview/javascript/v3 works.
+  - Add validation of hosted fields
   - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
   - Pass back payment gateway errors to the page
 - /api/order

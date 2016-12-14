@@ -58,12 +58,18 @@ export class Cart {
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
     // If we already have one, return that
-    //if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
+    if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
     return new Promise((resolve, reject) => {
-      braintree.client.create({authorization: token}, function(clientErr, clientInstance) { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
-        return clientErr ? reject(clientErr) : resolve(clientInstance);
+      braintree.client.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
+        if(clientErr) {
+          this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
+          return reject(clientErr);
+        } else {
+          this.clientInstance = clientInstance; // hold on to it for successive requests
+          return resolve(clientInstance);
+        }
       });
     });
   }

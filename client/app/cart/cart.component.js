@@ -20,24 +20,9 @@ export class CartController {
 
     // Chain to get a hostedFieldsInstance and log it
     this.Cart.braintreeGetToken()
-      .then(this.Cart.braintreeClientCreate)
-    /*
-      .then(clientInstance => {
-        this.clientInstance = clientInstance;
-        this.$log.info('clientInstance', clientInstance);
-      })
-    */
-      .then(this.Cart.braintreeHostedFieldsCreate)
-    /*
-      .then(this.Cart.braintreeHostedFieldsTokenize)
-      .then(payload => {
-        this.$log.info('Nonce', payload.nonce);
-      });
-    */
-      .then(hostedFieldsInstance => {
-        // Assocate with Cart Service for check out time
-        this.Cart.hostedFieldsInstance = hostedFieldsInstance;
-      });
+      .then(this.Cart.braintreeClientCreate.bind(this.Cart))
+      .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
+      .catch(err => this.$log.info('Error setting up Braintree Hosted Fields', err));
 
     // Wait a second then set the focus to the credit card number by clicking its label
     let fieldToClick = this.$window.document.getElementById('labelCardNumber');
@@ -98,6 +83,12 @@ export class CartController {
       // Implement: Change cursor to beach ball
       // Handle order confirmation via promise
       let orderPromise = this.Cart.placeOrder();
+      /*
+        .then(this.Cart.braintreeHostedFieldsTokenize.bind(this.Cart))
+        .then(payload => {
+          this.$log.info('Nonce', payload.nonce);
+        });
+      */
       orderPromise.then(result => {
         if(result.data.resultCode == 0) {
           this.$log.info('Successful order', this.Cart);
