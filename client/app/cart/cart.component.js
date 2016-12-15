@@ -18,7 +18,7 @@ export class CartController {
   $onInit() {
     // Initialize here to guarantee bindings are assigned before using them
 
-    // Chain to get a hostedFieldsInstance and log it
+    // Create Braintree Hosted Fields
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate.bind(this.Cart))
       .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
@@ -43,7 +43,6 @@ export class CartController {
     this.Cart.treatment = 'Email';
 
     // Dynamically link controller objects to the Cart
-    this.Cart.paymentInfo = this.paymentInfo;
     this.Cart.purchaser = this.purchaser;
     this.Cart.recipient = this.recipient;
   }

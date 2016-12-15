@@ -29,10 +29,14 @@ export class Cart {
     // Stuff to initialize
     this.key = 'cart'; // name of local storage key
     this.cartItems = [];
-    // this.paymentInfo = {}; // REMOVE THIS
     this.purchaser = {};
     this.recipient = {};
     this.confirmation = {};
+
+    // Pre-fetch the clientInstance so the Hosted Fields display faster
+    this.braintreeGetToken()
+      .then(this.braintreeClientCreate.bind(this))
+      .catch(err => this.$log.info('Error setting up Braintree client instance.', err));
   }
 
   // Maybe break out the next 4 methods into their own angular service
@@ -170,7 +174,6 @@ export class Cart {
         resolve({
           // Order info to be submitted (subset of Cart properties)
           nonceFromClient: payload.nonce,
-          //paymentInfo: this.paymentInfo, // Not using this any longer (remove all references to it)
           purchaser: this.purchaser,
           recipient: this.isGift ? this.recipient : this.purchaser,
           isGift: this.isGift || false,

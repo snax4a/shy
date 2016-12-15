@@ -22,12 +22,7 @@ describe('Order API:', () => {
           instructions: 'One for John and one for Jane.',
           isGift: true,
           treatment: 'Mail',
-          paymentInfo: {
-            ccCSC: 656,
-            ccExpMonth: 12,
-            ccExpYear: 2020,
-            ccNumber: '4111111111111111'
-          },
+          // Implement: get a dummy nonce to use
           purchaser: {
             firstName: 'John',
             lastName: 'Doe',
