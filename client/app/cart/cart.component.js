@@ -22,6 +22,9 @@ export class CartController {
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate.bind(this.Cart))
       .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
+      .then(hostedFieldsInstance => {
+        this.$log.info('Braintree hosted fields successfully setup.', hostedFieldsInstance);
+      })
       .catch(err => this.$log.info('Error setting up Braintree Hosted Fields', err));
 
     // Wait a second then set the focus to the credit card number by clicking its label
