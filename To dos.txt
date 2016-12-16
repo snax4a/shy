@@ -1,7 +1,7 @@
 High
 - Break up cart.service.js _postOrderInformation into 2 methods so I can chain results
 - /app/cart/cart.pug
-  - Add validation of hosted fields
+  - Modify callback of braintreeHostedFieldsCreate (cart.service.js) to set values we can track with ngMessages
   - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
   - Pass back payment gateway errors to the page
 - /api/order

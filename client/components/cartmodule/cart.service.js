@@ -114,7 +114,17 @@ export class Cart {
             color: 'green'
           }
         }
-      }, function(hostedFieldsErr, hostedFieldsInstance) {
+      }, (hostedFieldsErr, hostedFieldsInstance) => {
+        hostedFieldsInstance.on('validityChange', event => {
+          const field = event.fields[event.emittedBy];
+          if(field.isValid) {
+            this.$log.info(event.emittedBy, 'is fully valid');
+          } else if(field.isPotentiallyValid) {
+            this.$log.info(event.emittedBy, 'is potentially valid');
+          } else {
+            this.$log.error(event.emittedBy, 'is not valid');
+          }
+        });
         return hostedFieldsErr ? reject(hostedFieldsErr) : resolve(hostedFieldsInstance);
       });
     });
