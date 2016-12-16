@@ -124,6 +124,7 @@ export class Cart {
           } else {
             this.$log.error(event.emittedBy, 'is not valid');
           }
+          this.$log.info('Field:', field);
         });
         if(hostedFieldsErr) {
           this.$log.error('Not able to create the hosted fields with Braintree.', hostedFieldsErr);
