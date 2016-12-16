@@ -6,7 +6,7 @@ High
   - Pass back payment gateway errors to the page
 - /api/order
   - Handle promise to deal with success/failure of gateway.transaction.sale
-  - Change /server/config/environment/index.js gateway.environment from Sandbox
+  - Conditionally change /server/config/environment/index.js gateway.environment from Sandbox if production
 
 Low/cosmetic
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
