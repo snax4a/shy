@@ -125,7 +125,13 @@ export class Cart {
             this.$log.error(event.emittedBy, 'is not valid');
           }
         });
-        return hostedFieldsErr ? reject(hostedFieldsErr) : resolve(hostedFieldsInstance);
+        if(hostedFieldsErr) {
+          this.$log.error('Not able to create the hosted fields with Braintree.', hostedFieldsErr);
+          return reject(hostedFieldsErr);
+        } else {
+          this.hostedFieldsInstance = hostedFieldsInstance;
+          return resolve(hostedFieldsInstance);
+        }
       });
     });
   }
