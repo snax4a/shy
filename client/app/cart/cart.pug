@@ -47,12 +47,12 @@
                   .form-control(id='card-number')
                   span.input-group-addon
                     span.glyphicon.glyphicon-credit-card
+                | {{$ctrl.Cart.hostedFieldsInstance.getState().fields.number | json}}
                 // div#ccNumber.form-control.card-number(name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='tel', placeholder='Debit/credit card number')
-                //.help-block.has-error(ng-messages='checkout.ccNumber.$error', ng-show='checkout.ccNumber.$dirty || checkout.$submitted', role='alert')
-                  div(ng-message='required') Please provide a card number.
-                  div(ng-message='minlength') Card number must at least 15 digits.
-                  div(ng-message='maxlength') Card number must be less than 19 digits.              
-                  div(ng-message='pattern') Please only enter numbers.
+                .help-block.has-error(ng-messages='$ctrl.Cart.hostedFieldsInstance.getState().fields.number', ng-show='!$ctrl.Cart.hostedFieldsInstance.getState().fields.number.isValid || checkout.$submitted', role='alert')
+                  div(ng-message='isEmpty') Please provide a card number.
+                  div(ng-message='isValid') Please provide a valid card number.
+                  div(ng-message='isPotentiallyValid') Please finish typing in the card number.
               .form-group.col-xs-7.col-sm-5.col-lg-4
                 label(for='expiration-date') Expires
                 .input-group(style='margin-bottom: 0px!important')

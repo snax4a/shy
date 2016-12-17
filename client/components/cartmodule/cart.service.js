@@ -18,12 +18,13 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, ProductList) {
+  constructor($log, $window, $location, $http, $q, ProductList) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
     this.$location = $location;
     this.$http = $http;
+    this.$q = $q;
     this.ProductList = ProductList;
 
     // Stuff to initialize
@@ -65,7 +66,7 @@ export class Cart {
     if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       braintree.client.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
         if(clientErr) {
           this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
@@ -81,7 +82,7 @@ export class Cart {
   // Returns a promise for the hostedFieldsInstance
   // Unfortunately, it violates separation of concerns but it's Braintree's API
   braintreeHostedFieldsCreate(clientInstance) {
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       braintree.hostedFields.create({
         client: clientInstance,
         fields: {
@@ -115,7 +116,8 @@ export class Cart {
           }
         }
       }, (hostedFieldsErr, hostedFieldsInstance) => {
-        hostedFieldsInstance.on('validityChange', event => {
+        hostedFieldsInstance.on('blur', event => {
+          // Mimic $apply
           const field = event.fields[event.emittedBy];
           if(field.isValid) {
             this.$log.info(event.emittedBy, 'is fully valid');
@@ -139,7 +141,7 @@ export class Cart {
 
   // Return a promise to the payload (for submitting orders)
   braintreeHostedFieldsTokenize(hostedFieldsInstance) {
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
         return tokenizeErr ? reject(tokenizeErr) : resolve(payload);
       });
