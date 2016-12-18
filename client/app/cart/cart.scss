@@ -1,39 +1,46 @@
 .what {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 .what-column {
-    width: 50%;
+  width: 50%;
 }
+
 .qty {
-    width: 62px;
+  width: 62px;
 }
+
 .total, .extd {
-    font-weight: bold;
-    text-align: right;
+  font-weight: bold;
+  text-align: right;
 }
+
 .table tbody>tr>td.vert-align{
-    vertical-align: middle;
+  vertical-align: middle;
 }
 .center {
-    text-align: center;
+  text-align: center;
 }
+
 .cvv {
-    width: 100px;
+  width: 100px;
 }
+
 input[type="radio"]
 {
-    margin: 4px 4px 4px 4px;   
+  margin: 4px 4px 4px 4px;   
 }
+
 label {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .table>thead>tr>tr {
-    border-bottom: 1px solid #ddd!important;
+  border-bottom: 1px solid #ddd!important;
 }
 
 .right {
-    text-align: right;
+  text-align: right;
 }
 
 .braintree-hosted-fields-focused { 
@@ -44,4 +51,9 @@ label {
 .braintree-hosted-fields-focused.focused-invalid {
   border: 1px solid #ebcccc;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(100,100,0,.6);
+}
+
+.form-group-special {
+  @extend .form-group;
+  margin-bottom: 0px!important;
 }
