@@ -11,10 +11,8 @@ export class CartController {
     this.$http = $http;
     this.$window = $window;
     this.$timeout = $timeout;
-    //this.$watch = $watch;
     this.products = ProductList.products;
     this.Cart = Cart;
-    this.hfState = {};
   }
 
   $onInit() {
@@ -24,15 +22,6 @@ export class CartController {
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate.bind(this.Cart))
       .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
-      .then(hostedFieldsInstance => {
-        this.$log.info('hostedFieldsInstance', hostedFieldsInstance._state.fields);
-        this.hfState = hostedFieldsInstance._state.fields; // hostedFieldsInstance.getState();
-        // this.$watch('hfState', (newValue, oldValue) => {
-        //   this.$log.info('newValue', newValue);
-        //   this.$log.info('oldValue', oldValue);
-        // });
-        this.$log.info('Current Hosted Field State', this.hfState.fields);
-      })
       .catch(err => this.$log.info('Error setting up Braintree Hosted Fields', err));
 
     // Wait a second then set the focus to the credit card number by clicking its label

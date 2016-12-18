@@ -18,13 +18,14 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, $q, ProductList) {
+  constructor($log, $window, $location, $http, $q, $timeout, ProductList) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
     this.$location = $location;
     this.$http = $http;
     this.$q = $q;
+    this.$timeout = $timeout;
     this.ProductList = ProductList;
 
     // Stuff to initialize
@@ -33,6 +34,7 @@ export class Cart {
     this.purchaser = {};
     this.recipient = {};
     this.confirmation = {};
+    this.hostedFieldsState = {};
 
     // Pre-fetch the clientInstance so the Hosted Fields display faster
     this.braintreeGetToken()
@@ -79,6 +81,28 @@ export class Cart {
     });
   }
 
+  braintreeUpdateHostedFieldsState() {
+    this.hostedFieldsState = this.hostedFieldsInstance.getState().fields;
+    // Add isInvalid to simplify use of ng-messages
+    this.hostedFieldsState.cvv.isInvalid = !this.hostedFieldsState.cvv.isValid;
+    this.hostedFieldsState.expirationDate.isInvalid = !this.hostedFieldsState.expirationDate.isValid;
+    this.hostedFieldsState.number.isInvalid = !this.hostedFieldsState.number.isValid;
+  }
+
+  braintreeHostedFieldsEventHandlers(eventNameArray) {
+    for(let eventName of eventNameArray) {
+      this.hostedFieldsInstance.on(eventName, event => {
+        //const fieldName = event.emittedBy;
+        //const field = event.fields[fieldName];
+         // Make event handlers run digest cycle using $timeout (simulate $scope.apply())
+        this.$timeout(() => {
+          this.braintreeUpdateHostedFieldsState();
+          return event;
+        });
+      });
+    }
+  }
+
   // Returns a promise for the hostedFieldsInstance
   // Unfortunately, it violates separation of concerns but it's Braintree's API
   braintreeHostedFieldsCreate(clientInstance) {
@@ -116,23 +140,13 @@ export class Cart {
           }
         }
       }, (hostedFieldsErr, hostedFieldsInstance) => {
-        hostedFieldsInstance.on('blur', event => {
-          // Mimic $apply
-          const field = event.fields[event.emittedBy];
-          if(field.isValid) {
-            this.$log.info(event.emittedBy, 'is fully valid');
-          } else if(field.isPotentiallyValid) {
-            this.$log.info(event.emittedBy, 'is potentially valid');
-          } else {
-            this.$log.error(event.emittedBy, 'is not valid');
-          }
-          this.$log.info('Field:', field);
-        });
+        // Handle disposition of promise
         if(hostedFieldsErr) {
           this.$log.error('Not able to create the hosted fields with Braintree.', hostedFieldsErr);
           return reject(hostedFieldsErr);
         } else {
           this.hostedFieldsInstance = hostedFieldsInstance;
+          this.braintreeHostedFieldsEventHandlers(['blur', 'focus', 'validityChange', 'notEmpty', 'empty']);
           return resolve(hostedFieldsInstance);
         }
       });
