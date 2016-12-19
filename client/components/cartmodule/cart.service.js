@@ -87,6 +87,7 @@ export class Cart {
     this.hostedFieldsState.cvv.isInvalid = !this.hostedFieldsState.cvv.isValid;
     this.hostedFieldsState.expirationDate.isInvalid = !this.hostedFieldsState.expirationDate.isValid;
     this.hostedFieldsState.number.isInvalid = !this.hostedFieldsState.number.isValid;
+    this.hostedFieldsState.isInvalid = this.hostedFieldsState.cvv.isInvalid || this.hostedFieldsState.number.isInvalid || this.hostedFieldsState.number.isInvalid;
   }
 
   braintreeHostedFieldsEventHandlers(eventNameArray) {
