@@ -204,10 +204,10 @@ export class Cart {
 
   // Returns a promise to the orderInformation
   _getOrderInformation(payload) {
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       if(payload) {
-        resolve({
-          // Order info to be submitted (subset of Cart properties)
+        // Order info to be submitted (subset of Cart properties)
+        const orderInformation = {
           nonceFromClient: payload.nonce,
           purchaser: this.purchaser,
           recipient: this.isGift ? this.recipient : this.purchaser,
@@ -215,7 +215,9 @@ export class Cart {
           treatment: this.treatment,
           instructions: this.instructions,
           cartItems: this.cartItems
-        });
+        };
+        this.$log.info('orderInformation', orderInformation);
+        resolve(orderInformation);
       } else {
         reject('Error creating orderInformation');
       }
@@ -226,11 +228,10 @@ export class Cart {
   placeOrder() {
     // cart.component controller sets this.hostedFieldsInstance in $onInit()
     // Now, tokenize hosted fields to get nonce then process the sale
-    // Perhaps add return to next line to return the promise from the chain?
     this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
       .then(this._getOrderInformation)
       .then(this._postOrderInformation)
-      .then();
+      .catch(); // Add some error handling passing info back to cart component
   }
 
   // Get item by its id
