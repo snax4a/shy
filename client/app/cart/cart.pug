@@ -48,7 +48,7 @@
                   span.input-group-addon
                     span.glyphicon.glyphicon-credit-card
                 // input.form-control.card-number(id='ccNumber', name='ccNumber', ng-model='$ctrl.paymentInfo.ccNumber', ng-pattern='/^[0-9]+$/', ng-minlength='15', ng-maxlength='19', maxlength='19', autofocus='', autocomplete='cc-number', required='', type='tel', placeholder='Debit/credit card number')
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.number', xng-show='!$ctrl.Cart.hostedFieldsState.number.isValid || checkout.$submitted', role='alert')
+                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.number', ng-show='(!$ctrl.Cart.hostedFieldsState.number.isEmpty && $ctrl.Cart.hostedFieldsState.number.isInvalid) || checkout.$submitted', role='alert')
                   ng-message(when='isEmpty') Please provide a card number.
                   ng-message(when='isInvalid') Please provide a valid card number.
               .form-group.col-xs-7.col-sm-5.col-lg-4
@@ -61,7 +61,7 @@
                   //  input.form-control(name='ccExpMonth', ng-model='$ctrl.paymentInfo.ccExpMonth', placeholder='MM', type='tel', maxlength='2', required='', autocomplete='cc-exp-month')
                   //  span.input-group-addon /
                   //  input.form-control(name='ccExpYear', ng-model='$ctrl.paymentInfo.ccExpYear', placeholder='YY', type='tel', maxlength='2', required='', autocomplete='cc-exp-year')
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.expirationDate', xng-show='!$ctrl.Cart.hostedFieldsState.expirationDate.isValid || checkout.$submitted', role='alert')
+                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.expirationDate', ng-show='(!$ctrl.Cart.hostedFieldsState.expirationDate.isEmpty && $ctrl.Cart.hostedFieldsState.expirationDate.isInvalid) || checkout.$submitted', role='alert')
                   ng-message(when='isEmpty') Please provide an expiration date.
                   ng-message(when='isInvalid') Please provide a valid expiration date.
               .form-group.col-xs-5.col-md-4
@@ -71,7 +71,7 @@
                   span.input-group-addon
                     span.glyphicon.glyphicon-lock
                 //input.form-control.cvv(name='ccCSC', ng-model='$ctrl.paymentInfo.ccCSC', required='', ng-pattern='/^[0-9]+$/', ng-minlength='3', autocomplete='cc-csc', type='text', maxlength='4', placeholder='CSC')
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.cvv', xng-show='!$ctrl.Cart.hostedFieldsState.cvv.isValid || checkout.$submitted', role='alert')
+                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.cvv', ng-show='(!$ctrl.Cart.hostedFieldsState.cvv.isEmpty && $ctrl.Cart.hostedFieldsState.cvv.isInvalid) || checkout.$submitted', role='alert')
                   ng-message(when='isEmpty') Please provide the card security code.            
                   ng-message(when='isInvalid') Please provide a valid card security code.
             .row
