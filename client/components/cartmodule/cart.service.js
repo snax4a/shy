@@ -95,6 +95,7 @@ export class Cart {
         //const fieldName = event.emittedBy;
         //const field = event.fields[fieldName];
         // Make event handlers run digest cycle using $timeout (simulate $scope.apply())
+        // Better practice would be to use $rootScope and $apply().
         this.$timeout(() => {
           this.braintreeUpdateHostedFieldsState();
           return event;
