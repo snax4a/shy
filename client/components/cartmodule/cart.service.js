@@ -65,7 +65,7 @@ export class Cart {
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
     // If we already have one, return that
-    if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
+    if(this.clientInstance) return this.$q(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
     return this.$q((resolve, reject) => {
