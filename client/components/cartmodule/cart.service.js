@@ -18,13 +18,12 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, $q, $timeout, ProductList) {
+  constructor($log, $window, $location, $http, $timeout, ProductList) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
     this.$location = $location;
     this.$http = $http;
-    this.$q = $q;
     this.$timeout = $timeout;
     this.ProductList = ProductList;
 
@@ -65,10 +64,10 @@ export class Cart {
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
     // If we already have one, return that
-    if(this.clientInstance) return this.$q(resolve => resolve(this.clientInstance));
+    if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
-    return this.$q((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       braintree.client.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
         if(clientErr) {
           this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
@@ -108,7 +107,7 @@ export class Cart {
   // Returns a promise for the hostedFieldsInstance
   // Unfortunately, it violates separation of concerns but it's Braintree's API
   braintreeHostedFieldsCreate(clientInstance) {
-    return this.$q((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       braintree.hostedFields.create({
         client: clientInstance,
         fields: {
@@ -157,7 +156,7 @@ export class Cart {
 
   // Return a promise to the payload (for submitting orders)
   braintreeHostedFieldsTokenize(hostedFieldsInstance) {
-    return this.$q((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
         return tokenizeErr ? reject(tokenizeErr) : resolve(payload);
       });
@@ -204,7 +203,7 @@ export class Cart {
 
   // Returns a promise to the orderInformation
   _getOrderInformation(payload) {
-    return this.$q((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if(payload) {
         // Order info to be submitted (subset of Cart properties)
         const orderInformation = {
