@@ -86,6 +86,7 @@ export function create(req, res) {
       firstName: confirmation.purchaser.firstName,
       lastName: confirmation.purchaser.lastName
     },
+    /*
     shipping: {
       firstname: confirmation.recipient.firstName,
       lastName: confirmation.recipient.lastName,
@@ -95,16 +96,17 @@ export function create(req, res) {
       postalCode: confirmation.recipient.zipCode || null,
       countryName: 'USA'
     },
+    */
     taxExempt: true,
     options: {
       submitForSettlement: true
     }
-  }, (err, transaction) => {
+  }, (err, braintreeResponse) => {
     if(err) throw err;
-    console.log('Success! BRAINTREE RESULT:', transaction);
-    confirmation.orderNumber = transaction.id;
-    confirmation.resultDescription = transaction.status;
-    confirmation.resultCode = transaction.success ? 0 : 500;
+    console.log('Success! BRAINTREE response:', braintreeResponse);
+    confirmation.orderNumber = braintreeResponse.transaction.id;
+    confirmation.resultDescription = braintreeResponse.transaction.processorResponseText;
+    confirmation.resultCode = braintreeResponse.transaction.processorResponseCode;
 
     // Don't make the user wait for the database saves
     res.status(200).json(confirmation);

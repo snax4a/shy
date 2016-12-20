@@ -1,11 +1,9 @@
 High
-- Break up cart.service.js _postOrderInformation into 2 methods so I can chain results
 - /app/cart/cart.pug
-  - Modify callback of braintreeHostedFieldsCreate (cart.service.js) to set values we can track with ngMessages
-  - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
   - Pass back payment gateway errors to the page
 - Add indexes to Subscriber and Order tables
 - /api/order
+  - Break up the create() in server/api/order/order.controller.js
   - Handle promise to deal with success/failure of gateway.transaction.sale
   - Conditionally change /server/config/environment/index.js gateway.environment from Sandbox if production
 
