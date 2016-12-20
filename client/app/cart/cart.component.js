@@ -102,7 +102,8 @@ export class CartController {
           // Put the error in the credit card number area (ng-message='paymentgateway')
         }
         // Implement: Change cursor to arrow
-      });
+      })
+      .catch(err => this.$log.info('Error placing order', err));
     }
   }
 }

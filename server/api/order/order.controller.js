@@ -53,9 +53,10 @@ export function create(req, res) {
     purchaser: req.body.purchaser,
     recipient: req.body.recipient
   };
+  console.log('orderInformation', req.body);
 
-  // Capitalize the state before storing
-  confirmation.recipient.state = confirmation.recipient.state.toUpperCase();
+  // Capitalize the state before storing (if there's a recipients)
+  if(req.body.recipient.state) confirmation.recipient.state = confirmation.recipient.state.toUpperCase();
 
   // Load cartItems array from body of request
   let cartItems = req.body.cartItems;
@@ -73,34 +74,50 @@ export function create(req, res) {
 
   // Process sale
   gateway.transaction.sale({
-    amount: '10.00',
-    // Implement: Add other fields later
     paymentMethodNonce: req.body.nonceFromClient,
+    amount: confirmation.grandTotal,
+    customer: {
+      firstName: confirmation.purchaser.firstName,
+      lastName: confirmation.purchaser.lastName,
+      email: confirmation.purchaser.email,
+      phone: confirmation.purchaser.phone
+    },
+    billing: {
+      firstName: confirmation.purchaser.firstName,
+      lastName: confirmation.purchaser.lastName
+    },
+    shipping: {
+      firstname: confirmation.recipient.firstName,
+      lastName: confirmation.recipient.lastName,
+      streetAddress: confirmation.recipient.address || null,
+      locality: confirmation.recipient.city || null,
+      region: confirmation.recipient.state || 'PA',
+      postalCode: confirmation.recipient.zipCode || null,
+      countryName: 'USA'
+    },
+    taxExempt: true,
     options: {
       submitForSettlement: true
     }
-  }, (err, result) => {
+  }, (err, transaction) => {
     if(err) throw err;
-    console.log('BRAINTREE RESULT:', result);
-    // Implement: move the stuff for successful orders (and failures) here
+    console.log('Success! BRAINTREE RESULT:', transaction);
+    confirmation.orderNumber = transaction.id;
+    confirmation.resultDescription = transaction.status;
+    confirmation.resultCode = transaction.success ? 0 : 500;
+
+    // Don't make the user wait for the database saves
+    res.status(200).json(confirmation);
+
+    // Just for debugging
+    console.log(`Order ${confirmation.orderNumber} received`, confirmation);
   });
-
-  // Implement: Change next 3 lines to be set by payment gateway
-  confirmation.orderNumber = 'BL0PDFDF348D';
-  confirmation.resultCode = 0;
-  confirmation.resultDescription = 'Success';
-
-  // Don't make the user wait for the database saves
-  res.status(200).json(confirmation);
-
-  // Log order details to console in case email fails (do same for errors)
-  console.log(`Order ${confirmation.orderNumber} received`, confirmation);
 
 /*
   // Not necessary to save to DB when the payment gateway does the same thing
   // Save order to the database
   Order.upsert({
-    orderNumber: 'TEST-0001',
+    orderNumber: 'TEST-0001', // use Braintree's Transaction.id (eg "k39351gr")
     grandTotal: getTotalCost(cartItems),
     instructions: confirmation.instructions,
     isGift: confirmation.isGift,

@@ -4,11 +4,13 @@ High
   - Modify callback of braintreeHostedFieldsCreate (cart.service.js) to set values we can track with ngMessages
   - Place Order button - disable if !this.Cart.clientInstance - also change form to payment
   - Pass back payment gateway errors to the page
+- Add indexes to Subscriber and Order tables
 - /api/order
   - Handle promise to deal with success/failure of gateway.transaction.sale
   - Conditionally change /server/config/environment/index.js gateway.environment from Sandbox if production
 
 Low/cosmetic
+- Possibly take Transaction.creditCard.last4 from Braintree response
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
   - mocha.global.js - maybe related to update of mocha
 - Add a toast if there's an error with the contact dialog

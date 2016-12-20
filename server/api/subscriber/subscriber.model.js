@@ -14,7 +14,18 @@ export default function(sequelize, DataTypes) {
       firstName: DataTypes.STRING(20),
       lastName: DataTypes.STRING(20),
       phone: DataTypes.STRING(23),
-      optout: DataTypes.BOOLEAN
+      optout: DataTypes.BOOLEAN,
+      indexes: [
+        {
+          unique: true,
+          fields: ['email']
+        },
+        {
+          name: 'name_index',
+          method: 'BTREE',
+          fields: ['lastName', 'firstName']
+        }
+      ]
     }
   );
 }

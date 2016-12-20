@@ -92,10 +92,10 @@ export class Cart {
   braintreeHostedFieldsEventHandlers(eventNameArray) {
     for(let eventName of eventNameArray) {
       this.hostedFieldsInstance.on(eventName, event => {
-        //const fieldName = event.emittedBy;
-        //const field = event.fields[fieldName];
+        // const fieldName = event.emittedBy;
+        // const field = event.fields[fieldName];
         // Make event handlers run digest cycle using $timeout (simulate $scope.apply())
-        // Better practice would be to use $rootScope and $apply().
+        // In Angular 2, use zones
         this.$timeout(() => {
           this.braintreeUpdateHostedFieldsState();
           return event;
@@ -105,7 +105,6 @@ export class Cart {
   }
 
   // Returns a promise for the hostedFieldsInstance
-  // Unfortunately, it violates separation of concerns but it's Braintree's API
   braintreeHostedFieldsCreate(clientInstance) {
     return new Promise((resolve, reject) => {
       braintree.hostedFields.create({
@@ -163,6 +162,46 @@ export class Cart {
     });
   }
 
+  // Return a promise to the confirmation
+  _postOrderInformation(payload) {
+    // Order info to be submitted (subset of Cart properties)
+    const orderInformation = {
+      nonceFromClient: payload.nonce,
+      purchaser: this.purchaser,
+      recipient: this.isGift ? this.recipient : this.purchaser,
+      isGift: this.isGift || false,
+      treatment: this.treatment,
+      instructions: this.instructions,
+      cartItems: this.cartItems // reference but it's being posted anyway
+    };
+
+    // Now POST it to /api/order
+    return this.$http
+      .post('/api/order', orderInformation)
+      .then(orderResponse => {
+        // Copy response data to the cart's confirmation
+        this.confirmation = orderResponse.data;
+        this.confirmation.cartItems = [];
+
+        // Create a deep copy of the Cart's items into the confirmation
+        angular.copy(this.cartItems, this.confirmation.cartItems);
+
+        // Clear the cart to avoid duplicate orders
+        this.clearCartItems();
+      })
+      .catch(orderResponse => {
+        this.$log.error('Order failed', orderResponse.data);
+      });
+  }
+
+  // Return a promise to the orderConfirmation
+  placeOrder() {
+    // Now, tokenize hosted fields to get nonce then post the order
+    return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
+      .then(this._postOrderInformation.bind(this))
+      .catch(); // Add some error handling passing info back to cart component
+  }
+
   // Clear the cartItems during checkout()
   clearCartItems() {
     this.cartItems = []; // Clear the array of Items
@@ -181,56 +220,6 @@ export class Cart {
     }
     this.saveToStorage();
     this.$location.path('/cart');
-  }
-
-  // Return a promise to the confirmation
-  _postOrderInformation(orderInformation) {
-    return this.$http
-      .post('/api/order', orderInformation)
-      .then(orderResponse => {
-        // Copy response data to the cart's confirmation
-        this.confirmation = orderResponse.data;
-        this.confirmation.cartItems = [];
-        angular.copy(this.cartItems, this.confirmation.cartItems); // Implement: Get rid of my only dependency on angular in the class
-
-        // Clear the cart to avoid duplicate orders
-        this.clearCartItems();
-      })
-      .catch(orderResponse => {
-        this.$log.error('Order failed', orderResponse.data);
-      });
-  }
-
-  // Returns a promise to the orderInformation
-  _getOrderInformation(payload) {
-    return new Promise((resolve, reject) => {
-      if(payload) {
-        // Order info to be submitted (subset of Cart properties)
-        const orderInformation = {
-          nonceFromClient: payload.nonce,
-          purchaser: this.purchaser,
-          recipient: this.isGift ? this.recipient : this.purchaser,
-          isGift: this.isGift || false,
-          treatment: this.treatment,
-          instructions: this.instructions,
-          cartItems: this.cartItems
-        };
-        this.$log.info('orderInformation', orderInformation);
-        resolve(orderInformation);
-      } else {
-        reject('Error creating orderInformation');
-      }
-    });
-  }
-
-  // Return a promise to the orderConfirmation
-  placeOrder() {
-    // cart.component controller sets this.hostedFieldsInstance in $onInit()
-    // Now, tokenize hosted fields to get nonce then process the sale
-    this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
-      .then(this._getOrderInformation)
-      .then(this._postOrderInformation)
-      .catch(); // Add some error handling passing info back to cart component
   }
 
   // Get item by its id
