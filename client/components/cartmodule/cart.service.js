@@ -120,7 +120,7 @@ export class Cart {
           },
           expirationDate: {
             selector: '#expiration-date',
-            placeholder: '10/2019'
+            placeholder: '10/2020'
           }
         },
         styles: {

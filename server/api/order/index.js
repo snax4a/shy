@@ -1,10 +1,10 @@
 'use strict';
 
 import express from 'express';
-const controller = require('./order.controller');
+import create from './order.controller';
 
 const router = express.Router();
 
-router.post('/', controller.create);
+router.post('/', create);
 
 module.exports = router;

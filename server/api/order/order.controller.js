@@ -9,18 +9,16 @@ import braintree from 'braintree';
 const config = require('../../config/environment');
 
 // Calculate the cartItem total
-function getTotal(cartItem) {
-  return parseFloat(cartItem.quantity * cartItem.price.toFixed(0));
-}
+const getTotal = cartItem => parseFloat(cartItem.quantity * cartItem.price.toFixed(0));
 
 // Calculate the total cost of all items
-function getTotalCost(cartItems) {
+const getTotalCost = cartItems => {
   let total = 0;
   for(let cartItem of cartItems) {
     total += getTotal(cartItem);
   }
   return parseFloat(total).toFixed(0);
-}
+};
 
 /*
 // These functions would be fine except that we need to send the response after the payment gateway returns a result.
@@ -44,7 +42,8 @@ function handleError(res, statusCode) {
 */
 
 // Attempt to create the order - payment gateway, save to database, generate email
-export function create(req, res) {
+
+export default function create(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     isGift: req.body.isGift,
@@ -86,17 +85,17 @@ export function create(req, res) {
       firstName: confirmation.purchaser.firstName,
       lastName: confirmation.purchaser.lastName
     },
-    /*
+
     shipping: {
-      firstname: confirmation.recipient.firstName,
+      firstName: confirmation.recipient.firstName,
       lastName: confirmation.recipient.lastName,
       streetAddress: confirmation.recipient.address || null,
       locality: confirmation.recipient.city || null,
       region: confirmation.recipient.state || 'PA',
       postalCode: confirmation.recipient.zipCode || null,
-      countryName: 'USA'
+      countryName: 'US'
     },
-    */
+
     taxExempt: true,
     options: {
       submitForSettlement: true
