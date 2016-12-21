@@ -38,12 +38,12 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
       phone: '412-401-4444',
     },
     customFields: {
-      isGift: req.body.isGift,
-      treatment: req.body.treatment,
+      gift: req.body.isGift,
+      sendvia: req.body.sendVia,
       instructions: req.body.instructions,
-      cartItems: JSON.stringify(cartItems),
-      recipientPhone: req.body.recipient.phone,
-      recipientEmail: req.body.recipient.email
+      items: JSON.stringify(cartItems),
+      recipientphone: req.body.recipient.phone,
+      recipientemail: req.body.recipient.email
     },
     customer: {
       firstName: req.body.purchaser.firstName,
@@ -69,10 +69,11 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
       submitForSettlement: true
     }
   };
-  console.log('orderInfo', orderInfo);
+  console.log('What I sent: ', orderInfo);
   gateway.transaction.sale(orderInfo, (gatewayErr, response) => {
     // For debugging only
-    console.log('Braintree response', response);
+    console.log('Braintree Response:', response);
+    console.log('Braintree Error: ', gatewayErr);
     if(gatewayErr) {
       console.log('Error with Braintree gateway.transaction.sale', gatewayErr);
       res.status(500).json(response);
@@ -89,7 +90,7 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
   // Even if the email fails to send, we're continuing down the chain - just not that critical
   try {
     // Build block of HTML for cartItems
-    let cartItems = JSON.parse(braintreeTransaction.customFields.cartItems);
+    let cartItems = JSON.parse(braintreeTransaction.customFields.items);
     let cartItemsHtml = '';
     cartItems.forEach(cartItem => {
       cartItemsHtml += `<tr><td class="left">${cartItem.name}</td><td class="center">${cartItem.quantity}</td>
@@ -147,8 +148,8 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
                           ${braintreeTransaction.shipping.firstName} ${braintreeTransaction.shipping.lastName}<br/>
                           ${braintreeTransaction.shipping.streetAddress}<br/>
                           ${braintreeTransaction.shipping.locality}, ${braintreeTransaction.shipping.region} ${braintreeTransaction.shipping.postalCode}<br/>
-                          ${braintreeTransaction.customFields.recipientPhone}<br />
-                          ${braintreeTransaction.customFields.recipientEmail}
+                          ${braintreeTransaction.customFields.recipientphone}<br />
+                          ${braintreeTransaction.customFields.recipientemail}
                         </td>
                       </tr>
                     </table>
@@ -170,7 +171,7 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
               </table>
               <p>
                 <b>Order Comments:</b><br />
-                ${braintreeTransaction.customFields.isGift ? `Send gift via ${braintreeTransaction.customFields.treatment}` : ''}<br/>
+                ${braintreeTransaction.customFields.gift ? `Send gift via ${braintreeTransaction.customFields.sendvia}` : ''}<br/>
                 ${(braintreeTransaction.customFields.instructions !== undefined ? `Instructions: ${braintreeTransaction.customFields.instructions}` : '')}
               </p>
               <p style="margin-top:20px;">
@@ -194,8 +195,8 @@ const saveToDB = braintreeTransaction => Sequelize.transaction(t => Order.upsert
   orderNumber: braintreeTransaction.id,
   amount: braintreeTransaction.amount,
   instructions: braintreeTransaction.customFields.instructions,
-  isGift: braintreeTransaction.customFields.isGift,
-  treatment: braintreeTransaction.customFields.treatment,
+  isGift: braintreeTransaction.customFields.gift,
+  sendVia: braintreeTransaction.customFields.sendvia,
   purchaserFirstName: braintreeTransaction.customer.firstName,
   purchaserLastName: braintreeTransaction.customer.lastName,
   purchaserEmail: braintreeTransaction.customer.email,
@@ -207,9 +208,9 @@ const saveToDB = braintreeTransaction => Sequelize.transaction(t => Order.upsert
   recipientCity: braintreeTransaction.shipping.locality,
   recipientState: braintreeTransaction.shipping.region,
   recipientZipCode: braintreeTransaction.shipping.postalCode,
-  recipientEmail: braintreeTransaction.customFields.recipientEmail,
-  recipientPhone: braintreeTransaction.customFields.recipientPhone,
-  itemsOrdered: braintreeTransaction.customFields.cartItems
+  recipientEmail: braintreeTransaction.customFields.recipientemail,
+  recipientPhone: braintreeTransaction.customFields.recipientphone,
+  itemsOrdered: braintreeTransaction.customFields.items
 }, { transaction: t })
   .then(() => Subscriber.upsert({
     email: braintreeTransaction.customFields.recipientEmail,
@@ -232,7 +233,7 @@ export default function create(req, res) {
   let confirmation = {
     placedOn: new Date().toLocaleString('en-US'),
     isGift: req.body.isGift,
-    treatment: req.body.treatment,
+    sendVia: req.body.sendVia,
     instructions: req.body.instructions,
     purchaser: req.body.purchaser,
     recipient: req.body.recipient
@@ -305,7 +306,7 @@ export default function create(req, res) {
     grandTotal: getTotalCost(cartItems),
     instructions: confirmation.instructions,
     isGift: confirmation.isGift,
-    treatment: confirmation.treatment,
+    sendVia: confirmation.sendvia,
     purchaserFirstName: confirmation.purchaser.firstName,
     purchaserLastName: confirmation.purchaser.lastName,
     purchaserEmail: confirmation.purchaser.email,

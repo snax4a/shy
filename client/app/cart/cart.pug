@@ -120,7 +120,7 @@
               .row
                 .form-group.col-xs-12.col-sm-7
                   label(for='recipientEmail') Email
-                  input.form-control(id='recipientEmail', name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Email"', type='email', maxlength='80', placeholder="Recipient's email address")
+                  input.form-control(id='recipientEmail', name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.sendVia == "Email"', type='email', maxlength='80', placeholder="Recipient's email address")
                   ng-messages.has-error(for='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the recipient&apos;s email address.
                     ng-message(when='email') Please supply a valid email address for the recipient.
@@ -131,32 +131,32 @@
                     ng-message(when='required') Please provide the recipient&apos;s phone number.
               .form-group
                   label(for='recipientAddress') Address
-                  input.form-control(id='recipientAddress', name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', type='text', maxlength='255', placeholder="Recipient's address")
+                  input.form-control(id='recipientAddress', name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.sendVia == "Mail"', type='text', maxlength='255', placeholder="Recipient's address")
                   ng-messages.has-error(for='checkout.recipientAddress.$error', ng-show='checkout.recipientAddress.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the recipient&apos;s street address.
               .row
                 .form-group.col-xs-12.col-sm-7
                   label(for='recipientCity') City
-                  input.form-control(id='recipientCity', name='recipientCity', ng-model='$ctrl.recipient.city', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
+                  input.form-control(id='recipientCity', name='recipientCity', ng-model='$ctrl.recipient.city', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.sendVia == "Mail"', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
                   ng-messages.has-error(for='checkout.recipientCity.$error', ng-show='checkout.recipientCity.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the recipient&apos;s city.
                 .form-group.col-xs-12.col-sm-5
                   label(for='recipientState') State
-                  input.form-control(id='recipientState', name='recipientState', type='text', ng-model='$ctrl.recipient.state', ng-change='$ctrl.recipient.state = $ctrl.recipient.state.toUpperCase()', maxlength='2', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='address-level1')
+                  input.form-control(id='recipientState', name='recipientState', type='text', ng-model='$ctrl.recipient.state', ng-change='$ctrl.recipient.state = $ctrl.recipient.state.toUpperCase()', maxlength='2', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.sendVia == "Mail"', autocomplete='address-level1')
                   ng-messages.has-error(for='checkout.recipientState.$error', ng-show='checkout.recipientState.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the recipient&apos;s state.
               .row
                 .form-group.col-xs-12.col-sm-5
                   label(for='recipientZipCode') ZIP code
-                  input.form-control(id='recipientZipCode', name='recipientZipCode', ng-model='$ctrl.recipient.zipCode', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.treatment == "Mail"', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
+                  input.form-control(id='recipientZipCode', name='recipientZipCode', ng-model='$ctrl.recipient.zipCode', ng-required='$ctrl.Cart.isGift && $ctrl.Cart.sendVia == "Mail"', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
                   ng-messages.has-error(for='checkout.recipientZipCode.$error', ng-show='checkout.recipientZipCode.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the recipient&apos;s ZIP code.
               | Send gift card via &nbsp;&nbsp;
               label.radio-inline
-                input(type='radio', name='treatment', ng-model='$ctrl.Cart.treatment', value='Email') 
+                input(type='radio', name='sendVia', ng-model='$ctrl.Cart.sendVia', value='Email') 
                 | Email 
               label.radio-inline
-                input(type='radio', name='treatment', ng-model='$ctrl.Cart.treatment', value='Mail') 
+                input(type='radio', name='sendVia', ng-model='$ctrl.Cart.sendVia', value='Mail') 
                 | Mail
               br
               br
@@ -219,7 +219,7 @@
       p(ng-show='$ctrl.Cart.confirmation.isGift || $ctrl.Cart.confirmation.instructions')
         b Order comments:
         br
-        | {{ $ctrl.Cart.confirmation.isGift ? 'Send gift card via ' + $ctrl.Cart.confirmation.treatment : '' }}
+        | {{ $ctrl.Cart.confirmation.isGift ? 'Send gift card via ' + $ctrl.Cart.confirmation.sendVia : '' }}
         br
       p(ng-show='$ctrl.Cart.confirmation.instructions') Instructions:
         br

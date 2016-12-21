@@ -16,7 +16,7 @@ Order.sync()
       amount: 15,
       instructions: 'Split between John and Jane',
       isGift: true,
-      treatment: 'Mail',
+      sendVia: 'Mail',
       purchaserFirstName: 'John',
       purchaserLastName: 'Doe',
       purchaserEmail: 'jdoe@gmail.com',

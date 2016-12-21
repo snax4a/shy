@@ -170,7 +170,7 @@ export class Cart {
       purchaser: this.purchaser,
       recipient: this.isGift ? this.recipient : this.purchaser,
       isGift: this.isGift || false,
-      treatment: this.treatment,
+      sendVia: this.sendVia,
       instructions: this.instructions,
       cartItems: this.cartItems // reference but it's being posted anyway
     };

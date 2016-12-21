@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => sequelize.define('Order', {
   },
   isGift: DataTypes.BOOLEAN,
   instructions: DataTypes.STRING,
-  treatment: DataTypes.STRING,
+  sendVia: DataTypes.STRING,
   purchaserFirstName: DataTypes.STRING(20),
   purchaserLastName: DataTypes.STRING(20),
   purchaserZipCode: DataTypes.STRING(10),

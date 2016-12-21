@@ -40,7 +40,7 @@ export class CartController {
     this.confirmation.cartItems = [];
 
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
-    this.Cart.treatment = 'Email';
+    this.Cart.sendVia = 'Email';
 
     // Dynamically link controller objects to the Cart
     this.Cart.purchaser = this.purchaser;
