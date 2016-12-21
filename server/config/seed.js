@@ -5,17 +5,15 @@
 
 'use strict';
 import sqldb from '../sqldb';
-//let Order = sqldb.Order;
+let Order = sqldb.Order;
 let Subscriber = sqldb.Subscriber;
 
-/*
-// Saving orders is redundant with payment gateway
 // Upsert the order
 Order.sync()
   .then(() => {
     Order.upsert({
       orderNumber: 'TEST-0001',
-      grandTotal: 15,
+      amount: 15,
       instructions: 'Split between John and Jane',
       isGift: true,
       treatment: 'Mail',
@@ -23,6 +21,7 @@ Order.sync()
       purchaserLastName: 'Doe',
       purchaserEmail: 'jdoe@gmail.com',
       purchaserPhone: '412-555-1212',
+      last4: '0030',
       recipientFirstName: 'Jane',
       recipientLastName: 'Doe',
       recipientAddress: '123 Main Street',
@@ -37,9 +36,8 @@ Order.sync()
       console.log('SEQUELIZE: Test order upserted');
     });
   });
-*/
 
-// Upsert  test subscriber and re-insert
+// Upsert test subscriber and re-insert
 Subscriber.sync()
   .then(() => {
     Subscriber.upsert({
