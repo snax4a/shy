@@ -4,7 +4,6 @@
 'use strict';
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
-import Sequelize from 'sequelize';
 import { Subscriber, Order } from '../../sqldb';
 import braintree from 'braintree';
 const config = require('../../config/environment');
@@ -69,16 +68,15 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
       submitForSettlement: true
     }
   };
-  console.log('What I sent: ', orderInfo);
+
+  // Submit orderInfo to Braintree
   gateway.transaction.sale(orderInfo, (gatewayErr, response) => {
-    // For debugging only
-    console.log('Braintree Response:', response);
-    console.log('Braintree Error: ', gatewayErr);
     if(gatewayErr) {
       console.log('Error with Braintree gateway.transaction.sale', gatewayErr);
       res.status(500).json(response);
       return reject(gatewayErr);
     } else {
+      console.log('Braintree Response:', response); // Get rid of this
       res.status(200).json(response.transaction);
       return resolve(response.transaction);
     }
@@ -195,34 +193,37 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
 });
 
 // Return a promise to a database transaction
-const saveToDB = braintreeTransaction => Sequelize.transaction(t => Order.upsert({
-  orderNumber: braintreeTransaction.id.toUpperCase(),
-  amount: braintreeTransaction.amount,
-  instructions: braintreeTransaction.customFields.instructions,
-  gift: braintreeTransaction.customFields.gift,
-  sendVia: braintreeTransaction.customFields.sendvia,
-  purchaserFirstName: braintreeTransaction.customer.firstName,
-  purchaserLastName: braintreeTransaction.customer.lastName,
-  purchaserEmail: braintreeTransaction.customer.email,
-  purchaserPhone: braintreeTransaction.customer.phone,
-  last4: braintreeTransaction.creditCard.last4,
-  recipientFirstName: braintreeTransaction.shipping.firstName,
-  recipientLastName: braintreeTransaction.shipping.lastName,
-  recipientAddress: braintreeTransaction.shipping.streetAddress,
-  recipientCity: braintreeTransaction.shipping.locality,
-  recipientState: braintreeTransaction.shipping.region,
-  recipientZipCode: braintreeTransaction.shipping.postalCode,
-  recipientEmail: braintreeTransaction.customFields.recipientemail,
-  recipientPhone: braintreeTransaction.customFields.recipientphone,
-  itemsOrdered: braintreeTransaction.customFields.items
-}, { transaction: t })
-  .then(() => Subscriber.upsert({
-    email: braintreeTransaction.customFields.recipientEmail,
+const saveToDB = braintreeTransaction => {
+  Order.upsert({
+    orderNumber: braintreeTransaction.id,
+    amount: braintreeTransaction.amount,
+    instructions: braintreeTransaction.customFields.instructions,
+    gift: braintreeTransaction.customFields.gift,
+    sendVia: braintreeTransaction.customFields.sendvia,
+    purchaserFirstName: braintreeTransaction.customer.firstName,
+    purchaserLastName: braintreeTransaction.customer.lastName,
+    purchaserEmail: braintreeTransaction.customer.email,
+    purchaserPhone: braintreeTransaction.customer.phone,
+    last4: braintreeTransaction.creditCard.last4,
+    recipientFirstName: braintreeTransaction.shipping.firstName,
+    recipientLastName: braintreeTransaction.shipping.lastName,
+    recipientAddress: braintreeTransaction.shipping.streetAddress,
+    recipientCity: braintreeTransaction.shipping.locality,
+    recipientState: braintreeTransaction.shipping.region,
+    recipientZipCode: braintreeTransaction.shipping.postalCode,
+    recipientEmail: braintreeTransaction.customFields.recipientemail,
+    recipientPhone: braintreeTransaction.customFields.recipientphone,
+    itemsOrdered: braintreeTransaction.customFields.items
+  });
+
+  return Subscriber.upsert({
+    email: braintreeTransaction.customFields.recipientemail,
     firstName: braintreeTransaction.shipping.firstName,
     lastName: braintreeTransaction.shipping.lastName,
-    phone: braintreeTransaction.customFields.recipientPhone,
+    phone: braintreeTransaction.customFields.recipientphone,
     optout: false
-  }, { transaction: t })));
+  });
+};
 
 // Attempt to create order, send confirmation email then save to database
 export default function create(req, res) {
