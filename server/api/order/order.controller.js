@@ -71,15 +71,24 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
 
   // Submit orderInfo to Braintree
   gateway.transaction.sale(orderInfo, (gatewayErr, response) => {
+    // Failure due to issue communicating with Braintree
     if(gatewayErr) {
-      console.log('Error with Braintree gateway.transaction.sale', gatewayErr);
-      res.status(500).json(response);
+      console.log('Braintree gateway error', gatewayErr);
+      res.status(500).json(gatewayErr);
       return reject(gatewayErr);
-    } else {
-      console.log('Braintree Response:', response); // Get rid of this
-      res.status(200).json(response.transaction);
-      return resolve(response.transaction);
     }
+
+    // Failure due to some aspect of what was sent to Braintree (bad credit card, etc.)
+    if(!response.success) {
+      console.log('Braintree failed to process sale:', response);
+      res.status(500).json(response.message);
+      return reject(response.message);
+    }
+
+    // Successful sale
+    console.log('Braintree successful sale:', response);
+    res.status(200).json(response.transaction);
+    resolve(response.transaction);
   });
 });
 
