@@ -191,9 +191,8 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
             </td>
           </tr>
         </table>`,
-      success: 'Thank you for your order.',
-      failure: 'Error occurred with your order. Please try again later.'
-// IMPLEMENT: take away the success and failure properties above now that we're passing the full Braintree response
+      success: 'An emailed confirmation of the order was sent.',
+      failure: 'Failed to send the email confirmation but the order was still processed.'
     });
   } catch(errEmail) {
     console.log(errEmail);
