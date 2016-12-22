@@ -20,7 +20,7 @@ describe('Order API:', () => {
             }
           ],
           instructions: 'One for John and one for Jane.',
-          isGift: true,
+          gift: true,
           sendVia: 'Mail',
           // Implement: get a dummy nonce to use
           purchaser: {

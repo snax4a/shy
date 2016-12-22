@@ -3,7 +3,6 @@
 
 import path from 'path';
 import _ from 'lodash';
-import braintree from 'braintree';
 
 /*function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -42,13 +41,6 @@ var all = {
         ciphers: process.env.SMTP_TLS_CIPHERS || 'SSLv3'
       }
     }
-  },
-
-  gateway: {
-    environment: braintree.Environment.Sandbox, // switch if production
-    merchantId: process.env.BRAINTREE_MERCHANT_ID,
-    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-    privateKey: process.env.BRAINTREE_PRIVATE_KEY
   },
 
   // Default to not seeding the database unless required

@@ -16,5 +16,9 @@ module.exports = {
 
   BRAINTREE_MERCHANT_ID: 'replace with braintree merchant id',
   BRAINTREE_PUBLIC_KEY: 'replace with braintree public key',
-  BRAINTREE_PRIVATE_KEY: 'replace with braintree private key'
+  BRAINTREE_PRIVATE_KEY: 'replace with braintree private key',
+
+  BRAINTREE_MERCHANT_ID_SANDBOX: 'replace with braintree merchant id',
+  BRAINTREE_PUBLIC_KEY_SANDBOX: 'replace with braintree public key',
+  BRAINTREE_PRIVATE_KEY_SANDBOX: 'replace with braintree private key'
 };

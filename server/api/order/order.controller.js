@@ -38,7 +38,7 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
       phone: '412-401-4444',
     },
     customFields: {
-      gift: req.body.isGift,
+      gift: req.body.gift,
       sendvia: req.body.sendVia,
       instructions: req.body.instructions,
       items: JSON.stringify(cartItems),
@@ -97,11 +97,15 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
         <td class="right">$${cartItem.price}</td><td class="right">$${getLineItemTotal(cartItem)}</td></tr>`;
     });
 
+    // Reformat some of fields in Braintree's response for better display
+    braintreeTransaction.id = braintreeTransaction.id.toUpperCase();
+    braintreeTransaction.customFields.gift = braintreeTransaction.customFields.gift === 'true';
+    braintreeTransaction.createdAt = new Date(braintreeTransaction.createdAt).toLocaleString();
+
     // Send the email
     email({
       to: braintreeTransaction.customer.email,
       subject: 'Schoolhouse Yoga Order Confirmation',
-      // Implement final HTML format on next line
       html: `
         <style>
           td, th, p {
@@ -143,7 +147,7 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
                           ${braintreeTransaction.customer.phone}<br/>
                           ${braintreeTransaction.customer.email}
                         </td>
-                        <td style="display: ${braintreeTransaction.customFields.isGift ? 'inline' : 'none'}">
+                        <td style="display: ${braintreeTransaction.customFields.gift ? 'inline' : 'none'}">
                           <b>Recipient</b><br/>
                           ${braintreeTransaction.shipping.firstName} ${braintreeTransaction.shipping.lastName}<br/>
                           ${braintreeTransaction.shipping.streetAddress}<br/>
@@ -192,10 +196,10 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
 
 // Return a promise to a database transaction
 const saveToDB = braintreeTransaction => Sequelize.transaction(t => Order.upsert({
-  orderNumber: braintreeTransaction.id,
+  orderNumber: braintreeTransaction.id.toUpperCase(),
   amount: braintreeTransaction.amount,
   instructions: braintreeTransaction.customFields.instructions,
-  isGift: braintreeTransaction.customFields.gift,
+  gift: braintreeTransaction.customFields.gift,
   sendVia: braintreeTransaction.customFields.sendvia,
   purchaserFirstName: braintreeTransaction.customer.firstName,
   purchaserLastName: braintreeTransaction.customer.lastName,
@@ -227,126 +231,3 @@ export default function create(req, res) {
     .then(saveToDB)
     .catch(err => console.log('Problem somewhere in chain', err));
 }
-
-// Ignore - pre-cleaned code.
-/*
-  let confirmation = {
-    placedOn: new Date().toLocaleString('en-US'),
-    isGift: req.body.isGift,
-    sendVia: req.body.sendVia,
-    instructions: req.body.instructions,
-    purchaser: req.body.purchaser,
-    recipient: req.body.recipient
-  };
-  console.log('orderInformation', req.body);
-
-
-  // Load cartItems array from body of request
-  let cartItems = req.body.cartItems;
-
-  // Overwrite prices in case of tampering on the client
-  for(let cartItem of cartItems) {
-    cartItem.price = products.find(product => product.id === parseInt(cartItem.id, 10)).price;
-  }
-
-  // Set the grandTotal based on revised pricing
-  confirmation.grandTotal = getTotalCost(cartItems);
-
-  // Grab Braintree gateway settings from config
-  const gateway = braintree.connect(config.gateway);
-
-  // Process sale
-  gateway.transaction.sale({
-    paymentMethodNonce: req.body.nonceFromClient,
-    amount: confirmation.grandTotal,
-    customer: {
-      firstName: confirmation.purchaser.firstName,
-      lastName: confirmation.purchaser.lastName,
-      email: confirmation.purchaser.email,
-      phone: confirmation.purchaser.phone
-    },
-    billing: {
-      firstName: confirmation.purchaser.firstName,
-      lastName: confirmation.purchaser.lastName
-    },
-
-    shipping: {
-      firstName: confirmation.recipient.firstName,
-      lastName: confirmation.recipient.lastName,
-      streetAddress: confirmation.recipient.address || null,
-      locality: confirmation.recipient.city || null,
-      region: confirmation.recipient.state || 'PA',
-      postalCode: confirmation.recipient.zipCode || null,
-      countryName: 'US'
-    },
-
-    taxExempt: true,
-    options: {
-      submitForSettlement: true
-    }
-  }, (err, braintreeResponse) => {
-    if(err) throw err;
-    console.log('Success! BRAINTREE response:', braintreeResponse);
-    confirmation.orderNumber = braintreeResponse.transaction.id;
-    confirmation.resultDescription = braintreeResponse.transaction.processorResponseText;
-    confirmation.resultCode = braintreeResponse.transaction.processorResponseCode;
-
-    // Don't make the user wait for the database saves
-    res.status(200).json(confirmation);
-
-    // Just for debugging
-    console.log(`Order ${confirmation.orderNumber} received`, confirmation);
-  });
-
-
-  // Not necessary to save to DB when the payment gateway does the same thing
-  // Save order to the database
-  Order.upsert({
-    orderNumber: 'TEST-0001', // use Braintree's Transaction.id (eg "k39351gr")
-    grandTotal: getTotalCost(cartItems),
-    instructions: confirmation.instructions,
-    isGift: confirmation.isGift,
-    sendVia: confirmation.sendvia,
-    purchaserFirstName: confirmation.purchaser.firstName,
-    purchaserLastName: confirmation.purchaser.lastName,
-    purchaserEmail: confirmation.purchaser.email,
-    purchaserPhone: confirmation.purchaser.phone,
-    recipientFirstName: confirmation.recipient.firstName,
-    recipientLastName: confirmation.recipient.lastName,
-    recipientAddress: confirmation.recipient.address,
-    recipientCity: confirmation.recipient.city,
-    recipientState: confirmation.recipient.state.toUpperCase(),
-    recipientZipCode: confirmation.recipient.zipCode,
-    recipientEmail: confirmation.recipient.email,
-    recipientPhone: confirmation.recipient.phone,
-    itemsOrdered: cartItems
-  })
-  // Implement: send the res.status(200).json(confirmation) from above here - test it
-  .then(respondWithResult(res, 201))
-  .catch(handleError(res));
-
-  // Save subscriber to the database
-  Subscriber.upsert({
-    email: confirmation.recipient.email,
-    firstName: confirmation.recipient.firstName,
-    lastName: confirmation.recipient.lastName,
-    phone: confirmation.recipient.phone,
-    optout: false
-  })
-  .then(() => {
-    console.log('Subscriber created from order.controller.js:create()');
-  });
-
-  // Send email confirmation to the purchaser and BCC SHY admin
-
-  // Build block of HTML for cartItems
-  let cartItemsHtml = '';
-  cartItems.forEach(cartItem => {
-    cartItemsHtml += `<tr><td class="left">${cartItem.name}</td><td class="center">${cartItem.quantity}</td>
-      <td class="right">$${cartItem.price}</td><td class="right">$${getTotal(cartItem)}</td></tr>`;
-  });
-  // Now send it
-
-}
-
-*/

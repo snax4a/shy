@@ -1,19 +1,17 @@
 High
-- /app/cart/cart.pug
-  - Pass back payment gateway errors to the page
-- Add indexes to Subscriber and Order tables
-- /api/order
-  - Break up the create() in server/api/order/order.controller.js
+- cart.pug
+  - Display any Braintree errors on the page (and allow resubmit)
+  - Handle new format for orderConfirmation (Braintree Response)
+- /api/order/order.controller.js
+  - Fix database transaction
   - Handle promise to deal with success/failure of gateway.transaction.sale
-  - Conditionally change /server/config/environment/index.js gateway.environment from Sandbox if production
+- cart.service.js: Handle Braintree Response (replacing old orderConfirmation)
 
 Low/cosmetic
-- Possibly take Transaction.creditCard.last4 from Braintree response
+- Add indexes to Subscriber and Order tables
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
   - mocha.global.js - maybe related to update of mocha
 - Add a toast if there's an error with the contact dialog
-- Decide if I want to retain order information for better reporting than provided by payment gateway
-- Maybe update api/order/order.controller.js to use class instead
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 - Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap
 

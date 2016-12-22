@@ -15,7 +15,7 @@ Order.sync()
       orderNumber: 'TEST-0001',
       amount: 15,
       instructions: 'Split between John and Jane',
-      isGift: true,
+      gift: true,
       sendVia: 'Mail',
       purchaserFirstName: 'John',
       purchaserLastName: 'Doe',

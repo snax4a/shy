@@ -61,14 +61,14 @@ export class CartController {
 
   // Set the focus to the credit card number field
   checkOut() {
-     // Set focus to card-number (hosted field) if we can (in an iframe so maybe not)
-     // If not, remove this method
+    // Set focus to card-number (hosted field) if we can (in an iframe so maybe not)
+    // If not, remove this method
     let fieldToGetFocus = this.$window.document.getElementById('card-number');
     fieldToGetFocus.focus();
   }
 
   // Handle when the order has a different recipient
-  isGift() {
+  focusOnRecipient() {
     // Set focus to recipientFirstName using $timeout (because fields are disabled now)
     let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
     this.$timeout(() => {

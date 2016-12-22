@@ -168,8 +168,8 @@ export class Cart {
     const orderInformation = {
       nonceFromClient: payload.nonce,
       purchaser: this.purchaser,
-      recipient: this.isGift ? this.recipient : this.purchaser,
-      isGift: this.isGift || false,
+      recipient: this.gift ? this.recipient : this.purchaser,
+      gift: this.gift || false,
       sendVia: this.sendVia,
       instructions: this.instructions,
       cartItems: this.cartItems // reference but it's being posted anyway

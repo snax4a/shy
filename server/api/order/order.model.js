@@ -15,7 +15,7 @@ export default (sequelize, DataTypes) => sequelize.define('Order', {
       isDecimal: true
     }
   },
-  isGift: DataTypes.BOOLEAN,
+  gift: DataTypes.BOOLEAN,
   instructions: DataTypes.STRING,
   sendVia: DataTypes.STRING,
   purchaserFirstName: DataTypes.STRING(20),
