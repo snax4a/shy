@@ -8,6 +8,7 @@ Low/cosmetic
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 - Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap
+- Figure out why /client/app/cart/cart.component.js needed this.$timeout(() => this.pageName); to force a digest
 
 SSL setup on Heroku
 - heroku certs:add server.crt server.key -a schoolhouseyoga
