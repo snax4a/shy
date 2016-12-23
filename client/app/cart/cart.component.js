@@ -93,6 +93,7 @@ export class CartController {
           this.$timeout(() => this.pageName);
         })
         .catch(braintreeError => {
+          form.$submitted = false; // reset submitted state
           this.braintreeError = braintreeError.message; // for view data-binding
           this.$log.info(`Braintree error: ${this.braintreeError}`, braintreeError);
           if(this.braintreeError.includes('card')) this.focusOnCardNumber();
