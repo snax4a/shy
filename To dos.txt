@@ -1,11 +1,12 @@
 High
 - cart.pug
+  - Display confirmation if the pageName changes.
   - Display any Braintree errors on the page (and allow resubmit)
-  - Handle new format for orderConfirmation (Braintree Response)
-- /api/order/order.controller.js
-  - Fix database transaction
-  - Handle promise to deal with success/failure of gateway.transaction.sale
-- cart.service.js: Handle Braintree Response (replacing old orderConfirmation)
+- cart.component.js
+  - placeOrder() gets undefined if there's a gateway error. Make sure error is passed through.
+  - If we throw an error in placeOrder(), we'll end up in catch() which might be perfect
+- cart.service.js
+  - Ensure errors are passed 
 
 Low/cosmetic
 - Add indexes to Subscriber and Order tables

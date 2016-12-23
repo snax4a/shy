@@ -33,13 +33,16 @@
                   td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
           .panel-footer
             input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
-            input.btn.btn-warning.pull-right(ng-click='$ctrl.checkOut()', type='button', name='checkOut', value='Check Out »', ng-disabled='$ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(ng-click='$ctrl.focusOnCardNumber()', type='button', name='checkOut', value='Check Out »', ng-disabled='$ctrl.Cart.isEmpty()')
     .col-md-6
       form(name='checkout', ng-submit='$ctrl.placeOrder(checkout)', novalidate='')
         .panel.panel-default(aria-labelledby='paymentPanelTitle')
           .panel-heading
             #paymentPanelTitle.panel-title Payment Info
           .panel-body
+            .row(ng-show='$ctrl.braintreeError')
+              .form-group.col-xs-12
+                .help-block.has-error {{ $ctrl.braintreeError }}
             .row
               .form-group.col-xs-12.col-sm-7.col-lg-6
                 label(id='labelCardNumber', for='card-number') Credit card number
@@ -162,7 +165,7 @@
               br
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || (checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', xng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || (checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
             br
             br
 
@@ -172,31 +175,32 @@
     .col-md-6
       h2 Schoolhouse Yoga
       p 
-        b Order {{ $ctrl.Cart.confirmation.orderNumber }}
+        b Order {{ $ctrl.confirmation.id }}
         br
-        | Paid via Credit Card on {{ $ctrl.Cart.confirmation.placedOn }}
+        | Paid via Credit Card on {{ $ctrl.confirmation.createdAt }}
       .row
         .col-md-4
           b Purchaser:
           br
-          | {{ $ctrl.Cart.confirmation.purchaser.firstName }} {{ $ctrl.Cart.confirmation.purchaser.lastName }}
+          | {{ $ctrl.confirmation.customer.firstName }} {{ $ctrl.confirmation.customer.lastName }}
           br
-          | {{ $ctrl.Cart.confirmation.purchaser.email }}
+          | {{ $ctrl.confirmation.customer.email }}
           br
-          | {{ $ctrl.Cart.confirmation.purchaser.phone }}
+          | {{ $ctrl.confirmation.customer.phone }}
           br
-        .col-md-4(ng-show='$ctrl.Cart.gift')
+        .col-md-4(ng-show='$ctrl.confirmation.customFields.gift')
           b Recipient:
           br
-          | {{ $ctrl.Cart.confirmation.recipient.firstName }} {{ $ctrl.Cart.confirmation.recipient.lastName }}
+          | {{ $ctrl.confirmation.shipping.firstName }} {{ $ctrl.confirmation.shipping.lastName }}
           br
-          | {{ $ctrl.Cart.confirmation.recipient.address }}
-          br(ng-show='$ctrl.Cart.confirmation.recipient.city && $ctrl.Cart.confirmation.recipient.state && $ctrl.Cart.confirmation.recipient.zipCode')
-          | {{ $ctrl.Cart.confirmation.recipient.city }}, {{ $ctrl.Cart.confirmation.recipient.state }} {{ $ctrl.Cart.confirmation.recipient.zipCode }}
+          | {{ $ctrl.confirmation.shipping.streetAddress }}
+          br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
+          br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
+          | {{ $ctrl.confirmation.shipping.locality }}, {{ $ctrl.confirmation.shipping.region }} {{ $ctrl.confirmation.shipping.zipCode }}
           br
-          | {{ $ctrl.Cart.confirmation.recipient.email }}
+          | {{ $ctrl.confirmation.shipping.email }}
           br
-          | {{ $ctrl.Cart.confirmation.recipient.phone }}
+          | {{ $ctrl.confirmation.shipping.phone }}
           br
           br
       table.table.table-striped
@@ -207,7 +211,7 @@
             th Each
             th.right Cost
         tbody
-          tr(ng-repeat='cartItem in $ctrl.Cart.confirmation.cartItems')
+          tr(ng-repeat='cartItem in $ctrl.confirmation.customFields.items')
             td {{ cartItem.name }}
             td {{ cartItem.quantity }}
             td {{ cartItem.price | currency:"$":0 }}
@@ -215,14 +219,14 @@
         tfoot
           tr
             th.right(colspan='3') Grand Total
-            th.right {{ $ctrl.Cart.confirmation.grandTotal | currency:"$":0 }}
-      p(ng-show='$ctrl.Cart.confirmation.gift || $ctrl.Cart.confirmation.instructions')
+            th.right {{ $ctrl.confirmation.amount | currency:"$":0 }}
+      p(ng-show='$ctrl.confirmation.gift || $ctrl.confirmation.instructions')
         b Order comments:
         br
-        | {{ $ctrl.Cart.confirmation.gift ? 'Send gift card via ' + $ctrl.Cart.confirmation.sendVia : '' }}
+        | {{ $ctrl.confirmation.customFields.gift ? 'Send gift card via ' + $ctrl.confirmation.customFields.sendVia : '' }}
         br
-      p(ng-show='$ctrl.Cart.confirmation.instructions') Instructions:
+      p(ng-show='$ctrl.confirmation.customFields.instructions') Instructions:
         br
-        | {{ $ctrl.Cart.confirmation.instructions }}
+        | {{ $ctrl.confirmation.customFields.instructions }}
         br
       p Thanks for your order.

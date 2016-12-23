@@ -1,5 +1,4 @@
 'use strict';
-import angular from 'angular';
 import braintree from 'braintree-web';
 
 class Item {
@@ -163,7 +162,7 @@ export class Cart {
   }
 
   // Return a promise to the confirmation
-  _postOrderInformation(payload) {
+  postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
     const orderInformation = {
       nonceFromClient: payload.nonce,
@@ -175,31 +174,29 @@ export class Cart {
       cartItems: this.cartItems // reference but it's being posted anyway
     };
 
-    // Now POST it to /api/order
+    // Return promise from POST to /api/order
     return this.$http
       .post('/api/order', orderInformation)
       .then(orderResponse => {
-        // Copy response data to the cart's confirmation
+        // Connect response data to the cart's confirmation (even if an ErrorResponse)
         this.confirmation = orderResponse.data;
-        this.confirmation.cartItems = [];
 
-        // Create a deep copy of the Cart's items into the confirmation
-        angular.copy(this.cartItems, this.confirmation.cartItems);
+        // If Braintree does not report success, throw error to controller so it can adjust view
+        if(!orderResponse.data.success) throw orderResponse.data;
 
-        // Clear the cart to avoid duplicate orders
+        // Clear the cart to avoid duplicate orders (only if successful though)
         this.clearCartItems();
-      })
-      .catch(orderResponse => {
-        this.$log.error('Order failed', orderResponse.data);
+
+        return this.confirmation;
       });
   }
 
   // Return a promise to the orderConfirmation
   placeOrder() {
-    // Now, tokenize hosted fields to get nonce then post the order
+    // Tokenize hosted fields to get nonce then post the order
     return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
-      .then(this._postOrderInformation.bind(this))
-      .catch(); // Add some error handling passing info back to cart component
+      .then(this.postOrderInformation.bind(this));
+      //.catch(); // Catch errors in cart.component.js since they affect the view
   }
 
   // Clear the cartItems during checkout()

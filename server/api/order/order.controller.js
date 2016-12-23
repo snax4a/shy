@@ -78,17 +78,25 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
       return reject(gatewayErr);
     }
 
-    // Failure due to some aspect of what was sent to Braintree (bad credit card, etc.)
+    // Failure due to what was sent to Braintree (bad credit card, etc.) - so status = 200
     if(!response.success) {
-      console.log('Braintree failed to process sale:', response);
-      res.status(500).json(response.message);
-      return reject(response.message);
+      console.log('Braintree failed to process sale: ', response);
+      res.status(200).json(response);
+      return reject(response);
     }
 
     // Successful sale
-    console.log('Braintree successful sale:', response);
-    res.status(200).json(response.transaction);
-    resolve(response.transaction);
+    console.log('Braintree successful sale: ', response);
+
+    // Reformat some of the response
+    response.transaction.id = response.transaction.id.toUpperCase();
+    response.transaction.customFields.gift = response.transaction.customFields.gift === 'true';
+    response.transaction.createdAt = new Date(response.transaction.createdAt).toLocaleString();
+    response.transaction.customFields.items = JSON.parse(response.transaction.customFields.items);
+
+    // Send the response
+    res.status(200).json(response);
+    resolve(response);
   });
 });
 
@@ -97,21 +105,17 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
   // Even if the email fails to send, we're continuing down the chain - just not that critical
   try {
     // Build block of HTML for cartItems
-    let cartItems = JSON.parse(braintreeTransaction.customFields.items);
+    //let cartItems = JSON.parse(braintreeTransaction.customFields.items);
     let cartItemsHtml = '';
-    cartItems.forEach(cartItem => {
+    let confirmation = braintreeTransaction.transaction;
+    confirmation.customFields.items.forEach(cartItem => {
       cartItemsHtml += `<tr><td class="left">${cartItem.name}</td><td class="center">${cartItem.quantity}</td>
         <td class="right">$${cartItem.price}</td><td class="right">$${getLineItemTotal(cartItem)}</td></tr>`;
     });
 
-    // Reformat some of fields in Braintree's response for better display
-    braintreeTransaction.id = braintreeTransaction.id.toUpperCase();
-    braintreeTransaction.customFields.gift = braintreeTransaction.customFields.gift === 'true';
-    braintreeTransaction.createdAt = new Date(braintreeTransaction.createdAt).toLocaleString();
-
     // Send the email
     email({
-      to: braintreeTransaction.customer.email,
+      to: confirmation.customer.email,
       subject: 'Schoolhouse Yoga Order Confirmation',
       html: `
         <style>
@@ -143,24 +147,24 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
                   <td style="vertical-align:middle;padding-top:20px;font-family:HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue',Helvetica,sans-serif;">
                     <p>
                       <span style="font-size:18px">Schoolhouse Yoga</span><br/>
-                      Order ${braintreeTransaction.id}<br />
-                      Paid via credit card (${braintreeTransaction.creditCard.last4}) on ${braintreeTransaction.createdAt}
+                      Order ${confirmation.id}<br />
+                      Paid via credit card (${confirmation.creditCard.last4}) on ${confirmation.createdAt}
                     </p>
                     <table style="width:100%;margin-top:20px;">
                       <tr style="vertical-align:top;">
                         <td>
                           <b>Purchaser</b><br/>
-                          ${braintreeTransaction.customer.firstName} ${braintreeTransaction.customer.lastName}<br />
-                          ${braintreeTransaction.customer.phone}<br/>
-                          ${braintreeTransaction.customer.email}
+                          ${confirmation.customer.firstName} ${confirmation.customer.lastName}<br />
+                          ${confirmation.customer.phone}<br/>
+                          ${confirmation.customer.email}
                         </td>
-                        <td style="display: ${braintreeTransaction.customFields.gift ? 'inline' : 'none'}">
+                        <td style="display: ${confirmation.customFields.gift ? 'inline' : 'none'}">
                           <b>Recipient</b><br/>
-                          ${braintreeTransaction.shipping.firstName} ${braintreeTransaction.shipping.lastName}<br/>
-                          ${braintreeTransaction.shipping.streetAddress}<br/>
-                          ${braintreeTransaction.shipping.locality}, ${braintreeTransaction.shipping.region} ${braintreeTransaction.shipping.postalCode}<br/>
-                          ${braintreeTransaction.customFields.recipientphone}<br />
-                          ${braintreeTransaction.customFields.recipientemail}
+                          ${confirmation.shipping.firstName} ${confirmation.shipping.lastName}<br/>
+                          ${confirmation.shipping.streetAddress}<br/>
+                          ${confirmation.shipping.locality}, ${confirmation.shipping.region} ${confirmation.shipping.postalCode}<br/>
+                          ${confirmation.customFields.recipientphone}<br />
+                          ${confirmation.customFields.recipientemail}
                         </td>
                       </tr>
                     </table>
@@ -177,13 +181,13 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
                 ${cartItemsHtml}
                 <tr>
                   <td colspan="3" style="text-align:right;font-weight:bold;padding-top:10px">Grand Total</td>
-                  <td style="text-align:right;font-weight:bold;padding-top:10px;">$${braintreeTransaction.amount}</td>
+                  <td style="text-align:right;font-weight:bold;padding-top:10px;">$${confirmation.amount}</td>
                 </tr>
               </table>
               <p>
                 <b>Order Comments:</b><br />
-                ${braintreeTransaction.customFields.gift ? `Send gift via ${braintreeTransaction.customFields.sendvia}` : ''}<br/>
-                ${(braintreeTransaction.customFields.instructions !== undefined ? `Instructions: ${braintreeTransaction.customFields.instructions}` : '')}
+                ${confirmation.customFields.gift ? `Send gift via ${confirmation.customFields.sendvia}` : ''}<br/>
+                ${(confirmation.customFields.instructions !== undefined ? `Instructions: ${confirmation.customFields.instructions}` : '')}
               </p>
               <p style="margin-top:20px;">
                 Thanks for your order. Visit us again at <a href="https://www.schoolhouseyoga.com">https://www.schoolhouseyoga.com</a>.
@@ -202,33 +206,34 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
 
 // Return a promise to a database transaction
 const saveToDB = braintreeTransaction => {
+  let confirmation = braintreeTransaction.transaction;
   Order.upsert({
-    orderNumber: braintreeTransaction.id,
-    amount: braintreeTransaction.amount,
-    instructions: braintreeTransaction.customFields.instructions,
-    gift: braintreeTransaction.customFields.gift,
-    sendVia: braintreeTransaction.customFields.sendvia,
-    purchaserFirstName: braintreeTransaction.customer.firstName,
-    purchaserLastName: braintreeTransaction.customer.lastName,
-    purchaserEmail: braintreeTransaction.customer.email,
-    purchaserPhone: braintreeTransaction.customer.phone,
-    last4: braintreeTransaction.creditCard.last4,
-    recipientFirstName: braintreeTransaction.shipping.firstName,
-    recipientLastName: braintreeTransaction.shipping.lastName,
-    recipientAddress: braintreeTransaction.shipping.streetAddress,
-    recipientCity: braintreeTransaction.shipping.locality,
-    recipientState: braintreeTransaction.shipping.region,
-    recipientZipCode: braintreeTransaction.shipping.postalCode,
-    recipientEmail: braintreeTransaction.customFields.recipientemail,
-    recipientPhone: braintreeTransaction.customFields.recipientphone,
-    itemsOrdered: braintreeTransaction.customFields.items
+    orderNumber: confirmation.id,
+    amount: confirmation.amount,
+    instructions: confirmation.customFields.instructions,
+    gift: confirmation.customFields.gift,
+    sendVia: confirmation.customFields.sendvia,
+    purchaserFirstName: confirmation.customer.firstName,
+    purchaserLastName: confirmation.customer.lastName,
+    purchaserEmail: confirmation.customer.email,
+    purchaserPhone: confirmation.customer.phone,
+    last4: confirmation.creditCard.last4,
+    recipientFirstName: confirmation.shipping.firstName,
+    recipientLastName: confirmation.shipping.lastName,
+    recipientAddress: confirmation.shipping.streetAddress,
+    recipientCity: confirmation.shipping.locality,
+    recipientState: confirmation.shipping.region,
+    recipientZipCode: confirmation.shipping.postalCode,
+    recipientEmail: confirmation.customFields.recipientemail,
+    recipientPhone: confirmation.customFields.recipientphone,
+    itemsOrdered: confirmation.customFields.items
   });
 
   return Subscriber.upsert({
-    email: braintreeTransaction.customFields.recipientemail,
-    firstName: braintreeTransaction.shipping.firstName,
-    lastName: braintreeTransaction.shipping.lastName,
-    phone: braintreeTransaction.customFields.recipientphone,
+    email: confirmation.customFields.recipientemail,
+    firstName: confirmation.shipping.firstName,
+    lastName: confirmation.shipping.lastName,
+    phone: confirmation.customFields.recipientphone,
     optout: false
   });
 };

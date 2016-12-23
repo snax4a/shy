@@ -35,9 +35,6 @@ export class CartController {
       state: 'PA' // Default
     };
     this.confirmation = {};
-    this.confirmation.purchaser = {};
-    this.confirmation.recipient = {};
-    this.confirmation.cartItems = [];
 
     this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
     this.Cart.sendVia = 'Email';
@@ -60,11 +57,11 @@ export class CartController {
   }
 
   // Set the focus to the credit card number field
-  checkOut() {
+  focusOnCardNumber() {
     // Set focus to card-number (hosted field) if we can (in an iframe so maybe not)
     // If not, remove this method
-    let fieldToGetFocus = this.$window.document.getElementById('card-number');
-    fieldToGetFocus.focus();
+    let fieldToGetFocus = this.$window.document.getElementById('labelCardNumber');
+    fieldToGetFocus.click();
   }
 
   // Handle when the order has a different recipient
@@ -80,33 +77,25 @@ export class CartController {
   placeOrder(form) {
     if(form.$valid) {
       // Implement: Change cursor to beach ball
-      // Handle order confirmation via promise
-      let orderPromise = this.Cart.placeOrder();
-      /*
-        .then(this.Cart.braintreeHostedFieldsTokenize.bind(this.Cart))
-        .then(payload => {
-          this.$log.info('Nonce', payload.nonce);
-        });
-      */
-      orderPromise.then(result => {
-        if(result.data.resultCode == 0) {
-          this.$log.info('Successful order', this.Cart);
+      this.Cart.placeOrder()
+        .then(braintreeSaleResponse => {
+          this.$log.info('Success: braintreeSaleResponse', braintreeSaleResponse);
+          this.confirmation = this.Cart.confirmation;
+          this.$log.info('Success: CartController: ', this);
+          this.braintreeError = undefined;
           this.pageName = 'Order Confirmation';
-          // Clear credit card fields (or possibly other children of this.Cart)
-          // this.paymentInfo = {}; // only if super-paranoid
           form.$setPristine(); // treat the fields as untouched
-        } else {
-          form.$submitted = false; // Re-enables the Place Order button
-          this.$log.info(`Order Error ${this.confirmation.resultCode}`, this.Cart);
-          this.pageName = 'Shopping Cart'; // changes view back
-          // Put the error in the credit card number area (ng-message='paymentgateway')
-        }
-        // Implement: Change cursor to arrow
-      })
-      .catch(err => this.$log.info('Error placing order', err));
-    }
-  }
-}
+          // Implement: Change cursor to arrow
+        })
+        .catch(braintreeError => {
+          this.braintreeError = braintreeError.message; // for view data-binding
+          this.$log.info(`Braintree error: ${this.braintreeError}`, braintreeError);
+          if(this.braintreeError.includes('card')) this.focusOnCardNumber();
+        });
+    } // form.$valid
+  } // placeOrder
+
+} // class CartController
 
 export default angular.module('shyApp.cartPage', [uiRouter])
   .config(routes)
