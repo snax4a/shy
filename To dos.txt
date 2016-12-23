@@ -1,12 +1,7 @@
 High
 - cart.pug
   - Display confirmation if the pageName changes.
-  - Display any Braintree errors on the page (and allow resubmit)
-- cart.component.js
-  - placeOrder() gets undefined if there's a gateway error. Make sure error is passed through.
-  - If we throw an error in placeOrder(), we'll end up in catch() which might be perfect
-- cart.service.js
-  - Ensure errors are passed 
+  - Make sure if a successful order precedes a failure, that the failure is displayed properly
 
 Low/cosmetic
 - Add indexes to Subscriber and Order tables
