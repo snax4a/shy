@@ -51,4 +51,14 @@ export default (sequelize, DataTypes) => sequelize.define('Order', {
     }
   }
 }, {
-  indexes: [{fields: ['purchaserFirstName', 'purchaserLastName', 'purchaserEmail'] }]});
+  indexes: [
+    { fields: ['orderNumber'] },
+    { fields: ['purchaserEmail'] },
+    { fields: ['recipientEmail'] },
+    { fields: ['purchaserLastName'] },
+    { fields: ['purchaserFirstName'] },
+    { fields: ['recipientLastName'] },
+    { fields: ['recipientFirstName'] },
+    { fields: ['last4'] }
+  ]
+});

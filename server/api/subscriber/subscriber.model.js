@@ -15,4 +15,9 @@ export default (sequelize, DataTypes) => sequelize.define('Subscriber', {
   phone: DataTypes.STRING(23),
   optout: DataTypes.BOOLEAN
 }, {
-  indexes: [{fields: ['lastName', 'firstName'] }]});
+  indexes: [
+    { fields: ['email'] },
+    { fields: ['lastName'] },
+    { fields: ['firstName'] }
+  ]
+});

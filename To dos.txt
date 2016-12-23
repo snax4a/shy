@@ -1,10 +1,8 @@
 High
 - cart.pug
-  - Display confirmation if the pageName changes.
   - Make sure if a successful order precedes a failure, that the failure is displayed properly
 
 Low/cosmetic
-- Add indexes to Subscriber and Order tables
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
   - mocha.global.js - maybe related to update of mocha
 - Add a toast if there's an error with the contact dialog
