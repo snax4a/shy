@@ -77,15 +77,20 @@ export class CartController {
   placeOrder(form) {
     if(form.$valid) {
       // Implement: Change cursor to beach ball
-      this.Cart.placeOrder()
+      return this.Cart.placeOrder()
         .then(braintreeSaleResponse => {
-          this.$log.info('Success: braintreeSaleResponse', braintreeSaleResponse);
-          this.confirmation = this.Cart.confirmation;
+          // Shorten the references a little for easier viewing
+          this.confirmation = braintreeSaleResponse.transaction;
+
           this.$log.info('Success: CartController: ', this);
-          this.braintreeError = undefined;
-          this.pageName = 'Order Confirmation';
+
+          this.braintreeError = undefined; // in case of a follow up order
+          this.pageName = 'Order Confirmation'; // displays confirmation
           form.$setPristine(); // treat the fields as untouched
           // Implement: Change cursor to arrow
+
+          // Force a digest to run (am I overcoming a bug?)
+          this.$timeout(() => this.pageName);
         })
         .catch(braintreeError => {
           this.braintreeError = braintreeError.message; // for view data-binding

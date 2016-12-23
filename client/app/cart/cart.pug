@@ -177,7 +177,7 @@
       p 
         b Order {{ $ctrl.confirmation.id }}
         br
-        | Paid via Credit Card on {{ $ctrl.confirmation.createdAt }}
+        | Paid via Credit Card ({{ $ctrl.confirmation.creditCard.last4 }}) on {{ $ctrl.confirmation.createdAt }}
       .row
         .col-md-4
           b Purchaser:
@@ -196,7 +196,7 @@
           | {{ $ctrl.confirmation.shipping.streetAddress }}
           br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
           br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
-          | {{ $ctrl.confirmation.shipping.locality }}, {{ $ctrl.confirmation.shipping.region }} {{ $ctrl.confirmation.shipping.zipCode }}
+          | {{ $ctrl.confirmation.shipping.locality }}, {{ $ctrl.confirmation.shipping.region }} {{ $ctrl.confirmation.shipping.postalCode }}
           br
           | {{ $ctrl.confirmation.shipping.email }}
           br
@@ -215,12 +215,12 @@
             td {{ cartItem.name }}
             td {{ cartItem.quantity }}
             td {{ cartItem.price | currency:"$":0 }}
-            td.right {{ cartItem.getTotal() | currency:"$":0 }}
+            td.right {{ cartItem.quantity * cartItem.price | currency:"$":0 }}
         tfoot
           tr
             th.right(colspan='3') Grand Total
             th.right {{ $ctrl.confirmation.amount | currency:"$":0 }}
-      p(ng-show='$ctrl.confirmation.gift || $ctrl.confirmation.instructions')
+      p(ng-show='$ctrl.confirmation.customFields.gift || $ctrl.confirmation.customFields.instructions')
         b Order comments:
         br
         | {{ $ctrl.confirmation.customFields.gift ? 'Send gift card via ' + $ctrl.confirmation.customFields.sendVia : '' }}
