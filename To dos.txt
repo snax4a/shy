@@ -1,5 +1,6 @@
 High
 - cart.pug
+  - If we get an error, make sure the Place Order button is re-enabled
   - Make sure if a successful order precedes a failure, that the failure is displayed properly
 
 Low/cosmetic
