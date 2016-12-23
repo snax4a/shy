@@ -165,7 +165,7 @@
               br
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
           .panel-footer
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', xng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || (checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || (checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
             br
             br
 
@@ -179,7 +179,7 @@
         br
         | Paid via Credit Card ({{ $ctrl.confirmation.creditCard.last4 }}) on {{ $ctrl.confirmation.createdAt }}
       .row
-        .col-md-4
+        .col-lg-4.col-md-5
           b Purchaser:
           br
           | {{ $ctrl.confirmation.customer.firstName }} {{ $ctrl.confirmation.customer.lastName }}
@@ -188,7 +188,7 @@
           br
           | {{ $ctrl.confirmation.customer.phone }}
           br
-        .col-md-4(ng-show='$ctrl.confirmation.customFields.gift')
+        .col-lg-4.col-md-5(ng-show='$ctrl.confirmation.customFields.gift')
           b Recipient:
           br
           | {{ $ctrl.confirmation.shipping.firstName }} {{ $ctrl.confirmation.shipping.lastName }}
@@ -223,7 +223,7 @@
       p(ng-show='$ctrl.confirmation.customFields.gift || $ctrl.confirmation.customFields.instructions')
         b Order comments:
         br
-        | {{ $ctrl.confirmation.customFields.gift ? 'Send gift card via ' + $ctrl.confirmation.customFields.sendVia : '' }}
+        | {{ $ctrl.confirmation.customFields.gift ? 'Send gift card via ' + $ctrl.confirmation.customFields.sendvia : '' }}
         br
       p(ng-show='$ctrl.confirmation.customFields.instructions') Instructions:
         br
