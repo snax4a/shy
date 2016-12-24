@@ -82,8 +82,6 @@ export class CartController {
           // Shorten the references a little for easier viewing
           this.confirmation = braintreeSaleResponse.transaction;
 
-          this.$log.info('Success: CartController: ', this);
-
           this.braintreeError = undefined; // in case of a follow up order
           this.pageName = 'Order Confirmation'; // displays confirmation
           form.$setPristine(); // treat the fields as untouched
