@@ -17,13 +17,14 @@ class Item {
 
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, $timeout, ProductList) {
+  constructor($log, $window, $location, $http, $timeout, $q, ProductList) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
     this.$location = $location;
     this.$http = $http;
     this.$timeout = $timeout;
+    this.$q = $q;
     this.ProductList = ProductList;
 
     // Stuff to initialize
@@ -45,7 +46,7 @@ export class Cart {
   // Returns a promise for the token
   braintreeGetToken() {
     // If we already have one, return that
-    if(this.clientToken) return new Promise(resolve => resolve(this.clientToken));
+    if(this.clientToken) return this.$q(resolve => resolve(this.clientToken));
 
     // Otherwise, request one from the server
     return this.$http
@@ -63,10 +64,10 @@ export class Cart {
   // Returns a promise for the clientInstance
   braintreeClientCreate(token) {
     // If we already have one, return that
-    if(this.clientInstance) return new Promise(resolve => resolve(this.clientInstance));
+    if(this.clientInstance) return this.$q(resolve => resolve(this.clientInstance));
 
     // Otherwise, get the promise to a clientInstance
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       braintree.client.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
         if(clientErr) {
           this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
@@ -105,7 +106,7 @@ export class Cart {
 
   // Returns a promise for the hostedFieldsInstance
   braintreeHostedFieldsCreate(clientInstance) {
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       braintree.hostedFields.create({
         client: clientInstance,
         fields: {
@@ -154,7 +155,7 @@ export class Cart {
 
   // Return a promise to the payload (for submitting orders)
   braintreeHostedFieldsTokenize(hostedFieldsInstance) {
-    return new Promise((resolve, reject) => {
+    return this.$q((resolve, reject) => {
       hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
         return tokenizeErr ? reject(tokenizeErr) : resolve(payload);
       });

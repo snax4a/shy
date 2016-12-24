@@ -87,9 +87,6 @@ export class CartController {
           form.$setPristine(); // treat the fields as untouched
           form.$submitted = false; // reset submitted state
           // Implement: Change cursor to arrow
-
-          // Force a digest to run (am I overcoming a bug?)
-          this.$timeout(() => this.pageName);
         })
         .catch(braintreeError => {
           form.$submitted = false; // reset submitted state
