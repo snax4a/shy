@@ -1,6 +1,4 @@
 High
-- cart.pug
-  - Submit successful order, then submit bad one, Place Order button isn't enabled
 
 Low/cosmetic
 - Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test

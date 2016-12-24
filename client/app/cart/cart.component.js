@@ -87,6 +87,7 @@ export class CartController {
           this.braintreeError = undefined; // in case of a follow up order
           this.pageName = 'Order Confirmation'; // displays confirmation
           form.$setPristine(); // treat the fields as untouched
+          form.$submitted = false; // reset submitted state
           // Implement: Change cursor to arrow
 
           // Force a digest to run (am I overcoming a bug?)
