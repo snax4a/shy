@@ -239,7 +239,7 @@ const saveToDB = braintreeTransaction => {
 };
 
 // Attempt to create order, send confirmation email then save to database
-export default function create(req, res) {
+export function create(req, res) {
   braintreeGatewayTransactionSale(req, res)
     .then(emailConfirmation)
     .then(saveToDB)

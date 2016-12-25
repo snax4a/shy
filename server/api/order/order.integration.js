@@ -11,6 +11,7 @@ describe('Order API:', () => {
       request(app)
         .post('/api/order')
         .send({
+          nonceFromClient: 'fake-valid-no-billing-address-nonce',
           cartItems: [
             {
               id: 1,
