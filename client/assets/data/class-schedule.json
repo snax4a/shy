@@ -411,11 +411,6 @@
         "name": "Tuesday",
         "classes":[
           {
-            "time": "9:30‑10:45am",
-            "name": "Yoga 1",
-            "teacher": "Amy Jansen"
-          },
-          {
             "time": "11:30‑1pm",
             "name": "Chair Seated Yoga",
             "teacher": "Lizzie Hanulak"
@@ -455,11 +450,6 @@
       {
         "name": "Thursday",
         "classes":[
-          {
-            "time": "9:30-10:45am",
-            "name": "Yoga 1",
-            "teacher": "Amy Jansen"
-          },
           {
             "time": "6:30-7:45pm",
             "name": "Yoga 1",

@@ -22,7 +22,6 @@ export class WorkshopsController {
     this.subscriber = {};
 
     // Load the workshops from the JSON file
-    this.workshops = [];
     this.workshops = workshops;
   }
 

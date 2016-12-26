@@ -19,7 +19,7 @@
 
       table.table.table-striped.table-hover
         //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
-        tbody(ng-repeat='studio in $ctrl.data')
+        tbody(ng-repeat='studio in $ctrl.classSchedule')
           tr
             td.location(colspan='3')
               a(id='{{studio.location | htmlid}}')
