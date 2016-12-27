@@ -5,7 +5,7 @@ Low/cosmetic
   - mocha.global.js - maybe related to update of mocha
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
-- Consider wrapping main page's paragraphs in .col-md-6 so that they'll wrap
+- Explore method to layout paragraphs on home page more evenly so databinding can be used
 
 SSL setup on Heroku
 - heroku certs:add server.crt server.key -a schoolhouseyoga
