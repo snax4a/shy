@@ -7,7 +7,10 @@ import braintree from 'braintree';
 module.exports = {
   sequelize: {
     uri: process.env.DATABASE_URL,
-    options: {}
+    options: {
+      logging: false,
+      dialect: 'postgres'
+    }
   },
 
   gateway: {

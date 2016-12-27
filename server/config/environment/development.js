@@ -9,7 +9,10 @@ module.exports = {
   // Sequelize connection opions
   sequelize: {
     uri: process.env.DATABASE_URL,
-    options: {}
+    options: {
+      logging: false,
+      dialect: 'postgres'
+    }
   },
 
   gateway: {

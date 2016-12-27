@@ -18,7 +18,10 @@ module.exports = {
   // Sequelize
   sequelize: {
     uri: process.env.DATABASE_URL,
-    options: {}
+    options: {
+      logging: false,
+      dialect: 'postgres'
+    }
   },
 
   // Braintree
