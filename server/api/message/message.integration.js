@@ -3,11 +3,11 @@
 const app = require('../..');
 import request from 'supertest';
 
-describe('Message API:', function() {
-  describe('POST /api/message', function() {
+describe('Message API:', () => {
+  describe('POST /api/message', () => {
     var response = '';
 
-    beforeEach(function(done) {
+    beforeEach(done => {
       request(app)
         .post('/api/message')
         .send({

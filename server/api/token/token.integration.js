@@ -7,7 +7,7 @@ describe('Token API:', () => {
   describe('GET /api/token', () => {
     var token;
 
-    beforeEach(function(done) {
+    beforeEach(done => {
       request(app)
         .get('/api/token')
         .expect(200)

@@ -49,7 +49,7 @@ export function UtilService($window) {
       origins = origins && [].concat(origins) || [];
       origins = origins.map(Util.urlParse);
       origins.push($window.location);
-      origins = origins.filter(function(o) {
+      origins = origins.filter(o => {
         let hostnameCheck = url.hostname === o.hostname;
         let protocolCheck = url.protocol === o.protocol;
         // 2nd part of the special treatment for IE fix (see above):

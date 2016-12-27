@@ -2,7 +2,7 @@
 import angular from 'angular';
 import workshopsPage from './workshops.component';
 
-describe('Component: WorkshopsComponent', function() {
+describe('Component: WorkshopsComponent', () => {
   // load the controller's module
   //beforeEach(module('shyApp.workshops'));
   beforeEach(angular.mock.module(workshopsPage));
@@ -10,11 +10,11 @@ describe('Component: WorkshopsComponent', function() {
   var WorkshopsComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($componentController) {
+  beforeEach(inject($componentController => {
     WorkshopsComponent = $componentController('workshops', {});
   }));
 
-  it('should ...', function() {
+  it('should ...', () => {
     expect(1).to.equal(1);
   });
 });

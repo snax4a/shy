@@ -3,7 +3,7 @@ import angular from 'angular';
 import registerPage from './register.component';
 import CartModule from '../../components/cartmodule/cart.module';
 
-describe('Component: RegisterComponent', function() {
+describe('Component: RegisterComponent', () => {
   // load the controller's module
   beforeEach(angular.mock.module(registerPage));
   beforeEach(angular.mock.module(CartModule));
@@ -11,7 +11,7 @@ describe('Component: RegisterComponent', function() {
   var RegisterComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(($componentController) => {
+  beforeEach(inject($componentController => {
     RegisterComponent = $componentController('register', {});
   }));
 

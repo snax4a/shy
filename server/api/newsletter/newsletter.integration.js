@@ -3,11 +3,11 @@
 var app = require('../..');
 import request from 'supertest';
 
-describe('Newsletter API:', function() {
-  describe('POST /api/newsletter', function() {
+describe('Newsletter API:', () => {
+  describe('POST /api/newsletter', () => {
     var response = '';
 
-    beforeEach(function(done) {
+    beforeEach(done => {
       request(app)
         .post('/api/newsletter')
         .send({
@@ -23,7 +23,7 @@ describe('Newsletter API:', function() {
           done();
         });
     });
-    it('should send response thanking the user for subscribing to the newsletter', function() {
+    it('should send response thanking the user for subscribing to the newsletter', () => {
       expect(response).to.equal('Thanks for subscribing to our newsletter.');
     });
   });

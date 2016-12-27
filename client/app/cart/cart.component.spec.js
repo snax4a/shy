@@ -3,7 +3,7 @@ import angular from 'angular';
 import cartPage from './cart.component';
 import CartModule from '../../components/cartmodule/cart.module';
 
-describe('Component: CartComponent', function() {
+describe('Component: CartComponent', () => {
   // load the controller's module
   beforeEach(angular.mock.module(cartPage));
   beforeEach(angular.mock.module(CartModule));
@@ -11,12 +11,12 @@ describe('Component: CartComponent', function() {
   let CartComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($componentController) {
+  beforeEach(inject($componentController => {
     'ngInject';
     CartComponent = $componentController('cart', {});
   }));
 
-  it('should ...', function() {
+  it('should ...', () => {
     expect(1).to.equal(1);
   });
 });

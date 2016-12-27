@@ -20,13 +20,13 @@ var tokenIndex = proxyquire('./index.js', {
   './token.controller': tokenCtrlStub
 });
 
-describe('Token API Router:', function() {
-  it('should return an express router instance', function() {
+describe('Token API Router:', () => {
+  it('should return an express router instance', () => {
     expect(tokenIndex).to.equal(routerStub);
   });
 
-  describe('GET /api/token', function() {
-    it('should route to token.controller.index', function() {
+  describe('GET /api/token', () => {
+    it('should route to token.controller.index', () => {
       expect(routerStub.get
         .withArgs('/', 'tokenCtrl.index')
         ).to.have.been.calledOnce;
