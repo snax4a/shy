@@ -1,4 +1,5 @@
 /*eslint no-process-env:0*/
+/* global console, setInterval, clearInterval, require */
 // Generated on 2016-09-03 using generator-angular-fullstack 4.0.4
 'use strict';
 
@@ -518,7 +519,7 @@ gulp.task('copy:extras', () =>
  * turns 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
  */
 function flatten() {
-  return through2.obj(function(file, enc, next) {
+  return through2.obj(function(file, enc, next) { // fails if changed to fat arrow because of "this"
     if(!file.isDirectory()) {
       try {
         let dir = path.dirname(file.relative).split(path.sep)[0];
