@@ -31,7 +31,7 @@
               tfoot
                 tr
                   td.total(colspan='4') Total&nbsp;&nbsp;{{ $ctrl.Cart.getTotalCost() | currency:"$":0 }}
-          .panel-footer
+          .panel-footer.clearfix
             input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
             input.btn.btn-warning.pull-right(ng-click='$ctrl.focusOnCardNumber()', type='button', name='checkOut', value='Check Out »', ng-disabled='$ctrl.Cart.isEmpty()')
     .col-md-6
@@ -164,10 +164,8 @@
               br
               br
             p Class cards and workshop purchases are non-refundable. Class cards expire six months from their purchase date.
-          .panel-footer
+          .panel-footer.clearfix
             input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || (checkout.$valid && checkout.$submitted) || $ctrl.Cart.isEmpty()')
-            br
-            br
 
   .row(ng-show='$ctrl.pageName=="Order Confirmation"')
     .col-md-2
