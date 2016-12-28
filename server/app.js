@@ -15,24 +15,22 @@ if(config.seedDB) {
 }
 
 // Setup server
-const app = express();
-const server = http.createServer(app);
+var app = express();
+var server = http.createServer(app);
 require('./config/express').default(app);
 require('./routes').default(app);
 
 // Start server
 function startServer() {
-  app.angularFullstack = server.listen(config.port, config.ip, () => {
-    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+  app.shy = server.listen(config.port, config.ip, () => {
+    console.log(`Express listening on port ${config.port}, env = ${app.get('env')}`);
   });
 }
 
 // Synch the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
   .then(startServer)
-  .catch(function(err) {
-    console.log('Server failed to start due to error: %s', err);
-  });
+  .catch(err => console.log(`Server failed to start due to error: ${err}`));
 
 // Expose app
 exports = module.exports = app;
