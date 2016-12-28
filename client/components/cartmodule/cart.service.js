@@ -133,7 +133,7 @@ export class Cart {
             'border-color': '#66afe9'
           },
           'input.invalid': {
-            color: 'red'
+            color: '#a94442'
           },
           'input.valid': {
             color: 'green'

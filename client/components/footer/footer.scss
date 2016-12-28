@@ -3,12 +3,12 @@ footer {
 	margin-bottom: 0;
 	padding: 40px 0;
 	text-align: left;
-	background-color: #5f4884;
-	color: #c9bddb;
+	background-color: $brand-primary;
+	color: $shy-lavender;
 }
 
  footer a {
-	color: #f0ad4e;
+	color: $shy-orange; // $shy-orange (should be)
 }
 
 footer a:hover {

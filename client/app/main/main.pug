@@ -15,68 +15,95 @@
         div(uib-slide='', ng-repeat='slide in $ctrl.slides', active='active', index='$index')
           img.img-responsive(ng-src='{{slide.src}}', alt='Person doing yoga')
   .row
-    .col-md-4.col-sm-6
-      h4.faq Why yoga?
-      p
-        | Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels; improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in weight loss and detoxification.
-      h4.faq Which class is best for me?
-      p
-        b Yoga 1
-        |  classes include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance. These classes are ideal for the student who is new to yoga and is in good health.
-        br
-        b Ashtanga yoga
-        |  classes include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.
-        br
-        b Gentle yoga
-        |  classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who would like a slower-paced class that emphasizes stretching, breathing and relaxation.
-      h4.faq What should I bring?
-      p
-        | Just a smile! There are mats available for students&apos; use at the school (at no charge).
-      h4.faq What should I wear?
-      p
-        | Wear comfortable clothes that allow full range of movement. Most students wear shorts, sweat pants, or yoga pants and a t-shirt or tank top.
-      h4.faq Will yoga conflict with my religion?
-      p
-        | Yoga is not a religion. Students of all faiths attend classes at the Schoolhouse.
-    .col-md-4.col-sm-6
-      h4.faq Do you offer teacher training and certification?
-      p
-        | We do! More info about our highly-rated Yoga Alliance certified teacher training program can be found 
-        a(href='/register') here
-        | .
-      h4.faq Will yoga help me to lose weight?
-      p
-        | Yoga is a unique form of exercise that challenges your entire body. Students are often surprised how well they sleep the night following their first class and how toned they become over time. But more important than the physical exercise it provides, yoga teaches you to listen to your body and deal with the emotions that contribute to over-eating and other unhealthy habits.
-      h4.faq Do you heat your classrooms to a high temperature?
-      p
-        | We keep our classrooms at a comfortable temperature. If you like to sweat, we recommend attending the Ashtanga Yoga classes. We don&apos;t need to heat the room to a high temperature to make you sweat!
-      h4.faq What&apos;s the best time to begin prenatal yoga classes?
-      p
-        | You may begin attending the prenatal yoga classes at any point in your pregnancy. If you have any special health concerns, talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial. They are a low-impact way to stay in shape and prepare mentally and physically for labor.
-      h4.faq How old should my baby be before s/he attends the Mommy &amp; me class?
-      p
-        | Your baby is welcome to attend the Mommy &amp; me class at any age. Newborns are welcome too! As long as you, the mom, feel ready to stretch and get back in shape, then you and your child will both be fine in the class.
-    .visible-sm.clearfix
-    .col-md-4.col-sm-6
-      h4.faq How much are classes?
-      p
-        | A single class costs $15. You can purchase a four-class pass for $50, an eight-class pass for $80, or a twelve-class pass for $100. You can use these passes to take classes at any of our locations. They are valid for six months from their purchase date.
-      h4.faq What kinds of payment are accepted?
-      p
-        | We accept cash, checks and all major credit cards at the door. Classes and workshops may also be ordered securely on our website using Visa, Discover, MasterCard and American Express.
-      h4.faq What is your refund policy?
-      p Classes and workshops are non-refundable.
-      h4.faq Can I drop in on any class?
-      p
-        | Absolutely! Our classes are ongoing. You do not need to register in advance and can begin attending classes at any time. Just arrive 10-15 minutes prior to the beginning of class to sign-in, pay and grab a mat if you need one. If you buy a class pass one day in advance, you won&apos;t have to worry about bringing a method of payment.
-      h4.faq How often should I attend classes?
-      p
-        | We suggest beginning with one or two classes a week. You may want to sample different classes to determine which one fits your needs best. Don&apos;t be surprised to discover that over time you want to practice more frequently!
-      h4.faq Where are you located?
-      p
-        | The locations are listed on the 
-        a(href='/locations') locations page
-        |  and include links to Google Maps for directions via car, bus, walking or cycling.
-      h4.faq Where can I park?
-      p
-        | We have a free parking lot at our North Hills school. There is metered parking available near our Squirrel Hill and East Liberty schools.
+    .faqs
+      article
+        h4 Why yoga?
+        p.
+          Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels;
+          improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in
+          weight loss and detoxification.
+      article
+        h4 Which class is best for me?
+        p
+          b Yoga 1 
+          | classes include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance.
+          | These classes are ideal for the student who is new to yoga and is in good health.
+        p
+          b Ashtanga yoga 
+          | classes include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide
+          | an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.
+        p
+          b Gentle yoga 
+          | classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who.
+          | would like a slower-paced class that emphasizes stretching, breathing and relaxation.
+      article
+        h4 What should I bring?
+        p Just a smile! There are mats available for students&apos; use at the school (at no charge).
+      article
+        h4 What should I wear?
+        p Wear comfortable clothes that allow full range of movement. Most students wear shorts, sweat pants, or yoga pants and a t-shirt or tank top.
+      article
+        h4 Will yoga conflict with my religion?
+        p Yoga is not a religion. Students of all faiths attend classes at the Schoolhouse.
+      article
+        h4 Do you offer teacher training and certification?
+        p We do! More info about our highly-rated Yoga Alliance certified teacher training program can be found 
+          a(href='/register') here
+          | .
+      article
+        h4 Will yoga help me to lose weight?
+        p.
+          Yoga is a unique form of exercise that challenges your entire body. Students are often surprised how well they sleep
+          the night following their first class and how toned they become over time. But more important than the physical exercise
+          it provides, yoga teaches you to listen to your body and deal with the emotions that contribute to over-eating and
+          other unhealthy habits.
+      article
+        h4 Do you heat your classrooms to a high temperature?
+        p.
+          We keep our classrooms at a comfortable temperature. If you like to sweat, we recommend attending the Ashtanga Yoga classes.
+          We don&apos;t need to heat the room to a high temperature to make you sweat!
+      article
+        h4 What&apos;s the best time to begin prenatal yoga classes?
+        p.
+          You may begin attending the prenatal yoga classes at any point in your pregnancy. If you have any special health concerns,
+          talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial.
+          They are a low-impact way to stay in shape and prepare mentally and physically for labor.
+      article
+        h4 How old should my baby be before s/he attends the Mommy &amp; me class?
+        p.
+          Your baby is welcome to attend the Mommy &amp; me class at any age. Newborns are welcome too! As long as you,
+          the mom, feel ready to stretch and get back in shape, then you and your child will both be fine in the class.
+      article
+        h4 How much are classes?
+        p.
+          A single class costs $15. You can purchase a four-class pass for $50, an eight-class pass for $80, or a twelve-class pass
+          for $100. You can use these passes to take classes at any of our locations. They are valid for six months from their purchase date.
+      article
+        h4 What kinds of payment are accepted?
+        p.
+          We accept cash, checks and all major credit cards at the door. Classes and workshops may also be ordered securely on our
+          website using Visa, Discover, MasterCard and American Express.
+      article
+        h4 What is your refund policy?
+        p Classes and workshops are non-refundable.
+      article
+        h4 Can I drop in on any class?
+        p.
+          Absolutely! Our classes are ongoing. You do not need to register in advance and can begin attending classes at any
+          time. Just arrive 10-15 minutes prior to the beginning of class to sign-in, pay and grab a mat if you need one.
+          If you buy a class pass one day in advance, you won&apos;t have to worry about bringing a method of payment.
+      article
+        h4 How often should I attend classes?
+        p.
+          We suggest beginning with one or two classes a week. You may want to sample different classes to determine which one fits
+          your needs best. Don&apos;t be surprised to discover that over time you want to practice more frequently!
+      article
+        h4 Where are you located?
+        p The locations are listed on the 
+          a(href='/locations') locations page 
+          | and include links to Google Maps for directions via car, bus, walking or cycling.
+      article
+        h4 Where can I park?
+        p.
+          We have a free parking lot at our North Hills school. There is metered parking available near our Squirrel
+          Hill and East Liberty schools.

@@ -1,47 +1,117 @@
 .logo {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    height: 200px;
-    width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  height: 200px;
+  width: 200px;
 }
 
 .seal {
-    margin-top: 20px;
-}
-
-.faq {
-    margin-top: 20px;
-    margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .callout {
-    padding: 20px 20px 15px 20px;
-    margin: 15px 0 10px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
-    border-left-color: #f0ad4e;
+  padding: 20px 20px 15px 20px;
+  margin: 15px 0 10px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  border-left-color: #f0ad4e;
 }
 
 .callout h3 {
-    margin-top: 0;
-    color: orange;
+  margin-top: 0;
+  color: orange;
 }
 
 .callout h4 {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .callout > h4 {
-    color: #5f4884;
+  color: #5f4884;
 }
 
 .callout > div > p {
-    margin: 5px 0 0;
+  margin: 5px 0 0;
 }
 
 .right.carousel-control, .left.carousel-control {
-    display: none;
+  display: none;
+}
+
+/*
+  Get rid of this after implementing the CSS below
+*/
+
+.faq {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+/*
+  Each <article> will contain one <h4> and a <p>. Instead of wrapping them in .col-md-4.col-sm-6,
+  perhaps use CSS columns based on media queries?
+*/
+
+$column-gap: 3em;
+
+/* Extra small */
+@media (min-width: 480px) {
+  .faqs {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+/* Small */
+@media (min-width: 768px) {
+  .faqs {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+  .faqs {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+  .faqs {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+  }
+}
+
+.faqs {
+  margin-top: 20px;
+  -webkit-column-gap: $column-gap;
+  -moz-column-gap: $column-gap;
+  column-gap: $column-gap;
+}
+
+article {
+  break-inside: avoid-column; // keep articles together
+  margin-bottom: 20px;
+}
+
+article > p {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+article > h4 {
+  margin-bottom: 10px;
 }

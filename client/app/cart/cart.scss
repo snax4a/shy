@@ -44,7 +44,7 @@ label {
 }
 
 .braintree-hosted-fields-focused { 
-  border: 1px solid #0275d8;
+  border: 1px solid #0275d8; // should be $brand-base
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 }
 

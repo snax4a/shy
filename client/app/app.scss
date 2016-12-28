@@ -6,6 +6,16 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
+// My overrides for variables
+$brand-base: #6f5499;
+$brand-primary: darken($brand-base, 6.5%);
+$brand-light: lighten($brand-base, 33.5%);
+$shy-orange: #f0ad4e;
+$shy-lavender: #c9bddb;
+$shy-errors: #a94442;
+$link-hover-decoration: none;
+$input-border-focus: $brand-base;
+
 /**
  * App-wide Styles
  */
@@ -35,7 +45,7 @@ h2 {
 }
 
 h2, h4, a {
-	color: #5f4884;
+	color: #5f4884; // $brand-primary (should be)
 }
 
 h4 {
@@ -43,7 +53,7 @@ h4 {
 }
 
 .has-error {
-    color: #a94442;
+    color: $shy-errors;
 }
 
 .help-block {

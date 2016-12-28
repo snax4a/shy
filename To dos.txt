@@ -1,11 +1,12 @@
 High
+- Add Apple Pay support
 
 Low/cosmetic
-- Fix "after all" hook, TypeError: Cannot read property 'on' of undefined during npm test
-  - mocha.global.js - maybe related to update of mocha
+- Fix field border focus color using Sass
+- Move FAQs to JSON file and databind on main.pug
+- npm test 
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
-- Explore method to layout paragraphs on home page more evenly so databinding can be used
 
 SSL setup on Heroku
 - heroku certs:add server.crt server.key -a schoolhouseyoga
