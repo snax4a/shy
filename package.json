@@ -1,6 +1,6 @@
 {
   "name": "shy",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "Schoolhouse Yoga's Website",
   "main": "server/index.js",
   "dependencies": {
