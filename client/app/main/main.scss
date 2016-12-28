@@ -41,11 +41,6 @@
   display: none;
 }
 
-/*
-  Each <article> will contain one <h4> and a <p>. Instead of wrapping them in .col-md-4.col-sm-6,
-  perhaps use CSS columns based on media queries?
-*/
-
 $column-gap: 3em;
 
 /* Extra small */
@@ -99,6 +94,7 @@ article {
 }
 
 article > p {
+  break-inside: avoid-column;
   margin-top: 0px;
   margin-bottom: 10px;
 }
