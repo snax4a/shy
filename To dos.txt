@@ -4,7 +4,7 @@ High
 Low/cosmetic
 - Fix field border focus color using Sass
 - Move FAQs to JSON file and databind on main.pug
-- npm test 
+- npm test will require downgraded devDependencies in package.json
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 
