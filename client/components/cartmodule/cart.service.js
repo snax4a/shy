@@ -28,6 +28,7 @@ export class Cart {
     this.ProductList = ProductList;
 
     // Stuff to initialize
+    this.applePayEnabled = false;
     this.key = 'cart'; // name of local storage key
     this.cartItems = [];
     this.purchaser = {};
@@ -48,6 +49,7 @@ export class Cart {
       let applePaySession = window.ApplePaySession;
       if(applePaySession && applePaySession.canMakePayments()) {
         this.$log.info('This device supports Apple Pay.');
+        this.applePayEnabled = true;
       } else {
         this.$log.info('Apple Pay is not supported on this device.');
       }
