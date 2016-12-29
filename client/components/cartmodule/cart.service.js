@@ -27,8 +27,8 @@ export class Cart {
     this.$q = $q;
     this.ProductList = ProductList;
 
-    // Stuff to initialize
-    this.applePayEnabled = false;
+    // Initialize members
+    this.applePayEnabled = this.applePayCheck();
     this.key = 'cart'; // name of local storage key
     this.cartItems = [];
     this.purchaser = {};
@@ -39,22 +39,23 @@ export class Cart {
     // Pre-fetch the clientInstance so the Hosted Fields display faster
     this.braintreeGetToken()
       .then(this.braintreeClientCreate.bind(this))
-      .then(this.applePayCheck.bind(this))
       .catch(err => this.$log.info('Error setting up Braintree client instance.', err));
   }
 
   applePayCheck() {
-    // Will error out if not an HTTPS connection
+    // Remove diagnostics once we're sure Apple Pay works
     try {
       let applePaySession = window.ApplePaySession;
       if(applePaySession && applePaySession.canMakePayments()) {
         this.$log.info('This device supports Apple Pay.');
-        this.applePayEnabled = true;
+        return true;
       } else {
         this.$log.info('Apple Pay is not supported on this device.');
+        return false;
       }
     } catch(err) {
-      this.$log.error('Error trying to setup Apple Pay: no HTTPS connection.');
+      this.$log.info('Apple Pay can only work over an HTTPS connection.');
+      return false;
     }
   }
 
