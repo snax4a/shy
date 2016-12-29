@@ -38,10 +38,23 @@ export class Cart {
     // Pre-fetch the clientInstance so the Hosted Fields display faster
     this.braintreeGetToken()
       .then(this.braintreeClientCreate.bind(this))
+      .then(this.applePayCheck.bind(this))
       .catch(err => this.$log.info('Error setting up Braintree client instance.', err));
   }
 
-  // Maybe break out the next 4 methods into their own angular service
+  applePayCheck() {
+    // Will error out if not an HTTPS connection
+    try {
+      let applePaySession = window.ApplePaySession;
+      if(applePaySession && applePaySession.canMakePayments()) {
+        this.$log.info('This device supports Apple Pay.');
+      } else {
+        this.$log.info('Apple Pay is not supported on this device.');
+      }
+    } catch(err) {
+      this.$log.error('Error trying to setup Apple Pay: no HTTPS connection.');
+    }
+  }
 
   // Returns a promise for the token
   braintreeGetToken() {
