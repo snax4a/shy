@@ -60,6 +60,11 @@ h4 {
     margin-bottom: 0px;
 }
 
+.applepay {
+    height: 34px;
+    width: 74px;
+}
+
 // Component styles are injected through gulp
 /* inject:scss */
 @import 'cart/cart';

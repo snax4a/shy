@@ -1,0 +1,3 @@
+a.btn.btn-warning.pull-right(ng-click='$ctrl.Cart.addItem($ctrl.product)') Pay now
+a.pull-right(ng-if='$ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.addItem($ctrl.product)')
+  img.applepay(src='/assets/images/applepay.gif')

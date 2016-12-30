@@ -1,6 +1,6 @@
 'use strict';
 
-export class AddToCartController {
+export class PayNowController {
   constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
