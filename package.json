@@ -132,7 +132,8 @@
     "test": "gulp test",
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
     "start": "node server",
-    "deploy": "gulp buildcontrol:heroku"
+    "build": "gulp build",
+    "deploy": "gulp build && gulp buildcontrol:heroku"
   },
   "private": true
 }
