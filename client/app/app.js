@@ -3,6 +3,7 @@
 // angularJS 1.5.8 core
 import angular from 'angular';
 import ngMessages from 'angular-messages';
+import ngSanitize from 'angular-sanitize'; // clean faqs on main
 
 // Modules
 import uiRouter from 'angular-ui-router';
@@ -42,7 +43,7 @@ import daytodate from '../components/daytodate/daytodate.filter';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [ngMessages, uiRouter, uiBootstrap, navbar, banner, footer,
+angular.module('shyApp', [ngMessages, ngSanitize, uiRouter, uiBootstrap, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
   htmlid, daytodate, tweet, CartModule])
   .config(routeConfig);

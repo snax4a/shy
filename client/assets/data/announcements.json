@@ -14,7 +14,7 @@
       },
       {
         "title": "Apple Pay now accepted",
-        "description": "- Buy class passes and workshops from our website using your iPhone and Touch ID",
+        "description": "- <img src='/assets/images/applepayaccepted.png' class='applepaymark' alt='Apple Pay mark' />Buy class passes and workshops from our website using your iPhone and Touch ID",
         "expires": "2017-03-01T00:00:00.000-05:00"
       }
     ]
