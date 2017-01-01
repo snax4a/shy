@@ -4,7 +4,7 @@
 
 import makeWebpackConfig from './webpack.make';
 
-module.exports = config => {
+module.exports = function(config) {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -14,7 +14,7 @@ module.exports = config => {
 
     client: {
       mocha: {
-        timeout: 10000 // set default mocha spec timeout
+        timeout: 5000 // set default mocha spec timeout
       }
     },
 
@@ -46,12 +46,12 @@ module.exports = config => {
     },
 
     plugins: [
-      require('karma-chai-plugins'),
       require('karma-chrome-launcher'),
       require('karma-coverage'),
       require('karma-firefox-launcher'),
       require('karma-mocha'),
       require('karma-chai-plugins'),
+
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-script-launcher'),

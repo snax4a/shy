@@ -387,7 +387,22 @@ gulp.task('test:server', cb => {
 gulp.task('mocha:unit', () =>
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
+    // .once('error', () => {
+    //   process.exit(1);
+    // })
+    // .once('end', () => {
+    //   process.exit();
+    // })
 );
+// Run all unit tests in debug mode
+gulp.task('test-debug', function() {
+  var spawn = require('child_process').spawn;
+  spawn('node', [
+    '--debug-brk',
+    path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
+    'test'
+  ], { stdio: 'inherit' });
+});
 
 gulp.task('mocha:integration', () =>
   gulp.src(paths.server.test.integration)

@@ -22,7 +22,7 @@ require('./routes').default(app);
 
 // Start server
 function startServer() {
-  app.shy = server.listen(config.port, config.ip, () => {
+  app.shy = server.listen(config.port, config.ip, function() {
     console.log(`Express listening on port ${config.port}, env = ${app.get('env')}`);
   });
 }
@@ -30,7 +30,9 @@ function startServer() {
 // Synch the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
   .then(startServer)
-  .catch(err => console.log(`Server failed to start due to error: ${err}`));
+  .catch(function(err) {
+    console.log(`Server failed to start due to error: ${err}`);
+  });
 
 // Expose app
 exports = module.exports = app;
