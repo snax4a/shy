@@ -1,3 +1,4 @@
+/* global sinon, describe, it, expect */
 'use strict';
 
 var proxyquire = require('proxyquire').noPreserveCache();
@@ -20,13 +21,13 @@ var tokenIndex = proxyquire('./index.js', {
   './token.controller': tokenCtrlStub
 });
 
-describe('Token API Router:', () => {
-  it('should return an express router instance', () => {
+describe('Token API Router:', function() {
+  it('should return an express router instance', function() {
     expect(tokenIndex).to.equal(routerStub);
   });
 
-  describe('GET /api/token', () => {
-    it('should route to token.controller.index', () => {
+  describe('GET /api/token', function() {
+    it('should route to token.controller.index', function() {
       expect(routerStub.get
         .withArgs('/', 'tokenCtrl.index')
         ).to.have.been.calledOnce;

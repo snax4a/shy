@@ -14,6 +14,8 @@ import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
 import config from './environment';
+// import passport from 'passport';
+// import lusca from 'lusca';
 // import session from 'express-session';
 // import sqldb from '../sqldb';
 // import expressSequelizeSession from 'express-sequelize-session';
@@ -41,7 +43,36 @@ export default function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  // app.use(passport.initialize());
 
+  // Persist sessions with MongoStore / sequelizeStore
+  // We need to enable sessions for passport-twitter because it's an
+  // oauth 1.0 strategy, and Lusca depends on sessions
+  // app.use(session({
+  //   secret: config.secrets.session,
+  //   saveUninitialized: true,
+  //   resave: false,
+  //   store: new Store(sqldb.sequelize)
+  // }));
+
+  /**
+   * Lusca - express server security
+   * https://github.com/krakenjs/lusca
+   */
+  // if(env !== 'test' && !process.env.SAUCE_USERNAME) {
+  //   app.use(lusca({
+  //     csrf: {
+  //       angular: true
+  //     },
+  //     xframe: 'SAMEORIGIN',
+  //     hsts: {
+  //       maxAge: 31536000, //1 year, in seconds
+  //       includeSubDomains: true,
+  //       preload: true
+  //     },
+  //     xssProtection: true
+  //   }));
+  // }
 
   if(env === 'development') {
     const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -78,7 +109,7 @@ export default function(app) {
      * Reload all devices when bundle is complete
      * or send a fullscreen error message to the browser instead
      */
-    compiler.plugin('done', stats => {
+    compiler.plugin('done', function(stats) {
       console.log('webpack done hook');
       if(stats.hasErrors() || stats.hasWarnings()) {
         return browserSync.sockets.emit('fullscreen:message', {

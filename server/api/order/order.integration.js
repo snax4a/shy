@@ -1,10 +1,11 @@
+/* global describe, beforeEach, it, expect */
 'use strict';
 
 const app = require('../..');
 import request from 'supertest';
 
-describe('Order API:', () => {
-  describe('POST /api/order', () => {
+describe('Order API:', function() {
+  describe('POST /api/order', function() {
     let confirmation;
 
     beforeEach(done => {
@@ -52,7 +53,7 @@ describe('Order API:', () => {
         });
     });
 
-    it('should respond with a JSON confirmation', () => {
+    it('should respond with a JSON confirmation', function() {
       expect(confirmation.purchaser.firstName).to.equal('John');
       expect(confirmation.purchaser.lastName).to.equal('Doe');
     });

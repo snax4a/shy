@@ -25,7 +25,7 @@ for(let e in events) {
 }
 
 function emitEvent(event) {
-  return (doc, options, done) => {
+  return function(doc, options, done) {
     SubscriberEvents.emit(`${event}:${doc._id}`, doc);
     SubscriberEvents.emit(event, doc);
     done(null);

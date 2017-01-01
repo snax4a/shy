@@ -1,13 +1,14 @@
+/* global describe, beforeEach, it, expect */
 'use strict';
 
 const app = require('../..');
 import request from 'supertest';
 
-describe('Message API:', () => {
-  describe('POST /api/message', () => {
+describe('Message API:', function() {
+  describe('POST /api/message', function() {
     var response = '';
 
-    beforeEach(done => {
+    beforeEach(function(done) {
       request(app)
         .post('/api/message')
         .send({

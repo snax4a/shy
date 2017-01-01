@@ -1,13 +1,14 @@
+/* global describe, beforeEach, it, expect */
 'use strict';
 
 var app = require('../..');
 import request from 'supertest';
 
-describe('Newsletter API:', () => {
-  describe('POST /api/newsletter', () => {
+describe('Newsletter API:', function() {
+  describe('POST /api/newsletter', function() {
     var response = '';
 
-    beforeEach(done => {
+    beforeEach(function(done) {
       request(app)
         .post('/api/newsletter')
         .send({
@@ -23,7 +24,7 @@ describe('Newsletter API:', () => {
           done();
         });
     });
-    it('should send response thanking the user for subscribing to the newsletter', () => {
+    it('should send response thanking the user for subscribing to the newsletter', function() {
       expect(response).to.equal('Thanks for subscribing to our newsletter.');
     });
   });

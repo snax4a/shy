@@ -1,18 +1,19 @@
+/* global describe, beforeEach, inject, expect, it */
 'use strict';
 import angular from 'angular';
 import main from './main.component';
 
-describe('Component: MainComponent', () => {
+describe('Component: MainComponent', function() {
   beforeEach(angular.mock.module(main));
 
-  let mainComponent;
+  var mainComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject($componentController => {
+  beforeEach(inject(function($componentController) {
     mainComponent = $componentController('main', {});
   }));
 
-  it('should ...', () => {
+  it('should ...', function() {
     expect(1).to.equal(1);
   });
 });

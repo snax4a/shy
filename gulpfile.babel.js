@@ -209,7 +209,7 @@ gulp.task('inject:scss', () =>
         .pipe(gulp.dest(`${clientPath}/app`))
 );
 
-gulp.task('webpack:dev', () => {
+gulp.task('webpack:dev', function() {
   const webpackDevConfig = makeWebpackConfig({ DEV: true });
   return gulp.src(webpackDevConfig.entry.app)
     .pipe(plugins.plumber())
@@ -217,7 +217,7 @@ gulp.task('webpack:dev', () => {
     .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('webpack:dist', () => {
+gulp.task('webpack:dist', function() {
   const webpackDistConfig = makeWebpackConfig({ BUILD: true });
   return gulp.src(webpackDistConfig.entry.app)
     .pipe(webpack(webpackDistConfig))
@@ -227,14 +227,14 @@ gulp.task('webpack:dist', () => {
     .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
-gulp.task('webpack:test', () => {
+gulp.task('webpack:test', function() {
   const webpackTestConfig = makeWebpackConfig({ TEST: true });
   return gulp.src(webpackTestConfig.entry.app)
     .pipe(webpack(webpackTestConfig))
     .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('webpack:e2e', () => {
+gulp.task('webpack:e2e', function() {
   const webpackE2eConfig = makeWebpackConfig({ E2E: true });
   return gulp.src(webpackE2eConfig.entry.app)
     .pipe(webpack(webpackE2eConfig))
@@ -515,11 +515,11 @@ gulp.task('build:images', () =>
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
 );
 
-gulp.task('revReplaceWebpack', () =>
-  gulp.src('dist/client/app.*.js')
+gulp.task('revReplaceWebpack', function() {
+  return gulp.src('dist/client/app.*.js')
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
-    .pipe(gulp.dest('dist/client'))
-);
+    .pipe(gulp.dest('dist/client'));
+});
 
 gulp.task('copy:extras', () =>
   gulp.src([
@@ -603,21 +603,21 @@ grunt.initConfig({
 
 grunt.loadNpmTasks('grunt-build-control');
 
-gulp.task('buildcontrol:heroku', done => {
+gulp.task('buildcontrol:heroku', function(done) {
   grunt.tasks(
     ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
-    () => {
+    function() {
       done();
     }
   );
 });
 
-gulp.task('buildcontrol:openshift', done => {
+gulp.task('buildcontrol:openshift', function(done) {
   grunt.tasks(
     ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
-    () => {
+    function() {
       done();
     }
   );
