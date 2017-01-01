@@ -30,6 +30,7 @@ describe('Message API:', function() {
     });
 
     it('should send response thanking the user for submitting a question or comment', function() {
+      console.log('RESPONSE', response);
       expect(response).to.equal('Thanks for submitting your question or comment. We will respond shortly.');
     });
   });

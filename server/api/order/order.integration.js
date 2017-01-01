@@ -54,8 +54,8 @@ describe('Order API:', function() {
     });
 
     it('should respond with a JSON confirmation', function() {
-      expect(confirmation.purchaser.firstName).to.equal('John');
-      expect(confirmation.purchaser.lastName).to.equal('Doe');
+      expect(confirmation.transaction.customer.firstName).to.equal('John');
+      expect(confirmation.transaction.customer.lastName).to.equal('Doe');
     });
   });
 });

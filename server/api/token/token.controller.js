@@ -12,6 +12,6 @@ export function index(req, res) {
   // Generate the client token
   gateway.clientToken.generate({}, (err, response) => {
     if(err) throw err; // Usually authentication issues
-    res.send(response.clientToken);
+    res.status(200).send(response.clientToken);
   });
 }
