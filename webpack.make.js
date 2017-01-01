@@ -46,7 +46,8 @@ module.exports = function makeWebpackConfig(options) {
         // 'angular-animate',
         // 'angular-cookies',
         // 'angular-resource',
-        // 'angular-sanitize',
+        'angular-messages',
+        'angular-sanitize',
         'angular-ui-bootstrap',
         'angular-ui-router',
         'lodash'
@@ -221,7 +222,7 @@ module.exports = function makeWebpackConfig(options) {
       //delays coverage til after tests are run, fixing transpiled source coverage error
       test: /\.js$/,
       exclude: /(node_modules|spec\.js|mock\.js)/,
-      loader: 'isparta-instrumenter',
+      loader: 'isparta-instrumenter', // should this be 'isparta' as the old one is deprectated?
       query: {
         babel: {
           // optional: ['runtime', 'es7.classProperties', 'es7.decorators']
