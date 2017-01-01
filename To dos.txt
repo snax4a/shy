@@ -3,7 +3,7 @@ High
 
 Low/cosmetic
 - Fix field border focus color using Sass
-- Gulp task mocha:unit fails during "after all" hook because app.shy is undefined
+- Gulp task mocha:integration fails in message.integration.js
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 

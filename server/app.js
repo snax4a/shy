@@ -24,6 +24,7 @@ require('./routes').default(app);
 function startServer() {
   app.shy = server.listen(config.port, config.ip, function() {
     console.log(`Express listening on port ${config.port}, env = ${app.get('env')}`);
+    app.emit('appStarted'); // So mocha.global.js doesn't try to complete after all until Express starts
   });
 }
 

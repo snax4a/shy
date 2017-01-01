@@ -1,6 +1,5 @@
 'use strict';
 /* global sinon, describe, it, expect */
-
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var messageCtrlStub = {
