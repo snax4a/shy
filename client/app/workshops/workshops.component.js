@@ -14,10 +14,8 @@ export class WorkshopsController {
   }
 
   $onInit() {
-    // Wait for Twitter widgets to load (visual flash - hate it)
-    this.$timeout(() => {
-      this.$window.twttr.widgets.load();
-    }, 50);
+    // Load twitter buttons in a separate thread
+    this.$timeout(() => this.$window.twttr.widgets.load());
 
     this.subscriber = {};
 

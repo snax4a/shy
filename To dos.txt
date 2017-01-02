@@ -1,5 +1,5 @@
 High
-- Add Apple Pay support
+- Add Apple Pay support to client/components/cartmodule/cart.service.js and paynow.pug
 
 Low/cosmetic
 - Fix field border focus color using Sass
@@ -7,7 +7,5 @@ Low/cosmetic
 - Add a toast if there's an error with the contact dialog
 - Perhaps create tweet button via JavaScript instead so it lazily loads Twitter's code
 
-SSL setup on Heroku
-- heroku certs:add server.crt server.key -a schoolhouseyoga
-- heroku domains:add www.schoolhouseyoga.com
-- Add CNAME to DNS zone
+DNS final steps for cutover
+- Add CNAME to DNS zone www.schoolhouseyoga.com.herokudns.com
