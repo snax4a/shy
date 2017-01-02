@@ -178,6 +178,15 @@ export class Cart {
     });
   }
 
+  // Return a promise to an Apple Pay Instance
+  braintreeApplePayCreate() {
+    return this.$q((resolve, reject) => {
+      braintree.applePay.create(function(applePayErr, applePayInstance) {
+        return applePayErr ? reject(applePayErr) : resolve(applePayInstance);
+      });
+    });
+  }
+
   // Return a promise to the confirmation
   postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
