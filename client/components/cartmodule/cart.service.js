@@ -42,6 +42,7 @@ export class Cart {
       .catch(err => this.$log.info('Error setting up Braintree client instance.', err));
   }
 
+  // Check to see whether Apple Pay is supported on the device so we know whether to display buttons
   applePayCheck() {
     try {
       let applePaySession = window.ApplePaySession;
@@ -56,6 +57,68 @@ export class Cart {
       this.$log.info('Apple Pay can only work over an HTTPS connection.');
       return false;
     }
+  }
+
+  // Immediate Apple Pay checkout with fallback to standard process
+  applePayPurchase(productID) {
+    if(this.applePayEnabled) {
+      // Asynchronous chain (could bypass the first two but better safe than sorry)
+      let promise = this.braintreeGetToken() // ensure this.clientToken is defined
+        .then(this.braintreeClientCreate) // ensure this.clientInstance is defined
+        .then(this.braintreeApplePayInstanceCreate) // ensure this.applePayInstance is defined
+        .then(applePayInstance => applePayInstance.merchantIdentifier) // extract just the merchantIdentifier
+        .then(window.ApplePaySession.canMakePaymentsWithActiveCard) // returns canMakePaymentsWithActiveCard
+        .then(canMakePaymentsWithActiveCard => {
+          if(canMakePaymentsWithActiveCard) {
+            // Continue with checkout because there is at least one credit card associated with Apple Pay
+            const applePaymentRequest = this.applePayInstance.createPaymentRequest({
+              total: {
+                label: 'My store',
+                amount: '1.00'
+              }
+            });
+            const session = new window.ApplePaySession(1, applePaymentRequest);
+
+            // Callback to handle merchant validation from Apple
+            session.onvalidatemerchant = event => {
+              this.applePayInstance.performValidation({
+                validationURL: event.validationURL,
+                displayName: 'My Store'
+              }, (validationErr, merchantSession) => {
+                if(validationErr) {
+                  this.$log.error('Error validating Apple Pay merchant:', validationErr);
+                  session.abort();
+                  return;
+                }
+                session.completeMerchantValidation(merchantSession);
+              }); // this.applePayInstance.performValidation
+            }; // session.onvalidatemerchant
+
+            // Callback to handle payment authorized from Apple
+            session.onpaymentauthorized = event => {
+              this.$log.info('Your shipping address is:', event.payment.shippingContact);
+              this.applePayInstance.tokenize({
+                token: event.payment.token
+              }, (tokenizeErr, payload) => {
+                if(tokenizeErr) {
+                  this.$log.error('Error tokenizing Apple Pay:', tokenizeErr);
+                  session.completePayment(session.STATUS_FAILURE);
+                  return;
+                }
+                session.completePayment(session.STATUS_SUCCESS);
+
+                // Send payload.nonce to your server.
+                this.postOrderInformation(payload);
+              });
+            }; // session.onpaymentauthorized
+
+            // Show the payment sheet on the device
+            session.begin();
+          } else this.Cart.addItem(productID); // Ordinary checkout since there's no credit card tied to Apple Pay
+        })
+        .catch();
+      return promise;
+    } else this.Cart.addItem(productID); // Might need to split out price lookup
   }
 
   // Returns a promise for the token
@@ -90,6 +153,25 @@ export class Cart {
         } else {
           this.clientInstance = clientInstance; // hold on to it for successive requests
           return resolve(clientInstance);
+        }
+      });
+    });
+  }
+
+  // Return a promise to an Apple Pay Instance, call braintreeClientCreate in chain prior (just in case)
+  braintreeApplePayInstanceCreate() {
+    // If we already have one, return that
+    if(this.applePayInstance) return this.$q(resolve => resolve(this.applePayInstance));
+
+    // Otherwise, get the promise to an applePayInstance
+    return this.$q((resolve, reject) => {
+      braintree.applePay.create({ client: this.clientInstance }, (applePayInstanceErr, applePayInstance) => {
+        if(applePayInstanceErr) {
+          this.$log.error('Not able to create an Apple Pay instance with Braintree. Make sure the client instance was setup correctly.');
+          return reject(applePayInstanceErr);
+        } else {
+          this.applePayInstance = applePayInstance; // hold on to it for successive requests
+          return resolve(applePayInstance);
         }
       });
     });
@@ -177,15 +259,6 @@ export class Cart {
     });
   }
 
-  // Return a promise to an Apple Pay Instance, call braintreeClientCreate in chain prior (just in case)
-  braintreeApplePayCreate() {
-    return this.$q((resolve, reject) => {
-      braintree.applePay.create({ client: this.clientInstance }, function(applePayErr, applePayInstance) {
-        return applePayErr ? reject(applePayErr) : resolve(applePayInstance);
-      });
-    });
-  }
-
   // Return a promise to the confirmation
   postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
@@ -219,7 +292,7 @@ export class Cart {
   // Return a promise to the orderConfirmation
   placeOrder() {
     // Tokenize hosted fields to get nonce then post the order
-    return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance)
+    return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance) // returns payload containing nonce
       .then(this.postOrderInformation.bind(this));
       //.catch(); // Catch errors in cart.component.js since they affect the view
   }
