@@ -43,7 +43,6 @@ export class Cart {
   }
 
   applePayCheck() {
-    // Remove diagnostics once we're sure Apple Pay works
     try {
       let applePaySession = window.ApplePaySession;
       if(applePaySession && applePaySession.canMakePayments()) {
@@ -169,7 +168,7 @@ export class Cart {
     });
   }
 
-  // Return a promise to the payload (for submitting orders)
+  // Return a promise to the payload (containing the nonce)
   braintreeHostedFieldsTokenize(hostedFieldsInstance) {
     return this.$q((resolve, reject) => {
       hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
@@ -178,10 +177,10 @@ export class Cart {
     });
   }
 
-  // Return a promise to an Apple Pay Instance
+  // Return a promise to an Apple Pay Instance, call braintreeClientCreate in chain prior (just in case)
   braintreeApplePayCreate() {
     return this.$q((resolve, reject) => {
-      braintree.applePay.create(function(applePayErr, applePayInstance) {
+      braintree.applePay.create({ client: this.clientInstance }, function(applePayErr, applePayInstance) {
         return applePayErr ? reject(applePayErr) : resolve(applePayInstance);
       });
     });
