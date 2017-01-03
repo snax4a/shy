@@ -3,11 +3,6 @@
     "section": "Holiday Schedule",
     "announcements": [
       {
-        "title": "Saturday, December 31st",
-        "description": "- All classes running as scheduled",
-        "expires": "2017-01-01T00:00:00.000-05:00"
-      },
-      {
         "title": "Sunday, January 1st",
         "description": "- 11:30am Ashtanga Yoga and 4:30pm Yoga 1 classes are running at the Squirrel Hill school; the 4pm Yoga 1 is running at the North Hills school; all other classes are cancelled.",
         "expires": "2017-01-02T00:00:00.000-05:00"
