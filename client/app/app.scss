@@ -28,42 +28,55 @@ $input-border-focus: $brand-base;
 }
 
 body, td, th, input, textarea, select {
-	color: #333333;
-    -webkit-font-smoothing: antialiased;
+  color: #333333;
+  -webkit-font-smoothing: antialiased;
 }
 
 a:hover {
-	color: orange;
+  color: orange;
 }
 
 h1 {
-	color: #fff;
+  color: #fff;
 }
 
 h2 {
-	margin-bottom: 17px;
+  margin-bottom: 17px;
 }
 
 h2, h4, a {
-	color: #5f4884; // $brand-primary (should be)
+  color: #5f4884; // $brand-primary (should be)
 }
 
 h4 {
-    white-space: normal!important;
+  white-space: normal!important;
 }
 
 .has-error {
-    color: $shy-errors;
+  color: $shy-errors;
 }
 
 .help-block {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .applepay {
-    height: 34px;
-    width: 74px;
-    cursor: pointer;
+  height: 34px;
+  width: 74px;
+  cursor: pointer;
+}
+
+#apple-pay-button {
+  display: none;
+  background-color: black;
+  background-image: -webkit-named-image(apple-pay-logo-white);
+  background-size: 100% 100%;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 44px;
+  padding: 10px 0;
+  border-radius: 10px;
 }
 
 // Component styles are injected through gulp
