@@ -7,14 +7,6 @@
 		"sections":
 		[
 			{
-				"title": "The Winter Solstice Cold Moon",
-				"start": "2016-12-16T18:30:00.000-05:00",
-				"expires": "2016-12-16T20:00:00.000-05:00",
-				"productID": 9,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
 				"title": "The Quiet Wolf Moon",
 				"start": "2017-01-13T18:30:00.000-05:00",
 				"expires": "2017-01-13T20:00:00.000-05:00",
@@ -40,13 +32,6 @@
 		"sections":
 		[
 			{
-				"start": "2016-12-30T18:30:00.000-05:00",
-				"expires": "2016-12-16T20:00:00.000-05:00",
-				"productID": 29,
-				"cost": 10,
-				"location": "North Hills"
-			},
-			{
 				"start": "2017-01-27T18:30:00.000-05:00",
 				"expires": "2017-01-13T20:00:00.000-05:00",
 				"productID": 30,
@@ -70,13 +55,6 @@
 		"sections":
 		[
 			{
-				"start": "2016-12-04T14:00:00.000-05:00",
-				"expires": "2016-12-04T15:00:00.000-05:00",
-				"productID": 58,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			{
 				"start": "2017-01-08T14:00:00.000-05:00",
 				"expires": "2017-01-13T15:00:00.000-05:00",
 				"productID": 59,
@@ -89,22 +67,6 @@
 				"productID": 60,
 				"cost": 10,
 				"location": "Squirrel Hill"
-			}
-		]
-	},
-	{
-		"expires": "2016-12-04T15:00:00.000-05:00",
-		"title": "Teacher Training Open House",
-		"photo": "/assets/images/workshops/openhouse.jpg",
-		"description": "Are you interested becoming a yoga instructor? Are you interested in learning more about yoga history, philosophy, anatomy, alignment, chakra, meditation and Ayurveda? Then join us for this informational get-together! We will discuss our upcoming 2017 Teacher Training and Yoga Intensive and answer any questions you have.",
-		"sections":
-		[
-			{
-				"start": "2016-12-04T14:00:00.000-05:00",
-				"expires": "2016-12-04T15:00:00.000-05:00",
-				"productID": 100,
-				"cost": 0,
-				"location": "East Liberty"
 			}
 		]
 	},
@@ -121,22 +83,6 @@
 				"expires": "2017-01-15T17:00:00.000-05:00",
 				"productID": 51,
 				"cost": 40,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
-		"expires": "2017-01-01T12:30:00.000-05:00",
-		"title": "New Year's Day Workshop with Linda Meacci",
-		"photo": "/assets/images/workshops/nyd.jpg",
-		"description": "Jivanmukti—Be Here Now: There’s no better place than on your yoga mat to start the New Year! Invigorate body, mind and spirit and step into a shining 2017. This mindful, energetic practice—a blend of asana, contemplation, revelation and music—will make for an auspicious start to your New Year. We will reflect upon life principles as we move fluidly in Sun Salutes, Warrior postures and stabilizing balance postures. Rhythm and playfulness will be explored in backbends and hip asanas. A deep relaxation ties it all together. Walk into the New Year with a strong intention for harmony, self-care, and levity! Jivanmukti—freedom here and now! All levels welcome. Modifications will be provided. Sign-up early. Space is limited!",
-		"sections":
-		[
-			{
-				"start": "2017-01-01T10:00:00.000-05:00",
-				"expires": "2017-01-01T12:30:00.000-05:00",
-				"productID": 41,
-				"cost": 35,
 				"location": "East Liberty"
 			}
 		]

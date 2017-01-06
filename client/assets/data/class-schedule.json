@@ -263,7 +263,7 @@
           {
             "time": "6:30-7:50pm",
             "name": "Yoga 1",
-            "teacher": "Meghan Hynson"
+            "teacher": "Alyssa Jurewicz Johns"
           }
         ]
       },
@@ -323,7 +323,7 @@
           {
             "time": "6:30-8pm",
             "name": "Yoga 1",
-            "teacher": "Stefanie Zito"
+            "teacher": "Alyssa Jurewicz Johns"
           }
         ]
       },
@@ -376,7 +376,7 @@
             "teacher": "Lizzie Hanulak"
           },
           {
-            "time": "2-3:15pm",
+            "time": "12-1:45pm",
             "name": "Prenatal Yoga",
             "teacher": "Jamie DeMarco"
           },
@@ -396,11 +396,6 @@
             "teacher": "Monique Richards"
           },
           {
-            "time": "4:30-5:45pm",
-            "name": "Gentle Yoga",
-            "teacher": "Diane Dice"
-          },
-          {
             "time": "6:30-7:45pm",
             "name": "Yoga 1",
             "teacher": "Diane Dice"
@@ -412,7 +407,7 @@
         "classes":[
           {
             "time": "11:30‑1pm",
-            "name": "Chair Seated Yoga",
+            "name": "Gentle Yoga",
             "teacher": "Lizzie Hanulak"
           },
           {
@@ -479,6 +474,11 @@
             "time": "10-11:30am",
             "name": "Yoga 1",
             "teacher": "Kendell Romanelli"
+          },
+          {
+            "time": "1-2:15pm",
+            "name": "Chair/Seated Yoga",
+            "teacher": "Lizzie Hanulak"
           }
         ]
       }
