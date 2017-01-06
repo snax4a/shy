@@ -67,6 +67,7 @@ export class Cart {
         .then(canMakePaymentsWithActiveCard => {
           // Set property that enables buttons
           this.applePayEnabled = canMakePaymentsWithActiveCard;
+          this.$log.info(`Apple Pay: ${this.applePayEnabled ? '' : 'not'} enabled.`);
         })
         .catch();
     }
@@ -183,11 +184,6 @@ export class Cart {
           return reject(applePayInstanceErr);
         } else {
           this.applePayInstance = applePayInstance; // hold on to it for successive requests
-
-          window.ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier)
-            .then(canMakePaymentsWithActiveCard => {
-              this.applePayEnabled = canMakePaymentsWithActiveCard;
-            });
           return resolve(applePayInstance);
         }
       });
