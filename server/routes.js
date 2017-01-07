@@ -1,7 +1,6 @@
 /**
  * Main application routes
  */
-
 'use strict';
 
 import errors from './components/errors';
@@ -13,6 +12,11 @@ export default function(app) {
   app.use('/api/order', require('./api/order'));
   app.use('/api/newsletter', require('./api/newsletter'));
   // app.use('/auth', require('./auth').default);
+
+  // Return Apple's merchant ID domain association file
+  app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res) => {
+    res.sendfile(path.resolve(`${app.get('serverPath')}/.well-known/apple-developer-merchantid-domain-association`));
+  });
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

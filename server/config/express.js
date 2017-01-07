@@ -43,7 +43,7 @@ export default function(app) {
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
-
+  app.set('serverPath', `${config.root}/server`);
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
   app.use(shrinkRay());
