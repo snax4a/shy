@@ -6,21 +6,44 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($log, $http, $timeout, $window) {
+  constructor($log, $http, $timeout) {
     this.$log = $log;
     this.$http = $http;
     this.$timeout = $timeout;
-    this.$window = $window;
   }
 
   $onInit() {
-    // Load twitter buttons in a separate thread
-    this.$timeout(() => this.$window.twttr.widgets.load());
-
     this.subscriber = {};
+
+    // Load the Twitter script and widgets
+    this.twitterLoad();
 
     // Load the workshops from the JSON file
     this.workshops = workshops;
+  }
+
+  twitterLoad() {
+    if(window.twttr === undefined) {
+      this.twitterLoadScript(document, 'script', 'twitter-wjs');
+    } else {
+      this.$timeout(() => window.twttr.widgets.load());
+    }
+  }
+
+  twitterLoadScript(d, s, id) {
+    let js;
+    let fjs = d.getElementsByTagName(s)[0];
+    let t = window.twttr || {};
+    if(d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = '//platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = f => {
+      t._e.push(f);
+    };
+    return t;
   }
 
   // close the alert by deleting the element in the array
