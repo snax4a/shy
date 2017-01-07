@@ -33,7 +33,7 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
     paymentMethodNonce: req.body.nonceFromClient,
     amount: getGrandTotal(cartItems),
     descriptor: {
-      name: 'SH Yoga*Class|Workshop',
+      name: 'SH Yoga*Class Workshop',
       phone: '412-401-4444',
     },
     customFields: {
