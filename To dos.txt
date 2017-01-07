@@ -2,7 +2,6 @@ High
 - Add Apple Pay support to client/components/cartmodule/cart.service.js and paynow.pug
 
 Low/cosmetic
-- Workshops page - Fix Error: undefined is not an object (evaluating '_this.$window.twttr.widgets') for workshop if reloading page (timing issue)
 - Locations page - Fix 404 for https://geo0.ggpht.com/cbk?cb_client=apiv3&panoid=WjnXDlKb0h_XQYWIMdq8ww&output=tile&x=0&y=0&zoom=0&nbt&fover=2
 - Fix field border focus color using Sass
 - Gulp task mocha:integration fails in "after all" hook
