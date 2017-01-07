@@ -373,6 +373,9 @@ export class Cart {
   // Clear the cartItems during checkout()
   clearCartItems() {
     this.cartItems = []; // Clear the array of Items
+    this.instructions = '';
+    this.gift = false;
+    this.sendVia = 'Email';
     localStorage.removeItem(this.key);
   }
 
