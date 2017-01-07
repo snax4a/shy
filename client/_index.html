@@ -15,8 +15,7 @@
     <meta property="og:url" content="https://www.schoolhouseyoga.com" />
     <meta property="og:title" content="Schoolhouse Yoga" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Pittsburgh Yoga Schools in Squirrel Hill and the Strip offering beginner through advanced classes in Ashtanga, Hatha, and Kundalini yoga seven days a week." />
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <meta property="og:description" content="Pittsburgh Yoga Schools in Squirrel Hill and the Strip offering beginner through advanced classes in Ashtanga, Hatha, and Kundalini yoga seven days a week." /> 
   </head>
   <body>
     <h1 style="display:none">
@@ -29,6 +28,22 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <script>
+      // Twitter
+      window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+        return t;
+      }(document, "script", "twitter-wjs"));
+
       // Google Analytics
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
