@@ -17,7 +17,9 @@ if(config.seedDB) {
 // Setup server
 var app = express();
 var server = http.createServer(app);
-require('./config/express').default(app);
+
+// Load configuration and routes
+require('./config/express').default(app); // this is where I redirect to HTTPS in production
 require('./routes').default(app);
 
 // Start server

@@ -30,13 +30,14 @@ export default function(app) {
 
   if(env === 'production') {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-    // app.use((req, res, next) => {
-    //   if(req.secure) { // request was via https, so do no special handling
-    //     next();
-    //   } else { // request was via http, so redirect to https
-    //     res.redirect(`https://${config.fqdn}${req.url}`);
-    //   }
-    // });
+    // Force HTTPS for production only (though would be good for dev too)
+    app.use((req, res, next) => {
+      if(req.headers['x-forwarded-proto'] !== 'https') {
+        res.redirect(`https://${config.fqdn}${req.url}`);
+      } else { // request was via http, so redirect to https
+        next();
+      }
+    });
   }
 
   app.set('appPath', path.join(config.root, 'client'));
