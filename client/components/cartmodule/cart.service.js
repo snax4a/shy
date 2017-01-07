@@ -180,8 +180,8 @@ export class Cart {
           };
           this.sendVia = 'Email'; // Set this and .gift
           this.gift = false;
-          this.$log.info('Cart', this);
           this.cartItems = [{ id: productID, quantity: 1, name: product.name, price: product.price }];
+          this.$log.info('Cart', this);
           // Send payload.nonce to your server.
           this.postOrderInformation(payload);
         });
