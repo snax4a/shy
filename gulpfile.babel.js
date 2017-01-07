@@ -525,7 +525,8 @@ gulp.task('copy:extras', () =>
   gulp.src([
     `${clientPath}/favicon.ico`,
     `${clientPath}/robots.txt`,
-    `${clientPath}/.htaccess`
+    `${clientPath}/.htaccess`,
+    `${clientPath}/apple-developer-merchantid-domain-association`,
   ], { dot: true })
   .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
