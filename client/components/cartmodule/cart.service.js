@@ -40,7 +40,7 @@ export class Cart {
     this.braintreeGetToken()
       .then(this.braintreeClientCreate.bind(this))
       .then(this.applePayCapabilityCheck.bind(this))
-      .catch(err => this.$log.info('Error setting up Braintree client instance.', err));
+      .catch(err => this.$log.info('Error setting up Braintree client instance or checking for Apple Pay support.', err));
   }
 
   // Check to see whether Apple Pay is supported on the device so we know whether to display buttons
@@ -87,8 +87,8 @@ export class Cart {
         ],
         shippingMethods: [
           {
-            label: 'Email',
-            detail: 'Send confirmation to billing contact',
+            label: 'Credit electronically',
+            detail: 'With email confirmation',
             amount: '0.00',
             identifier: 'Email'
           },
@@ -108,7 +108,7 @@ export class Cart {
         ],
         total: {
           label: 'Schoolhouse Yoga',
-          amount: '1.00'
+          amount: product.price
         }
       });
 
