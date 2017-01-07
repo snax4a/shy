@@ -35,7 +35,7 @@ export default function(app) {
       if(req.headers['x-forwarded-proto'] !== 'https') {
         res.redirect(`https://${config.fqdn}${req.url}`);
       } else { // request was via http, so redirect to https
-        next();
+        return next();
       }
     });
   }
@@ -43,7 +43,6 @@ export default function(app) {
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
-  app.set('serverPath', `${config.root}/server`);
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
   app.use(shrinkRay());

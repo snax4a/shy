@@ -53,7 +53,8 @@ var all = {
       tls: {
         ciphers: process.env.SMTP_TLS_CIPHERS || 'SSLv3'
       }
-    }
+    },
+    bcc: process.env.SMTP_BCC || process.env.SMTP_USER
   },
 
   // Default to not seeding the database unless required

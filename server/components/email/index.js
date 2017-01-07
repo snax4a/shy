@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 export default function email(message, res) {
   // If recipient specified, BCC the sender (such as orders), else it's internal
   if(message.to) {
-    message.bcc = config.mail.transport.auth.user;
+    message.bcc = config.mail.bcc;
   } else message.to = config.mail.transport.auth.user;
   message.from = config.mail.transport.auth.user;
   const transporter = nodemailer.createTransport(config.mail.transport); // to send the emails

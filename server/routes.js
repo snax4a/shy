@@ -15,7 +15,7 @@ export default function(app) {
 
   // Return Apple's merchant ID domain association file
   app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res) => {
-    res.sendfile(path.resolve(`${app.get('serverPath')}/.well-known/apple-developer-merchantid-domain-association`));
+    res.sendfile(path.resolve(`${app.get('appPath')}/apple-developer-merchantid-domain-association`));
   });
 
   // All undefined asset or api routes should return a 404
