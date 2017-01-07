@@ -46,15 +46,8 @@ export class Cart {
   // Check to see whether Apple Pay is supported on the device so we know whether to display buttons
   applePayPossible() {
     try {
-      let applePaySession = window.ApplePaySession;
-      if(applePaySession && applePaySession.canMakePayments()) {
-        this.$log.info('This device supports Apple Pay.');
-        return true;
-      } else {
-        this.$log.info('Apple Pay is not supported on this device.');
-        return false;
-      }
-    } catch(err) {
+      return window.ApplePaySession && window.ApplePaySession.canMakePayments();
+    } catch(err) { // Triggered by attempting Apple Pay on HTTP rather than HTTPS (ie dev)
       return false;
     }
   }
@@ -65,9 +58,8 @@ export class Cart {
         .then(applePayInstance => applePayInstance.merchantIdentifier)
         .then(window.ApplePaySession.canMakePaymentsWithActiveCard)
         .then(canMakePaymentsWithActiveCard => {
-          // Set property that enables buttons
+          // Set property that enables buttons because there's at least one credit card tied to Apple Pay
           this.applePayEnabled = canMakePaymentsWithActiveCard;
-          this.$log.info(`Apple Pay: ${this.applePayEnabled ? '' : 'not'} enabled.`);
         })
         .catch();
     }
