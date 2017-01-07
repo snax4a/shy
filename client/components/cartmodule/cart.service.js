@@ -93,10 +93,22 @@ export class Cart {
             identifier: 'Email'
           },
           {
-            label: 'Mail',
-            detail: 'Send gift card to shipping contact',
+            label: 'Gift for shipping contact',
+            detail: 'With email confirmation',
             amount: '0.00',
-            identifier: 'Mail'
+            identifier: 'Gift-Email'
+          },
+          {
+            label: 'Gift for shipping contact',
+            detail: 'Mailed to their address',
+            amount: '0.00',
+            identifier: 'Gift-Mail-Shipping'
+          },
+          {
+            label: 'Gift for shipping contact',
+            detail: 'Mailed to billing contact',
+            amount: '0.00',
+            identifier: 'Gift-Mail-Billing'
           }
         ],
         lineItems: [
