@@ -87,8 +87,8 @@ export class Cart {
         ],
         shippingMethods: [
           {
-            label: 'Credit electronically',
-            detail: 'With email confirmation',
+            label: 'Register billing contact',
+            detail: 'and email confirmation',
             amount: '0.00',
             identifier: 'Email'
           },
@@ -115,7 +115,7 @@ export class Cart {
           {
             type: 'final',
             label: product.name,
-            amount: product.price // do I need to stringify?
+            amount: product.price
           }
         ],
         total: {
