@@ -30,6 +30,13 @@ export default function(app) {
 
   if(env === 'production') {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+    // app.use((req, res, next) => {
+    //   if(req.secure) { // request was via https, so do no special handling
+    //     next();
+    //   } else { // request was via http, so redirect to https
+    //     res.redirect(`https://${config.fqdn}${req.url}`);
+    //   }
+    // });
   }
 
   app.set('appPath', path.join(config.root, 'client'));

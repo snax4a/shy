@@ -15,15 +15,6 @@ module.exports = {
     || process.env.PORT
     || 8080,
 
-  // Sequelize
-  sequelize: {
-    uri: process.env.DATABASE_URL,
-    options: {
-      logging: false,
-      dialect: 'postgres'
-    }
-  },
-
   // Braintree
   gateway: {
     environment: braintree.Environment.Production,

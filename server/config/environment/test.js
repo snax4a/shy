@@ -5,14 +5,7 @@ import braintree from 'braintree';
 // Test specific configuration
 // ===========================
 module.exports = {
-  sequelize: {
-    uri: process.env.DATABASE_URL,
-    options: {
-      logging: false,
-      dialect: 'postgres'
-    }
-  },
-
+  // Braintree
   gateway: {
     environment: braintree.Environment.Sandbox,
     merchantId: process.env.BRAINTREE_MERCHANT_ID_SANDBOX,

@@ -16,6 +16,9 @@ import _ from 'lodash';
 var all = {
   env: process.env.NODE_ENV,
 
+  // FQDN
+  fqdn: process.env.DOMAIN,
+
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),
 
@@ -28,6 +31,16 @@ var all = {
   // Server IP
   ip: process.env.IP || '0.0.0.0',
 
+  // Sequelize connection opions
+  sequelize: {
+    uri: process.env.DATABASE_URL,
+    options: {
+      logging: false,
+      dialect: 'postgres'
+    }
+  },
+
+  // Nodemailer settings
   mail: {
     transport: {
       host: process.env.SMTP_HOST || 'smtp.office365.com',

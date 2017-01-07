@@ -9,6 +9,13 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
+  // app.get('*', (req, res, next) => {
+  //   if(req.headers['x-forwarded-proto']!='https') {
+  //     res.redirect(`https://${config.fqdn}${req.url}`);
+  //   } else {
+  //     next(); // Continue to other routes if we're not redirecting
+  //   }
+  // });
   app.use('/api/token', require('./api/token'));
   app.use('/api/message', require('./api/message'));
   app.use('/api/order', require('./api/order'));
