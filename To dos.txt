@@ -1,5 +1,6 @@
 High
-- Add Apple Pay support to client/components/cartmodule/cart.service.js and paynow.pug
+- Add Apple Pay for class card purchases
+- Take Apple Pay data for order processing and email confirmations
 
 Low/cosmetic
 - Locations page - Fix 404 for https://geo0.ggpht.com/cbk?cb_client=apiv3&panoid=WjnXDlKb0h_XQYWIMdq8ww&output=tile&x=0&y=0&zoom=0&nbt&fover=2

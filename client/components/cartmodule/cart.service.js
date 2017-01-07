@@ -144,7 +144,6 @@ export class Cart {
 
       // Callback to handle payment authorized from Apple
       session.onpaymentauthorized = event => {
-        this.$log.info('Your shipping address is:', event.payment.shippingContact);
         this.applePayInstance.tokenize({
           token: event.payment.token
         }, (tokenizeErr, payload) => {
@@ -155,6 +154,34 @@ export class Cart {
           }
           session.completePayment(session.STATUS_SUCCESS);
 
+          // Problem: Apple Pay won't send the event.payment.billingContact.emailAddress or phoneNumber
+
+          // Set this.purchaser and recipient to event.payment.billingContact and shippingContact
+          this.$log.info('Apple Pay event', event);
+          this.purchaser = {
+            firstName: event.payment.billingContact.givenName,
+            lastName: event.payment.billingContact.familyName,
+            email: event.payment.billingContact.emailAddress || event.payment.shippingContact.emailAddress,
+            phone: event.payment.billingContact.phoneNumber || event.payment.shippingContact.phoneNumber,
+            address: event.payment.billingContact.addressLines[0],
+            city: event.payment.billingContact.locality,
+            state: event.payment.billingContact.administrativeArea,
+            zipCode: event.payment.billingContact.postalCode
+          };
+          this.recipient = {
+            firstName: event.payment.shippingContact.givenName,
+            lastName: event.payment.shippingContact.familyName,
+            email: event.payment.shippingContact.emailAddress,
+            phone: event.payment.shippingContact.phoneNumber,
+            address: event.payment.shippingContact.addressLines[0],
+            city: event.payment.shippingContact.locality,
+            state: event.payment.shippingContact.administrativeArea,
+            zipCode: event.payment.shippingContact.postalCode
+          };
+          this.sendVia = 'Email'; // Set this and .gift
+          this.gift = false;
+          this.$log.info('Cart', this);
+          this.cartItems = [{ id: productID, quantity: 1, name: product.name, price: product.price }];
           // Send payload.nonce to your server.
           this.postOrderInformation(payload);
         });
