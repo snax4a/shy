@@ -1,7 +1,6 @@
 High
-- Apple Pay
-  - Get contact phone and email
-  - Enable for class card purchases
+- Add Apple Pay for classes
+- If someone hits addItem, change pageName (but not via Cart Service)
 
 Low/cosmetic
 - Locations page - Fix 404 for https://geo0.ggpht.com/cbk?cb_client=apiv3&panoid=WjnXDlKb0h_XQYWIMdq8ww&output=tile&x=0&y=0&zoom=0&nbt&fover=2

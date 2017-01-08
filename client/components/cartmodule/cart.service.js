@@ -78,23 +78,15 @@ export class Cart {
       // Lookup the product name and price
       let product = this.ProductList.lookup(productID);
 
-      // There will only be one cart item for Apple Pay purchases since they are instantaneous
-      this.cartItems = [{ id: productID, quantity: 1, name: product.name, price: product.price }];
+      // Only one cart item for Apple Pay purchases - suppress navigation to Cart page
+      this.addItem(productID, true);
 
       // Compose the applePayRequest
       const applePaymentRequest = this.applePayInstance.createPaymentRequest({
-        requiredBillingContactFields: [
-          'name',
-          'postalAddress',
-          'phone',
-          'email'
-        ],
-        requiredShippingContactFields: [
-          'name',
-          'postalAddress',
-          'phone',
-          'email'
-        ],
+        // For now, Apple ignores the last two items
+        requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
+        // Apple thinks phone and email is only for shippingContact (bad assumption)
+        requiredShippingContactFields: ['name', 'postalAddress', 'phone', 'email'],
         shippingMethods: [
           {
             label: 'Purchased for myself.',
@@ -201,8 +193,7 @@ export class Cart {
             zipCode: event.payment.shippingContact.postalCode
           };
 
-          this.$log.info('Cart', this);
-          // Send payload.nonce to your server.
+          // Post the order and handle errors
           this.postOrderInformation(payload);
         });
       }; // session.onpaymentauthorized
@@ -378,6 +369,7 @@ export class Cart {
         // Clear the cart to avoid duplicate orders (only if successful though)
         this.clearCartItems();
 
+        // Display confirmation
         return this.confirmation;
       });
   }
@@ -402,10 +394,7 @@ export class Cart {
   }
 
   // Add a product to the cart
-  addItem(id) {
-    // make sure we're not on confirmation for previous purchase
-    this.pageName = 'Shopping Cart';
-
+  addItem(id, navigationDisabled) {
     let inCart = this.getItemById(id);
     if(typeof inCart === 'object') { // then it is in the cart already
       // Increment the quantity instead of starting at 1
@@ -415,7 +404,7 @@ export class Cart {
       this.cartItems.push(new Item(id, product.name, product.price, 1));
     }
     this.saveToStorage();
-    this.$location.path('/cart');
+    if(!navigationDisabled) this.$location.path('/cart');
   }
 
   // Get item by its id
