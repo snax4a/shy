@@ -5,12 +5,13 @@ import uiRouter from 'angular-ui-router';
 
 export class CartController {
   /*@ngInject*/
-  constructor($log, $http, $window, $timeout, ProductList, Cart) {
+  constructor($log, $http, $window, $timeout, $location, ProductList, Cart) {
     // Dependency injection
     this.$log = $log;
     this.$http = $http;
     this.$window = $window;
     this.$timeout = $timeout;
+    this.$location = $location;
     this.products = ProductList.products;
     this.Cart = Cart;
   }
@@ -71,6 +72,12 @@ export class CartController {
     this.$timeout(() => {
       fieldToGetFocus.focus();
     }, 50);
+  }
+
+  // Attempt to checkout with Apple Pay. Pass or fail - send the user to the home page since we won't show the confirmation for them.
+  applePayCheckout() {
+    this.Cart.applePayCheckout();
+    this.$location.path('/cart');
   }
 
   // Initiate the order process

@@ -43,6 +43,13 @@
             .row(ng-show='$ctrl.braintreeError')
               .form-group.col-xs-12
                 .help-block.has-error {{ $ctrl.braintreeError }}
+            .row(ng-if='$ctrl.Cart.applePayEnabled')
+              .col-xs-12
+                a.apple-pay-button(ng-click='$ctrl.applePayCheckout()')
+                br
+                | Or fill out the form below to use a credit card.
+                br
+                br
             .row
               .form-group.col-xs-12.col-sm-7.col-lg-6
                 label(id='labelCardNumber', for='card-number') Credit card number

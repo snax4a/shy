@@ -1,8 +1,7 @@
 High
-- Add Apple Pay for classes
-- If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 
 Low/cosmetic
+- If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 - Fix field border focus color using Sass
 - Add subscription support for Apple Pay and normal purchases
 - Gulp task mocha:integration fails in "after all" hook
