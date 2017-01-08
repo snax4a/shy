@@ -214,7 +214,7 @@ export class Cart {
 
       // Complete the Apple Pay checkout process
       this.applePayCheckout();
-    } else this.Cart.addItem(productID); // fallback to regular cart behavior with navigation to cart page
+    } else this.addItem(productID); // fallback to regular cart behavior with navigation to cart page
   }
 
   // Returns a promise for the token
