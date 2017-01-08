@@ -376,6 +376,8 @@ export class Cart {
     this.instructions = '';
     this.gift = false;
     this.sendVia = 'Email';
+    this.purchaser = {};
+    this.recipient = {};
     localStorage.removeItem(this.key);
   }
 
