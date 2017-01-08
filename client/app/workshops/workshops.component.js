@@ -15,7 +15,7 @@ export class WorkshopsController {
   $onInit() {
     this.subscriber = {};
 
-    // Load the Twitter script and widgets
+    // Load Twitter script and widgets
     this.twitterLoad();
 
     // Load the workshops from the JSON file

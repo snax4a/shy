@@ -7,7 +7,10 @@ export class RegisterController {
   constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
-    this.paymentTerms = '98';
+  }
+
+  $onInit() {
+    this.paymentTerms = '98'; // product ID for teacher training (one-time fee)
   }
 
   register() {
