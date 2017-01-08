@@ -1,43 +1,29 @@
-.logo {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  height: 200px;
-  width: 200px;
-}
-
-.seal {
-  margin-top: 20px;
-}
-
 .callout {
   padding: 20px 20px 15px 20px;
   margin: 15px 0 10px 0;
   border: 1px solid #eee;
   border-left-width: 5px;
   border-radius: 3px;
-  border-left-color: #f0ad4e;
+  border-left-color: $shy-orange;
+
+  h4 {
+    color: $brand-primary;
+    margin-top: 20px;
+  }
+
+  h3 {
+    margin-top: 0;
+    color: orange;
+  }
+
+  div {
+    p {
+      margin: 5px 0 0;
+    }
+  }
 }
 
-.callout h3 {
-  margin-top: 0;
-  color: orange;
-}
-
-.callout h4 {
-  margin-top: 20px;
-}
-
-.callout > h4 {
-  color: #5f4884;
-}
-
-.callout > div > p {
-  margin: 5px 0 0;
-}
-
-.right.carousel-control, .left.carousel-control {
+.carousel-control {
   display: none;
 }
 
@@ -91,21 +77,14 @@ $column-gap: 3em;
 article {
   break-inside: avoid-column; // keep articles together
   margin-bottom: 20px;
-}
 
-article > p {
-  break-inside: avoid-column;
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
+  p {
+    break-inside: avoid-column;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
 
-article > h4 {
-  margin-bottom: 10px;
-}
-
-.applepaymark {
-  height: 36px;
-  width:56px;
-  float: right;
-  margin-left: 5px;
+  h4 {
+    margin-bottom: 10px;
+  }
 }

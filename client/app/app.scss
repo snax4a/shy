@@ -45,7 +45,7 @@ h2 {
 }
 
 h2, h4, a {
-  color: #5f4884; // $brand-primary (should be)
+  color: $brand-primary;
 }
 
 h4 {

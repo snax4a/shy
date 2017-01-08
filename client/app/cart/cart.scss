@@ -15,9 +15,6 @@
   text-align: right;
 }
 
-.table tbody>tr>td.vert-align{
-  vertical-align: middle;
-}
 .center {
   text-align: center;
 }
@@ -33,6 +30,10 @@ input[type="radio"]
 
 label {
   font-weight: normal;
+}
+
+.table tbody>tr>td.vert-align{
+  vertical-align: middle;
 }
 
 .table>thead>tr>tr {
