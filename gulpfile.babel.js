@@ -1,5 +1,5 @@
 /*eslint no-process-env:0*/
-/* global console, setInterval, clearInterval, require */
+/* global console, setInterval, clearInterval, require, process, __dirname */
 // Generated on 2016-09-03 using generator-angular-fullstack 4.0.4
 'use strict';
 
@@ -75,7 +75,7 @@ function checkAppReady(cb) {
     .on('error', () => cb(false));
 }
 
-// Call page until first success
+// Call page until first success (perhaps use promise to wait for "appStarted" to be emitted instead)
 function whenServerReady(cb) {
   let serverReady = false;
   let appReadyInterval = setInterval(() =>
@@ -222,6 +222,7 @@ gulp.task('webpack:dist', function() {
   return gulp.src(webpackDistConfig.entry.app)
     .pipe(webpack(webpackDistConfig))
     .on('error', err => {
+      console.log('Error: webpack:dist', err);
       this.emit('end'); // Recover from errors
     })
     .pipe(gulp.dest(`${paths.dist}/client`));
@@ -288,7 +289,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
   whenServerReady(() => {
-    open('http://localhost:' + config.browserSyncPort);
+    open(`http://localhost:${config.browserSyncPort}`);
     cb();
   });
 });
@@ -394,6 +395,7 @@ gulp.task('mocha:unit', () =>
     //   process.exit();
     // })
 );
+
 // Run all unit tests in debug mode
 gulp.task('test-debug', function() {
   var spawn = require('child_process').spawn;
@@ -531,11 +533,9 @@ gulp.task('copy:extras', () =>
   .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
-/**
- * turns 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
- */
+// Flattens 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
 function flatten() {
-  return through2.obj(function(file, enc, next) { // fails if changed to fat arrow because of "this"
+  return through2.obj(function(file, enc, next) { // fails if changed to fat arrow because of this.push and this.emit
     if(!file.isDirectory()) {
       try {
         let dir = path.dirname(file.relative).split(path.sep)[0];
@@ -563,21 +563,16 @@ gulp.task('copy:fonts:dist', () =>
 );
 
 gulp.task('copy:assets', () =>
-  gulp.src([paths.client.assets, '!' + paths.client.images])
+  gulp.src([paths.client.assets, `!${paths.client.images}`])
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
 );
 
 gulp.task('copy:server', () =>
-  gulp.src([
-    'package.json'
-  ], {cwdbase: true})
+  gulp.src(['package.json'], {cwdbase: true})
   .pipe(gulp.dest(paths.dist))
 );
 
-/********************
- * Grunt ported tasks
- ********************/
-
+// Equivalent of grunt file. Peplace with Gulp tasks or npm in future.
 grunt.initConfig({
   buildcontrol: {
     options: {
@@ -602,6 +597,7 @@ grunt.initConfig({
   }
 });
 
+// Using to deploy builds to Heroku (though OpenShift also supported)
 grunt.loadNpmTasks('grunt-build-control');
 
 gulp.task('buildcontrol:heroku', function(done) {
