@@ -56,4 +56,4 @@
           span.has-error(ng-hide='$ctrl.agreed') You must select this checkbox to proceed.
       br
       button.btn.btn-warning(ng-disabled='!$ctrl.agreed', ng-if='!$ctrl.agreed || !$ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.addItem($ctrl.paymentTerms)', style='width:100px;') Pay Now
-      button.apple-pay-button(ng-disabled='!$ctrl.agreed', ng-if='$ctrl.agreed && $ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.applePayPurchase($ctrl.paymentTerms)')
+      button.apple-pay-button(ng-disabled='!$ctrl.agreed', ng-if='$ctrl.agreed && $ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.applePayBuyItem($ctrl.paymentTerms)')

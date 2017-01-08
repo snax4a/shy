@@ -78,13 +78,131 @@ export class Cart {
     return lineItems;
   }
 
-  // Take contents of cart and checkout with Apple Pay instead of credit card (called by Cart page)
-  applePayCheckout() {
+  // Returns applePaymentRequest with our defaults
+  applePayCreatePaymentRequest() {
+    return this.applePayInstance.createPaymentRequest({
+      // For now, Apple ignores the last two items
+      requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
+      // Apple restricts phone and email to shippingContact (hopefully will extend to billingContact someday)
+      requiredShippingContactFields: ['name', 'postalAddress', 'phone', 'email'],
+      shippingMethods: [
+        {
+          label: 'Purchased for myself.',
+          detail: 'Register under my name.',
+          amount: '0.00',
+          identifier: 'Email'
+        },
+        {
+          label: 'This is a gift.',
+          detail: 'Email to shipping contact.',
+          amount: '0.00',
+          identifier: 'Gift-Email'
+        },
+        {
+          label: 'This is a gift',
+          detail: 'Mail to shipping contact',
+          amount: '0.00',
+          identifier: 'Gift-Mail'
+        },
+        {
+          label: 'This is a gift.',
+          detail: 'Mail to me.',
+          amount: '0.00',
+          identifier: 'Gift-Mail'
+        }
+      ],
+      lineItems: this.applePayLineItems(),
+      total: {
+        label: 'Schoolhouse Yoga',
+        amount: this.getTotalCost()
+      }
+    });
+  }
 
+  applePayGetPurchaserAndRecipient(paymentEvent) {
+    // Until Apple supports billingContact.phoneNumber and emailAddress, use values from shippingContact
+    this.purchaser = {
+      firstName: paymentEvent.billingContact.givenName,
+      lastName: paymentEvent.billingContact.familyName,
+      email: paymentEvent.billingContact.emailAddress || paymentEvent.shippingContact.emailAddress,
+      phone: paymentEvent.billingContact.phoneNumber || paymentEvent.shippingContact.phoneNumber,
+      address: paymentEvent.billingContact.addressLines[0],
+      city: paymentEvent.billingContact.locality,
+      state: paymentEvent.billingContact.administrativeArea,
+      zipCode: paymentEvent.billingContact.postalCode
+    };
+    this.recipient = {
+      firstName: paymentEvent.shippingContact.givenName,
+      lastName: paymentEvent.shippingContact.familyName,
+      email: paymentEvent.shippingContact.emailAddress,
+      phone: paymentEvent.shippingContact.phoneNumber,
+      address: paymentEvent.shippingContact.addressLines[0],
+      city: paymentEvent.shippingContact.locality,
+      state: paymentEvent.shippingContact.administrativeArea,
+      zipCode: paymentEvent.shippingContact.postalCode
+    };
+  }
+
+  // Take contents of cart and checkout with Apple Pay
+  applePayCheckout() {
+    // Compose the applePayRequest using our defaults
+    const applePaymentRequest = this.applePayCreatePaymentRequest();
+
+    // Then send the request
+    const session = new window.ApplePaySession(1, applePaymentRequest);
+
+    // Callback to handle merchant validation from Apple
+    session.onvalidatemerchant = event => {
+      this.applePayInstance.performValidation({
+        validationURL: event.validationURL,
+        displayName: 'Schoolhouse Yoga, Inc.'
+      }, (validationErr, merchantSession) => {
+        if(validationErr) {
+          this.$log.error('Error validating Apple Pay merchant:', validationErr);
+          session.abort();
+          return;
+        }
+        session.completeMerchantValidation(merchantSession);
+      }); // this.applePayInstance.performValidation
+    }; // session.onvalidatemerchant
+
+    // Callback to handle selection of shipping method
+    session.onshippingmethodselected = event => {
+      this.gift = event.shippingMethod.identifier.startsWith('Gift');
+      this.sendVia = event.shippingMethod.identifier.endsWith('Email') ? 'Email' : 'Mail';
+      this.instructions = `${event.shippingMethod.label} ${event.shippingMethod.detail}`;
+      // Not changing line items. Only using selection to set Cart properties.
+      session.completeShippingMethodSelection(
+        session.STATUS_SUCCESS,
+        applePaymentRequest.total,
+        applePaymentRequest.lineItems
+      );
+    };
+
+    // Callback to handle payment authorized from Apple
+    session.onpaymentauthorized = event => {
+      this.applePayInstance.tokenize({ token: event.payment.token }, (tokenizeErr, payload) => {
+        if(tokenizeErr) {
+          this.$log.error('Error tokenizing Apple Pay:', tokenizeErr);
+          session.completePayment(session.STATUS_FAILURE);
+          return;
+        }
+        session.completePayment(session.STATUS_SUCCESS);
+
+        // Get this.purchaser and this.recipient from event.payment
+        this.applePayGetPurchaserAndRecipient(event.payment);
+
+        // Post the order and handle errors
+        this.postOrderInformation(payload);
+      });
+    }; // session.onpaymentauthorized
+
+    // Show the payment sheet on the device
+    session.begin();
   }
 
   // Immediate Apple Pay purchase with fallback to standard process
-  applePayPurchase(productID) {
+  applePayBuyItem(productID) {
     if(this.applePayEnabled) {
       // Set defaults to match initial shippingMethod (since it doensn't fire an event)
       this.gift = false;
@@ -94,120 +212,9 @@ export class Cart {
       // Only one cart item for Apple Pay purchases - suppress navigation to Cart page
       this.addItem(productID, true);
 
-      // Compose the applePayRequest
-      const applePaymentRequest = this.applePayInstance.createPaymentRequest({
-        // For now, Apple ignores the last two items
-        requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
-        // Apple restricts phone and email to shippingContact (hopefully will extend to billingContact someday)
-        requiredShippingContactFields: ['name', 'postalAddress', 'phone', 'email'],
-        shippingMethods: [
-          {
-            label: 'Purchased for myself.',
-            detail: 'Register under my name.',
-            amount: '0.00',
-            identifier: 'Email'
-          },
-          {
-            label: 'This is a gift.',
-            detail: 'Email to shipping contact.',
-            amount: '0.00',
-            identifier: 'Gift-Email'
-          },
-          {
-            label: 'This is a gift',
-            detail: 'Mail to shipping contact',
-            amount: '0.00',
-            identifier: 'Gift-Mail'
-          },
-          {
-            label: 'This is a gift.',
-            detail: 'Mail to me.',
-            amount: '0.00',
-            identifier: 'Gift-Mail'
-          }
-        ],
-        lineItems: this.applePayLineItems(),
-        total: {
-          label: 'Schoolhouse Yoga',
-          amount: this.getTotalCost()
-        }
-      });
-
-      // Then send the request
-      const session = new window.ApplePaySession(1, applePaymentRequest);
-
-      // Callback to handle merchant validation from Apple
-      session.onvalidatemerchant = event => {
-        this.applePayInstance.performValidation({
-          validationURL: event.validationURL,
-          displayName: 'Schoolhouse Yoga, Inc.'
-        }, (validationErr, merchantSession) => {
-          if(validationErr) {
-            this.$log.error('Error validating Apple Pay merchant:', validationErr);
-            session.abort();
-            return;
-          }
-          session.completeMerchantValidation(merchantSession);
-        }); // this.applePayInstance.performValidation
-      }; // session.onvalidatemerchant
-
-      // Callback to handle selection of shipping method
-      session.onshippingmethodselected = event => {
-        this.gift = event.shippingMethod.identifier.startsWith('Gift');
-        this.sendVia = event.shippingMethod.identifier.endsWith('Email') ? 'Email' : 'Mail';
-        this.instructions = `${event.shippingMethod.label} ${event.shippingMethod.detail}`;
-        // Not changing line items. Only using selection to set Cart properties.
-        session.completeShippingMethodSelection(
-          session.STATUS_SUCCESS,
-          applePaymentRequest.total,
-          applePaymentRequest.lineItems
-        );
-      };
-
-      // Callback to handle payment authorized from Apple
-      session.onpaymentauthorized = event => {
-        this.applePayInstance.tokenize({
-          token: event.payment.token
-        }, (tokenizeErr, payload) => {
-          if(tokenizeErr) {
-            this.$log.error('Error tokenizing Apple Pay:', tokenizeErr);
-            session.completePayment(session.STATUS_FAILURE);
-            return;
-          }
-          session.completePayment(session.STATUS_SUCCESS);
-
-          // Problem: Apple Pay won't send the event.payment.billingContact.emailAddress or phoneNumber
-
-          // Set this.purchaser and recipient to event.payment.billingContact and shippingContact
-          this.purchaser = {
-            firstName: event.payment.billingContact.givenName,
-            lastName: event.payment.billingContact.familyName,
-            email: event.payment.billingContact.emailAddress || event.payment.shippingContact.emailAddress,
-            phone: event.payment.billingContact.phoneNumber || event.payment.shippingContact.phoneNumber,
-            address: event.payment.billingContact.addressLines[0],
-            city: event.payment.billingContact.locality,
-            state: event.payment.billingContact.administrativeArea,
-            zipCode: event.payment.billingContact.postalCode
-          };
-          this.recipient = {
-            firstName: event.payment.shippingContact.givenName,
-            lastName: event.payment.shippingContact.familyName,
-            email: event.payment.shippingContact.emailAddress,
-            phone: event.payment.shippingContact.phoneNumber,
-            address: event.payment.shippingContact.addressLines[0],
-            city: event.payment.shippingContact.locality,
-            state: event.payment.shippingContact.administrativeArea,
-            zipCode: event.payment.shippingContact.postalCode
-          };
-
-          // Post the order and handle errors
-          this.postOrderInformation(payload);
-        });
-      }; // session.onpaymentauthorized
-
-      // Show the payment sheet on the device
-      session.begin();
-    } else this.Cart.addItem(productID); // fallback to regular cart behavior
+      // Complete the Apple Pay checkout process
+      this.applePayCheckout();
+    } else this.Cart.addItem(productID); // fallback to regular cart behavior with navigation to cart page
   }
 
   // Returns a promise for the token

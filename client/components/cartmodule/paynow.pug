@@ -1,2 +1,2 @@
 button.btn.btn-warning.pull-right(ng-if='!$ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.addItem($ctrl.product)', style='width:100px;') Pay Now
-button.apple-pay-button.pull-right(ng-if='$ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.applePayPurchase($ctrl.product)')
+button.apple-pay-button.pull-right(ng-if='$ctrl.Cart.applePayEnabled', ng-click='$ctrl.Cart.applePayBuyItem($ctrl.product)')
