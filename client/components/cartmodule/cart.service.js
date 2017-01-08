@@ -68,8 +68,16 @@ export class Cart {
   // Immediate Apple Pay checkout with fallback to standard process
   applePayPurchase(productID) {
     if(this.applePayEnabled) {
+      // Set defaults
+      this.gift = false;
+      this.sendVia = 'Email';
+      this.instructions = 'This purchase is for myself';
+
       // Lookup the product name and price
       let product = this.ProductList.lookup(productID);
+
+      // There will only be one cart item for Apple Pay purchases since they are instantaneous
+      this.cartItems = [{ id: productID, quantity: 1, name: product.name, price: product.price }];
 
       // Compose the applePayRequest
       const applePaymentRequest = this.applePayInstance.createPaymentRequest({
@@ -87,28 +95,28 @@ export class Cart {
         ],
         shippingMethods: [
           {
-            label: 'Register billing contact',
-            detail: 'and email confirmation',
+            label: 'Purchased for myself.',
+            detail: 'Register under my name.',
             amount: '0.00',
             identifier: 'Email'
           },
           {
-            label: 'Gift for shipping contact',
-            detail: 'With email confirmation',
+            label: 'This is a gift.',
+            detail: 'Email to shipping contact.',
             amount: '0.00',
             identifier: 'Gift-Email'
           },
           {
-            label: 'Gift for shipping contact',
-            detail: 'Mailed to their address',
+            label: 'This is a gift',
+            detail: 'Mail to shipping contact',
             amount: '0.00',
-            identifier: 'Gift-Mail-Shipping'
+            identifier: 'Gift-Mail'
           },
           {
-            label: 'Gift for shipping contact',
-            detail: 'Mailed to billing contact',
+            label: 'This is a gift.',
+            detail: 'Mail to me.',
             amount: '0.00',
-            identifier: 'Gift-Mail-Billing'
+            identifier: 'Gift-Mail'
           }
         ],
         lineItems: [
@@ -142,6 +150,19 @@ export class Cart {
         }); // this.applePayInstance.performValidation
       }; // session.onvalidatemerchant
 
+      // Callback to handle selection of shipping method
+      session.onshippingmethodselected = event => {
+        this.gift = event.shippingMethod.identifier.startsWith('Gift');
+        this.sendVia = event.shippingMethod.identifier.endsWith('Email') ? 'Email' : 'Mail';
+        this.instructions = `${event.shippingMethod.label} ${event.shippingMethod.detail}`;
+        // Not changing line items. Only using selection to set Cart properties.
+        session.completeShippingMethodSelection(
+          session.STATUS_SUCCESS,
+          applePaymentRequest.total,
+          applePaymentRequest.lineItems
+        );
+      };
+
       // Callback to handle payment authorized from Apple
       session.onpaymentauthorized = event => {
         this.applePayInstance.tokenize({
@@ -157,7 +178,6 @@ export class Cart {
           // Problem: Apple Pay won't send the event.payment.billingContact.emailAddress or phoneNumber
 
           // Set this.purchaser and recipient to event.payment.billingContact and shippingContact
-          this.$log.info('Apple Pay event', event);
           this.purchaser = {
             firstName: event.payment.billingContact.givenName,
             lastName: event.payment.billingContact.familyName,
@@ -178,9 +198,7 @@ export class Cart {
             state: event.payment.shippingContact.administrativeArea,
             zipCode: event.payment.shippingContact.postalCode
           };
-          this.sendVia = 'Email'; // Set this and .gift
-          this.gift = false;
-          this.cartItems = [{ id: productID, quantity: 1, name: product.name, price: product.price }];
+
           this.$log.info('Cart', this);
           // Send payload.nonce to your server.
           this.postOrderInformation(payload);
