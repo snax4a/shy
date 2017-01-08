@@ -1,10 +1,5 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // Optional theme (3D style)
 $fa-font-path: '/assets/fonts/font-awesome/';
-@import '~font-awesome/scss/font-awesome';
-
-// @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
 // My overrides for variables
 $brand-base: #6f5499;
@@ -15,6 +10,12 @@ $shy-lavender: #c9bddb;
 $shy-errors: #a94442;
 $link-hover-decoration: none;
 $input-border-focus: $brand-base;
+
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // Optional theme (3D style)
+@import '~font-awesome/scss/font-awesome';
+
+// @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
 /**
  * App-wide Styles

@@ -2,7 +2,6 @@ High
 
 Low/cosmetic
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
-- Fix field border focus color using Sass
 - Add subscription support for Apple Pay and normal purchases
 - Gulp task mocha:integration fails in "after all" hook
 - Add a toast if there's an error with the contact dialog
