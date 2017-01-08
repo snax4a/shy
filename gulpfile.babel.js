@@ -525,7 +525,9 @@ gulp.task('revReplaceWebpack', function() {
 
 gulp.task('copy:extras', () =>
   gulp.src([
+    `${clientPath}/favicon.png`,
     `${clientPath}/favicon.ico`,
+    `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.htaccess`,
     `${clientPath}/apple-developer-merchantid-domain-association`,
