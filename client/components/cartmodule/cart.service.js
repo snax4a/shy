@@ -72,6 +72,8 @@ export class Cart {
       this.gift = false;
       this.sendVia = 'Email';
       this.instructions = 'This purchase is for myself';
+      // make sure we're not on confirmation for previous purchase
+      this.pageName = 'Shopping Cart';
 
       // Lookup the product name and price
       let product = this.ProductList.lookup(productID);
@@ -401,6 +403,9 @@ export class Cart {
 
   // Add a product to the cart
   addItem(id) {
+    // make sure we're not on confirmation for previous purchase
+    this.pageName = 'Shopping Cart';
+
     let inCart = this.getItemById(id);
     if(typeof inCart === 'object') { // then it is in the cart already
       // Increment the quantity instead of starting at 1
