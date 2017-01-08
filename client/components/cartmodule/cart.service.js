@@ -65,18 +65,31 @@ export class Cart {
     }
   }
 
-  // Immediate Apple Pay checkout with fallback to standard process
+  // Convert this.cartItem values to Apple Pay lineItems
+  applePayLineItems() {
+    let lineItems = [];
+    for(let item of this.cartItems) {
+      lineItems.push({
+        type: 'final',
+        label: `${item.quantity}x ${item.name}`,
+        amount: item.getTotal()
+      });
+    }
+    return lineItems;
+  }
+
+  // Take contents of cart and checkout with Apple Pay instead of credit card (called by Cart page)
+  applePayCheckout() {
+
+  }
+
+  // Immediate Apple Pay purchase with fallback to standard process
   applePayPurchase(productID) {
     if(this.applePayEnabled) {
-      // Set defaults
+      // Set defaults to match initial shippingMethod (since it doensn't fire an event)
       this.gift = false;
       this.sendVia = 'Email';
       this.instructions = 'This purchase is for myself';
-      // make sure we're not on confirmation for previous purchase
-      this.pageName = 'Shopping Cart';
-
-      // Lookup the product name and price
-      let product = this.ProductList.lookup(productID);
 
       // Only one cart item for Apple Pay purchases - suppress navigation to Cart page
       this.addItem(productID, true);
@@ -85,7 +98,7 @@ export class Cart {
       const applePaymentRequest = this.applePayInstance.createPaymentRequest({
         // For now, Apple ignores the last two items
         requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
-        // Apple thinks phone and email is only for shippingContact (bad assumption)
+        // Apple restricts phone and email to shippingContact (hopefully will extend to billingContact someday)
         requiredShippingContactFields: ['name', 'postalAddress', 'phone', 'email'],
         shippingMethods: [
           {
@@ -113,16 +126,10 @@ export class Cart {
             identifier: 'Gift-Mail'
           }
         ],
-        lineItems: [
-          {
-            type: 'final',
-            label: product.name,
-            amount: product.price
-          }
-        ],
+        lineItems: this.applePayLineItems(),
         total: {
           label: 'Schoolhouse Yoga',
-          amount: product.price
+          amount: this.getTotalCost()
         }
       });
 
