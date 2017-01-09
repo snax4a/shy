@@ -4,14 +4,12 @@ import { Subscriber } from '../../sqldb';
 
 // Subscribes to the newsletter
 export function subscribe(req, res) {
-  // Save subscriber to databse
+  // Save subscriber to database
   Subscriber.upsert({
     email: req.body.email,
     optout: false
   })
-  .then(() => {
-    console.log('Added subscriber from workshops page');
-  });
+  .then(() => console.log('Added subscriber from workshops page'));
 
   // Send email to SHY staff
   email({
@@ -20,4 +18,16 @@ export function subscribe(req, res) {
     success: 'Thanks for subscribing to our newsletter.',
     failure: 'Error occurred subscribing you. Please try again later.'
   }, res);
+}
+
+// Sets the subscriber to opt out
+export function unsubscribe(req, res) {
+  Subscriber.upsert({
+    email: req.params.email,
+    optout: true
+  })
+  .then(() => {
+    res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
+    console.log(`Unsubscribed ${req.params.email} from the newsletter.`);
+  });
 }
