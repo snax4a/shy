@@ -53,6 +53,13 @@
           p.help-block(ng-show='form.confirmPassword.$error.match && vm.submitted')
             | Passwords must match.
 
+        .form-group(ng-class='{ "has-success": form.phone.$valid && vm.submitted,\
+        "has-error": form.phone.$invalid && vm.submitted }')
+          label Phone
+          input.form-control(type='text', name='phone', ng-model='vm.user.phone', required='')
+          p.help-block(ng-show='form.phone.$error.required && vm.submitted')
+            | Your phone number is required
+
         div
           button.btn.btn-inverse.btn-lg.btn-register(type='submit')
             | Sign up
