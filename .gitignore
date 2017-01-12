@@ -3,6 +3,7 @@ public
 .tmp
 .sass-cache
 .idea
+.DS_Store
 client/bower_components
 client/index.html
 dist

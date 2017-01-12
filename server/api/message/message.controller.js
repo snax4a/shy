@@ -5,7 +5,7 @@ import { Subscriber } from '../../sqldb';
 // Sends a message
 export function send(req, res) {
   // Add them to the subscribers list if they didn't opt out
-  if(!req.body.optout) {
+  if(!req.body.optOut) {
     Subscriber.upsert({
       email: req.body.email,
       firstName: req.body.firstName,
@@ -25,7 +25,7 @@ Email: ${req.body.email}
 Question/comment:
 ${req.body.question}
 
-${(req.body.optout ? 'Does not want to s' : 'S')}ubscribe to newsletter`,
+${(req.body.optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`,
     success: 'Thanks for submitting your question or comment. We will respond shortly.',
     failure: 'Error occurred submitting your question or comment. Please try again later.'
   }, res);

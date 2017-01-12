@@ -6,18 +6,36 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
+  DOMAIN: 'localhost',
+  SESSION_SECRET: 'Super-intelligent shade of blue',
+
+  // Authentication
+  TEACHER_EMAIL: 'teacher@example.com',
+  TEACHER_PASSWORD: 'secret',
+  ADMIN_EMAIL: 'admin@example.com',
+  ADMIN_PASSWORD: 'secret',
+  FACEBOOK_ID: 'app-id',
+  FACEBOOK_SECRET: 'secret',
+  TWITTER_ID: 'app-id',
+  TWITTER_SECRET: 'secret',
+  GOOGLE_ID: 'app-id',
+  GOOGLE_SECRET: 'secret',
+
+  // Nodemailer
   SMTP_USER: 'someuser@somedomain.com',
   SMTP_PASSWORD: 'Password',
   SMTP_HOST: 'smtp.office365.com',
   SMTP_PORT: 587, //secure
   SMTP_TLS_CIPHERS: 'SSLv3',
+  SMTP_BCC: 'nul@bitbucket.com, foo@bitbucket.com',
 
+  // PostgreSQL
   DATABASE_URL: 'postgres://user:pass@localhost:5432/dbname',
 
+  // Braintree Payment Gateway
   BRAINTREE_MERCHANT_ID: 'replace with braintree merchant id',
   BRAINTREE_PUBLIC_KEY: 'replace with braintree public key',
   BRAINTREE_PRIVATE_KEY: 'replace with braintree private key',
-
   BRAINTREE_MERCHANT_ID_SANDBOX: 'replace with braintree merchant id',
   BRAINTREE_PUBLIC_KEY_SANDBOX: 'replace with braintree public key',
   BRAINTREE_PRIVATE_KEY_SANDBOX: 'replace with braintree private key'

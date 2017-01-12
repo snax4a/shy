@@ -234,7 +234,7 @@ const saveToDB = braintreeTransaction => {
     firstName: confirmation.shipping.firstName,
     lastName: confirmation.shipping.lastName,
     phone: confirmation.customFields.recipientphone,
-    optout: false
+    optOut: false
   });
 };
 

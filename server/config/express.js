@@ -13,13 +13,13 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
+import lusca from 'lusca';
 import config from './environment';
-// import passport from 'passport';
-// import lusca from 'lusca';
-// import session from 'express-session';
-// import sqldb from '../sqldb';
-// import expressSequelizeSession from 'express-sequelize-session';
-// let Store = expressSequelizeSession(session.Store);
+import passport from 'passport';
+import session from 'express-session';
+import sqldb from '../sqldb';
+import expressSequelizeSession from 'express-sequelize-session';
+let Store = expressSequelizeSession(session.Store);
 
 export default function(app) {
   var env = app.get('env');
@@ -33,7 +33,7 @@ export default function(app) {
     // Force HTTPS for production only (though would be good for dev too)
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
-        res.redirect(`https://${config.fqdn}${req.url}`);
+        res.redirect(`${config.domain}${req.url}`);
       } else { // request was via http, so redirect to https
         return next();
       }
@@ -43,6 +43,7 @@ export default function(app) {
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
+
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
   app.use(shrinkRay());
@@ -50,36 +51,36 @@ export default function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  // app.use(passport.initialize());
+  app.use(passport.initialize());
 
-  // Persist sessions with MongoStore / sequelizeStore
+  // Persist sessions with sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
   // oauth 1.0 strategy, and Lusca depends on sessions
-  // app.use(session({
-  //   secret: config.secrets.session,
-  //   saveUninitialized: true,
-  //   resave: false,
-  //   store: new Store(sqldb.sequelize)
-  // }));
+  app.use(session({
+    secret: config.secrets.session,
+    saveUninitialized: true,
+    resave: false,
+    store: new Store(sqldb.sequelize)
+  }));
 
   /**
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  // if(env !== 'test' && !process.env.SAUCE_USERNAME) {
-  //   app.use(lusca({
-  //     csrf: {
-  //       angular: true
-  //     },
-  //     xframe: 'SAMEORIGIN',
-  //     hsts: {
-  //       maxAge: 31536000, //1 year, in seconds
-  //       includeSubDomains: true,
-  //       preload: true
-  //     },
-  //     xssProtection: true
-  //   }));
-  // }
+  if(env !== 'test' /*&& !process.env.SAUCE_USERNAME*/) {
+    app.use(lusca({
+      csrf: {
+        angular: true
+      },
+      xframe: 'SAMEORIGIN',
+      hsts: {
+        maxAge: 31536000, //1 year, in seconds
+        includeSubDomains: true,
+        preload: true
+      },
+      xssProtection: true
+    }));
+  }
 
   if(env === 'development') {
     const webpackDevMiddleware = require('webpack-dev-middleware');

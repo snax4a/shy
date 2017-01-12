@@ -16,7 +16,7 @@ describe('Message API:', function() {
           lastName: 'Doe',
           email: 'jdoe@gmail.com',
           question: 'This is a question',
-          optout: false
+          optOut: false
         })
         .expect(200)
         .expect('Content-Type', /html/)

@@ -1,9 +1,11 @@
 'use strict';
 
-// angularJS 1.5.8 core
+// angularJS core
 import angular from 'angular';
+import ngCookies from 'angular-cookies';
 import ngMessages from 'angular-messages';
 import ngSanitize from 'angular-sanitize'; // clean faqs on main
+import ngResource from 'angular-resource';
 
 // Modules
 import uiRouter from 'angular-ui-router';
@@ -20,6 +22,9 @@ import footer from '../components/footer/footer.component';
 import tweet from '../components/tweet/tweet.component';
 
 // General components
+import _Auth from '../components/auth/auth.module';
+import account from './account';
+import admin from './admin';
 import util from '../components/util/util.module';
 import constants from './app.constants';
 
@@ -43,10 +48,21 @@ import daytodate from '../components/daytodate/daytodate.filter';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [ngMessages, ngSanitize, uiRouter, uiBootstrap, navbar, banner, footer,
+angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, admin, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
   htmlid, daytodate, tweet, CartModule])
-  .config(routeConfig);
+  .config(routeConfig)
+  .run(function($rootScope, $location, Auth) {
+    'ngInject';
+    // Redirect to login if route requires auth and you're not logged in
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+      Auth.isLoggedIn(function(loggedIn) {
+        if(next.authenticate && !loggedIn) {
+          $location.path('/login');
+        }
+      });
+    });
+  });
 
 // Load shyApp
 angular.element(document)

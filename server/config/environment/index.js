@@ -16,8 +16,8 @@ import _ from 'lodash';
 var all = {
   env: process.env.NODE_ENV,
 
-  // FQDN
-  fqdn: process.env.DOMAIN,
+  // Website URL
+  domain: process.env.DOMAIN,
 
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),
@@ -31,6 +31,22 @@ var all = {
   // Server IP
   ip: process.env.IP || '0.0.0.0',
 
+  // Secret for session, you will want to change this and make it an environment variable
+  secrets: {
+    session: process.env.SESSION_SECRET
+  },
+
+  // For login to SHYnet
+  teacher: {
+    email: process.env.TEACHER_EMAIL,
+    password: process.env.TEACHER_PASSWORD
+  },
+
+  admin: {
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD
+  },
+
   // Sequelize connection opions
   sequelize: {
     uri: process.env.DATABASE_URL,
@@ -39,6 +55,9 @@ var all = {
       dialect: 'postgres'
     }
   },
+
+  // Default to not seeding the database unless required
+  seedDB: true,
 
   // Nodemailer settings
   mail: {
@@ -57,8 +76,24 @@ var all = {
     bcc: process.env.SMTP_BCC || process.env.SMTP_USER
   },
 
-  // Default to not seeding the database unless required
-  seedDB: false
+  // Integrated authentication
+  google: {
+    clientID: process.env.GOOGLE_ID || 'id',
+    clientSecret: process.env.GOOGLE_SECRET || 'secret',
+    callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
+  },
+
+  // facebook: {
+  //   clientID: process.env.FACEBOOK_ID || 'id',
+  //   clientSecret: process.env.FACEBOOK_SECRET || 'secret',
+  //   callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
+  // },
+
+  // twitter: {
+  //   clientID: process.env.TWITTER_ID || 'id',
+  //   clientSecret: process.env.TWITTER_SECRET || 'secret',
+  //   callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
+  // },
 
 };
 

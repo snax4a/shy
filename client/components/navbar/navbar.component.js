@@ -5,10 +5,17 @@ import angular from 'angular';
 
 export class NavbarController {
   /*@ngInject*/
-  constructor($log, $uibModal, Cart) {
+  constructor($log, $uibModal, Cart, Auth) {
     this.$log = $log;
     this.$uibModal = $uibModal;
     this.Cart = Cart;
+    this.Auth = Auth;
+  }
+
+  $onInit() {
+    this.isLoggedIn = this.Auth.isLoggedInSync;
+    this.isAdmin = this.Auth.isAdminSync;
+    this.getCurrentUser = this.Auth.getCurrentUserSync;
     this.isCollapsed = true;
     this.menu = [
       {
@@ -53,14 +60,11 @@ export class NavbarController {
 
 export class ModalInstanceController {
   /*@ngInject*/
-  constructor($log, $http, $uibModalInstance, $window) {
+  constructor($log, $http, $uibModalInstance) {
     this.$log = $log;
     this.$http = $http;
     this.$uibModalInstance = $uibModalInstance;
-    this.$window = $window;
     this.contact = {};
-    // let fieldToGetFocus = this.$window.document.getElementById('firstname');
-    // fieldToGetFocus.focus();
   }
 
   submitContact(form) {
@@ -78,6 +82,10 @@ export class ModalInstanceController {
         });
       this.$uibModalInstance.close(); // Close the dialog quickly even though email sending is slow
     }
+  }
+
+  cancel() {
+    this.$uibModalInstance.close();
   }
 }
 

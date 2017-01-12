@@ -24,7 +24,7 @@ require('./routes').default(app);
 
 // Start server
 function startServer() {
-  app.shy = server.listen(config.port, config.ip, function() {
+  app.shy = server.listen(config.port, config.ip, () => {
     console.log(`Express listening on port ${config.port}, env = ${app.get('env')}`);
     app.emit('appStarted'); // So mocha.global.js doesn't try to complete after all until Express starts
   });
@@ -33,9 +33,7 @@ function startServer() {
 // Synch the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
   .then(startServer)
-  .catch(function(err) {
-    console.log(`Server failed to start due to error: ${err}`);
-  });
+  .catch(err => console.log(`Server failed to start due to error: ${err}`));
 
 // Expose app
 exports = module.exports = app;

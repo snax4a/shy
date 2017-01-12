@@ -13,7 +13,15 @@
         li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
           a(ui-sref='{{item.state}}', ng-click='$ctrl.isCollapsed = true') {{item.title}} 
             span.badge(ng-show='item.title == "Cart"') {{ $ctrl.Cart.getTotalItems() }}
+        li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
+          a(ui-sref='admin') Admin
       ul.nav.navbar-nav.navbar-right
+        li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
+          a(href='#', uib-dropdown-toggle='') Logged in as {{ $ctrl.getCurrentUser().firstName }}
+            span.caret
+          ul.dropdown-menu(uib-dropdown-menu='')
+            li
+              a(ui-sref='logout') Logout
         li(uib-dropdown='')
           a(href='#', uib-dropdown-toggle='')
             | Contact

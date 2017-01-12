@@ -6,8 +6,7 @@ import faqs from '../../assets/data/faqs.json';
 
 export class MainController {
 
-  /*@ngInject*/
-  constructor() {
+  $onInit() {
     this.announcementList = [];
     this.faqs = [];
     this.slides = [
@@ -16,10 +15,7 @@ export class MainController {
       { src: '/assets/images/home/closeup3.jpg' },
       { src: '/assets/images/home/closeup4.jpg' }
     ];
-  }
-
-  $onInit() {
-    // Load announcements from JSON file
+    // Load announcements and FAQs from JSON files
     this.announcementList = announcementList;
     this.faqs = faqs;
   }

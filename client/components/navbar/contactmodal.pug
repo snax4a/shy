@@ -1,17 +1,17 @@
 form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidate='')
   .modal-header
-    button.close(type='button', ng-click='$dismiss()', tabindex='8') &times;
+    button.close(type='button', ng-click='$ctrl.cancel()', tabindex='8') &times;
     h4#modal-label.modal-title Contact us
   .modal-body
     .form-group
-      label.sr-only(for='firstname') First name
-      input#firstname.form-control(name='firstname', autofocus='', ng-model='$ctrl.contact.firstName', type='text', maxlength='20', placeholder='First name', required='', tabindex='1')
-      .help-block.has-error(ng-messages='contactform.firstname.$error', ng-show='contactform.firstname.$dirty || contactform.$submitted', role='alert')
+      label.sr-only(for='firstName') First name
+      input#firstName.form-control(name='firstName', autofocus='', ng-model='$ctrl.contact.firstName', type='text', maxlength='20', placeholder='First name', required='', tabindex='1')
+      .help-block.has-error(ng-messages='contactform.firstName.$error', ng-show='contactform.firstName.$dirty || contactform.$submitted', role='alert')
         div(ng-message='required') Please provide your first name.
     .form-group
-      label.sr-only(for='lastname') Last name
-      input.form-control(name='lastname', ng-model='$ctrl.contact.lastName', type='text', maxlength='20', placeholder='Last name', required='', tabindex='2')
-      .help-block.has-error(ng-messages='contactform.lastname.$error', ng-show='contactform.lastname.$dirty || contactform.$submitted', role='alert')
+      label.sr-only(for='lastName') Last name
+      input.form-control(name='lastName', ng-model='$ctrl.contact.lastName', type='text', maxlength='20', placeholder='Last name', required='', tabindex='2')
+      .help-block.has-error(ng-messages='contactform.lastName.$error', ng-show='contactform.lastName.$dirty || contactform.$submitted', role='alert')
         div(ng-message='required') Please provide your last name.
     .form-group
       label.sr-only(for='email') Email address
@@ -26,8 +26,8 @@ form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidat
         div(ng-message='required') Please provide a question or comment.
     .checkbox
       label
-        input(type='checkbox', name='optout', ng-model='$ctrl.contact.optout', tabindex='5')
+        input(type='checkbox', name='optOut', ng-model='$ctrl.contact.optOut', tabindex='5')
         | Do not subscribe to newsletter
   .modal-footer
-    button.btn.btn-default(type='button', id='cancelButton' ng-click='$dismiss()', tabindex='6') Cancel
+    button.btn.btn-default(type='button', id='cancelButton' ng-click='$ctrl.cancel()', tabindex='6') Cancel
     button.btn.btn-warning(type='submit', id='submitButton', tabindex='7') Submit

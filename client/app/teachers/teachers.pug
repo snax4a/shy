@@ -5,6 +5,6 @@
     .col-md-2.col-md-offset-2
       img.img-responsive.teacher(src='{{teacher.photo}}', alt="Teacher's photo")
     .col-md-6
-      h4(id='{{teacher.firstname + teacher.lastname | htmlid}}') {{teacher.firstname}} {{teacher.lastname}}
+      h4(id='{{teacher.firstName + teacher.lastName | htmlid}}') {{teacher.firstName}} {{teacher.lastName}}
       |  {{teacher.bio}} 
-      a(ng-if='teacher.url', href='{{teacher.url}}', target='_blank') Visit {{teacher.firstname}}&apos;s website
+      a(ng-if='teacher.url', href='{{teacher.url}}', target='_blank') Visit {{teacher.firstName}}&apos;s website
