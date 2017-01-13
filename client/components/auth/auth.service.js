@@ -6,32 +6,28 @@ class _User {
   firstName = '';
   lastName = ''
   email = '';
-  phone = ''
-  role = 'student';
-  optOut = false;
+  role = '';
   $promise = undefined;
 }
 
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
 
-  var safeCb = Util.safeCb;
-  var currentUser = new _User();
-  var userRoles = appConfig.userRoles || [];
+  let safeCb = Util.safeCb;
+  let currentUser = new _User();
+  let userRoles = appConfig.userRoles || [];
   /**
    * Check if userRole is >= role
    * @param {String} userRole - role of current user
    * @param {String} role - role to check against
    */
-  var hasRole = function(userRole, role) {
-    return userRoles.indexOf(userRole) >= userRoles.indexOf(role);
-  };
+  let hasRole = (userRole, role) => userRoles.indexOf(userRole) >= userRoles.indexOf(role);
 
   if($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();
   }
 
-  var Auth = {
+  let Auth = {
     /**
      * Authenticate user and save token
      *
@@ -79,11 +75,11 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     createUser(user, callback) {
-      return User.save(user, function(data) {
+      return User.save(user, data => {
         $cookies.put('token', data.token);
         currentUser = User.get();
         return safeCb(callback)(null, user);
-      }, function(err) {
+      }, err => {
         Auth.logout();
         return safeCb(callback)(err);
       })
@@ -119,7 +115,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     getCurrentUser(callback) {
-      var value = _.get(currentUser, '$promise') ? currentUser.$promise : currentUser;
+      let value = _.get(currentUser, '$promise') ? currentUser.$promise : currentUser;
 
       return $q.when(value)
         .then(user => {

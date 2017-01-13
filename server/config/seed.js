@@ -47,7 +47,7 @@ User.sync()
         lastName: 'Koontz',
         email: 'leta@schoolhouseyoga.com',
         phone: '412-260-5555',
-        password: 'secret',
+        password: config.secrets.session,
         optOut: true,
         google: {
           kind: 'plus#person',
@@ -80,7 +80,7 @@ User.sync()
         firstName: 'Nate',
         lastName: 'Stuyvesant',
         email: 'nstuyvesant@gmail.com',
-        password: 'secret',
+        password: config.secrets.session,
         optOut: true,
         phone: '412-486-5555',
         google: {

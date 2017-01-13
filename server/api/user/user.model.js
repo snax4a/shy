@@ -2,6 +2,8 @@
 'use strict';
 
 import crypto from 'crypto';
+import config from '../../config/environment/';
+
 let authTypes = ['twitter', 'facebook', 'google'];
 
 let validatePresenceOf = value => value && value.length;
@@ -14,8 +16,15 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    firstName: DataTypes.STRING(20),
+    role: {
+      type: DataTypes.STRING(10),
+      defaultValue: 'student',
+      validate: {
+        notEmpty: true
+      }
+    },
     lastName: DataTypes.STRING(20),
+    firstName: DataTypes.STRING(20),
     email: {
       type: DataTypes.STRING(80),
       unique: {
@@ -26,35 +35,36 @@ export default function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    phone: DataTypes.STRING(23),
     optOut: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    role: {
-      type: DataTypes.STRING(10),
-      defaultValue: 'student'
-    },
+    phone: DataTypes.STRING(23),
     password: {
       type: DataTypes.STRING(684),
+      defaultValue: config.secrets.session,
       validate: {
-        notEmpty: false // when using Google integrated authentication, the password is empty
+        notEmpty: true // when using Google integrated authentication, the password is empty
       }
     },
-    provider: DataTypes.STRING(10),
     salt: DataTypes.STRING(24),
+    provider: {
+      type: DataTypes.STRING(10),
+      defaultValue: 'local',
+      validate: {
+        notEmpty: true
+      }
+    },
     // facebook: DataTypes.JSON,
     // twitter: DataTypes.JSON,
     google: DataTypes.JSON
   }, {
-  /* {
+
     indexes: [
       { fields: ['email'] },
       { fields: ['lastName'] },
       { fields: ['firstName'] }
-    ]
-  }, {
-  */
+    ],
     /**
      * Virtual Getters
      */
