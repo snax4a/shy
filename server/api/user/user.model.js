@@ -3,8 +3,11 @@
 
 import crypto from 'crypto';
 import config from '../../config/environment/';
+import configShared from '../../config/environment/shared';
 
-let authTypes = ['twitter', 'facebook', 'google'];
+let authTypes = configShared.authTypes;
+let authTypesEnum = configShared.authTypes.slice();
+authTypesEnum.push('local');
 
 let validatePresenceOf = value => value && value.length;
 
@@ -17,7 +20,8 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
     role: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.ENUM,
+      values: configShared.userRoles,
       defaultValue: 'student',
       validate: {
         notEmpty: true
@@ -42,14 +46,14 @@ export default function(sequelize, DataTypes) {
     phone: DataTypes.STRING(23),
     password: {
       type: DataTypes.STRING(684),
-      defaultValue: config.secrets.session,
       validate: {
         notEmpty: true // when using Google integrated authentication, the password is empty
       }
     },
     salt: DataTypes.STRING(24),
     provider: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.ENUM,
+      values: authTypesEnum,
       defaultValue: 'local',
       validate: {
         notEmpty: true
@@ -108,13 +112,17 @@ export default function(sequelize, DataTypes) {
       beforeCreate(user, fields, fn) {
         user.updatePassword(fn);
       },
-      beforeUpsert(user, fields, fn) {
+      beforeUpdate(user, fields, fn) {
         if(user.changed('password')) {
           return user.updatePassword(fn);
         }
         fn();
       },
-      beforeUpdate(user, fields, fn) {
+      beforeUpsert(user, fields, fn) {
+        if(!user.password) {
+          user.password = config.secrets.session;
+          return user.updatePassword(fn);
+        }
         if(user.changed('password')) {
           return user.updatePassword(fn);
         }

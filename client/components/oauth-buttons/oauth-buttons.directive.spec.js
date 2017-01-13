@@ -1,3 +1,4 @@
+/* global describe, inject, beforeEach, it, expect, angular */
 'use strict';
 
 const $ = require('sprint-js');
@@ -8,7 +9,9 @@ describe('Directive: oauthButtons', function() {
   beforeEach(angular.mock.module(OauthButtons));
   // beforeEach(angular.mock.module('components/oauth-buttons/oauth-buttons.html'));
 
-  var element, parentScope, elementScope;
+  var element;
+  var parentScope;
+  var elementScope;
 
   var compileDirective = function(template) {
     inject(function($compile) {

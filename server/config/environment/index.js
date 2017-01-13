@@ -54,7 +54,6 @@ var all = {
       logging: false,
       dialect: 'postgres',
       protocol: 'postgres'
-      //  sequelize.dialect.supports.schemas = true;
     }
   },
 

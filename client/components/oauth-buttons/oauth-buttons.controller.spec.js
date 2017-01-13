@@ -1,3 +1,4 @@
+/* global describe, beforeEach, angular, inject, it, expect */
 'use strict';
 
 import {
@@ -5,7 +6,8 @@ import {
 } from './index';
 
 describe('Controller: OauthButtonsController', function() {
-  var controller, $window;
+  var controller;
+  var $window;
 
   beforeEach(() => {
     angular.module('test', [])
