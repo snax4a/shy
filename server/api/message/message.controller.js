@@ -1,20 +1,19 @@
 'use strict';
 import email from '../../components/email';
-import { Subscriber } from '../../sqldb';
+import { User } from '../../sqldb';
 
 // Sends a message
 export function send(req, res) {
   // Add them to the subscribers list if they didn't opt out
-  if(!req.body.optOut) {
-    Subscriber.upsert({
-      email: req.body.email,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName
-    })
-    .then(() => {
-      console.log('Added subscriber from contact form');
-    });
-  }
+  User.upsert({
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    optOut: req.body.optOut
+  })
+  .then(() => {
+    console.log('Added user from contact form');
+  });
 
   email({
     subject: 'Question/comment from website',

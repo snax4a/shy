@@ -4,7 +4,7 @@
 'use strict';
 import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
-import { Subscriber, Order } from '../../sqldb';
+import { User, Order } from '../../sqldb';
 import braintree from 'braintree';
 const config = require('../../config/environment');
 
@@ -229,7 +229,7 @@ const saveToDB = braintreeTransaction => {
     itemsOrdered: confirmation.customFields.items
   });
 
-  return Subscriber.upsert({
+  return User.upsert({
     email: confirmation.customFields.recipientemail,
     firstName: confirmation.shipping.firstName,
     lastName: confirmation.shipping.lastName,

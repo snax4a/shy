@@ -1,7 +1,8 @@
 High
 - Update Heroku env var DOMAIN to use full URL
 - auth.service.js:43 passes control to another middleware function that doesn't return its promise
-- Have Order and Subscribe save to User instead of Subscriber
+- Server failed to start due to error: SequelizeUniqueConstraintError: Validation error when User table must be created
+- User.Upsert doesn't encrypt password
 
 Low/cosmetic
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away

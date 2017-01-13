@@ -5,7 +5,6 @@ export default function(sequelize, DataTypes) {
     orderNumber: {
       type: DataTypes.STRING(12),
       primaryKey: true,
-      unique: true,
       validate: {
         notEmpty: true
       }
@@ -21,7 +20,6 @@ export default function(sequelize, DataTypes) {
     sendVia: DataTypes.STRING,
     purchaserFirstName: DataTypes.STRING(20),
     purchaserLastName: DataTypes.STRING(20),
-    purchaserZipCode: DataTypes.STRING(10),
     purchaserEmail: {
       type: DataTypes.STRING(80),
       validate: {

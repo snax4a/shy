@@ -1,12 +1,13 @@
 'use strict';
 import email from '../../components/email';
-import { Subscriber } from '../../sqldb';
+import { User } from '../../sqldb';
 
 // Subscribes to the newsletter
 export function subscribe(req, res) {
   // Save subscriber to database
-  Subscriber.upsert({
+  User.upsert({
     email: req.body.email,
+    firstName: 'Student',
     optOut: false
   })
   .then(() => console.log('Added subscriber from workshops page'));
@@ -22,7 +23,7 @@ export function subscribe(req, res) {
 
 // Sets the subscriber to opt out
 export function unsubscribe(req, res) {
-  Subscriber.upsert({
+  User.upsert({
     email: req.params.email,
     optOut: true
   })
