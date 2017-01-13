@@ -118,6 +118,7 @@ export default function(sequelize, DataTypes) {
         }
         fn();
       },
+      // This is not firing as it should
       beforeUpsert(user, fields, fn) {
         if(!user.password) {
           user.password = config.secrets.session;

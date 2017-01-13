@@ -10,7 +10,7 @@ export function subscribe(req, res) {
     firstName: 'Student',
     optOut: false
   })
-  .then(() => console.log('Added subscriber from workshops page'));
+  .then(() => console.log('Added user from workshops page to newsletter list.'));
 
   // Send email to SHY staff
   email({
