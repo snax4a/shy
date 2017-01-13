@@ -51,8 +51,9 @@ var all = {
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
-      logging: true,
+      logging: false,
       dialect: 'postgres'
+      //  sequelize.dialect.supports.schemas = true;
     }
   },
 
