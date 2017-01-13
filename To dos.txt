@@ -1,7 +1,6 @@
 High
 - Update Heroku env var DOMAIN to use full URL
 - auth.service.js:43 passes control to another middleware function that doesn't return its promise
-- Add indexes to User
 - Have Order and Subscribe save to User instead of Subscriber
 
 Low/cosmetic
