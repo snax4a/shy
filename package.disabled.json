@@ -1,6 +1,9 @@
 {
   "dependencies": {
-      "passport-facebook": "^2.1.1",
-      "passport-twitter": "^1.0.4"
+    "passport-facebook": "^2.1.1",
+    "passport-twitter": "^1.0.4"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "0.17.0"
   }
 }

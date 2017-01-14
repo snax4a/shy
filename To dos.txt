@@ -6,7 +6,6 @@ Low/cosmetic
 - After successful login of non-admin go to /shynet (/client/app/account/login/login.controller.js:36)
 - npm start doesn't work
 - Warning - Server failed to start due to error: SequelizeUniqueConstraintError: Validation error when User table must be created
-- Warning - DeprecationWarning: crypto.createCredentials is deprecated. Use tls.createSecureContext instead.
 - Add subscription support for Apple Pay and normal purchases
 - Gulp task mocha:integration fails in "after all" hook
 - Add a toast if there's an error with the contact dialog
