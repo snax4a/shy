@@ -146,7 +146,7 @@ export default function(sequelize, DataTypes) {
       authenticate(password, callback) {
         if(!callback) {
           // Make sure it's a non-blank password
-          return this.password && this.password === this.encryptPassword(password);
+          return this.password === this.encryptPassword(password);
         }
 
         let that = this;
