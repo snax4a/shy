@@ -297,7 +297,7 @@ gulp.task('start:client', cb => {
 gulp.task('start:server', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require(`./${serverPath}/config/environment`);
-  nodemon(`-w ${serverPath} ${serverPath}`)
+  nodemon(`-w ${serverPath} ${serverPath} --trace-warnings`)
     .on('log', onServerLog);
 });
 

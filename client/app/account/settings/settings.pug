@@ -1,15 +1,14 @@
 .container
   .row
-    .col-sm-12
-      h1 Change Password
-    .col-sm-12
+    .col-sm-12.col-md-6.col-md-offset-3
+      h2 User Profile Settings
       form.form(name='form', ng-submit='vm.changePassword(form)', novalidate='')
         .form-group
           label Current Password
           input.form-control(type='password'
             name='password'
             ng-model='vm.user.oldPassword'
-            mongoose-error='')
+            mongoose-error='', autofocus='')
           p.help-block(ng-show='form.password.$error.mongoose')
             | {{ vm.errors.other }}
         .form-group
@@ -32,4 +31,4 @@
 
         p.help-block  {{ vm.message }}
 
-        button.btn.btn-lg.btn-primary(type='submit') Save changes
+        button.btn.btn-lg.btn-warning(type='submit') Save changes

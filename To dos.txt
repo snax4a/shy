@@ -1,6 +1,5 @@
 High
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
-- /client/app/account/signup/signup.pug should match login.pug's style
 - user.model.js:122 doesn't fire (beforeUpsert)
 
 Low/cosmetic

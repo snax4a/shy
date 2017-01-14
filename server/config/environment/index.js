@@ -57,7 +57,7 @@ var all = {
     }
   },
 
-  // Default to not seeding the database unless required
+  // Seed database with starting admin users
   seedDB: true,
 
   // Nodemailer settings
