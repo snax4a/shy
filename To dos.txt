@@ -1,5 +1,6 @@
 High
 - Update Heroku env var DOMAIN to use full URL
+- Don't permit users with no passwords to login
 - auth.service.js:43 passes control to another middleware function that doesn't return its promise
 - Server failed to start due to error: SequelizeUniqueConstraintError: Validation error when User table must be created
 - user.model.js:122 doesn't fire
