@@ -39,7 +39,8 @@ export function isAuthenticated() {
             return res.status(401).end();
           }
           req.user = user;
-          next(); // Implement: the next middleware function is what has the unhandled promise
+          next();
+          return user; // Resolved unhandled promise
         })
         .catch(err => next(err))
     );
