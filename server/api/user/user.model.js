@@ -145,7 +145,6 @@ export default function(sequelize, DataTypes) {
        */
       authenticate(password, callback) {
         if(!callback) {
-          // Make sure it's a non-blank password
           return this.password === this.encryptPassword(password);
         }
 
@@ -172,7 +171,7 @@ export default function(sequelize, DataTypes) {
        * @api public
        */
       makeSalt(byteSize, callback) {
-        var defaultByteSize = 16;
+        let defaultByteSize = 16;
 
         if(typeof arguments[0] === 'function') {
           callback = arguments[0];
@@ -187,7 +186,7 @@ export default function(sequelize, DataTypes) {
           byteSize = defaultByteSize;
         }
 
-        return crypto.randomBytes(byteSize, function(err, salt) {
+        return crypto.randomBytes(byteSize, (err, salt) => {
           if(err) {
             return callback(err);
           }

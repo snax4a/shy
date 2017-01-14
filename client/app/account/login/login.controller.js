@@ -1,3 +1,4 @@
+/* eslint no-sync:0 */ //Exception for checking admin status
 'use strict';
 
 export default class LoginController {
@@ -13,9 +14,10 @@ export default class LoginController {
 
 
   /*@ngInject*/
-  constructor(Auth, $state) {
+  constructor(Auth, $state, $log) {
     this.Auth = Auth;
     this.$state = $state;
+    this.$log = $log;
   }
 
   login(form) {
@@ -27,8 +29,11 @@ export default class LoginController {
         password: this.user.password
       })
         .then(() => {
-          // Logged in, redirect to home
-          this.$state.go('main');
+          // Logged in, redirect to home unless admin
+          if(this.Auth.isAdminSync()) {
+            return this.$state.go('admin');
+          }
+          this.$state.go('settings');
         })
         .catch(err => {
           this.errors.login = err.message;
