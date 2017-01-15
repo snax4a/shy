@@ -1,10 +1,91 @@
 .container
-  p
-    | The delete user and user index api routes are restricted to users with the 'admin' role.
-  ul.list-group
-    li.list-group-item(ng-repeat='user in admin.users')
-      strong {{user.name}}
-      br
-      span.text-muted {{user.email}}
-      a.trash(ng-click='admin.delete(user)')
-        span.glyphicon.glyphicon-trash.pull-right
+  h2 User Administration
+  .row
+    .col-md-4.col-sm-5.col-xs-7
+      .form-group
+        label.sr-only Find User
+        .input-group
+          input.form-control(type='search', ng-model='search', autofocus='', placeholder="User's name, phone or email address")
+          span.input-group-btn
+            a.btn.btn-primary
+              span.glyphicon.glyphicon-search 
+              |&nbsp;Search
+  .row
+    .col-md-12
+      table.table.table-striped
+        thead
+          th(ng-click="admin.sort('lastName')") Name (click to edit)
+            span.glyphicon.sort-icon(ng-show="admin.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}")
+          th(ng-click="admin.sort('email')") Email 
+            span.glyphicon.sort-icon(ng-show="admin.sortKey=='email'", ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}")
+          th(ng-click="admin.sort('phone')") Phone 
+            span.glyphicon.sort-icon(ng-show="admin.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}")
+          th 
+        tbody
+          tr(dir-paginate='user in admin.users|orderBy:sortKey:reverse|filter:search|itemsPerPage:10')
+            td
+              a(ng-click="admin.open(user)") {{user.lastName}}, {{user.firstName}}
+            td
+              a(href='mailto:{{user.email}}') {{user.email}}
+            td
+              a(href='tel:{{user.phone}}') {{user.phone}}
+            td
+
+
+              script(type='text/ng-template', id='UserEditor.html')
+                form(name='form', ng-submit="update(form)", novalidate='')
+                  .modal-header
+                    button.close(type='button', aria-label='Close' ng-click='cancel()')
+                      span(aria-hidden='true') &times;
+                    h4.modal-title Edit User
+                  .modal-body
+                    .row
+                      .form-group.col-md-6(ng-class='{ "has-success": form.firstname.$valid, "has-error": form.firstname.$invalid }')
+                        label First name
+                        input.form-control(type='text', id='firstname', ng-model='user.firstname', maxlength='20', autofocus='', ng-required='true', placeholder='First name')
+                        p.help-block(ng-show='form.firstname.$invalid && !form.firstname.$pristine')
+                          | First name is required
+                      .form-group.col-md-6
+                        label Last name
+                        input.form-control(type='text', id='lastname', ng-model='user.lastname', maxlength='20', ng-required='true', placeholder='Last name')
+                      span(ng-if="user.provider=='local'")
+                        .form-group.col-md-6
+                          label Reset Password
+                          input.form-control(type='password', id='password', ng-model='user.password', ng-minlength='5', maxlength='20', placeholder='Password')
+                        .form-group.col-md-6
+                          label Confirm
+                          input.form-control(type='password', id='passwordconfirm', ng-model='user.passwordconfirm', ng-minlength='5', maxlength='20', placeholder='Confirm')
+                        .form-group.col-md-6
+                          label Email
+                          input.form-control(type='email', id='email', ng-model='user.email', maxlength='80', ng-required='true', placeholder='Email')
+                      .form-group.col-md-6
+                        label Phone
+                        input.form-control(type='tel', id='phone', ng-model='user.phone', maxlength='20', placeholder='Phone')
+                      .form-group.col-md-12
+                        label Address
+                        input.form-control(type='text', id='address', ng-model='user.address', maxlength='40', placeholder='Address')
+                      .form-group.col-md-6
+                        label City
+                        input.form-control(type='text', id='city', ng-model='user.city', maxlength='20', placeholder='City')
+                      .form-group.col-md-2
+                        label State
+                        input.form-control(type='text', id='state', ng-model='user.state', maxlength='2', placeholder='State')
+                      .form-group.col-md-4
+                        label ZIP Code
+                        input.form-control(type='text', id='zipcode', ng-model='user.zipcode', maxlength='5', placeholder='ZIP Code')
+                      .form-group.col-md-6
+                        label Role
+                        select.form-control(id='role', ng-model='user.role')
+                          option(value='admin') Administrator
+                          option(value='student') Student
+                          option(value='teacher') Teacher
+                      .form-group.col-md-6
+                        label Opt-out
+                        select.form-control(id='optout', ng-model='user.optout', ng-options="(item?'Yes':'No') for item in [true, false]")
+                  .modal-footer
+                    button.btn.btn-default(id='cancel', ng-click="cancel()") Cancel
+                    button.btn.btn-primary(id='update', type='submit', ng-disabled='!form.$valid') Update
+              a.trash(ng-click='admin.delete(user)')
+                span.glyphicon.glyphicon-trash.pull-right
+                
+      dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
