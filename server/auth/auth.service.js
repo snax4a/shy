@@ -83,5 +83,6 @@ export function setTokenCookie(req, res) {
   }
   let token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
+  if(req.user.role === 'admin') return res.redirect('/admin');
   res.redirect('/');
 }

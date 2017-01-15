@@ -1,4 +1,6 @@
 High
+- Sorting of the user list doesn't work
+- Fix modal dialog editing of users (fields don't load and cancel doesn't work)
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 - user.model.js:122 doesn't fire (beforeUpsert)
 

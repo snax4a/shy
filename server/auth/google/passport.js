@@ -10,10 +10,12 @@ export function setup(User, config) {
   (accessToken, refreshToken, profile, done) =>
     User.find({where: {'google.id': profile.id}})
       .then(user => {
+        // If the user is already setup...
         if(user) {
           return done(null, user);
         }
 
+        // Map Google's properties to our user model
         user = User.build({
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
@@ -25,7 +27,9 @@ export function setup(User, config) {
           optOut: false,
           google: profile._json
         });
-        user.save()
+
+        // Return the promise
+        return user.save()
           .then(savedUser => done(null, savedUser))
           .catch(err => done(err));
       })

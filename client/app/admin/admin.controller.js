@@ -1,4 +1,5 @@
 'use strict';
+import AdminEditorController from './admineditor.controller';
 
 export default class AdminController {
   /*@ngInject*/
@@ -23,7 +24,7 @@ export default class AdminController {
   open(_user) {
     /*let modalInstance = */ this.$uibModal.open({
       templateUrl: 'UserEditor.html',
-      controller: 'ModalInstanceCtrl',
+      controller: AdminEditorController,
       resolve: {
         user: () => _user
       }
