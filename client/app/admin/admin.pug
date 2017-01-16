@@ -2,14 +2,15 @@
   h2 User Administration
   .row
     .col-md-5.col-xs-7
-      .form-group
-        label.sr-only Find User
-        .input-group
-          input.form-control(type='search', ng-model='admin.filterField', autofocus='', placeholder="User's name, phone or email address")
-          span.input-group-btn
-            a.btn.btn-primary(ng-click='admin.filterText = admin.filterField')
-              span.glyphicon.glyphicon-search 
-              |&nbsp;Search
+      form.form(name='findUserForm', ng-submit='admin.filterText = admin.filterField', novalidate='')
+        .form-group
+          label.sr-only Find User
+          .input-group
+            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', autofocus='', placeholder="User's name, phone or email address")
+            span.input-group-btn
+              button.btn.btn-primary(id='submitButton', type='submit')
+                span.glyphicon.glyphicon-search 
+                |&nbsp;Search
   .row
     .col-md-12
       p(ng-show='admin.users.length==0') Loading...
