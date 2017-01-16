@@ -1,11 +1,11 @@
 .container
   h2 User Administration
   .row
-    .col-md-4.col-sm-5.col-xs-7
+    .col-md-5.col-xs-7
       .form-group
         label.sr-only Find User
         .input-group
-          input.form-control(type='search', ng-model='search', autofocus='', placeholder="User's name, phone or email address")
+          input.form-control(type='search', ng-model='admin.search', autofocus='', placeholder="User's name, phone or email address")
           span.input-group-btn
             a.btn.btn-primary
               span.glyphicon.glyphicon-search 
@@ -25,8 +25,8 @@
           th(ng-click="admin.sort('role')") Role
             span.glyphicon.sort-icon(ng-show="admin.sortKey=='role'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
           th 
-        tbody
-          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:search|itemsPerPage:10')
+        tbody(ng-hide='!admin.users')
+          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:admin.search|itemsPerPage:10')
             td
               a(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td

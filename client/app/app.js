@@ -28,6 +28,7 @@ import admin from './admin';
 import util from '../components/util/util.module';
 import constants from './app.constants';
 import dirPagination from 'angular-utils-pagination';
+import loadingBar from 'angular-loading-bar';
 
 // Page components
 import mainPage from './main/main.component';
@@ -51,7 +52,7 @@ import './app.scss';
 // Inject everything into shyApp
 angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, admin, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-  htmlid, daytodate, tweet, CartModule, dirPagination])
+  htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {
     'ngInject';
