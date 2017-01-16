@@ -24,12 +24,12 @@ export default class AdminController {
   open(_user) {
     this.$log.info('Editing user', _user);
     let modalDialog = this.$uibModal.open({
-      templateUrl: require('./admineditor.pug'),
+      template: require('./admineditor.pug'),
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
       controller: AdminEditorController,
-      resolve: {
+      resolve: { // Might not need this here as I can put it in modalDialog.result.then()
         user: () => _user
       }
     });
