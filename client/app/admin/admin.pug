@@ -12,7 +12,8 @@
               |&nbsp;Search
   .row
     .col-md-12
-      table.table.table-striped
+      p(ng-show='admin.users.length==0') Loading...
+      table.table.table-striped(ng-hide='admin.users.length==0')
         thead
           th(ng-click="admin.sort('lastName')") Name (click to edit)
             span.glyphicon.sort-icon(ng-show="admin.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
@@ -25,7 +26,7 @@
           th(ng-click="admin.sort('role')") Role
             span.glyphicon.sort-icon(ng-show="admin.sortKey=='role'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
           th 
-        tbody(ng-hide='!admin.users')
+        tbody
           tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:admin.search|itemsPerPage:10')
             td
               a(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
