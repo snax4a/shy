@@ -17,11 +17,12 @@ export default class AdminController {
   }
 
   delete(user) {
-    user.$remove({ id: user._id });
-    this.users.splice(this.users.indexOf(user), 1);
+    user.$remove({ id: user._id }); // Delete the user from the database
+    this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
   }
 
   open(_user) {
+    this.$log.info('Editing user', _user);
     let modalDialog = this.$uibModal.open({
       templateUrl: require('./admineditor.pug'),
       ariaLabelledBy: 'modal-title',
