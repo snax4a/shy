@@ -33,7 +33,7 @@
             td
               a(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td
-              a(href='mailto:{{ user.email }}') {{ user.email }}
+              a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
             td
               a(href='tel:{{ user.phone }}') {{ user.phone }}
             td {{ user.optOut ? 'Yes' : 'No' }}

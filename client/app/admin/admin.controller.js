@@ -21,16 +21,16 @@ export default class AdminController {
     this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
   }
 
-  open(_user) {
-    this.$log.info('Editing user', _user);
+  open(user) {
+    this.$log.info('Editing user', user);
     let modalDialog = this.$uibModal.open({
       template: require('./admineditor.pug'),
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
       controller: AdminEditorController,
-      resolve: { // Might not need this here as I can put it in modalDialog.result.then()
-        user: () => _user
+      resolve: {
+        userSelectedForEditing: () => user
       }
     });
 

@@ -13,7 +13,9 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
       .form-group.col-md-6
         label Last name
         input.form-control(type='text', id='lastName', ng-model='$ctrl.user.lastName', maxlength='20', ng-required='true', placeholder='Last name')
-      span(ng-if="user.provider=='local'")
+        p.help-block(ng-show='form.lastName.$invalid && !form.lastName.$pristine')
+          | Last name is required
+      span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label Reset Password
           input.form-control(type='password', id='password', ng-model='$ctrl.user.password', ng-minlength='5', maxlength='20', placeholder='Password')
@@ -36,5 +38,5 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
         label Opt-out
         select.form-control(id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
   .modal-footer
-    button.btn.btn-default(id='cancel', ng-click="$ctrl.cancel()") Cancel
-    button.btn.btn-primary(id='update', type='submit', ng-disabled='!form.$valid') Update
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='update', type='submit', ng-disabled='!form.$valid') Update
