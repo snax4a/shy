@@ -1,5 +1,5 @@
 High
-- admineditor - check for password match, Update button doesn't Save
+- admineditor - check for password match, Update button doesn't Save because I have to modify updatePassword on client and server
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 - user.model.js:122 doesn't fire (beforeUpsert)
 

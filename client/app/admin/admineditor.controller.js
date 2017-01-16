@@ -19,16 +19,13 @@ export default class AdminEditorController {
       // Graft the edited user back the original
       angular.extend(this.userSelectedForEditing, this.user);
 
-      // Save updates to database
-
+      // Save updates to database - extend the settings functionality (updatePasword)
+      // This fails!
+      //this.User.update({ id: this.user._id }, this.user);
+      // Original was User.update({ id: user._id }, $scope.user);
 
       // Close dialog
       this.$uibModalInstance.close();
-
-      // IMPLEMENT
-      // Original was User.update({ id: user._id }, $scope.user);
-      // This fails!
-      //this.User.update({ id: this.user._id }, this.user);
     }
   }
 
