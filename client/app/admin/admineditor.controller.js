@@ -25,6 +25,6 @@ export default class AdminEditorController {
   }
 
   cancel() {
-    this.$uibModalInstance.dismiss('cancel'); // might trigger error - maybe use .close()
+    this.$uibModalInstance.close();
   }
 }

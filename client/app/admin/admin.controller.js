@@ -22,12 +22,20 @@ export default class AdminController {
   }
 
   open(_user) {
-    /*let modalInstance = */ this.$uibModal.open({
-      templateUrl: 'UserEditor.html',
+    let modalDialog = this.$uibModal.open({
+      templateUrl: require('./admineditor.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
       controller: AdminEditorController,
       resolve: {
         user: () => _user
       }
+    });
+
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      this.$log.info('Closed dialog.');
     });
   }
 

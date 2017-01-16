@@ -1,4 +1,5 @@
 /* global _ */
+/* eslint no-sync:0 */
 'use strict';
 
 class _User {
