@@ -16,7 +16,7 @@ export default class AdminEditorController {
     this.$uibModalInstance.result.then(() => angular.extend(user, this.user));
   }
 
-  update(form) {
+  submitUser(form) {
     if(form.$valid) {
       // Original was User.update({ id: user._id }, $scope.user);
       this.User.update({ id: this.user._id }, this.user);

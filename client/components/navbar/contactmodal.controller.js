@@ -12,15 +12,12 @@ export default class ContactModalController {
     if(form.$valid) {
       this.$http
         .post('/api/message', this.contact)
-        .then(response => {
-          // Don't really need to do anything so just log data
-          this.$log.info(response.data);
-        })
         .catch(response => {
           // Implement: display the error in a toast since we closed the dialog already
           this.$log.error(response.err);
         });
-      this.$uibModalInstance.close(); // Close the dialog quickly even though email sending is slow
+      // Don't wait for the promise to be fulfilled because email sending is slow
+      this.$uibModalInstance.close();
     }
   }
 
