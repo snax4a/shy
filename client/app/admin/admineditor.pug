@@ -21,8 +21,7 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
           input.form-control(type='password', name='passwordNew', id='passwordNew', ng-model='$ctrl.user.password', maxlength='20', placeholder='Password')
         .form-group.col-md-6
           label Confirm
-          input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', xng-pattern='\b{{ $ctrl.user.password }}\b', maxlength='20', placeholder='Confirm')
-          p {{ $ctrl.user.password }} {{ $ctrl.user.passwordConfirm }}
+          input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', maxlength='20', placeholder='Confirm')
           p.help-block.has-error(ng-show='form.passwordConfirm.$invalid && !form.passwordConfirm.$pristine')
             | Passwords must match
         .form-group.col-md-6
@@ -44,4 +43,4 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
         select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
-    button.btn.btn-warning(id='update', type='submit', ng-disabled='!form.$valid') Update
+    button.btn.btn-warning(id='update', type='submit', ng-disabled='!form.$valid', style='width:70px;') Save

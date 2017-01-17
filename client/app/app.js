@@ -46,13 +46,16 @@ import upcoming from '../components/upcoming/upcoming.filter';
 import htmlid from '../components/htmlid/htmlid.filter';
 import daytodate from '../components/daytodate/daytodate.filter';
 
+// Directives used globally
+import compareTo from '../components/compareto/compareto.directive';
+
 // SASS styling
 import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, admin, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
-  htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar])
+  htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {
     'ngInject';
