@@ -20,8 +20,8 @@ export default class AdminEditorController {
       angular.extend(this.userSelectedForEditing, this.user);
 
       // Save updates to database - extend the settings functionality (updatePasword)
-      // This fails!
-      //this.User.update({ id: this.user._id }, this.user);
+      // This fails because I need to add this method to the API
+      this.User.upsert({ id: this.user._id }, this.user);
       // Original was User.update({ id: user._id }, $scope.user);
 
       // Close dialog
