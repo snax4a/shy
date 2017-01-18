@@ -6,10 +6,9 @@ export function compareTo() {
   return {
     require: 'ngModel',
     scope: {
-    otherModelValue: '=compareTo'
+      otherModelValue: '=compareTo'
     },
     link: (scope, element, attributes, ngModel) => {
-
       ngModel.$validators.compareTo = modelValue => modelValue == scope.otherModelValue;
 
       scope.$watch('otherModelValue', () => {

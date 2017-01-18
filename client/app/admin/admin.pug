@@ -29,9 +29,9 @@
             span.glyphicon.sort-icon(ng-show="admin.sortKey=='role'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
           th 
         tbody
-          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:admin.filterText|itemsPerPage:10')
+          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:admin.filterText|itemsPerPage:8')
             td
-              a(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
+              a.edit(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td
               a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
             td

@@ -19,13 +19,14 @@
 	}
 }
 
-th {
+th, td>a {
   cursor: pointer;
 }
 .sort-icon {
     font-size: 9px;
     margin-left: 5px;
 }
+
 
 /*! 
  * angular-loading-bar v0.9.0
