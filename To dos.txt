@@ -1,8 +1,7 @@
 High
-- admineditor - change updatePassword to updateUser on client and server then connect to Save button
+- user.controller.js - upsert method doesn't fire user.model.js:122 (beforeUpsert)
 - admin - New User button
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
-- user.model.js:122 doesn't fire (beforeUpsert)
 
 Low/cosmetic
 - After successful login of non-admin go to /shynet (/client/app/account/login/login.controller.js:36)
