@@ -121,29 +121,26 @@ export function changePassword(req, res) {
  * Update user (or insert if new)
  */
 export function upsert(req, res) {
-  console.log('upsert - req.user', req.user);
-  console.log('upsert - req.body', req.body);
-  let userId = req.user._id;
-  let oldPass = String(req.body.oldPassword);
-  let newPass = String(req.body.newPassword);
+  let password = String(req.body.password);
+  let passwordConfirm = String(req.body.passwordConfirm);
 
-  return User.find({
-    where: {
-      _id: userId
-    }
-  })
-    .then(user => {
-      if(user.authenticate(oldPass)) {
-        user.password = newPass;
-        return user.save()
-          .then(() => {
-            res.status(204).end();
-          })
-          .catch(validationError(res));
-      } else {
-        return res.status(403).end();
-      }
-    });
+  let userToUpsert = {
+    provider: req.body.provider,
+    role: req.body.role,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    optOut: req.body.optOut,
+    phone: req.body.phone
+  };
+
+  if(req.body._id) userToUpsert._id = req.body._id;
+  if(req.body.password && password === passwordConfirm) userToUpsert.password = password;
+
+  console.log(userToUpsert);
+
+  return User.upsert(userToUpsert)
+    .then(() => res.status(200).end());
 }
 
 /**
