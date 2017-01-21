@@ -123,7 +123,7 @@ export function changePassword(req, res) {
 export function upsert(req, res) {
   let password = String(req.body.password);
   let passwordConfirm = String(req.body.passwordConfirm);
-
+  console.log('req.body', req.body);
   let userToUpsert = {
     provider: req.body.provider,
     role: req.body.role,
@@ -137,8 +137,9 @@ export function upsert(req, res) {
   if(req.body._id) userToUpsert._id = req.body._id;
   if(req.body.password && password === passwordConfirm) userToUpsert.password = password;
 
-  console.log(userToUpsert);
+  console.log('userToUpsert', userToUpsert);
 
+  // If !req.body._id, use create, else update instead of upsert
   return User.upsert(userToUpsert)
     .then(() => res.status(200).end());
 }

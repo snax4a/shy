@@ -15,7 +15,6 @@ export default function(sequelize, DataTypes) {
   let User = sequelize.define('User', {
     _id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
@@ -35,8 +34,7 @@ export default function(sequelize, DataTypes) {
         msg: 'The specified email address is already in use.'
       },
       validate: {
-        isEmail: true,
-        notEmpty: true
+        isEmail: true
       }
     },
     optOut: {
