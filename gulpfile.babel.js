@@ -1,5 +1,5 @@
-/*eslint no-process-env:0*/
-/* global console, setInterval, clearInterval, require, process, __dirname */
+/* eslint no-process-env:0 */
+/* global console, setInterval, clearInterval, require, process, __dirname, styles */
 // Generated on 2016-09-03 using generator-angular-fullstack 4.0.4
 'use strict';
 
