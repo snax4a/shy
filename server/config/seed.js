@@ -112,4 +112,5 @@ User.sync()
       }
     ]
   ))
-  .then(() => console.log('Finished populating users'));
+  .then(() => console.log('Finished populating users'))
+  .catch(err => console.log(err));

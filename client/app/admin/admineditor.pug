@@ -1,4 +1,4 @@
-form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
+form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
       span(aria-hidden='true') &times;
@@ -8,12 +8,12 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
       .form-group.col-md-6
         label First name
         input.form-control(type='text', name='firstName', id='firstName', ng-model='$ctrl.user.firstName', maxlength='20', autofocus='', required='true', placeholder='First name')
-        p.help-block.has-error(ng-show='form.firstName.$invalid && !form.firstName.$pristine')
+        p.help-block.has-error(ng-show='form.firstName.$invalid && $ctrl.submitted')
           | First name is required
       .form-group.col-md-6
         label Last name
         input.form-control(type='text', name='lastName', id='lastName', ng-model='$ctrl.user.lastName', maxlength='20', required='true', placeholder='Last name')
-        p.help-block.has-error(ng-show='form.lastName.$invalid && !form.lastName.$pristine')
+        p.help-block.has-error(ng-show='form.lastName.$invalid && $ctrl.submitted')
           | Last name is required
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
@@ -22,13 +22,15 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
         .form-group.col-md-6
           label Confirm
           input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', maxlength='20', placeholder='Confirm')
-          p.help-block.has-error(ng-show='form.passwordConfirm.$invalid && !form.passwordConfirm.$pristine')
+          p.help-block.has-error(ng-show='form.passwordConfirm.$invalid && $ctrl.submitted')
             | Passwords must match
         .form-group.col-md-6
           label Email
-          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', maxlength='80', required='true', placeholder='Email')
-          p.help-block.has-error(ng-show='form.email.$invalid && !form.email.$pristine')
-            | Email address is required
+          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', maxlength='80', required='true', placeholder='Email', autocomplete='off')
+          p.help-block.has-error(ng-show='form.email.$error.email && $ctrl.submitted')
+            | Please provide a valid email address
+          p.help-block.has-error(ng-show='form.email.$error.required && $ctrl.submitted')
+            | Please provide an email address
       .form-group.col-md-6
         label Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')
@@ -41,6 +43,9 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='')
       .form-group.col-md-6
         label Opt-out
         select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
+    .row(ng-show='$ctrl.serverError')
+      .col-md-12
+        p.help-block.has-error {{ $ctrl.serverError }}
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
-    button.btn.btn-warning(id='update', type='submit', ng-disabled='!form.$valid', style='width:70px;') Save
+    button.btn.btn-warning(id='update', type='submit', style='width:70px;') Save

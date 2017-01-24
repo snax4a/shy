@@ -15,9 +15,15 @@ export default function(sequelize, DataTypes) {
         isDecimal: true
       }
     },
-    gift: DataTypes.BOOLEAN,
+    gift: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     instructions: DataTypes.STRING,
-    sendVia: DataTypes.STRING,
+    sendVia: { // Should have used DataTypes.ENUM('Email', 'Mail')
+      type: DataTypes.STRING(5),
+      defaultValue: 'Email'
+    },
     purchaserFirstName: DataTypes.STRING(20),
     purchaserLastName: DataTypes.STRING(20),
     purchaserEmail: {

@@ -10,19 +10,18 @@ export default class AdminController {
   }
 
   $onInit() {
-    //this.users = this.User.query(); // fetch all users (but this might be too slow)
     this.users = this.User.query();
     this.reverse = false;
     this.sortKey = 'lastName';
+    this.new = false;
   }
 
-  delete(user) {
-    user.$remove({ id: user._id }); // Delete the user from the database
-    this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
+  delete(selectedUser) {
+    selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the database
+    this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
 
-  open(user) {
-    this.$log.info('Editing user', user);
+  handleEditing(user) {
     let modalDialog = this.$uibModal.open({
       template: require('./admineditor.pug'),
       ariaLabelledBy: 'modal-title',
@@ -36,8 +35,20 @@ export default class AdminController {
 
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
-      this.$log.info('Closed dialog.');
+      if(user.shouldBeDeleted) this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
+      this.new = false;
     });
+  }
+
+  open(user) {
+    this.handleEditing(user);
+  }
+
+  create() {
+    let user = { provider: 'local', role: 'student', optOut: false };
+    this.new = true;
+    this.users.unshift(user);
+    this.handleEditing(user);
   }
 
   sort(keyname) {

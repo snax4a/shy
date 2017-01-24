@@ -2,7 +2,7 @@
   .row
     .col-sm-12.col-md-6.col-md-offset-3
       h2 Sign up for an account
-      form.form(name='form', ng-submit='vm.register(form)', novalidate='')
+      form.form(name='form', ng-submit='vm.register(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group(ng-class='{ "has-success": form.firstName.$valid && vm.submitted,\
         "has-error": form.firstName.$invalid && vm.submitted }')
           label First name
@@ -11,7 +11,7 @@
             | Your first name is required
         .form-group(ng-class='{ "has-success": form.lastName.$valid && vm.submitted,\
         "has-error": form.lastName.$invalid && vm.submitted }')
-          label Last name
+          label Last name {{ vm.user.lastName }}
           input.form-control(type='text', name='lastName', ng-model='vm.user.lastName', required='')
           p.help-block(ng-show='form.lastName.$error.required && vm.submitted')
             | Your last name is required
@@ -19,7 +19,7 @@
         .form-group(ng-class='{ "has-success": form.email.$valid && vm.submitted,\
         "has-error": form.email.$invalid && vm.submitted }')
           label Email
-          input.form-control(type='email', name='email', ng-model='vm.user.email', required='', mongoose-error='')
+          input.form-control(type='email', name='email', ng-model='vm.user.email', required='', autocomplete='on', mongoose-error='')
           p.help-block(ng-show='form.email.$error.email && vm.submitted')
             | Doesn't look like a valid email.
           p.help-block(ng-show='form.email.$error.required && vm.submitted')
@@ -30,11 +30,7 @@
         .form-group(ng-class='{ "has-success": form.password.$valid && vm.submitted,\
         "has-error": form.password.$invalid && vm.submitted }')
           label Password
-          input.form-control(type='password'
-            name='password'
-            ng-model='vm.user.password'
-            mongoose-error=''
-            ng-minlength='3', required='')
+          input.form-control(type='password', name='password', ng-model='vm.user.password', mongoose-error='', ng-minlength='3', required='')
 
           p.help-block(ng-show='(form.password.$error.minlength || form.password.$error.required) && vm.submitted')
             | Password must be at least 3 characters.
@@ -44,12 +40,8 @@
         .form-group(ng-class='{ "has-success": form.confirmPassword.$valid && vm.submitted,\
         "has-error": form.confirmPassword.$invalid && vm.submitted }')
           label Confirm Password
-          input.form-control(type='password'
-            name='confirmPassword'
-            ng-model='vm.user.confirmPassword'
-            match="vm.user.password"
-            ng-minlength='3', required='')
-          p.help-block(ng-show='form.confirmPassword.$error.match && vm.submitted')
+          input.form-control(type='password', name='confirmPassword', ng-model='vm.user.confirmPassword', compare-to='vm.user.password', ng-minlength='3', required='')
+          p.help-block(ng-show='form.confirmPassword.$invalid && vm.submitted')
             | Passwords must match.
 
         .form-group(ng-class='{ "has-success": form.phone.$valid && vm.submitted,\

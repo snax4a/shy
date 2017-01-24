@@ -53,7 +53,9 @@ var all = {
     options: {
       logging: false,
       dialect: 'postgres',
-      protocol: 'postgres'
+      protocol: 'postgres',
+      native: true,
+      language: 'en'
     }
   },
 

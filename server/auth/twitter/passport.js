@@ -21,6 +21,7 @@ export function setup(User, config) {
           // Implement: pull out first and last names
           name: profile.displayName,
           username: profile.username,
+          password: config.secrets.session, // prevents errors because password is empty
           role: 'user',
           provider: 'twitter',
           twitter: profile._json

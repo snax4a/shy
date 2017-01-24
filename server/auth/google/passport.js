@@ -19,6 +19,7 @@ export function setup(User, config) {
         user = User.build({
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
+          password: config.secrets.session, // prevents errors because password is empty
           email: profile.emails[0].value,
           phone: profile.phone,
           role: 'student',

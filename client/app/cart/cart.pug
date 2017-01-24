@@ -2,7 +2,7 @@
   h2 {{ $ctrl.pageName }} 
   .row(ng-show='$ctrl.pageName=="Shopping Cart"')
     .col-md-6
-      form(name='cart', novalidate='')
+      form(name='cart', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .panel.panel-default(aria-labelledby='cartPanelTitle')
           .panel-heading
             #cartPanelTitle.panel-title 

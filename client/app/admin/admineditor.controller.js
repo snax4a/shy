@@ -11,25 +11,42 @@ export default class AdminEditorController {
     angular.copy(this.userSelectedForEditing, this.user);
     this.User = User; // User Service
     this.$log = $log;
-    this.errors = {};
+    this.submitted = false;
   }
 
   submitUser(form) {
+    this.submitted = true;
     if(form.$valid) {
-      // Graft the edited user back the original
-      angular.extend(this.userSelectedForEditing, this.user);
+      // Save changes to or create a new user
+      this.User.upsert(this.user)
+        .$promise
+        .then(user => {
+          // Do not add the password and passwordConfirm to the array
+          Reflect.deleteProperty(this.user, 'password'); // clear this out for security reasons
+          Reflect.deleteProperty(this.user, 'passwordConfirm'); // ditto
 
-      // Save updates to database - extend the settings functionality (updatePasword)
-      // This fails because I need to add this method to the API
-      this.User.upsert({ id: this.user._id }, this.user);
-      // Original was User.update({ id: user._id }, $scope.user);
+          // If a new user...
+          if(!this.user._id) {
+            this.user._id = user._id;
+          }
 
-      // Close dialog
-      this.$uibModalInstance.close();
+          // Graft the edited user back the original
+          angular.extend(this.userSelectedForEditing, this.user);
+          this.$uibModalInstance.close();
+          return null;
+        })
+        .catch(response => {
+          this.serverError = response.data;
+          return null;
+        });
     }
   }
 
   cancel() {
+    if(!this.userSelectedForEditing._id) {
+      this.$log.info('Cancelled during creation of a new user');
+      this.userSelectedForEditing.shouldBeDeleted = true;
+    }
     this.$uibModalInstance.close();
   }
 }

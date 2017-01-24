@@ -3,7 +3,7 @@
   h2 User Administration
   .row
     .col-md-5.col-xs-7
-      form.form(name='findUserForm', ng-submit='admin.filterText = admin.filterField', novalidate='')
+      form.form(name='findUserForm', ng-submit='admin.filterText = admin.filterField', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only Find User
           .input-group
@@ -12,6 +12,8 @@
               button.btn.btn-primary(id='submitButton', type='submit')
                 span.glyphicon.glyphicon-search 
                 |&nbsp;Search
+    .col-md-3.col.xs-3
+      a.btn.btn-warning(ng-click="admin.create()") New User
   .row
     .col-md-12
       p(ng-show='admin.users.length==0') Loading...

@@ -22,6 +22,7 @@ export function setup(User, config) {
           // Implement: pull firstName and lastName out
           name: profile.displayName,
           email: profile.emails[0].value,
+          password: config.secrets.session, // prevents errors because password is empty
           role: 'user',
           provider: 'facebook',
           facebook: profile._json

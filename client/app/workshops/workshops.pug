@@ -2,7 +2,7 @@
   h2 Workshops
   .row
     .col-sm-5
-      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-hide='subscriberform.$submitted', novalidate='')
+      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-hide='subscriberform.$submitted', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only(for='email') Email address
           .help-block.has-error(ng-messages='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')

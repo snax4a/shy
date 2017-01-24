@@ -1,6 +1,6 @@
 'use strict';
 
-import {User} from '../../sqldb';
+import { User } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 
@@ -45,15 +45,16 @@ export function index(req, res) {
  * Creates a new user
  */
 export function create(req, res) {
-  var newUser = User.build(req.body);
+  let newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'user');
+  console.log('user.controller.js:create:newUser = ', newUser);
   return newUser.save()
-    .then(function(user) {
+    .then(user => {
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
-      res.json({ token });
+      return res.status(200).json({ token });
     })
     .catch(validationError(res));
 }
@@ -91,7 +92,7 @@ export function destroy(req, res) {
 }
 
 /**
- * Change a users password
+ * Change a user's password
  */
 export function changePassword(req, res) {
   var userId = req.user._id;
@@ -118,30 +119,31 @@ export function changePassword(req, res) {
 }
 
 /**
- * Update user (or insert if new)
+ * Update user (or insert if new), return _id
+ * restriction: 'admin'
  */
 export function upsert(req, res) {
-  let password = String(req.body.password);
-  let passwordConfirm = String(req.body.passwordConfirm);
-  console.log('req.body', req.body);
-  let userToUpsert = {
-    provider: req.body.provider,
-    role: req.body.role,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    optOut: req.body.optOut,
-    phone: req.body.phone
-  };
+  let userToUpsert = User.build(req.body);
 
-  if(req.body._id) userToUpsert._id = req.body._id;
-  if(req.body.password && password === passwordConfirm) userToUpsert.password = password;
+  // Detect new users and set defaults appropriately
+  if(!req.body._id) {
+    userToUpsert.setDataValue('provider', req.body.provider || 'local');
+    userToUpsert.setDataValue('role', req.body.role || 'student');
+  } else userToUpsert.isNewRecord = false;
+
+  // Determine whether password is to be updated or not
+  if(req.body.password) {
+    if(req.body.password === req.body.passwordConfirm) {
+      userToUpsert.setDataValue('password', req.body.password);
+    } else throw new Error('Passwords must match.');
+  } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
 
   console.log('userToUpsert', userToUpsert);
-
-  // If !req.body._id, use create, else update instead of upsert
-  return User.upsert(userToUpsert)
-    .then(() => res.status(200).end());
+  return userToUpsert.save()
+    .then(user => res.status(200).json({ _id: user._id }))
+    .catch(err => {
+      res.status(500).send(err.message);
+    });
 }
 
 /**
@@ -159,17 +161,17 @@ export function me(req, res, next) {
       'firstName',
       'lastName',
       'email',
-      'phone',
-      'role',
-      'provider',
-      'optOut'
+      'role'
+//      'phone',
+//      'provider',
+//      'optOut'
     ]
   })
-    .then(user => { // don't ever give out the password or salt
+    .then(user => {
       if(!user) {
         return res.status(401).end();
       }
-      res.json(user);
+      return res.status(200).json(user);
     })
     .catch(err => next(err));
 }
