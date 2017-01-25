@@ -518,12 +518,12 @@ gulp.task('build:images', () =>
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
 );
 
-gulp.task('revReplaceWebpack', function() {
+gulp.task('revReplaceWebpack', () =>
   // Replace references to assets with updated location (like images)
-  return gulp.src(['dist/client/app.*.js', 'dist/index.html', 'dist/newsletter.html'])
+  gulp.src(['dist/client/app.*.js', 'dist/index.html', 'dist/newsletter.html'])
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
-    .pipe(gulp.dest('dist/client'));
-});
+    .pipe(gulp.dest('dist/client'))
+);
 
 gulp.task('copy:extras', () =>
   gulp.src([
