@@ -520,7 +520,7 @@ gulp.task('build:images', () =>
 
 gulp.task('revReplaceWebpack', () =>
   // Replace references to assets with updated location (like images)
-  gulp.src(['dist/client/app.*.js', 'dist/index.html', 'dist/newsletter.html'])
+  gulp.src(['dist/client/app.*.js', 'dist/client/newsletter.html'])
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
     .pipe(gulp.dest('dist/client'))
 );
