@@ -2,9 +2,7 @@
 import angular from 'angular';
 
 export function htmlIdFilter() {
-  return input => input.toLowerCase()
-    .split(' ')
-    .join('');
+  return input => input.replace(/[\W_]+/g, '').toLowerCase();
 }
 
 export default angular.module('shyApp.htmlId', [])

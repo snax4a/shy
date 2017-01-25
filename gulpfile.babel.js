@@ -508,6 +508,7 @@ gulp.task('build:images', () =>
       plugins.imagemin.gifsicle({interlaced: true}),
       plugins.imagemin.svgo({plugins: [{removeViewBox: false}]})
     ]))
+    // Rename the images to avoid the browser cache issue
     .pipe(plugins.rev())
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/images`))
     .pipe(plugins.rev.manifest(`${paths.dist}/${paths.client.revManifest}`, {
@@ -518,7 +519,8 @@ gulp.task('build:images', () =>
 );
 
 gulp.task('revReplaceWebpack', function() {
-  return gulp.src('dist/client/app.*.js')
+  // Replace references to assets with updated location (like images)
+  return gulp.src(['dist/client/app.*.js', 'dist/index.html', 'dist/newsletter.html'])
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
     .pipe(gulp.dest('dist/client'));
 });
