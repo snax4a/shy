@@ -1,7 +1,7 @@
 /* global describe, before, beforeEach, afterEach, expect, it */
 'use strict';
 
-import app from '../..';
+// import app from '../..';
 import {User} from '../../sqldb';
 var user;
 var genUser = function() {
@@ -33,9 +33,9 @@ describe('User Model', function() {
     return User.destroy({ where: {} });
   });
 
-  it('should begin with no users', function() {
+  it('should begin with 4 users seeded', function() {
     return expect(User.findAll()).to
-      .eventually.have.length(0);
+      .eventually.have.length(4);
   });
 
   it('should fail when saving a duplicate user', function() {

@@ -4,7 +4,7 @@ import { User } from '../../sqldb';
 
 // Subscribes to the newsletter
 export function subscribe(req, res) {
-  // Save subscriber to database
+  // Upsert subscriber to database
   const promise = User.upsert({
     email: req.body.email,
     firstName: 'Student',
@@ -23,7 +23,7 @@ export function subscribe(req, res) {
   return promise;
 }
 
-// Sets the subscriber to opt out
+// Upsert subscriber to opt out (unsubscribe)
 export function unsubscribe(req, res) {
   return User.upsert({
     email: req.params.email,
