@@ -47,7 +47,7 @@ var all = {
     password: process.env.ADMIN_PASSWORD
   },
 
-  // Sequelize connection opions
+  // Sequelize connection options
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
