@@ -3,8 +3,8 @@
 
 // import app from '../..';
 import {User} from '../../sqldb';
-var user;
-var genUser = function() {
+let user;
+let genUser = function() {
   user = User.build({
     provider: 'local',
     firstName: 'John',
@@ -21,7 +21,7 @@ describe('User Model', function() {
   before(function() {
     // Sync and clear users before testing
     return User.sync().then(function() {
-      return User.destroy({ where: {} });
+      return User.destroy({ where: { email: 'test@example.com' } });
     });
   });
 
@@ -30,7 +30,7 @@ describe('User Model', function() {
   });
 
   afterEach(function() {
-    return User.destroy({ where: {} });
+    return User.destroy({ where: { email: 'test@example.com' } });
   });
 
   it('should begin with 4 users seeded', function() {
@@ -41,7 +41,7 @@ describe('User Model', function() {
   it('should fail when saving a duplicate user', function() {
     return expect(user.save()
       .then(function() {
-        var userDup = genUser();
+        let userDup = genUser();
         return userDup.save();
       })).to.be.rejected;
   });
@@ -58,12 +58,14 @@ describe('User Model', function() {
       return user.save();
     });
 
-    it('should authenticate user if valid', function() {
+    it('should authenticate user if valid', function(done) {
       expect(user.authenticate('password')).to.be.true;
+      done();
     });
 
-    it('should not authenticate user if invalid', function() {
+    it('should not authenticate user if invalid', function(done) {
       expect(user.authenticate('blah')).to.not.be.true;
+      done();
     });
 
     it('should remain the same hash unless the password is updated', function() {
