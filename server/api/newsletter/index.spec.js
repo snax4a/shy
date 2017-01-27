@@ -24,23 +24,26 @@ var newsletterIndex = proxyquire('./index.js', {
 });
 
 describe('Newsletter API Router:', function() {
-  it('should return an express router instance', function() {
+  it('should return an express router instance', function(done) {
     expect(newsletterIndex).to.equal(routerStub);
+    done();
   });
 
   describe('POST /api/newsletter', function() {
-    it('should route to newsletter.controller.subscribe', function() {
+    it('should route to newsletter.controller.subscribe', function(done) {
       expect(routerStub.post
         .withArgs('/', 'newsletterCtrl.subscribe')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('GET /api/newsletter/unsubscribe/:email', function() {
-    it('should route to newsletter.controller.unsubscribe', function() {
+    it('should route to newsletter.controller.unsubscribe', function(done) {
       expect(routerStub.get
         .withArgs('/unsubscribe/:email', 'newsletterCtrl.unsubscribe')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 });

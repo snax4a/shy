@@ -41,55 +41,62 @@ var userIndex = proxyquire('./index', {
 });
 
 describe('User API Router:', function() {
-  it('should return an express router instance', function() {
+  it('should return an express router instance', function(done) {
     expect(userIndex).to.equal(routerStub);
+    done();
   });
 
   describe('GET /api/users', function() {
-    it('should verify admin role and route to user.controller.index', function() {
+    it('should verify admin role and route to user.controller.index', function(done) {
       expect(routerStub.get
         .withArgs('/', 'authService.hasRole.admin', 'userCtrl.index')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('DELETE /api/users/:id', function() {
-    it('should verify admin role and route to user.controller.destroy', function() {
+    it('should verify admin role and route to user.controller.destroy', function(done) {
       expect(routerStub.delete
         .withArgs('/:id', 'authService.hasRole.admin', 'userCtrl.destroy')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('GET /api/users/me', function() {
-    it('should be authenticated and route to user.controller.me', function() {
+    it('should be authenticated and route to user.controller.me', function(done) {
       expect(routerStub.get
         .withArgs('/me', 'authService.isAuthenticated', 'userCtrl.me')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('PUT /api/users/:id/password', function() {
-    it('should be authenticated and route to user.controller.changePassword', function() {
+    it('should be authenticated and route to user.controller.changePassword', function(done) {
       expect(routerStub.put
         .withArgs('/:id/password', 'authService.isAuthenticated', 'userCtrl.changePassword')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('GET /api/users/:id', function() {
-    it('should be authenticated and route to user.controller.show', function() {
+    it('should be authenticated and route to user.controller.show', function(done) {
       expect(routerStub.get
         .withArgs('/:id', 'authService.isAuthenticated', 'userCtrl.show')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 
   describe('POST /api/users', function() {
-    it('should route to user.controller.create', function() {
+    it('should route to user.controller.create', function(done) {
       expect(routerStub.post
         .withArgs('/', 'userCtrl.create')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 });

@@ -22,15 +22,17 @@ var orderIndex = proxyquire('./index.js', {
 });
 
 describe('Order API Router:', function() {
-  it('should return an express router instance', function() {
+  it('should return an express router instance', function(done) {
     expect(orderIndex).to.equal(routerStub);
+    done();
   });
 
   describe('POST /api/order', function() {
-    it('should route to order.controller.create', function() {
+    it('should route to order.controller.create', function(done) {
       expect(routerStub.post
         .withArgs('/', 'orderCtrl.create')
         ).to.have.been.calledOnce;
+      done();
     });
   });
 });

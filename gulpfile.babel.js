@@ -195,7 +195,7 @@ gulp.task('inject', cb => {
 gulp.task('inject:scss', () =>
   gulp.src(paths.client.mainStyle)
     .pipe(plugins.inject(
-      gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
+      gulp.src(_.union(paths.client.styles, [`!${paths.client.mainStyle}`]), {read: false})
         .pipe(plugins.sort()), {
           transform: filepath => {
             let newPath = filepath
@@ -221,7 +221,7 @@ gulp.task('webpack:dist', function() {
   const webpackDistConfig = makeWebpackConfig({ BUILD: true });
   return gulp.src(webpackDistConfig.entry.app)
     .pipe(webpack(webpackDistConfig))
-    .on('error', err => {
+    .on('error', function(err) {
       console.log('Error: webpack:dist', err);
       this.emit('end'); // Recover from errors
     })
@@ -388,6 +388,10 @@ gulp.task('test:server', cb => {
 gulp.task('mocha:unit', () =>
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
+    // .on('error', function(err) {
+    //   console.log('Error: mocha:unit', err);
+    //   this.emit('end'); // Recover from errors
+    // })
     // .once('error', () => {
     //   process.exit(1);
     // })
