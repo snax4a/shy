@@ -67,12 +67,12 @@ describe('User Model', function() {
       done();
     });
 
-    // it('should not authentic user if password is changed', function() {
-    //   user.password = 'something else';
-    //   return expect(user.save()
-    //     .then(function(u) {
-    //       u.authenticate('password');
-    //     })).to.eventually.be.false;
-    // });
+    it('should not authenticate user if password changes', function() {
+      user.password = 'something else';
+      return expect(user.save()
+        .then(function(u) {
+          return u.authenticate('password');
+        })).to.eventually.be.false;
+    });
   });
 });

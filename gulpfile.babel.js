@@ -388,16 +388,6 @@ gulp.task('test:server', cb => {
 gulp.task('mocha:unit', () =>
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
-    // .on('error', function(err) {
-    //   console.log('Error: mocha:unit', err);
-    //   this.emit('end'); // Recover from errors
-    // })
-    // .once('error', () => {
-    //   process.exit(1);
-    // })
-    // .once('end', () => {
-    //   process.exit();
-    // })
 );
 
 gulp.task('mocha:integration', () =>
