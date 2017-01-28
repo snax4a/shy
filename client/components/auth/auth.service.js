@@ -11,7 +11,7 @@ class _User {
   $promise = undefined;
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User, $log) {
+export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
 
   let safeCb = Util.safeCb;

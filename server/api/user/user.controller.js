@@ -23,7 +23,15 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
+  let startsWith = `${req.query.filter}%`;
   return User.findAll({
+    where: {
+      $or: [
+        { firstName: { $iLike: startsWith } },
+        { lastName: { $iLike: startsWith } },
+        { email: { $iLike: startsWith } }
+      ]
+    },
     attributes: [
       '_id',
       'firstName',

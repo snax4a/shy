@@ -105,6 +105,7 @@ export default function(sequelize, DataTypes) {
     google: DataTypes.JSON
   };
 
+  // The only options we're setting are indexes
   const options = {
     indexes: [
       { fields: ['lastName'] },

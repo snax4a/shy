@@ -10,10 +10,18 @@ export default class AdminController {
   }
 
   $onInit() {
-    this.users = this.User.query();
+    this.users = [];
     this.reverse = false;
     this.sortKey = 'lastName';
+    this.submitted = false;
     this.new = false;
+  }
+
+  search(form) {
+    this.submitted = true;
+    if(form.$valid) {
+      this.users = this.User.query({ filter: this.filterField});
+    }
   }
 
   delete(selectedUser) {

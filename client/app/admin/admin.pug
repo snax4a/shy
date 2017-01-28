@@ -3,20 +3,22 @@
   h2 User Administration
   .row
     .col-md-5.col-xs-7
-      form.form(name='findUserForm', ng-submit='admin.filterText = admin.filterField', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+      form.form(name='findUserForm', ng-submit='admin.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only Find User
           .input-group
-            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', ng-minlength='3', autofocus='', placeholder="User's name, phone or email address")
+            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', ng-minlength='3', required='', autofocus='', placeholder="User's name, phone or email address")
             span.input-group-btn
               button.btn.btn-primary(id='submitButton', type='submit')
                 span.glyphicon.glyphicon-search 
                 |&nbsp;Search
+          p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && admin.submitted')
+            | Please enter at least the first three characters of the user's first or last name (or email address)
     .col-md-3.col.xs-3
       a.btn.btn-warning(ng-click="admin.create()") New User
   .row
     .col-md-12
-      p(ng-show='admin.users.length==0') Loading...
+      p(ng-show='admin.users.length==0') No users found meeting the search criteria above
       table.table.table-striped(ng-hide='admin.users.length==0')
         thead
           th(ng-click="admin.sort('lastName')") Name (click to edit)
@@ -31,7 +33,8 @@
             span.glyphicon.sort-icon(ng-show="admin.sortKey=='role'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
           th 
         tbody
-          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|filter:admin.filterText|itemsPerPage:8')
+          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|itemsPerPage:8')
+            //- was admin.reverse|filter:admin.filterText|itemsPerPage
             td
               a.edit(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td
