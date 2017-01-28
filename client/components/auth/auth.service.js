@@ -11,7 +11,7 @@ class _User {
   $promise = undefined;
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+export function AuthService($location, $http, $cookies, $q, appConfig, Util, User, $log) {
   'ngInject';
 
   let safeCb = Util.safeCb;
@@ -190,15 +190,15 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     /**
-     * Check if a user is an admin
+     * Check if a user is an admin - not used
      *   (synchronous|asynchronous)
      *
      * @param  {Function|*} callback - optional, function(is)
      * @return {Bool|Promise}
      */
-    isAdmin() {
-      return Auth.hasRole(...[].concat.apply(['admin'], arguments));
-    },
+    // isAdmin() {
+    //   return Auth.hasRole(...[].concat.apply(['admin'], arguments));
+    // },
 
     /**
      * Check if a user is an admin

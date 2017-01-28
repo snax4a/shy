@@ -7,7 +7,7 @@
         .form-group
           label.sr-only Find User
           .input-group
-            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', autofocus='', placeholder="User's name, phone or email address")
+            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', ng-minlength='3', autofocus='', placeholder="User's name, phone or email address")
             span.input-group-btn
               button.btn.btn-primary(id='submitButton', type='submit')
                 span.glyphicon.glyphicon-search 
