@@ -1,5 +1,4 @@
 High
-- Database paging for admin page
 - If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 - Add route for /cart/add/3
 - Signup page doesn't check for matching passwords using directive

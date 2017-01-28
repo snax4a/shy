@@ -34,7 +34,6 @@
           th 
         tbody
           tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|itemsPerPage:8')
-            //- was admin.reverse|filter:admin.filterText|itemsPerPage
             td
               a.edit(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td
