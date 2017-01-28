@@ -1,4 +1,4 @@
-/*eslint no-sync:0*/
+/*eslint no-sync:0 object-shorthand:0 */
 'use strict';
 import { api as sodium } from 'sodium';
 import config from '../../config/environment/';

@@ -24,10 +24,6 @@ describe('User Model', function() {
     });
   });
 
-  // afterAll(function(done) {
-  //   done();
-  // });
-
   beforeEach(function() {
     buildUser();
   });
@@ -36,46 +32,47 @@ describe('User Model', function() {
     return User.destroy({ where: { email: 'test@example.com' } });
   });
 
-  // it('should begin with 4 users seeded', function() {
-  //   return expect(User.findAll()).to.eventually.have.length(4);
-  // });
+  it('should begin with 5 users seeded', function() {
+    expect(User.findAll()).to.eventually.have.length(5);
+  });
 
-  // it('should fail when saving a duplicate user', function() {
-  //   return expect(user.save()
-  //     .then(function() {
-  //       let userDup = genUser();
-  //       return userDup.save();
-  //     })).to.be.rejected;
-  // });
+  it('should fail when saving a duplicate user', function() {
+    return expect(user.save()
+      .then(function() {
+        let userDup = buildUser();
+        return userDup.save();
+      })).to.be.rejected;
+  });
 
-  // describe('#email', function() {
-  //   it('should fail when saving without an email', function() {
-  //     user.email = '';
-  //     return expect(user.save()).to.be.rejected;
-  //   });
-  // });
+  describe('#email', function() {
+    it('should fail when saving without an email', function(done) {
+      user.email = '';
+      expect(user.save()).to.be.rejected;
+      done();
+    });
+  });
 
-  // describe('#password', function() {
-  //   beforeEach(function() {
-  //     return user.save();
-  //   });
+  describe('#password', function() {
+    beforeEach(function() {
+      return user.save();
+    });
 
-  //   it('should authenticate user if valid', function(done) {
-  //     expect(user.authenticate('password')).to.be.true;
-  //     done();
-  //   });
+    it('should authenticate user if valid', function(done) {
+      expect(user.authenticate('password')).to.be.true;
+      done();
+    });
 
-  //   it('should not authenticate user if invalid', function(done) {
-  //     expect(user.authenticate('blah')).to.not.be.true;
-  //     done();
-  //   });
+    it('should not authenticate user if invalid', function(done) {
+      expect(user.authenticate('blah')).to.not.be.true;
+      done();
+    });
 
-  //   it('should remain the same hash unless the password is updated', function() {
-  //     user.firstName = 'John';
-  //     return expect(user.save()
-  //       .then(function(u) {
-  //         u.authenticate('password');
-  //       })).to.eventually.be.true;
-  //   });
-  // });
+    // it('should not authentic user if password is changed', function() {
+    //   user.password = 'something else';
+    //   return expect(user.save()
+    //     .then(function(u) {
+    //       u.authenticate('password');
+    //     })).to.eventually.be.false;
+    // });
+  });
 });

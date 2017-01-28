@@ -1,5 +1,5 @@
 High
-- /server/api/user/user.model.spec.js needs to have promises shutdown
+- /server/api/user/user.model.spec.js - fix last assertion on line 70
 - Database paging for admin page
 - Newsletter functionality
 - Signup page doesn't check for matching passwords using directive

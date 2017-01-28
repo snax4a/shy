@@ -400,6 +400,11 @@ gulp.task('mocha:unit', () =>
     // })
 );
 
+gulp.task('mocha:integration', () =>
+  gulp.src(paths.server.test.integration)
+    .pipe(mocha())
+);
+
 // Run all unit tests in debug mode
 gulp.task('test-debug', function() {
   var spawn = require('child_process').spawn;
@@ -409,11 +414,6 @@ gulp.task('test-debug', function() {
     'test'
   ], { stdio: 'inherit' });
 });
-
-gulp.task('mocha:integration', () =>
-  gulp.src(paths.server.test.integration)
-    .pipe(mocha())
-);
 
 gulp.task('test:server:coverage', cb => {
   runSequence(
