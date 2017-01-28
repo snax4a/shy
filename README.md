@@ -1,6 +1,6 @@
 # Schoolhouse Yoga Website
 
-Schoolhouse Yoga's website is built using AngularJS (1.5.x), Express, Node.js, and PostgreSQL. It provides
+Schoolhouse Yoga's website is built using AngularJS (1.6.1), Express, Node.js, and PostgreSQL. It provides
 a home page, class schedule, workshop information, teachers' page, method to contact
 the school and a shopping cart tied to a payment gateway.
 
@@ -11,7 +11,7 @@ The website is under construction. What remains is processing the order with Bra
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 6.9.2 and npm 4.0.5](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
+- [Node.js 6.9.4 and npm 4.1.2](nodejs.org) (`brew install node@6`) - Node 7 support will require Gulp 4.0 (because of graceful-fs dependency)
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
@@ -34,7 +34,7 @@ The website is under construction. What remains is processing the order with Bra
 
 ## Running tests, creating builds & deploying to Heroku
 
-1. Run `npm test` to execute unit, integration and client tests. The issue with the "after all" hook for mocha:integration is known.
+1. Run `npm test` to execute unit, integration and client tests.
 
 2. Run `gulp build` to create a build in the /dist directory. Connect to the /dist directory then type `git init` then define Heroku as the remote repo with `heroku git:remote -a APPNAME'.
 
