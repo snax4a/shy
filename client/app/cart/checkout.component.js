@@ -17,8 +17,6 @@ export class CheckOutController {
   }
 
   $onInit() {
-    // Initialize here to guarantee bindings are assigned before using them
-
     // Create Braintree Hosted Fields
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate.bind(this.Cart))
@@ -31,6 +29,8 @@ export class CheckOutController {
       fieldToClick.click();
     }, 1000);
 
+    // Defaults
+    this.buttonDisabled = false;
     this.purchaser = {};
     this.recipient = {
       state: 'PA' // Default
@@ -79,15 +79,15 @@ export class CheckOutController {
 
   // Initiate the order process
   placeOrder(form) {
+    this.buttonDisabled = true;
     if(form.$valid) {
-      // Implement: Change cursor to beach ball
       return this.Cart.placeOrder()
         .then(() => { // Don't need the placeOrder return value, braintreeSaleResponse, since it's added to Cart.confirmation
           this.$location.path('/confirmation');
-          // Implement: Change cursor to arrow
         })
         .catch(braintreeError => {
-          form.$submitted = false; // reset submitted state
+          // form.$submitted = false; // reset submitted state (why would I change this?)
+          this.buttonDisabled = false;
           this.braintreeError = braintreeError.message; // for view data-binding
           this.$log.info(`Braintree error: ${this.braintreeError}`, braintreeError);
           if(this.braintreeError.includes('card')) this.focusOnCardNumber();

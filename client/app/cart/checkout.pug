@@ -174,4 +174,4 @@
           .panel-footer.clearfix
             p.col-xs-9.has-error(ng-if='$ctrl.Cart.getTotalItems() > 1') Warning: you are purchasing {{ $ctrl.Cart.getTotalItems() }} items. If you intended to purchase less, please adjust the quantity above.
             p.col-xs-9.has-error(ng-if='$ctrl.Cart.getTotalItems() == 0') Warning: There are no items in your cart. Please add some items then place your order.
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || !checkout.$valid || $ctrl.Cart.isEmpty()')
+            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='$ctrl.buttonDisabled || !$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || !checkout.$valid || $ctrl.Cart.isEmpty()')
