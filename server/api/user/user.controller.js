@@ -59,9 +59,10 @@ export function create(req, res) {
   console.log('user.controller.js:create:newUser = ', newUser);
   return newUser.save()
     .then(user => {
-      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+      let token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
+      // Should I return the user?
       return res.status(200).json({ token });
     })
     .catch(validationError(res));
@@ -148,6 +149,7 @@ export function upsert(req, res) {
 
   console.log('userToUpsert', userToUpsert);
   return userToUpsert.save()
+    // Instead of returning res.status, should I return userToUpsert (promise)?
     .then(user => res.status(200).json({ _id: user._id }))
     .catch(err => {
       res.status(500).send(err.message);

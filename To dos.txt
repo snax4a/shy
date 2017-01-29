@@ -1,7 +1,5 @@
 High
-- Disable Place Order button once order is submitted
 - Add route for /cart/add/3
-- Signup page doesn't check for matching passwords using directive
 - Signup using local credentials doesn't work
 
 Low/cosmetic

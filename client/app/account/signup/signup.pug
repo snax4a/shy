@@ -11,7 +11,7 @@
             | Your first name is required
         .form-group(ng-class='{ "has-success": form.lastName.$valid && vm.submitted,\
         "has-error": form.lastName.$invalid && vm.submitted }')
-          label Last name {{ vm.user.lastName }}
+          label Last name
           input.form-control(type='text', name='lastName', ng-model='vm.user.lastName', required='')
           p.help-block(ng-show='form.lastName.$error.required && vm.submitted')
             | Your last name is required
@@ -30,7 +30,7 @@
         .form-group(ng-class='{ "has-success": form.password.$valid && vm.submitted,\
         "has-error": form.password.$invalid && vm.submitted }')
           label Password
-          input.form-control(type='password', name='password', ng-model='vm.user.password', mongoose-error='', ng-minlength='3', required='')
+          input.form-control(type='password', name='password', ng-model='vm.user.password', mongoose-error='', ng-minlength='3', maxlength='20', required='')
 
           p.help-block(ng-show='(form.password.$error.minlength || form.password.$error.required) && vm.submitted')
             | Password must be at least 3 characters.
@@ -40,7 +40,7 @@
         .form-group(ng-class='{ "has-success": form.confirmPassword.$valid && vm.submitted,\
         "has-error": form.confirmPassword.$invalid && vm.submitted }')
           label Confirm Password
-          input.form-control(type='password', name='confirmPassword', ng-model='vm.user.confirmPassword', compare-to='vm.user.password', ng-minlength='3', required='')
+          input.form-control(type='password', name='confirmPassword', ng-model='vm.user.confirmPassword', compare-to='vm.user.password', ng-minlength='3', maxlength='20', required='')
           p.help-block(ng-show='form.confirmPassword.$invalid && vm.submitted')
             | Passwords must match.
 
