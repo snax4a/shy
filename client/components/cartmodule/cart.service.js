@@ -32,7 +32,7 @@ export class Cart {
     this.cartItems = [];
     this.purchaser = {};
     this.recipient = {};
-    this.confirmation = {};
+    this.confirmation = undefined;
     this.hostedFieldsState = {};
 
     // Pre-fetch the clientInstance so the Hosted Fields display faster
@@ -409,6 +409,7 @@ export class Cart {
 
   // Add a product to the cart
   addItem(id, navigationDisabled) {
+    this.confirmation = undefined; // clear the previous confirmation if there is one
     let inCart = this.getItemById(id);
     if(typeof inCart === 'object') { // then it is in the cart already
       // Increment the quantity instead of starting at 1

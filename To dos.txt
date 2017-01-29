@@ -1,13 +1,12 @@
 High
-- If someone adds to cart and they're are already on the confirmation page, confirmation doesn't go away
 - Add route for /cart/add/3
 - Signup page doesn't check for matching passwords using directive
 - Signup using local credentials doesn't work
 
 Low/cosmetic
 - Newsletter functionality
-- After successful login of non-admin go to /shynet (/client/app/account/login/login.controller.js:36)
 - npm start doesn't work
+- Logo not embedded when order confirmation is sent.
 - Warning - Server failed to start due to error: SequelizeUniqueConstraintError: Validation error when User table must be created
   - Caused by creating an index if the database isn't there.
 - Add subscription support for Apple Pay and normal purchases

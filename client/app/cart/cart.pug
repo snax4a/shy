@@ -1,6 +1,6 @@
 .container
-  h2 {{ $ctrl.pageName }} 
-  .row(ng-show='$ctrl.pageName=="Shopping Cart"')
+  h2 {{ !$ctrl.Cart.confirmation ? 'Shopping Cart' : 'Order Confirmation' }}
+  .row(ng-show='!$ctrl.Cart.confirmation')
     .col-md-6
       form(name='cart', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .panel.panel-default(aria-labelledby='cartPanelTitle')
@@ -176,7 +176,7 @@
             p.col-xs-9.has-error(ng-if='$ctrl.Cart.getTotalItems() == 0') Warning: There are no items in your cart. Please add some items then place your order.
             input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='!$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || !checkout.$valid || $ctrl.Cart.isEmpty()')
 
-  .row(ng-show='$ctrl.pageName=="Order Confirmation"')
+  .row(ng-show='!!$ctrl.Cart.confirmation')
     .col-md-2
       img.img-responsive(src='/assets/images/seal.jpg')
     .col-md-6

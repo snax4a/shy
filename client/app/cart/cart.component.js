@@ -35,9 +35,8 @@ export class CartController {
     this.recipient = {
       state: 'PA' // Default
     };
-    this.confirmation = {};
+    this.confirmation = undefined; // was {}
 
-    this.pageName = 'Shopping Cart'; // will change to 'Order Confirmation' later
     this.Cart.sendVia = 'Email';
 
     // Dynamically link controller objects to the Cart
@@ -90,7 +89,6 @@ export class CartController {
           this.confirmation = braintreeSaleResponse.transaction;
 
           this.braintreeError = undefined; // in case of a follow up order
-          this.pageName = 'Order Confirmation'; // displays confirmation
           form.$setPristine(); // treat the fields as untouched
           form.$submitted = false; // reset submitted state
           // Implement: Change cursor to arrow
