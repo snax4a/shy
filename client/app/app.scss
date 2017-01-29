@@ -125,7 +125,8 @@ h4 {
 // Component styles are injected through gulp
 /* inject:scss */
 @import 'admin/admin';
-@import 'cart/cart';
+@import 'cart/checkout';
+@import 'cart/confirmation';
 @import 'classes/classes';
 @import 'locations/locations';
 @import 'main/main';

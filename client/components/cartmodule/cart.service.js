@@ -29,18 +29,24 @@ export class Cart {
 
     // Initialize members
     this.key = 'cart'; // name of local storage key
-    this.cartItems = [];
-    this.purchaser = {};
-    this.recipient = {};
-    this.confirmation = undefined;
-    this.hostedFieldsState = {};
+    this.initializeProperties();
 
     // Pre-fetch the clientInstance so the Hosted Fields display faster
     // and set this.applePayEnabled to display buttons if appropriate
     this.braintreeGetToken()
       .then(this.braintreeClientCreate.bind(this))
       .then(this.applePayCapabilityCheck.bind(this))
-      .catch(err => this.$log.info('Error setting up Braintree client instance or checking for Apple Pay support.', err));
+      .catch(braintreeError => this.$log.info('Error setting up Braintree client instance or checking for Apple Pay support.', braintreeError));
+  }
+
+  initializeProperties() {
+    this.cartItems = [];
+    this.purchaser = {};
+    this.recipient = {};
+    this.instruction = '';
+    this.gift = false;
+    this.sendVia = 'Email';
+    this.hostedFieldsState = {};
   }
 
   // Check to see whether Apple Pay is supported on the device so we know whether to display buttons
@@ -398,18 +404,13 @@ export class Cart {
 
   // Clear the cartItems during checkout()
   clearCartItems() {
-    this.cartItems = []; // Clear the array of Items
-    this.instructions = '';
-    this.gift = false;
-    this.sendVia = 'Email';
-    this.purchaser = {};
-    this.recipient = {};
+    this.initializeProperties();
     localStorage.removeItem(this.key);
   }
 
   // Add a product to the cart
   addItem(id, navigationDisabled) {
-    this.confirmation = undefined; // clear the previous confirmation if there is one
+    this.confirmation = undefined;
     let inCart = this.getItemById(id);
     if(typeof inCart === 'object') { // then it is in the cart already
       // Increment the quantity instead of starting at 1
@@ -419,7 +420,7 @@ export class Cart {
       this.cartItems.push(new Item(id, product.name, product.price, 1));
     }
     this.saveToStorage();
-    if(!navigationDisabled) this.$location.path('/cart');
+    if(!navigationDisabled) this.$location.path('/checkout');
   }
 
   // Get item by its id

@@ -119,9 +119,29 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
       subject: 'Schoolhouse Yoga Order Confirmation',
       html: `
         <style>
-          td, th, p {
+          body, td, th, p {
             font-family: HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue',Helvetica,sans-serif;
             font-size: 11px;
+          }
+          tr {
+            vertical-align: top;
+          }
+          .container {
+            margin-left:auto;
+            margin-right:auto;
+            width:450px;
+          }
+          .seal-container {
+            width:120px;
+            padding-top:10px;
+            padding-right:10px;
+          }
+          .seal {
+            width:100px;
+            height:100px;
+          }
+          .company-name {
+            font-size: 18px;
           }
           .left {
             width: 240px;
@@ -136,22 +156,22 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
             width: 60px;
           }
         </style>
-        <table style="margin-left:auto;margin-right:auto;width:450px;">
+        <table class="container">
           <tr>
             <td>
               <table style="width:100%">
-                <tr style="vertical-align:top;">
-                  <td style="width:120px;padding-top:10px;padding-right:10px;">
-                    <a href="https://www.schoolhouseyoga.com"><img src="https://www.schoolhouseyoga.com/images/seal.jpg" alt="Schoolhouse Yoga Seal" style="width:100px;height:100px;"></a>
+                <tr>
+                  <td class="seal-container">
+                    <a href="https://www.schoolhouseyoga.com"><img src="https://www.schoolhouseyoga.com/apple-touch-icon.png" alt="Schoolhouse Yoga Seal" class="seal"></a>
                   </td>
-                  <td style="vertical-align:middle;padding-top:20px;font-family:HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue',Helvetica,sans-serif;">
+                  <td style="vertical-align:middle;padding-top:20px;">
                     <p>
-                      <span style="font-size:18px">Schoolhouse Yoga</span><br/>
+                      <span class="company-name">Schoolhouse Yoga</span><br/>
                       Order ${confirmation.id}<br />
                       Paid via credit card (${confirmation.creditCard.last4}) on ${confirmation.createdAt}
                     </p>
                     <table style="width:100%;margin-top:20px;">
-                      <tr style="vertical-align:top;">
+                      <tr>
                         <td>
                           <b>Purchaser</b><br/>
                           ${confirmation.customer.firstName} ${confirmation.customer.lastName}<br />

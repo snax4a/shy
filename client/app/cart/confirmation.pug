@@ -1,0 +1,63 @@
+.container
+  h2 Order Confirmation
+  .row
+    .col-md-2
+      img.img-responsive(src='/assets/images/seal.jpg')
+    .col-md-6
+      h2 Schoolhouse Yoga
+      p 
+        b Order {{ $ctrl.confirmation.id }}
+        br
+        | Paid via Credit Card ({{ $ctrl.confirmation.creditCard.last4 }}) on {{ $ctrl.confirmation.createdAt }}
+      .row
+        .col-lg-4.col-md-5
+          b Purchaser:
+          br
+          | {{ $ctrl.confirmation.customer.firstName }} {{ $ctrl.confirmation.customer.lastName }}
+          br
+          | {{ $ctrl.confirmation.customer.email }}
+          br
+          | {{ $ctrl.confirmation.customer.phone }}
+          br
+        .col-lg-4.col-md-5(ng-show='$ctrl.confirmation.customFields.gift')
+          b Recipient:
+          br
+          | {{ $ctrl.confirmation.shipping.firstName }} {{ $ctrl.confirmation.shipping.lastName }}
+          br
+          | {{ $ctrl.confirmation.shipping.streetAddress }}
+          br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
+          br(ng-show='$ctrl.confirmation.shipping.locality && $ctrl.confirmation.shipping.region && $ctrl.confirmation.shipping.postalCode')
+          | {{ $ctrl.confirmation.shipping.locality }}, {{ $ctrl.confirmation.shipping.region }} {{ $ctrl.confirmation.shipping.postalCode }}
+          br
+          | {{ $ctrl.confirmation.shipping.email }}
+          br
+          | {{ $ctrl.confirmation.shipping.phone }}
+          br
+          br
+      table.table.table-striped
+        thead
+          tr
+            th Item
+            th Qty
+            th Each
+            th.right Cost
+        tbody
+          tr(ng-repeat='cartItem in $ctrl.confirmation.customFields.items')
+            td {{ cartItem.name }}
+            td {{ cartItem.quantity }}
+            td {{ cartItem.price | currency:"$":0 }}
+            td.right {{ cartItem.quantity * cartItem.price | currency:"$":0 }}
+        tfoot
+          tr
+            th.right(colspan='3') Grand Total
+            th.right {{ $ctrl.confirmation.amount | currency:"$":0 }}
+      p(ng-show='$ctrl.confirmation.customFields.gift || $ctrl.confirmation.customFields.instructions')
+        b Order comments:
+        br
+        | {{ $ctrl.confirmation.customFields.gift ? 'Send gift card via ' + $ctrl.confirmation.customFields.sendvia : '' }}
+        br
+      p(ng-show='$ctrl.confirmation.customFields.instructions') Instructions:
+        br
+        | {{ $ctrl.confirmation.customFields.instructions }}
+        br
+      p Thanks for your order.

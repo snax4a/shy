@@ -34,7 +34,7 @@ export default class NavbarController {
       },
       {
         title: 'Cart',
-        state: 'cart'
+        state: 'checkout'
       }
     ];
   }

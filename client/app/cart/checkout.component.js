@@ -1,12 +1,12 @@
 'use strict';
 import angular from 'angular';
-import routes from './cart.routes';
+import routes from './checkout.routes';
 import uiRouter from 'angular-ui-router';
 
-export class CartController {
+export class CheckOutController {
   /*@ngInject*/
   constructor($log, $http, $window, $timeout, $location, ProductList, Cart) {
-    // Dependency injection
+    // Dependencies
     this.$log = $log;
     this.$http = $http;
     this.$window = $window;
@@ -23,7 +23,7 @@ export class CartController {
     this.Cart.braintreeGetToken()
       .then(this.Cart.braintreeClientCreate.bind(this.Cart))
       .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
-      .catch(err => this.$log.info('Error setting up Braintree Hosted Fields', err));
+      .catch(braintreeError => this.$log.error('Error setting up Braintree Hosted Fields', braintreeError));
 
     // Wait a second then set the focus to the credit card number by clicking its label
     let fieldToClick = this.$window.document.getElementById('labelCardNumber');
@@ -35,8 +35,6 @@ export class CartController {
     this.recipient = {
       state: 'PA' // Default
     };
-    this.confirmation = undefined; // was {}
-
     this.Cart.sendVia = 'Email';
 
     // Dynamically link controller objects to the Cart
@@ -76,7 +74,7 @@ export class CartController {
   // Attempt to checkout with Apple Pay. Pass or fail - send the user to the home page since we won't show the confirmation for them.
   applePayCheckout() {
     this.Cart.applePayCheckout();
-    this.$location.path('/cart');
+    this.$location.path('/checkout'); // Move to the checkout page to provide other options
   }
 
   // Initiate the order process
@@ -84,13 +82,8 @@ export class CartController {
     if(form.$valid) {
       // Implement: Change cursor to beach ball
       return this.Cart.placeOrder()
-        .then(braintreeSaleResponse => {
-          // Shorten the references a little for easier viewing
-          this.confirmation = braintreeSaleResponse.transaction;
-
-          this.braintreeError = undefined; // in case of a follow up order
-          form.$setPristine(); // treat the fields as untouched
-          form.$submitted = false; // reset submitted state
+        .then(() => { // Don't need the placeOrder return value, braintreeSaleResponse, since it's added to Cart.confirmation
+          this.$location.path('/confirmation');
           // Implement: Change cursor to arrow
         })
         .catch(braintreeError => {
@@ -102,12 +95,12 @@ export class CartController {
     } // form.$valid
   } // placeOrder
 
-} // class CartController
+} // class CheckOutController
 
-export default angular.module('shyApp.cartPage', [uiRouter])
+export default angular.module('shyApp.checkout', [uiRouter])
   .config(routes)
-  .component('cart', {
-    template: require('./cart.pug'),
-    controller: CartController
+  .component('checkout', {
+    template: require('./checkout.pug'),
+    controller: CheckOutController
   })
   .name;

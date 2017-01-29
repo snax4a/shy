@@ -1,19 +1,18 @@
+/* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import cartPage from './cart.component';
+import CheckOutComponent from './checkout.component';
 import CartModule from '../../components/cartmodule/cart.module';
 
-describe('Component: CartComponent', () => {
+describe('Component: CheckOutComponent', () => {
   // load the controller's module
-  beforeEach(angular.mock.module(cartPage));
+  beforeEach(angular.mock.module(CheckOutComponent));
   beforeEach(angular.mock.module(CartModule));
-
-  let CartComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject($componentController => {
     'ngInject';
-    CartComponent = $componentController('cart', {});
+    CheckOutComponent = $componentController('checkout', {});
   }));
 
   it('should ...', () => {
