@@ -88,10 +88,11 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
     }
 
     // Successful sale
-    console.log('Braintree successful sale: ', response);
+    let orderID = response.transaction.id.toUpperCase();
+    console.log(`Braintree order ${orderID} created`);
 
     // Reformat some of the response
-    response.transaction.id = response.transaction.id.toUpperCase();
+    response.transaction.id = orderID;
     response.transaction.customFields.gift = response.transaction.customFields.gift === 'true';
     response.transaction.createdAt = new Date(response.transaction.createdAt).toLocaleString();
     response.transaction.customFields.items = JSON.parse(response.transaction.customFields.items);

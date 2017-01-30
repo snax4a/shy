@@ -6,8 +6,8 @@ import jwt from 'jsonwebtoken';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return function(err) {
-    console.log(err);
+  return err => {
+    console.log('user.controller.js error', err);
     return res.status(statusCode).json(err);
   };
 }

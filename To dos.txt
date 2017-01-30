@@ -3,6 +3,7 @@ High
 - /server/api/user/user.controller.js
   - If user calls create with existing email address,
     - Error returned identifies the correct field with an error but does not display err.message
+      (assumed a mongoose rather than sequelize error)
 
 Low/cosmetic
 - Newsletter functionality

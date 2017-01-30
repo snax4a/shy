@@ -34,7 +34,7 @@ The website is under construction. What remains is processing the order with Bra
 
 ## Running tests, creating builds & deploying to Heroku
 
-1. Run `npm test` to execute unit, integration and client tests.
+1. Run `npm test` to execute unit, integration and client tests. The client tests are under construction.
 
 2. Run `gulp build` to create a build in the /dist directory. Connect to the /dist directory then type `git init` then define Heroku as the remote repo with `heroku git:remote -a APPNAME'.
 

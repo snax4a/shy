@@ -2,12 +2,22 @@
 import email from '../../components/email';
 import { User } from '../../sqldb';
 
+function validationError(res, statusCode) {
+  statusCode = statusCode || 422;
+  return err => res.status(statusCode).json(err);
+}
+
 // Sends a message
 export function send(req, res) {
   // Add them to the subscribers list if they didn't opt out
+  let test = User.build(req.body);
+  console.log(test);
   let promise = User.upsert(req.body)
-    .then(() => console.log('Upserted user.'))
-    .catch(err => console.log('message.controller.js:send - ', err));
+    .then(wasInserted => {
+      console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
+      return wasInserted;
+    })
+    .catch(validationError(res));
 
   // Put this outside .then() so the user doesn't get a loading spinner on client
   email({
