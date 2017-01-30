@@ -15,9 +15,10 @@ export default class SignupController {
   submitted = false;
 
   /*@ngInject*/
-  constructor(Auth, $state) {
+  constructor(Auth, $state, $log) {
     this.Auth = Auth;
     this.$state = $state;
+    this.$log = $log;
   }
 
   register(form) {
@@ -37,15 +38,17 @@ export default class SignupController {
           this.$state.go('main');
         })
         .catch(err => {
+          this.$log.error('Error before extracting .data', err.data);
           err = err.data;
           this.errors = {};
 
           // Update validity of form fields that match the sequelize errors
           if(err.name) {
             angular.forEach(err.fields, (error, field) => {
-              form[field].$setValidity('mongoose', false);
+              form[field].$setValidity('sequelize', false);
               this.errors[field] = err.message;
             });
+            this.$log.error(form);
           }
         });
     }

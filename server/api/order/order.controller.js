@@ -6,7 +6,7 @@ import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
 import { User, Order } from '../../sqldb';
 import braintree from 'braintree';
-import Sequelize from 'sequelize'
+import Sequelize from 'sequelize';
 
 const config = require('../../config/environment');
 
@@ -263,7 +263,6 @@ const saveToDB = braintreeTransaction => {
     console.log('Problem with Order or User upsert', err);
     return null;
   });
-
 };
 
 // Attempt to create order, send confirmation email then save to database
