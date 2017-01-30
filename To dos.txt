@@ -1,6 +1,9 @@
 High
 - Add route for /cart/add/3
-- Signup using local credentials doesn't work
+- Verify that users are being upserted when orders are
+- /server/api/user/user.controller.js
+  - If user calls create with existing email address,
+    - seems to highlight email address as source of error but no message (status)
 
 Low/cosmetic
 - Newsletter functionality

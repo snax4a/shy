@@ -6,6 +6,8 @@ import email from '../../components/email';
 import products from '../../../client/assets/data/products.json';
 import { User, Order } from '../../sqldb';
 import braintree from 'braintree';
+import Sequelize from 'sequelize'
+
 const config = require('../../config/environment');
 
 // Calculate the cartItem total
@@ -224,10 +226,16 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
   resolve(braintreeTransaction);
 });
 
-// Return a promise to a database transaction
+// Return promise to upserted Order
 const saveToDB = braintreeTransaction => {
+  // Instead, could do:
+  // import Sequelize from 'sequelize';
+  // return Sequelize.Promise.all([
+    // Order.upsert(),
+    // User.upsert()
+  //])
   let confirmation = braintreeTransaction.transaction;
-  Order.upsert({
+  return Order.upsert({
     orderNumber: confirmation.id,
     amount: confirmation.amount,
     instructions: confirmation.customFields.instructions,
@@ -247,15 +255,19 @@ const saveToDB = braintreeTransaction => {
     recipientEmail: confirmation.customFields.recipientemail,
     recipientPhone: confirmation.customFields.recipientphone,
     itemsOrdered: confirmation.customFields.items
-  });
-
-  return User.upsert({
+  })
+  .then(() => User.upsert({
     email: confirmation.customFields.recipientemail,
     firstName: confirmation.shipping.firstName,
     lastName: confirmation.shipping.lastName,
     phone: confirmation.customFields.recipientphone,
     optOut: false
+  }))
+  .catch(err => {
+    console.log('Problem with Order or User upsert', err);
+    return null;
   });
+
 };
 
 // Attempt to create order, send confirmation email then save to database

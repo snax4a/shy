@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
   return function(err) {
+    console.log(err);
     return res.status(statusCode).json(err);
   };
 }
@@ -55,15 +56,14 @@ export function index(req, res) {
 export function create(req, res) {
   let newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
-  newUser.setDataValue('role', 'user');
-  console.log('user.controller.js:create:newUser = ', newUser);
+  newUser.setDataValue('role', 'student');
   return newUser.save()
     .then(user => {
       let token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
-      // Should I return the user?
-      return res.status(200).json({ token });
+      res.status(200).json({ token });
+      return user;
     })
     .catch(validationError(res));
 }
