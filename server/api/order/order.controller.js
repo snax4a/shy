@@ -226,43 +226,39 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
   resolve(braintreeTransaction);
 });
 
-// Return promise to upserted Order
+// Return promise to upserted Order and User
 const saveToDB = braintreeTransaction => {
-  // Instead, could do:
-  // import Sequelize from 'sequelize';
-  // return Sequelize.Promise.all([
-    // Order.upsert(),
-    // User.upsert()
-  //])
   let confirmation = braintreeTransaction.transaction;
-  return Order.upsert({
-    orderNumber: confirmation.id,
-    amount: confirmation.amount,
-    instructions: confirmation.customFields.instructions,
-    gift: confirmation.customFields.gift,
-    sendVia: confirmation.customFields.sendvia,
-    purchaserFirstName: confirmation.customer.firstName,
-    purchaserLastName: confirmation.customer.lastName,
-    purchaserEmail: confirmation.customer.email,
-    purchaserPhone: confirmation.customer.phone,
-    last4: confirmation.creditCard.last4,
-    recipientFirstName: confirmation.shipping.firstName,
-    recipientLastName: confirmation.shipping.lastName,
-    recipientAddress: confirmation.shipping.streetAddress,
-    recipientCity: confirmation.shipping.locality,
-    recipientState: confirmation.shipping.region,
-    recipientZipCode: confirmation.shipping.postalCode,
-    recipientEmail: confirmation.customFields.recipientemail,
-    recipientPhone: confirmation.customFields.recipientphone,
-    itemsOrdered: confirmation.customFields.items
-  })
-  .then(() => User.upsert({
-    email: confirmation.customFields.recipientemail,
-    firstName: confirmation.shipping.firstName,
-    lastName: confirmation.shipping.lastName,
-    phone: confirmation.customFields.recipientphone,
-    optOut: false
-  }))
+  return Sequelize.Promise.all([
+    Order.upsert({
+      orderNumber: confirmation.id,
+      amount: confirmation.amount,
+      instructions: confirmation.customFields.instructions,
+      gift: confirmation.customFields.gift,
+      sendVia: confirmation.customFields.sendvia,
+      purchaserFirstName: confirmation.customer.firstName,
+      purchaserLastName: confirmation.customer.lastName,
+      purchaserEmail: confirmation.customer.email,
+      purchaserPhone: confirmation.customer.phone,
+      last4: confirmation.creditCard.last4,
+      recipientFirstName: confirmation.shipping.firstName,
+      recipientLastName: confirmation.shipping.lastName,
+      recipientAddress: confirmation.shipping.streetAddress,
+      recipientCity: confirmation.shipping.locality,
+      recipientState: confirmation.shipping.region,
+      recipientZipCode: confirmation.shipping.postalCode,
+      recipientEmail: confirmation.customFields.recipientemail,
+      recipientPhone: confirmation.customFields.recipientphone,
+      itemsOrdered: confirmation.customFields.items
+    }),
+    User.upsert({
+      email: confirmation.customFields.recipientemail,
+      firstName: confirmation.shipping.firstName,
+      lastName: confirmation.shipping.lastName,
+      phone: confirmation.customFields.recipientphone,
+      optOut: false
+    })
+  ])
   .catch(err => {
     console.log('Problem with Order or User upsert', err);
     return null;
