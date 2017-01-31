@@ -32,7 +32,7 @@ function startServer() {
 // Synch the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
   .then(startServer)
-  .catch(err => console.log(`Server failed to start due to error: ${err}`));
+  .catch(err => console.log('Server failed to start due to error: ', err));
 
 // Expose app
 exports = module.exports = app;

@@ -1,15 +1,16 @@
+/* eslint no-process-env:0 */
 'use strict';
-/*eslint no-process-env:0*/
-
 import path from 'path';
 import _ from 'lodash';
 
-/*function requiredProcessEnv(name) {
+/*
+function requiredProcessEnv(name) {
   if(!process.env[name]) {
     throw new Error('You must set the ' + name + ' environment variable');
   }
   return process.env[name];
-}*/
+}
+*/
 
 // All configurations will extend these options
 // ============================================
@@ -51,7 +52,7 @@ var all = {
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
-      logging: false,
+      logging: false, // console.log,
       dialect: 'postgres',
       protocol: 'postgres',
       native: true,
@@ -59,8 +60,8 @@ var all = {
     }
   },
 
-  // Seed database with starting admin users
-  seedDB: true,
+  // By default, do not seed the database
+  seedDB: false,
 
   // Nodemailer settings
   mail: {

@@ -11,8 +11,5 @@ module.exports = {
     merchantId: process.env.BRAINTREE_MERCHANT_ID_SANDBOX,
     publicKey: process.env.BRAINTREE_PUBLIC_KEY_SANDBOX,
     privateKey: process.env.BRAINTREE_PRIVATE_KEY_SANDBOX
-  },
-
-  // Seed database on startup
-  seedDB: true
+  }
 };

@@ -6,6 +6,7 @@ High
       (assumed a mongoose rather than sequelize error)
 
 Low/cosmetic
+- When the database has no tables, Sequelize executes queries twice and tries to create the User._id sequence twice
 - Newsletter functionality
 - Embed logo in order confirmation email
 - npm start doesn't work
