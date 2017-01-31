@@ -8,11 +8,7 @@ import express from 'express';
 import sqldb from './sqldb';
 import config from './config/environment';
 import http from 'http';
-
-// Populate databases with sample data (if appropriate)
-if(config.seedDB) {
-  require('./config/seed');
-}
+import seedDatabaseIfNeeded from './config/seed';
 
 // Setup server
 var app = express();
@@ -29,8 +25,9 @@ function startServer() {
   });
 }
 
-// Synch the database which will seed it (if appropriate) then startServer
+// Sync the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
+  .then(seedDatabaseIfNeeded) // Only if config.seed
   .then(startServer)
   .catch(err => console.log('Server failed to start due to error: ', err));
 

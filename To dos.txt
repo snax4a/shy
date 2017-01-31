@@ -6,11 +6,8 @@ High
       (assumed a mongoose rather than sequelize error)
 
 Low/cosmetic
-- When the database has no tables, Sequelize executes queries twice and tries to create the User._id sequence twice
 - Newsletter functionality
 - Embed logo in order confirmation email
 - npm start doesn't work
-- Warning - Server failed to start due to error: SequelizeUniqueConstraintError: Validation error when User table must be created
-  - Caused by creating an index if the database isn't there.
 - Add subscription support for Apple Pay and normal purchases
 - Add a toast if there's an error with the contact dialog
