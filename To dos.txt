@@ -1,9 +1,8 @@
 High
 - Add route for /cart/add/3
+- Build component for sign up (vs. current controller)
 - /server/api/user/user.controller.js
-  - If user calls create with existing email address,
-    - Error returned identifies the correct field with an error but does not display err.message
-      (assumed a mongoose rather than sequelize error)
+  - Fix upsert, line 148 to use validationError (admin.controller.js)
 
 Low/cosmetic
 - Newsletter functionality

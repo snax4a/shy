@@ -6,17 +6,12 @@ import jwt from 'jsonwebtoken';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => {
-    console.log('user.controller.js error', err);
-    return res.status(statusCode).json(err);
-  };
+  return err => res.status(statusCode).json(err);
 }
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err) {
-    return res.status(statusCode).send(err);//should be err.message
-  };
+  return err => res.status(statusCode).send(err);
 }
 
 /**
@@ -147,13 +142,10 @@ export function upsert(req, res) {
     } else throw new Error('Passwords must match.');
   } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
 
-  console.log('userToUpsert', userToUpsert);
   return userToUpsert.save()
-    // Instead of returning res.status, should I return userToUpsert (promise)?
     .then(user => res.status(200).json({ _id: user._id }))
-    .catch(err => {
-      res.status(500).send(err.message);
-    });
+    // Redo admin page to use signup.controller.js's approach to handling validationError
+    .catch(err => res.status(500).send(err.message));
 }
 
 /**
