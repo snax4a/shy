@@ -12,6 +12,7 @@ export default class AdminEditorController {
     this.User = User; // User Service
     this.$log = $log;
     this.submitted = false;
+    this.errors = {};
   }
 
   submitUser(form) {
@@ -36,7 +37,16 @@ export default class AdminEditorController {
           return null;
         })
         .catch(response => {
-          this.serverError = response.data;
+          let err = response.data;
+          this.errors = {}; // reset to only the latest errors
+
+          // Update validity of form fields that match the sequelize errors
+          if(err.name) {
+            for(let error of err.errors) {
+              form[error.path].$setValidity('sequelize', false);
+              this.errors[error.path] = error.message;
+            }
+          }
           return null;
         });
     }

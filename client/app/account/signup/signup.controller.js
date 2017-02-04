@@ -38,8 +38,8 @@ export default class SignupController {
           // Account created, redirect to home
           this.$state.go('main');
         })
-        .catch(err => {
-          err = err.data;
+        .catch(response => {
+          let err = response.data;
           this.errors = {}; // reset to only the latest errors
 
           // Update validity of form fields that match the sequelize errors

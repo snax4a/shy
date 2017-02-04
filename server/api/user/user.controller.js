@@ -144,8 +144,7 @@ export function upsert(req, res) {
 
   return userToUpsert.save()
     .then(user => res.status(200).json({ _id: user._id }))
-    // Redo admin page to use signup.controller.js's approach to handling validationError
-    .catch(err => res.status(500).send(err.message));
+    .catch(validationError(res));
 }
 
 /**

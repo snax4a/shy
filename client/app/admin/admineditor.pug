@@ -18,7 +18,9 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label New password
-          input.form-control(type='password', name='passwordNew', id='passwordNew', ng-model='$ctrl.user.password', maxlength='20', placeholder='Password')
+          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', sequelize-error='', maxlength='20', placeholder='Password')
+          p.help-block.has-error(ng-show='form.password.$error.sequelize')
+            | {{ $ctrl.errors.password }}
         .form-group.col-md-6
           label Confirm
           input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', maxlength='20', placeholder='Confirm')
@@ -26,11 +28,13 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
             | Passwords must match
         .form-group.col-md-6
           label Email
-          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', maxlength='80', required='true', placeholder='Email', autocomplete='off')
+          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', sequelize-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
           p.help-block.has-error(ng-show='form.email.$error.email && $ctrl.submitted')
             | Please provide a valid email address
           p.help-block.has-error(ng-show='form.email.$error.required && $ctrl.submitted')
             | Please provide an email address
+          p.help-block.has-error(ng-show='form.email.$error.sequelize')
+            | {{ $ctrl.errors.email }}
       .form-group.col-md-6
         label Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')
@@ -43,9 +47,6 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
       .form-group.col-md-6
         label Opt-out
         select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
-    .row(ng-show='$ctrl.serverError')
-      .col-md-12
-        p.help-block.has-error {{ $ctrl.serverError }}
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='update', type='submit', style='width:70px;') Save

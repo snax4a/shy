@@ -1,8 +1,6 @@
 High
 - Add route for /cart/add/3
 - Build component for sign up (vs. current controller)
-- /server/api/user/user.controller.js
-  - Fix upsert, line 148 to use validationError (admin.controller.js)
 
 Low/cosmetic
 - Newsletter functionality
