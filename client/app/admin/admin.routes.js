@@ -7,7 +7,7 @@ export default function routes($stateProvider) {
     url: '/admin',
     template: require('./admin.pug'),
     controller: 'AdminController',
-    controllerAs: 'admin',
+    controllerAs: '$ctrl',
     authenticate: 'admin'
   });
 }

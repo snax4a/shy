@@ -3,39 +3,39 @@
   h2 User Administration
   .row
     .col-md-5.col-xs-7
-      form.form(name='findUserForm', ng-submit='admin.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+      form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only Find User
           .input-group
-            input.form-control(name='filterField', id='filterField', type='search', ng-model='admin.filterField', ng-minlength='3', required='', autofocus='', placeholder="User's name, phone or email address")
+            input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="User's name, phone or email address")
             span.input-group-btn
               button.btn.btn-primary(id='submitButton', type='submit')
                 span.glyphicon.glyphicon-search 
                 |&nbsp;Search
-          p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && admin.submitted')
+          p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
             | Please enter at least the first three characters of the user's first or last name (or email address)
     .col-md-3.col.xs-3
-      a.btn.btn-warning(ng-click="admin.create()") New User
+      a.btn.btn-warning(ng-click="$ctrl.create()") New User
   .row
     .col-md-12
-      p(ng-show='admin.users.length==0') No users found meeting the search criteria above
-      table.table.table-striped(ng-hide='admin.users.length==0')
+      p(ng-show='$ctrl.users.length==0') No users found meeting the search criteria above
+      table.table.table-striped(ng-hide='$ctrl.users.length==0')
         thead
-          th(ng-click="admin.sort('lastName')") Name (click to edit)
-            span.glyphicon.sort-icon(ng-show="admin.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
-          th(ng-click="admin.sort('email')") Email 
-            span.glyphicon.sort-icon(ng-show="admin.sortKey=='email'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
-          th(ng-click="admin.sort('phone')") Phone 
-            span.glyphicon.sort-icon(ng-show="admin.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
-          th(ng-click="admin.sort('optOut')") Opt out
-            span.glyphicon.sort-icon(ng-show="admin.sortKey=='optOut'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
-          th(ng-click="admin.sort('role')") Role
-            span.glyphicon.sort-icon(ng-show="admin.sortKey=='role'", ng-class="{'glyphicon-chevron-up':admin.reverse,'glyphicon-chevron-down':!admin.reverse}")
+          th(ng-click="$ctrl.sort('lastName')") Name (click to edit)
+            span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          th(ng-click="$ctrl.sort('email')") Email 
+            span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          th(ng-click="$ctrl.sort('phone')") Phone 
+            span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          th(ng-click="$ctrl.sort('optOut')") Opt out
+            span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='optOut'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          th(ng-click="$ctrl.sort('role')") Role
+            span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='role'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
           th 
         tbody
-          tr(dir-paginate='user in admin.users|orderBy:admin.sortKey:admin.reverse|itemsPerPage:8')
+          tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
             td
-              a.edit(ng-click="admin.open(user)") {{ user.lastName }}, {{ user.firstName }}
+              a.edit(ng-click="$ctrl.open(user)") {{ user.lastName }}, {{ user.firstName }}
             td
               a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
             td
@@ -43,7 +43,7 @@
             td {{ user.optOut ? 'Yes' : 'No' }}
             td {{ user.role }}
             td
-              a.trash(ng-click='admin.delete(user)')
+              a.trash(ng-click='$ctrl.delete(user)')
                 span.glyphicon.glyphicon-trash.pull-right
                 
       dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
