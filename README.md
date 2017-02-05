@@ -15,6 +15,7 @@ The website is under construction. What remains is processing the order with Bra
 - [PostgreSQL](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
 
 ### Project setup
 
@@ -30,7 +31,7 @@ The website is under construction. What remains is processing the order with Bra
 
 6. Open pgAdmin and connect to localhost.
 
-7. Create a database called `shy` then adjust the DATABASE_URL in local.env.js to add your credentials and connect to this database.
+7. Create a database called `shy` then adjust the DATABASE_URL in local.env.js to set the URI with your credentials for this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
