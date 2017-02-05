@@ -1,19 +1,27 @@
 [
+		{
+		"expires": "2018-01-15T17:00:00.000-05:00",
+		"title": "The Body is a Pond: Lymphatic Self-Massage and Yoga With Julia Schandelmeier, LMT and Richard Gartner, ERYT",
+		"photo": "/assets/images/workshops/lymphatic.jpg",
+		"description": "What is our lymphatic system, why it is important to us, and how can we increase our own lymphatic flow? Richard Gartner, ERYT, and Julia Schandelmeier, LMT and certified lymphatic therapist, present this experiential and informative workshop about our fluid body. The lymph system is a series of rivers and channels that detoxes the body and aids digestion. This workshop is a guide to keep your lymph system moving and strong. You’ll learn the basics of the lymphatic system, a lymphatic massage routine and yoga postures that support your system. You'll also receive handouts you can take home and refer to at any time. This is an all-levels workshop that assumes a generally healthy lymphatic system. If you have any lymphatic or lymph node conditions, please contact us to see if this workshop is right for you.",
+		"sections":
+		[
+			{
+				"start": "2017-03-05T13:00:00.000-05:00",
+				"expires": "2017-03-06T15:30:00.000-05:00",
+				"productID": 57,
+				"cost": 40,
+				"location": "East Liberty"
+			}
+		]
+	},
 	{
-		"expires": "2017-02-10T20:00:00.000-05:00",
+		"expires": "2018-02-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
 		"photo": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
 		"sections":
 		[
-			{
-				"title": "The Quiet Wolf Moon",
-				"start": "2017-01-13T18:30:00.000-05:00",
-				"expires": "2017-01-13T20:00:00.000-05:00",
-				"productID": 10,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"title": "The Snow Moon",
 				"start": "2017-02-10T18:30:00.000-05:00",
@@ -21,28 +29,52 @@
 				"productID": 11,
 				"cost": 20,
 				"location": "North Hills"
+			},
+			{
+				"title": "The Windy Moon",
+				"start": "2017-03-10T18:30:00.000-05:00",
+				"expires": "2017-03-11T20:00:00.000-05:00",
+				"productID": 9,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "The Spring Moon",
+				"start": "2017-04-14T18:30:00.000-04:00",
+				"expires": "2017-04-15T20:00:00.000-04:00",
+				"productID": 10,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "The Flower Moon",
+				"start": "2017-05-12T18:30:00.000-04:00",
+				"expires": "2017-05-13T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
 			}
 		]
 	},
 	{
-		"expires": "2017-02-24T20:00:00.000-05:00",
-		"title": "Women's Healing Circle with Kendell Romanelli",
-		"photo": "/assets/images/workshops/womenscircle.jpg",
-		"description": "This class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and uplift all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in five words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
+		"expires": "2018-02-24T20:00:00.000-05:00",
+		"title": "Kundaini Yoga and Acupuncture with Kendell Romanelli and Quiong Wang",
+		"photo": "/assets/images/workshops/kundalini.jpg",
+		"description": "Kundaini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas~ yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
 		"sections":
 		[
 			{
-				"start": "2017-01-27T18:30:00.000-05:00",
-				"expires": "2017-01-28T20:00:00.000-05:00",
-				"productID": 30,
-				"cost": 10,
+				"start": "2017-03-24T18:30:00.000-04:00",
+				"expires": "2017-03-25T20:00:00.000-04:00",
+				"productID": 29,
+				"cost": 30,
 				"location": "North Hills"
 			},
 			{
-				"start": "2017-02-24T18:30:00.000-05:00",
-				"expires": "2017-02-25T20:00:00.000-05:00",
-				"productID": 31,
-				"cost": 10,
+				"start": "2017-04-21T18:30:00.000-04:00",
+				"expires": "2017-04-22T20:00:00.000-04:00",
+				"productID": 30,
+				"cost": 30,
 				"location": "North Hills"
 			}
 		]
@@ -55,22 +87,35 @@
 		"sections":
 		[
 			{
-				"start": "2017-01-08T14:00:00.000-05:00",
-				"expires": "2017-01-13T15:00:00.000-05:00",
-				"productID": 59,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			{
 				"start": "2017-02-05T14:00:00.000-05:00",
 				"expires": "2017-02-10T15:00:00.000-05:00",
 				"productID": 60,
 				"cost": 10,
 				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-03-05T14:00:00.000-05:00",
+				"expires": "2017-03-06T15:00:00.000-05:00",
+				"productID": 58,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-04-02T14:00:00.000-04:00",
+				"expires": "2017-04-03T15:00:00.000-04:00",
+				"productID": 59,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-05-07T14:00:00.000-04:00",
+				"expires": "2017-05-08T15:00:00.000-04:00",
+				"productID": 61,
+				"cost": 10,
+				"location": "Squirrel Hill"
 			}
 		]
 	},
-
 	{
 		"expires": "2017-01-15T17:00:00.000-05:00",
 		"title": "Meditation Workshop for Teachers with Joni Sturgill",
@@ -88,15 +133,15 @@
 		]
 	},
 	{
-		"expires": "2017-01-15T15:00:00.000-05:00",
+		"expires": "2018-01-15T15:00:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
 		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms to be! Bring your partners, a family member or a friend to share a fun prenatal yoga experience where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and to prepare for the arrival of your little one into the world! All stages of pregnancy and levels of experience are welcome. Price is per couple.",
 		"sections":
 		[
 			{
-				"start": "2017-01-15T13:30:00.000-05:00",
-				"expires": "2017-01-16T15:00:00.000-05:00",
+				"start": "2017-04-30T13:30:00.000-04:00",
+				"expires": "2017-05-01T15:00:00.000-04:00",
 				"productID": 14,
 				"cost": 35,
 				"location": "Squirrel Hill"
