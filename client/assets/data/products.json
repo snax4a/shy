@@ -51,7 +51,7 @@
   },
   {
     "id": 11,
-    "name": "Workshop:  Moon Salutations (Feb 10th)",
+    "name": "Workshop:  Moon Salutations (Feb 10)",
     "price": 20
   },
   {
@@ -62,16 +62,16 @@
   {
     "id": 17,
     "name": "Workshop:  Moon Salutations (May 12)",
-    "price": 25
+    "price": 20
   },
   {
     "id": 22,
-    "name": "Workshop:  Meditation (Jan 8th)",
-    "price": 35    
+    "name": "Workshop:  Cancer Patients Teacher Training (March 26)",
+    "price": 75    
   },
   {
     "id": 29,
-    "name": "Workshop:  Kundalini and Acupuncture (March 24",
+    "name": "Workshop:  Kundalini and Acupuncture (March 24)",
     "price": 30    
   },
   {
@@ -81,8 +81,8 @@
   },
   {
     "id": 31,
-    "name": "Workshop:  Women's Healing Circle (Feb 24th)",
-    "price": 10    
+    "name": "Workshop:  Restorative Yoga Teacher Training (April 9)",
+    "price": 65    
   },
   {
     "id": 41,
@@ -91,7 +91,7 @@
   },
   {
     "id": 44,
-    "name": "Trauma-Informed Yoga Teacher Training (Feb 18th)",
+    "name": "Trauma-Informed Yoga Teacher Training (Feb 18)",
     "price": 90
   },
   {
@@ -101,12 +101,12 @@
   },
   {
     "id": 51,
-    "name": "Workshop:  Meditation (Jan 15th)",
+    "name": "Workshop:  Meditation (Jan 15)",
     "price": 40
   },
   {
     "id": 53,
-    "name": "Workshop:  Partner Meditation (Feb 12th)",
+    "name": "Workshop:  Partner Meditation (Feb 12)",
     "price": 35
   },
   {
@@ -126,7 +126,7 @@
   },
   {
     "id": 60,
-    "name": "Workshop:  Family Yoga (Feb 5th)",
+    "name": "Workshop:  Family Yoga (Feb 5)",
     "price": 10
   },
     {
