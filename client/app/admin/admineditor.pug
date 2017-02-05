@@ -18,8 +18,8 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label New password
-          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', sequelize-error='', maxlength='20', placeholder='Password')
-          p.help-block.has-error(ng-show='form.password.$error.sequelize')
+          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', database-error='', maxlength='20', placeholder='Password')
+          p.help-block.has-error(ng-show='form.password.$error.database')
             | {{ $ctrl.errors.password }}
         .form-group.col-md-6
           label Confirm
@@ -28,12 +28,12 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
             | Passwords must match
         .form-group.col-md-6
           label Email
-          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', sequelize-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
+          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', database-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
           p.help-block.has-error(ng-show='form.email.$error.email && $ctrl.submitted')
             | Please provide a valid email address
           p.help-block.has-error(ng-show='form.email.$error.required && $ctrl.submitted')
             | Please provide an email address
-          p.help-block.has-error(ng-show='form.email.$error.sequelize')
+          p.help-block.has-error(ng-show='form.email.$error.database')
             | {{ $ctrl.errors.email }}
       .form-group.col-md-6
         label Phone

@@ -40,10 +40,10 @@ export default class AdminEditorController {
           let err = response.data;
           this.errors = {}; // reset to only the latest errors
 
-          // Update validity of form fields that match the sequelize errors
+          // Update validity of form fields that match the database errors
           if(err.name) {
             for(let error of err.errors) {
-              form[error.path].$setValidity('sequelize', false);
+              form[error.path].$setValidity('database', false);
               this.errors[error.path] = error.message;
             }
           }
@@ -54,7 +54,6 @@ export default class AdminEditorController {
 
   cancel() {
     if(!this.userSelectedForEditing._id) {
-      this.$log.info('Cancelled during creation of a new user');
       this.userSelectedForEditing.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();

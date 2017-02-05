@@ -24,7 +24,6 @@ import tweet from '../components/tweet/tweet.component';
 // General components
 import _Auth from '../components/auth/auth.module';
 import account from './account';
-import admin from './admin';
 import util from '../components/util/util.module';
 import constants from './app.constants';
 import dirPagination from 'angular-utils-pagination';
@@ -41,6 +40,7 @@ import confirmationPage from './cart/confirmation.component';
 import registerPage from './register/register.component';
 import privacyPage from './privacy/privacy.component';
 import termsPage from './terms/terms.component';
+import adminPage from './admin/admin.component';
 
 // Filters
 import upcoming from '../components/upcoming/upcoming.filter';
@@ -54,14 +54,14 @@ import compareTo from '../components/compareto/compareto.directive';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, admin, navbar, banner, footer,
+angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, adminPage, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, constants, util, upcoming,
   htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
-  .run(function($rootScope, $location, Auth) {
+  .run(($rootScope, $location, Auth) => {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function(event, next) {
+    $rootScope.$on('$stateChangeStart', (event, next) => {
       Auth.isLoggedIn(function(loggedIn) {
         if(next.authenticate && !loggedIn) {
           $location.path('/login');

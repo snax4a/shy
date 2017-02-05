@@ -1,6 +1,6 @@
 {
   "name": "shy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Schoolhouse Yoga's Website",
   "main": "server/index.js",
   "dependencies": {
@@ -35,7 +35,7 @@
     "lodash": "^4.17.4",
     "lusca": "^1.4.1",
     "method-override": "^2.3.7",
-    "morgan": "~1.7.0",
+    "morgan": "~1.8.0",
     "nodemailer": "^3.0.2",
     "passport": "~0.3.2",
     "passport-google-oauth20": "^1.0.0",

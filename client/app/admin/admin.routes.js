@@ -2,12 +2,9 @@
 
 export default function routes($stateProvider) {
   'ngInject';
-
   $stateProvider.state('admin', {
     url: '/admin',
-    template: require('./admin.pug'),
-    controller: 'AdminController',
-    controllerAs: '$ctrl',
+    template: '<admin></admin>',
     authenticate: 'admin'
   });
 }
