@@ -110,8 +110,7 @@ export default function seedDatabaseIfNeeded() {
               verified: false,
             }
           }
-        ]
-      )
+        ])
       .then(() => console.log('Seeded users')))])
     .then(() => console.log('Seeded database.'))
     .catch(err => console.log('Seeding error: ', err));
