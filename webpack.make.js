@@ -6,9 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-//var fs = require('fs');
 var path = require('path');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 module.exports = function makeWebpackConfig(options) {
   /**
@@ -162,7 +160,7 @@ module.exports = function makeWebpackConfig(options) {
         // Rename the file using the asset hash
         // Pass along the updated reference to your code
         // You can add here any file extension you want to get copied to your output
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([\?]?.*)$/,
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([?]?.*)$/,
         loader: 'file'
       },
       {
@@ -249,14 +247,6 @@ module.exports = function makeWebpackConfig(options) {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
-    /*
-     * Plugin: ForkCheckerPlugin
-     * Description: Do type checking in a separate process, so webpack won't need to wait.
-     *
-     * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-     */
-    new ForkCheckerPlugin(),
-
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode

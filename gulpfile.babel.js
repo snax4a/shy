@@ -600,7 +600,7 @@ grunt.initConfig({
 // Using to deploy builds to Heroku (though OpenShift also supported)
 grunt.loadNpmTasks('grunt-build-control');
 
-gulp.task('buildcontrol:heroku', function(done) {
+gulp.task('buildcontrol:heroku', done => {
   grunt.tasks(
     ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
@@ -610,7 +610,7 @@ gulp.task('buildcontrol:heroku', function(done) {
   );
 });
 
-gulp.task('buildcontrol:openshift', function(done) {
+gulp.task('buildcontrol:openshift', done => {
   grunt.tasks(
     ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)

@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Convert login to component (currently loosely coupled controller)
 * [Low] Convert signup to component (ditto)
