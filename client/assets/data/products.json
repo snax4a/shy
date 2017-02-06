@@ -146,7 +146,17 @@
   },
   {
     "id": 100,
-    "name": "Teacher Training Open House",
-    "price": 0
+    "name": "Foundations of Ayurveda (March 18)",
+    "price": 35
+  },
+    {
+    "id": 101,
+    "name": "Ayurvedic Spring Cleanse (March 19)",
+    "price": 35
+  },
+  {
+    "id": 102,
+    "name": "Ayurveda, both days",
+    "price": 65
   }
 ]
