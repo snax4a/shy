@@ -28,8 +28,8 @@
         paynow(product='{{ section.productID }}')
         span(ng-if='section.title') {{ section.title }}
           br
-        b {{ section.start | date:'EEEE, MMMM d' }}
-        | &nbsp;&nbsp;|&nbsp;&nbsp;{{ section.start | date:'shortTime' }} - {{ section.expires | date:'shortTime' }}
+        b(ng-if='!section.nodate') {{ section.start | date:'EEEE, MMMM d' }} &nbsp;&nbsp;| &nbsp;&nbsp;
+        | {{ section.start | date:'shortTime' }} - {{ section.expires | date:'shortTime' }}
         | &nbsp;&nbsp;|&nbsp;&nbsp;{{ section.cost | currency:"$":0 }}
         br
         a(href='/locations#{{ section.location | htmlid }}') {{ section.location }}

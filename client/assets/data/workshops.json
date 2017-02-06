@@ -145,7 +145,7 @@
 				"expires": "2017-03-18T15:00:00.000-04:00",
 				"productID": 100,
 				"cost": 35,
-				"location": "North Hills"
+				"location": "Squirrel Hill"
 			},
 			{
 				"title": "Ayurvedic Spring Cleanse: Spring is traditionally a time in Ayurveda to start to lighten the heaviness that has accumulated within the body and mind during the winter months by doing a cleanse. This three day cleanse will help you to feel lighter and more vibrant by stoking your Agni (inner fire) which stimulates digestion and metabolism. Leaving you re-energized and renewed.",
@@ -153,15 +153,16 @@
 				"expires": "2017-03-19T15:00:00.000-04:00",
 				"productID": 101,
 				"cost": 35,
-				"location": "North Hills"
+				"location": "Squirrel Hill"
 			},
 			{
-				"title": "Both days",
-				"start": "2017-03-19T13:00:00.000-04:00",
+				"title": "Both days: Saturday March 18th and Sunday the 19th",
+				"nodate": true,
+				"start": "2017-03-18T13:00:00.000-04:00",
 				"expires": "2017-03-19T15:00:00.000-04:00",
 				"productID": 102,
 				"cost": 60,
-				"location": "North Hills"
+				"location": "Squirrel Hill"
 			}
 		]
 	},
@@ -229,7 +230,8 @@
 				"location": "East Liberty"
 			},
 			{
-				"title": "Day 1 and 2",
+				"title": "Both days: Saturday, February 18th and Sunday the 19th",
+				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
 				"expires": "2017-02-19T17:00:00.000-05:00",
 				"productID": 45,
