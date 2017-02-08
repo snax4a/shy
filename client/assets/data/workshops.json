@@ -22,10 +22,11 @@
 		"description": "As yoga teachers and licensed therapists understand, people seek remedy for high stress and trauma symptoms by attending yoga classes. In this foundational training, Paula Soto, a licensed social worker and registered yoga teacher, and Linda Meacci, an experienced yoga-teacher-training instructor, will present a spectrum of information, ranging from how to create a non-harming atmosphere in yoga classes and private lessons, to recognizing and responding to nonverbal signs of stress and trauma in students/clients, to setting up yoga services for trauma-impacted populations. Rather than require teachers to veer from their own teaching styles, this training will equip them to apply trauma-informed insights to their established methods of instruction. For detailed information about this Trauma Informed Yoga Teacher Training, please visit www.lindameacciyoga.com",
 		"sections":
 		[
-			{
+				{
 				"title": "Day 1",
+				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
-				"expires": "2017-02-18T17:00:00.000-05:00",
+				"expires": "2017-02-19T17:00:00.000-05:00",
 				"productID": 44,
 				"cost": 90,
 				"location": "East Liberty"
