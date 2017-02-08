@@ -15,6 +15,22 @@
 			}
 		]
 	},
+			{
+		"expires": "2018-02-12T15:30:00.000-05:00",
+		"title": "Women's Healing Circle with Kendell",
+		"photo": "/assets/images/workshops/womenscircle.jpg",
+		"description": " is class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and upli  all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in  ve words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
+		"sections":
+		[
+			{
+				"start": "2017-02-24T18:30:00.000-05:00",
+				"expires": "2017-02-25T20:00:00.000-05:00",
+				"productID": 41,
+				"cost": 10,
+				"location": "North Hills"
+			}
+		]
+	},
 	{
 		"expires": "2018-02-19T17:00:00.000-05:00",
 		"title": "Trauma-Informed Yoga Teacher Training – Foundational Skills with Linda Meacci, E-RYT and Paula Soto, LSW, RYT",
