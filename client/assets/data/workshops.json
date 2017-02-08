@@ -201,6 +201,22 @@
 			}
 		]
 	},
+			{
+		"expires": "2018-01-08T17:00:00.000-05:00",
+		"title": "Teaching Relaxation and Restorative Yoga: a continuing education workshop for yoga teachers",
+		"photo": "/assets/images/workshops/restorative.jpg",
+		"description": "Approximately 40 million adults suffer from anxiety in the United States. And these are just the ones who seek treatment. Learn how to calm and soothe your students' nervous systems gently through simple relaxation practices and restorative yoga postures. You will learn how to teach gentle yoga movements appropriate for all populations, and how to set up and adapt a handful of restorative yoga postures, effectively using a multitude of props, and what to do when props aren't available. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
+		"sections":
+		[
+			{
+				"start": "2017-04-09T13:00:00.000-04:00",
+				"expires": "2017-04-09T17:00:00.000-04:00",
+				"productID": 31,
+				"cost": 65,
+				"location": "East Liberty"
+			}
+		]
+	},
 	{
 		"expires": "2018-01-15T15:00:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
@@ -214,22 +230,6 @@
 				"productID": 14,
 				"cost": 35,
 				"location": "Squirrel Hill"
-			}
-		]
-	},
-		{
-		"expires": "2018-01-08T17:00:00.000-05:00",
-		"title": "Teaching Relaxation and Restorative Yoga: a continuing education workshop for yoga teachers",
-		"photo": "/assets/images/workshops/restorative.jpg",
-		"description": "Approximately 40 million adults suffer from anxiety in the United States. And these are just the ones who seek treatment. Learn how to calm and soothe your students' nervous systems gently through simple relaxation practices and restorative yoga postures. You will learn how to teach gentle yoga movements appropriate for all populations, and how to set up and adapt a handful of restorative yoga postures, effectively using a multitude of props, and what to do when props aren't available. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
-		"sections":
-		[
-			{
-				"start": "2017-04-09T13:00:00.000-04:00",
-				"expires": "2017-04-09T17:00:00.000-04:00",
-				"productID": 31,
-				"cost": 65,
-				"location": "East Liberty"
 			}
 		]
 	},
