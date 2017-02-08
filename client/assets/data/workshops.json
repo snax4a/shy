@@ -23,7 +23,7 @@
 		"sections":
 		[
 				{
-				"title": "Day 1",
+				"title": "Day 1: Saturday, February 18",
 				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
 				"expires": "2017-02-19T17:00:00.000-05:00",
@@ -32,7 +32,7 @@
 				"location": "East Liberty"
 			},
 			{
-				"title": "Both days: Saturday, February 18th and Sunday the 19th",
+				"title": "Both days: Saturday, February 18 and Sunday the 19",
 				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
 				"expires": "2017-02-19T17:00:00.000-05:00",
