@@ -15,6 +15,22 @@
 			}
 		]
 	},
+			{
+		"expires": "2018-02-12T15:30:00.000-05:00",
+		"title": "Women's Healing Circle with Kendell Romanelli",
+		"photo": "/assets/images/workshops/womenscircle.jpg",
+		"description": "This class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and upli  all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in  ve words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
+		"sections":
+		[
+			{
+				"start": "2017-02-24T18:30:00.000-05:00",
+				"expires": "2017-02-25T20:00:00.000-05:00",
+				"productID": 41,
+				"cost": 10,
+				"location": "North Hills"
+			}
+		]
+	},
 	{
 		"expires": "2018-02-19T17:00:00.000-05:00",
 		"title": "Trauma-Informed Yoga Teacher Training – Foundational Skills with Linda Meacci, E-RYT and Paula Soto, LSW, RYT",
@@ -22,16 +38,17 @@
 		"description": "As yoga teachers and licensed therapists understand, people seek remedy for high stress and trauma symptoms by attending yoga classes. In this foundational training, Paula Soto, a licensed social worker and registered yoga teacher, and Linda Meacci, an experienced yoga-teacher-training instructor, will present a spectrum of information, ranging from how to create a non-harming atmosphere in yoga classes and private lessons, to recognizing and responding to nonverbal signs of stress and trauma in students/clients, to setting up yoga services for trauma-impacted populations. Rather than require teachers to veer from their own teaching styles, this training will equip them to apply trauma-informed insights to their established methods of instruction. For detailed information about this Trauma Informed Yoga Teacher Training, please visit www.lindameacciyoga.com",
 		"sections":
 		[
-			{
-				"title": "Day 1",
+				{
+				"title": "Day 1: Saturday, February 18",
+				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
-				"expires": "2017-02-18T17:00:00.000-05:00",
+				"expires": "2017-02-19T17:00:00.000-05:00",
 				"productID": 44,
 				"cost": 90,
 				"location": "East Liberty"
 			},
 			{
-				"title": "Both days: Saturday, February 18th and Sunday the 19th",
+				"title": "Both days: Saturday, February 18 and Sunday the 19",
 				"nodate": true,
 				"start": "2017-02-18T12:00:00.000-05:00",
 				"expires": "2017-02-19T17:00:00.000-05:00",
