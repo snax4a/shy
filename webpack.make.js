@@ -126,7 +126,6 @@ module.exports = function makeWebpackConfig(options) {
   // Initialize module
   config.module = {
     preLoaders: [],
-    noParse: [/braintree-web/],
     loaders: [
       {
         // JS LOADER

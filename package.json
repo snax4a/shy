@@ -21,7 +21,7 @@
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^1.47.0",
-    "braintree-web": "~3.7.0",
+    "braintree-web": "~3.8.0",
     "composable-middleware": "^0.3.0",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
