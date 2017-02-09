@@ -212,8 +212,8 @@ module.exports = function makeWebpackConfig(options) {
     loader: 'ng-annotate?single_quotes'
   }];
 
-  // ISPARTA INSTRUMENTER LOADER
-  // Reference: https://github.com/ColCh/isparta-instrumenter-loader
+  // ISPARTA LOADER
+  // Reference: https://github.com/deepsweet/isparta-loader
   // Instrument JS files with Isparta for subsequent code coverage reporting
   // Skips node_modules and spec files
   if(TEST) {
@@ -221,7 +221,7 @@ module.exports = function makeWebpackConfig(options) {
       //delays coverage til after tests are run, fixing transpiled source coverage error
       test: /\.js$/,
       exclude: /(node_modules|spec\.js|mock\.js)/,
-      loader: 'isparta-instrumenter', // should this be 'isparta' as the old one is deprectated?
+      loader: 'isparta-loader',
       query: {
         babel: {
           // optional: ['runtime', 'es7.classProperties', 'es7.decorators']
