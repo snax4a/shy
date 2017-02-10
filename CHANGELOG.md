@@ -1,6 +1,8 @@
 # Product Backlog
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
+* [Medium] Upgrade braintree@2.0.0
+* [Medium] Update to Webpack 2 - extract-text-webpack-plugin@2.0.0rc-3, sass-loader@5.0.1
 * [Low] Convert login to component (currently loosely coupled controller)
 * [Low] Convert signup to component (ditto)
 * [Low] Convert settings to component (ditto)

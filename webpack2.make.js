@@ -126,7 +126,6 @@ module.exports = function makeWebpackConfig(options) {
   // Initialize module
   config.module = {
     preLoaders: [],
-    noParse: [/braintree-web/],
     rules: [
       {
         // JS LOADER
@@ -191,6 +190,7 @@ module.exports = function makeWebpackConfig(options) {
           // Use style-loader in development for hot-loading
           //? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
           ? ExtractTextPlugin.extract('style', 'css!postcss')
+          // See http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ re: Webpack 2
           // Reference: https://github.com/webpack/null-loader
           // Skip loading css in test mode
           : 'null'
@@ -199,6 +199,16 @@ module.exports = function makeWebpackConfig(options) {
         // SASS LOADER
         // Reference: https://github.com/jtangelder/sass-loader
         test: /\.(scss|sass)$/,
+        use: [
+          {
+            loader: 'postcss-loader',
+            options: {
+              // Implement: fix next line
+              //plugins: ...
+            }
+          },
+          'sass-loader'
+        ],
         rules: ['style', 'css', 'sass'],
         include: [
           path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
@@ -235,6 +245,7 @@ module.exports = function makeWebpackConfig(options) {
    * Reference: https://github.com/postcss/autoprefixer-core
    * Add vendor prefixes to your css
   **/
+  // Implement: This part needs to go up to line 205, see http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ and https://github.com/postcss/postcss-loader/issues/92
   config.postcss = [
     autoprefixer({
       browsers: ['last 2 version']
