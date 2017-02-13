@@ -1,3 +1,4 @@
+/* global describe, beforeEach, it, expect */
 'use strict';
 
 describe('Component: signup', function() {
