@@ -1,5 +1,5 @@
 'use strict';
-/*eslint-env node*/
+/* eslint-env node */
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -86,7 +86,7 @@ module.exports = function makeWebpackConfig(options) {
       modules: [
         'node_modules'
       ],
-      extensions: ['', '.js', '.ts']
+      extensions: ['.js', '.ts']
     };
   }
 
@@ -125,7 +125,6 @@ module.exports = function makeWebpackConfig(options) {
 
   // Initialize module
   config.module = {
-    preLoaders: [],
     rules: [
       {
         // JS LOADER
@@ -133,7 +132,7 @@ module.exports = function makeWebpackConfig(options) {
         // Transpile .js files using babel-loader
         // Compiles ES6 and ES7 into ES5 code
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: [
           path.resolve(__dirname, 'client/'),
           path.resolve(__dirname, 'node_modules/lodash-es/')
@@ -160,19 +159,14 @@ module.exports = function makeWebpackConfig(options) {
         // Pass along the updated reference to your code
         // You can add here any file extension you want to get copied to your output
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([?]?.*)$/,
-        loader: 'file'
-      },
-      {
-        // JSON LOADER
-        test: /\.json$/,
-        loader: 'json'
+        loader: 'file-loader'
       },
       {
         // Pug HTML LOADER
         // Reference: https://github.com/willyelm/pug-html-loader
         // Allow loading Pug throw js
-        test: /\.(jade|pug)$/,
-        rules: ['pug-html']
+        test: /\.(pug)$/,
+        loader: 'pug-html-loader'
       },
       {
         // CSS LOADER
@@ -182,14 +176,17 @@ module.exports = function makeWebpackConfig(options) {
         // Reference: https://github.com/postcss/postcss-loader
         // Postprocess your css with PostCSS plugins
         test: /\.css$/,
-        loader: !TEST
+        use: !TEST
           // Reference: https://github.com/webpack/extract-text-webpack-plugin
           // Extract css files in production builds
           //
           // Reference: https://github.com/webpack/style-loader
           // Use style-loader in development for hot-loading
-          //? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-          ? ExtractTextPlugin.extract('style', 'css!postcss')
+          //? ExtractTextPlugin.extract('style-loader', 'css!postcss-loader')
+          ? ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!postcss-loader'
+          })
           // See http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ re: Webpack 2
           // Reference: https://github.com/webpack/null-loader
           // Skip loading css in test mode
@@ -198,7 +195,7 @@ module.exports = function makeWebpackConfig(options) {
       {
         // SASS LOADER
         // Reference: https://github.com/jtangelder/sass-loader
-        test: /\.(scss|sass)$/,
+        test: /\.(scss)$/,
         use: [
           {
             loader: 'postcss-loader',
@@ -209,26 +206,62 @@ module.exports = function makeWebpackConfig(options) {
           },
           'sass-loader'
         ],
-        rules: ['style', 'css', 'sass'],
+        rules: ['style-loader', 'css-loader', 'sass-loader'],
         include: [
           path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
           path.resolve(__dirname, 'client/app/app.scss')
         ]
+      },
+      // BEGIN SAMPLE
+      {
+        test: /(\.css|\.scss)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                modules: true,
+                importLoaders: true,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function() {
+                  return [
+                    require('autoprefixer')
+                  ];
+                }
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        })
+      },
+      // END SAMPLE
+      {
+        enforce: 'post',
+        test: /\.js$/,
+        loader: 'ng-annotate?single_quotes'
       }]
   };
-
-  config.module.postLoaders = [{
-    test: /\.js$/,
-    loader: 'ng-annotate?single_quotes'
-  }];
 
   // ISPARTA LOADER
   // Reference: https://github.com/deepsweet/isparta-loader
   // Instrument JS files with Isparta for subsequent code coverage reporting
   // Skips node_modules and spec files
   if(TEST) {
-    config.module.preLoaders.push({
+    config.module.rules.push({
       //delays coverage til after tests are run, fixing transpiled source coverage error
+      enforce: 'pre',
       test: /\.js$/,
       exclude: /(node_modules|spec\.js|mock\.js)/,
       loader: 'isparta-loader',
@@ -299,20 +332,21 @@ module.exports = function makeWebpackConfig(options) {
       // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
 
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-      // Dedupe modules in the output
-      new webpack.optimize.DedupePlugin(),
-
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin({
         mangle: false,
+        sourceMap: true,
         output: {
           comments: false
         },
         compress: {
           warnings: false
         }
+      }),
+
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
       }),
 
       // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
