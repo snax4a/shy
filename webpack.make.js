@@ -86,7 +86,7 @@ module.exports = function makeWebpackConfig(options) {
       modulesDirectories: [
         'node_modules'
       ],
-      extensions: ['', '.js', '.ts']
+      extensions: ['', '.js']
     };
   }
 
