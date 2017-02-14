@@ -133,23 +133,10 @@ module.exports = function makeWebpackConfig(options) {
         // Transpile .js files using babel-loader
         // Compiles ES6 and ES7 into ES5 code
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: [
           path.resolve(__dirname, 'client/'),
           path.resolve(__dirname, 'node_modules/lodash-es/')
-        ]
-      },
-      {
-        // TS LOADER
-        // Reference: https://github.com/s-panferov/awesome-typescript-loader
-        // Transpile .ts files using awesome-typescript-loader
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
-        query: {
-          tsconfig: path.resolve(__dirname, 'tsconfig.client.json')
-        },
-        include: [
-          path.resolve(__dirname, 'client/')
         ]
       },
       {
@@ -160,19 +147,19 @@ module.exports = function makeWebpackConfig(options) {
         // Pass along the updated reference to your code
         // You can add here any file extension you want to get copied to your output
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([?]?.*)$/,
-        loader: 'file'
+        loader: 'file-loader'
       },
       {
         // JSON LOADER
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
       {
         // Pug HTML LOADER
         // Reference: https://github.com/willyelm/pug-html-loader
         // Allow loading Pug throw js
-        test: /\.(jade|pug)$/,
-        loaders: ['pug-html']
+        test: /\.(pug)$/,
+        loaders: ['pug-html-loader']
       },
       {
         // CSS LOADER
@@ -189,7 +176,7 @@ module.exports = function makeWebpackConfig(options) {
           // Reference: https://github.com/webpack/style-loader
           // Use style-loader in development for hot-loading
           //? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-          ? ExtractTextPlugin.extract('style', 'css!postcss')
+          ? ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
           // Reference: https://github.com/webpack/null-loader
           // Skip loading css in test mode
           : 'null'
@@ -197,8 +184,8 @@ module.exports = function makeWebpackConfig(options) {
       {
         // SASS LOADER
         // Reference: https://github.com/jtangelder/sass-loader
-        test: /\.(scss|sass)$/,
-        loaders: ['style', 'css', 'sass'],
+        test: /\.(scss)$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
         include: [
           path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
           path.resolve(__dirname, 'client/app/app.scss')
