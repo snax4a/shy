@@ -83,9 +83,7 @@ module.exports = function makeWebpackConfig(options) {
 
   if(TEST) {
     config.resolve = {
-      modulesDirectories: [
-        'node_modules'
-      ],
+      modulesDirectories: ['node_modules'],
       extensions: ['', '.js']
     };
   }
@@ -175,7 +173,6 @@ module.exports = function makeWebpackConfig(options) {
           //
           // Reference: https://github.com/webpack/style-loader
           // Use style-loader in development for hot-loading
-          //? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
           ? ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
           // Reference: https://github.com/webpack/null-loader
           // Skip loading css in test mode

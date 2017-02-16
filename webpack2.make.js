@@ -1,12 +1,12 @@
 'use strict';
 /* eslint-env node */
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var path = require('path');
+import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+import path from 'path';
 
 module.exports = function makeWebpackConfig(options) {
   /**
@@ -14,17 +14,17 @@ module.exports = function makeWebpackConfig(options) {
    * BUILD is for generating minified builds
    * TEST is for generating test builds
   **/
-  var BUILD = !!options.BUILD;
-  var TEST = !!options.TEST;
-  var E2E = !!options.E2E;
-  var DEV = !!options.DEV;
+  let DEV = !!options.DEV;
+  let TEST = !!options.TEST;
+  let BUILD = !!options.BUILD;
+  let E2E = !!options.E2E;
 
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
    * This is the object where all configuration gets set
   **/
-  var config = {};
+  let config = {};
 
   /**
    * Entry
@@ -35,6 +35,7 @@ module.exports = function makeWebpackConfig(options) {
   if(TEST) {
     config.entry = {};
   } else {
+    // split app and vendor code to promote fast loading
     config.entry = {
       app: './client/app/app.js',
       polyfills: './client/polyfills.js',
@@ -81,14 +82,7 @@ module.exports = function makeWebpackConfig(options) {
     };
   }
 
-  if(TEST) {
-    config.resolve = {
-      modules: [
-        'node_modules'
-      ],
-      extensions: ['.js']
-    };
-  }
+  // config.resolve removed because defaults were useds
 
 /**
  * Devtool
@@ -155,6 +149,7 @@ module.exports = function makeWebpackConfig(options) {
         test: /\.(pug)$/,
         loader: 'pug-html-loader'
       },
+/*
       {
         // CSS LOADER
         // Reference: https://github.com/webpack/css-loader
@@ -199,7 +194,8 @@ module.exports = function makeWebpackConfig(options) {
           path.resolve(__dirname, 'client/app/app.scss')
         ]
       },
-      // BEGIN SAMPLE
+*/
+      // BEGIN EXPERIMENT
       {
         test: /(\.css|\.scss)$/,
         use: ExtractTextPlugin.extract({
@@ -217,11 +213,7 @@ module.exports = function makeWebpackConfig(options) {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: function() {
-                  return [
-                    require('autoprefixer')
-                  ];
-                }
+                plugins: () => [require('autoprefixer')]
               }
             },
             {
@@ -233,12 +225,13 @@ module.exports = function makeWebpackConfig(options) {
           ]
         })
       },
-      // END SAMPLE
+      // END EXPERIMENT
       {
         enforce: 'post',
         test: /\.js$/,
         loader: 'ng-annotate?single_quotes'
-      }]
+      }
+    ]
   };
 
   // ISPARTA LOADER
