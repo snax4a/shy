@@ -146,7 +146,7 @@ module.exports = function makeWebpackConfig(options) {
         // Pug HTML LOADER
         // Reference: https://github.com/willyelm/pug-html-loader
         // Allow loading Pug throw js
-        test: /\.(pug)$/,
+        test: /\.pug$/,
         loader: 'pug-html-loader'
       },
 /*
@@ -167,7 +167,7 @@ module.exports = function makeWebpackConfig(options) {
           //? ExtractTextPlugin.extract('style-loader', 'css!postcss-loader')
           ? ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader!postcss-loader'
+            use: ['css-loader', 'postcss-loader']
           })
           // See http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ re: Webpack 2
           // Reference: https://github.com/webpack/null-loader
@@ -319,9 +319,6 @@ module.exports = function makeWebpackConfig(options) {
         sourceMap: true,
         output: {
           comments: false
-        },
-        compress: {
-          warnings: false
         }
       }),
 
