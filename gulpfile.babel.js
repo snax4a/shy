@@ -14,10 +14,10 @@ import http from 'http';
 import open from 'open';
 import lazypipe from 'lazypipe';
 import nodemon from 'nodemon';
-import {Server as KarmaServer} from 'karma';
+import { Server as KarmaServer } from 'karma';
 import runSequence from 'run-sequence';
-import {protractor, webdriver_update} from 'gulp-protractor';
-import {Instrumenter} from 'isparta';
+import { protractor, webdriver_update } from 'gulp-protractor';
+import { Instrumenter } from 'isparta';
 import webpack from 'webpack-stream';
 import makeWebpackConfig from './webpack.make';
 
@@ -209,7 +209,7 @@ gulp.task('inject:scss', () =>
         .pipe(gulp.dest(`${clientPath}/app`))
 );
 
-gulp.task('webpack:dev', function() {
+gulp.task('webpack:dev', () => {
   const webpackDevConfig = makeWebpackConfig({ DEV: true });
   return gulp.src(webpackDevConfig.entry.app)
     .pipe(plugins.plumber())
@@ -228,14 +228,14 @@ gulp.task('webpack:dist', function() {
     .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
-gulp.task('webpack:test', function() {
+gulp.task('webpack:test', () => {
   const webpackTestConfig = makeWebpackConfig({ TEST: true });
   return gulp.src(webpackTestConfig.entry.app)
     .pipe(webpack(webpackTestConfig))
     .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('webpack:e2e', function() {
+gulp.task('webpack:e2e', () => {
   const webpackE2eConfig = makeWebpackConfig({ E2E: true });
   return gulp.src(webpackE2eConfig.entry.app)
     .pipe(webpack(webpackE2eConfig))
@@ -396,7 +396,7 @@ gulp.task('mocha:integration', () =>
 );
 
 // Run all unit tests in debug mode
-gulp.task('test-debug', function() {
+gulp.task('test-debug', () => {
   var spawn = require('child_process').spawn;
   spawn('node', [
     '--debug-brk',

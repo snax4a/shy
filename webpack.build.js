@@ -1,8 +1,10 @@
 /**
  * Webpack config for builds
  */
-/* global module, require */
-module.exports = require('./webpack.make')({
+
+import makeWebpackConfig from './webpack.make';
+
+export default makeWebpackConfig({
   BUILD: true,
   TEST: false,
   DEV: false

@@ -8,12 +8,9 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 import path from 'path';
 
-module.exports = function makeWebpackConfig(options) {
-  /**
-   * Environment type
-   * BUILD is for generating minified builds
-   * TEST is for generating test builds
-  **/
+export default function makeWebpackConfig(options) {
+  // DEV, TEST, and BUILD are set in webpack.<env>.js
+  // E2E set by gulpfile, else undefined
   let DEV = !!options.DEV;
   let TEST = !!options.TEST;
   let BUILD = !!options.BUILD;
@@ -182,8 +179,7 @@ module.exports = function makeWebpackConfig(options) {
           {
             loader: 'postcss-loader',
             options: {
-              // Implement: fix next line
-              //plugins: ...
+              plugins: () => [autoprefixer({browsers: ['last 2 version']})]
             }
           },
           'sass-loader'
@@ -213,7 +209,7 @@ module.exports = function makeWebpackConfig(options) {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [require('autoprefixer')]
+                plugins: () => [autoprefixer({browsers: ['last 2 version']})]
               }
             },
             {
@@ -254,18 +250,6 @@ module.exports = function makeWebpackConfig(options) {
   }
 
   /**
-   * PostCSS
-   * Reference: https://github.com/postcss/autoprefixer-core
-   * Add vendor prefixes to your css
-  **/
-  // Implement: This part needs to go up to line 205, see http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ and https://github.com/postcss/postcss-loader/issues/92
-  config.postcss = [
-    autoprefixer({
-      browsers: ['last 2 version']
-    })
-  ];
-
-  /**
    * Plugins
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
    * List: http://webpack.github.io/docs/list-of-plugins.html
@@ -281,11 +265,7 @@ module.exports = function makeWebpackConfig(options) {
 
   if(!TEST) {
     config.plugins.push(new CommonsChunkPlugin({
-      name: 'vendor',
-
-      // filename: "vendor.js"
-      // (Give the chunk a different name)
-
+      name: 'vendor', // filename: "vendor.js"
       minChunks: Infinity
       // (with more entries, this ensures that no other module
       //  goes into the vendor chunk)
@@ -295,13 +275,12 @@ module.exports = function makeWebpackConfig(options) {
   // Skip rendering index.html in test mode
   // Reference: https://github.com/ampedandwired/html-webpack-plugin
   // Render index.html
-  let htmlConfig = {
-    template: 'client/_index.html',
-    filename: '../client/index.html',
-    alwaysWriteToDisk: true
-  };
   config.plugins.push(
-    new HtmlWebpackPlugin(htmlConfig),
+    new HtmlWebpackPlugin({
+      template: 'client/_index.html',
+      filename: '../client/index.html',
+      alwaysWriteToDisk: true
+    }),
     new HtmlWebpackHarddiskPlugin()
   );
 
