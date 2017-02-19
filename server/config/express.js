@@ -18,12 +18,12 @@ import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
-//import makeWebpackConfig from '../../webpack.make';
+//import * as makeWebpackConfig from '../../webpack.make';
 import expressSequelizeSession from 'express-sequelize-session';
-let Store = expressSequelizeSession(session.Store);
 
 export default function(app) {
   let env = app.get('env');
+  let Store = expressSequelizeSession(session.Store);
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));

@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+
 import path from 'path';
 
 export default function makeWebpackConfig(options) {
@@ -16,6 +16,7 @@ export default function makeWebpackConfig(options) {
   let BUILD = !!options.BUILD;
   let E2E = !!options.E2E;
 
+  let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
