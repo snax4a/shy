@@ -8,7 +8,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 import path from 'path';
 
-module.exports = function makeWebpackConfig(options) {
+export default function makeWebpackConfig(options) {
   /**
    * Environment type
    * BUILD is for generating minified builds

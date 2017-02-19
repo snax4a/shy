@@ -18,11 +18,12 @@ import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
+import makeWebpackConfig from '../../webpack.make';
 import expressSequelizeSession from 'express-sequelize-session';
 let Store = expressSequelizeSession(session.Store);
 
 export default function(app) {
-  var env = app.get('env');
+  let env = app.get('env');
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
@@ -84,10 +85,10 @@ export default function(app) {
   }
 
   if(env === 'development') {
+    // Conditional imports
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const stripAnsi = require('strip-ansi');
     const webpack = require('webpack');
-    const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
     const browserSync = require('browser-sync').create();
