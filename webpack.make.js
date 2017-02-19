@@ -182,7 +182,7 @@ module.exports = function makeWebpackConfig(options) {
       {
         // SASS LOADER
         // Reference: https://github.com/jtangelder/sass-loader
-        test: /\.(scss)$/,
+        test: /\.scss$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader'],
         include: [
           path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
