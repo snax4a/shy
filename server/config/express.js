@@ -18,7 +18,6 @@ import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
-//import * as makeWebpackConfig from '../../webpack.make';
 import expressSequelizeSession from 'express-sequelize-session';
 
 export default function(app) {

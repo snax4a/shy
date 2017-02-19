@@ -1,5 +1,6 @@
-'use strict';
 /* eslint-env node */
+'use strict';
+
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -8,7 +9,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import path from 'path';
 
-export default function makeWebpackConfig(options) {
+module.exports = function makeWebpackConfig(options) {
   // DEV, TEST, and BUILD are set in webpack.<env>.js
   // E2E set by gulpfile, else undefined
   let DEV = !!options.DEV;
@@ -364,4 +365,4 @@ export default function makeWebpackConfig(options) {
   };
 
   return config;
-}
+};

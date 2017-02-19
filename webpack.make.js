@@ -1,5 +1,6 @@
-'use strict';
 /* eslint-env node */
+'use strict';
+
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -7,7 +8,6 @@ import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path';
 
-//export default function makeWebpackConfig(options) {
 module.exports = function makeWebpackConfig(options) {
   /**
    * Environment type
