@@ -5,10 +5,11 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 import path from 'path';
+let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
-export default function makeWebpackConfig(options) {
+//export default function makeWebpackConfig(options) {
+module.exports = function makeWebpackConfig(options) {
   /**
    * Environment type
    * BUILD is for generating minified builds

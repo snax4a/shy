@@ -361,4 +361,4 @@ export default function makeWebpackConfig(options) {
   };
 
   return config;
-};
+}
