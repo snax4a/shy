@@ -276,14 +276,16 @@ export default function makeWebpackConfig(options) {
   // Skip rendering index.html in test mode
   // Reference: https://github.com/ampedandwired/html-webpack-plugin
   // Render index.html
-  config.plugins.push(
-    new HtmlWebpackPlugin({
-      template: 'client/_index.html',
-      filename: '../client/index.html',
-      alwaysWriteToDisk: true
-    }),
-    new HtmlWebpackHarddiskPlugin()
-  );
+  if(!TEST) {
+    config.plugins.push(
+      new HtmlWebpackPlugin({
+        template: 'client/_index.html',
+        filename: '../client/index.html',
+        alwaysWriteToDisk: true
+      }),
+      new HtmlWebpackHarddiskPlugin()
+    );
+  }
 
   // Add build specific plugins
   if(BUILD) {
