@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path';
-let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 //export default function makeWebpackConfig(options) {
 module.exports = function makeWebpackConfig(options) {
@@ -19,6 +18,8 @@ module.exports = function makeWebpackConfig(options) {
   let TEST = !!options.TEST;
   let E2E = !!options.E2E;
   let DEV = !!options.DEV;
+
+  let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
   /**
    * Config
@@ -70,7 +71,6 @@ module.exports = function makeWebpackConfig(options) {
       // Output path from the view of the page
       // Uses webpack-dev-server in development
       publicPath: BUILD || DEV || E2E ? '/' : `http://localhost:${8080}/`,
-      //publicPath: BUILD ? '/' : 'http://localhost:' + env.port + '/',
 
       // Filename for entry points
       // Only adds hash in build mode
@@ -157,7 +157,7 @@ module.exports = function makeWebpackConfig(options) {
         // Pug HTML LOADER
         // Reference: https://github.com/willyelm/pug-html-loader
         // Allow loading Pug throw js
-        test: /\.(pug)$/,
+        test: /\.pug$/,
         loaders: ['pug-html-loader']
       },
       {
@@ -255,13 +255,12 @@ module.exports = function makeWebpackConfig(options) {
   // Skip rendering index.html in test mode
   // Reference: https://github.com/ampedandwired/html-webpack-plugin
   // Render index.html
-  let htmlConfig = {
-    template: 'client/_index.html',
-    filename: '../client/index.html',
-    alwaysWriteToDisk: true
-  };
   config.plugins.push(
-    new HtmlWebpackPlugin(htmlConfig),
+    new HtmlWebpackPlugin({
+      template: 'client/_index.html',
+      filename: '../client/index.html',
+      alwaysWriteToDisk: true
+    }),
     new HtmlWebpackHarddiskPlugin()
   );
 
