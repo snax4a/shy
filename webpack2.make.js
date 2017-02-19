@@ -6,7 +6,6 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-
 import path from 'path';
 
 module.exports = function makeWebpackConfig(options) {
@@ -18,19 +17,9 @@ module.exports = function makeWebpackConfig(options) {
   let E2E = !!options.E2E;
 
   let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-  /**
-   * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
-   * This is the object where all configuration gets set
-  **/
+
   let config = {};
 
-  /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   * Should be an empty object if it's generating a test build
-   * Karma will set this when it's a test build
-  **/
   if(TEST) {
     config.entry = {};
   } else {
@@ -39,26 +28,11 @@ module.exports = function makeWebpackConfig(options) {
       app: './client/app/app.js',
       polyfills: './client/polyfills.js',
       vendor: [
-        'angular',
-        'angular-aria',
-        // 'angular-animate',
-        'angular-cookies',
-        'angular-resource',
-        'angular-messages',
-        'angular-sanitize',
-        'angular-ui-bootstrap',
-        'angular-ui-router',
         'lodash'
       ]
     };
   }
 
-  /**
-   * Output
-   * Reference: http://webpack.github.io/docs/configuration.html#output
-   * Should be an empty object if it's generating a test build
-   * Karma will handle setting it up for you when it's a test build
-  **/
   if(TEST) {
     config.output = {};
   } else {
@@ -69,7 +43,7 @@ module.exports = function makeWebpackConfig(options) {
       // Output path from the view of the page
       // Uses webpack-dev-server in development
       publicPath: BUILD || DEV || E2E ? '/' : `http://localhost:${8080}/`,
-      //publicPath: BUILD ? '/' : 'http://localhost:' + env.port + '/',
+      //publicPath: BUILD ? '/' : `http://localhost:${env.port}/`,
 
       // Filename for entry points
       // Only adds hash in build mode
@@ -83,11 +57,6 @@ module.exports = function makeWebpackConfig(options) {
 
   // config.resolve removed because defaults were useds
 
-/**
- * Devtool
- * Reference: http://webpack.github.io/docs/configuration.html#devtool
- * Type of sourcemap to use per build type
- */
   if(TEST) {
     config.devtool = 'inline-source-map';
   } else if(BUILD || DEV) {
@@ -95,19 +64,6 @@ module.exports = function makeWebpackConfig(options) {
   } else {
     config.devtool = 'eval';
   }
-
-/**
- * Loaders
- * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
- * List: http://webpack.github.io/docs/list-of-loaders.html
- * This handles most of the magic responsible for converting modules
- */
-
-  config.sassLoader = {
-    outputStyle: 'compressed',
-    precision: 10,
-    sourceComments: false
-  };
 
   config.babel = {
     shouldPrintComment(commentContents) {
@@ -118,6 +74,10 @@ module.exports = function makeWebpackConfig(options) {
 
   // Initialize module
   config.module = {
+    noParse: [
+      path.join(__dirname, 'node_modules', 'zone.js', 'dist'),
+      path.join(__dirname, 'node_modules', '@angular', 'bundles'),
+    ],
     rules: [
       {
         // JS LOADER
@@ -125,10 +85,16 @@ module.exports = function makeWebpackConfig(options) {
         // Transpile .js files using babel-loader
         // Compiles ES6 and ES7 into ES5 code
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel',
+          options: {
+            plugins: TEST ? ['istanbul'] : [],
+          }
+        },
         include: [
           path.resolve(__dirname, 'client/'),
-          path.resolve(__dirname, 'node_modules/lodash-es/')
+          path.resolve(__dirname, 'server/config/environment/shared.js'),
+          path.resolve(__dirname, 'node_modules/lodash-es/'),
         ]
       },
       {
@@ -148,7 +114,6 @@ module.exports = function makeWebpackConfig(options) {
         test: /\.pug$/,
         loader: 'pug-html-loader'
       },
-/*
       {
         // CSS LOADER
         // Reference: https://github.com/webpack/css-loader
@@ -163,10 +128,18 @@ module.exports = function makeWebpackConfig(options) {
           //
           // Reference: https://github.com/webpack/style-loader
           // Use style-loader in development for hot-loading
+          //? ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
           //? ExtractTextPlugin.extract('style-loader', 'css!postcss-loader')
           ? ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader']
+            use: ['css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: () => [autoprefixer({browsers: ['last 2 version']})]
+                }
+              }
+            ]
           })
           // See http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/ re: Webpack 2
           // Reference: https://github.com/webpack/null-loader
@@ -176,24 +149,24 @@ module.exports = function makeWebpackConfig(options) {
       {
         // SASS LOADER
         // Reference: https://github.com/jtangelder/sass-loader
-        test: /\.(scss)$/,
-        use: [
+        test: /\.scss$/,
+        use: ['raw',
           {
-            loader: 'postcss-loader',
+            loader: 'sass-loader',
             options: {
-              plugins: () => [autoprefixer({browsers: ['last 2 version']})]
+              sourceMap: true,
+              outputStyle: 'compressed',
+              precision: 10,
+              sourceComments: false
             }
-          },
-          'sass-loader'
+          }
         ],
-        rules: ['style-loader', 'css-loader', 'sass-loader'],
         include: [
           path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
-          path.resolve(__dirname, 'client/app/app.scss')
+          path.resolve(__dirname, 'client')
         ]
       },
-*/
-      // BEGIN EXPERIMENT
+/*
       {
         test: /(\.css|\.scss)$/,
         use: ExtractTextPlugin.extract({
@@ -217,13 +190,16 @@ module.exports = function makeWebpackConfig(options) {
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
+                sourceMap: true,
+                outputStyle: 'compressed',
+                precision: 10,
+                sourceComments: false
               }
             }
           ]
         })
       },
-      // END EXPERIMENT
+*/
       {
         enforce: 'post',
         test: /\.js$/,
@@ -341,11 +317,6 @@ module.exports = function makeWebpackConfig(options) {
     config.debug = false;
   }
 
-  /**
-   * Dev server configuration
-   * Reference: http://webpack.github.io/docs/configuration.html#devserver
-   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
-   */
   config.devServer = {
     contentBase: './client/',
     stats: {
