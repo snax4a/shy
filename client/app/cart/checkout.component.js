@@ -36,6 +36,7 @@ export class CheckOutController {
       state: 'PA' // Default
     };
     this.Cart.sendVia = 'Email';
+    this.Cart.instructions = '';
 
     // Dynamically link controller objects to the Cart
     this.Cart.purchaser = this.purchaser;
