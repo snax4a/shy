@@ -1,11 +1,13 @@
 /* global describe, beforeEach, it, expect, inject */
 'use strict';
 import angular from 'angular';
+import confirmationPage from './confirmation.component';
 import CartModule from '../../components/cartmodule/cart.module';
 
-describe('Component: ConfirmationComponent', () => {
+describe('Component: ConfirmationComponent', function() {
   // load the component's module
   beforeEach(angular.mock.module(CartModule));
+  beforeEach(angular.mock.module(confirmationPage));
 
   let ConfirmationComponent;
 

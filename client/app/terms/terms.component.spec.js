@@ -1,18 +1,17 @@
 /* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import workshopsPage from './workshops.component';
+import termsPage from './terms.component';
 
-describe('Component: WorkshopsComponent', function() {
+describe('Component: TermsComponent', function() {
   // load the controller's module
-  //beforeEach(module('shyApp.workshops'));
-  beforeEach(angular.mock.module(workshopsPage));
+  beforeEach(angular.mock.module(termsPage));
 
-  var WorkshopsComponent;
+  var TermsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    WorkshopsComponent = $componentController('workshops', {});
+    TermsComponent = $componentController('terms', {});
   }));
 
   it('should ...', function() {

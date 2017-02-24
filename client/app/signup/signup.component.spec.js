@@ -3,7 +3,7 @@
 import angular from 'angular';
 import signup from './signup.component';
 
-describe('Component: signup', function() {
+describe('Component: SignupComponent', function() {
   // load the component's module
   beforeEach(angular.mock.module(signup));
 

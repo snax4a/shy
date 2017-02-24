@@ -11,7 +11,7 @@ describe('Component: CheckOutComponent', function() {
 
   let CheckOutComponent;
   // Initialize the controller and a mock scope
-  beforeEach(inject($componentController => {
+  beforeEach(inject(function($componentController) {
     'ngInject';
     CheckOutComponent = $componentController('checkout', {});
   }));

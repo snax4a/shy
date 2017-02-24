@@ -2,17 +2,17 @@
 'use strict';
 import angular from 'angular';
 import adminPage from './admin.component';
-import _Auth from '../../components/auth/auth.module';
+import AuthModule from '../../components/auth/auth.module';
 
 describe('Component: AdminComponent', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(_Auth));
   beforeEach(angular.mock.module(adminPage));
+  beforeEach(angular.mock.module(AuthModule));
 
   let AdminComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject($componentController => {
+  beforeEach(inject(function($componentController) {
     AdminComponent = $componentController('admin', {});
   }));
 
