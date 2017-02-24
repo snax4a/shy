@@ -178,7 +178,7 @@ module.exports = function makeWebpackConfig(options) {
           ? ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
           // Reference: https://github.com/webpack/null-loader
           // Skip loading css in test mode
-          : 'null'
+          : 'null-loader'
       },
       {
         // SASS LOADER
@@ -194,11 +194,12 @@ module.exports = function makeWebpackConfig(options) {
 
   config.module.postLoaders = [{
     test: /\.js$/,
-    loader: 'ng-annotate?single_quotes'
+    loader: 'ng-annotate-loader?single_quotes'
   }];
 
-  // ISPARTA LOADER
-  // Reference: https://github.com/deepsweet/isparta-loader
+  // REMOVE ISPARTA-LOADER!
+  // ISTANBUL-INSTRUMENTER LOADER
+  // Reference: https://github.com/deepsweet/istanbul-instrumenter-loader
   // Instrument JS files with Isparta for subsequent code coverage reporting
   // Skips node_modules and spec files
   if(TEST) {
@@ -206,7 +207,7 @@ module.exports = function makeWebpackConfig(options) {
       //delays coverage til after tests are run, fixing transpiled source coverage error
       test: /\.js$/,
       exclude: /(node_modules|spec\.js|mock\.js)/,
-      loader: 'isparta-loader',
+      loader: 'isparta-loader', //istanbul-instrumenter-loader',
       query: {
         babel: {
           // optional: ['runtime', 'es7.classProperties', 'es7.decorators']

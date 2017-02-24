@@ -32,8 +32,8 @@ describe('User Model', function() {
     return User.destroy({ where: { email: 'test@example.com' } });
   });
 
-  it('should begin with 5 users seeded', function() {
-    expect(User.findAll()).to.eventually.have.length(5);
+  it('should begin with 4 users seeded', function() {
+    expect(User.findAll()).to.eventually.have.length(4);
   });
 
   it('should fail when saving a duplicate user', function() {
