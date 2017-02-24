@@ -2,9 +2,11 @@
 'use strict';
 import angular from 'angular';
 import adminPage from './admin.component';
+import _Auth from '../../components/auth/auth.module';
 
-describe('Component: ClassesComponent', () => {
+describe('Component: AdminComponent', function() {
   // load the controller's module
+  beforeEach(angular.mock.module(_Auth));
   beforeEach(angular.mock.module(adminPage));
 
   let AdminComponent;
@@ -14,7 +16,7 @@ describe('Component: ClassesComponent', () => {
     AdminComponent = $componentController('admin', {});
   }));
 
-  it('should ...', () => {
+  it('should ...', function() {
     expect(1).to.equal(1);
   });
 });

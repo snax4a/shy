@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import routes from './classes.routes';
+import routes from './signup.routes';
 import oauthButtons from '../../components/oauth-buttons';
 
 export class SignupController {

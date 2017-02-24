@@ -1,11 +1,14 @@
+/* global describe, beforeEach, inject, it, expect */
 'use strict';
+import angular from 'angular';
+import compareTo from './compareto.directive';
 
 describe('Directive: compareTo', function() {
   // load the directive's module
-  beforeEach(module('shyApp.compareTo'));
+  beforeEach(angular.mock.module(compareTo));
 
-  var element,
-    scope;
+  let element;
+  let scope;
 
   beforeEach(inject(function($rootScope) {
     scope = $rootScope.$new();

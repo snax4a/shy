@@ -1,11 +1,13 @@
-/* global describe, beforeEach, it, expect */
+/* global describe, beforeEach, it, expect, inject */
 'use strict';
+import angular from 'angular';
+import signup from './signup.component';
 
 describe('Component: signup', function() {
   // load the component's module
-  beforeEach(module('shyApp.signup'));
+  beforeEach(angular.mock.module(signup));
 
-  var signupComponent;
+  let signupComponent;
 
   // Initialize the component and a mock scope
   beforeEach(inject(function($componentController) {

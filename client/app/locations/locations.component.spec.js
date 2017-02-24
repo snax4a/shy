@@ -1,17 +1,17 @@
 /* global describe, beforeEach, it, inject, expect */
 'use strict';
 import angular from 'angular';
-import classesPage from './classes.component';
+import locationsPage from './locations.component';
 
-describe('Component: ClassesComponent', function() {
+describe('Component: LocationsComponent', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(classesPage));
+  beforeEach(angular.mock.module(locationsPage));
 
-  let ClassesComponent;
+  let LocationsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject($componentController => {
-    ClassesComponent = $componentController('classes', {});
+    LocationsComponent = $componentController('locations', {});
   }));
 
   it('should ...', function() {

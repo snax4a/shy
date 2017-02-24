@@ -1,7 +1,7 @@
 # Product Backlog
+* [High] Fix new signup component and remove old controller (doesn't create user and test fails)
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
-* [Medium] Connect new signup component to replace loosely coupled controller in client/app/account/signup
 * [Medium] Update to Webpack 2 - extract-text-webpack-plugin@2.0.0rc-3, sass-loader@5.0.1
 * [Low] Convert login to component (currently loosely coupled controller)
 * [Low] Convert signup to component (ditto)
