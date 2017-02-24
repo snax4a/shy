@@ -26,10 +26,10 @@ describe('Directive: oauthButtons', function() {
     parentScope = $rootScope.$new();
   }));
 
-  it('should contain anchor buttons', function() {
+  it('should contain a Google+ button', function() {
     compileDirective('<oauth-buttons></oauth-buttons>');
     expect($(element[0])
-        .find('a.btn.btn-social')
+        .find('button.btn.btn-lg.btn-google')
         .length)
       .to.be.at.least(1);
   });
@@ -47,7 +47,7 @@ describe('Directive: oauthButtons', function() {
     elementScope.classes = 'testClass1 testClass2';
     elementScope.$digest();
     expect($(element[0])
-        .find('a.btn.btn-social.testClass1.testClass2')
+        .find('button.btn.btn-lg.btn-google.testClass1.testClass2')
         .length)
       .to.be.at.least(1);
 
@@ -55,7 +55,7 @@ describe('Directive: oauthButtons', function() {
     elementScope.classes = '';
     elementScope.$digest();
     expect($(element[0])
-        .find('a.btn.btn-social.testClass1.testClass2')
+        .find('button.btn.btn-lg.btn-google.testClass1.testClass2')
         .length)
       .to.equal(0);
   });
