@@ -6,7 +6,7 @@ import routes from './account.routes';
 import login from './login';
 import settings from './settings';
 //import signup from './signup';
-import oauthButtons from '../../components/oauth-buttons';
+import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
 export default angular.module('shyApp.account', [uiRouter, login, settings, /*signup,*/ oauthButtons])
   .config(routes)

@@ -10,7 +10,7 @@ describe('Component: ClassesComponent', function() {
   let ClassesComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject($componentController => {
+  beforeEach(inject(function($componentController) {
     ClassesComponent = $componentController('classes', {});
   }));
 

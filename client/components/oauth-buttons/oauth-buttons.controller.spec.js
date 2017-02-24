@@ -1,9 +1,7 @@
 /* global describe, beforeEach, angular, inject, it, expect */
 'use strict';
 
-import {
-  OauthButtonsController
-} from './index';
+import { OauthButtonsController } from './oauth-buttons.directive';
 
 describe('Controller: OauthButtonsController', function() {
   var controller;

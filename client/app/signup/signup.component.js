@@ -2,7 +2,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './signup.routes';
-import oauthButtons from '../../components/oauth-buttons';
+import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
 export class SignupController {
   /*@ngInject*/

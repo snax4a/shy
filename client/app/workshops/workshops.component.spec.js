@@ -5,7 +5,6 @@ import workshopsPage from './workshops.component';
 
 describe('Component: WorkshopsComponent', function() {
   // load the controller's module
-  //beforeEach(module('shyApp.workshops'));
   beforeEach(angular.mock.module(workshopsPage));
 
   var WorkshopsComponent;

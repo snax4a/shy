@@ -15,8 +15,8 @@ describe('Directive: compareTo', function() {
   }));
 
   it('should make hidden element visible', inject(function($compile) {
-    element = angular.element('<compare-to></compare-to>');
+    element = angular.element('<compare-to ng-model="foo"></compare-to>');
     element = $compile(element)(scope);
-    expect(element.text()).to.equal('this is the compareTo directive');
+    expect(element.text()).to.equal('');
   }));
 });
