@@ -1,7 +1,9 @@
 'use strict';
 import angular from 'angular';
+import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import routes from './signup.routes';
+import AuthModule from '../../components/auth/auth.module';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
 export class SignupController {
@@ -58,7 +60,7 @@ export class SignupController {
   }
 }
 
-export default angular.module('shyApp.signup', [uiRouter, oauthButtons])
+export default angular.module('shyApp.signup', [ngResource, uiRouter, AuthModule, oauthButtons])
   .config(routes)
   .component('signup', {
     template: require('./signup.pug'),

@@ -3,10 +3,9 @@ import AdminEditorController from './admineditor.controller';
 
 export default class AdminController {
   /*@ngInject*/
-  constructor(User, $uibModal, $log) {
+  constructor(User, $uibModal) {
     this.User = User;
     this.$uibModal = $uibModal;
-    this.$log = $log;
   }
 
   $onInit() {
