@@ -159,7 +159,7 @@ module.exports = function makeWebpackConfig(options) {
         // Reference: https://github.com/willyelm/pug-html-loader
         // Allow loading Pug throw js
         test: /\.pug$/,
-        loaders: ['pug-html-loader']
+        loader: 'pug-html-loader'
       },
       {
         // CSS LOADER
