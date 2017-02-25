@@ -419,7 +419,7 @@ gulp.task('coverage:pre', () =>
   gulp.src(paths.server.scripts)
     // Covering files
     .pipe(plugins.istanbul({
-      instrumenter: Instrumenter, // Use the isparta instrumenter (code coverage for ES6)
+      instrumenter: Instrumenter, // Use the isparta instrumenter for ES6 code coverage
       includeUntested: true
     }))
     // Force `require` to return covered files

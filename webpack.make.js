@@ -199,7 +199,7 @@ module.exports = function makeWebpackConfig(options) {
 
   // ISTANBUL-INSTRUMENTER LOADER
   // Reference: https://github.com/deepsweet/istanbul-instrumenter-loader
-  // Instrument JS files with Isparta for subsequent code coverage reporting
+  // Instrument JS files with Isparta (as set in Gulpfile) for subsequent code coverage reporting
   // Skips node_modules and spec files
   if(TEST) {
     config.module.preLoaders.push({
