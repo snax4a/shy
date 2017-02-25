@@ -7,6 +7,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path';
+import util from 'util';
 
 module.exports = function makeWebpackConfig(options) {
   /**
@@ -21,21 +22,10 @@ module.exports = function makeWebpackConfig(options) {
 
   let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
-  /**
-   * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
-   * This is the object where all configuration gets set
-  **/
   let config = {};
 
-  /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   * Should be an empty object if it's generating a test build
-   * Karma will set this when it's a test build
-  **/
   if(TEST) {
-    config.entry = {};
+    config.entry = {}; // empty for test builds (Karma will handle)
   } else {
     config.entry = {
       app: './client/app/app.js',
@@ -55,14 +45,8 @@ module.exports = function makeWebpackConfig(options) {
     };
   }
 
-  /**
-   * Output
-   * Reference: http://webpack.github.io/docs/configuration.html#output
-   * Should be an empty object if it's generating a test build
-   * Karma will handle setting it up for you when it's a test build
-  **/
   if(TEST) {
-    config.output = {};
+    config.output = {}; // empty for test builds (Karma will handle)
   } else {
     config.output = {
       // Absolute output directory
@@ -110,12 +94,14 @@ module.exports = function makeWebpackConfig(options) {
  * This handles most of the magic responsible for converting modules
  */
 
+  // Moves to new webpack.LoaderOptionsPlugin in Webpack 2
   config.sassLoader = {
     outputStyle: 'compressed',
     precision: 10,
     sourceComments: false
   };
 
+  // Moves to new webpack.LoaderOptionsPlugin in Webpack 2
   config.babel = {
     shouldPrintComment(commentContents) {
       // keep `/*@ngInject*/`
@@ -198,7 +184,7 @@ module.exports = function makeWebpackConfig(options) {
     loader: 'ng-annotate-loader?single_quotes'
   }];
 
-  // ISTANBUL-INSTRUMENTER LOADER
+  // ISPARTA LOADER (instanbul-instrumenter-loader has issues)
   // Reference: https://github.com/deepsweet/istanbul-instrumenter-loader
   // Instrument JS files with Isparta (as set in Gulpfile) for subsequent code coverage reporting
   // Skips node_modules and spec files
@@ -207,7 +193,7 @@ module.exports = function makeWebpackConfig(options) {
       //delays coverage til after tests are run, fixing transpiled source coverage error
       test: /\.js$/,
       exclude: /(node_modules|spec\.js|mock\.js)/,
-      loader: 'istanbul-instrumenter-loader',
+      loader: 'isparta-loader',
       query: {
         babel: {
           // optional: ['runtime', 'es7.classProperties', 'es7.decorators']
@@ -216,25 +202,15 @@ module.exports = function makeWebpackConfig(options) {
     });
   }
 
-  /**
-   * PostCSS
-   * Reference: https://github.com/postcss/autoprefixer
-   * Add vendor prefixes to your css
-  **/
+  // Moves to new webpack.LoaderOptionsPlugin in Webpack 2
   config.postcss = [
     autoprefixer({
-      browsers: ['last 2 version']
+      browsers: ['last 2 versions']
     })
   ];
 
-  /**
-   * Plugins
-   * Reference: http://webpack.github.io/docs/configuration.html#plugins
-   * List: http://webpack.github.io/docs/list-of-plugins.html
-   */
   config.plugins = [
-    // Reference: https://github.com/webpack/extract-text-webpack-plugin
-    // Extract css files
+    // Separate CSS https://github.com/webpack/extract-text-webpack-plugin
     // Disabled when in test mode or not in build mode
     new ExtractTextPlugin('[name].[hash].css', {
       disable: !BUILD || TEST
@@ -243,22 +219,14 @@ module.exports = function makeWebpackConfig(options) {
 
   if(!TEST) {
     config.plugins.push(new CommonsChunkPlugin({
-      name: 'vendor',
-
-      // filename: "vendor.js"
-      // (Give the chunk a different name)
-
-      minChunks: Infinity
-      // (with more entries, this ensures that no other module
-      //  goes into the vendor chunk)
+      name: 'vendor', // vendor.js
+      minChunks: Infinity // chunk is only for vendor JS
     }));
   }
 
-  // Skip rendering index.html in test mode
-  // Reference: https://github.com/ampedandwired/html-webpack-plugin
-  // Render index.html
   if(!TEST) {
     config.plugins.push(
+      // Don't render index.html (https://github.com/ampedandwired/html-webpack-plugin)
       new HtmlWebpackPlugin({
         template: 'client/_index.html',
         filename: '../client/index.html',
@@ -283,6 +251,7 @@ module.exports = function makeWebpackConfig(options) {
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin({
         mangle: false,
+        sourceMap: true,
         output: {
           comments: false
         },
@@ -339,12 +308,13 @@ module.exports = function makeWebpackConfig(options) {
   };
 
   config.node = {
-    global: 'window',
-    process: true,
     crypto: 'empty',
-    clearImmediate: false,
-    setImmediate: false
+    clearImmediate: false, // do not stop timer associated with callback
+    setImmediate: false // do not schedule immediate callback
   };
+
+  // Show the full Webpack config object
+  console.log('Webpack Configuration:', util.inspect(config, { showHidden: false, depth: null }));
 
   return config;
 };
