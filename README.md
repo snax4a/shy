@@ -48,10 +48,8 @@ the school and a shopping cart tied to a payment gateway.
 
 [npm]: https://img.shields.io/npm/v/npm.svg
 [npm-url]: https://npmjs.com/package/extract-text-webpack-plugin
-
-[node]: https://img.shields.io/npm/v/@cycle/core.svg
+[node]: https://img.shields.io/badge/nodejs-7.6.0-blue.svg
 [node-url]: https://nodejs.org
-
 [angularjs]: https://img.shields.io/badge/angularjs-1.6.2-blue.svg
 [angularjs-url]: https://angularjs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
