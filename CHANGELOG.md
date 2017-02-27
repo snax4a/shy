@@ -11,7 +11,7 @@
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
 <a name="1.0.2"></a>
-# [1.0.2](https://github.com/nstuyvesant/shy/commit/88924435e32d8d019bebcb837968451e3a0b67e3) (2017-02-05)
+# [1.0.2](https://github.com/nstuyvesant/shy/commit/42be8bdfa3dac68fea081d63cae1c31a05ef1235) (2017-02-05)
 * Updated webpack.make.js, gulpfile.babel.js, package.json, karma.conf.js to support Webpack 2.2.1
 
 <a name="1.0.1"></a>
