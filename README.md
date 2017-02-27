@@ -43,3 +43,9 @@ the school and a shopping cart tied to a payment gateway.
 3. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
 4. Run `npm run deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
+
+[npm]: https://img.shields.io/npm/v/extract-text-webpack-plugin.svg
+[npm-url]: https://npmjs.com/package/extract-text-webpack-plugin
+
+[node]: https://img.shields.io/node/v/extract-text-webpack-plugin.svg
+[node-url]: https://nodejs.org
