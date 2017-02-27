@@ -1,6 +1,6 @@
 # Schoolhouse Yoga Website
 
-Schoolhouse Yoga's website is built using AngularJS (1.6.1), Express, Node.js, and PostgreSQL. It provides
+Schoolhouse Yoga's website is built using AngularJS, Express, Node.js, and PostgreSQL. It provides
 a home page, class schedule, workshop information, teachers' page, method to contact
 the school and a shopping cart tied to a payment gateway.
 
