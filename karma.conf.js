@@ -61,7 +61,7 @@ module.exports = function(config) {
     reporters: ['spec', 'coverage'],
 
     // Continuous Integration mode - if true, capture browsers, run tests and exit
-    //singleRun: false, // Commented due to being the default
+    //singleRun: false, // Default commented out
 
     webpack: makeWebpackConfig({ TEST: true }),
 
