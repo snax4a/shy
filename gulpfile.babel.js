@@ -18,8 +18,8 @@ import runSequence from 'run-sequence';
 import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
 import webpack from 'webpack';
-import webpackStream from 'webpack-stream';
 import makeWebpackConfig from './webpack.make';
+import util from 'util';
 
 let plugins = gulpLoadPlugins();
 let config;
@@ -209,38 +209,26 @@ gulp.task('inject:scss', () =>
         .pipe(gulp.dest(`${clientPath}/app`))
 );
 
-gulp.task('webpack:dev', () => {
-  const webpackDevConfig = makeWebpackConfig({ DEV: true });
-  return gulp.src(webpackDevConfig.entry.app)
-    .pipe(plugins.plumber())
-    .pipe(webpackStream(webpackDevConfig), webpack)
-    .pipe(gulp.dest('.tmp'));
-});
+function webpackCompile(options, cb) {
+  let compiler = webpack(makeWebpackConfig(options));
 
-gulp.task('webpack:dist', function() {
-  const webpackDistConfig = makeWebpackConfig({ BUILD: true });
-  return gulp.src(webpackDistConfig.entry.app)
-    .pipe(webpackStream(webpackDistConfig), webpack)
-    .on('error', function(err) {
-      console.log('Error: webpack:dist', err);
-      this.emit('end'); // Recover from errors
-    })
-    .pipe(gulp.dest(`${paths.dist}/client`));
-});
+  compiler.run((err, stats) => {
+    if(err) return cb(err);
 
-gulp.task('webpack:test', () => {
-  const webpackTestConfig = makeWebpackConfig({ TEST: true });
-  return gulp.src(webpackTestConfig.entry.app)
-    .pipe(webpackStream(webpackTestConfig), webpack)
-    .pipe(gulp.dest('.tmp'));
-});
+    plugins.util.log(stats.toString({
+      colors: true,
+      timings: true,
+      chunks: options.BUILD,
+      errorDetails: true
+    }));
+    cb();
+  });
+}
 
-gulp.task('webpack:e2e', () => {
-  const webpackE2eConfig = makeWebpackConfig({ E2E: true });
-  return gulp.src(webpackE2eConfig.entry.app)
-    .pipe(webpackStream(webpackE2eConfig), webpack)
-    .pipe(gulp.dest('.tmp'));
-});
+gulp.task('webpack:dev', cb => webpackCompile({ DEV: true }, cb));
+gulp.task('webpack:dist', cb => webpackCompile({ BUILD: true }, cb));
+gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
+gulp.task('webpack:e2e', cb => webpackCompile({ E2E: true }, cb));
 
 gulp.task('styles', () =>
   gulp.src(paths.client.mainStyle)
