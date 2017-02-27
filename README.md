@@ -1,3 +1,6 @@
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+
 # Schoolhouse Yoga Website
 
 Schoolhouse Yoga's website is built using AngularJS, Express, Node.js, and PostgreSQL. It provides
