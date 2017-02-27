@@ -1,7 +1,7 @@
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![angularjs][angularjs]][angularjs-url]
 [![postgresql][postgresql]][postgresql-url]
+[![express][express]][express-url]
+[![angularjs][angularjs]][angularjs-url]
+[![node][node]][node-url]
 
 # Schoolhouse Yoga Website
 
@@ -46,11 +46,11 @@ the school and a shopping cart tied to a payment gateway.
 
 4. Run `npm run deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
-[npm]: https://img.shields.io/npm/v/npm.svg
-[npm-url]: https://npmjs.com/package/extract-text-webpack-plugin
-[node]: https://img.shields.io/badge/nodejs-7.6.0-blue.svg
-[node-url]: https://nodejs.org
+[express]: https://img.shields.io/badge/expressjs-4.14.1-blue.svg
+[express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.6.2-blue.svg
 [angularjs-url]: https://angularjs.org
+[node]: https://img.shields.io/badge/nodejs-7.6.0-blue.svg
+[node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
 [postgresql-url]: https://www.postgresql.org
