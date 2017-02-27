@@ -9,19 +9,16 @@ module.exports = function(config) {
     // Disable watching files
     autoWatch: false,
 
-    // base path, that will be used to resolve files and exclude
-    //basePath: '', // Commented due to being the default
+    //basePath: '', // Default commented out
 
     browsers: ['PhantomJS'], // PhantomJS, Chrome, ChromeCanary, Firefox, Opera, IE, Safari
 
     client: {
-      // Does not appear to be standard to karma.conf
       mocha: {
         timeout: 5000 // set default mocha spec timeout
       }
     },
 
-    // Does not appear to be standard to karma.conf
     coverageReporter: {
       reporters: [{
         type: 'html', //produces a html document after code is run
@@ -61,7 +58,7 @@ module.exports = function(config) {
     // - junit
     // - growl
     // - coverage
-    reporters: ['spec', 'coverage'], // should 'spec' be 'mocha'?
+    reporters: ['spec', 'coverage'],
 
     // Continuous Integration mode - if true, capture browsers, run tests and exit
     //singleRun: false, // Commented due to being the default
