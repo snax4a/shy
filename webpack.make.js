@@ -78,46 +78,18 @@ module.exports = function makeWebpackConfig(options) {
           loader: 'pug-html-loader' // converts pug to HTML (includes pug node module)
         },
 
-        {
-          test: /\.css$/,
-          use: !TEST
-            // Docs: https://github.com/webpack/style-loader
-            // Use style-loader in development for hot-loading
-            ? ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                {
-                  loader: 'css-loader'
-                },
-                {
-                  loader: 'postcss-loader',
-                  options: {
-                    plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
-                  }
-                }
-              ]
-            })
-            // Docs: https://github.com/webpack/null-loader
-            // Skip loading css in test mode
-            : [{loader: 'null-loader'}]
-        },
-
+        // Do I need postcss-loader?
         {
           test: /\.scss$/,
-          use: [
-            {loader: 'style-loader'},
-            {loader: 'css-loader'},
-            {
-              loader: 'sass-loader',
-              options: {
-                outputStyle: 'compressed',
-                precision: 10,
-                sourceComments: false
-              }
-            }
-          ],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader', // https://github.com/webpack/style-loader
+            use: [
+              {loader: 'css-loader'}, // https://github.com/webpack-contrib/css-loader
+              {loader: 'postcss-loader', options: { plugins: () => [autoprefixer({browsers: ['last 2 versions']})]}}, // https://github.com/postcss/postcss-loader
+              {loader: 'sass-loader', options: {outputStyle: 'compressed', precision: 10, sourceComments: false}} // https://github.com/webpack-contrib/sass-loader
+            ]
+          }),
           include: [
-            path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
             path.resolve(__dirname, 'client/app/app.scss')
           ]
         },
@@ -140,7 +112,7 @@ module.exports = function makeWebpackConfig(options) {
 
     output: {}, // placeholder to be filled in conditionally
 
-    plugins: [] // placeholder to be filled in conditionally
+    plugins: [new ExtractTextPlugin('[name].[hash].css')] // others to be added based on env
   };
 
   // Type of sourcemap to use per build type
@@ -203,7 +175,6 @@ module.exports = function makeWebpackConfig(options) {
   // Add build specific plugins
   if(BUILD) {
     config.plugins.push(
-      new ExtractTextPlugin({filename: '[name].[hash].css'}),
       // Docs: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
       new webpack.NoEmitOnErrorsPlugin(),

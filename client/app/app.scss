@@ -122,7 +122,7 @@ h4 {
     } 
 }
 
-// Component styles are injected through gulp
+// Component styles are injected through gulp inject:scss task
 /* inject:scss */
 @import 'admin/admin';
 @import 'cart/checkout';
