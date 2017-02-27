@@ -53,7 +53,7 @@ module.exports = function makeWebpackConfig(options) {
       rules: [
         {
           test: /\.js$/,
-          loader: 'babel-loader', // transpiles ES6-7 to ES5
+          loader: 'babel-loader', // transpiles ES6 and ES7 to ES5
           exclude: /node_modules/,
           options: {
             //babelrc: false, // ignore babel settings in babelrc and package.json
@@ -78,15 +78,34 @@ module.exports = function makeWebpackConfig(options) {
           loader: 'pug-html-loader' // converts pug to HTML (includes pug node module)
         },
 
-        // Do I need postcss-loader?
         {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader', // https://github.com/webpack/style-loader
             use: [
-              {loader: 'css-loader'}, // https://github.com/webpack-contrib/css-loader
-              {loader: 'postcss-loader', options: { plugins: () => [autoprefixer({browsers: ['last 2 versions']})]}}, // https://github.com/postcss/postcss-loader
-              {loader: 'sass-loader', options: {outputStyle: 'compressed', precision: 10, sourceComments: false}} // https://github.com/webpack-contrib/sass-loader
+              {
+                loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
+                options: {
+                  sourceMap: true,
+                  minimize: true,
+                  discardComments: {removeAll: true}
+                }
+              },
+              {
+                loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
+                options: {
+                  plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
+                }
+              },
+              {
+                loader: 'sass-loader', // https://github.com/webpack-contrib/sass-loader
+                options: {
+                  outputStyle: 'compressed',
+                  precision: 10,
+                  sourceComments: false,
+                  sourceMap: true
+                }
+              }
             ]
           }),
           include: [
@@ -183,13 +202,7 @@ module.exports = function makeWebpackConfig(options) {
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin({
         mangle: false,
-        sourceMap: true,
-        output: {
-          comments: false
-        },
-        // compress: { // not needed as it's a default
-        //   warnings: false
-        // }
+        sourceMap: true // Docs indicate this a default but it's not.
       }),
 
       // Docs: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
