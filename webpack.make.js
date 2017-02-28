@@ -133,16 +133,23 @@ module.exports = function makeWebpackConfig(options) {
 
     output: {}, // placeholder to be filled in conditionally
 
-    plugins: [new ExtractTextPlugin('[name].[hash].css')] // others to be added based on env
-  };
+    plugins: [ // others added conditionally based on env
+      // Separate CSS from JS
+      new ExtractTextPlugin('[name].[hash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
 
-  // Define free global variables
-  config.plugins.push(new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-    'process.env.NODE_ENV': DEV ? '"development"'
-      : BUILD ? '"production"'
-      : TEST ? '"test"'
-      : '"development"'
-  }));
+      // Define free global variables
+      new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+        'process.env.NODE_ENV': DEV ? '"development"'
+        : BUILD ? '"production"'
+        : TEST ? '"test"'
+        : '"development"'}),
+
+      // UglifyJSPlugin no longer switches loaders into minimize mode
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      })
+    ]
+  };
 
   // Type of sourcemap to use per build type
   if(TEST) {
@@ -169,15 +176,15 @@ module.exports = function makeWebpackConfig(options) {
       chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
     };
 
-    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor', // vendor.js
-      minChunks: Infinity // chunk is only for vendor JS
-    }));
-
     config.plugins.push(
-      // Docs: https://github.com/ampedandwired/html-webpack-plugin
+      // Separate vendor chunk
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor', // vendor.js
+        minChunks: Infinity // chunk is only for vendor JS
+      }),
+
       // Don't render index.html
-      new HtmlWebpackPlugin({
+      new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
         filename: '../client/index.html',
         alwaysWriteToDisk: true
@@ -195,7 +202,7 @@ module.exports = function makeWebpackConfig(options) {
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
         mangle: false,
-        sourceMap: true // Docs indicate this a default but it's not.
+        sourceMap: true
       })
     );
   }
