@@ -58,7 +58,7 @@ module.exports = function makeWebpackConfig(options) {
           exclude: /node_modules/,
           options: {
             //babelrc: false, // ignore babel settings in babelrc and package.json
-            //presets: [['es2015', {modules: false}]],
+            presets: [['es2015', {modules: false}]],
             cacheDirectory: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents), // leave ng-annotate alone
             plugins: TEST ? ['istanbul', 'transform-class-properties'] : ['transform-class-properties']
