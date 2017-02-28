@@ -1,12 +1,12 @@
 /* eslint-env node */
 'use strict';
 
-import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path';
+import webpack from 'webpack';
 
 module.exports = function makeWebpackConfig(options) {
   // Set by gulpfile.babel.js or karma.conf.js
@@ -15,6 +15,7 @@ module.exports = function makeWebpackConfig(options) {
   const E2E = !!options.E2E;
   const DEV = !!options.DEV;
 
+  // Establish the base configuration
   let config = {
     cache: DEV,
 
@@ -75,7 +76,7 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.pug$/,
-          loader: 'pug-html-loader' // converts pug to HTML (includes pug node module)
+          use: ['raw-loader', 'pug-html-loader'] // converts pug to HTML (includes pug node module)
         },
 
         {
@@ -86,7 +87,7 @@ module.exports = function makeWebpackConfig(options) {
               {
                 loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
                 options: {
-                  sourceMap: true,
+                  sourceMap: false, // rarely need to debug CSS
                   minimize: true,
                   discardComments: {removeAll: true}
                 }
@@ -94,16 +95,17 @@ module.exports = function makeWebpackConfig(options) {
               {
                 loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
                 options: {
+                  sourceMap: false,
                   plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
                 }
               },
               {
                 loader: 'sass-loader', // https://github.com/webpack-contrib/sass-loader
                 options: {
+                  sourceMap: false, // rarely need to debug CSS
                   outputStyle: 'compressed',
                   precision: 10,
-                  sourceComments: false,
-                  sourceMap: true
+                  sourceComments: false
                 }
               }
             ]
@@ -133,6 +135,14 @@ module.exports = function makeWebpackConfig(options) {
 
     plugins: [new ExtractTextPlugin('[name].[hash].css')] // others to be added based on env
   };
+
+  // Define free global variables
+  config.plugins.push(new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+    'process.env.NODE_ENV': DEV ? '"development"'
+      : BUILD ? '"production"'
+      : TEST ? '"test"'
+      : '"development"'
+  }));
 
   // Type of sourcemap to use per build type
   if(TEST) {
@@ -176,48 +186,23 @@ module.exports = function makeWebpackConfig(options) {
     );
   }
 
-  if(DEV) {
-    config.plugins.push(
-      // Docs: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-      // Define free global variables
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: '"development"'
-        }
-      })
-    );
-    // config.plugins.push(
-    //   new webpack.HotModule.ReplacementPlugin()
-    // );
-  }
-
   // Add build specific plugins
   if(BUILD) {
     config.plugins.push(
-      // Docs: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
-      new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(), //http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
 
-      // Docs: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin({
+      new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
         mangle: false,
         sourceMap: true // Docs indicate this a default but it's not.
-      }),
-
-      // Docs: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-      // Define free global variables
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: '"production"'
-        }
       })
     );
   }
 
-  // For debugging
+  // For debugging Webpack configuration
   // const util = require('util');
-  //console.log('Webpack Config (as entered):', util.inspect(config, { showHidden: false, depth: null }));
+  // console.log('Webpack Config (as entered):', util.inspect(config, { showHidden: false, depth: null }));
   // var compiler;
   // try {
   //   compiler = webpack(config);
