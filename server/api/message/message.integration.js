@@ -6,7 +6,7 @@ import request from 'supertest';
 
 describe('Message API:', function() {
   describe('POST /api/message', function() {
-    var response = '';
+    let response = '';
 
     beforeEach(function(done) {
       request(app)

@@ -9,14 +9,16 @@ import sqldb from './sqldb';
 import config from './config/environment';
 import http from 'http';
 import seedDatabaseIfNeeded from './config/seed';
+import routes from './routes';
+import expressConfig from './config/express';
 
 // Setup server
-var app = express();
-var server = http.createServer(app);
+let app = express();
+let server = http.createServer(app);
 
 // Load configuration and routes
-require('./config/express').default(app); // this is where I redirect to HTTPS in production
-require('./routes').default(app);
+expressConfig(app); // this is where I redirect to HTTPS in production
+routes(app);
 
 // Start server
 function startServer() {
