@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] Fix usage of extract-text-webpack-plugin in webpack.make.js (doesn't generate CSS file)
 * [High] Fix new signup component and remove old controller (doesn't create user and test fails)
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
