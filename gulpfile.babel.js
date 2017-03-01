@@ -560,7 +560,7 @@ gulp.task('copy:server', () =>
   .pipe(gulp.dest(paths.dist))
 );
 
-// Equivalent of grunt file. Peplace with Gulp tasks or npm in future.
+// Equivalent of grunt file. Replace with Gulp tasks or npm in future.
 grunt.initConfig({
   buildcontrol: {
     options: {
@@ -588,7 +588,7 @@ grunt.initConfig({
 // Using to deploy builds to Heroku (though OpenShift also supported)
 grunt.loadNpmTasks('grunt-build-control');
 
-gulp.task('buildcontrol:heroku', done => {
+gulp.task('deploy', done => {
   grunt.tasks(
     ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
@@ -598,12 +598,13 @@ gulp.task('buildcontrol:heroku', done => {
   );
 });
 
-gulp.task('buildcontrol:openshift', done => {
-  grunt.tasks(
-    ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
-    {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
-    function() {
-      done();
-    }
-  );
-});
+// Not using OpenShift
+// gulp.task('buildcontrol:openshift', done => {
+//   grunt.tasks(
+//     ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
+//     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
+//     function() {
+//       done();
+//     }
+//   );
+// });

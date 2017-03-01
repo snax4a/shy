@@ -43,7 +43,7 @@ the school and a shopping cart tied to the Braintree payment gateway.
 
 3. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
-4. Run `npm run deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
+4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
 [express]: https://img.shields.io/badge/expressjs-4.14.1-blue.svg
 [express-url]: http://expressjs.com

@@ -65,7 +65,7 @@
   "peerDependencies": {},
   "devDependencies": {
     "angular-mocks": "~1.6.2",
-    "autoprefixer": "^6.7.5",
+    "autoprefixer": "^6.7.6",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.3.2",
@@ -151,7 +151,7 @@
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
     "start": "node server",
     "build": "gulp build",
-    "deploy": "gulp build && gulp buildcontrol:heroku"
+    "deploy": "gulp build && gulp deploy"
   },
   "private": true
 }
