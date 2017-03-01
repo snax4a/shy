@@ -32,20 +32,21 @@ module.exports = function makeWebpackConfig(options) {
 
     devtool: '', // placeholder to be filled in conditionally
 
-    // If testing, must set entry to '' to avoid Karma error (bug)
-    entry: TEST ? '' : {
+    entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
       app: './client/app/app.js',
       polyfills: './client/polyfills.js',
-      vendor: [
+      vendor: [ // bundle stuff that changes seldomly
         'angular',
         'angular-aria',
-        // 'angular-animate', // Not using ngAnimate
         'angular-cookies',
-        'angular-resource',
+        'angular-loading-bar',
         'angular-messages',
+        'angular-resource',
         'angular-sanitize',
         'angular-ui-bootstrap',
         'angular-ui-router',
+        'angular-utils-pagination',
+        'braintree-web',
         'lodash'
       ]
     },
@@ -119,7 +120,7 @@ module.exports = function makeWebpackConfig(options) {
           // Explore https://github.com/jeffling/ng-annotate-webpack-plugin as
           // possible replacement for ng-annotate-loader (seemed slow though)
           test: /\.js$/,
-          loader: 'ng-annotate-loader?single_quotes',
+          loader: 'ng-annotate-loader?single_quotes', // https://github.com/huston007/ng-annotate-loader
           enforce: 'post'
         }
       ]
@@ -142,12 +143,12 @@ module.exports = function makeWebpackConfig(options) {
         'process.env.NODE_ENV': DEV ? '"development"'
         : BUILD ? '"production"'
         : TEST ? '"test"'
-        : '"development"'}),
+        : '"development"'})
 
       // UglifyJSPlugin no longer switches loaders into minimize mode
-      new webpack.LoaderOptionsPlugin({
-        minimize: true
-      })
+      // new webpack.LoaderOptionsPlugin({
+      //   minimize: true
+      // })
     ]
   };
 
