@@ -45,11 +45,11 @@ the school and a shopping cart tied to the Braintree payment gateway.
 
 4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
-[express]: https://img.shields.io/badge/expressjs-4.14.1-blue.svg
+[express]: https://img.shields.io/badge/expressjs-4.15.0-blue.svg
 [express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.6.2-blue.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-7.6.0-blue.svg
+[node]: https://img.shields.io/badge/nodejs-7.7.1-blue.svg
 [node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
 [postgresql-url]: https://www.postgresql.org
