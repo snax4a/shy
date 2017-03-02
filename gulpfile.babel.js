@@ -19,7 +19,6 @@ import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
-import util from 'util';
 
 let plugins = gulpLoadPlugins();
 let config;
