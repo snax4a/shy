@@ -9,18 +9,6 @@
 * [Low] Setup npm start
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
-* [Low] Add this to .babelrc or package.json
-{
-  "presets": [
-    ["env", {
-      "targets": {
-        "node": "current",
-        "browsers": ["firefox >= 45", "chrome >= 44", "safari >= 8", "ie >= 11", "edge >= 13", "ios >= 9.2", "android >= 5.0"]
-      }
-    }]
-  ],
-  "plugins": ["transform-class-properties"]
-}
 
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/nstuyvesant/shy/commit/42be8bdfa3dac68fea081d63cae1c31a05ef1235) (2017-02-26)
