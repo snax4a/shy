@@ -33,8 +33,8 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      app: './client/app/app.js',
-      polyfills: './client/polyfills.js',
+      app: ['./client/app/app.js'],
+      polyfills: 'babel-polyfill',
       vendor: [ // bundle stuff that changes seldomly
         'angular',
         'angular-aria',
@@ -47,7 +47,7 @@ module.exports = function makeWebpackConfig(options) {
         'angular-ui-router',
         'angular-utils-pagination',
         'braintree-web',
-        'lodash'
+        'lodash' // indirect dependency
       ]
     },
 
@@ -65,8 +65,7 @@ module.exports = function makeWebpackConfig(options) {
             plugins: TEST ? ['istanbul', 'transform-class-properties'] : ['transform-class-properties']
           },
           include: [
-            path.resolve(__dirname, 'client/'),
-            path.resolve(__dirname, 'node_modules/lodash-es/')
+            path.resolve(__dirname, 'client/')
           ]
         },
 

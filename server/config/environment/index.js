@@ -1,7 +1,6 @@
 /* eslint no-process-env:0 */
 'use strict';
 import path from 'path';
-//import _ from 'lodash';
 
 // All configurations will extend these options
 // ============================================
@@ -94,5 +93,5 @@ var all = {
 
 // Export the config object based on the NODE_ENV
 // ==============================================
-//module.exports = _.merge(all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
 module.exports = Object.assign({}, all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
+//module.exports = _.merge(all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
