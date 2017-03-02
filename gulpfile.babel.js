@@ -575,13 +575,13 @@ grunt.initConfig({
         remote: 'heroku',
         branch: 'master'
       }
-    },
+    }/*,
     openshift: {
       options: {
         remote: 'openshift',
         branch: 'master'
       }
-    }
+    }*/
   }
 });
 
@@ -590,8 +590,8 @@ grunt.loadNpmTasks('grunt-build-control');
 
 gulp.task('deploy', done => {
   grunt.tasks(
-    ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
-    {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
+    ['buildcontrol:heroku'], // grunt task(s) to perform
+    {gruntfile: false}, // use grunt.initConfig instead of Gruntfile
     function() {
       done();
     }
@@ -601,8 +601,8 @@ gulp.task('deploy', done => {
 // Not using OpenShift
 // gulp.task('buildcontrol:openshift', done => {
 //   grunt.tasks(
-//     ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
-//     {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
+//     ['buildcontrol:openshift'], // grunt task(s) to perform
+//     {gruntfile: false}, // use grunt.initConfig instead of Gruntfile
 //     function() {
 //       done();
 //     }
