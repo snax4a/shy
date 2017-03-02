@@ -42,7 +42,7 @@
           },
           {
             "time": "6‑7:15pm",
-            "name": "Yoga 2",
+            "name": "Ashtanga Yoga",
             "teacher": "Mita Ghosal"
           },
           {
@@ -57,13 +57,13 @@
         "classes": [
           {
             "time": "9‑10:15am",
-            "name": "Yoga 2",
+            "name": "Yoga 1",
             "teacher": "Jennifer Clark"
           },
           {
             "time": "9:30‑10:45am",
-            "name": "Yoga 1",
-            "teacher": "Monique Richards"
+            "name": "Gentle Yoga",
+            "teacher": "Leslie Wright"
           },
           {
             "time": "11‑12:30pm",
@@ -248,12 +248,7 @@
           {
             "time": "10:30-11:45am",
             "name": "Gentle Yoga",
-            "teacher": "Kristie Lindblom"
-          },
-          {
-            "time": "4:30-5:45pm",
-            "name": "Yoga 1",
-            "teacher": "Monique Richards"
+            "teacher": "Jennifer Tober"
           },
           {
             "time": "6:15-7:45pm",
@@ -317,8 +312,8 @@
           },
           {
             "time": "6-7:15pm",
-            "name": "Yoga 2",
-            "teacher": "Laura Stamm"
+            "name": "Gentle Yoga",
+            "teacher": "Bailey Zembower"
           },
           {
             "time": "6:30-8pm",
@@ -476,8 +471,8 @@
             "teacher": "Kendell Romanelli"
           },
           {
-            "time": "1-2:15pm",
-            "name": "Chair/Seated Yoga",
+            "time": "2-3:15pm",
+            "name": "Gentle Yoga",
             "teacher": "Lizzie Hanulak"
           }
         ]
