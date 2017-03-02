@@ -592,11 +592,21 @@ gulp.task('deploy', done => {
   grunt.tasks(
     ['buildcontrol:heroku'], // grunt task(s) to perform
     {gruntfile: false}, // use grunt.initConfig instead of Gruntfile
-    function() {
+    () => {
       done();
     }
   );
 });
+// Commands being executed by node_modules/grunt-build-control/tasks/build_control.js
+// cd paths.dist
+// git fetch --update-head-ok --progress --verbose heroku master
+// git symbolic-ref HEAD refs/heads/master
+// git reset
+// IF there are changes...
+  // git add -A .
+  // git commit --file=commitFile-fecc28
+// git push heroku master
+// Why not turn these into an npm script? Not even platform-specific.
 
 // Not using OpenShift
 // gulp.task('buildcontrol:openshift', done => {
