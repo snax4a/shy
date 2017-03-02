@@ -34,7 +34,7 @@ module.exports = function makeWebpackConfig(options) {
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
       app: ['./client/app/app.js'],
-      polyfills: 'babel-polyfill',
+      polyfills: 'babel-polyfill', // must use polyfill for ie support instead of transform-runtime
       vendor: [ // bundle stuff that changes seldomly
         'angular',
         'angular-aria',
@@ -58,8 +58,16 @@ module.exports = function makeWebpackConfig(options) {
           loader: 'babel-loader', // transpiles ES6 and ES7 to ES5
           exclude: /node_modules/,
           options: {
-            //babelrc: false, // ignore babel settings in babelrc and package.json
-            presets: [['es2015', {modules: false}]],
+            // babelrc: false, // ignore babel settings in babelrc and package.json
+            // presets: [
+            //   ['env', {
+            //     modules: false,
+            //     targets: {
+            //       node: 'current',
+            //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0']
+            //     }
+            //   }]
+            // ],
             cacheDirectory: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents), // leave ng-annotate alone
             plugins: TEST ? ['istanbul', 'transform-class-properties'] : ['transform-class-properties']

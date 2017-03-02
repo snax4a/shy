@@ -14,7 +14,14 @@
   "homepage": "server/index.js",
   "main": "server/index.js",
   "babel": {
-    "presets": ["es2015"],
+    "presets": [
+      ["env", {
+        "targets": {
+          "node": "current",
+          "browsers": ["firefox >= 45", "chrome >= 44", "safari >= 8", "ie >= 11", "edge >= 13", "ios >= 9.2", "android >= 5.0"]
+        }
+      }]
+    ],
     "plugins": ["transform-class-properties"]
   },
   "dependencies": {
@@ -28,7 +35,6 @@
     "angular-ui-bootstrap": "~2.5.0",
     "angular-ui-router": "~0.4.2",
     "angular-utils-pagination": "0.11.1",
-    "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "body-parser": "^1.17.0",
     "bootstrap": "~3.3.7",
@@ -72,8 +78,8 @@
     "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "6.23.0",
     "babel-preset-env": "1.1.11",
-    "babel-preset-es2015": "^6.22.0",
     "babel-register": "^6.23.0",
     "browser-sync": "^2.18.8",
     "bs-fullscreen-message": "^1.1.0",
