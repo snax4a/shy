@@ -97,7 +97,7 @@
     "chai-things": "^0.2.0",
     "css-loader": "^0.26.2",
     "del": "^2.2.2",
-    "eslint": "^3.16.1",
+    "eslint": "^3.17.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.1",
     "grunt": "^1.0.1",
