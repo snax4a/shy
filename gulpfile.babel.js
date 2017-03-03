@@ -123,12 +123,17 @@ let lintServerTestScripts = lazypipe()
   })
   .pipe(plugins.eslint.format);
 
+// Use gulp-babel to process ES6 for nodeJS server
 let transpileServer = lazypipe()
   .pipe(plugins.sourcemaps.init)
   .pipe(plugins.babel, {
-    plugins: [
-      'transform-class-properties',
-      'transform-runtime'
+    babelrc: false, // don't use settings in package.json
+    presets: [
+      ['env', {
+        targets: {
+          node: 'current'
+        }
+      }]
     ]
   })
   .pipe(plugins.sourcemaps.write, '.');
@@ -140,6 +145,7 @@ let mocha = lazypipe()
     require: ['./mocha.conf']
   });
 
+// Generate coverage information
 let istanbul = lazypipe()
   .pipe(plugins.istanbul.writeReports)
   .pipe(plugins.istanbulEnforcer, {
@@ -160,14 +166,14 @@ let istanbul = lazypipe()
  ********************/
 
 gulp.task('env:all', () => {
-  let localConfig;
+  let vars;
   try {
-    localConfig = require(`./${serverPath}/config/local.env`);
+    vars = require(`./${serverPath}/config/local.env`);
   } catch(e) {
-    localConfig = {};
+    vars = {};
   }
   plugins.env({
-    vars: localConfig
+    vars
   });
 });
 
@@ -191,6 +197,7 @@ gulp.task('inject', cb => {
   runSequence(['inject:scss'], cb);
 });
 
+// Add imports of all SCSS files to bottom of client/app/app.scss
 gulp.task('inject:scss', () =>
   gulp.src(paths.client.mainStyle)
     .pipe(plugins.inject(
@@ -208,6 +215,7 @@ gulp.task('inject:scss', () =>
         .pipe(gulp.dest(`${clientPath}/app`))
 );
 
+// Generate the webpack config based on environment
 function webpackCompile(options, cb) {
   let compiler = webpack(makeWebpackConfig(options));
 
@@ -235,6 +243,7 @@ gulp.task('styles', () =>
     .pipe(gulp.dest('.tmp/app'))
 );
 
+// Minimal transpiliation since we're using nodeJS > 7
 gulp.task('transpile:server', () =>
   gulp.src(_.union(paths.server.scripts, paths.server.json))
     .pipe(transpileServer())
@@ -266,12 +275,6 @@ gulp.task('lint:scripts:serverTest', () =>
     .pipe(lintServerTestScripts())
 );
 
-gulp.task('jscs', () =>
-  gulp.src(_.union(paths.client.scripts, paths.server.scripts))
-    .pipe(plugins.jscs())
-    .pipe(plugins.jscs.reporter())
-);
-
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
@@ -295,17 +298,10 @@ gulp.task('start:server:prod', () => {
     .on('log', onServerLog);
 });
 
-gulp.task('start:inspector', () => {
-  gulp.src([])
-    .pipe(plugins.nodeInspector({
-      debugPort: 5858
-    }));
-});
-
 gulp.task('start:server:debug', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require(`./${serverPath}/config/environment`);
-  nodemon(`-w ${serverPath} --debug=5858 --debug-brk ${serverPath}`)
+  nodemon(`-w ${serverPath} --inspect --debug-brk ${serverPath}`)
     .on('log', onServerLog);
 });
 
@@ -344,7 +340,6 @@ gulp.task('serve:debug', cb => {
     'env:all'
   ],
   'webpack:dev',
-  'start:inspector',
   ['start:server:debug', 'start:client'],
   'watch',
   cb);
@@ -430,7 +425,7 @@ gulp.task('coverage:integration', () =>
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], () => {
   gulp.src(paths.client.e2e)
     .pipe(protractor({
       configFile: 'protractor.conf.js',

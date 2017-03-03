@@ -68,9 +68,8 @@ module.exports = function makeWebpackConfig(options) {
             //     }
             //   }]
             // ],
-            cacheDirectory: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents), // leave ng-annotate alone
-            plugins: TEST ? ['istanbul', 'transform-class-properties'] : ['transform-class-properties']
+            cacheDirectory: true
           },
           include: [
             path.resolve(__dirname, 'client/')
