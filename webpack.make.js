@@ -63,7 +63,6 @@ module.exports = function makeWebpackConfig(options) {
             //   ['env', {
             //     modules: false,
             //     targets: {
-            //       node: 'current',
             //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0']
             //     }
             //   }]
