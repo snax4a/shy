@@ -1,5 +1,4 @@
-$icon-font-path: '/assets/fonts/bootstrap/';
-$fa-font-path: '/assets/fonts/font-awesome/';
+$icon-font-path: '/assets/fonts/bootstrap-sass/';
 
 // My overrides for variables
 $brand-base: #6f5499;
@@ -14,9 +13,6 @@ $input-border-focus: $brand-base;
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // Optional theme (3D style)
 @import '~bootstrap-social/bootstrap-social.scss';
-@import '~font-awesome/scss/font-awesome';
-
-// @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
 /**
  * App-wide Styles

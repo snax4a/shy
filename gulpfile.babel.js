@@ -515,33 +515,14 @@ gulp.task('copy:extras', () =>
   .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
-// Flattens 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
-function flatten() {
-  return through2.obj(function(file, enc, next) { // fails if changed to fat arrow because of this.push and this.emit
-    if(!file.isDirectory()) {
-      try {
-        let dir = path.dirname(file.relative).split(path.sep)[0];
-        let fileName = path.normalize(path.basename(file.path));
-        file.path = path.join(file.base, path.join(dir, fileName));
-        this.push(file);
-      } catch(e) {
-        this.emit('error', new Error(e));
-      }
-    }
-    next();
-  });
-}
-
 gulp.task('copy:fonts:dev', () =>
-  gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
-    .pipe(flatten())
-    .pipe(gulp.dest(`${clientPath}/assets/fonts`))
+  gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
+    .pipe(gulp.dest(`${clientPath}/assets/fonts/bootstrap-sass`))
 );
 
 gulp.task('copy:fonts:dist', () =>
-  gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
-    .pipe(flatten())
-    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`))
+  gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
+    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts/bootstrap-sass`))
 );
 
 gulp.task('copy:assets', () =>
