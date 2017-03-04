@@ -19,12 +19,5 @@ export default function routes($stateProvider) {
         Auth.logout();
         $state.go(referrer);
       }
-    })
-    .state('settings', {
-      url: '/settings',
-      template: require('./settings/settings.pug'),
-      controller: 'SettingsController',
-      controllerAs: '$ctrl',
-      authenticate: true
     });
 }

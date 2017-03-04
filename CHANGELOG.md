@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Fix Profile page (appears to save OK but additional changes fail)
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Convert login to component (currently loosely coupled controller)

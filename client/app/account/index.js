@@ -4,11 +4,9 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './account.routes';
 import login from './login';
-import settings from './settings';
-//import signup from './signup';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
-export default angular.module('shyApp.account', [uiRouter, login, settings, /*signup,*/ oauthButtons])
+export default angular.module('shyApp.account', [uiRouter, login, oauthButtons])
   .config(routes)
   .run($rootScope => {
     'ngInject';

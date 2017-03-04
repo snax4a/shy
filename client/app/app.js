@@ -42,6 +42,7 @@ import privacyPage from './privacy/privacy.component';
 import termsPage from './terms/terms.component';
 import adminPage from './admin/admin.component';
 import signupPage from './signup/signup.component';
+import profilePage from './profile/profile.component';
 
 // Filters
 import upcoming from '../components/upcoming/upcoming.filter';
@@ -56,7 +57,7 @@ import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, account, adminPage, navbar, banner, footer,
-  mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage, constants, util, upcoming,
+  mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage, profilePage, constants, util, upcoming,
   htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {

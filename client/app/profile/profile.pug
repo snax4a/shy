@@ -8,8 +8,8 @@
           input.form-control(type='password'
             name='password'
             ng-model='$ctrl.user.oldPassword'
-            mongoose-error='', autofocus='')
-          p.help-block(ng-show='form.password.$error.mongoose')
+            sequelize-error='', autofocus='')
+          p.help-block(ng-show='form.password.$error.sequelize')
             | {{ $ctrl.errors.other }}
         .form-group
           label New Password
@@ -29,6 +29,8 @@
           p.help-block(ng-show='form.confirmPassword.$error.match && $ctrl.submitted')
             | Passwords must match.
 
-        p.help-block  {{ $ctrl.message }}
+        p.help-block
+          br
+          | {{ $ctrl.message }}
 
         button.btn.btn-lg.btn-warning(type='submit') Update
