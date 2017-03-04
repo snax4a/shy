@@ -77,7 +77,7 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([?]?.*)$/,
-          loader: 'file-loader' // copies to dist, renaming with asset hash
+          loader: 'file-loader' // copies to dist, renaming with asset hash to ensure the latest version is downloaded
         },
 
         {
