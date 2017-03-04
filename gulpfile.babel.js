@@ -7,7 +7,6 @@ import del from 'del';
 import gulp from 'gulp';
 import grunt from 'grunt';
 import path from 'path';
-import through2 from 'through2';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
 import open from 'open';
