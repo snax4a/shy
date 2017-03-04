@@ -1,17 +1,17 @@
 'use strict';
 /* global sinon, describe, it, expect */
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var messageCtrlStub = {
+const messageCtrlStub = {
   send: 'messageCtrl.send'
 };
 
-var routerStub = {
+const routerStub = {
   post: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var messageIndex = proxyquire('./index.js', {
+const messageIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
