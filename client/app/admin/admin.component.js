@@ -2,9 +2,9 @@
 import angular from 'angular';
 import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
 import routes from './admin.routes';
 import AuthModule from '../../components/auth/auth.module';
-import uiBootstrap from 'angular-ui-bootstrap';
 
 export class AdminController {
   /*@ngInject*/
@@ -23,6 +23,7 @@ export class AdminController {
 
   search(form) {
     this.submitted = true;
+
     if(form.$valid) {
       this.users = this.User.query({ filter: this.filterField});
     }

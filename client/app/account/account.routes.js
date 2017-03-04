@@ -20,12 +20,6 @@ export default function routes($stateProvider) {
         $state.go(referrer);
       }
     })
-    // .state('signup', {
-    //   url: '/signup',
-    //   template: require('./signup/signup.pug'),
-    //   controller: 'SignupController',
-    //   controllerAs: '$ctrl'
-    // })
     .state('settings', {
       url: '/settings',
       template: require('./settings/settings.pug'),

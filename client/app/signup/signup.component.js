@@ -30,7 +30,7 @@ export class SignupController {
 
   register(form) {
     this.submitted = true;
-
+    this.$log.info('Hit Register');
     if(form.$valid) {
       return this.Auth.createUser({
         firstName: this.user.firstName,
