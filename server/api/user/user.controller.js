@@ -96,12 +96,16 @@ export function destroy(req, res) {
 }
 
 /**
- * Change a user's password
+ * Update user profile
  */
-export function changePassword(req, res) {
-  var userId = req.user._id;
-  var oldPass = String(req.body.oldPassword);
-  var newPass = String(req.body.newPassword);
+export function update(req, res) {
+  console.log('USER SUBMITTED', req.user);
+  // Rewrite this part
+  const userId = req.user._id;
+  const oldPass = String(req.body.oldPassword);
+  const newPass = String(req.body.newPassword);
+
+  // Strip out role to prevent user elevating their permissions
 
   return User.find({
     where: {
@@ -151,7 +155,7 @@ export function upsert(req, res) {
  * Get my info
  */
 export function me(req, res, next) {
-  var userId = req.user._id;
+  let userId = req.user._id;
 
   return User.find({
     where: {
@@ -162,10 +166,10 @@ export function me(req, res, next) {
       'firstName',
       'lastName',
       'email',
-      'role'
-//      'phone',
-//      'provider',
-//      'optOut'
+      'role',
+      'phone',
+      'optOut',
+      'provider'
     ]
   })
     .then(user => {

@@ -88,24 +88,14 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     /**
-     * Change password
+     * Update Profile
      *
-     * @param  {String}   oldPassword
-     * @param  {String}   newPassword
-     * @param  {Function} callback    - function(error, user)
+     * @param  {User}   user
+     * @param  {Function} callback - function(error, user) - isn't it the reverse?
      * @return {Promise}
      */
-    changePassword(oldPassword, newPassword, callback) {
-      return User.changePassword({
-        id: currentUser._id
-      }, {
-        oldPassword,
-        newPassword
-      }, function() {
-        return safeCb(callback)(null);
-      }, function(err) {
-        return safeCb(callback)(err);
-      })
+    update(user, callback) {
+      return User.update({id: currentUser._id}, user, () => safeCb(callback)(null), err => safeCb(callback)(err))
         .$promise;
     },
 

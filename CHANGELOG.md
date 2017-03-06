@@ -1,14 +1,16 @@
 # Product Backlog
-* [High] Fix Profile page (appears to save OK but additional changes fail)
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Convert login to component (currently loosely coupled controller)
-* [Low] Convert settings to component (ditto)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Setup npm start
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
+
+<a name="1.0.3"></a>
+# [1.0.3]() (2017-03-05)
+* Turned profile and signup into angularJS components, adjusted server API
 
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/nstuyvesant/shy/commit/42be8bdfa3dac68fea081d63cae1c31a05ef1235) (2017-02-26)

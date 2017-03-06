@@ -12,10 +12,10 @@ export function UserResource($resource) {
         controller: 'upsert'
       }
     },
-    changePassword: {
+    update: {
       method: 'PUT',
       params: {
-        controller: 'password'
+        id: 'me'
       }
     },
     get: {

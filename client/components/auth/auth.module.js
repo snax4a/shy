@@ -12,7 +12,6 @@ import uiRouter from 'angular-ui-router';
 
 function addInterceptor($httpProvider) {
   'ngInject';
-
   $httpProvider.interceptors.push('authInterceptor');
 }
 

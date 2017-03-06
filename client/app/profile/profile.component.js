@@ -8,30 +8,45 @@ import AuthModule from '../../components/auth/auth.module';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
 export class ProfileController {
-  user = {
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: ''
-  };
-  errors = {
-    other: undefined
-  };
-  message = '';
-  submitted = false;
-
-
   /*@ngInject*/
-  constructor(Auth) {
+  constructor(Auth, $log) {
     this.Auth = Auth;
+    this.$log = $log;
   }
 
-  changePassword(form) {
+  $onInit() {
+    // this.user = {
+    //   oldPassword: '',
+    //   newPassword: '',
+    //   confirmPassword: ''
+    // };
+    // Instead, how about...
+    this.user = {};
+    this.Auth.getCurrentUser()
+      .then(user => {
+        angular.copy(user, this.user);
+        this.$log.info('this.user', this.user);
+      });
+
+    // now we need to add the password fields (or do we really?)
+
+    this.errors = {
+      other: undefined
+    };
+
+    this.message = '';
+    this.submitted = false;
+  }
+
+  update(form) {
     this.submitted = true;
 
     if(form.$valid) {
-      this.Auth.changePassword(this.user.oldPassword, this.user.newPassword)
+      // Make a copy of the user to send as the update
+      // this.user might not be correct
+      this.Auth.update(this.user)
         .then(() => {
-          this.message = 'Password successfully changed.';
+          this.message = 'Profile successfully updated.';
         })
         .catch(() => {
           form.password.$setValidity('sequelize', false);

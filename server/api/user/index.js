@@ -9,7 +9,7 @@ var router = new Router();
 router.get('/', auth.hasRole('admin'), controller.index);
 router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
-router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
+router.put('/me', auth.isAuthenticated(), controller.update);
 router.put('/:id/upsert', auth.hasRole('admin'), controller.upsert); // update existing user
 router.put('/upsert', auth.hasRole('admin'), controller.upsert); // insert new user
 router.get('/:id', auth.isAuthenticated(), controller.show);
