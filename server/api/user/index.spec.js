@@ -8,7 +8,7 @@ var userCtrlStub = {
   index: 'userCtrl.index',
   destroy: 'userCtrl.destroy',
   me: 'userCtrl.me',
-  changePassword: 'userCtrl.changePassword',
+  update: 'userCtrl.update',
   show: 'userCtrl.show',
   create: 'userCtrl.create'
 };
@@ -73,10 +73,10 @@ describe('User API Router:', function() {
     });
   });
 
-  describe('PUT /api/users/:id/password', function() {
-    it('should be authenticated and route to user.controller.changePassword', function(done) {
+  describe('PUT /api/users/me', function() {
+    it('should be authenticated and route to user.controller.update', function(done) {
       expect(routerStub.put
-        .withArgs('/:id/password', 'authService.isAuthenticated', 'userCtrl.changePassword')
+        .withArgs('/me', 'authService.isAuthenticated', 'userCtrl.update')
         ).to.have.been.calledOnce;
       done();
     });
