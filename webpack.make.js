@@ -19,16 +19,17 @@ module.exports = function makeWebpackConfig(options) {
   let config = {
     cache: DEV,
 
-    //context: __dirname, // current directory by default
+    // context: __dirname, // current directory by default
 
-    devServer: {
-      contentBase: './client/',
-      stats: {
-        modules: false,
-        cached: false,
-        chunks: false
-      }
-    },
+    // Not relevant as webpack-dev-server not in use
+    // devServer: {
+    //   contentBase: './client/',
+    //   stats: {
+    //     modules: false,
+    //     cached: false,
+    //     chunks: false
+    //   }
+    // },
 
     devtool: '', // placeholder to be filled in conditionally
 
@@ -58,15 +59,17 @@ module.exports = function makeWebpackConfig(options) {
           loader: 'babel-loader', // transpiles ES6 and ES7 to ES5
           exclude: /node_modules/,
           options: {
+            // babel settings are in package.json, list here in case I want to override
             // babelrc: false, // ignore babel settings in babelrc and package.json
             // presets: [
             //   ['env', {
-            //     modules: false,
+            //     modules: true,
             //     targets: {
             //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0']
             //     }
             //   }]
             // ],
+            // plugins: ['transform-class-properties'],
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents), // leave ng-annotate alone
             cacheDirectory: true
           },
@@ -82,7 +85,8 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.pug$/,
-          use: ['raw-loader', 'pug-html-loader'] // converts pug to HTML (includes pug node module)
+          //loader: 'pug-loader' // https://github.com/pugjs/pug-loader
+          use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
         },
 
         {

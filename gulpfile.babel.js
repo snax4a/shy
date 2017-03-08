@@ -223,9 +223,10 @@ function webpackCompile(options, cb) {
 
     plugins.util.log(stats.toString({
       colors: true,
-      timings: true,
-      chunks: options.BUILD,
-      errorDetails: true
+      chunks: false, //options.BUILD,
+      errorDetails: true,
+      hash: false,
+      timings: true
     }));
     cb();
   });
