@@ -100,13 +100,10 @@ export function destroy(req, res) {
  * Update user profile
  */
 export function update(req, res) {
-  console.log('USER SUBMITTED', req.user);
+  console.log('IS ADMIN', hasRole('admin') ? 'TRUE' : 'FALSE');
+
   // Users can only update themselves (admins can do anything)
   const userId = hasRole('admin') ? req.body._id : req.user._id;
-  const oldPass = String(req.body.oldPassword);
-  const newPass = String(req.body.newPassword);
-
-  // Strip out role to prevent user elevating their permissions
 
   return User.find({
     where: {
@@ -114,16 +111,33 @@ export function update(req, res) {
     }
   })
     .then(user => {
-      if(user.authenticate(oldPass)) {
-        user.password = newPass;
-        return user.save()
-          .then(() => {
-            res.status(204).end();
-          })
-          .catch(validationError(res));
-      } else {
-        return res.status(403).end();
+      // If undefined, user has Google+ login or isn't changing password
+      const newPass = String(req.body.newPassword);
+      const confirmPass = String(req.body.confirmPassword);
+      if(newPass !== 'undefined' && user.provider === 'local') {
+        if(newPass !== confirmPass) throw new Error('Passwords must match.');
+        const oldPass = String(req.body.oldPassword);
+        if(user.authenticate(oldPass)) {
+          user.password = newPass;
+        } else return validationError(res, 403); // did not authenticate, bail out
+      //} else throw new Error('Password was incorrect.');
       }
+
+      // Set relevant properties
+      user.firstName = String(req.body.firstName);
+      user.lastName = String(req.body.lastName);
+      user.phone = String(req.body.phone);
+      user.optOut = String(req.body.optOut);
+      if(user.provider === 'local') user.email = String(req.body.email);
+
+      console.log('STAGED CHANGES', user);
+
+      // Update the user
+      return user.save()
+        .then(() => {
+          res.status(204).end();
+        })
+        .catch(validationError(res));
     });
 }
 
