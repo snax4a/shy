@@ -51,10 +51,9 @@
                 | What's your email address?
               p.help-block(ng-show='form.email.$error.sequelize')
                 | {{ errors.email }}
-          br
-          label
-            input(type='checkbox', name='optOut', ng-model='$ctrl.user.optOut')
-            |  Do not subscribe to newsletter
+        label
+          input(type='checkbox', name='optOut', ng-model='$ctrl.user.optOut')
+          |  Do not subscribe to newsletter
 
         p.help-block
           br

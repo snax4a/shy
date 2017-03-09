@@ -3,7 +3,7 @@
 import { User } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
-import auth from '../../auth/auth.service';
+import { hasRole } from '../../auth/auth.service';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -102,7 +102,7 @@ export function destroy(req, res) {
 export function update(req, res) {
   console.log('USER SUBMITTED', req.user);
   // Users can only update themselves (admins can do anything)
-  const userId = (auth.hasRole('admin')) ? req.body._id : req.user._id;
+  const userId = hasRole('admin') ? req.body._id : req.user._id;
   const oldPass = String(req.body.oldPassword);
   const newPass = String(req.body.newPassword);
 
