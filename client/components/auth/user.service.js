@@ -14,9 +14,6 @@ export function UserResource($resource) {
     },
     update: {
       method: 'PUT',
-      params: {
-        id: 'me'
-      }
     },
     get: {
       method: 'GET',
