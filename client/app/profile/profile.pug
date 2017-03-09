@@ -1,48 +1,56 @@
 .container
   .row
     .col-sm-12.col-md-6.col-md-offset-3
-      h2 User Profile Settings - use ngMessages!!!
+      h2 User Profile Settings
       form.form(name='form', ng-submit='$ctrl.update(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group(ng-if='$ctrl.user.provider=="local"')
           label Current Password
           input.form-control(type='password', name='oldPassword', ng-model='$ctrl.user.oldPassword', sequelize-error='', placeholder='Current password', autofocus='')
-          p.help-block(ng-show='form.password.$error.sequelize')
-            | {{ $ctrl.errors.other }}
+          ng-messages.help-block.has-error(for='form.oldPassword.$error', ng-show='form.oldPassword.$dirty || form.$submitted', role='alert')
+            ng-message(when='sequelize') {{ $ctrl.errors.other }}
         .form-group(ng-if='$ctrl.user.provider=="local"')
           label New Password
           input.form-control(type='password', name='password', ng-model='$ctrl.user.password', ng-minlength='3', required='', placeholder='New password')
-          p.help-block(ng-show='(form.password.$error.minlength || form.password.$error.required) && (form.password.$dirty || $ctrl.submitted)')
-            | Password must be at least 3 characters.
+          ng-messages.help-block.has-error(for='form.password.$error', ng-show='form.password.$dirty || form.$submitted', role='alert')
+            ng-message(when='minlength') Password must be at least 3 characters.
         .form-group(ng-if='$ctrl.user.provider=="local"')
           label Confirm New Password
           input.form-control(type='password', name='confirmPassword', ng-model='$ctrl.user.confirmPassword', match="$ctrl.user.newPassword", ng-minlength='3', required='', placeholder='Confirm password')
-          p.help-block(ng-show='form.confirmPassword.$error.match && $ctrl.submitted')
+          p.help-block.has-error(ng-show='form.confirmPassword.$error.match && $ctrl.submitted')
             | Passwords must match.
+          ng-messages.help-block.has-error(for='form.confirmPassword.$error', ng-show='form.confirmPassword.$dirty || form.$submitted', role='alert')
+            ng-message(when='match') Passwords must match.
         .form-group
           label First name
           input.form-control(type='text', name='firstName', ng-model='$ctrl.user.firstName', required='', autofocus='', placeholder='First name', ng-if='$ctrl.user.provider=="google"')
           input.form-control(type='text', name='firstName', ng-model='$ctrl.user.firstName', required='', placeholder='First name', ng-if='$ctrl.user.provider!="google"')
-          p.help-block(ng-show='form.firstName.$error.required && submitted')
-            | Your first name is required
+          ng-messages.help-block.has-error(for='form.firstName.$error', ng-show='form.firstName.$dirty || form.$submitted', role='alert')
+            ng-message(when='required') Please enter your first name.
         .form-group
           label Last name
           input.form-control(type='text', name='lastName', ng-model='$ctrl.user.lastName', required='', placeholder='Last name')
-          p.help-block(ng-show='form.lastName.$error.required && submitted')
-            | Your last name is required
+          ng-messages.help-block.has-error(for='form.lastName.$error', ng-show='form.lastName.$dirty || form.$submitted', role='alert')
+            ng-message(when='required') Please enter your last name.
         .form-group
           label Phone
-          input.form-control(type='tel', name='phone', ng-model='$ctrl.user.phone', placeholder='Phone')
-          p.help-block(ng-show='form.phone.$error.required && submitted')
-            | Please enter a phone number.
-        .form-group
+          input.form-control(type='tel', name='phone', ng-model='$ctrl.user.phone', required='', placeholder='Phone')
+          ng-messages.help-block.has-error(for='form.phone.$error', ng-show='form.phone.$dirty || form.$submitted', role='alert')
+            ng-message(when='required') Please enter a phone number.
+            ng-message(when='tel') Please enter a valid phone number.
+        .form-group(ng-if='$ctrl.user.provider=="local"')
           label Email
           input.form-control(type='email', name='email', ng-model='$ctrl.user.email', required='', sequelize-error='', placeholder='Email')
-          p.help-block(ng-show='form.email.$error.email && submitted')
-            | Doesn't look like a valid email.
-          p.help-block(ng-show='form.email.$error.required && submitted')
-            | What's your email address?
-          p.help-block(ng-show='form.email.$error.sequelize')
-            | {{ errors.email }}
+          ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
+            ng-message(when='required') Please provide your email address.
+            ng-message(when='email') Please provide a valid email address.
+            ng-message(when='sequelize') {{ $ctrl.errors.email }}
+            //
+              p.help-block(ng-show='form.email.$error.email && submitted')
+                | Doesn't look like a valid email.
+              p.help-block(ng-show='form.email.$error.required && submitted')
+                | What's your email address?
+              p.help-block(ng-show='form.email.$error.sequelize')
+                | {{ errors.email }}
           br
           label
             input(type='checkbox', name='optOut', ng-model='$ctrl.user.optOut')

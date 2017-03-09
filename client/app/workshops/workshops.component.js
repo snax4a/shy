@@ -6,8 +6,8 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($log, $http, $timeout) {
-    this.$log = $log;
+  constructor($window, $http, $timeout) {
+    this.$window = $window;
     this.$http = $http;
     this.$timeout = $timeout;
   }
@@ -51,6 +51,14 @@ export class WorkshopsController {
     this.alerts.splice(index, 1);
   }
 
+
+  setFocus(fieldID) {
+    let fieldToGetFocus = this.$window.document.getElementById(fieldID);
+    this.$timeout(() => {
+      fieldToGetFocus.focus();
+    }, 50);
+  }
+
   subscribe(form) {
     if(form.$valid) {
       // Post to the server then create an alerts array (undefined, zero or one item) to give user feedback
@@ -63,13 +71,12 @@ export class WorkshopsController {
           }];
         })
         .catch(response => {
-          this.$log.info('Failed', response);
           this.alerts = [{
             type: 'alert-danger',
             message: response.data
           }];
         });
-    }
+    } else this.setFocus('email');
   }
 }
 

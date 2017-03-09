@@ -2,16 +2,16 @@
   h2 Workshops
   .row
     .col-sm-5
-      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-hide='subscriberform.$submitted', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+      form.form(name='subscriberform', ng-submit='$ctrl.subscribe(subscriberform)', ng-hide='subscriberform.$submitted && subscriberform.$valid', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only(for='email') Email address
-          .help-block.has-error(ng-messages='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
-            div(ng-message='required') Please provide an email address.
-            div(ng-message='email') Please provide a valid email address.
           .input-group
-            input.form-control(name='email', ng-model='$ctrl.subscriber.email', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
+            input.form-control(name='email', id='email', ng-model='$ctrl.subscriber.email', type='email', maxlength='50', placeholder='Email address for newsletter', autofocus='', required='')
             .input-group-btn
               input.btn.btn-warning(type='submit', value='Subscribe', ng-disabled='subscriberform.$submitted && subscriberform.$valid')
+          ng-messages.help-block.has-error(for='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
+            ng-message(when='required') Please provide an email address.
+            ng-message(when='email') Please provide a valid email address.
       div(uib-alert='', ng-repeat="alert in $ctrl.alerts", ng-class='alert.type', close='$ctrl.closeAlert($index)') {{ alert.message }}
   hr(ng-repeat-start='workshop in $ctrl.workshops | upcoming')
   .row

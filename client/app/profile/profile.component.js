@@ -15,27 +15,17 @@ export class ProfileController {
   }
 
   $onInit() {
-    // this.user = {
-    //   oldPassword: '',
-    //   newPassword: '',
-    //   confirmPassword: ''
-    // };
-    // Instead, how about...
     this.user = {};
     this.Auth.getCurrentUser()
       .then(user => {
         angular.copy(user, this.user);
         this.$log.info('this.user', this.user);
       });
-
-    // now we need to add the password fields (or do we really?)
-
+    this.message = '';
+    this.submitted = false;
     this.errors = {
       other: undefined
     };
-
-    this.message = '';
-    this.submitted = false;
   }
 
   update(form) {
@@ -50,7 +40,7 @@ export class ProfileController {
         })
         .catch(() => {
           form.password.$setValidity('sequelize', false);
-          this.errors.other = 'Incorrect password';
+          this.errors.other = 'Incorrect password'; // What about when the email address already exists???
           this.message = '';
         });
     }
