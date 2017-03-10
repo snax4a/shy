@@ -72,13 +72,12 @@ export class AdminController {
 
 class AdminEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, userSelectedForEditing, User, $log) {
+  constructor($uibModalInstance, userSelectedForEditing, User) {
     this.$uibModalInstance = $uibModalInstance;
     this.userSelectedForEditing = userSelectedForEditing;
     this.user = {};
     angular.copy(this.userSelectedForEditing, this.user);
     this.User = User; // User Service
-    this.$log = $log;
     this.submitted = false;
     this.errors = {};
   }

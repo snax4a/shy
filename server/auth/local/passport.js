@@ -34,7 +34,6 @@ export function setup(User, config) {
     passwordField: 'password' // this is the virtual field on the model
   }, (email, password, done) => {
     if(!password) password = config.secrets.session; // prevents errors because password is empty
-    console.log('LOCAL PASSWORD = ', password);
     return localAuthenticate(User, email, password, done);
   }));
 }

@@ -8,33 +8,33 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
       .form-group.col-md-6
         label First name
         input.form-control(type='text', name='firstName', id='firstName', ng-model='$ctrl.user.firstName', maxlength='20', autofocus='', required='true', placeholder='First name')
-        p.help-block.has-error(ng-show='form.firstName.$invalid && $ctrl.submitted')
-          | First name is required
+        ng-messages.help-block.has-error(for='form.firstName.$error', ng-show='form.firstName.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter your first name.
       .form-group.col-md-6
         label Last name
         input.form-control(type='text', name='lastName', id='lastName', ng-model='$ctrl.user.lastName', maxlength='20', required='true', placeholder='Last name')
-        p.help-block.has-error(ng-show='form.lastName.$invalid && $ctrl.submitted')
-          | Last name is required
+        ng-messages.help-block.has-error(for='form.lastName.$error', ng-show='form.lastName.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter your last name.
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label New password
-          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', database-error='', maxlength='20', placeholder='Password')
-          p.help-block.has-error(ng-show='form.password.$error.database')
-            | {{ $ctrl.errors.password }}
+          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', database-error='', ng-minlength='6', maxlength='20', placeholder='Password')
+          ng-messages.help-block.has-error(for='form.passwordNew.$error', ng-show='form.passwordNew.$dirty || form.$submitted', role='alert')
+            ng-message(when='minlength') Password must be at least 6 characters.
+            ng-message(when='database') {{ $ctrl.errors.password }}
         .form-group.col-md-6
           label Confirm
-          input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', maxlength='20', placeholder='Confirm')
-          p.help-block.has-error(ng-show='form.passwordConfirm.$invalid && $ctrl.submitted')
-            | Passwords must match
+          input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', ng-required='$ctrl.user.password !== undefined', ng-minlength='6', maxlength='20', placeholder='Confirm')
+          ng-messages.help-block.has-error(for='form.passwordConfirm.$error', ng-show='form.passwordConfirm.$dirty || form.$submitted', role='alert')
+            ng-message(when='compareTo') Passwords must match.
+            ng-message(when='required') Please confirm your new password.
         .form-group.col-md-6
           label Email
           input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', database-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
-          p.help-block.has-error(ng-show='form.email.$error.email && $ctrl.submitted')
-            | Please provide a valid email address
-          p.help-block.has-error(ng-show='form.email.$error.required && $ctrl.submitted')
-            | Please provide an email address
-          p.help-block.has-error(ng-show='form.email.$error.database')
-            | {{ $ctrl.errors.email }}
+          ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
+            ng-message(when='required') Please provide your email address.
+            ng-message(when='email') Please provide a valid email address.
+            ng-message(when='database') {{ $ctrl.errors.email }}
       .form-group.col-md-6
         label Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')

@@ -19,29 +19,34 @@ export class ProfileController {
     this.Auth.getCurrentUser()
       .then(user => {
         angular.copy(user, this.user);
-        this.$log.info('this.user', this.user);
+        return;
       });
     this.message = '';
     this.submitted = false;
-    this.errors = {
-      other: undefined
-    };
+    this.errors = {};
   }
 
   update(form) {
     this.submitted = true;
-
     if(form.$valid) {
-      // Make a copy of the user to send as the update
-      // this.user might not be correct
       this.Auth.update(this.user)
         .then(() => {
           this.message = 'Profile successfully updated.';
+          return;
         })
-        .catch(() => {
-          form.password.$setValidity('sequelize', false);
-          this.errors.other = 'Incorrect password'; // What about when the email address already exists???
-          this.message = '';
+        .catch(response => {
+          this.$log.info('error response', response.data);
+          let err = response.data;
+          this.errors = {}; // reset to only the latest errors
+
+          // Update validity of form fields that match the database errors
+          if(err.name) {
+            for(let error of err.errors) {
+              form[error.path].$setValidity('database', false);
+              this.errors[error.path] = error.message;
+            }
+          }
+          return;
         });
     }
   }

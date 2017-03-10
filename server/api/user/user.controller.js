@@ -3,16 +3,24 @@
 import { User } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
-import { hasRole } from '../../auth/auth.service';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => res.status(statusCode).json(err);
+  return err => {
+    console.log('ERROR', err);
+    res.status(statusCode).json(err);
+  };
 }
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return err => res.status(statusCode).send(err);
+}
+
+function packageError(message, path) {
+  return {
+    errors: [{message, path}]
+  };
 }
 
 /**
@@ -40,9 +48,7 @@ export function index(req, res) {
       'optOut'
     ]
   })
-    .then(users => {
-      res.status(200).json(users);
-    })
+    .then(users => res.status(200).json(users))
     .catch(handleError(res));
 }
 
@@ -80,6 +86,7 @@ export function show(req, res, next) {
         return res.status(404).end();
       }
       res.json(user.profile);
+      return user;
     })
     .catch(err => next(err));
 }
@@ -90,9 +97,7 @@ export function show(req, res, next) {
  */
 export function destroy(req, res) {
   return User.destroy({ where: { _id: req.params.id } })
-    .then(function() {
-      res.status(204).end();
-    })
+    .then(() => res.status(204).end())
     .catch(handleError(res));
 }
 
@@ -100,28 +105,25 @@ export function destroy(req, res) {
  * Update user profile
  */
 export function update(req, res) {
-  console.log('IS ADMIN', hasRole('admin') ? 'TRUE' : 'FALSE');
-
-  // Users can only update themselves (admins can do anything)
-  const userId = hasRole('admin') ? req.body._id : req.user._id;
-
   return User.find({
     where: {
-      _id: userId
+      _id: req.user._id // users can only update themselves
     }
   })
     .then(user => {
-      // If undefined, user has Google+ login or isn't changing password
-      const newPass = String(req.body.newPassword);
-      const confirmPass = String(req.body.confirmPassword);
-      if(newPass !== 'undefined' && user.provider === 'local') {
-        if(newPass !== confirmPass) throw new Error('Passwords must match.');
-        const oldPass = String(req.body.oldPassword);
-        if(user.authenticate(oldPass)) {
-          user.password = newPass;
-        } else return validationError(res, 403); // did not authenticate, bail out
-      //} else throw new Error('Password was incorrect.');
-      }
+      const password = String(req.body.password);
+      const passwordNew = String(req.body.passwordNew);
+      const passwordConfirm = String(req.body.passwordConfirm);
+
+      if(!user.authenticate(password)) throw new Error(packageError('Password was incorrect.', 'password'));
+      // return validationError(res, 422, packageError('Password was incorrect.', 'password'));
+      //res.status(403).json(packageError('Password was incorrect.', 'password'));
+
+      if(passwordNew !== 'undefined' && user.provider === 'local') {
+        if(passwordNew !== passwordConfirm) return validationError(res, 422, packageError('Passwords must match.', 'passwordNew'));
+        //res.status(422).json(packageError('Passwords must match.', 'passwordNew'));
+        user.password = passwordNew;
+      } else Reflect.deleteProperty(user.dataValues, 'password'); // no password change
 
       // Set relevant properties
       user.firstName = String(req.body.firstName);
@@ -134,11 +136,10 @@ export function update(req, res) {
 
       // Update the user
       return user.save()
-        .then(() => {
-          res.status(204).end();
-        })
+        .then(() => res.status(204).end())
         .catch(validationError(res));
-    });
+    })
+    .catch(validationError(res));
 }
 
 /**
