@@ -117,9 +117,9 @@ export function update(req, res) {
       const password = String(req.body.password);
       const passwordNew = String(req.body.passwordNew);
       const passwordConfirm = String(req.body.passwordConfirm);
-
+console.log('Checking password..');
       if(!userToUpdate.authenticate(password)) throw new UserValidationError('Password was incorrect', 'password');
-
+console.log('Password OK');
       if(passwordNew !== 'undefined' && userToUpdate.provider === 'local') {
         if(passwordNew !== passwordConfirm) throw new UserValidationError('Passwords must match.', 'passwordNew');
         userToUpdate.password = passwordNew;

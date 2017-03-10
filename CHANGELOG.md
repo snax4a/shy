@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] Profile/user.controller.js - create error objects to pass to client
+* [High] Profile/user.controller.js - errors don't clear
 * [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Convert login to component (currently loosely coupled controller)

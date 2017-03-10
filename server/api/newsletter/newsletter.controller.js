@@ -31,6 +31,6 @@ export function unsubscribe(req, res) {
   })
   .then(() => {
     res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
-    console.log(`Unsubscribed ${req.params.email} from the newsletter.`);
+    return console.log(`Unsubscribed ${req.params.email} from the newsletter.`);
   });
 }

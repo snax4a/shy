@@ -29,6 +29,7 @@ export class ProfileController {
   update(form) {
     this.submitted = true;
     if(form.$valid) {
+      this.errors = {}; // reset so we can catch server-side errors
       this.User.update(this.user)
         .$promise
         .then(() => {
@@ -37,8 +38,6 @@ export class ProfileController {
         })
         .catch(response => {
           let err = response.data;
-          this.errors = {}; // reset to only the latest errors
-
           // Update validity of form fields that match the database errors
           if(err.name) {
             for(let error of err.errors) {

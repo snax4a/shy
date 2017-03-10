@@ -222,7 +222,7 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
       failure: 'Failed to send the email confirmation but the order was still processed.'
     });
   } catch(errEmail) {
-    console.log(errEmail);
+    return console.log(errEmail);
   }
   resolve(braintreeTransaction);
 });
