@@ -9,9 +9,9 @@ import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive
 
 export class ProfileController {
   /*@ngInject*/
-  constructor(Auth, $log) {
+  constructor(User, Auth) {
+    this.User = User;
     this.Auth = Auth;
-    this.$log = $log;
   }
 
   $onInit() {
@@ -29,13 +29,13 @@ export class ProfileController {
   update(form) {
     this.submitted = true;
     if(form.$valid) {
-      this.Auth.update(this.user)
+      this.User.update(this.user)
+        .$promise
         .then(() => {
           this.message = 'Profile successfully updated.';
           return;
         })
         .catch(response => {
-          this.$log.info('error response', response.data);
           let err = response.data;
           this.errors = {}; // reset to only the latest errors
 

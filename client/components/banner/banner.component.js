@@ -4,10 +4,9 @@
 import angular from 'angular';
 
 export class BannerController {
-  constructor(Cart, $log) {
+  constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
-    this.$log = $log;
   }
 
   addItem(productID) {

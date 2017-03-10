@@ -8,11 +8,9 @@ import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive
 
 export class SignupController {
   /*@ngInject*/
-  constructor(Auth, $state, $log) {
-    // Dependencies
+  constructor(Auth, $state) {
     this.Auth = Auth;
     this.$state = $state;
-    this.$log = $log;
   }
 
   $onInit() {
@@ -30,7 +28,6 @@ export class SignupController {
 
   register(form) {
     this.submitted = true;
-    this.$log.info('Hit Register');
     if(form.$valid) {
       return this.Auth.createUser({
         firstName: this.user.firstName,

@@ -73,13 +73,16 @@ export class AdminController {
 class AdminEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, userSelectedForEditing, User) {
+    // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.userSelectedForEditing = userSelectedForEditing;
-    this.user = {};
-    angular.copy(this.userSelectedForEditing, this.user);
-    this.User = User; // User Service
+    this.User = User;
+
+    // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
+    this.user = {};
+    angular.copy(this.userSelectedForEditing, this.user);
   }
 
   submitUser(form) {

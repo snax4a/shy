@@ -13,10 +13,9 @@ export default class LoginController {
   submitted = false;
 
   /*@ngInject*/
-  constructor(Auth, $state, $log) {
+  constructor(Auth, $state) {
     this.Auth = Auth;
     this.$state = $state;
-    this.$log = $log;
   }
 
   login(form) {

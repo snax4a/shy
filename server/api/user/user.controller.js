@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
   return err => {
-    console.log('ERROR', err);
     res.status(statusCode).json(err);
   };
 }
@@ -17,10 +16,14 @@ function handleError(res, statusCode) {
   return err => res.status(statusCode).send(err);
 }
 
-function packageError(message, path) {
-  return {
-    errors: [{message, path}]
-  };
+class UserValidationError extends Error {
+  constructor(message, path) {
+    super(message);
+    this.message = message;
+    this.name = 'UserValidationError';
+    this.errors = [{message, path}];
+    Error.captureStackTrace(this, this.constructor);
+  }
 }
 
 /**
@@ -110,33 +113,28 @@ export function update(req, res) {
       _id: req.user._id // users can only update themselves
     }
   })
-    .then(user => {
+    .then(userToUpdate => {
       const password = String(req.body.password);
       const passwordNew = String(req.body.passwordNew);
       const passwordConfirm = String(req.body.passwordConfirm);
 
-      if(!user.authenticate(password)) throw new Error(packageError('Password was incorrect.', 'password'));
-      // return validationError(res, 422, packageError('Password was incorrect.', 'password'));
-      //res.status(403).json(packageError('Password was incorrect.', 'password'));
+      if(!userToUpdate.authenticate(password)) throw new UserValidationError('Password was incorrect', 'password');
 
-      if(passwordNew !== 'undefined' && user.provider === 'local') {
-        if(passwordNew !== passwordConfirm) return validationError(res, 422, packageError('Passwords must match.', 'passwordNew'));
-        //res.status(422).json(packageError('Passwords must match.', 'passwordNew'));
-        user.password = passwordNew;
-      } else Reflect.deleteProperty(user.dataValues, 'password'); // no password change
+      if(passwordNew !== 'undefined' && userToUpdate.provider === 'local') {
+        if(passwordNew !== passwordConfirm) throw new UserValidationError('Passwords must match.', 'passwordNew');
+        userToUpdate.password = passwordNew;
+      } else Reflect.deleteProperty(userToUpdate.dataValues, 'password'); // no password change
 
       // Set relevant properties
-      user.firstName = String(req.body.firstName);
-      user.lastName = String(req.body.lastName);
-      user.phone = String(req.body.phone);
-      user.optOut = String(req.body.optOut);
-      if(user.provider === 'local') user.email = String(req.body.email);
-
-      console.log('STAGED CHANGES', user);
+      userToUpdate.firstName = String(req.body.firstName);
+      userToUpdate.lastName = String(req.body.lastName);
+      userToUpdate.phone = String(req.body.phone);
+      userToUpdate.optOut = String(req.body.optOut);
+      if(userToUpdate.provider === 'local') userToUpdate.email = String(req.body.email);
 
       // Update the user
-      return user.save()
-        .then(() => res.status(204).end())
+      return userToUpdate.save()
+        .then(user => res.status(200).json({ _id: user._id }))
         .catch(validationError(res));
     })
     .catch(validationError(res));
@@ -159,7 +157,7 @@ export function upsert(req, res) {
   if(req.body.password) {
     if(req.body.password === req.body.passwordConfirm) {
       userToUpsert.setDataValue('password', req.body.password);
-    } else throw new Error('Passwords must match.');
+    } else throw new UserValidationError('Passwords must match.', 'passwordConfirm');
   } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
 
   return userToUpsert.save()

@@ -3,8 +3,7 @@ import ContactModalController from './contactmodal.controller';
 
 export default class NavbarController {
   /*@ngInject*/
-  constructor($log, $uibModal, Cart, Auth) {
-    this.$log = $log;
+  constructor($uibModal, Cart, Auth) {
     this.$uibModal = $uibModal;
     this.Cart = Cart;
     this.Auth = Auth;
@@ -51,7 +50,6 @@ export default class NavbarController {
 
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
-      this.$log.info('Closed dialog.');
     });
   }
 }
