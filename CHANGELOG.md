@@ -9,7 +9,7 @@
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
 <a name="1.0.3"></a>
-# [1.0.3]() (2017-03-05)
+# [1.0.3](https://github.com/nstuyvesant/shy/commit/7a08eda14c4b45400f5a2eb712d09737b4b0f187) (2017-03-05)
 * Turned profile and signup into angularJS components, adjusted server API
 
 <a name="1.0.2"></a>
