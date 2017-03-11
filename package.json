@@ -155,7 +155,7 @@
     "webpack-dev-middleware": "^1.10.1"
   },
   "engines": {
-    "node": "~7.7.1",
+    "node": "~7.7.2",
     "npm": "~4.4.2"
   },
   "scripts": {
