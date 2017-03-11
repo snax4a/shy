@@ -30,7 +30,7 @@ export class AdminController {
   }
 
   delete(selectedUser) {
-    selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the database
+    selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
 
@@ -85,6 +85,10 @@ class AdminEditorController {
     angular.copy(this.userSelectedForEditing, this.user);
   }
 
+  clearServerError(form, fieldName) {
+    form[fieldName].$setValidity('server', true);
+  }
+
   submitUser(form) {
     this.submitted = true;
     if(form.$valid) {
@@ -110,10 +114,10 @@ class AdminEditorController {
           let err = response.data;
           this.errors = {}; // reset to only the latest errors
 
-          // Update validity of form fields that match the database errors
+          // Update validity of form fields that match the server errors
           if(err.name) {
             for(let error of err.errors) {
-              form[error.path].$setValidity('database', false);
+              form[error.path].$setValidity('server', false);
               this.errors[error.path] = error.message;
             }
           }

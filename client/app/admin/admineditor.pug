@@ -18,10 +18,10 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label New password
-          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', database-error='', ng-minlength='6', maxlength='20', placeholder='Password')
+          input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', server-error='', ng-minlength='6', maxlength='20', placeholder='Password')
           ng-messages.help-block.has-error(for='form.passwordNew.$error', ng-show='form.passwordNew.$dirty || form.$submitted', role='alert')
             ng-message(when='minlength') Password must be at least 6 characters.
-            ng-message(when='database') {{ $ctrl.errors.password }}
+            ng-message(when='server') {{ $ctrl.errors.password }}
         .form-group.col-md-6
           label Confirm
           input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', ng-required='$ctrl.user.password !== undefined', ng-minlength='6', maxlength='20', placeholder='Confirm')
@@ -30,11 +30,11 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
             ng-message(when='required') Please confirm your new password.
         .form-group.col-md-6
           label Email
-          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', database-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
+          input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', ng-change='$ctrl.clearServerError(form,"email")', server-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
           ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
             ng-message(when='required') Please provide your email address.
             ng-message(when='email') Please provide a valid email address.
-            ng-message(when='database') {{ $ctrl.errors.email }}
+            ng-message(when='server') {{ $ctrl.errors.email }}
       .form-group.col-md-6
         label Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')

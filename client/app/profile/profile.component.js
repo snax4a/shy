@@ -9,9 +9,10 @@ import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive
 
 export class ProfileController {
   /*@ngInject*/
-  constructor(User, Auth) {
+  constructor(User, Auth, $log) {
     this.User = User;
     this.Auth = Auth;
+    this.$log = $log;
   }
 
   $onInit() {
@@ -26,7 +27,12 @@ export class ProfileController {
     this.errors = {};
   }
 
+  clearServerError(form, fieldName) {
+    form[fieldName].$setValidity('server', true);
+  }
+
   update(form) {
+    this.$log.info('form', form);
     this.submitted = true;
     if(form.$valid) {
       this.User.update(this.user)
@@ -37,14 +43,16 @@ export class ProfileController {
         })
         .catch(response => {
           let err = response.data;
-          this.errors = {}; // reset so we can catch server-side errors
-          // Update validity of form fields that match the database errors
+          //this.errors = {}; // reset so we can catch server-side errors
+          // Update validity of form fields that match the server errors
           if(err.name) {
             for(let error of err.errors) {
-              form[error.path].$setValidity('database', false);
+              form[error.path].$setValidity('server', false);
               this.errors[error.path] = error.message;
             }
           }
+          this.message = '';
+          //form.$valid = true; // so we can resubmit
           return;
         });
     }
