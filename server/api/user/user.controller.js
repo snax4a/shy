@@ -114,13 +114,22 @@ export function update(req, res) {
     }
   })
     .then(userToUpdate => {
-      const password = String(req.body.password);
-      const passwordNew = String(req.body.passwordNew);
-      const passwordConfirm = String(req.body.passwordConfirm);
-      if(!userToUpdate.authenticate(password)) throw new UserValidationError('Password is incorrect.', 'password');
-      if(passwordNew !== 'undefined' && userToUpdate.provider === 'local') {
-        if(passwordNew !== passwordConfirm) throw new UserValidationError('Passwords must match.', 'passwordNew');
-        userToUpdate.password = passwordNew;
+      // Only authenticate and handle password or email changes for local accounts
+      if(userToUpdate.provider === 'local') {
+        // Check password
+        const password = String(req.body.password);
+        if(!userToUpdate.authenticate(password)) throw new UserValidationError('Password is incorrect.', 'password');
+
+        // Check for a password change
+        const passwordNew = String(req.body.passwordNew);
+        if(passwordNew !== 'undefined') {
+          const passwordConfirm = String(req.body.passwordConfirm);
+          if(passwordNew !== passwordConfirm) throw new UserValidationError('Passwords must match.', 'passwordNew');
+          userToUpdate.password = passwordNew;
+        }
+
+        // If nothing failed so far, handle email change
+        userToUpdate.email = String(req.body.email);
       } else Reflect.deleteProperty(userToUpdate.dataValues, 'password'); // no password change
 
       // Set relevant properties
@@ -128,7 +137,6 @@ export function update(req, res) {
       userToUpdate.lastName = String(req.body.lastName);
       userToUpdate.phone = String(req.body.phone);
       userToUpdate.optOut = String(req.body.optOut);
-      if(userToUpdate.provider === 'local') userToUpdate.email = String(req.body.email);
 
       // Update the user
       return userToUpdate.save()
