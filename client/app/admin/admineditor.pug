@@ -9,12 +9,12 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
         label(for='firstName') First name
         input.form-control(type='text', name='firstName', id='firstName', ng-model='$ctrl.user.firstName', maxlength='20', autofocus='', required='true', placeholder='First name')
         ng-messages.help-block.has-error(for='form.firstName.$error', ng-show='form.firstName.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter your first name.
+          ng-message(when='required') Please enter the first name.
       .form-group.col-md-6
         label(for='lastName') Last name
         input.form-control(type='text', name='lastName', id='lastName', ng-model='$ctrl.user.lastName', maxlength='20', required='true', placeholder='Last name')
         ng-messages.help-block.has-error(for='form.lastName.$error', ng-show='form.lastName.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter your last name.
+          ng-message(when='required') Please enter the last name.
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
           label(for='password') New password
@@ -32,7 +32,7 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
           label(for='email') Email
           input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', ng-change='$ctrl.clearServerError(form,"email")', server-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
           ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
-            ng-message(when='required') Please provide your email address.
+            ng-message(when='required') Please enter the email address.
             ng-message(when='email') Please provide a valid email address.
             ng-message(when='server') {{ $ctrl.errors.email }}
       .form-group.col-md-6

@@ -1,7 +1,5 @@
 # Product Backlog
-* [High] Copy Forgot Password functionality from older project
 * [High] Add routes for add to cart buttons in newsletter
-* [Low] Convert login to component (currently loosely coupled controller)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Setup npm start
@@ -10,7 +8,8 @@
 
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/nstuyvesant/shy/commit/7a08eda14c4b45400f5a2eb712d09737b4b0f187) (2017-03-05)
-* Turned profile and signup into angularJS components, adjusted server API
+* Updated all forms to use ngMessages
+* Turned login, profile and signup into angularJS components, adjusted server API
 
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/nstuyvesant/shy/commit/42be8bdfa3dac68fea081d63cae1c31a05ef1235) (2017-02-26)

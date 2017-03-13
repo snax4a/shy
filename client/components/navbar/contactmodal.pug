@@ -1,4 +1,4 @@
-form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+form(name='form', ng-submit='$ctrl.submitContact(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', ng-click='$ctrl.cancel()', tabindex='8') &times;
     h4#modal-label.modal-title Contact us
@@ -6,29 +6,29 @@ form(name='contactform', ng-submit='$ctrl.submitContact(contactform)', novalidat
     .form-group
       label.sr-only(for='firstName') First name
       input#firstName.form-control(name='firstName', autofocus='', ng-model='$ctrl.contact.firstName', type='text', maxlength='20', placeholder='First name', required='', tabindex='1')
-      .help-block.has-error(ng-messages='contactform.firstName.$error', ng-show='contactform.firstName.$dirty || contactform.$submitted', role='alert')
-        div(ng-message='required') Please provide your first name.
+      ng-messages.help-block.has-error(for='form.firstName.$error', ng-show='form.firstName.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please provide your first name.
     .form-group
       label.sr-only(for='lastName') Last name
       input.form-control(name='lastName', ng-model='$ctrl.contact.lastName', type='text', maxlength='20', placeholder='Last name', required='', tabindex='2')
-      .help-block.has-error(ng-messages='contactform.lastName.$error', ng-show='contactform.lastName.$dirty || contactform.$submitted', role='alert')
-        div(ng-message='required') Please provide your last name.
+      ng-messages.help-block.has-error(for='form.lastName.$error', ng-show='form.lastName.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please provide your last name.
     .form-group
       label.sr-only(for='email') Email address
       input.form-control(name='email', ng-model='$ctrl.contact.email', type='email', maxlength='80', placeholder='Email', required='', tabindex='3')
-      .help-block.has-error(ng-messages='contactform.email.$error', ng-show='contactform.email.$dirty || contactform.$submitted', role='alert')
-        div(ng-message='required') Please supply an email address.
-        div(ng-message='email') Please supply a valid email address.
+      ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please provide your email address.
+        ng-message(when='email') Please provide a valid email address.
     .form-group
       label.sr-only(for='phone') Phone number
-      input.form-control(name='phone', ng-model='$ctrl.contact.phone', type='tel', maxlength='80', placeholder='Phone', tabindex='3')
-      .help-block.has-error(ng-messages='contactform.phone.$error', ng-show='contactform.phone.$dirty || contactform.$submitted', role='alert')
-        div(ng-message='required') Please supply a phone number.
+      input.form-control(name='phone', ng-model='$ctrl.contact.phone', type='tel', maxlength='80', placeholder='Phone', required='', tabindex='3')
+      ng-messages.help-block.has-error(for='form.phone.$error', ng-show='form.phone.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please provide your phone number.
     .form-group
       label.sr-only(for='question') Question or comment
       textarea.form-control(name='question', ng-model='$ctrl.contact.question', rows='5', cols='20', placeholder='Your question or comment', required='', tabindex='4')
-      .help-block.has-error(ng-messages='contactform.question.$error', ng-show='contactform.question.$dirty || contactform.$submitted', role='alert')
-        div(ng-message='required') Please provide a question or comment.
+      ng-messages.help-block.has-error(for='form.question.$error', ng-show='form.question.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please provide a question or comment.
     .checkbox
       label
         input(type='checkbox', name='optOut', ng-model='$ctrl.contact.optOut', tabindex='5')

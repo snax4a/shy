@@ -8,11 +8,10 @@ import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive
 
 export class LoginController {
   /*@ngInject*/
-  constructor(Auth, $state, $uibModal, $log) {
+  constructor(Auth, $state, $uibModal) {
     this.Auth = Auth;
     this.$state = $state;
     this.$uibModal = $uibModal;
-    this.$log = $log;
   }
 
   $onInit() {

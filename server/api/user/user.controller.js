@@ -115,6 +115,7 @@ export function forgotPassword(req, res) {
     }
   })
     .then(userToUpdate => {
+      if(!userToUpdate) throw new UserError('No user with that email address was found.', 'email');
       if(userToUpdate.provider !== 'local') throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
       const newPassword = crypto.randomBytes(8).toString('base64'); // new password
       userToUpdate.password = newPassword;
@@ -131,14 +132,7 @@ export function forgotPassword(req, res) {
         })
         .catch(validationError(res));
     })
-    .catch(UserError, err => {
-      console.log('forgotPassword catch', err);
-      const message = 'No user with that email address was found.';
-      err.message = message;
-      err.errors = [{message, path: 'email'}];
-      res.status(404).json(err);
-      return null;
-    });
+    .catch(validationError(res, 404));
 }
 
 /**
