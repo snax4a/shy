@@ -10,6 +10,7 @@
 # [1.0.3](https://github.com/nstuyvesant/shy/commit/7a08eda14c4b45400f5a2eb712d09737b4b0f187) (2017-03-05)
 * Updated all forms to use ngMessages
 * Turned login, profile and signup into angularJS components, adjusted server API
+* For contact form, prefill fields if user is logged in
 
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/nstuyvesant/shy/commit/42be8bdfa3dac68fea081d63cae1c31a05ef1235) (2017-02-26)
