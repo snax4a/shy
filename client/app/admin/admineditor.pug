@@ -6,46 +6,46 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
   .modal-body
     .row
       .form-group.col-md-6
-        label First name
+        label(for='firstName') First name
         input.form-control(type='text', name='firstName', id='firstName', ng-model='$ctrl.user.firstName', maxlength='20', autofocus='', required='true', placeholder='First name')
         ng-messages.help-block.has-error(for='form.firstName.$error', ng-show='form.firstName.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter your first name.
       .form-group.col-md-6
-        label Last name
+        label(for='lastName') Last name
         input.form-control(type='text', name='lastName', id='lastName', ng-model='$ctrl.user.lastName', maxlength='20', required='true', placeholder='Last name')
         ng-messages.help-block.has-error(for='form.lastName.$error', ng-show='form.lastName.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter your last name.
       span(ng-if="$ctrl.user.provider=='local'")
         .form-group.col-md-6
-          label New password
+          label(for='password') New password
           input.form-control(type='password', name='password', id='password', ng-model='$ctrl.user.password', server-error='', ng-minlength='6', maxlength='20', placeholder='Password')
           ng-messages.help-block.has-error(for='form.passwordNew.$error', ng-show='form.passwordNew.$dirty || form.$submitted', role='alert')
             ng-message(when='minlength') Password must be at least 6 characters.
             ng-message(when='server') {{ $ctrl.errors.password }}
         .form-group.col-md-6
-          label Confirm
+          label(for='passwordConfirm') Confirm
           input.form-control(type='password', name='passwordConfirm', id='passwordConfirm', ng-model='$ctrl.user.passwordConfirm', compare-to='$ctrl.user.password', ng-required='$ctrl.user.password !== undefined', ng-minlength='6', maxlength='20', placeholder='Confirm')
           ng-messages.help-block.has-error(for='form.passwordConfirm.$error', ng-show='form.passwordConfirm.$dirty || form.$submitted', role='alert')
             ng-message(when='compareTo') Passwords must match.
             ng-message(when='required') Please confirm your new password.
         .form-group.col-md-6
-          label Email
+          label(for='email') Email
           input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', ng-change='$ctrl.clearServerError(form,"email")', server-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
           ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
             ng-message(when='required') Please provide your email address.
             ng-message(when='email') Please provide a valid email address.
             ng-message(when='server') {{ $ctrl.errors.email }}
       .form-group.col-md-6
-        label Phone
+        label(for='phone') Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')
       .form-group.col-md-6
-        label Role
+        label(for='role') Role
         select.form-control(name='role', id='role', ng-model='$ctrl.user.role')
           option(value='admin') Administrator
           option(value='student') Student
           option(value='teacher') Teacher
       .form-group.col-md-6
-        label Opt-out
+        label(for='optOut') Opt-out
         select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel

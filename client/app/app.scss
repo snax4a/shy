@@ -1,4 +1,4 @@
-$icon-font-path: '/assets/fonts/bootstrap-sass/';
+$icon-font-path: '/assets/fonts/';
 
 // My overrides for variables
 $brand-base: #6f5499;
@@ -12,7 +12,11 @@ $input-border-focus: $brand-base;
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // Optional theme (3D style)
-@import '~bootstrap-social/bootstrap-social.scss';
+
+// For oauth-buttons directive
+@import '~bootstrap-social/bootstrap-social';
+$fa-font-path: '/assets/fonts/';
+@import '~font-awesome/scss/font-awesome';
 
 /**
  * App-wide Styles
@@ -125,6 +129,7 @@ h4 {
 @import 'cart/confirmation';
 @import 'classes/classes';
 @import 'locations/locations';
+@import 'login/login';
 @import 'main/main';
 @import 'privacy/privacy';
 @import 'profile/profile';

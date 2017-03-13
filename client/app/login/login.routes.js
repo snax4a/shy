@@ -1,14 +1,12 @@
 'use strict';
 
-export default function routes($stateProvider) {
+export default function($stateProvider) {
   'ngInject';
-
-  $stateProvider.state('login', {
-    url: '/login',
-    template: require('./login/login.pug'),
-    controller: 'LoginController',
-    controllerAs: '$ctrl'
-  })
+  $stateProvider
+    .state('login', {
+      url: '/login',
+      template: '<login></login>'
+    })
     .state('logout', {
       url: '/logout?referrer',
       referrer: 'main',

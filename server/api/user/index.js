@@ -13,6 +13,7 @@ router.put('/:id', auth.isAuthenticated(), controller.update);
 router.put('/:id/upsert', auth.hasRole('admin'), controller.upsert); // update existing user
 router.put('/upsert', auth.hasRole('admin'), controller.upsert); // insert new user
 router.get('/:id', auth.isAuthenticated(), controller.show);
+router.post('/forgotpassword', controller.forgotPassword);
 router.post('/', controller.create);
 
 module.exports = router;

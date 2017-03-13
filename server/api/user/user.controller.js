@@ -3,6 +3,8 @@
 import { User } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import email from '../../components/email';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -16,11 +18,11 @@ function handleError(res, statusCode) {
   return err => res.status(statusCode).send(err);
 }
 
-class UserValidationError extends Error {
+class UserError extends Error {
   constructor(message, path) {
     super(message);
     this.message = message;
-    this.name = 'UserValidationError';
+    this.name = 'UserError';
     this.errors = [{message, path}];
     Error.captureStackTrace(this, this.constructor);
   }
@@ -104,27 +106,58 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
+// Forgot password
+export function forgotPassword(req, res) {
+  // If a local user exists, generate and email a new random password
+  return User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(userToUpdate => {
+      if(userToUpdate.provider !== 'local') throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
+      const newPassword = crypto.randomBytes(8).toString('base64'); // new password
+      userToUpdate.password = newPassword;
+      const html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>. Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
+      return userToUpdate.save()
+        .then(user => {
+          res.status(200).send('New password sent.');
+          email({
+            to: user.email,
+            subject: 'Schoolhouse Yoga website login',
+            html
+          });
+          return null;
+        })
+        .catch(validationError(res));
+    })
+    .catch(UserError, err => {
+      console.log('forgotPassword catch', err);
+      const message = 'No user with that email address was found.';
+      err.message = message;
+      err.errors = [{message, path: 'email'}];
+      res.status(404).json(err);
+      return null;
+    });
+}
+
 /**
  * Update user profile
  */
 export function update(req, res) {
-  return User.find({
-    where: {
-      _id: req.user._id // users can only update themselves
-    }
-  })
+  return User.findById(req.user._id) // users can only update themselves (req.user vs. req.body.user)
     .then(userToUpdate => {
       // Only authenticate and handle password or email changes for local accounts
       if(userToUpdate.provider === 'local') {
         // Check password
         const password = String(req.body.password);
-        if(!userToUpdate.authenticate(password)) throw new UserValidationError('Password is incorrect.', 'password');
+        if(!userToUpdate.authenticate(password)) throw new UserError('Password is incorrect.', 'password');
 
         // Check for a password change
         const passwordNew = String(req.body.passwordNew);
         if(passwordNew !== 'undefined') {
           const passwordConfirm = String(req.body.passwordConfirm);
-          if(passwordNew !== passwordConfirm) throw new UserValidationError('Passwords must match.', 'passwordNew');
+          if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
           userToUpdate.password = passwordNew;
         }
 
@@ -163,7 +196,7 @@ export function upsert(req, res) {
   if(req.body.password) {
     if(req.body.password === req.body.passwordConfirm) {
       userToUpsert.setDataValue('password', req.body.password);
-    } else throw new UserValidationError('Passwords must match.', 'passwordConfirm');
+    } else throw new UserError('Passwords must match.', 'passwordConfirm');
   } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
 
   return userToUpsert.save()

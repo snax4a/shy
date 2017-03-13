@@ -6,19 +6,25 @@ export function UserResource($resource) {
   return $resource('/api/users/:id/:controller', {
     id: '@_id'
   }, {
-    upsert: {
-      method: 'PUT',
+    forgotPassword: {
+      method: 'POST',
       params: {
-        controller: 'upsert'
+        controller: 'forgotpassword'
       }
-    },
-    update: {
-      method: 'PUT',
     },
     get: {
       method: 'GET',
       params: {
         id: 'me'
+      }
+    },
+    update: {
+      method: 'PUT',
+    },
+    upsert: {
+      method: 'PUT',
+      params: {
+        controller: 'upsert'
       }
     }
   });

@@ -5,17 +5,19 @@
 
 # Schoolhouse Yoga Website
 
-Schoolhouse Yoga's website provides a home page, class schedule, workshop information, teachers' page, method to contact
-the school and a shopping cart tied to the Braintree payment gateway.
+Schoolhouse Yoga's website provides a home page, class schedule, workshop information, teachers' page,
+method to contact the school and a shopping cart tied to the Braintree payment gateway. This
+implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 ## Getting Started
 
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 7.60 and npm 4.3.0](nodejs.org) (`brew install node`)
+- [Node.js 7.7.2 and npm 4.4.2](nodejs.org) (`brew install node`)
 - [PostgreSQL 9.6.2](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
+- To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
 
@@ -47,9 +49,9 @@ the school and a shopping cart tied to the Braintree payment gateway.
 
 [express]: https://img.shields.io/badge/expressjs-4.15.0-blue.svg
 [express-url]: http://expressjs.com
-[angularjs]: https://img.shields.io/badge/angularjs-1.6.2-blue.svg
+[angularjs]: https://img.shields.io/badge/angularjs-1.6.3-blue.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-7.7.1-blue.svg
+[node]: https://img.shields.io/badge/nodejs-7.7.2-blue.svg
 [node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
 [postgresql-url]: https://www.postgresql.org

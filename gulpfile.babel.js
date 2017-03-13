@@ -516,13 +516,13 @@ gulp.task('copy:extras', () =>
 );
 
 gulp.task('copy:fonts:dev', () =>
-  gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
-    .pipe(gulp.dest(`${clientPath}/assets/fonts/bootstrap-sass`))
+  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*', 'node_modules/font-awesome/fonts/*'])
+    .pipe(gulp.dest(`${clientPath}/assets/fonts`))
 );
 
 gulp.task('copy:fonts:dist', () =>
-  gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
-    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts/bootstrap-sass`))
+  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*', 'node_modules/font-awesome/fonts/*'])
+    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`))
 );
 
 gulp.task('copy:assets', () =>
