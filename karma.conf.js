@@ -2,6 +2,19 @@
 // Karma configuration
 // Docs: http://karma-runner.github.io/1.0/config/configuration-file.html
 
+// Relevant node modules
+// "karma": "^1.5.0",
+// "karma-chai-plugins": "^0.8.0",
+// "karma-chrome-launcher": "^2.0.0",
+// "karma-coverage": "^1.1.1",
+// "karma-firefox-launcher": "^1.0.1",
+// "karma-mocha": "^1.3.0",
+// "karma-phantomjs-launcher": "~1.0.4",
+// "karma-script-launcher": "^1.0.0",
+// "karma-sourcemap-loader": "^0.3.7",
+// "karma-spec-reporter": "^0.0.30",
+// "karma-webpack": "^2.0.2",
+
 import makeWebpackConfig from './webpack.make';
 
 module.exports = function(config) {
@@ -11,7 +24,7 @@ module.exports = function(config) {
 
     //basePath: '', // Default commented out
 
-    browsers: ['PhantomJS'], // PhantomJS, Chrome, ChromeCanary, Firefox, Opera, IE, Safari
+    browsers: ['PhantomJS'], // ['PhantomJS', 'Chrome', 'ChromeCanary', 'Firefox', 'Opera', 'IE', 'Safari'
 
     client: {
       mocha: {

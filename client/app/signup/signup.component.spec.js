@@ -18,7 +18,19 @@ describe('Component: SignupComponent', function() {
     signupComponent = $componentController('signup', {});
   }));
 
-  it('should ...', function() {
+  it('should allow a user to sign up using Google+', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should prevent Google+ signup if account already exists', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should allow a user to create a local account', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should prevent signup if account already exists', function() {
     expect(1).to.equal(1);
   });
 });

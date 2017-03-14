@@ -14,7 +14,7 @@ describe('Component: LocationsComponent', function() {
     LocationsComponent = $componentController('locations', {});
   }));
 
-  it('should ...', function() {
+  it('should display three locations with an address, map and street view for each', function() {
     expect(1).to.equal(1);
   });
 });

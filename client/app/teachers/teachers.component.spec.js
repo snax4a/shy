@@ -14,7 +14,7 @@ describe('Component: TeachersComponent', function() {
     TeachersComponent = $componentController('teachers', {});
   }));
 
-  it('should ...', function() {
+  it('should display the list of teachers with their photos and bios from the JSON file', function() {
     expect(1).to.equal(1);
   });
 });

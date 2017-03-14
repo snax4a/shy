@@ -14,7 +14,7 @@ describe('Component: ClassesComponent', function() {
     ClassesComponent = $componentController('classes', {});
   }));
 
-  it('should ...', function() {
+  it('should display classes by school chronologically', function() {
     expect(1).to.equal(1);
   });
 });

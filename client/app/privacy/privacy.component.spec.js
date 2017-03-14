@@ -14,7 +14,7 @@ describe('Component: PrivacyComponent', function() {
     PrivacyComponent = $componentController('privacy', {});
   }));
 
-  it('should ...', function() {
+  it('should display the privacy policy', function() {
     expect(1).to.equal(1);
   });
 });

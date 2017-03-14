@@ -16,7 +16,15 @@ describe('Component: RegisterComponent', function() {
     RegisterComponent = $componentController('register', {});
   }));
 
-  it('should ...', function() {
+  it('should display Teacher Training information with payment options', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should disable "Pay Now" unless "I agree" checkbox is checked', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should add the teacher training to the cart if user clicks "Pay Now"', function() {
     expect(1).to.equal(1);
   });
 });

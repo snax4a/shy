@@ -13,7 +13,7 @@ describe('Component: MainComponent', function() {
     mainComponent = $componentController('main', {});
   }));
 
-  it('should ...', function() {
+  it('should display the home page with announcements that have not expired', function() {
     expect(1).to.equal(1);
   });
 });

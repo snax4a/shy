@@ -73,10 +73,10 @@ describe('User API Router:', function() {
     });
   });
 
-  describe('PUT /api/users/me', function() {
+  describe('PUT /api/users/:id', function() {
     it('should be authenticated and route to user.controller.update', function(done) {
       expect(routerStub.put
-        .withArgs('/me', 'authService.isAuthenticated', 'userCtrl.update')
+        .withArgs('/:id', 'authService.isAuthenticated', 'userCtrl.update')
         ).to.have.been.calledOnce;
       done();
     });

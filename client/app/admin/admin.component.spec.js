@@ -20,7 +20,31 @@ describe('Component: AdminComponent', function() {
     AdminComponent = $componentController('admin', {});
   }));
 
-  it('should ...', function() {
+  it('should allow administrator to search using email address, first or last name', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should display error if search text < 3 characters', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should allow administrator to delete a user', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should allow administrator to sort columns', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should allow administrator to edit an existing user', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should allow administrator to create a new user', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should display error new user attributes are inadequate', function() {
     expect(1).to.equal(1);
   });
 });

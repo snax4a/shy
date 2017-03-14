@@ -16,7 +16,7 @@ describe('Component: ConfirmationComponent', function() {
     ConfirmationComponent = $componentController('confirmation', {});
   }));
 
-  it('should ...', function() {
+  it('should display an order confirmation if successful', function() {
     expect(1).to.equal(1);
   });
 });

@@ -14,7 +14,15 @@ describe('Component: WorkshopsComponent', function() {
     WorkshopsComponent = $componentController('workshops', {});
   }));
 
-  it('should ...', function() {
+  it('should display workshops in chronological order omitting ones that are in the past', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should add visitor to newsletter when user subscribes with an email not in the database', function() {
+    expect(1).to.equal(1);
+  });
+
+  it('should turn off the optOut for an existing user if they are already in the database', function() {
     expect(1).to.equal(1);
   });
 });

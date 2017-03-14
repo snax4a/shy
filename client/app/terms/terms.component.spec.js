@@ -14,7 +14,7 @@ describe('Component: TermsComponent', function() {
     TermsComponent = $componentController('terms', {});
   }));
 
-  it('should ...', function() {
+  it('should display the terms of use for the website', function() {
     expect(1).to.equal(1);
   });
 });
