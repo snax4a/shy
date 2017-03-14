@@ -6,6 +6,6 @@ export default function($stateProvider) {
     .state('classes', {
       url: '/classes',
       template: '<classes></classes>',
-      title: 'Schoolhouse Yoga Classes'
+      title: 'SHY Classes'
     });
 }
