@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('locations', {
       url: '/locations',
-      template: '<locations></locations>'
+      template: '<locations></locations>',
+      title: 'Schoolhouse Yoga Locations'
     });
 }

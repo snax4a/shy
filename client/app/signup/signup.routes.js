@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('signup', {
       url: '/signup',
-      template: '<signup></signup>'
+      template: '<signup></signup>',
+      title: 'Schoolhouse Yoga Account Signup'
     });
 }

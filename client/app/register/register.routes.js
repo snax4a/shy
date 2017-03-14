@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('register', {
       url: '/register',
-      template: '<register></register>'
+      template: '<register></register>',
+      title: 'Schoolhouse Yoga Teacher Training'
     });
 }

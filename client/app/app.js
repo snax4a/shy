@@ -70,6 +70,9 @@ angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRoute
         }
       });
     });
+    $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+      $rootScope.pageTitle = toState.title;
+    });
   });
 
 // Load shyApp

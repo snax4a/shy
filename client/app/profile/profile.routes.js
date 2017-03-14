@@ -6,6 +6,7 @@ export default function($stateProvider) {
     .state('profile', {
       url: '/profile',
       template: '<profile></profile>',
-      authenticate: true
+      authenticate: true,
+      title: 'Schoolhouse Yoga User Profile Settings'
     });
 }

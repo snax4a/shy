@@ -5,6 +5,7 @@ export default function routes($stateProvider) {
   $stateProvider.state('admin', {
     url: '/admin',
     template: '<admin></admin>',
-    authenticate: 'admin'
+    authenticate: 'admin',
+    title: 'Schoolhouse Yoga Admin'
   });
 }

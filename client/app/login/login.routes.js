@@ -5,7 +5,8 @@ export default function($stateProvider) {
   $stateProvider
     .state('login', {
       url: '/login',
-      template: '<login></login>'
+      template: '<login></login>',
+      title: 'Schoolhouse Yoga Login'
     })
     .state('logout', {
       url: '/logout?referrer',

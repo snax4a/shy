@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('confirmation', {
       url: '/confirmation',
-      template: '<confirmation></confirmation>'
+      template: '<confirmation></confirmation>',
+      title: 'Schoolhouse Yoga Checkout'
     });
 }

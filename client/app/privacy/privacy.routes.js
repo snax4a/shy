@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('privacy', {
       url: '/privacy',
-      template: '<privacy></privacy>'
+      template: '<privacy></privacy>',
+      title: 'Schoolhouse Yoga Privacy Policy'
     });
 }

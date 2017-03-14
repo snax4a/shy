@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('terms', {
       url: '/terms',
-      template: '<terms></terms>'
+      template: '<terms></terms>',
+      title: 'Schoolhouse Yoga Terms of Use'
     });
 }
