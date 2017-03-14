@@ -12,10 +12,10 @@ var config = {
   // with relative paths will be prepended with this.
   baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
 
-  // Credientials for Saucelabs
-  sauceUser: process.env.SAUCE_USERNAME,
+  // Credientials for Perfecto
+  perfectoUser: process.env.PERFECTO_USERNAME,
 
-  sauceKey: process.env.SAUCE_ACCESS_KEY,
+  perfectoKey: process.env.PERFECTO_ACCESS_KEY,
 
   // list of files / patterns to load in the browser
   specs: [
