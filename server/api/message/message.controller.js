@@ -10,8 +10,6 @@ function validationError(res, statusCode) {
 // Sends a message
 export function send(req, res) {
   // Add them to the subscribers list if they didn't opt out
-  let test = User.build(req.body);
-  console.log(test);
   let promise = User.upsert(req.body)
     .then(wasInserted => {
       console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
