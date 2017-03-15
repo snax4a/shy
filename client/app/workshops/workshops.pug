@@ -16,7 +16,7 @@
   hr(ng-repeat-start='workshop in $ctrl.workshops | upcoming')
   .row
     .col-md-5
-      img.img-responsive.workshop-photo(src='{{workshop.photo}}', alt='Workshop photo')
+      img.img-responsive.workshop-photo(src='{{workshop.photo}}', alt='Yoga workshop photo')
     .col-md-7
       a(id='{{ workshop.title | htmlid | limitTo: 20 }}')
       h4 {{workshop.title}}

@@ -38,8 +38,14 @@ a:hover {
   color: orange;
 }
 
-h1 {
-  color: #fff;
+h1.texture {
+  font: #fff;
+  position: absolute;
+  opacity: 0.05;
+}
+
+.siteoverview {
+  position:relative;
 }
 
 h2 {

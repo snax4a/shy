@@ -505,6 +505,7 @@ gulp.task('copy:extras', () =>
   gulp.src([
     `${clientPath}/favicon.png`,
     `${clientPath}/favicon.ico`,
+    `${clientPath}/sitemap.xml`,
     `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/newsletter.html`,
