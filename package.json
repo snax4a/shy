@@ -83,7 +83,7 @@
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.4.0",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",
@@ -150,7 +150,7 @@
     "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
     "strip-ansi": "^3.0.1",
-    "style-loader": "^0.14.0",
+    "style-loader": "^0.14.1",
     "supertest": "^3.0.0",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1"
