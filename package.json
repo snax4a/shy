@@ -157,7 +157,7 @@
   },
   "engines": {
     "node": "~7.7.3",
-    "npm": "~4.4.2"
+    "npm": "~4.4.1"
   },
   "scripts": {
     "test": "gulp test",
