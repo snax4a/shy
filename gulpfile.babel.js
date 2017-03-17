@@ -464,6 +464,7 @@ gulp.task('build', cb => {
       'build:images'
     ],
     [
+      'copy:yarn-lock',
       'copy:extras',
       'copy:assets',
       'copy:fonts:dist',
@@ -514,6 +515,11 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-developer-merchantid-domain-association`,
   ], { dot: true })
   .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
+);
+
+gulp.task('copy:yarn-lock', () =>
+  gulp.src(['yarn.lock'], { dot: true })
+  .pipe(gulp.dest(`${paths.dist}`))
 );
 
 gulp.task('copy:fonts:dev', () =>

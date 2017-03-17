@@ -119,7 +119,8 @@ export function forgotPassword(req, res) {
       if(userToUpdate.provider !== 'local') throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
       const newPassword = crypto.randomBytes(8).toString('base64'); // new password
       userToUpdate.password = newPassword;
-      const html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>. Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
+      const html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
+        Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
       return userToUpdate.save()
         .then(user => {
           res.status(200).send('New password sent.');
