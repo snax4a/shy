@@ -6,13 +6,13 @@
   border-radius: 3px;
   border-left-color: $shy-orange;
 
-  h4 {
-    color: $brand-primary;
+  h2 {
     margin-top: 20px;
   }
 
-  h3 {
+  h1.heading {
     margin-top: 0;
+    font-size: 24px;
     color: orange;
   }
 
@@ -84,7 +84,7 @@ article {
     margin-bottom: 10px;
   }
 
-  h4 {
+  h2 {
     margin-bottom: 10px;
   }
 }

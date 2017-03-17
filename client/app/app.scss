@@ -43,16 +43,14 @@ h1 {
   margin-bottom: 17px;
 }
 
-h2 {
-  margin-bottom: 17px;
-}
-
-h1, h2, h4, a {
+h1, h2, a {
   color: $brand-primary;
 }
 
-h4 {
+h2 {
+  margin-top: 0;
   white-space: normal!important;
+  font-size: 18px;
 }
 
 .texture {
@@ -81,7 +79,6 @@ h4 {
 
 .btn-lg {
   width: 131px;
-
 }
 
 .btn-lg.pull-left {

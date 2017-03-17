@@ -1,7 +1,7 @@
 form(name='form', ng-submit='$ctrl.submitContact(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', ng-click='$ctrl.cancel()', tabindex='8') &times;
-    h4#modal-label.modal-title Contact us
+    h2#modal-label.modal-title Contact us
   .modal-body
     .form-group
       label.sr-only(for='firstName') First name

@@ -17,7 +17,7 @@
           tr
             td.location(colspan='3')
               a(id='{{studio.location | htmlid}}')
-              h3 {{studio.location}}
+              h2.studio {{studio.location}}
           tr(ng-repeat-start='day in studio.days')
             td.day(colspan='3') {{day.name | daytodate | date:'fullDate'}}
           tr(ng-repeat-end,ng-repeat='class in day.classes')
@@ -31,7 +31,7 @@
     .col-sm-6
       div(ng-repeat="class in $ctrl.classes | orderBy:'title'")
         a(id='{{ class.title.split(" ").join("") | lowercase }}')
-        h3 {{ class.title }} 
+        h2 {{ class.title }} 
         p {{ class.description }}
 
 script(src='dates.js')

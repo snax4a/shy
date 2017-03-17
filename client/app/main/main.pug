@@ -2,9 +2,9 @@
   .row
     .col-md-4
       .callout(ng-if='($ctrl.announcementList).length > 0')
-        h3 Announcements
+        h1.heading Announcements
         div(ng-repeat='item in $ctrl.announcementList')
-          h4(ng-if='(item.announcements | upcoming).length > 0') {{item.section}}
+          h2(ng-if='(item.announcements | upcoming).length > 0') {{item.section}}
           p(ng-repeat='announcement in item.announcements | upcoming')
             b {{ announcement.title }} 
             span(ng-bind-html='announcement.description')
@@ -17,5 +17,5 @@
   .row
     .faqs
       article(ng-repeat='faq in $ctrl.faqs')
-        h4(ng-bind-html='faq.question')
+        h2(ng-bind-html='faq.question')
         p(ng-bind-html='faq.answer')
