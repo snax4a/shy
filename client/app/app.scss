@@ -38,7 +38,24 @@ a:hover {
   color: orange;
 }
 
-h1.texture {
+h1 {
+  font-size: 30px;
+  margin-bottom: 17px;
+}
+
+h2 {
+  margin-bottom: 17px;
+}
+
+h1, h2, h4, a {
+  color: $brand-primary;
+}
+
+h4 {
+  white-space: normal!important;
+}
+
+.texture {
   color: #fff;
   position: absolute;
   opacity: 0.05;
@@ -46,18 +63,6 @@ h1.texture {
 
 .siteoverview {
   position:relative;
-}
-
-h2 {
-  margin-bottom: 17px;
-}
-
-h2, h4, a {
-  color: $brand-primary;
-}
-
-h4 {
-  white-space: normal!important;
 }
 
 .has-error {

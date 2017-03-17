@@ -1,7 +1,7 @@
 .container
   .row
     .col-sm-12.col-md-6.col-md-offset-3
-      h2 Sign up for an account
+      h1 Sign up for an account
       form.form(name='form', ng-submit='$ctrl.register(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group(ng-class='{ "has-success": form.firstName.$valid && $ctrl.submitted,\
         "has-error": form.firstName.$invalid && $ctrl.submitted }')

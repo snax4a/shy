@@ -1,7 +1,7 @@
 .container
   .row
     .col-sm-12.col-md-6.col-md-offset-3
-      h2 User Profile Settings
+      h1 User Profile Settings
       form.form(name='form', ng-submit='$ctrl.update(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group(ng-if='$ctrl.user.provider==="local"')
           label Current Password (required)
