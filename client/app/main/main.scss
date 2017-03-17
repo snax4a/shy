@@ -76,6 +76,7 @@ $column-gap: 3em;
 
 article {
   break-inside: avoid-column; // keep articles together
+  page-break-inside: avoid-column!important; // bogus setting to short-circuit the loading bar's CSS
   margin-bottom: 20px;
 
   p {
