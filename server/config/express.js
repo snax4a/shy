@@ -5,7 +5,6 @@
 'use strict';
 
 import express from 'express';
-import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
@@ -29,7 +28,6 @@ export default function(app) {
   }
 
   if(env === 'production') {
-    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
     // Force HTTPS for production only (though would be good for dev too)
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
