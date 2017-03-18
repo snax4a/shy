@@ -24,7 +24,7 @@
         | {{ workshop.description }}
       p
         tweet(url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', text='{{ workshop.title }} #shyoga')
-      p(ng-repeat='section in workshop.sections | upcoming')
+      p(ng-repeat='section in workshop.sections | upcoming', ng-init="event = $ctrl.getEvent(workshop, section)")
         paynow(product='{{ section.productID }}')
         span(ng-if='section.title') {{ section.title }}
           br
@@ -33,5 +33,5 @@
         | &nbsp;&nbsp;|&nbsp;&nbsp;{{ section.cost | currency:"$":0 }}
         br
         a(href='/locations#{{ section.location | htmlid }}') {{ section.location }}
-        xjsonld(data='$ctrl.getEvent(workshop, section)')
+        jsonld(data='event')
   span(ng-repeat-end)

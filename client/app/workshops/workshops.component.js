@@ -6,11 +6,10 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($window, $http, $timeout, $log) {
+  constructor($window, $http, $timeout) {
     this.$window = $window;
     this.$http = $http;
     this.$timeout = $timeout;
-    this.$log = $log;
   }
 
   $onInit() {
@@ -39,15 +38,24 @@ export class WorkshopsController {
 
   getEvent(workshop, section) {
     return {
-      '@context': 'Event',
+      '@context': 'http://schema.org/',
+      '@type': 'Event',
       name: workshop.title,
       disambiguatingDescription: section.title,
-      location: section.location,
+      location: `Schoolhouse Yoga, ${section.location} Studio`,
       image: `https://www.schoolhouseyoga.com${workshop.photo}`,
       description: workshop.description,
       url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`,
       startDate: section.start,
-      endDate: section.expires
+      endDate: section.expires,
+      offers: {
+        '@type': 'Offer',
+        price: `${section.cost}.00`,
+        priceCurrency: 'USD',
+        priceValidUntil: section.expires,
+        availability: 'http://schema.org/InStock',
+        url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}` 
+      }
     };
   }
 
