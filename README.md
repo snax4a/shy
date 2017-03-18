@@ -14,7 +14,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 7.7.2 and npm 4.4.2](nodejs.org) (`brew install node`)
+- [Node.js 7.7.3 and npm 4.4.1](nodejs.org) (`brew install node`)
 - [PostgreSQL 9.6.2](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
@@ -47,11 +47,11 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
-[express]: https://img.shields.io/badge/expressjs-4.15.0-blue.svg
+[express]: https://img.shields.io/badge/expressjs-4.15.2-blue.svg
 [express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.6.3-blue.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-7.7.2-blue.svg
+[node]: https://img.shields.io/badge/nodejs-7.7.3-blue.svg
 [node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
 [postgresql-url]: https://www.postgresql.org
