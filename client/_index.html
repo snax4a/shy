@@ -26,77 +26,150 @@
     <meta name="twitter:card" content="Pittsburgh's most-established yoga schools - locations in Squirrel Hill, East Liberty and Ross Park. Classes in Ashtanga, Hatha, and Flow yoga as well as teacher certification."/>
     <script type="application/ld+json">
       {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "url": "https://www.schoolhouseyoga.com",
-        "contactPoint": [{
-          "@type": "ContactPoint",
-          "telephone": "+1-412-401-4444",
-          "contactType": "customer service"
-        }]
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "LocalBusiness",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "2215 Murray Avenue",
-          "addressLocality": "Pittsburgh",
-          "addressRegion": "PA",
-          "postalCode": "15217",
-          "addressCountry": "USA"
+        "@context": {
+          "@vocab": "http://schema.org/"
         },
-        "description": "Located ",
-        "name": "Schoolhouse Yoga, Squirrel Hill Studio",
-        "telephone": "+1-412-401-4444",
-        "areaServed": "Squirrel Hill"
-        "hasMap": "https://goo.gl/maps/YRkLw47EC8M2",
-        "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
-        "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00",
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "LocalBusiness",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "5923 Baum Boulevard",
-          "addressLocality": "Pittsburgh",
-          "addressRegion": "PA",
-          "postalCode": "15206",
-          "addressCountry": "USA"
-        },
-        "description": "Located ",
-        "name": "Schoolhouse Yoga, East Liberty Studio",
-        "telephone": "+1-412-401-4444",
-        "areaServed": "East Liberty"
-        "hasMap": "https://goo.gl/maps/yte7NhG68p72",
-        "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
-        "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00",
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "LocalBusiness",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "7210 McKnight Road",
-          "addressLocality": "Pittsburgh",
-          "addressRegion": "PA",
-          "postalCode": "15237",
-          "addressCountry": "USA"
-        },
-        "description": "Located ",
-        "name": "Schoolhouse Yoga, North Hills Studio",
-        "telephone": "+1-412-401-4444",
-        "areaServed": "North Hills"
-        "hasMap": "https://goo.gl/maps/9QAV8cLDAh12",
-        "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
-        "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00",
+        "@graph": [
+          {
+            "@id": "https://www.schoolhouseyoga.com/",
+            "@type": "Organization",
+            "name": "Schoolhouse Yoga",
+            "legalName": "Schoolhouse Yoga, Inc.",
+            "url": "https://www.schoolhouseyoga.com/",
+            "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
+            "sameAs": ["https://twitter.com/schoolhouseyoga", "https://facebook.com/schoolhouseyoga", "https://instagram.com/schoolhouseyoga", "https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be"],
+            "contactPoint": [{
+              "@type": "ContactPoint",
+              "telephone": "+1-412-401-4444",
+              "contactType": "customer service"
+            }],
+            "brand": {
+              "name": "Schoolhouse Yoga"
+            }
+          },
+          {
+            "@type": "LocalBusiness",
+            "name": "Schoolhouse Yoga, Squirrel Hill Studio",
+            "description": "On Murray Avenue at Phillips on other side of the street from Mineo's Pizza",
+            "url": "https://www.schoolhouseyoga.com/",
+            "telephone": "+1-412-401-4444",
+            "image": "https://lh6.googleusercontent.com/-RPcvJpivLTk/VsoD54z86NI/AAAAAAABBpM/MDrRDu4k8GsFoMEPDZap2Q_2-m6zRGHegCJkC/s544-k-no/",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "2215 Murray Avenue",
+              "addressLocality": "Pittsburgh",
+              "addressRegion": "PA",
+              "postalCode": "15217",
+              "addressCountry": "USA"
+            },
+            "areaServed": "Squirrel Hill",
+            "priceRange": "$",
+            "hasMap": "https://goo.gl/maps/YRkLw47EC8M2",
+            "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00"
+          },
+          {
+            "@type": "LocalBusiness",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "5923 Baum Boulevard",
+              "addressLocality": "Pittsburgh",
+              "addressRegion": "PA",
+              "postalCode": "15206",
+              "addressCountry": "USA"
+            },
+            "description": "Located across the street from Motor Square Garden about a block from Whole Foods.",
+            "name": "Schoolhouse Yoga, East Liberty Studio",
+            "url": "https://www.schoolhouseyoga.com/",
+            "telephone": "+1-412-401-4444",
+            "image": "https://geo1.ggpht.com/cbk?panoid=wkgxCjvm1whJGT0vJV3QoQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=353.10275&pitch=0&thumbfov=100",
+            "areaServed": "East Liberty",
+            "priceRange": "$",
+            "hasMap": "https://goo.gl/maps/yte7NhG68p72",
+            "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
+            "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00"
+          },
+          {
+            "@type": "LocalBusiness",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "7210 McKnight Road",
+              "addressLocality": "Pittsburgh",
+              "addressRegion": "PA",
+              "postalCode": "15237",
+              "addressCountry": "USA"
+            },
+            "description": "Located on the drive up to Ross Park Mall, free parking.",
+            "name": "Schoolhouse Yoga, North Hills Studio",
+            "url": "https://www.schoolhouseyoga.com/",
+            "telephone": "+1-412-401-4444",
+            "image": "https://geo1.ggpht.com/cbk?panoid=erqOWr4QOMBBZvVoltISTQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=81.56163&pitch=0&thumbfov=100",
+            "areaServed": "North Hills",
+            "priceRange": "$",
+            "hasMap": "https://goo.gl/maps/9QAV8cLDAh12",
+            "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
+            "openingHours": "Su,Mo,Tu,We,Th,Fr,Sa 09:00-21:00"
+          },
+          {
+            "@type": "Product",
+            "name": "12 Class Yoga Card",
+            "image": "https://www.schoolhouseyoga.coma/apple-touch-icon.png",
+            "description": "Credit for 12 yoga classes, good at any school for up to 6 months.",
+            "sku": "4",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "312"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "100.00",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2020-01-01",
+              "availability": "http://schema.org/InStock",
+              "url": "https://www.schoolhouseyoga.com/classes"
+            }
+          },
+          {
+            "@type": "Product",
+            "name": "8 Class Yoga Card",
+            "image": "https://www.schoolhouseyoga.coma/apple-touch-icon.png",
+            "description": "Credit for 8 yoga classes, good at any school for up to 6 months.",
+            "sku": "3",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "212"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "80.00",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2020-01-01",
+              "availability": "http://schema.org/InStock",
+              "url": "https://www.schoolhouseyoga.com/classes"
+            }
+          },
+          {
+            "@type": "Product",
+            "name": "4 Class Yoga Card",
+            "image": "https://www.schoolhouseyoga.coma/apple-touch-icon.png",
+            "description": "Credit for 4 yoga classes, good at any school for up to 6 months.",
+            "sku": "2",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.7",
+              "reviewCount": "137"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "50.00",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2020-01-01",
+              "availability": "http://schema.org/InStock",
+              "url": "https://www.schoolhouseyoga.com/classes"
+            }
+          }
+        ]
       }
     </script>
   </head>
