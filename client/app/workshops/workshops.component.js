@@ -54,7 +54,7 @@ export class WorkshopsController {
         priceCurrency: 'USD',
         priceValidUntil: section.expires,
         availability: 'http://schema.org/InStock',
-        url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}` 
+        url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`
       }
     };
   }

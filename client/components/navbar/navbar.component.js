@@ -66,12 +66,11 @@ export class ContactModalController {
     this.contact = {};
     Auth.getCurrentUser()
       .then(user => {
-        this.$log.info('user', user);
         this.contact.firstName = user.firstName;
         this.contact.lastName = user.lastName;
         this.contact.email = user.email;
         this.contact.phone = user.phone;
-        //this.contact.user.optOut = user.optOut;
+        this.contact.optOut = user.optOut;
         return null;
       });
   }

@@ -8,6 +8,7 @@ class _User {
   lastName = ''
   email = '';
   role = '';
+  optOut = false;
   $promise = undefined;
 }
 
