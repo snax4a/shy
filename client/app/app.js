@@ -27,6 +27,7 @@ import constants from './app.constants';
 import dirPagination from 'angular-utils-pagination';
 import loadingBar from 'angular-loading-bar';
 import util from '../components/util/util.module';
+import jsonLd from '../components/jsonld/jsonld.component';
 
 // Page components
 import mainPage from './main/main.component';
@@ -57,8 +58,8 @@ import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, loginPage, adminPage, navbar, banner, footer,
-  mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage, profilePage, constants, util, upcoming,
-  htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
+  mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage,
+  profilePage, constants, util, jsonLd, upcoming, htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {
     'ngInject';

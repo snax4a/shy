@@ -6,10 +6,11 @@ import workshops from '../../assets/data/workshops.json';
 
 export class WorkshopsController {
   /*@ngInject*/
-  constructor($window, $http, $timeout) {
+  constructor($window, $http, $timeout, $log) {
     this.$window = $window;
     this.$http = $http;
     this.$timeout = $timeout;
+    this.$log = $log;
   }
 
   $onInit() {
@@ -28,6 +29,26 @@ export class WorkshopsController {
     } else {
       this.$timeout(() => window.twttr.widgets.load());
     }
+  }
+
+  condenseName(name) {
+    return name.replace(/[\W_]+/g, '')
+    .toLowerCase()
+    .substr(0, 20);
+  }
+
+  getEvent(workshop, section) {
+    return {
+      '@context': 'Event',
+      name: workshop.title,
+      disambiguatingDescription: section.title,
+      location: section.location,
+      image: `https://www.schoolhouseyoga.com${workshop.photo}`,
+      description: workshop.description,
+      url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`,
+      startDate: section.start,
+      endDate: section.expires
+    };
   }
 
   twitterLoadScript(d, s, id) {

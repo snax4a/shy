@@ -2,17 +2,8 @@
 import angular from 'angular';
 
 export function upcomingFilter() {
-  return items => {
-    let filtered = [];
-    if(items !== undefined) {
-      for(let item of items) {
-        if(item.expires !== null && new Date(item.expires) > new Date()) {
-          filtered.push(item);
-        }
-      }
-    }
-    return filtered;
-  };
+  // Use ES6 filter
+  return items => items.filter(item => item.expires !== null && new Date(item.expires) > new Date());
 }
 
 export default angular.module('shyApp.upcoming', [])
