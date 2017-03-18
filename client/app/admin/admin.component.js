@@ -93,7 +93,7 @@ class AdminEditorController {
     this.submitted = true;
     if(form.$valid) {
       // Save changes to or create a new user
-      this.User.upsert(this.user)
+      this.User.upsert(this.user) // should be userSelectedForEditing, not User!!!!
         .$promise
         .then(user => {
           // Do not add the password and passwordConfirm to the array

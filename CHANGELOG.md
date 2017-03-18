@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Login then go to /admin and add a newsletter user. It will update the logged in user's profile.
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
