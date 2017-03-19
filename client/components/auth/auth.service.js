@@ -100,6 +100,11 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
         .$promise;
     },
 
+    upsert(user, callback) {
+      return User.update({id: user._id}, user, () => safeCb(callback)(null), err => safeCb(callback)(err))
+        .$promise;
+    },
+
     /**
      * Gets all available info on a user
      *

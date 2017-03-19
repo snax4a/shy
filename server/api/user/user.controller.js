@@ -42,7 +42,6 @@ export function index(req, res) {
         { email: { $iLike: startsWith } }
       ]
     },
-    //attributes: { exclude: ['$$hashKey', 'passwordHash', 'google', 'createdAt', 'updatedAt', 'profile', 'token'] }
     attributes: ['_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider']
   })
     .then(users => res.status(200).json(users))
@@ -192,9 +191,7 @@ export function update(req, res) {
  * restriction: 'admin'
  */
 export function upsert(req, res) {
-  console.log('UPSERT');
-  console.log('req.body', req.body);
-  console.log('req.user', req.user);
+  console.log('UPSERT: req.body', req.body);
 
   // New users are flagged with _id of zero, strip it before User.build
   if(req.body._id == 0) Reflect.deleteProperty(req.body, '_id');
