@@ -19,12 +19,12 @@ export function UserResource($resource) {
       }
     },
     update: {
-      method: 'PUT',
+      method: 'PUT'
     },
     upsert: {
       method: 'PUT',
       params: {
-        controller: 'upsert'
+        controller: 'admin'
       }
     }
   });

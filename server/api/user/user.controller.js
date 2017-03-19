@@ -42,20 +42,64 @@ export function index(req, res) {
         { email: { $iLike: startsWith } }
       ]
     },
+    //attributes: { exclude: ['$$hashKey', 'passwordHash', 'google', 'createdAt', 'updatedAt', 'profile', 'token'] }
+    attributes: ['_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider']
+  })
+    .then(users => res.status(200).json(users))
+    .catch(handleError(res));
+}
+
+/**
+ * Get my info
+ */
+export function me(req, res, next) {
+  let userId = req.user._id;
+
+  return User.find({
+    where: {
+      _id: userId
+    },
     attributes: [
       '_id',
       'firstName',
       'lastName',
       'email',
-      'phone',
       'role',
-      'provider',
-      'optOut'
+      'phone',
+      'optOut',
+      'provider'
     ]
   })
-    .then(users => res.status(200).json(users))
-    .catch(handleError(res));
+    .then(user => {
+      if(!user) {
+        return res.status(401).end();
+      }
+      return res.status(200).json(user);
+    })
+    .catch(err => next(err));
 }
+
+// Commented out because this appears to be dead statusCode
+/**
+ * Get a single user
+ */
+// export function show(req, res, next) {
+//   var userId = req.params.id;
+
+//   return User.find({
+//     where: {
+//       _id: userId
+//     }
+//   })
+//     .then(user => {
+//       if(!user) {
+//         return res.status(404).end();
+//       }
+//       res.json(user.profile);
+//       return user;
+//     })
+//     .catch(err => next(err));
+// }
 
 /**
  * Creates a new user
@@ -73,37 +117,6 @@ export function create(req, res) {
       return user;
     })
     .catch(validationError(res));
-}
-
-/**
- * Get a single user
- */
-export function show(req, res, next) {
-  var userId = req.params.id;
-
-  return User.find({
-    where: {
-      _id: userId
-    }
-  })
-    .then(user => {
-      if(!user) {
-        return res.status(404).end();
-      }
-      res.json(user.profile);
-      return user;
-    })
-    .catch(err => next(err));
-}
-
-/**
- * Deletes a user
- * restriction: 'admin'
- */
-export function destroy(req, res) {
-  return User.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
-    .catch(handleError(res));
 }
 
 // Forgot password
@@ -164,7 +177,7 @@ export function update(req, res) {
       userToUpdate.firstName = String(req.body.firstName);
       userToUpdate.lastName = String(req.body.lastName);
       userToUpdate.phone = String(req.body.phone);
-      userToUpdate.optOut = String(req.body.optOut);
+      userToUpdate.optOut = req.body.optOut;
 
       // Update the user
       return userToUpdate.save()
@@ -179,6 +192,14 @@ export function update(req, res) {
  * restriction: 'admin'
  */
 export function upsert(req, res) {
+  console.log('UPSERT');
+  console.log('req.body', req.body);
+  console.log('req.user', req.user);
+
+  // New users are flagged with _id of zero, strip it before User.build
+  if(req.body._id == 0) Reflect.deleteProperty(req.body, '_id');
+  console.log('req.body after stripping', req.body);
+
   let userToUpsert = User.build(req.body);
 
   // Detect new users and set defaults appropriately
@@ -200,33 +221,13 @@ export function upsert(req, res) {
 }
 
 /**
- * Get my info
+ * Deletes a user
+ * restriction: 'admin'
  */
-export function me(req, res, next) {
-  let userId = req.user._id;
-
-  return User.find({
-    where: {
-      _id: userId
-    },
-    attributes: [
-      '_id',
-      'firstName',
-      'lastName',
-      'email',
-      'role',
-      'phone',
-      'optOut',
-      'provider'
-    ]
-  })
-    .then(user => {
-      if(!user) {
-        return res.status(401).end();
-      }
-      return res.status(200).json(user);
-    })
-    .catch(err => next(err));
+export function destroy(req, res) {
+  return User.destroy({ where: { _id: req.params.id } })
+    .then(() => res.status(204).end())
+    .catch(handleError(res));
 }
 
 /**

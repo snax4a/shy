@@ -6,14 +6,17 @@ import * as auth from '../../auth/auth.service';
 
 var router = new Router();
 
-router.get('/', auth.hasRole('admin'), controller.index);
-router.delete('/:id', auth.hasRole('admin'), controller.destroy);
-router.get('/me', auth.isAuthenticated(), controller.me);
-router.put('/:id', auth.isAuthenticated(), controller.update);
-router.put('/:id/upsert', auth.hasRole('admin'), controller.upsert); // update existing user
-router.put('/upsert', auth.hasRole('admin'), controller.upsert); // insert new user
-router.get('/:id', auth.isAuthenticated(), controller.show);
-router.post('/forgotpassword', controller.forgotPassword);
-router.post('/', controller.create);
+router.get('/', auth.hasRole('admin'), controller.index); // admin, get users
+router.get('/me', auth.isAuthenticated(), controller.me); // user, retrieve profile
+//router.get('/:id', auth.isAuthenticated(), controller.show); // Dead code?
+
+router.post('/', controller.create); // sign-up and login
+router.post('/forgotpassword', controller.forgotPassword); // gen new password and email
+
+router.put('/:id', auth.isAuthenticated(), controller.update); // user, update profile
+router.put('/:id/admin', auth.hasRole('admin'), controller.upsert); // admin, update existing user
+//router.put('/admin', auth.hasRole('admin'), controller.upsert); // admin, create new user
+
+router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
 
 module.exports = router;

@@ -46,7 +46,7 @@ export default function(sequelize, DataTypes) {
         if(value.length < 6) throw new Error('Passwords must be between 6 and 20 characters');
         this.setDataValue('passwordHash', this.hashPassword(value));
       },
-      validate: { // Seems to be totally non-functional (perhaps because of the set function)
+      validate: {
         len: {
           args: [6, 20],
           msg: 'Passwords must be between 6 and 20 characters'
@@ -57,15 +57,16 @@ export default function(sequelize, DataTypes) {
     lastName: DataTypes.STRING(20), // Maybe add a set: with trim() later
     firstName: DataTypes.STRING(20),
 
-    profile: {
-      type: DataTypes.VIRTUAL,
-      get: function() {
-        return {
-          firstName: this.getDataValue('firstName'),
-          lastName: this.getDataValue('lastName'), role: this.getDataValue('role')
-        };
-      }
-    },
+    // profile: {
+    //   type: DataTypes.VIRTUAL,
+    //   get: function() {
+    //     return {
+    //       firstName: this.getDataValue('firstName'),
+    //       lastName: this.getDataValue('lastName'),
+    //       role: this.getDataValue('role')
+    //     };
+    //   }
+    // },
 
     email: {
       type: DataTypes.STRING(80),
