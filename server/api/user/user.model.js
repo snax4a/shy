@@ -27,15 +27,15 @@ export default function(sequelize, DataTypes) {
       }
     },
 
-    token: {
-      type: DataTypes.VIRTUAL,
-      get: function() {
-        return {
-          _id: this.getDataValue('_id'),
-          role: this.getDataValue('role')
-        };
-      }
-    },
+    // token: {
+    //   type: DataTypes.VIRTUAL,
+    //   get: function() {
+    //     return {
+    //       _id: this.getDataValue('_id'),
+    //       role: this.getDataValue('role')
+    //     };
+    //   }
+    // },
 
     passwordHash: DataTypes.BLOB, // ByteA - 128 bytes
 
