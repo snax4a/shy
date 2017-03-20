@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import email from '../../components/email';
 
+// Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
   return err => {
@@ -28,10 +29,7 @@ class UserError extends Error {
   }
 }
 
-/**
- * Get list of users
- * restriction: 'admin'
- */
+// Gets list of users using filter (admin-only)
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;
   return User.findAll({
@@ -48,9 +46,7 @@ export function index(req, res) {
     .catch(handleError(res));
 }
 
-/**
- * Get my info
- */
+// Gets attributes for logged-in user
 export function me(req, res, next) {
   let userId = req.user._id;
 
@@ -78,9 +74,7 @@ export function me(req, res, next) {
     .catch(err => next(err));
 }
 
-/**
- * Creates a new user
- */
+// Creates new user and logs them in
 export function create(req, res) {
   let newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
@@ -96,7 +90,7 @@ export function create(req, res) {
     .catch(validationError(res));
 }
 
-// Forgot password
+// Resets password for user and emails it to them (add security question in future)
 export function forgotPassword(req, res) {
   // If a local user exists, generate and email a new random password
   return User.findOne({
@@ -126,9 +120,7 @@ export function forgotPassword(req, res) {
     .catch(validationError(res, 404));
 }
 
-/**
- * Update user profile
- */
+// Updates attributes for authenticated user (Profile page)
 export function update(req, res) {
   return User.findById(req.user._id) // users can only update themselves (req.user vs. req.body.user)
     .then(userToUpdate => {
@@ -164,10 +156,7 @@ export function update(req, res) {
     .catch(validationError(res));
 }
 
-/**
- * Update user (or insert if new), return _id
- * restriction: 'admin'
- */
+// Updates or creates user (admin-only)
 export function upsert(req, res) {
   // New users are flagged with _id of zero, strip it before User.build
   if(req.body._id === 0) Reflect.deleteProperty(req.body, '_id');
@@ -192,19 +181,14 @@ export function upsert(req, res) {
     .catch(validationError(res));
 }
 
-/**
- * Deletes a user
- * restriction: 'admin'
- */
+// Deletes user (admin-only)
 export function destroy(req, res) {
   return User.destroy({ where: { _id: req.params.id } })
     .then(() => res.status(204).end())
     .catch(handleError(res));
 }
 
-/**
- * Authentication callback
- */
+// Authentication callback
 export function authCallback(req, res) {
   res.redirect('/');
 }

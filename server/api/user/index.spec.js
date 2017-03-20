@@ -66,15 +66,6 @@ describe('User API Router:', function() {
     });
   });
 
-  // describe('GET /api/users/:id', function() {
-  //   it('should be authenticated and route to user.controller.show', function(done) {
-  //     expect(routerStub.get
-  //       .withArgs('/:id', 'authService.hasRole.admin', 'userCtrl.show')
-  //       ).to.have.been.calledOnce;
-  //     done();
-  //   });
-  // });
-
   describe('POST /api/users', function() {
     it('should route to user.controller.create', function(done) {
       expect(routerStub.post

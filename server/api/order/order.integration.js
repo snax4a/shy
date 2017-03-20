@@ -45,9 +45,7 @@ describe('Order API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          if(err) {
-            return done(err);
-          }
+          if(err) return done(err);
           confirmation = res.body;
           done();
         });

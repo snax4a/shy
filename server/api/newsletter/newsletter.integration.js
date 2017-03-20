@@ -17,9 +17,7 @@ describe('Newsletter API:', function() {
         .expect(200)
         .expect('Content-Type', /html/)
         .end((err, res) => {
-          if(err) {
-            return done(err);
-          }
+          if(err) return done(err);
           response = res.text;
           done();
         });

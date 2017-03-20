@@ -14,9 +14,7 @@ describe('Token API:', function() {
         .expect(200)
         .expect('Content-Type', /text/)
         .end(function(err, res) {
-          if(err) {
-            return done(err);
-          }
+          if(err) return done(err);
           token = res.text;
           done();
         });

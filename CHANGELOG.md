@@ -1,5 +1,6 @@
 # Product Backlog
 * [High] Add routes for add to cart buttons in newsletter
+* [Low] /server/api/user/user.integration.js - add tests for get /, posts, puts, and delete
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

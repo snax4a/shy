@@ -9,7 +9,7 @@
     "url": "https://github.com/nstuyvesant/shy.git"
   },
   "bugs": {
-    "url": "https://github.com/nstuyvesant/shy"
+    "url": "https://github.com/nstuyvesant/shy/issues"
   },
   "homepage": "server/index.js",
   "main": "server/index.js",
