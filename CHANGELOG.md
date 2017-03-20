@@ -6,7 +6,7 @@
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
 <a name="1.0.4"></a>
-# [1.0.4] () (2017-03-19)
+# [1.0.4] (https://github.com/nstuyvesant/shy/commit/43fe7c1879ae493dc9e50a7c72a9e2b98a0cf523) (2017-03-19)
 * Resolved issues with administratively creating new users
 * Removed dead code in User Model (virtual attributes) and GET /api/users/:id
 
