@@ -111,15 +111,6 @@ describe('User API Router:', function() {
     });
   });
 
-  describe('PUT /api/users/admin', function() {
-    it('should be authenticated and route to user.controller.upsert', function(done) {
-      expect(routerStub.put
-        .withArgs('/admin', 'authService.hasRole.admin', 'userCtrl.upsert')
-        ).to.have.been.calledOnce;
-      done();
-    });
-  });
-
   describe('DELETE /api/users/:id', function() {
     it('should verify admin role and route to user.controller.destroy', function(done) {
       expect(routerStub.delete

@@ -49,4 +49,4 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
         select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
-    button.btn.btn-warning(id='update', type='submit', style='width:70px;') Save
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

@@ -1,11 +1,14 @@
 # Product Backlog
-* [High] Add new user from Admin page modifies logged in user instead of create a new one
 * [High] Add routes for add to cart buttons in newsletter
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
-* [Low] Setup npm start
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
+
+<a name="1.0.4"></a>
+# [1.0.4] () (2017-03-19)
+* Resolved issues with administratively creating new users
+* Removed dead code in User Model (virtual attributes) and GET /api/users/:id
 
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/nstuyvesant/shy/commit/7a08eda14c4b45400f5a2eb712d09737b4b0f187) (2017-03-05)

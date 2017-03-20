@@ -27,16 +27,6 @@ export default function(sequelize, DataTypes) {
       }
     },
 
-    // token: {
-    //   type: DataTypes.VIRTUAL,
-    //   get: function() {
-    //     return {
-    //       _id: this.getDataValue('_id'),
-    //       role: this.getDataValue('role')
-    //     };
-    //   }
-    // },
-
     passwordHash: DataTypes.BLOB, // ByteA - 128 bytes
 
     password: {
@@ -56,17 +46,6 @@ export default function(sequelize, DataTypes) {
 
     lastName: DataTypes.STRING(20), // Maybe add a set: with trim() later
     firstName: DataTypes.STRING(20),
-
-    // profile: {
-    //   type: DataTypes.VIRTUAL,
-    //   get: function() {
-    //     return {
-    //       firstName: this.getDataValue('firstName'),
-    //       lastName: this.getDataValue('lastName'),
-    //       role: this.getDataValue('role')
-    //     };
-    //   }
-    // },
 
     email: {
       type: DataTypes.STRING(80),

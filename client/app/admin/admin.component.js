@@ -1,17 +1,16 @@
 'use strict';
 import angular from 'angular';
-import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import routes from './admin.routes';
+import ngResource from 'angular-resource'; // delete() relies on this
 import AuthModule from '../../components/auth/auth.module';
 
 export class AdminController {
   /*@ngInject*/
-  constructor(User, $uibModal, $log) {
+  constructor(User, $uibModal) {
     this.User = User;
     this.$uibModal = $uibModal;
-    this.$log = $log;
   }
 
   $onInit() {
@@ -19,7 +18,6 @@ export class AdminController {
     this.reverse = false;
     this.sortKey = 'lastName';
     this.submitted = false;
-    this.new = false;
   }
 
   search(form) {
@@ -30,7 +28,6 @@ export class AdminController {
         .$promise
         .then(users => {
           this.users = users;
-          this.$log.info(users);
         });
     }
   }
@@ -55,7 +52,6 @@ export class AdminController {
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       if(user.shouldBeDeleted) this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
-      this.new = false;
     });
   }
 
@@ -64,8 +60,13 @@ export class AdminController {
   }
 
   create() {
-    let user = { _id: 0, provider: 'local', role: 'student', optOut: false };
-    this.new = true;
+    let user = {
+      _id: 0,
+      provider: 'local',
+      role: 'student',
+      optOut: false
+    };
+
     this.users.unshift(user);
     this.handleEditing(user);
   }
@@ -78,12 +79,11 @@ export class AdminController {
 
 class AdminEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, userSelectedForEditing, User, $log) {
+  constructor($uibModalInstance, userSelectedForEditing, User) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.userSelectedForEditing = userSelectedForEditing;
     this.User = User;
-    this.$log = $log;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -99,57 +99,39 @@ class AdminEditorController {
   submitUser(form) {
     this.submitted = true;
     if(form.$valid) {
-      // THE PROBLEM:
-      // If it's a new user, this.user._id is an object representing the current user
-      // If it's an existing user, this.user._id is a number
+      // Make a copy of this.user or upsert fails
+      let upsertedUser = {};
+      angular.copy(this.user, upsertedUser);
+      this.User.upsert(upsertedUser)
+        .$promise
+        .then(user => { // only contains user._id
+          // Do not add the password and passwordConfirm to the array
+          Reflect.deleteProperty(upsertedUser, 'password'); // clear this out for security reasons
+          Reflect.deleteProperty(upsertedUser, 'passwordConfirm'); // ditto
 
-      //if(this.user._id === 0) Reflect.deleteProperty(this.user, '_id');
+          // If a new user...
+          if(upsertedUser._id === 0) {
+            upsertedUser._id = user._id;
+          }
 
-      this.$log.info('before upsert', this.user);
-      // Save changes to or create a new user
-      let userID = this.User.upsert(this.user);
-      if(!this.user._id) this.user._id = userID;
+          // Graft the edited user back the original
+          angular.extend(this.userSelectedForEditing, upsertedUser);
+          this.$uibModalInstance.close();
+          return null;
+        })
+        .catch(response => {
+          let err = response.data;
+          this.errors = {}; // reset to only the latest errors
 
-      // Do not add the password and passwordConfirm to the array
-      Reflect.deleteProperty(this.user, 'password'); // clear this out for security reasons
-      Reflect.deleteProperty(this.user, 'passwordConfirm'); // ditto
-
-      this.$log.info('this.user', this.user);
-      // Graft the edited user back the original
-      angular.extend(this.userSelectedForEditing, this.user);
-      this.$uibModalInstance.close();
-      return null;
-      // this.User.upsert(this.user)
-      //   .$promise // What does this do?
-      //   .then(user => { // only contains user._id
-      //     this.$log.info('this.user', this.user);
-      //     // Do not add the password and passwordConfirm to the array
-      //     Reflect.deleteProperty(this.user, 'password'); // clear this out for security reasons
-      //     Reflect.deleteProperty(this.user, 'passwordConfirm'); // ditto
-
-      //     // If a new user...
-      //     if(!this.user._id) {
-      //       this.user._id = user._id;
-      //     }
-
-      //     // Graft the edited user back the original
-      //     angular.extend(this.userSelectedForEditing, this.user);
-      //     this.$uibModalInstance.close();
-      //     return null;
-      //   })
-      //   .catch(response => {
-      //     let err = response.data;
-      //     this.errors = {}; // reset to only the latest errors
-
-      //     // Update validity of form fields that match the server errors
-      //     if(err.name) {
-      //       for(let error of err.errors) {
-      //         form[error.path].$setValidity('server', false);
-      //         this.errors[error.path] = error.message;
-      //       }
-      //     }
-      //     return null;
-      //   });
+          // Update validity of form fields that match the server errors
+          if(err.name) {
+            for(let error of err.errors) {
+              form[error.path].$setValidity('server', false);
+              this.errors[error.path] = error.message;
+            }
+          }
+          return null;
+        });
     }
   }
 
@@ -162,7 +144,7 @@ class AdminEditorController {
 }
 
 
-export default angular.module('shyApp.admin', [uiRouter, AuthModule, uiBootstrap, ngResource])
+export default angular.module('shyApp.admin', [uiRouter, uiBootstrap, AuthModule, ngResource])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),

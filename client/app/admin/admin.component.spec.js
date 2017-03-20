@@ -9,8 +9,8 @@ import uiBootstrap from 'angular-ui-bootstrap';
 describe('Component: AdminComponent', function() {
   // load the controller's module
   beforeEach(angular.mock.module(uiBootstrap));
-  beforeEach(angular.mock.module(ngResource));
-  beforeEach(angular.mock.module(AuthModule));
+  //beforeEach(angular.mock.module(ngResource));
+  //beforeEach(angular.mock.module(AuthModule));
   beforeEach(angular.mock.module(adminPage));
 
   let AdminComponent;

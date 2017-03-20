@@ -78,28 +78,6 @@ export function me(req, res, next) {
     .catch(err => next(err));
 }
 
-// Commented out because this appears to be dead statusCode
-/**
- * Get a single user
- */
-// export function show(req, res, next) {
-//   var userId = req.params.id;
-
-//   return User.find({
-//     where: {
-//       _id: userId
-//     }
-//   })
-//     .then(user => {
-//       if(!user) {
-//         return res.status(404).end();
-//       }
-//       res.json(user.profile);
-//       return user;
-//     })
-//     .catch(err => next(err));
-// }
-
 /**
  * Creates a new user
  */
@@ -191,11 +169,8 @@ export function update(req, res) {
  * restriction: 'admin'
  */
 export function upsert(req, res) {
-  console.log('UPSERT: req.body', req.body);
-
   // New users are flagged with _id of zero, strip it before User.build
-  if(req.body._id == 0) Reflect.deleteProperty(req.body, '_id');
-  console.log('req.body after stripping', req.body);
+  if(req.body._id === 0) Reflect.deleteProperty(req.body, '_id');
 
   let userToUpsert = User.build(req.body);
 
