@@ -148,6 +148,9 @@ export function update(req, res) {
       userToUpdate.phone = String(req.body.phone);
       userToUpdate.optOut = req.body.optOut;
 
+      // Prevent hacking the role
+      Reflect.deleteProperty(userToUpdate.dataValues, 'role');
+
       // Update the user
       return userToUpdate.save()
         .then(user => res.status(200).json({ _id: user._id }))

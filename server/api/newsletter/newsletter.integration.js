@@ -1,4 +1,4 @@
-/* global describe, beforeEach, it, expect, after */
+/* global describe, it, expect, after */
 'use strict';
 
 import app from '../..';
@@ -7,9 +7,7 @@ import request from 'supertest';
 
 describe('Newsletter API:', function() {
   describe('POST /api/newsletter', function() {
-    var response = '';
-
-    beforeEach(function(done) {
+    it('should send response thanking the user for subscribing to the newsletter', function(done) {
       request(app)
         .post('/api/newsletter')
         .send({
@@ -19,13 +17,9 @@ describe('Newsletter API:', function() {
         .expect('Content-Type', /html/)
         .end((err, res) => {
           if(err) return done(err);
-          response = res.text;
+          expect(res.text.toString()).to.equal('Thanks for subscribing to our newsletter.');
           done();
         });
-    });
-
-    it('should send response thanking the user for subscribing to the newsletter', function() {
-      expect(response).to.equal('Thanks for subscribing to our newsletter.');
     });
 
     // Delete test user

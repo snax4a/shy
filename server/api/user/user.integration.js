@@ -1,4 +1,4 @@
-/* globals describe, expect, it, before, after */
+/* globals describe, expect, it, before, beforeEach, after */
 
 'use strict';
 
@@ -142,10 +142,130 @@ describe('User API:', function() {
   });
 
   // user.controller.js:forgotPassword
+  describe('POST /api/users/forgotpassword', function() {
+    let response = '';
+
+    beforeEach(function(done) {
+      request(app)
+        .post('/api/users/forgotpassword')
+        .send({
+          email: 'boaty@bitbucket.com',
+        })
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .end((err, res) => {
+          if(err) return done(err);
+          response = res.text;
+          done();
+        });
+    });
+
+    it('should generate a new password and email it to the user', function() {
+      expect(response).to.equal('New password sent.');
+    });
+  });
 
   // user.controller.js:update
+  describe('PUT /api/users/:id', function() {
+    var token;
+
+    before(function(done) {
+      request(app)
+        .post('/auth/local')
+        .send({
+          email: 'test@example.com',
+          password: 'password'
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if(err) return done(err);
+          token = res.body.token;
+          done();
+        });
+    });
+
+    it('should update the user\'s profile when authenticated', function(done) {
+      request(app)
+        .put(`/api/users/${user._id}`)
+        .send({
+          firstName: 'Jane',
+          lastName: 'Doe',
+          email: 'test@example.com',
+          phone: '412-555-1212',
+          password: 'password',
+          optOut: false,
+          provider: 'local',
+          role: 'admin' // expected to be stripped out to prevent hacks
+        })
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if(err) return done(err);
+          expect(res.body._id.toString()).to.equal(user._id.toString());
+          done();
+        });
+    });
+
+    it('should respond with a 401 when not authenticated', function(done) {
+      request(app)
+        .put(`/api/users/${user._id}`)
+        .expect(401)
+        .end(done);
+    });
+  });
 
   // user.controller.js:upsert
+  describe('PUT /api/users/:id/admin', function() {
+    var tokenAdmin;
+
+    before(function(done) {
+      request(app)
+        .post('/auth/local')
+        .send({
+          email: config.admin.email,
+          password: config.admin.password
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if(err) return done(err);
+          tokenAdmin = res.body.token;
+          done();
+        });
+    });
+
+    it('should upsert the user\'s profile when admin is authenticated', function(done) {
+      request(app)
+        .put(`/api/users/${user._id}/admin`)
+        .send({
+          _id: user._id,
+          firstName: 'Jane',
+          lastName: 'Doe',
+          email: 'test@example.com',
+          optOut: true,
+          phone: '412-555-0000',
+          role: 'student',
+          provider: 'local'
+        })
+        .set('authorization', `Bearer ${tokenAdmin}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if(err) return done(err);
+          expect(res.body._id.toString()).to.equal(user._id.toString());
+          done();
+        });
+    });
+
+    it('should respond with a 401 when not authenticated', function(done) {
+      request(app)
+        .put(`/api/users/${user._id}/admin`)
+        .expect(401)
+        .end(done);
+    });
+  });
 
   // user.controller.js:destroy
   describe('DELETE /api/users/:id', function() {
