@@ -1,8 +1,9 @@
-/* global describe, beforeEach, it, expect */
+/* global describe, beforeEach, it, expect, after */
 'use strict';
 
-const app = require('../..');
+import app from '../..';
 import request from 'supertest';
+import { User } from '../../sqldb';
 
 describe('Message API:', function() {
   describe('POST /api/message', function() {
@@ -30,6 +31,17 @@ describe('Message API:', function() {
     it('should send response thanking the user for submitting a question or comment', function() {
       console.log('RESPONSE', response);
       expect(response).to.equal('Thanks for submitting your question or comment. We will respond shortly.');
+    });
+
+    // Delete test user
+    after(function() {
+      return User.destroy({
+        where: {
+          $or: [
+            { email: 'jdoe@gmail.com' }
+          ]
+        }
+      });
     });
   });
 });

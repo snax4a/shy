@@ -1,7 +1,8 @@
-/* global describe, beforeEach, it, expect */
+/* global describe, beforeEach, it, expect, after */
 'use strict';
 
-const app = require('../..');
+import app from '../..';
+import { User } from '../../sqldb';
 import request from 'supertest';
 
 describe('Order API:', function() {
@@ -49,6 +50,17 @@ describe('Order API:', function() {
           confirmation = res.body;
           done();
         });
+    });
+
+    // Delete test users
+    after(function() {
+      return User.destroy({
+        where: {
+          $or: [
+            { email: 'john.doe@bitbucket.com' }
+          ]
+        }
+      });
     });
 
     it('should respond with a JSON confirmation', function() {
