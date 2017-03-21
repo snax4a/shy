@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "Schoolhouse Yoga's Website",
   "author": "nstuyvesant",
-  "license": "MIT",
+  "license": "https://www.schoolhouseyoga.com/terms",
   "repository": {
     "type": "git",
     "url": "https://github.com/nstuyvesant/shy.git"
@@ -82,7 +82,7 @@
     "angular-mocks": "~1.6.3",
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.24.0",
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^7.2.0",
     "babel-loader": "^7.0.0-beta.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",

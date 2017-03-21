@@ -7,15 +7,14 @@ footer {
 	color: $shy-lavender;
 }
 
+img {
+	margin-top: 10px;
+}
+
  footer a {
 	color: $shy-orange; // $shy-orange (should be)
 }
 
 footer a:hover {
 	color: #fff;
-}
-
-footer span {
-	/* Follow us on Twitter or FaceBook */
-	float: right;
 }

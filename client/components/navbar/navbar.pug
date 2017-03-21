@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-static-top
+.navbar.navbar-default.navbar-static-top(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
   .container
     .navbar-header
       button.navbar-toggle(type='button', ng-click='$ctrl.isCollapsed = !$ctrl.isCollapsed')
@@ -11,10 +11,10 @@
     #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
         li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
-          a(ui-sref='{{item.state}}', ng-click='$ctrl.isCollapsed = true') {{item.title}} 
+          a(ui-sref='{{item.state}}', ng-click='$ctrl.isCollapsed = true', itemprop='url') {{item.title}} 
             span.badge(ng-show='item.title == "Cart"') {{ $ctrl.Cart.getTotalItems() }}
         li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
-          a(ui-sref='admin') Admin
+          a(ui-sref='admin', itemprop='url') Admin
       ul.nav.navbar-nav.navbar-right
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
           a(href='#', uib-dropdown-toggle='') Logged in as {{ $ctrl.getCurrentUser().firstName }}

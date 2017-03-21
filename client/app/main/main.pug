@@ -3,19 +3,19 @@
     .col-md-4
       .callout(ng-if='($ctrl.announcementList).length > 0')
         h1.heading Announcements
-        div(ng-repeat='item in $ctrl.announcementList')
+        div(ng-repeat='item in $ctrl.announcementList', itemscope='', itemtype='http://schema.org/Article')
           h2(ng-if='(item.announcements | upcoming).length > 0') {{item.section}}
           p(ng-repeat='announcement in item.announcements | upcoming')
-            b {{ announcement.title }} 
-            span(ng-bind-html='announcement.description')
+            b(itemprop='name headline') {{ announcement.title }} 
+            span(ng-bind-html='announcement.description', itemprop='articleBody')
         br
         a.btn.btn-warning(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') Watch our video!
     .col-md-8
       div.carousel(uib-carousel='', active='1', interval='7000', no-wrap='false')
         div(uib-slide='', ng-repeat='slide in $ctrl.slides', active='active', index='$index')
-          img.img-responsive(ng-src='{{slide.src}}', alt='Person practicing at one of our Pittsburgh yoga schoolss')
+          img.img-responsive(ng-src='{{slide.src}}', alt='Person practicing at one of our Pittsburgh yoga schools')
   .row
     .faqs
-      article(ng-repeat='faq in $ctrl.faqs')
-        h2(ng-bind-html='faq.question')
-        p(ng-bind-html='faq.answer')
+      article(ng-repeat='faq in $ctrl.faqs', itemscope='', itemtype='http://schema.org/Article')
+        h2(ng-bind-html='faq.question', itemprop='name headline')
+        p(ng-bind-html='faq.answer', itemprop='articleBody')

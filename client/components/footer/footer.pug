@@ -3,12 +3,12 @@
     img.img-responsive(src='/assets/images/seal-panel.png', alt='Seal of Schoolhouse Yoga')
   .col-sm-9.col-md-10
     br
-    p
-      a(href='/classes#squirrelhill') Squirrel Hill Classes
+    p(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
+      a(href='/classes#squirrelhill', itemprop='url') Squirrel Hill Classes
       |  | 
-      a(href='/classes#eastliberty') East Liberty Classes
+      a(href='/classes#eastliberty', itemprop='url') East Liberty Classes
       |  | 
-      a(href='/classes#northhills') North Hills Classes
+      a(href='/classes#northhills', itemprop='url') North Hills Classes
     p
       | Follow us on 
       a(href='https://twitter.com/schoolhouseyoga', target='_blank') Twitter
@@ -18,9 +18,13 @@
       a(href='https://instagram.com/schoolhouseyoga', target='_blank') Instagram
       |  | 
       a(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') YouTube
-    p
+    p(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
       | Notices 
-      a(href='/privacy') Privacy Policy
+      a(href='/privacy', itemprop='url') Privacy Policy
       |  | 
-      a(href='/terms') Terms of Use
-    p  &copy; Schoolhouse Yoga, Inc. - All Rights Reserved
+      a(href='/terms', itemprop='url') Terms of Use
+    p(itemscope='', itemtype='http://schema.org/WPFooter') &copy; 
+      span(itemprop='copyrightYear') 2017
+      |  
+      span(itemprop='copyrightHolder') Schoolhouse Yoga, Inc.
+      | - All Rights Reserved
