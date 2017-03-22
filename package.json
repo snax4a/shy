@@ -175,8 +175,8 @@
     "webpack-dev-middleware": "^1.10.1"
   },
   "engines": {
-    "node": "~7.7.3",
-    "npm": "~4.4.1",
+    "node": "~7.7.4",
+    "npm": "~4.4.4",
     "yarn": "^0.21.3"
   },
   "scripts": {
