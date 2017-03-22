@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+//import CompressionPlugin from 'compression-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
 
@@ -152,7 +153,15 @@ module.exports = function makeWebpackConfig(options) {
         'process.env.NODE_ENV': DEV ? '"development"'
         : BUILD ? '"production"'
         : TEST ? '"test"'
-        : '"development"'})
+        : '"development"'}) //,
+
+      // new CompressionPlugin({
+      //   asset: '[path].gz[query]',
+      //   algorithm: 'gzip',
+      //   test: /\.(js|html|css)$/,
+      //   threshold: 10240,
+      //   minRatio: 0.8
+      // })
 
       // UglifyJSPlugin no longer switches loaders into minimize mode
       // new webpack.LoaderOptionsPlugin({
@@ -212,7 +221,9 @@ module.exports = function makeWebpackConfig(options) {
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
         mangle: false,
-        sourceMap: true
+        sourceMap: true,
+        comments: false,
+        exclude: [/\.min\.js$/gi] // skip pre-minified libs
       })
     );
   }

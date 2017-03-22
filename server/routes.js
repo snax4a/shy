@@ -5,8 +5,10 @@
 
 import errors from './components/errors';
 import path from 'path';
+import compression from 'compression';
 
 export default function(app) {
+  app.use(compression());
   app.use('/api/token', require('./api/token'));
   app.use('/api/message', require('./api/message'));
   app.use('/api/order', require('./api/order'));
@@ -23,6 +25,13 @@ export default function(app) {
   //   app.route('/:url(api|auth|components|app|bower_components|assets)/*') // removed bower_components
   app.route('/:url(api|auth|components|app|assets)/*')
    .get(errors[404]);
+
+  // If we decide to pre-compress content in the future
+  // app.get('*.js', (req, res, next) => {
+  //   req.url = `${req.url}.gz`;
+  //   res.set('Content-Encoding', 'gzip');
+  //   next();
+  // });
 
   // All other routes should redirect to the index.html
   app.route('/*')
