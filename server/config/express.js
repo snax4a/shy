@@ -18,6 +18,7 @@ import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
+import compression from 'compression';
 
 export default function(app) {
   let env = app.get('env');
@@ -36,6 +37,8 @@ export default function(app) {
         return next();
       }
     });
+    // Use gzip compression in production
+    app.use(compression());
   }
 
   app.set('appPath', path.join(config.root, 'client'));

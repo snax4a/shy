@@ -5,10 +5,9 @@
 
 import errors from './components/errors';
 import path from 'path';
-import compression from 'compression';
+
 
 export default function(app) {
-  app.use(compression());
   app.use('/api/token', require('./api/token'));
   app.use('/api/message', require('./api/message'));
   app.use('/api/order', require('./api/order'));
