@@ -1,6 +1,5 @@
 # Product Backlog
 * [High] Build SHYnet page
-* [Low] Evaluate compression-webpack-plugin
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
