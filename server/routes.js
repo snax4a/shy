@@ -6,7 +6,6 @@
 import errors from './components/errors';
 import path from 'path';
 
-
 export default function(app) {
   app.use('/api/token', require('./api/token'));
   app.use('/api/message', require('./api/message'));
@@ -21,16 +20,8 @@ export default function(app) {
   });
 
   // All undefined asset or api routes should return a 404
-  //   app.route('/:url(api|auth|components|app|bower_components|assets)/*') // removed bower_components
   app.route('/:url(api|auth|components|app|assets)/*')
    .get(errors[404]);
-
-  // If we decide to pre-compress content in the future
-  // app.get('*.js', (req, res, next) => {
-  //   req.url = `${req.url}.gz`;
-  //   res.set('Content-Encoding', 'gzip');
-  //   next();
-  // });
 
   // All other routes should redirect to the index.html
   app.route('/*')

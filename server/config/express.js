@@ -39,6 +39,12 @@ export default function(app) {
     });
     // Use gzip compression in production
     app.use(compression());
+    // If we decide to pre-compress content in the future
+    // app.get('*.js', (req, res, next) => {
+    //   req.url = `${req.url}.gz`;
+    //   res.set('Content-Encoding', 'gzip');
+    //   next();
+    // });
   }
 
   app.set('appPath', path.join(config.root, 'client'));
