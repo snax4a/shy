@@ -22,7 +22,7 @@
             "node": "current",
             "browsers": [
               "firefox >= 45",
-              "chrome >= 44",
+              "chrome >= 48",
               "safari >= 8",
               "ie >= 11",
               "edge >= 13",
