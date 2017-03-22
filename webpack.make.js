@@ -206,7 +206,12 @@ module.exports = function makeWebpackConfig(options) {
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
         filename: '../client/index.html',
-        alwaysWriteToDisk: true
+        alwaysWriteToDisk: true,
+        minify: {
+          removeScriptTypeAttributes: true,
+          removeComments: true,
+          minifyJS: true
+        }
       }),
       new HtmlWebpackHarddiskPlugin()
     );

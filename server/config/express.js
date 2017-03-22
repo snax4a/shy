@@ -19,6 +19,7 @@ import session from 'express-session';
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 import compression from 'compression';
+import mime from 'mime-types';
 
 export default function(app) {
   let env = app.get('env');
@@ -48,11 +49,21 @@ export default function(app) {
   }
 
   app.set('appPath', path.join(config.root, 'client'));
-  app.use(express.static(app.get('appPath')));
-  app.use(morgan('dev'));
+
+  // Set Cache-Control to 1y unless it's an HTML file
+  app.use(express.static(app.get('appPath'), {
+    maxAge: '1y',
+    setHeaders: (res, filePath) => {
+      const mimeType = mime.lookup(filePath);
+      if(mimeType === 'text/html' || mimeType == 'application/json') res.setHeader('Cache-Control', 'public, max-age=0');
+    }
+  }));
+
+  app.use(morgan('dev')); // middleware logger
 
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
+
   app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
@@ -63,7 +74,6 @@ export default function(app) {
   // Persist sessions with sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
   // oauth 1.0 strategy, and Lusca depends on sessions
-
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
