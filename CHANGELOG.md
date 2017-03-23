@@ -1,5 +1,7 @@
 # Product Backlog
+* [High] Build endpoint for announcements
 * [High] Build SHYnet page
+* [Low] Build order.model.spec.js test
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
