@@ -25,7 +25,7 @@ class AnnouncementError extends Error {
   }
 }
 
-// Gets a list of Announcements
+// Gets a list of Announcements (need a flag for a flat list vs. group by section)
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;
   return Announcement.findAll({
