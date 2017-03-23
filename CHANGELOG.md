@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] Build endpoint for announcements
+* [High] Connect announcement.controller.js:index to sqldb.Announcement
 * [High] Build SHYnet page
 * [Low] Build order.model.spec.js test
 * [Low] Add method to push newsletters from admin
