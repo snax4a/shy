@@ -8,6 +8,7 @@ import path from 'path';
 
 export default function(app) {
   app.use('/api/token', require('./api/token'));
+  app.use('/api/announcement', require('./api/announcement'));
   app.use('/api/message', require('./api/message'));
   app.use('/api/order', require('./api/order'));
   app.use('/api/newsletter', require('./api/newsletter'));

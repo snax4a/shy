@@ -1,7 +1,3 @@
-/**
- * Sequelize initialization module
- */
-
 'use strict';
 
 import config from '../config/environment';

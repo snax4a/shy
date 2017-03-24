@@ -5,9 +5,7 @@ import { Announcement } from '../../sqldb';
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => {
-    res.status(statusCode).json(err);
-  };
+  return err => res.status(statusCode).json(err);
 }
 
 function handleError(res, statusCode) {
@@ -27,11 +25,11 @@ class AnnouncementError extends Error {
 
 // Gets a list of Announcements (need a flag for a flat list vs. group by section)
 export function index(req, res) {
-  let startsWith = `${req.query.filter}%`;
   return Announcement.findAll({
-    // FIX HERE!
-    where: { expires: { $iLike: startsWith } },
-    attributes: ['section', 'title', 'description', 'expires']
+    attributes: ['section', 'title', 'description', 'expires'],
+    order: ['section', 'title'],
+    //group: ['section'],
+    where: { expires: { $gt: new Date() } },
   })
     .then(announcements => res.status(200).json(announcements))
     .catch(handleError(res));
