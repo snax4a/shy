@@ -127,3 +127,78 @@ export function index(req, res) {
 //     ]
 //   }
 // ]
+
+// var flat = [{
+//     "ID": "Root_1",
+//     "Name": "Root_1",                   
+//     "ParentID": "",
+//     "Sequent": 1
+// },
+// {
+//     "ID": "Root_2",
+//     "Name": "Root_2",                   
+//     "ParentID": "",
+//     "Sequent": 2
+// },              
+// {
+//     "ID": "Root_1_Sub_1_Child_1",
+//     "Name": "Root_1_Sub_1_Child_1",                 
+//     "ParentID": "Root_1_Sub_1",
+//     "Sequent": 1
+// },
+// {
+//     "ID": "Root_1_Sub_1_Child_2",
+//     "Name": "Root_1_Sub_1_Child_2",                 
+//     "ParentID": "Root_1_Sub_1",
+//     "Sequent": 2
+// },
+// {
+//     "ID": "Root_1_Sub_1",
+//     "Name": "Root_1_Sub_1",                 
+//     "ParentID": "Root_1",
+//     "Sequent": 1
+// }];
+// function nested(f){
+//   return f.sort((a,b) => a.ID.length < b.ID.length ? 1 : a.ID.length == b.ID.length ? a.ID < b.ID ? -1 : 1 :-1)
+//           .reduce((p,c,i,a) => {var parent = !!c.ParentID && a.find(e => e.ID === c.ParentID);
+//                                 !!parent ? !!parent.Sub && parent.Sub.push(c) || (parent.Sub=[c]) : p.push(c);
+//                                 return p;},[]);
+// };
+// document.write("<pre>" +  JSON.stringify(nested(flat),null,2) + "</pre>");
+
+// [
+//   {
+//     "ID": "Root_1",
+//     "Name": "Root_1",
+//     "ParentID": "",
+//     "Sequent": 1,
+//     "Sub": [
+//       {
+//         "ID": "Root_1_Sub_1",
+//         "Name": "Root_1_Sub_1",
+//         "ParentID": "Root_1",
+//         "Sequent": 1,
+//         "Sub": [
+//           {
+//             "ID": "Root_1_Sub_1_Child_1",
+//             "Name": "Root_1_Sub_1_Child_1",
+//             "ParentID": "Root_1_Sub_1",
+//             "Sequent": 1
+//           },
+//           {
+//             "ID": "Root_1_Sub_1_Child_2",
+//             "Name": "Root_1_Sub_1_Child_2",
+//             "ParentID": "Root_1_Sub_1",
+//             "Sequent": 2
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "ID": "Root_2",
+//     "Name": "Root_2",
+//     "ParentID": "",
+//     "Sequent": 2
+//   }
+// ]
