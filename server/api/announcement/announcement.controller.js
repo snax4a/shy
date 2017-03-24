@@ -69,3 +69,61 @@ export function index(req, res) {
     .then(announcements => res.status(200).json(groupBy(announcements, ['section'])))
     .catch(handleError(res));
 }
+
+
+// Current output (not good)
+// {
+//   "Sunday, April 16th Class Schedule": [
+//     {
+//       "section": "Sunday, April 16th Class Schedule",
+//       "title":"East Liberty School",
+//       "description":"- all classes running as scheduled",
+//       "expires":"2017-04-30T05:00:00.000Z"
+//     }, {
+//       "section":"Sunday, April 16th Class Schedule",
+//       "title":"East Liberty School",
+//       "description":"New one",
+//       "expires":"2017-04-30T07:00:00.000Z"
+//     },
+//     {
+//       "section":"Sunday, April 16th Class Schedule",
+//       "title":"East Libery School",
+//       "description":"- all classes running as scheduled",
+//       "expires":"2017-04-30T05:00:00.000Z"
+//     }
+//   ]
+// }
+
+// What we want...
+// [
+//   {
+//     "section": "Sunday, April 16th Class Schedule",
+//     "announcements": [
+//       {
+//         "title": "East Liberty School",
+//         "description": "- all classes running as scheduled",
+//         "expires": "2017-04-30T00:00:00.000-05:00"
+//       },
+//       {
+//         "title": "Squirrel Hill School",
+//         "description": "- 9:15am and 4:30pm Yoga 1 classes running; remaining classes cancelled",
+//         "expires": "2017-04-30T00:00:00.000-05:00"
+//       },
+//       {
+//         "title": "North Hills School",
+//         "description": "- 9am Yoga 1 class running; remaining classes cancelled",
+//         "expires": "2017-04-30T00:00:00.000-05:00"       
+//       }
+//     ]
+//   },
+//   {
+//     "section": "Apple Pay",
+//     "announcements": [
+//       {
+//         "title": "Apple Pay now accepted",
+//         "description": "- Buy class passes and workshops from our website using your iPhone and Touch ID",
+//         "expires": "2017-10-01T00:00:00.000-05:00"
+//       }
+//     ]
+//   }
+// ]
