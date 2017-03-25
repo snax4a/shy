@@ -8,11 +8,10 @@ import AuthModule from '../../components/auth/auth.module';
 
 export class AdminController {
   /*@ngInject*/
-  constructor($http, User, $uibModal, $log) {
+  constructor($http, User, $uibModal) {
     this.$http = $http;
     this.User = User;
     this.$uibModal = $uibModal;
-    this.$log = $log;
   }
 
   $onInit() {
@@ -192,12 +191,11 @@ class UserEditorController {
 
 class AnnouncementEditorController {
   /*@ngInject*/
-  constructor($http, $uibModalInstance, announcementSelectedForEditing, $log) {
+  constructor($http, $uibModalInstance, announcementSelectedForEditing) {
     // Dependencies
     this.$http = $http;
     this.$uibModalInstance = $uibModalInstance;
     this.announcementSelectedForEditing = announcementSelectedForEditing;
-    this.$log = $log;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -232,10 +230,10 @@ class AnnouncementEditorController {
       angular.copy(this.announcement, upsertedAnnouncement);
 
       this.$http.put(`/api/announcement/${upsertedAnnouncement._id}`, upsertedAnnouncement)
-        .then(announcement => { // only contains announcement._id
+        .then(response => { // only contains announcement._id
           // If a new announcement...
           if(upsertedAnnouncement._id === 0) {
-            upsertedAnnouncement._id = announcement._id;
+            upsertedAnnouncement._id = response.data._id;
           }
 
           // Graft the edited announcement back the original

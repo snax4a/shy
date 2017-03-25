@@ -9,7 +9,6 @@ var userCtrlStub = {
   destroy: 'userCtrl.destroy',
   me: 'userCtrl.me',
   update: 'userCtrl.update',
-  //show: 'userCtrl.show',
   create: 'userCtrl.create',
   forgotPassword: 'userCtrl.forgotPassword',
   upsert: 'userCtrl.upsert'

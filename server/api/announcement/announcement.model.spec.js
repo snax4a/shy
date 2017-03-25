@@ -7,7 +7,7 @@ let buildAnnouncement = function() {
   announcement = Announcement.build({
     section: 'Sunday, April 16th Class Schedule',
     title: 'East Libery School',
-    description: '- all classes running as scheduled',
+    description: 'all classes running as scheduled',
     expires: '2017-04-30T00:00:00.000-05:00',
   });
   return announcement;

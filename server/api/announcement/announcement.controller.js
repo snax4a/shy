@@ -104,3 +104,8 @@ function handleEntityNotFound(res) {
     return entity;
   };
 }
+
+// Authentication callback
+export function authCallback(req, res) {
+  res.redirect('/');
+}

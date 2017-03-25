@@ -1,5 +1,5 @@
 # Product Backlog
-* [Medium] api/announcement/index.js - fix auth
+* [Medium] api/announcement/announcement.integration.js
 * [High] Build SHYnet page
 * [Low] Fix order.model.spec.js test
 * [Low] Add method to push newsletters from admin
