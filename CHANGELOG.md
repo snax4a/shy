@@ -8,7 +8,7 @@
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
 <a name="1.0.5"></a>
-# [1.0.5](https://github.com/nstuyvesant/shy/commit/) (2017-03-25)
+# [1.0.5](https://github.com/nstuyvesant/shy/commit/755fca80b3d4384046c695707c68cea61698ab4d) (2017-03-25)
 * Add announcement admin functionality
 * Connect main to announcements in DB
 
