@@ -1,0 +1,34 @@
+form(name='form', ng-submit="$ctrl.submitAnnouncement(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title Edit Announcement
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='section') Section
+        input.form-control(type='text', name='section', id='section', ng-model='$ctrl.announcement.section', maxlength='100', autofocus='', required='true', placeholder='Announcement section')
+        ng-messages.help-block.has-error(for='form.section.$error', ng-show='form.section.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the announcement section.
+      .form-group.col-md-12
+        label(for='title') Title
+        input.form-control(type='text', name='title', id='title', ng-model='$ctrl.announcement.title', maxlength='100', required='true', placeholder='Announcement title')
+        ng-messages.help-block.has-error(for='form.title.$error', ng-show='form.title.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the announcement title.
+      .form-group.col-md-12
+        label(for='description') Description
+        textarea.form-control(type='text', name='description', id='description', ng-model='$ctrl.announcement.description', maxlength='512', rows='3', required='true', placeholder='Announcement description')
+        ng-messages.help-block.has-error(for='form.description.$error', ng-show='form.description.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the announcement description.
+      .form-group.col-md-6
+        label(for='expires') Expires
+        .input-group
+          input.form-control(type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.announcement.expires', name='expires', id='expires', required='true', placeholder='Expiration')
+          span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
+              i.glyphicon.glyphicon-calendar
+        ng-messages.help-block.has-error(for='form.expires.$error', ng-show='form.expires.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please when the announcement expires.
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

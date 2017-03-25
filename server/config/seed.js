@@ -4,7 +4,7 @@
  */
 'use strict';
 import config from './environment/';
-import { User, Announcement } from '../sqldb';
+import { User } from '../sqldb';
 import Sequelize from 'sequelize';
 
 export default function seedDatabaseIfNeeded() {

@@ -44,18 +44,13 @@ export class AdminController {
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
 
-  deleteAnnouncement(selectedAnnouncement) {
-    selectedAnnouncement.$remove({ _id: selectedAnnouncement._id }); // Delete the announcement from the server
-    this.announcements.splice(this.announcements.indexOf(selectedAnnouncement), 1); // Remove from the array
-  }
-
-  handleEditing(user) {
+  modalUserEditor(user) {
     let modalDialog = this.$uibModal.open({
-      template: require('./admineditor.pug'),
+      template: require('./usereditor.pug'),
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
-      controller: AdminEditorController,
+      controller: UserEditorController,
       resolve: {
         userSelectedForEditing: () => user
       }
@@ -68,7 +63,7 @@ export class AdminController {
   }
 
   editUser(user) {
-    this.handleEditing(user);
+    this.modalUserEditor(user);
   }
 
   createUser() {
@@ -80,16 +75,56 @@ export class AdminController {
     };
 
     this.users.unshift(user);
-    this.handleEditing(user);
+    this.modalUserEditor(user);
   }
 
-  sort(keyname) {
+  sortUsers(keyname) {
     this.sortKey = keyname;
     this.reverse = !this.reverse;
   }
+
+  modalAnnouncementEditor(announcement) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./announcementeditor.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: AnnouncementEditorController,
+      resolve: {
+        announcementSelectedForEditing: () => announcement
+      }
+    });
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      if(announcement.shouldBeDeleted) this.announcements.splice(this.announcements.indexOf(announcement), 1); // Remove them from the array
+    });
+  }
+
+  editAnnouncement(announcement) {
+    this.modalAnnouncementEditor(announcement);
+  }
+
+  createAnnouncement() {
+    let d = new Date();
+    let announcement = {
+      _id: 0,
+      section: '',
+      title: '',
+      description: '',
+      expires: d.setMonth(d.getMonth() + 1)
+    };
+
+    this.announcements.unshift(announcement);
+    this.modalAnnouncementEditor(announcement);
+  }
+
+  deleteAnnouncement(selectedAnnouncement) {
+    this.$http.delete(`/api/announcement/${selectedAnnouncement._id}`)
+      .then(() => this.announcements.splice(this.announcements.indexOf(selectedAnnouncement), 1));
+  }
 }
 
-class AdminEditorController {
+class UserEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, userSelectedForEditing, User) {
     // Dependencies
@@ -155,6 +190,81 @@ class AdminEditorController {
   }
 }
 
+class AnnouncementEditorController {
+  /*@ngInject*/
+  constructor($uibModalInstance, announcementSelectedForEditing, $log) {
+    // Dependencies
+    this.$uibModalInstance = $uibModalInstance;
+    this.announcementSelectedForEditing = announcementSelectedForEditing;
+    this.$log = $log;
+
+    // Initializations - not in $onInit since not it's own component
+    this.submitted = false;
+    this.errors = {};
+    this.announcement = {};
+    this.datePickerOpened = false;
+    this.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yyyy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(),
+      startingDay: 1
+    };
+    angular.copy(this.announcementSelectedForEditing, this.announcement);
+    // Convert ISO 8601 to a JavaScript date (if needed)
+    if(typeof this.announcement.expires === 'string') this.announcement.expires = Date.parse(this.announcement.expires);
+  }
+
+  showCalendar() {
+    this.datePickerOpened = true;
+  }
+
+  clearServerError(form, fieldName) {
+    form[fieldName].$setValidity('server', true);
+  }
+
+  submitAnnouncement(form) {
+    this.submitted = true;
+    if(form.$valid) {
+      // Make a copy of this.user or upsert fails
+      let upsertedAnnouncement = {};
+      angular.copy(this.announcement, upsertedAnnouncement);
+      this.Announcement.upsert(upsertedAnnouncement)
+        .$promise
+        .then(announcement => { // only contains user._id
+          // If a new announcement...
+          if(upsertedAnnouncement._id === 0) {
+            upsertedAnnouncement._id = announcement._id;
+          }
+
+          // Graft the edited announcement back the original
+          angular.extend(this.announcementSelectedForEditing, upsertedAnnouncement);
+          this.$uibModalInstance.close();
+          return null;
+        })
+        .catch(response => {
+          let err = response.data;
+          this.errors = {}; // reset to only the latest errors
+
+          // Update validity of form fields that match the server errors
+          if(err.name) {
+            for(let error of err.errors) {
+              form[error.path].$setValidity('server', false);
+              this.errors[error.path] = error.message;
+            }
+          }
+          return null;
+        });
+    }
+  }
+
+  cancel() {
+    if(!this.announcementSelectedForEditing._id) {
+      this.announcementSelectedForEditing.shouldBeDeleted = true;
+    }
+    this.$uibModalInstance.close();
+  }
+}
 
 export default angular.module('shyApp.admin', [uiRouter, uiBootstrap, AuthModule, ngResource])
   .config(routes)

@@ -68,9 +68,37 @@ function nest(flatAnnouncements) {
   return nestedAnnouncements;
 }
 
-// Deletes user (admin-only)
+// Deletes announcement (admin-only)
 export function destroy(req, res) {
-  return Announcement.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
+  return Announcement.find({
+    where: {
+      _id: req.params.id
+    }
+  })
+    .then(handleEntityNotFound(res))
+    .then(removeEntity(res))
     .catch(handleError(res));
+}
+
+
+function removeEntity(res) {
+  return function(entity) {
+    if(entity) {
+      return entity.destroy()
+        .then(() => {
+          res.status(204).end();
+          return null;
+        });
+    }
+  };
+}
+
+function handleEntityNotFound(res) {
+  return function(entity) {
+    if(!entity) {
+      res.status(404).end();
+      return null;
+    }
+    return entity;
+  };
 }
