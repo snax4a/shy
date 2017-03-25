@@ -1,13 +1,21 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './main.routes';
-import announcementList from '../../assets/data/announcements.json';
 import faqs from '../../assets/data/faqs.json';
 
 export class MainController {
+  /*@ngInject*/
+  constructor($http) {
+    this.$http = $http;
+  }
 
   $onInit() {
-    this.announcementList = [];
+    //this.announcementList = [];
+    this.$http.get('/api/announcement')
+      .then(response => {
+        this.announcementList = response.data;
+        return null;
+      });
     this.faqs = [];
     this.slides = [
       { src: '/assets/images/home/closeup1.jpg' },
@@ -15,8 +23,6 @@ export class MainController {
       { src: '/assets/images/home/closeup3.jpg' },
       { src: '/assets/images/home/closeup4.jpg' }
     ];
-    // Load announcements and FAQs from JSON files
-    this.announcementList = announcementList;
     this.faqs = faqs;
   }
 }

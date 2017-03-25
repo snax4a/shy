@@ -13,16 +13,6 @@ function handleError(res, statusCode) {
   return err => res.status(statusCode).send(err);
 }
 
-class AnnouncementError extends Error {
-  constructor(message, path) {
-    super(message);
-    this.message = message;
-    this.name = 'AnnouncementError';
-    this.errors = [{message, path}];
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
-
 // Gets a list of Announcements (need a flag for a flat list vs. group by section)
 export function index(req, res) {
   let flat = req.query.flat;
@@ -68,6 +58,19 @@ function nest(flatAnnouncements) {
   return nestedAnnouncements;
 }
 
+// Updates or creates announcement (admin-only)
+export function upsert(req, res) {
+  // New announcements are flagged with _id of zero, strip it before Announcement.save()
+  const isNew = req.body._id === 0;
+  if(isNew) Reflect.deleteProperty(req.body, '_id');
+  let announcementToUpsert = Announcement.build(req.body);
+  announcementToUpsert.isNewRecord = isNew;
+
+  return announcementToUpsert.save()
+    .then(announcement => res.status(200).json({ _id: announcement._id }))
+    .catch(validationError(res));
+}
+
 // Deletes announcement (admin-only)
 export function destroy(req, res) {
   return Announcement.find({
@@ -79,7 +82,6 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
-
 
 function removeEntity(res) {
   return function(entity) {

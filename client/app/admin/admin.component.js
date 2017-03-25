@@ -192,8 +192,9 @@ class UserEditorController {
 
 class AnnouncementEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, announcementSelectedForEditing, $log) {
+  constructor($http, $uibModalInstance, announcementSelectedForEditing, $log) {
     // Dependencies
+    this.$http = $http;
     this.$uibModalInstance = $uibModalInstance;
     this.announcementSelectedForEditing = announcementSelectedForEditing;
     this.$log = $log;
@@ -219,9 +220,9 @@ class AnnouncementEditorController {
     this.datePickerOpened = true;
   }
 
-  clearServerError(form, fieldName) {
-    form[fieldName].$setValidity('server', true);
-  }
+  // clearServerError(form, fieldName) {
+  //   form[fieldName].$setValidity('server', true);
+  // }
 
   submitAnnouncement(form) {
     this.submitted = true;
@@ -229,9 +230,9 @@ class AnnouncementEditorController {
       // Make a copy of this.user or upsert fails
       let upsertedAnnouncement = {};
       angular.copy(this.announcement, upsertedAnnouncement);
-      this.Announcement.upsert(upsertedAnnouncement)
-        .$promise
-        .then(announcement => { // only contains user._id
+
+      this.$http.put(`/api/announcement/${upsertedAnnouncement._id}`, upsertedAnnouncement)
+        .then(announcement => { // only contains announcement._id
           // If a new announcement...
           if(upsertedAnnouncement._id === 0) {
             upsertedAnnouncement._id = announcement._id;
