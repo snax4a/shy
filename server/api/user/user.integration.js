@@ -11,7 +11,7 @@ describe('User API:', function() {
   var user;
   var userAdmin;
 
-  // Creater regular user and lookup admin user
+  // Create regular user and lookup admin user
   before(function() {
     user = User.build({
       firstName: 'John',

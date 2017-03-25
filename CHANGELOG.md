@@ -1,5 +1,5 @@
 # Product Backlog
-* [Medium] api/announcement/announcement.integration.js
+* [Medium] api/announcement/announcement.integration.js - get generated _id for test
 * [High] Build SHYnet page
 * [Low] Fix order.model.spec.js test
 * [Low] Add method to push newsletters from admin
