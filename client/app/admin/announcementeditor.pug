@@ -9,7 +9,7 @@ form(name='form', ng-submit="$ctrl.submitAnnouncement(form)", novalidate='', ng-
         label(for='section') Section
         input.form-control(type='text', name='section', id='section', ng-model='$ctrl.announcement.section', maxlength='100', autofocus='', required='true', placeholder='Announcement section')
         ng-messages.help-block.has-error(for='form.section.$error', ng-show='form.section.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter the announcement section.
+          ng-message(when='required') Please enter the announcement section name.
       .form-group.col-md-12
         label(for='title') Title
         input.form-control(type='text', name='title', id='title', ng-model='$ctrl.announcement.title', maxlength='100', required='true', placeholder='Announcement title')
@@ -28,7 +28,7 @@ form(name='form', ng-submit="$ctrl.submitAnnouncement(form)", novalidate='', ng-
             button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
               i.glyphicon.glyphicon-calendar
         ng-messages.help-block.has-error(for='form.expires.$error', ng-show='form.expires.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please when the announcement expires.
+          ng-message(when='required') Please enter when the announcement should be removed.
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save
