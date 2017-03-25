@@ -23,182 +23,54 @@ class AnnouncementError extends Error {
   }
 }
 
-// Groups a flat array into a tree.
-// "data" is the flat array.
-// "keys" is an array of properties to group on.
-function groupBy(data, keys) {
-  if(keys.length == 0) return data;
-
-  // The current key to perform the grouping on:
-  let key = keys[0];
-
-  // Loop through the data and construct buckets for
-  // all of the unique keys:
-  let groups = {};
-  for(let i = 0; i < data.length; i++) {
-    let row = data[i];
-    let groupValue = row[key];
-
-    if(groups[groupValue] == undefined) groups[groupValue] = [];
-
-    groups[groupValue].push(row);
-  }
-
-  // Remove the first element from the groups array:
-  keys.reverse();
-  keys.pop();
-  keys.reverse();
-
-  // If there are no more keys left, we're done:
-  if(keys.length == 0) return groups;
-
-  // Otherwise, handle further groupings:
-  for(let group in groups) {
-    groups[group] = groupBy(groups[group], keys.slice());
-  }
-
-  return groups;
-}
 // Gets a list of Announcements (need a flag for a flat list vs. group by section)
 export function index(req, res) {
+  let flat = req.query.flat;
   return Announcement.findAll({
-    attributes: ['section', 'title', 'description', 'expires'],
+    attributes: ['_id', 'section', 'title', 'description', 'expires'],
     order: ['section', 'title'],
     where: { expires: { $gt: new Date() } },
   })
-    .then(announcements => res.status(200).json(groupBy(announcements, ['section'])))
+    .then(announcements => {
+      return flat ? res.status(200).json(announcements) : res.status(200).json(nest(announcements));
+    })
     .catch(handleError(res));
 }
 
+function nest(flatAnnouncements) {
+  let nestedAnnouncements = [];
+  let currentSection;
+  let sectionIndex;
 
-// Current output (not good)
-// {
-//   "Sunday, April 16th Class Schedule": [
-//     {
-//       "section": "Sunday, April 16th Class Schedule",
-//       "title":"East Liberty School",
-//       "description":"- all classes running as scheduled",
-//       "expires":"2017-04-30T05:00:00.000Z"
-//     }, {
-//       "section":"Sunday, April 16th Class Schedule",
-//       "title":"East Liberty School",
-//       "description":"New one",
-//       "expires":"2017-04-30T07:00:00.000Z"
-//     },
-//     {
-//       "section":"Sunday, April 16th Class Schedule",
-//       "title":"East Libery School",
-//       "description":"- all classes running as scheduled",
-//       "expires":"2017-04-30T05:00:00.000Z"
-//     }
-//   ]
-// }
+  for(let i = 0; i < flatAnnouncements.length; i++) {
+    let row = flatAnnouncements[i];
+    if(currentSection !== row.section) {
+      sectionIndex = i;
+      nestedAnnouncements.push({
+        section: row.section,
+        announcements: [
+          {
+            title: row.title,
+            description: row.description,
+            expires: row.expires
+          }
+        ]
+      });
+    } else {
+      nestedAnnouncements[sectionIndex].announcements.push({
+        title: row.title,
+        description: row.description,
+        expires: row.expires
+      });
+    }
+    currentSection = row.section;
+  }
+  return nestedAnnouncements;
+}
 
-// What we want...
-// [
-//   {
-//     "section": "Sunday, April 16th Class Schedule",
-//     "announcements": [
-//       {
-//         "title": "East Liberty School",
-//         "description": "- all classes running as scheduled",
-//         "expires": "2017-04-30T00:00:00.000-05:00"
-//       },
-//       {
-//         "title": "Squirrel Hill School",
-//         "description": "- 9:15am and 4:30pm Yoga 1 classes running; remaining classes cancelled",
-//         "expires": "2017-04-30T00:00:00.000-05:00"
-//       },
-//       {
-//         "title": "North Hills School",
-//         "description": "- 9am Yoga 1 class running; remaining classes cancelled",
-//         "expires": "2017-04-30T00:00:00.000-05:00"       
-//       }
-//     ]
-//   },
-//   {
-//     "section": "Apple Pay",
-//     "announcements": [
-//       {
-//         "title": "Apple Pay now accepted",
-//         "description": "- Buy class passes and workshops from our website using your iPhone and Touch ID",
-//         "expires": "2017-10-01T00:00:00.000-05:00"
-//       }
-//     ]
-//   }
-// ]
-
-// var flat = [{
-//     "ID": "Root_1",
-//     "Name": "Root_1",                   
-//     "ParentID": "",
-//     "Sequent": 1
-// },
-// {
-//     "ID": "Root_2",
-//     "Name": "Root_2",                   
-//     "ParentID": "",
-//     "Sequent": 2
-// },              
-// {
-//     "ID": "Root_1_Sub_1_Child_1",
-//     "Name": "Root_1_Sub_1_Child_1",                 
-//     "ParentID": "Root_1_Sub_1",
-//     "Sequent": 1
-// },
-// {
-//     "ID": "Root_1_Sub_1_Child_2",
-//     "Name": "Root_1_Sub_1_Child_2",                 
-//     "ParentID": "Root_1_Sub_1",
-//     "Sequent": 2
-// },
-// {
-//     "ID": "Root_1_Sub_1",
-//     "Name": "Root_1_Sub_1",                 
-//     "ParentID": "Root_1",
-//     "Sequent": 1
-// }];
-// function nested(f){
-//   return f.sort((a,b) => a.ID.length < b.ID.length ? 1 : a.ID.length == b.ID.length ? a.ID < b.ID ? -1 : 1 :-1)
-//           .reduce((p,c,i,a) => {var parent = !!c.ParentID && a.find(e => e.ID === c.ParentID);
-//                                 !!parent ? !!parent.Sub && parent.Sub.push(c) || (parent.Sub=[c]) : p.push(c);
-//                                 return p;},[]);
-// };
-// document.write("<pre>" +  JSON.stringify(nested(flat),null,2) + "</pre>");
-
-// [
-//   {
-//     "ID": "Root_1",
-//     "Name": "Root_1",
-//     "ParentID": "",
-//     "Sequent": 1,
-//     "Sub": [
-//       {
-//         "ID": "Root_1_Sub_1",
-//         "Name": "Root_1_Sub_1",
-//         "ParentID": "Root_1",
-//         "Sequent": 1,
-//         "Sub": [
-//           {
-//             "ID": "Root_1_Sub_1_Child_1",
-//             "Name": "Root_1_Sub_1_Child_1",
-//             "ParentID": "Root_1_Sub_1",
-//             "Sequent": 1
-//           },
-//           {
-//             "ID": "Root_1_Sub_1_Child_2",
-//             "Name": "Root_1_Sub_1_Child_2",
-//             "ParentID": "Root_1_Sub_1",
-//             "Sequent": 2
-//           }
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     "ID": "Root_2",
-//     "Name": "Root_2",
-//     "ParentID": "",
-//     "Sequent": 2
-//   }
-// ]
+// Deletes user (admin-only)
+export function destroy(req, res) {
+  return Announcement.destroy({ where: { _id: req.params.id } })
+    .then(() => res.status(204).end())
+    .catch(handleError(res));
+}

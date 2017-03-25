@@ -111,13 +111,13 @@ export default function seedDatabaseIfNeeded() {
             }
           }
         ])
-      .then(() => console.log('Seeded users'))),
+      .then(() => console.log('Seeded users'))) /*,
 
       Announcement.destroy({
         where: {
           $and: [
             { section: {$eq: 'Sunday, April 16th Class Schedule'} },
-            { title: {$eq: 'East Libery School'} }
+            { title: {$eq: 'East Liberty School'} }
           ]
         }
       })
@@ -125,13 +125,13 @@ export default function seedDatabaseIfNeeded() {
         Announcement.bulkCreate([
           {
             section: 'Sunday, April 16th Class Schedule',
-            title: 'East Libery School',
+            title: 'East Liberty School',
             description: '- all classes running as scheduled',
             expires: '2017-04-30T00:00:00.000-05:00'
           }
         ])
       )
-      .then(() => console.log('Seeded announcements'))
+      .then(() => console.log('Seeded announcements')) */
     ])
     .then(() => console.log('Seeded database.'))
     .catch(err => console.log('Seeding error: ', err));

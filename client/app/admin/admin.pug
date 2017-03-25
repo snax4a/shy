@@ -1,9 +1,10 @@
 .container
   script(src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js')
   h1 Website Administration
+  h2 Users
   .row
     .col-md-5.col-xs-7
-      form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+      form.form(name='findUserForm', ng-submit='$ctrl.searchUsers(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
         .form-group
           label.sr-only Find User
           .input-group
@@ -15,7 +16,7 @@
           p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
             | Please enter at least the first three characters of the user's first or last name (or email address)
     .col-md-3.col.xs-3
-      a.btn.btn-warning(ng-click="$ctrl.create()") New User
+      a.btn.btn-warning(ng-click="$ctrl.createUser()") New User
   .row
     .col-md-12
       p(ng-show='$ctrl.users.length==0') No users found meeting the search criteria above
@@ -35,7 +36,7 @@
         tbody
           tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
             td
-              a.edit(ng-click="$ctrl.open(user)") {{ user.lastName }}, {{ user.firstName }}
+              a.edit(ng-click="$ctrl.editUser(user)") {{ user.lastName }}, {{ user.firstName }}
             td
               a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
             td
@@ -43,7 +44,29 @@
             td {{ user.optOut ? 'Yes' : 'No' }}
             td {{ user.role }}
             td
-              a.trash(ng-click='$ctrl.delete(user)')
-                span.glyphicon.glyphicon-trash.pull-right
-                
+              a.trash(ng-click='$ctrl.deleteUser(user)')
+                span.glyphicon.glyphicon-trash.pull-right 
       dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
+
+  h2 Announcements
+  .row
+    .col-md-12
+      p(ng-show='$ctrl.announcements.length==0') No announcements
+      table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
+        thead
+          th Section (click to edit)
+          th Title
+          th Description
+          th Expires
+          th 
+        tbody
+          tr(ng-repeat='announcement in $ctrl.announcements')
+            td
+              a.edit(ng-click='$ctrl.open(announcement)') {{ announcement.section }}
+            td
+              a.edit(ng-click='$ctrl.open(announcement)') {{ announcement.title }}
+            td {{ announcement.description }}
+            td {{ announcement.expires | date: 'd-MMM-yy h:mm a' }}
+            td
+              a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
+                span.glyphicon.glyphicon-trash.pull-right 

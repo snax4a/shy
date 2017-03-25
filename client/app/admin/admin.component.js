@@ -8,19 +8,26 @@ import AuthModule from '../../components/auth/auth.module';
 
 export class AdminController {
   /*@ngInject*/
-  constructor(User, $uibModal) {
+  constructor($http, User, $uibModal, $log) {
+    this.$http = $http;
     this.User = User;
     this.$uibModal = $uibModal;
+    this.$log = $log;
   }
 
   $onInit() {
     this.users = [];
+    this.$http.get('/api/announcement?flat=true')
+      .then(response => {
+        this.announcements = response.data;
+        return null;
+      });
     this.reverse = false;
     this.sortKey = 'lastName';
     this.submitted = false;
   }
 
-  search(form) {
+  searchUsers(form) {
     this.submitted = true;
 
     if(form.$valid) {
@@ -32,9 +39,14 @@ export class AdminController {
     }
   }
 
-  delete(selectedUser) {
+  deleteUser(selectedUser) {
     selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
+  }
+
+  deleteAnnouncement(selectedAnnouncement) {
+    selectedAnnouncement.$remove({ _id: selectedAnnouncement._id }); // Delete the announcement from the server
+    this.announcements.splice(this.announcements.indexOf(selectedAnnouncement), 1); // Remove from the array
   }
 
   handleEditing(user) {
@@ -55,11 +67,11 @@ export class AdminController {
     });
   }
 
-  open(user) {
+  editUser(user) {
     this.handleEditing(user);
   }
 
-  create() {
+  createUser() {
     let user = {
       _id: 0,
       provider: 'local',

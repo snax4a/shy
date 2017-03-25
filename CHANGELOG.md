@@ -1,5 +1,8 @@
 # Product Backlog
-* [High] Connect announcement.controller.js:index to sqldb.Announcement
+* [High] Admin page - delete announcement
+* [High] Admin page - edit announcement
+* [High] Admin page - add announcment
+* [Medium] api/announcement/index.js - fix auth
 * [High] Build SHYnet page
 * [Low] Build order.model.spec.js test
 * [Low] Add method to push newsletters from admin
