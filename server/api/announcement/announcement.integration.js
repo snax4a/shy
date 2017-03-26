@@ -1,38 +1,13 @@
-/* globals describe, expect, it, before, beforeEach, after */
+/* globals describe, expect, it, before, beforeEach */
 
 'use strict';
 
 import app from '../..';
 import request from 'supertest';
-import { User } from '../../sqldb';
+import config from '../../config/environment';
 
 describe('Announcement API:', function() {
-  var user;
-  var admin;
-
-    // Create admin user
-  before(function() {
-    user = User.build({
-      firstName: 'SHY',
-      lastName: 'Admin',
-      email: 'admin@example.com',
-      phone: '412-555-1212',
-      password: 'password',
-      role: 'admin',
-      provider: 'local',
-      optOut: true
-    });
-    return user.save()
-      .then(function(savedUser) {
-        admin = savedUser;
-        return admin;
-      });
-  });
-
-  // Delete test admin
-  after(function() {
-    return User.destroy({ where: { email: 'admin@example.com' } });
-  });
+  var newAnnouncementID;
 
   // announcement.controller.js:index
   describe('GET /api/announcement', function() {
@@ -66,8 +41,8 @@ describe('Announcement API:', function() {
       request(app)
         .post('/auth/local')
         .send({
-          email: user.email,
-          password: user.password
+          email: config.admin.email,
+          password: config.admin.password
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -93,7 +68,8 @@ describe('Announcement API:', function() {
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) return done(err);
-          expect(res.body._id.toString()).to.equal(announcement._id.toString());
+          newAnnouncementID = res.body._id;
+          expect(newAnnouncementID).to.be.above(0);
           done();
         });
     });
@@ -114,8 +90,8 @@ describe('Announcement API:', function() {
       request(app)
         .post('/auth/local')
         .send({
-          email: user.email,
-          password: user.password
+          email: config.admin.email,
+          password: config.admin.password
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -128,14 +104,14 @@ describe('Announcement API:', function() {
 
     it('should respond with a 401 when not authenticated', function(done) {
       request(app)
-        .delete(`/api/announcement/${announcement._id}`)
+        .delete(`/api/announcement/${newAnnouncementID}`)
         .expect(401)
         .end(done);
     });
 
     it('should respond with a result code of 204 to confirm deletion when authenticated', function(done) {
       request(app)
-        .delete(`/api/announcement/${announcement._id}`)
+        .delete(`/api/announcement/${newAnnouncementID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(204)
         .end(done);

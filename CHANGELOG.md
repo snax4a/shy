@@ -1,7 +1,6 @@
 # Product Backlog
-* [Medium] api/announcement/announcement.integration.js - get generated _id for test
+* [High] Build admin for schedule
 * [High] Build SHYnet page
-* [Low] Fix order.model.spec.js test
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

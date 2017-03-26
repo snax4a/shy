@@ -5,13 +5,25 @@ import { Order } from '../../sqldb';
 let order;
 let buildOrder = function() {
   order = Order.build({
-    provider: 'local',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@example.com',
-    phone: '412-555-1212',
-    password: 'password',
-    optOut: true
+    orderNumber: '00000000',
+    amount: 100,
+    gift: true,
+    instructions: 'This is a test',
+    sendVia: 'email',
+    purchaserFirstName: 'John',
+    purchaserLastName: 'Doe',
+    purchaserEmail: 'john.doe@gmail.com',
+    purchaserPhone: '412-555-1212',
+    last4: '0339',
+    recipientFirstName: 'Jane',
+    recipientLastName: 'Doe',
+    recipientAddress: '123 Main Street',
+    recipientCity: 'Pittsburgh',
+    recipientState: 'PA',
+    recipientZipCode: '15200',
+    recipientEmail: 'jane.doe@gmail.com',
+    recipientPhone: '412-555-1212',
+    itemsOrdered: '[{"id":4,"name":"Twelve class pass","price":100,"quantity":1}]'
   });
   return order;
 };
@@ -20,7 +32,7 @@ describe('Order Model', function() {
   before(function() {
     // Sync and clear users before testing
     return Order.sync().then(function() {
-      return Order.destroy({ where: { email: 'test@example.com' } });
+      return Order.destroy({ where: { instructions: 'This is a test' } });
     });
   });
 
@@ -29,24 +41,36 @@ describe('Order Model', function() {
   });
 
   afterEach(function() {
-    return Order.destroy({ where: { email: 'test@example.com' } });
+    return Order.destroy({ where: { instructions: 'This is a test' } });
   });
 
-  it('should begin with no orders seeded', function() {
-    expect(Order.findAll()).to.eventually.have.length(4);
+  describe('#orderNumber', function() {
+    it('should fail when saving without an orderNumber', function(done) {
+      order.orderNumber = '';
+      expect(order.save()).to.be.rejected;
+      done();
+    });
   });
 
-  it('should fail when saving a duplicate order', function() {
-    return expect(order.save()
-      .then(function() {
-        let orderDup = buildOrder();
-        return orderDup.save();
-      })).to.be.rejected;
+  describe('#purchaserEmail', function() {
+    it('should fail when saving without a purchaserEmail', function(done) {
+      order.purchaserEmail = '';
+      expect(order.save()).to.be.rejected;
+      done();
+    });
   });
 
-  describe('#email', function() {
-    it('should fail when saving without an email', function(done) {
-      order.email = '';
+  describe('#recipientEmail', function() {
+    it('should fail when saving without a recipientEmail', function(done) {
+      order.recipientEmail = '';
+      expect(order.save()).to.be.rejected;
+      done();
+    });
+  });
+
+  describe('#itemsOrdered', function() {
+    it('should fail when saving without a value for itemsOrdered', function(done) {
+      order.itemsOrdered = '';
       expect(order.save()).to.be.rejected;
       done();
     });
