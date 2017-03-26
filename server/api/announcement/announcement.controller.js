@@ -13,13 +13,13 @@ function handleError(res, statusCode) {
   return err => res.status(statusCode).send(err);
 }
 
-// Gets a list of Announcements (need a flag for a flat list vs. group by section)
+// Gets a list of Announcements
 export function index(req, res) {
   let flat = req.query.flat;
   return Announcement.findAll({
     attributes: ['_id', 'section', 'title', 'description', 'expires'],
     order: ['section', 'title'],
-    where: { expires: { $gt: new Date() } },
+    where: { expires: { $gt: new Date() } }
   })
     .then(announcements => {
       return flat ? res.status(200).json(announcements) : res.status(200).json(nest(announcements));

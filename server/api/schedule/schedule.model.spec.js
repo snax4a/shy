@@ -41,7 +41,7 @@ describe('Schedule Model', function() {
 
   describe('#day', function() {
     it('should fail when saving without a day', function(done) {
-      schedule.day = '';
+      schedule.day = undefined;
       expect(schedule.save()).to.be.rejected;
       done();
     });

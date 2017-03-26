@@ -16,7 +16,7 @@ export default function(sequelize, DataTypes) {
     },
 
     day: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: true
       }
@@ -48,6 +48,11 @@ export default function(sequelize, DataTypes) {
       validate: {
         notEmpty: true
       }
+    },
+
+    canceled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   };
 
