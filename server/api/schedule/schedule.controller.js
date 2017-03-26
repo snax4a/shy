@@ -17,7 +17,7 @@ function handleError(res, statusCode) {
 export function index(req, res) {
   let flat = req.query.flat;
   return Schedule.findAll({
-    attributes: ['_id', 'location', 'day', 'title', 'teacher', 'startTime', 'endTime'],
+    attributes: ['_id', 'location', 'day', 'title', 'teacher', 'startTime', 'endTime', 'canceled'],
     order: ['location', 'day', 'startTime']
   })
     .then(schedule => {
@@ -30,14 +30,16 @@ export function index(req, res) {
 function nest(flatScheduleItems) {
   let nestedScheduleItems = [];
   let currentLocation;
-  let locationIndex;
+  let locationIndex = -1; // assume none
   let currentDay;
   let dayIndex;
 
   for(let i = 0; i < flatScheduleItems.length; i++) {
     let row = flatScheduleItems[i];
     if(currentLocation !== row.location) {
-      locationIndex = i;
+      console.log('Begin location');
+      locationIndex++;
+      dayIndex = 0;
       nestedScheduleItems.push({
         location: row.location,
         days: [
@@ -57,7 +59,8 @@ function nest(flatScheduleItems) {
       });
     } else {
       if(currentDay !== row.day) {
-        dayIndex = i;
+        console.log('Begin day');
+        dayIndex++;
         nestedScheduleItems[locationIndex].days.push({
           day: row.day,
           classes: [
@@ -71,6 +74,7 @@ function nest(flatScheduleItems) {
           ]
         });
       } else {
+        console.log('Same location and day', nestedScheduleItems);
         nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
           title: row.title,
           teacher: row.teacher,

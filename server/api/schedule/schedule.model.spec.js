@@ -6,7 +6,7 @@ let schedule;
 let buildSchedule = function() {
   schedule = Schedule.build({
     location: 'Test',
-    day: 'Sunday',
+    day: 1,
     title: 'Yoga 1',
     teacher: 'Leta Koontz',
     startTime: '09:00:00.000000',
