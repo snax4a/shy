@@ -1,39 +1,38 @@
-/* globals describe, expect, it, before, beforeEach */
-
 'use strict';
+
+/* globals before, describe, expect, it, beforeEach */
 
 import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('Announcement API:', function() {
-  var newAnnouncementID;
+describe('Schedule API:', function() {
+  var newScheduleItemID;
 
-  // announcement.controller.js:index
-  describe('GET /api/announcement', function() {
-    var announcements;
+  describe('GET /api/schedule', function() {
+    var schedules;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/announcement')
+        .get('/api/schedule')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          announcements = res.body;
+          schedules = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      expect(announcements).to.be.instanceOf(Array);
+      expect(schedules).to.be.instanceOf(Array);
     });
   });
 
-  // announcement.controller.js:upsert
-  describe('PUT /api/announcement/:id', function() {
+  // schedule.controller.js:upsert
+  describe('PUT /api/schedule/:id', function() {
     var tokenAdmin;
 
     before(function(done) {
@@ -52,37 +51,39 @@ describe('Announcement API:', function() {
         });
     });
 
-    it('should upsert the announcement\'s profile when admin is authenticated', function(done) {
+    it('should upsert the schedule\'s profile when admin is authenticated', function(done) {
       request(app)
-        .put('/api/announcement/0')
+        .put('/api/schedule/0')
         .send({
           _id: 0,
-          section: 'Section 1',
-          title: 'Title 1',
-          description: 'Description 1',
-          expires: '2017-04-15T20:00:00.000-04:00'
+          location: 'Test',
+          day: 'Sunday',
+          title: 'Yoga 1',
+          teacher: 'Leta Koontz',
+          startTime: '09:00:00.000000',
+          endTime: '10:30:00.000000'
         })
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) return done(err);
-          newAnnouncementID = res.body._id;
-          expect(newAnnouncementID).to.be.above(0);
+          newScheduleItemID = res.body._id;
+          expect(newScheduleItemID).to.be.above(0);
           done();
         });
     });
 
     it('should respond with a 401 when not authenticated', function(done) {
       request(app)
-        .put('/api/announcement/0')
+        .put('/api/schedule/0')
         .expect(401)
         .end(done);
     });
   });
 
-  // announcement.controller.js:destroy
-  describe('DELETE /api/announcement/:id', function() {
+  // schedule.controller.js:destroy
+  describe('DELETE /api/schedule/:id', function() {
     var tokenAdmin;
 
     before(function(done) {
@@ -103,14 +104,14 @@ describe('Announcement API:', function() {
 
     it('should respond with a 401 when not authenticated', function(done) {
       request(app)
-        .delete(`/api/announcement/${newAnnouncementID}`)
+        .delete(`/api/schedule/${newScheduleItemID}`)
         .expect(401)
         .end(done);
     });
 
     it('should respond with a result code of 204 to confirm deletion when authenticated', function(done) {
       request(app)
-        .delete(`/api/announcement/${newAnnouncementID}`)
+        .delete(`/api/schedule/${newScheduleItemID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(204)
         .end(done);

@@ -12,5 +12,6 @@ let db = {
 db.User = db.sequelize.import('../api/user/user.model');
 db.Order = db.sequelize.import('../api/order/order.model');
 db.Announcement = db.sequelize.import('../api/announcement/announcement.model');
+db.Schedule = db.sequelize.import('../api/schedule/schedule.model');
 
 module.exports = db;
