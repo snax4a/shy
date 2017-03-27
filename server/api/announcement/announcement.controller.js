@@ -21,7 +21,7 @@ export function index(req, res) {
     order: ['section', 'title'],
     where: { expires: { $gt: new Date() } }
   })
-    .then(announcements => {
+    .then(function(announcements) {
       return flat ? res.status(200).json(announcements) : res.status(200).json(nest(announcements));
     })
     .catch(handleError(res));
@@ -30,12 +30,12 @@ export function index(req, res) {
 function nest(flatAnnouncements) {
   let nestedAnnouncements = [];
   let currentSection;
-  let sectionIndex;
+  let sectionIndex = -1;
 
   for(let i = 0; i < flatAnnouncements.length; i++) {
     let row = flatAnnouncements[i];
     if(currentSection !== row.section) {
-      sectionIndex = i;
+      sectionIndex++;
       nestedAnnouncements.push({
         section: row.section,
         announcements: [

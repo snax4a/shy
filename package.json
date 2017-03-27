@@ -75,7 +75,7 @@
     "express": "^4.15.2",
     "express-jwt": "^5.1.0",
     "express-sequelize-session": "^0.4.0",
-    "express-session": "^1.15.1",
+    "express-session": "^1.15.2",
     "font-awesome": "^4.7.0",
     "jsonwebtoken": "^7.3.0",
     "lusca": "^1.4.1",

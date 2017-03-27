@@ -20,13 +20,13 @@ export function index(req, res) {
     attributes: ['_id', 'location', 'day', 'title', 'teacher', 'startTime', 'endTime', 'canceled'],
     order: ['location', 'day', 'startTime']
   })
-    .then(schedule => {
+    .then(function(schedule) {
       return flat ? res.status(200).json(schedule) : res.status(200).json(nest(schedule));
     })
     .catch(handleError(res));
 }
 
-// Overhaul for schedule
+// Nest the schedule items for easy display with AngularJS
 function nest(flatScheduleItems) {
   let nestedScheduleItems = [];
   let currentLocation;
@@ -37,9 +37,8 @@ function nest(flatScheduleItems) {
   for(let i = 0; i < flatScheduleItems.length; i++) {
     let row = flatScheduleItems[i];
     if(currentLocation !== row.location) {
-      console.log('Begin location');
-      locationIndex++;
-      dayIndex = 0;
+      locationIndex++; // zero first time through
+      dayIndex = 0; // Start days over for new location
       nestedScheduleItems.push({
         location: row.location,
         days: [
@@ -59,7 +58,6 @@ function nest(flatScheduleItems) {
       });
     } else {
       if(currentDay !== row.day) {
-        console.log('Begin day');
         dayIndex++;
         nestedScheduleItems[locationIndex].days.push({
           day: row.day,
@@ -74,7 +72,6 @@ function nest(flatScheduleItems) {
           ]
         });
       } else {
-        console.log('Same location and day', nestedScheduleItems);
         nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
           title: row.title,
           teacher: row.teacher,
@@ -85,6 +82,7 @@ function nest(flatScheduleItems) {
       }
       currentDay = row.day;
     }
+    currentDay = row.day;
     currentLocation = row.location;
   }
   return nestedScheduleItems;
