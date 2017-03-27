@@ -1,0 +1,45 @@
+form(name='form', ng-submit="$ctrl.submitScheduleItem(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title Edit Schedule Item
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='location') Studio
+        select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locations")
+        ng-messages.help-block.has-error(for='form.location.$error', ng-show='form.location.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the studio name.
+    .row
+      .form-group.col-md-4
+        label(for='day') Day
+        select.form-control(name='day', id='day', ng-model='$ctrl.scheduleItem.day', ng-options="dayNumber*1+1 as dayName for (dayNumber, dayName) in $ctrl.weekdays")
+        ng-messages.help-block.has-error(for='form.day.$error', ng-show='form.day.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the day of the week.
+      .form-group.col-md-4
+        label(for='startTime') Start Time (24-hour)
+        input.form-control(type='text', name='startTime', id='startTime', ng-model='$ctrl.scheduleItem.startTime', required='true', placeholder='Start time')
+        ng-messages.help-block.has-error(for='form.startTime.$error', ng-show='form.startTime.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the start time.
+      .form-group.col-md-4
+        label(for='endTime') End Time (24-hour)
+        input.form-control(type='text', name='endTime', id='endTime', ng-model='$ctrl.scheduleItem.endTime', required='true', placeholder='End time')
+        ng-messages.help-block.has-error(for='form.endTime.$error', ng-show='form.endTime.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the end time.
+    .row
+      .form-group.col-md-6
+        label(for='title') Class Title
+        select.form-control(name='title', id='title', ng-model='$ctrl.scheduleItem.title', ng-options="course.title as course.title for course in $ctrl.classes")
+        ng-messages.help-block.has-error(for='form.title.$error', ng-show='form.title.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the class title.
+      .form-group.col-md-6
+        label(for='teacher') Teacher
+        select.form-control(name='teacherday', id='teacher', ng-model='$ctrl.scheduleItem.teacher', ng-options="teacher.firstName + ' ' + teacher.lastName as teacher.firstName + ' ' + teacher.lastName for teacher in $ctrl.teachers")
+        ng-messages.help-block.has-error(for='form.teacher.$error', ng-show='form.teacher.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the teacher's name.
+      .form-group.col-md-6
+        label(for='canceled') Canceled
+        select.form-control(name='canceled', id='canceled', ng-model='$ctrl.scheduleItem.canceled', ng-options="(item?'Yes':'No') for item in [true, false]")
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

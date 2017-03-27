@@ -49,6 +49,9 @@ import profilePage from './profile/profile.component';
 import upcoming from '../components/upcoming/upcoming.filter';
 import htmlid from '../components/htmlid/htmlid.filter';
 import daytodate from '../components/daytodate/daytodate.filter';
+import weekday from '../components/weekday/weekday.filter';
+import ampm from '../components/ampm/ampm.filter';
+import trustedurl from '../components/trustedurl/trustedurl.filter';
 
 // Directives used globally
 import compareTo from '../components/compareto/compareto.directive';
@@ -59,7 +62,7 @@ import './app.scss';
 // Inject everything into shyApp
 angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, loginPage, adminPage, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage,
-  profilePage, constants, util, jsonLd, upcoming, htmlid, daytodate, tweet, CartModule, dirPagination, loadingBar, compareTo])
+  profilePage, constants, util, jsonLd, upcoming, htmlid, daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {
     'ngInject';

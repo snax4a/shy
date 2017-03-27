@@ -5,6 +5,9 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import routes from './admin.routes';
 import ngResource from 'angular-resource'; // delete() relies on this
 import AuthModule from '../../components/auth/auth.module';
+import teachers from '../../assets/data/teachers.json';
+import classes from '../../assets/data/classes.json';
+import locations from '../../assets/data/locations.json';
 
 export class AdminController {
   /*@ngInject*/
@@ -19,6 +22,11 @@ export class AdminController {
     this.$http.get('/api/announcement?flat=true')
       .then(response => {
         this.announcements = response.data;
+        return null;
+      });
+    this.$http.get('/api/schedule?flat=true')
+      .then(response => {
+        this.scheduleItems = response.data;
         return null;
       });
     this.reverse = false;
@@ -121,6 +129,48 @@ export class AdminController {
     this.$http.delete(`/api/announcement/${selectedAnnouncement._id}`)
       .then(() => this.announcements.splice(this.announcements.indexOf(selectedAnnouncement), 1));
   }
+
+  modalScheduleEditor(scheduleItem) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./scheduleeditor.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: ScheduleEditorController,
+      resolve: {
+        scheduleItemSelectedForEditing: () => scheduleItem
+      }
+    });
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      if(scheduleItem.shouldBeDeleted) this.scheduleItems.splice(this.scheduleItems.indexOf(scheduleItem), 1); // Remove them from the array
+    });
+  }
+
+  editScheduleItem(scheduleItem) {
+    this.modalScheduleEditor(scheduleItem);
+  }
+
+  createScheduleItem() {
+    let scheduleItem = {
+      _id: 0,
+      location: 'Squirrel Hill',
+      day: 1,
+      teacher: 'Leta Koontz',
+      title: 'Yoga 1',
+      startTime: '18:00',
+      endTime: '19:30',
+      canceled: false
+    };
+
+    this.scheduleItems.unshift(scheduleItem);
+    this.modalScheduleEditor(scheduleItem);
+  }
+
+  deleteScheduleItem(selectedScheduleItem) {
+    this.$http.delete(`/api/schedule/${selectedScheduleItem._id}`)
+      .then(() => this.scheduleItems.splice(this.scheduleItems.indexOf(selectedScheduleItem), 1));
+  }
 }
 
 class UserEditorController {
@@ -218,10 +268,6 @@ class AnnouncementEditorController {
     this.datePickerOpened = true;
   }
 
-  // clearServerError(form, fieldName) {
-  //   form[fieldName].$setValidity('server', true);
-  // }
-
   submitAnnouncement(form) {
     this.submitted = true;
     if(form.$valid) {
@@ -240,19 +286,6 @@ class AnnouncementEditorController {
           angular.extend(this.announcementSelectedForEditing, upsertedAnnouncement);
           this.$uibModalInstance.close();
           return null;
-        })
-        .catch(response => {
-          let err = response.data;
-          this.errors = {}; // reset to only the latest errors
-
-          // Update validity of form fields that match the server errors
-          if(err.name) {
-            for(let error of err.errors) {
-              form[error.path].$setValidity('server', false);
-              this.errors[error.path] = error.message;
-            }
-          }
-          return null;
         });
     }
   }
@@ -260,6 +293,55 @@ class AnnouncementEditorController {
   cancel() {
     if(!this.announcementSelectedForEditing._id) {
       this.announcementSelectedForEditing.shouldBeDeleted = true;
+    }
+    this.$uibModalInstance.close();
+  }
+}
+
+class ScheduleEditorController {
+  /*@ngInject*/
+  constructor($http, $uibModalInstance, scheduleItemSelectedForEditing) {
+    // Dependencies
+    this.$http = $http;
+    this.$uibModalInstance = $uibModalInstance;
+    this.scheduleItemSelectedForEditing = scheduleItemSelectedForEditing;
+
+    // Initializations - not in $onInit since not it's own component
+    this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    this.submitted = false;
+    this.errors = {};
+    this.scheduleItem = {};
+    this.teachers = teachers;
+    this.classes = classes;
+    this.locations = locations;
+    angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);
+  }
+
+  submitScheduleItem(form) {
+    this.submitted = true;
+    if(form.$valid) {
+      // Make a copy of this.user or upsert fails
+      let upsertedScheduleItem = {};
+      angular.copy(this.scheduleItem, upsertedScheduleItem);
+
+      this.$http.put(`/api/schedule/${upsertedScheduleItem._id}`, upsertedScheduleItem)
+        .then(response => { // only contains Schedules._id
+          // If a new schedule item...
+          if(upsertedScheduleItem._id === 0) {
+            upsertedScheduleItem._id = response.data._id;
+          }
+
+          // Graft the edited scheduled item back the original
+          angular.extend(this.scheduleItemSelectedForEditing, upsertedScheduleItem);
+          this.$uibModalInstance.close();
+          return null;
+        });
+    }
+  }
+
+  cancel() {
+    if(!this.scheduleItemSelectedForEditing._id) {
+      this.scheduleItemSelectedForEditing.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();
   }

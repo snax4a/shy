@@ -71,3 +71,34 @@
             td
               a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
                 span.glyphicon.glyphicon-trash.pull-right 
+
+  h2.admin Class Schedule
+  .row
+    .col-md-12
+      a.btn.btn-warning(ng-click='$ctrl.createScheduleItem()') New Schedule Item
+      p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
+      table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
+        thead
+          th Location (click to edit)
+          th Day
+          th Title
+          th Teacher
+          th Starts
+          th Ends
+          th Canceled
+          th 
+        tbody
+          tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
+            td
+              a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.location }}
+            td
+              a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.day | weekday }}
+            td 
+              a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.title }}
+            td {{ scheduleItem.teacher }}
+            td {{ scheduleItem.startTime | ampm }}
+            td {{ scheduleItem.endTime  | ampm }}
+            td {{ scheduleItem.canceled ? 'Yes' : 'No'}}
+            td
+              a.trash(ng-click='$ctrl.deleteScheduleItem(scheduleItem)')
+                span.glyphicon.glyphicon-trash.pull-right 

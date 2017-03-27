@@ -1,20 +1,19 @@
 /* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import dayToDateFilter from './daytodate.filter';
+import ampmFilter from './ampm.filter';
 
-describe('Filter: daytodate', () => {
+describe('Filter: ampm', () => {
   // load the filter's module
-  beforeEach(angular.mock.module(dayToDateFilter));
+  beforeEach(angular.mock.module(ampmFilter));
 
   // initialize a new instance of the filter before each test
-  let daytodate;
+  let ampm;
   beforeEach(inject($filter => {
-    daytodate = $filter('daytodate');
+    ampm = $filter('ampm');
   }));
 
   it('should return a date for the day of the week', () => {
-    let dayNumber = 4;
-    expect(daytodate(dayNumber)).to.be.an.instanceof(Date);
+    expect(ampm('13:00')).to.be.String('1:00pm');
   });
 });

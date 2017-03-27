@@ -1,10 +1,16 @@
 # Product Backlog
-* [High] Build admin for schedule
 * [High] Build SHYnet page
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
+
+<a name="1.0.6"></a>
+# [1.0.6](https://github.com/nstuyvesant/shy/commit/755fca80b3d4384046c695707c68cea61698ab4d) (2017-03-27)
+* Add schedule editing with pick lists bound to JSON files
+* Have /classes pull from DB
+* Locations page now pulls from JSON file
+* Built filters for time, day and trusted resources
 
 <a name="1.0.5"></a>
 # [1.0.5](https://github.com/nstuyvesant/shy/commit/755fca80b3d4384046c695707c68cea61698ab4d) (2017-03-25)

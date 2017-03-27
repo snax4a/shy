@@ -25,16 +25,6 @@ export function index(req, res) {
     })
     .catch(handleError(res));
 }
-function toAmPm(time) {
-  let [hour, minutes] = time.split(':');
-  let meridien = 'am';
-  if(hour > 12) {
-    meridien = 'pm';
-    hour = hour - 12;
-  }
-  let timeString = `${Number.parseInt(hour, 10)}:${minutes}${meridien}`;
-  return timeString;
-}
 
 // Nest the schedule items for easy display with AngularJS
 function nest(flatScheduleItems) {
@@ -58,8 +48,8 @@ function nest(flatScheduleItems) {
               {
                 title: row.title,
                 teacher: row.teacher,
-                startTime: toAmPm(row.startTime),
-                endTime: toAmPm(row.endTime),
+                startTime: row.startTime,
+                endTime: row.endTime,
                 canceled: row.canceled
               }
             ]
@@ -75,8 +65,8 @@ function nest(flatScheduleItems) {
             {
               title: row.title,
               teacher: row.teacher,
-              startTime: toAmPm(row.startTime),
-              endTime: toAmPm(row.endTime),
+              startTime: row.startTime,
+              endTime: row.endTime,
               canceled: row.canceled
             }
           ]
@@ -85,8 +75,8 @@ function nest(flatScheduleItems) {
         nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
           title: row.title,
           teacher: row.teacher,
-          startTime: toAmPm(row.startTime),
-          endTime: toAmPm(row.endTime),
+          startTime: row.startTime,
+          endTime: row.endTime,
           canceled: row.canceled
         });
       }

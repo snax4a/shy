@@ -21,7 +21,7 @@
           tr(ng-repeat-start='day in studio.days')
             td.day(colspan='3') {{day.day | daytodate | date:'fullDate'}}
           tr(ng-repeat-end,ng-repeat='class in day.classes')
-            td.time(ng-class='{canceled: class.canceled=="true"}') {{ class.startTime | date: 'shortTime' }}-{{ class.endTime | date: 'shortTime'}}
+            td.time(ng-class='{canceled: class.canceled=="true"}') {{ class.startTime | ampm }}-{{ class.endTime | ampm }}
             td(ng-class='{canceled: class.canceled=="true"}')
               a(href='/classes#{{class.title | htmlid}}') {{class.title}} 
               span(ng-if='class.canceled=="true"') (Canceled)

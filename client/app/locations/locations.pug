@@ -1,68 +1,24 @@
 .container
   h1 Pittsburgh Yoga School Locations
-  hr
-  .row
+
+  hr(ng-repeat-start='location in $ctrl.locations')
+  .row(ng-repeat-end)
     .col-sm-3
       address
-        h2#squirrel-hill Squirrel Hill
-        |  2215-2217 Murray Avenue
+        h2(id='{{ location.name | htmlid }}') {{ location.name }}
+        |  {{ location.address }}
         br
-        |  Pittsburgh, PA 15217
+        |  {{ location.city }}, {{ location.state }} {{ location.zipCode }}
       |  
-      a.btn.btn-warning(href='https://goo.gl/maps/YRkLw47EC8M2', target='_blank') Directions
-      a.btn.btn-default.review(href='https://www.google.com/search?q=Schoolhouse+Yoga%2C+Squirrel+Hill+Studio&oq=Schoolhouse+Yoga%2C+Squirrel+Hill+Studio&aqs=chrome..69i57.1516j0j1&sourceid=chrome&ie=UTF-8#q=Schoolhouse+Yoga,+Squirrel+Hill+Studio&rflfq=1&rlha=0&rllag=40446366,-79925061,1582&tbm=lcl&rldimm=12378120548147177913&tbs=lf_od:-1,lf_oh:-1,lf_pqs:EAE,lf:1,lf_ui:3&*&lrd=0x8834f1feef0d63d7:0xabc7eb0e7346a9b9,3,', target='_blank') Review Us
+      a.btn.btn-warning(href='{{ location.directions | trustedurl }}', target='_blank') Directions
+      a.btn.btn-default.review(href='{{ location.review | trustedurl }}', target='_blank') Review Us
       br
       br
-      |  Our Squirrel Hill school is located across the street from Eyetique, on the corner of Phillips and Murray Avenues.
-      br
-      |  Free and metered parking spaces are available. There is a City of Pittsburgh parking lot located on Phillips Avenue.
+      p {{ location.note1 }}
+      p {{ location.note2 }}
       br
     .col-sm-9
       .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d759.2361528117804!2d-79.92352977282381!3d40.4322253626211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f1feef0d63d7%3A0xabc7eb0e7346a9b9!2sSchoolhouse+Yoga!5e0!3m2!1sen!2sus!4v1470020444130', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
+        iframe(src='{{ location.map | trustedurl }}', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
       .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v1483899807219!6m8!1m7!1swJHnWEpmX-aUwvuR872N5Q!2m2!1d40.43231428860852!2d-79.92317164546498!3f129.08566511770485!4f-1.8504661311467885!5f2.299968626952992', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
-  hr
-  .row
-    .col-sm-3
-      address
-        h2#east-liberty East Liberty
-        |  5923 Baum Boulevard
-        br
-        |  Pittsburgh, PA 15206
-      |  
-      a.btn.btn-warning(href='https://goo.gl/maps/yte7NhG68p72', target='_blank') Directions
-      a.btn.btn-default.review(href='https://www.google.com/search?q=Schoolhouse+Yoga%2C+East+Liberty+Studio&oq=Schoolhouse+Yoga%2C+East+Liberty+Studio&aqs=chrome..69i57.572j0j9&sourceid=chrome&ie=UTF-8#lrd=0x8834f3c367c99819:0x3b07c45a90aded94,3,', target='_blank') Review Us
-      br
-      br
-      |  Our East Liberty school is located by the AAA/Motor Square Garden building.
-      br
-      |  Free and metered parking spaces are available. There is a City of Pittsburgh parking lot located behind our building.
-      br
-    .col-sm-9
-      .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.667409433646!2d-79.92938598539327!3d40.460497660901765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f3c367c99819%3A0x3b07c45a90aded94!2sSchoolhouse+Yoga!5e0!3m2!1sen!2sus!4v1470021475690', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
-      .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v1481551537475!6m8!1m7!1swkgxCjvm1whJGT0vJV3QoQ!2m2!1d40.460366586064!2d-79.92709997429016!3f347.5445481949827!4f-13.345590389034314!5f0.9806025064493039', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
-  hr
-  .row
-    .col-sm-3
-      address
-        h2#north-hills North Hills
-        |  7210 McKnight Road
-        br
-        |  Pittsburgh, PA 15237
-      |  
-      a.btn.btn-warning(href='https://goo.gl/maps/9QAV8cLDAh12', target='_blank') Directions
-      a.btn.btn-default.review(href='https://www.google.com/search?q=Schoolhouse+Yoga+North+Hills&oq=Schoolhouse+Yoga+North+Hills&aqs=chrome..69i57.5468j0j9&sourceid=chrome&ie=UTF-8#q=Schoolhouse+Yoga+McKnight&*&lrd=0x88348b578bfceebd:0xf43ca20cbed696a2,3,', target='_blank') Review Us
-      br
-      br
-      |  Our North Hills school is located on the drive up to the Ross Park Mall.
-      br
-      |  We have a free parking lot at this location.
-      br
-    .col-sm-9
-      .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.267809442455!2d-80.01269568467633!3d40.53567205632102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88348b578bfceebd%3A0xf43ca20cbed696a2!2sSchoolhouse+Yoga!5e0!3m2!1sen!2sus!4v1470021743313', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
-      .map-responsive
-        iframe(src='https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v1470021801096!6m8!1m7!1sA_Qp961G0EGLab7onc_kWA!2m2!1d40.53565569058058!2d-80.01080144054318!3f72.35354051450302!4f8.051221515833191!5f1.9587109090973311', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
+        iframe(src='{{ location.street | trustedurl }}', width='600', height='450', frameborder='0', style='border:0', allowfullscreen='')
