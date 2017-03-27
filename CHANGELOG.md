@@ -6,7 +6,7 @@
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
 <a name="1.0.6"></a>
-# [1.0.6](https://github.com/nstuyvesant/shy/commit/755fca80b3d4384046c695707c68cea61698ab4d) (2017-03-27)
+# [1.0.6](https://github.com/nstuyvesant/shy/commit/d40fe19cdf449f33f05104fdc9ae1d2d839b3574) (2017-03-27)
 * Add schedule editing with pick lists bound to JSON files
 * Have /classes pull from DB
 * Locations page now pulls from JSON file
