@@ -3,13 +3,21 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './classes.routes';
 import classes from '../../assets/data/classes.json';
-import classSchedule from '../../assets/data/class-schedule.json';
 
 export class ClassesController {
+  /*@ngInject*/
+  constructor($http) {
+    this.$http = $http;
+  }
+
   $onInit() {
-    // Load objects from JSON
+    // Load classes from JSON
     this.classes = classes;
-    this.classSchedule = classSchedule;
+    this.$http.get('/api/schedule')
+      .then(response => {
+        this.classSchedule = response.data;
+        return null;
+      });
   }
 }
 

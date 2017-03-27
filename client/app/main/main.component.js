@@ -10,7 +10,6 @@ export class MainController {
   }
 
   $onInit() {
-    //this.announcementList = [];
     this.$http.get('/api/announcement')
       .then(response => {
         this.announcementList = response.data;
