@@ -9,6 +9,7 @@ import config from '../../config/environment';
 describe('Schedule API:', function() {
   var newScheduleItemID;
 
+  // schedule.controller.js:index
   describe('GET /api/schedule', function() {
     var schedules;
 
@@ -51,17 +52,18 @@ describe('Schedule API:', function() {
         });
     });
 
-    it('should upsert the schedule\'s profile when admin is authenticated', function(done) {
+    it('should upsert the schedule item when admin is authenticated', function(done) {
       request(app)
         .put('/api/schedule/0')
         .send({
           _id: 0,
           location: 'Test',
-          day: 'Sunday',
+          day: 1,
           title: 'Yoga 1',
-          teacher: 'Leta Koontz',
+          teacher: 'Jane Doe',
           startTime: '09:00:00.000000',
-          endTime: '10:30:00.000000'
+          endTime: '10:30:00.000000',
+          canceled: false
         })
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)

@@ -52,7 +52,7 @@ describe('Announcement API:', function() {
         });
     });
 
-    it('should upsert the announcement\'s profile when admin is authenticated', function(done) {
+    it('should upsert the announcement when admin is authenticated', function(done) {
       request(app)
         .put('/api/announcement/0')
         .send({
