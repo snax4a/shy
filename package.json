@@ -112,7 +112,7 @@
     "chai-as-promised": "^6.0.0",
     "chai-things": "^0.2.0",
     "compression-webpack-plugin": "^0.3.2",
-    "css-loader": "^0.27.3",
+    "css-loader": "^0.28.0",
     "del": "^2.2.2",
     "eslint": "^3.18.0",
     "extract-text-webpack-plugin": "^2.1.0",
