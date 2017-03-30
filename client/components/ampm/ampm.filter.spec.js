@@ -14,6 +14,6 @@ describe('Filter: ampm', () => {
   }));
 
   it('should return a date for the day of the week', () => {
-    expect(ampm('13:00')).to.be.String('1:00pm');
+    expect(ampm('13:00')).to.equal('1:00pm');
   });
 });

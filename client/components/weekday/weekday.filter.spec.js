@@ -15,6 +15,6 @@ describe('Filter: weekday', () => {
 
   it('should return a day of the week given an integer', () => {
     let dayNumber = 4;
-    expect(weekday(dayNumber)).to.be.String('Thursday');
+    expect(weekday(dayNumber)).to.equal('Wednesday');
   });
 });

@@ -13,8 +13,8 @@ describe('Filter: trustedurl', () => {
     trustedurl = $filter('trustedurl');
   }));
 
-  it('should return a day of the week given an integer', () => {
+  it('should return a TrustedValueHolderType', () => {
     let url = 'https://www.google.com';
-    expect(trustedurl(url)).to.be.String(url);
+    expect(trustedurl(url)).to.be.an('object');
   });
 });
