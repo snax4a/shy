@@ -114,7 +114,7 @@
     "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^0.28.0",
     "del": "^2.2.2",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.0",
     "grunt": "^1.0.1",
