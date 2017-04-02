@@ -21,7 +21,7 @@
   },
   {
     "question": "Do you offer teacher training and certification?",
-    "answer": "We do! Our program is certified by Yoga Alliance and has a five star rating. More info at <a href='/register'>here</a>."
+    "answer": "We do! Our program is certified by Yoga Alliance and has a five star rating. More info <a href='/register'>here</a>."
   },
   {
     "question": "Will yoga help me to lose weight?",
