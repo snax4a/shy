@@ -18,7 +18,6 @@ import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
-import compression from 'compression';
 import mime from 'mime-types';
 
 export default function(app) {
@@ -39,7 +38,7 @@ export default function(app) {
       }
     });
     // Use gzip compression in production
-    app.use(compression());
+    app.use(shrinkRay());
     // If we decide to pre-compress content in the future
     // app.get('*.js', (req, res, next) => {
     //   req.url = `${req.url}.gz`;
@@ -61,10 +60,10 @@ export default function(app) {
 
   app.use(morgan('dev')); // middleware logger
 
-  app.set('views', `${config.root}/server/views`);
-  app.set('view engine', 'pug');
+  // Server-side views only
+  // app.set('views', `${config.root}/server/views`);
+  // app.set('view engine', 'pug');
 
-  app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
