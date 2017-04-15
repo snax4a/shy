@@ -442,9 +442,10 @@ gulp.task('test:client', done => {
   new KarmaServer({
     configFile: `${__dirname}/${paths.karma}`,
     singleRun: true
-  }, err => {
-    done(err);
-    process.exit(err);
+  }, exitCode => {
+    console.log(`Karma Server exited with code: ${exitCode}`);
+    done(exitCode);
+    process.exit(exitCode);
   }).start();
 });
 
