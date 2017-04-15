@@ -1,6 +1,7 @@
-/* global _ */
 /* eslint no-sync:0 */
 'use strict';
+
+import get from 'lodash/get';
 
 class _User {
   _id = '';
@@ -107,7 +108,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     getCurrentUser(callback) {
-      let value = _.get(currentUser, '$promise') ? currentUser.$promise : currentUser;
+      let value = get(currentUser, '$promise') ? currentUser.$promise : currentUser;
 
       return $q.when(value)
         .then(user => {
@@ -137,7 +138,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isLoggedIn(callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          let is = _.get(user, 'role');
+          let is = get(user, 'role');
 
           safeCb(callback)(is);
           return is;
@@ -150,7 +151,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isLoggedInSync() {
-      return !!_.get(currentUser, 'role');
+      return !!get(currentUser, 'role');
     },
 
     /**
@@ -163,7 +164,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     hasRole(role, callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          let has = hasRole(_.get(user, 'role'), role);
+          let has = hasRole(get(user, 'role'), role);
 
           safeCb(callback)(has);
           return has;
@@ -177,7 +178,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     hasRoleSync(role) {
-      return hasRole(_.get(currentUser, 'role'), role);
+      return hasRole(get(currentUser, 'role'), role);
     },
 
     /**

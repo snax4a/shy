@@ -35,7 +35,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      app: ['./client/app/app.js'], // should 'babel-polyfill' go here in front of app.js?
+      app: [/*'babel-polyfill', */'./client/app/app.js'], // should 'babel-polyfill' go here in front of app.js?
       polyfills: 'babel-polyfill', // must use polyfill for ie support instead of transform-runtime
       vendor: [ // bundle stuff that changes seldomly
         'angular',
@@ -49,7 +49,7 @@ module.exports = function makeWebpackConfig(options) {
         'angular-ui-router',
         'angular-utils-pagination',
         'braintree-web',
-        'lodash' // indirect dependency
+        'lodash/get' // indirect dependency
       ]
     },
 
@@ -200,6 +200,7 @@ module.exports = function makeWebpackConfig(options) {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor', // vendor.js
         minChunks: Infinity // chunk is only for vendor JS
+        //minChunks: (module, count) =>  module.resource && module.resource.indexOf(path.resolve('node_modules')) === 0
       }),
 
       // Don't render index.html
