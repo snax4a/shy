@@ -6,6 +6,7 @@ import ngCookies from 'angular-cookies';
 import ngMessages from 'angular-messages';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize'; // clean faqs on main
+import ngAria from 'angular-aria';
 
 // Modules
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -60,7 +61,7 @@ import compareTo from '../components/compareto/compareto.directive';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, loginPage, adminPage, navbar, banner, footer,
+angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, loginPage, adminPage, navbar, banner, footer,
   mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage,
   profilePage, constants, util, jsonLd, upcoming, htmlid, daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
