@@ -13,7 +13,7 @@
 // "karma-script-launcher": "^1.0.0",
 // "karma-sourcemap-loader": "^0.3.7",
 // "karma-spec-reporter": "^0.0.30",
-// "karma-webpack": "^2.0.2",
+// "karma-webpack": "^2.0.3",
 
 import makeWebpackConfig from './webpack.make';
 

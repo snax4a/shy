@@ -35,7 +35,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      app: ['./client/app/app.js'],
+      app: ['./client/app/app.js'], // should 'babel-polyfill' go here in front of app.js?
       polyfills: 'babel-polyfill', // must use polyfill for ie support instead of transform-runtime
       vendor: [ // bundle stuff that changes seldomly
         'angular',
@@ -155,7 +155,7 @@ module.exports = function makeWebpackConfig(options) {
         : TEST ? '"test"'
         : '"development"'}) //,
 
-      // new CompressionPlugin({
+      // new CompressionPlugin({ // https://github.com/webpack-contrib/compression-webpack-plugin
       //   asset: '[path].gz[query]',
       //   algorithm: 'gzip',
       //   test: /\.(js|html|css)$/,

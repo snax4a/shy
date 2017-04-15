@@ -2,7 +2,7 @@
 /* global console, setInterval, clearInterval, require, process, __dirname, styles */
 'use strict';
 
-import _ from 'lodash';
+import union from 'lodash/union';
 import del from 'del';
 import gulp from 'gulp';
 import grunt from 'grunt';
@@ -200,7 +200,7 @@ gulp.task('inject', cb => {
 gulp.task('inject:scss', () =>
   gulp.src(paths.client.mainStyle)
     .pipe(plugins.inject(
-      gulp.src(_.union(paths.client.styles, [`!${paths.client.mainStyle}`]), {read: false})
+      gulp.src(union(paths.client.styles, [`!${paths.client.mainStyle}`]), {read: false})
         .pipe(plugins.sort()), {
           transform: filepath => {
             let newPath = filepath
@@ -245,7 +245,7 @@ gulp.task('styles', () =>
 
 // Minimal transpiliation since we're using nodeJS > 7
 gulp.task('transpile:server', () =>
-  gulp.src(_.union(paths.server.scripts, paths.server.json))
+  gulp.src(union(paths.server.scripts, paths.server.json))
     .pipe(transpileServer())
     .pipe(gulp.dest(`${paths.dist}/${serverPath}`))
 );
@@ -253,16 +253,20 @@ gulp.task('transpile:server', () =>
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
 
 gulp.task('lint:scripts:client', () =>
-  gulp.src(_.union(
+  gulp.src(union(
     paths.client.scripts,
-    _.map(paths.client.test, blob => `!${blob}`)
+    paths.client.test.map(blob => `!${blob}`)
   ))
   .pipe(lintClientScripts())
 );
 
 gulp.task('lint:scripts:server', () =>
-  gulp.src(_.union(paths.server.scripts, _.map(paths.server.test, blob => `!${blob}`)))
-    .pipe(lintServerScripts())
+  gulp.src(union(
+    paths.server.scripts,
+    paths.server.test.integration.map(blob => `!${blob}`),
+    paths.server.test.unit.map(blob => `!${blob}`)
+  ))
+  .pipe(lintServerScripts())
 );
 
 gulp.task('lint:scripts:clientTest', () =>
@@ -306,13 +310,13 @@ gulp.task('start:server:debug', () => {
 });
 
 gulp.task('watch', () => {
-  let testFiles = _.union(paths.client.test, paths.server.test.unit, paths.server.test.integration);
+  let testFiles = union(paths.client.test, paths.server.test.unit, paths.server.test.integration);
 
-  plugins.watch(_.union(paths.server.scripts, testFiles))
+  plugins.watch(union(paths.server.scripts, testFiles))
     .pipe(plugins.plumber())
     .pipe(lintServerScripts());
 
-  plugins.watch(_.union(paths.server.test.unit, paths.server.test.integration))
+  plugins.watch(union(paths.server.test.unit, paths.server.test.integration))
     .pipe(plugins.plumber())
     .pipe(lintServerTestScripts());
 });
