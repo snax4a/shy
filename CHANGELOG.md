@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] If 'lodash' is removed from webpack vendor bundle, errors occur
 * [High] Build SHYnet page
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
