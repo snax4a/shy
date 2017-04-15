@@ -48,8 +48,7 @@ module.exports = function makeWebpackConfig(options) {
         'angular-ui-bootstrap',
         'angular-ui-router',
         'angular-utils-pagination',
-        'braintree-web',
-        'lodash/get' // indirect dependency
+        'braintree-web'
       ]
     },
 

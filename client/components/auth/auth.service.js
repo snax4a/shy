@@ -1,7 +1,7 @@
 /* eslint no-sync:0 */
 'use strict';
 
-import get from 'lodash/get';
+// import get from 'lodash/get';
 
 class _User {
   _id = '';
@@ -108,7 +108,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     getCurrentUser(callback) {
-      let value = get(currentUser, '$promise') ? currentUser.$promise : currentUser;
+      // let value = get(currentUser, '$promise') ? currentUser.$promise : currentUser;
+      let value = currentUser.$promise ? currentUser.$promise : currentUser;
 
       return $q.when(value)
         .then(user => {
@@ -138,8 +139,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isLoggedIn(callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          let is = get(user, 'role');
-
+          //let is = get(user, 'role');
+          let is = user.role; // should we return the object or a copy?
           safeCb(callback)(is);
           return is;
         });
@@ -151,7 +152,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isLoggedInSync() {
-      return !!get(currentUser, 'role');
+      //return !!get(currentUser, 'role');
+      return !!currentUser.role;
     },
 
     /**
@@ -164,8 +166,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     hasRole(role, callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          let has = hasRole(get(user, 'role'), role);
-
+          //let has = hasRole(get(user, 'role'), role);
+          let has = hasRole(user.role, role);
           safeCb(callback)(has);
           return has;
         });
@@ -178,7 +180,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     hasRoleSync(role) {
-      return hasRole(get(currentUser, 'role'), role);
+      //return hasRole(get(currentUser, 'role'), role);
+      return hasRole(currentUser.role, role);
     },
 
     /**
