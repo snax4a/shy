@@ -7,6 +7,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
 import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 //import CompressionPlugin from 'compression-webpack-plugin';
 
 module.exports = function makeWebpackConfig(options) {
@@ -22,21 +23,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      polyfills: 'babel-polyfill', // Needed for IE - transform-runtime doesn't work
-      vendor: [ // bundle stuff that changes seldomly
-        'angular',
-        'angular-aria',
-        'angular-cookies',
-        'angular-loading-bar',
-        'angular-messages',
-        'angular-resource',
-        'angular-sanitize',
-        'angular-ui-bootstrap',
-        'angular-ui-router',
-        'angular-utils-pagination',
-        'braintree-web'
-      ],
-      app: [/*'babel-polyfill', */'./client/app/app.js'] // should 'babel-polyfill' go here in front of app.js?
+      app: ['babel-polyfill', './client/app/app.js']
     },
 
     module: {
@@ -173,9 +160,8 @@ module.exports = function makeWebpackConfig(options) {
     config.plugins.push(
       // Separate vendor chunk
       new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor', // vendor.js
-        minChunks: Infinity // chunk is only for vendor JS
-        //minChunks: (module, count) => module.context && module.context.indexOf("node_modules") >= 0;
+        name: 'vendor',
+        minChunks: (module, count) => module.context && module.context.indexOf('node_modules') >= 0
       }),
 
       // Don't render index.html
@@ -206,6 +192,10 @@ module.exports = function makeWebpackConfig(options) {
         comments: false,
         exclude: [/\.min\.js$/gi] // skip pre-minified libs
       })
+    );
+  } else {
+    config.plugins.push(
+      new BundleAnalyzerPlugin({analyzerMode: 'static'})
     );
   }
 
