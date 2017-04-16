@@ -1,5 +1,7 @@
 'use strict';
-import braintree from 'braintree-web';
+import braintreeClient from 'braintree-web/client';
+import braintreeHostedFields from 'braintree-web/hosted-fields';
+import braintreeApplePay from 'braintree-web/apple-pay';
 
 class Item {
   constructor(id, name, price, quantity) {
@@ -248,7 +250,7 @@ export class Cart {
 
     // Otherwise, get the promise to a clientInstance
     return this.$q((resolve, reject) => {
-      braintree.client.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
+      braintreeClient.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
         if(clientErr) {
           this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
           return reject(clientErr);
@@ -266,7 +268,7 @@ export class Cart {
 
     // Otherwise, get the promise to an applePayInstance
     return this.$q((resolve, reject) => {
-      braintree.applePay.create({ client: clientInstance }, (applePayInstanceErr, applePayInstance) => {
+      braintreeApplePay.create({ client: clientInstance }, (applePayInstanceErr, applePayInstance) => {
         if(applePayInstanceErr) {
           this.$log.error('Not able to create an Apple Pay instance with Braintree. Make sure the client instance was setup correctly.');
           return reject(applePayInstanceErr);
@@ -308,7 +310,7 @@ export class Cart {
     // so can't reuse this.hostedFieldsInstance to cache it for performance reasons.
     // While you could argue this belongs in cart.component.js's, prefer Braintree code stay together.
     return this.$q((resolve, reject) => {
-      braintree.hostedFields.create({
+      braintreeHostedFields.create({
         client: clientInstance,
         fields: {
           number: {
