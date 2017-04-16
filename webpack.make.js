@@ -114,7 +114,7 @@ module.exports = function makeWebpackConfig(options) {
 
     plugins: [ // others added conditionally based on env
       // Separate CSS from JS
-      new ExtractTextPlugin('[name].[hash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
+      new ExtractTextPlugin('[name].[chunkhash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
 
       // Define free global variables
       new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
@@ -151,10 +151,10 @@ module.exports = function makeWebpackConfig(options) {
       publicPath: '/',
 
       // Filename for entry points - add hash in build mode
-      filename: BUILD ? '[name].[hash].js' : '[name].bundle.js',
+      filename: BUILD ? '[name].[chunkhash].js' : '[name].bundle.js',
 
       // Filename for non-entry points - add hash in build mode
-      chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
+      chunkFilename: BUILD ? '[name].[chunkhash].js' : '[name].bundle.js'
     };
 
     config.plugins.push(
