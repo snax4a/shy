@@ -80,7 +80,6 @@ export class WorkshopsController {
     this.alerts.splice(index, 1);
   }
 
-
   setFocus(fieldID) {
     let fieldToGetFocus = this.$window.document.getElementById(fieldID);
     this.$timeout(() => {

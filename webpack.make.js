@@ -133,6 +133,12 @@ module.exports = function makeWebpackConfig(options) {
     ]
   };
 
+  if(DEV) {
+    config.plugins.push(
+      new BundleAnalyzerPlugin({analyzerMode: 'static'})
+    );
+  }
+
   // Type of sourcemap to use per build type
   if(TEST) {
     config.devtool = 'inline-source-map';
@@ -192,10 +198,6 @@ module.exports = function makeWebpackConfig(options) {
         comments: false,
         exclude: [/\.min\.js$/gi] // skip pre-minified libs
       })
-    );
-  } else {
-    config.plugins.push(
-      new BundleAnalyzerPlugin({analyzerMode: 'static'})
     );
   }
 

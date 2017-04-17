@@ -1,7 +1,6 @@
 'use strict';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import uiBootstrap from 'angular-ui-bootstrap';
 import routes from './admin.routes';
 import ngResource from 'angular-resource'; // delete() relies on this
 import AuthModule from '../../components/auth/auth.module';
@@ -347,7 +346,7 @@ class ScheduleEditorController {
   }
 }
 
-export default angular.module('shyApp.admin', [uiRouter, uiBootstrap, AuthModule, ngResource])
+export default angular.module('shyApp.admin', [uiRouter, AuthModule, ngResource])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),

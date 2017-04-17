@@ -9,7 +9,13 @@ import ngSanitize from 'angular-sanitize'; // clean faqs on main
 import ngAria from 'angular-aria';
 
 // Modules
-import uiBootstrap from 'angular-ui-bootstrap';
+//import uiBootstrap from 'angular-ui-bootstrap'; // if I ever need all components
+import alert from 'angular-ui-bootstrap/src/alert';
+import carousel from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
+import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import dropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
+import modal from 'angular-ui-bootstrap/src/modal/index-nocss.js';
+
 import uiRouter from 'angular-ui-router';
 import CartModule from '../components/cartmodule/cart.module';
 
@@ -61,9 +67,12 @@ import compareTo from '../components/compareto/compareto.directive';
 import './app.scss';
 
 // Inject everything into shyApp
-angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter, uiBootstrap, _Auth, loginPage, adminPage, navbar, banner, footer,
-  mainPage, classesPage, workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage, privacyPage, termsPage, signupPage,
-  profilePage, constants, util, jsonLd, upcoming, htmlid, daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo])
+angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter,
+  alert, carousel, datepickerPopup, dropdown, modal, //uiBootstrap
+  _Auth, loginPage, adminPage, navbar, banner, footer, mainPage, classesPage,
+  workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage,
+  privacyPage, termsPage, signupPage, profilePage, constants, util, jsonLd, upcoming, htmlid,
+  daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {
     'ngInject';
