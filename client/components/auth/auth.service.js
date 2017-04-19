@@ -3,14 +3,17 @@
 
 // import get from 'lodash/get';
 
+// Need either babel-polyfill or babel-plugin-transform-class-properties
 class _User {
-  _id = '';
-  firstName = '';
-  lastName = ''
-  email = '';
-  role = '';
-  optOut = false;
-  $promise = undefined;
+  constructor() {
+    this._id = '';
+    this.firstName = '';
+    this.lastName = '';
+    this.email = '';
+    this.role = '';
+    this.optOut = false;
+    this.$promise = undefined;
+  }
 }
 
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
@@ -183,17 +186,6 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       //return hasRole(get(currentUser, 'role'), role);
       return hasRole(currentUser.role, role);
     },
-
-    /**
-     * Check if a user is an admin - not used
-     *   (synchronous|asynchronous)
-     *
-     * @param  {Function|*} callback - optional, function(is)
-     * @return {Bool|Promise}
-     */
-    // isAdmin() {
-    //   return Auth.hasRole(...[].concat.apply(['admin'], arguments));
-    // },
 
     /**
      * Check if a user is an admin

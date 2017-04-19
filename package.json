@@ -36,17 +36,16 @@
     "env": {
       "development": {
         "plugins": [
-          "transform-class-properties"
+
         ]
       },
       "test": {
         "plugins": [
-          "transform-class-properties"
+
         ]
       },
       "production": {
         "plugins": [
-          "transform-class-properties"
         ]
       }
     }
@@ -103,7 +102,6 @@
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-loader": "^7.0.0-beta.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.1",
     "browser-sync": "^2.18.8",

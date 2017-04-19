@@ -1,7 +1,6 @@
 'use strict';
 import angular from 'angular';
 
-/*@ngInject*/
 export function ampmFilter() {
   return input => {
     let [hour, minutes] = input.split(':');
