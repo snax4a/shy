@@ -12,6 +12,7 @@ import ngAria from 'angular-aria';
 //import uiBootstrap from 'angular-ui-bootstrap'; // if I ever need all components
 import alert from 'angular-ui-bootstrap/src/alert';
 import carousel from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
+import collapse from 'angular-ui-bootstrap/src/collapse';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import dropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
 import modal from 'angular-ui-bootstrap/src/modal/index-nocss.js';
@@ -68,7 +69,7 @@ import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter,
-  alert, carousel, datepickerPopup, dropdown, modal, //uiBootstrap
+  alert, carousel, collapse, datepickerPopup, dropdown, modal, //uiBootstrap
   _Auth, loginPage, adminPage, navbar, banner, footer, mainPage, classesPage,
   workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage,
   privacyPage, termsPage, signupPage, profilePage, constants, util, jsonLd, upcoming, htmlid,
