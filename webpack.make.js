@@ -42,7 +42,7 @@ module.exports = function makeWebpackConfig(options) {
                   uglify: true
                 },
                 debug: false,
-                modules: false,
+                //modules: false, // if uncommented, adds 8K to app bundle
                 useBuiltIns: true
               }]
             ],
