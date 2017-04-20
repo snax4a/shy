@@ -34,6 +34,7 @@ module.exports = function makeWebpackConfig(options) {
           exclude: /node_modules/,
           options: {
             // babel settings are in package.json, list here in case I want to override
+<<<<<<< HEAD
             // babelrc: false, // ignore babel settings in babelrc and package.json
             // presets: [
             //   ['env', {
@@ -46,6 +47,20 @@ module.exports = function makeWebpackConfig(options) {
             //     useBuiltIns: true
             //   }]
             // ],
+=======
+            babelrc: false, // ignore babel settings in babelrc and package.json
+            presets: [
+              ['env', {
+                targets: {
+                  browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0'],
+                  uglify: true
+                },
+                debug: false,
+                //modules: false, // if uncommented, adds 8K to app bundle
+                useBuiltIns: true
+              }]
+            ],
+>>>>>>> 4d585dff82eec74e77eea0ed0d439bbe6a20304b
             cacheDirectory: true,
             minified: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone

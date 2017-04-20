@@ -15,6 +15,7 @@
   "main": "server/index.js",
   "babel": {
     "presets": [
+<<<<<<< HEAD
       [
         "env",
         {
@@ -34,6 +35,13 @@
           "useBuiltIns": true
         }
       ]
+=======
+      ["env", {
+        "targets": {
+          "node": "current"
+        }
+      }]
+>>>>>>> 4d585dff82eec74e77eea0ed0d439bbe6a20304b
     ]
   },
   "dependencies": {
@@ -48,7 +56,6 @@
     "angular-ui-router": "~0.4.2",
     "angular-utils-pagination": "^0.11.1",
     "babel-polyfill": "^6.23.0",
-    "babel-runtime": "^6.23.0",
     "body-parser": "^1.17.1",
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
