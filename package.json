@@ -15,7 +15,6 @@
   "main": "server/index.js",
   "babel": {
     "presets": [
-<<<<<<< HEAD
       [
         "env",
         {
@@ -35,13 +34,6 @@
           "useBuiltIns": true
         }
       ]
-=======
-      ["env", {
-        "targets": {
-          "node": "current"
-        }
-      }]
->>>>>>> 4d585dff82eec74e77eea0ed0d439bbe6a20304b
     ]
   },
   "dependencies": {

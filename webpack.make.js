@@ -34,7 +34,6 @@ module.exports = function makeWebpackConfig(options) {
           exclude: /node_modules/,
           options: {
             // babel settings are in package.json, list here in case I want to override
-<<<<<<< HEAD
             // babelrc: false, // ignore babel settings in babelrc and package.json
             // presets: [
             //   ['env', {
@@ -47,8 +46,6 @@ module.exports = function makeWebpackConfig(options) {
             //     useBuiltIns: true
             //   }]
             // ],
-=======
-            babelrc: false, // ignore babel settings in babelrc and package.json
             presets: [
               ['env', {
                 targets: {
