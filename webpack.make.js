@@ -34,16 +34,18 @@ module.exports = function makeWebpackConfig(options) {
           exclude: /node_modules/,
           options: {
             // babel settings are in package.json, list here in case I want to override
-            // babelrc: false, // ignore babel settings in babelrc and package.json
-            // presets: [
-            //   ['env', {
-            //     modules: true,
-            //     targets: {
-            //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0']
-            //     }
-            //   }]
-            // ],
-            // plugins: ['transform-class-properties'],
+            babelrc: false, // ignore babel settings in babelrc and package.json
+            presets: [
+              ['env', {
+                targets: {
+                  browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0'],
+                  uglify: true
+                },
+                debug: false,
+                modules: false,
+                useBuiltIns: true
+              }]
+            ],
             cacheDirectory: true,
             minified: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone
