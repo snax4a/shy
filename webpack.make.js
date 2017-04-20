@@ -57,7 +57,6 @@ module.exports = function makeWebpackConfig(options) {
                 useBuiltIns: true
               }]
             ],
->>>>>>> 4d585dff82eec74e77eea0ed0d439bbe6a20304b
             cacheDirectory: true,
             minified: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone
