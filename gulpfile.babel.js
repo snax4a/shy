@@ -2,20 +2,20 @@
 /* global console, setInterval, clearInterval, require, process, __dirname, styles */
 'use strict';
 
-import union from 'lodash/union';
 import del from 'del';
-import gulp from 'gulp';
 import grunt from 'grunt';
-import path from 'path';
+import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
-import open from 'open';
 import lazypipe from 'lazypipe';
 import nodemon from 'nodemon';
+import open from 'open';
+import path from 'path';
 import { Server as KarmaServer } from 'karma';
 import runSequence from 'run-sequence';
 import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
+import union from 'lodash/union';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
 
@@ -122,19 +122,10 @@ let lintServerTestScripts = lazypipe()
   })
   .pipe(plugins.eslint.format);
 
-// Use gulp-babel to process ES6 for nodeJS server
+// Use gulp-babel to process ES6 for nodeJS server, gets babelrc from package.json
 let transpileServer = lazypipe()
   .pipe(plugins.sourcemaps.init)
-  .pipe(plugins.babel, {
-    babelrc: false, // don't use settings in package.json
-    presets: [
-      ['env', {
-        targets: {
-          node: 'current'
-        }
-      }]
-    ]
-  })
+  .pipe(plugins.babel)
   .pipe(plugins.sourcemaps.write, '.');
 
 let mocha = lazypipe()

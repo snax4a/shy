@@ -37,13 +37,15 @@ module.exports = function makeWebpackConfig(options) {
             // babelrc: false, // ignore babel settings in babelrc and package.json
             // presets: [
             //   ['env', {
-            //     modules: true,
             //     targets: {
-            //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0']
-            //     }
+            //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0'],
+            //       uglify: true
+            //     },
+            //     debug: false,
+            //     //modules: false, // if uncommented, adds 8K to app bundle
+            //     useBuiltIns: true
             //   }]
             // ],
-            // plugins: ['transform-class-properties'],
             cacheDirectory: true,
             minified: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone
