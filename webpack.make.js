@@ -23,7 +23,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      app: ['babel-polyfill', './client/app/app.js']
+      app: [/*'babel-polyfill', */'./client/app/app.js']
     },
 
     module: {
@@ -46,17 +46,6 @@ module.exports = function makeWebpackConfig(options) {
             //     useBuiltIns: true
             //   }]
             // ],
-            presets: [
-              ['env', {
-                targets: {
-                  browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0'],
-                  uglify: true
-                },
-                debug: false,
-                //modules: false, // if uncommented, adds 8K to app bundle
-                useBuiltIns: true
-              }]
-            ],
             cacheDirectory: true,
             minified: true,
             shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone

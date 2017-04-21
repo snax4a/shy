@@ -23,7 +23,7 @@
             "browsers": [
               "firefox >= 45",
               "chrome >= 48",
-              "safari >= 8",
+              "safari >= 9",
               "ie >= 11",
               "edge >= 13",
               "ios >= 9.3",
