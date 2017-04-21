@@ -23,35 +23,20 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
-      app: [/*'babel-polyfill', */'./client/app/app.js']
+      app: ['babel-polyfill', './client/app/app.js']
     },
 
     module: {
       rules: [
         {
           test: /\.js$/,
-          loader: 'babel-loader', // transpiles ES6 and ES7 to ES5
-          exclude: /node_modules/,
-          options: {
-            // babel settings are in package.json, list here in case I want to override
-            // babelrc: false, // ignore babel settings in babelrc and package.json
-            // presets: [
-            //   ['env', {
-            //     targets: {
-            //       browsers: ['firefox >= 45', 'chrome >= 44', 'safari >= 8', 'ie >= 11', 'edge >= 13', 'ios >= 9.2', 'android >= 5.0'],
-            //       uglify: true
-            //     },
-            //     debug: false,
-            //     //modules: false, // if uncommented, adds 8K to app bundle
-            //     useBuiltIns: true
-            //   }]
-            // ],
-            cacheDirectory: true,
-            minified: true,
-            shouldPrintComment: commentContents => /@ngInject/.test(commentContents) // leave ng-annotate alone
-          },
           include: [
             path.resolve(__dirname, 'client/')
+          ],
+          exclude: /node_modules/,
+          use: [
+            {loader: 'ng-annotate-loader?single_quotes'},
+            {loader: 'babel-loader', options: { cacheDirectory: true, minified: true }}
           ]
         },
 
@@ -68,6 +53,9 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.scss$/,
+          include: [
+            path.resolve(__dirname, 'client/app/app.scss')
+          ],
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader', // https://github.com/webpack/style-loader
             use: [
@@ -92,16 +80,7 @@ module.exports = function makeWebpackConfig(options) {
                 }
               }
             ]
-          }),
-          include: [
-            path.resolve(__dirname, 'client/app/app.scss')
-          ]
-        },
-
-        {
-          test: /\.js$/,
-          loader: 'ng-annotate-loader?single_quotes', // https://github.com/huston007/ng-annotate-loader
-          enforce: 'post'
+          })
         }
       ]
     },
