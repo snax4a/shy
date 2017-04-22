@@ -30,14 +30,25 @@ module.exports = function makeWebpackConfig(options) {
       rules: [
         {
           test: /\.js$/,
-          include: [
-            path.resolve(__dirname, 'client/')
-          ],
+          include: [path.resolve(__dirname, 'client/')],
           exclude: /node_modules/,
-          use: [
-            {loader: 'ng-annotate-loader?single_quotes'},
-            {loader: 'babel-loader', options: { cacheDirectory: true, minified: true }}
-          ]
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            minified: true,
+            shouldPrintComment: commentContents => /@ngInject/.test(commentContents)
+          }
+          // use: [
+          //   {loader: 'ng-annotate-loader?single_quotes'},
+          //   {
+          //     loader: 'babel-loader',
+          //     options: {
+          //       cacheDirectory: true,
+          //       minified: true,
+          //       shouldPrintComment: commentContents => /@ngInject/.test(commentContents)
+          //     }
+          //   }
+          // ]
         },
 
         {
@@ -53,9 +64,7 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.scss$/,
-          include: [
-            path.resolve(__dirname, 'client/app/app.scss')
-          ],
+          include: [path.resolve(__dirname, 'client/app/app.scss')],
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader', // https://github.com/webpack/style-loader
             use: [
@@ -81,6 +90,12 @@ module.exports = function makeWebpackConfig(options) {
               }
             ]
           })
+        },
+
+        {
+          test: /\.js$/,
+          loader: 'ng-annotate-loader?single_quotes', // https://github.com/huston007/ng-annotate-loader
+          enforce: 'post'
         }
       ]
     },
