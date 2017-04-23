@@ -52,8 +52,8 @@ module.exports = function makeWebpackConfig(options) {
                     uglify: true
                   },
                   useBuiltIns: true,
-                  loose: false,
-                  modules: 'commonjs', // changing to false adds 9K
+                  loose: true,
+                  modules: false, //'commonjs', // changing to false adds 9K
                   // exclude: [ // should slim the build but does not
                   //   'transform-es2015-block-scoped-functions',
                   //   'transform-es2015-block-scoping',
@@ -73,7 +73,7 @@ module.exports = function makeWebpackConfig(options) {
                 }]],
                 cacheDirectory: true,
                 comments: false,
-                minified: true
+                //minified: true
               }
             }
           ]
