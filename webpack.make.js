@@ -22,7 +22,7 @@ module.exports = function makeWebpackConfig(options) {
 
     devtool: '', // placeholder to be filled in conditionally
 
-    entry: TEST ? '' : { // If test, set entry to '' to avoid Karma error (bug)
+    entry: {
       app: ['babel-polyfill', './client/app/app.js']
     },
 
@@ -32,23 +32,16 @@ module.exports = function makeWebpackConfig(options) {
           test: /\.js$/,
           include: [path.resolve(__dirname, 'client/')],
           exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            minified: true,
-            shouldPrintComment: commentContents => /@ngInject/.test(commentContents)
-          }
-          // use: [
-          //   {loader: 'ng-annotate-loader?single_quotes'},
-          //   {
-          //     loader: 'babel-loader',
-          //     options: {
-          //       cacheDirectory: true,
-          //       minified: true,
-          //       shouldPrintComment: commentContents => /@ngInject/.test(commentContents)
-          //     }
-          //   }
-          // ]
+          use: [
+            {loader: 'ng-annotate-loader?single_quotes'},
+            {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+                minified: true
+              }
+            }
+          ]
         },
 
         {
@@ -90,12 +83,6 @@ module.exports = function makeWebpackConfig(options) {
               }
             ]
           })
-        },
-
-        {
-          test: /\.js$/,
-          loader: 'ng-annotate-loader?single_quotes', // https://github.com/huston007/ng-annotate-loader
-          enforce: 'post'
         }
       ]
     },
@@ -209,3 +196,4 @@ module.exports = function makeWebpackConfig(options) {
   // }
   return config;
 };
+
