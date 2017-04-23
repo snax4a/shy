@@ -52,7 +52,7 @@ module.exports = function makeWebpackConfig(options) {
                     uglify: true
                   },
                   useBuiltIns: true,
-                  loose: true,
+                  //loose: true,
                   modules: false, //'commonjs', // changing to false adds 9K
                   // exclude: [ // should slim the build but does not
                   //   'transform-es2015-block-scoped-functions',
