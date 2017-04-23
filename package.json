@@ -31,7 +31,9 @@
             ],
             "uglify": true
           },
+          "modules": "commonjs",
           "useBuiltIns": true,
+          "loose": true,
           "exclude": [
             "transform-es2015-block-scoped-functions",
             "transform-es2015-block-scoping",
