@@ -22,7 +22,7 @@ module.exports = function makeWebpackConfig(options) {
 
     devtool: '', // placeholder to be filled in conditionally
 
-    entry: {
+    entry: { // If test, set entry to '' to avoid Karma error (bug)
       app: ['babel-polyfill', './client/app/app.js']
     },
 
@@ -30,52 +30,55 @@ module.exports = function makeWebpackConfig(options) {
       rules: [
         {
           test: /\.js$/,
-          include: [path.resolve(__dirname, 'client/')],
+          include: [
+            path.resolve(__dirname, 'client/')
+          ],
           exclude: /node_modules/,
           use: [
             {loader: 'ng-annotate-loader?single_quotes'},
-            {
-              loader: 'babel-loader',
-              options: {
-                babelrc: false,
-                presets: [['env', {
-                  targets: {
-                    browsers: [
-                      'chrome >= 48',
-                      'firefox >= 45',
-                      'safari >= 9',
-                      'ie >= 11',
-                      'edge >= 13',
-                      'ios >= 9.3',
-                      'android >= 5.0'
-                    ],
-                    uglify: true
-                  },
-                  useBuiltIns: true,
-                  //loose: true,
-                  modules: false, //'commonjs', // changing to false adds 9K
-                  // exclude: [ // should slim the build but does not
-                  //   'transform-es2015-block-scoped-functions',
-                  //   'transform-es2015-block-scoping',
-                  //   'transform-es2015-computed-properties',
-                  //   'transform-es2015-duplicate-keys',
-                  //   'transform-es2015-function-name',
-                  //   'transform-es2015-object-super',
-                  //   'transform-es2015-spread',
-                  //   'transform-es2015-sticky-regex',
-                  //   'transform-es2015-unicode-regex',
-                  //   'transform-regenerator',
-                  //   'transform-exponentiation-operator',
-                  //   'transform-async-to-generator',
-                  //   'syntax-trailing-function-commas'
-                  // ],
-                  debug: false
-                }]],
-                cacheDirectory: true,
-                comments: false,
-                //minified: true
-              }
-            }
+            {loader: 'babel-loader', options: { cacheDirectory: true, minified: true }}
+            // {
+            //   loader: 'babel-loader',
+            //   options: {
+            //     babelrc: false,
+            //     presets: [['env', {
+            //       targets: {
+            //         browsers: [
+            //           'chrome >= 48',
+            //           'firefox >= 45',
+            //           'safari >= 9',
+            //           'ie >= 11',
+            //           'edge >= 13',
+            //           'ios >= 9.3',
+            //           'android >= 5.0'
+            //         ],
+            //         uglify: true
+            //       },
+            //       useBuiltIns: true,
+            //       //loose: true,
+            //       modules: false, //'commonjs', // changing to false adds 9K
+            //       // exclude: [ // should slim the build but does not
+            //       //   'transform-es2015-block-scoped-functions',
+            //       //   'transform-es2015-block-scoping',
+            //       //   'transform-es2015-computed-properties',
+            //       //   'transform-es2015-duplicate-keys',
+            //       //   'transform-es2015-function-name',
+            //       //   'transform-es2015-object-super',
+            //       //   'transform-es2015-spread',
+            //       //   'transform-es2015-sticky-regex',
+            //       //   'transform-es2015-unicode-regex',
+            //       //   'transform-regenerator',
+            //       //   'transform-exponentiation-operator',
+            //       //   'transform-async-to-generator',
+            //       //   'syntax-trailing-function-commas'
+            //       // ],
+            //       debug: false
+            //     }]],
+            //     cacheDirectory: true,
+            //     comments: false,
+            //     //minified: true
+            //   }
+            // }
           ]
         },
 
@@ -92,7 +95,9 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.scss$/,
-          include: [path.resolve(__dirname, 'client/app/app.scss')],
+          include: [
+            path.resolve(__dirname, 'client/app/app.scss')
+          ],
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader', // https://github.com/webpack/style-loader
             use: [
