@@ -19,36 +19,8 @@
         "env",
         {
           "targets": {
-            "node": "current",
-            "browsers": [
-              "firefox >= 45",
-              "chrome >= 48",
-              "safari >= 9",
-              "ie >= 11",
-              "edge >= 13",
-              "ios >= 9.3",
-              "android >= 5.0"
-            ],
-            "uglify": true
+            "node": "current"
           },
-          "modules": "commonjs",
-          "useBuiltIns": true,
-          "loose": true,
-          "exclude": [
-            "transform-es2015-block-scoped-functions",
-            "transform-es2015-block-scoping",
-            "transform-es2015-computed-properties",
-            "transform-es2015-duplicate-keys",
-            "transform-es2015-function-name",
-            "transform-es2015-object-super",
-            "transform-es2015-spread",
-            "transform-es2015-sticky-regex",
-            "transform-es2015-unicode-regex",
-            "transform-regenerator",
-            "transform-exponentiation-operator",
-            "transform-async-to-generator",
-            "syntax-trailing-function-commas"
-          ],
           "debug": false
         }
       ]
