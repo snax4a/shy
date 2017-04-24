@@ -23,7 +23,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: {
-      app: [/*'babel-polyfill',*/'./client/app/app.js'] // switched to transform-runtime from babel-polyfill
+      app: ['./client/app/app.js'] // switched to transform-runtime from babel-polyfill
     },
 
     module: {
