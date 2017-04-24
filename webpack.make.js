@@ -23,7 +23,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: '', // placeholder to be filled in conditionally
 
     entry: {
-      app: ['babel-polyfill', './client/app/app.js']
+      app: [/*'babel-polyfill',*/'./client/app/app.js'] // switched to transform-runtime from babel-polyfill
     },
 
     module: {
@@ -43,6 +43,7 @@ module.exports = function makeWebpackConfig(options) {
                 cacheDirectory: true,
                 comments: true, // if false, messes up ng-annotate-loader
                 minified: true,
+                plugins: ['transform-runtime'],
                 presets: [
                   ['env', {
                     targets: {
@@ -54,25 +55,25 @@ module.exports = function makeWebpackConfig(options) {
                         'ios >= 9.3',
                         'android >= 5.1'
                       ],
-                      uglify: true
+                      uglify: true // no effect on build size or functionality
                     },
                     debug: false,
-                    exclude: [ // should slim the build but does not
-                      'transform-es2015-block-scoped-functions',
-                      'transform-es2015-computed-properties',
-                      'transform-es2015-duplicate-keys',
-                      'transform-es2015-function-name',
-                      'transform-es2015-object-super',
-                      'transform-es2015-spread',
-                      'transform-es2015-sticky-regex',
-                      'transform-es2015-unicode-regex',
-                      'transform-regenerator',
-                      'transform-exponentiation-operator',
-                      'transform-async-to-generator',
-                      'syntax-trailing-function-commas'
-                    ],
-                    loose: true, // change to false adds 10K
-                    modules: 'commonjs', // changing to false adds 9K
+                    // exclude: [ // no effect on build size
+                    //   'transform-es2015-block-scoped-functions',
+                    //   'transform-es2015-computed-properties',
+                    //   'transform-es2015-duplicate-keys',
+                    //   'transform-es2015-function-name',
+                    //   'transform-es2015-object-super',
+                    //   'transform-es2015-spread',
+                    //   'transform-es2015-sticky-regex',
+                    //   'transform-es2015-unicode-regex',
+                    //   'transform-regenerator',
+                    //   'transform-exponentiation-operator',
+                    //   'transform-async-to-generator',
+                    //   'syntax-trailing-function-commas'
+                    // ],
+                    loose: true, // saves 5K for app and 3K for vendor
+                    modules: 'commonjs', // changing to false adds 17K
                     useBuiltIns: true
                   }]
                 ]
