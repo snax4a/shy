@@ -1,17 +1,22 @@
 'use strict';
 import angular from 'angular';
+import uiRouter from 'angular-ui-router';
+import routes from './shynet.routes';
 
-export class SHYnetComponent {
+export class SHYnetController {
   /*@ngInject*/
-  constructor() {
-    this.message = 'World';
+  constructor($http) {
+    this.$http = $http;
+  }
+
+  $onInit() {
   }
 }
 
-export default angular.module('shyApp.shynet', [])
+export default angular.module('shyApp.shynet', [uiRouter])
+  .config(routes)
   .component('shynet', {
-    template: '<h1>Hello {{ $ctrl.message }}</h1>',
-    bindings: { message: '<' },
-    controller: SHYnetComponent
+    template: require('./shynet.pug'),
+    controller: SHYnetController
   })
   .name;
