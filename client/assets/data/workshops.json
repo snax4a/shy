@@ -58,7 +58,7 @@
 			}
 		]
 	},
-	{
+		{
 		"expires": "2017-01-15T17:00:00.000-05:00",
 		"title": "The Body is a Pond: Lymphatic Self-Massage and Yoga With Julia Schandelmeier, LMT and Richard Gartner, ERYT",
 		"photo": "/assets/images/workshops/lymphatic.jpg",
@@ -139,22 +139,29 @@
 		"sections":
 		[
 			{
-				"start": "2017-03-05T14:00:00.000-05:00",
-				"expires": "2017-03-05T15:00:00.000-05:00",
-				"productID": 58,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			{
-				"start": "2017-04-02T14:00:00.000-04:00",
-				"expires": "2017-04-02T15:00:00.000-04:00",
-				"productID": 59,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			{
 				"start": "2017-05-07T14:00:00.000-04:00",
-				"expires": "2017-05-07T15:00:00.000-04:00",
+				"expires": "2017-05-08T15:00:00.000-04:00",
+				"productID": 61,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-06-04T14:00:00.000-04:00",
+				"expires": "2017-06-07T15:00:00.000-04:00",
+				"productID": 61,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-07-09T14:00:00.000-04:00",
+				"expires": "2017-07-10T15:00:00.000-04:00",
+				"productID": 61,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-08-06T14:00:00.000-04:00",
+				"expires": "2017-08-07T15:00:00.000-04:00",
 				"productID": 61,
 				"cost": 10,
 				"location": "Squirrel Hill"
