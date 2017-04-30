@@ -10,6 +10,21 @@ export class SHYnetController {
   }
 
   $onInit() {
+    this.$http.get('/assets/data/teachers.json')
+      .then(response => {
+        this.teachers = response.data;
+        return null;
+      });
+    this.$http.get('/assets/data/classes.json')
+      .then(response => {
+        this.classes = response.data;
+        return null;
+      });
+    this.$http.get('/assets/data/locations.json')
+      .then(response => {
+        this.locations = response.data;
+        return null;
+      });
   }
 }
 
