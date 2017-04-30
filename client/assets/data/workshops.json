@@ -168,56 +168,6 @@
 			}
 		]
 	},
-	{
-		"expires": "2017-02-10T20:00:00.000-05:00",
-		"title": "Ayurveda Workshops with Abby Ritter",
-		"photo": "/assets/images/workshops/ayurveda.jpg",
-		"description": "",
-		"sections":
-		[
-			{
-				"title": "Foundations of Ayurveda: Nature will support our own natural rhythm when we live in alignment with it, helping us to stay healthy and to live optimally. When we live out of synch with this rhythm, we start to create disharmony within both the body and mind.  Come and learn how to create a daily routine, know as Dinacharya, to support and nourish your body and mind through a combination of self-care practices, nutrition, yoga and pranayama.  We'll end with a grounding asana practice specially made for balancing the body during this time of year.",
-				"start": "2017-03-18T13:00:00.000-04:00",
-				"expires": "2017-03-18T15:00:00.000-04:00",
-				"productID": 100,
-				"cost": 35,
-				"location": "Squirrel Hill"
-			},
-			{
-				"title": "Ayurvedic Spring Cleanse: Spring is traditionally a time in Ayurveda to start to lighten the heaviness that has accumulated within the body and mind during the winter months by doing a cleanse. This three day cleanse will help you to feel lighter and more vibrant by stoking your Agni (inner fire) which stimulates digestion and metabolism, leaving you feeling re-energized and renewed.",
-				"start": "2017-03-19T13:00:00.000-04:00",
-				"expires": "2017-03-19T15:00:00.000-04:00",
-				"productID": 101,
-				"cost": 35,
-				"location": "Squirrel Hill"
-			},
-			{
-				"title": "Both days: Saturday March 18th and Sunday the 19th",
-				"nodate": true,
-				"start": "2017-03-18T13:00:00.000-04:00",
-				"expires": "2017-03-19T15:00:00.000-04:00",
-				"productID": 102,
-				"cost": 60,
-				"location": "Squirrel Hill"
-			}
-		]
-	},
-	{
-		"expires": "2017-01-08T17:00:00.000-05:00",
-		"title": "Yoga for Cancer Patients: a continuing education training for yoga teachers",
-		"photo": "/assets/images/workshops/fertility.jpg",
-		"description": "In 2016, approximately 1,685,000 new cases of cancer were diagnosed in the United States. While a multitude of medical treatments are available for cancer patients, the practices of yoga and meditation can compliment a patient's course and help them cope with various symptoms, from nausea, to fatigue, anxiety, sleeplessness and more. We can support those with cancer at diagnosis, throughout treatment, post treatment, and even if and when patients are 'cleared' of cancer. In this workshop, you will gain a greater understanding of cancer as a disease, some of the common treatments and side effects, and the mental and emotional state that can accompany the disease. Joni will offer a set of best practices to teach those with cancer, including breathwork, meditation, yoga asana, and mindfulness/positive psychology practices. A handout will be emailed after class however please also bring a notebook and be prepared to take notes. Joni works closely with an oncologist at the Hillman Cancer Center in Pittsburgh and has worked with patients for several years. She also brings her masters in psychology to offer insight into the mental and emotional effects of this disease. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
-		"sections":
-		[
-			{
-				"start": "2017-03-26T13:00:00.000-04:00",
-				"expires": "2017-03-26T17:00:00.000-04:00",
-				"productID": 22,
-				"cost": 75,
-				"location": "East Liberty"
-			}
-		]
-	},
 			{
 		"expires": "2018-01-08T17:00:00.000-05:00",
 		"title": "Teaching Relaxation and Restorative Yoga: a continuing education workshop for yoga teachers",
@@ -242,11 +192,11 @@
 		"sections":
 		[
 			{
-				"start": "2017-04-30T14:00:00.000-04:00",
-				"expires": "2017-05-01T15:30:00.000-04:00",
+				"start": "2017-07-09T14:00:00.000-04:00",
+				"expires": "2017-07-10T15:30:00.000-04:00",
 				"productID": 14,
 				"cost": 35,
-				"location": "Squirrel Hill"
+				"location": "East Liberty"
 			}
 		]
 	},
