@@ -56,7 +56,7 @@
   },
   {
     "id": 14,
-    "name": "Workshop: Prenatal Partner Yoga (April 30)",
+    "name": "Workshop: Prenatal Partner Yoga (July 9)",
     "price": 35
   },
   {
@@ -68,6 +68,11 @@
     "id": 22,
     "name": "Workshop: Cancer Patients Teacher Training (March 26)",
     "price": 75    
+  },
+    {
+    "id": 29,
+    "name": "Workshop: Kundalini and Accupuncture (June 2)",
+    "price": 30   
   },
   {
     "id": 31,

@@ -116,15 +116,15 @@
 		]
 	},
 	{
-		"expires": "2017-02-24T20:00:00.000-05:00",
+		"expires": "2018-02-24T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Quiong Wang",
 		"photo": "/assets/images/workshops/kundalini.jpg",
 		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas~ yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
 		"sections":
 		[
 						{
-				"start": "2017-05-19T18:30:00.000-04:00",
-				"expires": "2017-05-22T20:00:00.000-04:00",
+				"start": "2017-06-02T18:30:00.000-04:00",
+				"expires": "2017-06-03T20:00:00.000-04:00",
 				"productID": 29,
 				"cost": 30,
 				"location": "North Hills"
@@ -196,22 +196,6 @@
 				"expires": "2017-07-10T15:30:00.000-04:00",
 				"productID": 14,
 				"cost": 35,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
-		"expires": "2017-02-04T15:00:00.000-05:00",
-		"title": "Inside Out Asana with Kristie Lindblom",
-		"photo": "/assets/images/workshops/selfcompassion.jpg",
-		"description": "In this workshop we will tune in to the deep wisdom of our bodies and use a somatic approach to alignment in asana. Using inquiry and exploration, students will be able to approach any style or tradition through universal principles of body mechanics and learn to work with the unique form of their individual body.",
-		"sections":
-		[
-			{
-				"start": "2017-02-04T13:00:00.000-05:00",
-				"expires": "2017-02-05T15:00:00.000-05:00",
-				"productID": 57,
-				"cost": 30,
 				"location": "East Liberty"
 			}
 		]
