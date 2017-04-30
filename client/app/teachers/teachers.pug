@@ -1,6 +1,6 @@
 .container
   h1 Teachers
-  hr(ng-repeat-start='teacher in $ctrl.faculty')
+  hr(ng-repeat-start='teacher in $ctrl.faculty | nosubs')
   .row(ng-repeat-end)
     .col-md-2.col-md-offset-2
       img.img-responsive.teacher(src='{{teacher.photo}}', alt="Teacher's photo")

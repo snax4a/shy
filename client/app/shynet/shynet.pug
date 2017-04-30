@@ -1,2 +1,173 @@
 .container
   h1 SHYnet
+  .row
+    input#student_id(name='student_id', type='hidden')
+    .col-sm-6.col-xs-12
+      .panel.panel-primary
+        .panel-heading
+          h4 Students
+        .panel-body
+          .form(role='form', onkeypress="javascript:return WebForm_FireDefaultButton(event, 'FindStudent')")
+            .form-group
+              label.sr-only(for='SearchText') Find Student
+              .input-group
+                input#SearchText.form-control(name='SearchText', type='text', maxlength='20', autofocus='', placeholder="Student's first or last name")
+                span.input-group-btn
+                  a#FindStudent.btn.btn-warning(href="javascript:__doPostBack('FindStudent','')")
+                    span.glyphicon.glyphicon-search
+                    |  Search
+            .form-group
+              a#btnNewStudent.btn.btn-warning(data-toggle='modal', data-target='#NewStudent', href="javascript:__doPostBack('btnNewStudent','')")
+                span.glyphicon.glyphicon-plus-sign
+                |  New Student
+          #loader(style='display:none;', role='status', aria-hidden='true')
+            .text-center
+              img(src='ajax-loader.gif', alt='Loading...')
+              |  Searching for students...
+          div
+            table#gvStudents.table.table-striped.table-hover.table-condensed.table-bordered(cellspacing='0', rules='all', border='1', style='border-collapse:collapse;margin-bottom:0px;')
+              tbody
+                tr
+                  td  No students found matching the search criteria.
+    .col-sm-6.col-xs-12
+      .panel.panel-primary
+        .panel-heading
+          h4 Class Attendees
+        .panel-body
+          .row
+            .col-xs-12
+              .form-group
+                label.sr-only(for='lstClass') Class
+                |  
+                select#lstClass.form-control(name='lstClass', onchange="javascript:setTimeout('__doPostBack(\'lstClass\',\'\')', 0)")
+                  option(selected='selected', value='AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA') Select a class
+                  option(value='22f89403-6871-4201-9eb1-014872f61238') Ashtanga Yoga
+                  option(value='a1811d59-3db6-4d9a-a505-8622aab06d5d') Gentle Yoga
+                  option(value='46ca2a6b-f3d0-4ee3-85e5-8478babeee25') Gentle Yoga &amp; Meditation
+                  option(value='9f9ba2a1-630d-4cdd-af50-8162c69665d9') Mommy &amp; Me
+                  option(value='7bb1a3e9-d94d-4ea0-bce0-86ba73ea1d1c') Prenatal Yoga
+                  option(value='03b750e4-6431-4ce5-93ad-689446f9fa44') Yin Yoga
+                  option(value='5116ec67-20b3-46bf-9782-5d7090a4b390') Yoga 1
+                  option(value='9bc3a464-5861-4f52-8a58-8b454eb7c746') Yoga 2
+          .row
+            .col-xs-6
+              label.sr-only(for='txtClassDate') Class Date
+              .input-group.date(data-provide='datepicker')
+                input#txtClassDate.form-control(name='txtClassDate', type='text', value='04/30/2017', onchange="javascript:setTimeout('__doPostBack(\'txtClassDate\',\'\')', 0)", onkeypress='if (WebForm_TextBoxKeyHandler(event) == false) return false;')
+                .input-group-addon
+                  span.glyphicon.glyphicon-th
+          .row
+            .col-xs-12
+              .input-group
+                label.sr-only(for='lstLocation') Location
+                |  
+                select#lstLocation.form-control(name='lstLocation', onchange="javascript:setTimeout('__doPostBack(\'lstLocation\',\'\')', 0)")
+                  option(selected='selected', value='AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA') Select Location
+                  option(value='edb800dd-4c62-4299-b47a-0a0bed3f6809') East Liberty
+                  option(value='04e81f89-72c6-4eae-bfc9-6a37eb426ab5') North Hills
+                  option(value='22d6e6c4-36a2-4954-9115-b6022d085729') Squirrel Hill
+                  option(value='65afdb35-fffc-420f-8d39-2e587cd8e558') Z-Office Use Only
+                |  
+                span.input-group-addon &nbsp;
+                |  
+                label.sr-only(for='lstInstructor') Instructor
+                |  
+                select#lstInstructor.form-control(name='lstInstructor', onchange="javascript:setTimeout('__doPostBack(\'lstInstructor\',\'\')', 0)")
+                  option(selected='selected', value='AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA') Select instructor
+                  option(value='eeed0e69-77b4-40f6-a5d0-0f462373c383') Beretsky, Tara
+                  option(value='c9e71237-970f-42d6-bd3d-56fce14ab829') Campbell, Jonathan
+                  option(value='a3db8909-b2e9-4f1d-bb8a-79a64f0296af') Clark, Jennifer
+                  option(value='99793fc0-b679-4bac-9b3c-290432205c5c') Clary, Jill
+                  option(value='b7aceeea-5807-40e7-8b4e-d59e78cf8741') Demarco, Jamie
+                  option(value='79711841-fd56-4843-a519-3e0e1bd9f1d2') DeRoy, Sara
+                  option(value='a692ce24-20f0-45bb-9f3e-cc8910560e90') deRuntz, Zo
+                  option(value='a6681823-bcbc-4382-bbd0-d32dabe071bd') Dice, Diane
+                  option(value='b4b856b4-315c-4f22-bba5-323f82fbc645') Gartner, Richard
+                  option(value='98235b27-5149-4749-9bab-3dc8534301e6') Ghosal, Mita
+                  option(value='dd274169-4c12-4181-9de3-17336254ae5d') Graham, Meg
+                  option(value='5cde2323-72c1-4508-970c-c671280847fd') Hall, Sarah
+                  option(value='aabdc1cd-82a4-4dcc-83dc-26debce381a7') Hanulak, Lizzie
+                  option(value='757f5de9-2023-49a6-8ad2-d037750981da') Held, Laurie
+                  option(value='4b6be3e4-846e-4aa0-a87b-42e95526e65a') Herrmann, Laura
+                  option(value='38c81a8e-b004-4b12-9a03-5de1de648af2') Houser, Eva
+                  option(value='56439c01-504e-41a8-aa6c-54121be7ec88') Hynson, Meghan
+                  option(value='54f9d1c6-e1a1-4e3a-a070-b6db7d978645') Jansen, Amy
+                  option(value='573989b1-5b92-454e-ade2-cc5013693a11') Jurewicz-Johns, Alyssa
+                  option(value='0302215d-c05d-46a9-a2e6-4ed6b47a56cc') Kernan, Kara
+                  option(value='f6609ffa-1814-4405-b359-140a4bfee954') Koontz, Leta
+                  option(value='a2c94ff6-cfb5-4ded-a409-cd7d5d4f37b6') Lin, Eva
+                  option(value='14360118-a3c9-48f6-b9cf-f78fa49750ad') Lindblom, Kristie
+                  option(value='22ae63d5-8378-4ef7-9409-d0104191415b') Maser, Brenda
+                  option(value='f251dc0f-ab92-4243-a41b-8874a09b026e') McDonough, Sam
+                  option(value='d7a23dce-ba72-43c0-a16c-27617de81f22') Meacci, Linda
+                  option(value='9d0bc9b8-f140-408d-8e80-b77c045e48c6') Mingo, Becky
+                  option(value='ba11b5e8-16a0-4e29-9c9c-224fc88eaeb4') Popivchak, Ali
+                  option(value='67c53c56-32c7-4700-8079-db21c7724af4') Posey, Dawn
+                  option(value='34a99ce2-dadc-465d-8e7a-b5aa872521d2') Preator, Karleen
+                  option(value='df445faa-afb7-42e8-b6b8-b1e136d3f572') Richards, Monique
+                  option(value='55759862-cabb-4948-ae62-e6b4a192a16f') Ritter, Abby
+                  option(value='11b06fa1-9ede-41f4-95e2-ed654d695341') Romanelli, Kendell
+                  option(value='adde99f2-7b24-4bac-8f5a-b6f8cbaf72f6') Sharp, Alyssa
+                  option(value='7b8628e0-358c-4a19-8abf-ff71b0e86c40') Stamm, Laura
+                  option(value='28a5d9af-1051-4518-bb4a-8dd8e9b955cc') Studeny, Joanna
+                  option(value='5ec7087e-5a8d-4ce5-8930-f80ed8d711d0') Sturgill, Joni
+                  option(value='62394bcd-5ef9-4411-b94c-513d82874223') Tober, Jennifer
+                  option(value='db5668f6-d5de-4551-a52e-e98756025334') Wren, Katherine
+                  option(value='4c545fbe-b13b-47a6-adc2-350b366fb215') Wright, Leslie
+                  option(value='1863ba90-37db-474f-a0a8-a78b51d2a320') Zembower, Bailey
+                  option(value='a781aeb3-3ac7-41b6-aff5-dead3f5ef3de') Zito, Stefanie
+          .row
+            .col-xs-12
+              div
+                table#gvAttendees.table.table-striped.table-hover.table-condensed.table-bordered(cellspacing='0', rules='all', border='1', style='border-collapse:collapse;margin-bottom:0px;')
+                  tbody
+                    tr
+                      td(colspan='3')  No students in selected class.
+    #pnlNewStudent(onkeypress="javascript:return WebForm_FireDefaultButton(event, 'NewStudentOK')")
+      #NewStudent.modal
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+              h4.modal-title New Student
+            .modal-body
+              .form-group
+                label(for='firstName') First name
+                |  
+                input#firstName.form-control(name='firstName', type='text', maxlength='20', autofocus='', required='', placeholder='First name', style='margin-bottom:10px;')
+              .form-group
+                label(for='firstName') Last name
+                |  
+                input#lastName.form-control(name='lastName', type='text', maxlength='20', required='', placeholder='Last name')
+            .modal-footer
+              input#NewStudentCancel.btn.btn-default(type='submit', name='NewStudentCancel', value='Cancel', formnovalidate='', style='width:80px;')
+              |  
+              input#NewStudentOK.btn.btn-warning(type='submit', name='NewStudentOK', value='Save', style='width:80px;')
+    #pnlPurchase(onkeypress="javascript:return WebForm_FireDefaultButton(event, 'PurchaseClassesOK')")
+      #PurchaseClasses.modal
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+              h4.modal-title Purchase classes for
+            .modal-body
+              .form-group
+                label(for='NumberOfClasses') Number of classes
+                |  
+                input#NumberOfClasses.form-control(name='NumberOfClasses', type='text', autofocus='', required='', value='1', style='margin-bottom:10px;')
+              .form-group
+                label(for='lstPaymentType') Payment method
+                |  
+                select#lstPaymentType.form-control(name='lstPaymentType')
+                  option(value='3f9b38fc-48c9-4c1b-a71f-516b3b602b13') Cash
+                  option(value='d2ba5c3a-3b1e-445b-b522-39d01ec1d2a6') Check
+                  option(value='4d57d677-3d9c-4b7c-ae7b-da859a21d523') Credit card
+                  option(value='29c23cf3-4a60-440d-b865-c6f36a9fee73') IOU
+                  option(value='bf66e6d8-56d8-4683-a448-1f74aa625a7c') Gift certificate
+                  option(value='33e6600e-65b6-40be-a1d8-78908f9d1bd8') Free
+                  option(value='d429c33f-f695-49b0-9905-a4a4035aaffa') Lulu
+            .modal-footer
+              a#PurchaseClassesCancel.btn.btn-default(href="javascript:__doPostBack('PurchaseClassesCancel','')", style='width:85px;') Cancel
+              |  
+              a#PurchaseClassesOK.btn.btn-warning(href="javascript:__doPostBack('PurchaseClassesOK','')", style='width:85px;') Purchase
+

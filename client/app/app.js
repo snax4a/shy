@@ -52,14 +52,16 @@ import loginPage from './login/login.component';
 import adminPage from './admin/admin.component';
 import signupPage from './signup/signup.component';
 import profilePage from './profile/profile.component';
+import shyNetPage from './shynet/shynet.component';
 
 // Filters
-import upcoming from '../components/upcoming/upcoming.filter';
-import htmlid from '../components/htmlid/htmlid.filter';
-import daytodate from '../components/daytodate/daytodate.filter';
-import weekday from '../components/weekday/weekday.filter';
 import ampm from '../components/ampm/ampm.filter';
+import daytodate from '../components/daytodate/daytodate.filter';
+import htmlid from '../components/htmlid/htmlid.filter';
+import nosubs from '../components/nosubs/nosubs.filter';
 import trustedurl from '../components/trustedurl/trustedurl.filter';
+import upcoming from '../components/upcoming/upcoming.filter';
+import weekday from '../components/weekday/weekday.filter';
 
 // Directives used globally
 import compareTo from '../components/compareto/compareto.directive';
@@ -69,11 +71,11 @@ import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter,
-  alert, carousel, collapse, datepickerPopup, dropdown, modal, //uiBootstrap
+  alert, carousel, collapse, datepickerPopup, dropdown, modal,
   _Auth, loginPage, adminPage, navbar, banner, footer, mainPage, classesPage,
   workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage,
-  privacyPage, termsPage, signupPage, profilePage, constants, util, jsonLd, upcoming, htmlid,
-  daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo])
+  privacyPage, termsPage, signupPage, profilePage, shyNetPage, constants, util, jsonLd, upcoming, htmlid,
+  daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo, nosubs])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {
     'ngInject';

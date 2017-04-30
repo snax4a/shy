@@ -174,10 +174,15 @@
 		"photo": "/assets/images/teachers/kara-kernan.jpg",
 		"bio": "Kara has been a yoga student for over 10 years. In March of 2015, she decided to deepen her own personal practice by enrolling in yoga teacher training through Schoolhouse Yoga. This decision has ignited a passion within her to share her love of yoga with others. Prior to becoming a yoga instructor, Kara worked for many years within the social service field. She developed the skill of being able to hold space for others through her extensive experience as a social worker. She brings this skill to every one of her classes. The core philosophy of Kara’s classes is that everyone is capable to feel strong and empowered in their own bodies. Her classes focus on dynamic movements, breath work, and proper alignment in order to guide students down a path of self-discovery. Kara creates a supportive environment for students through clear, creative, compassionate and enthusiastic guidance."
 	},
-		{
+	{
 		"firstName": "Leslie",
 		"lastName": "Wright",
 		"photo": "/assets/images/teachers/leslie-wright.jpg",
 		"bio": "Leslie Wright (E-RYT 500) creates stimulating classes that are fun and full of joy. She teaches her students to develop awareness of the structures of their physical bodies through movement, breath, and touch. Students undertake familiar poses as a way of exploring and assessing the state of their tissues. During class, students practice thoughtful exercises which are intended not only to improve their experience of the poses, but also their experience of living in their bodies altogether. Leslie’s investigations will often be supported by a practice of self-massage using Yoga Tune Up balls. Teachers of particular inspiration have been Judith Lasater (Relax and Renew); Susi Hately and Doug Keller, who are clear, good-humored teachers of anatomy; Tom Meyers and Jill Miller, who are reverent lovers of fascia; and all of the faculty at the Himalayan Institute."
+	},
+	{
+		"firstName": "Eva",
+		"lastName": "Houser",
+		"substitute": true
 	}
 ]
