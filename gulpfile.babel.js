@@ -468,6 +468,7 @@ gulp.task('build', cb => {
       'webpack:dist'
     ],
     'revReplaceWebpack',
+    'revReplaceJson',
     cb);
 });
 
@@ -492,10 +493,17 @@ gulp.task('build:images', () =>
 );
 
 gulp.task('revReplaceWebpack', () =>
-  // Replace references to assets with updated location (like images)
+  // Use cache-busting URLs for images in JS code and newsletter
   gulp.src(['dist/client/app.*.js', 'dist/client/newsletter.html'])
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
     .pipe(gulp.dest('dist/client'))
+);
+
+gulp.task('revReplaceJson', () =>
+  // Use cache-busting URLs for images in JSON assets
+  gulp.src(['dist/client/assets/data/*.json'])
+    .pipe(plugins.revReplace({replaceInExtensions: ['.json'], manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
+    .pipe(gulp.dest('dist/client/assets/data'))
 );
 
 gulp.task('copy:extras', () =>
@@ -528,6 +536,7 @@ gulp.task('copy:fonts:dist', () =>
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`))
 );
 
+// Copy everything except images (leave that to Webpack)
 gulp.task('copy:assets', () =>
   gulp.src([paths.client.assets, `!${paths.client.images}`])
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
