@@ -4,7 +4,6 @@ import uiRouter from 'angular-ui-router';
 import routes from './admin.routes';
 import ngResource from 'angular-resource'; // delete() relies on this
 import AuthModule from '../../components/auth/auth.module';
-import teachers from '../../assets/data/teachers.json';
 import classes from '../../assets/data/classes.json';
 import locations from '../../assets/data/locations.json';
 
@@ -310,7 +309,11 @@ class ScheduleEditorController {
     this.submitted = false;
     this.errors = {};
     this.scheduleItem = {};
-    this.teachers = teachers;
+    this.$http.get('/assets/data/teachers.json')
+      .then(response => {
+        this.teachers = response.data;
+        return null;
+      });
     this.classes = classes;
     this.locations = locations;
     angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);

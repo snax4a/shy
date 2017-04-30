@@ -1,5 +1,6 @@
 [
 	{
+		"_id": 1,
 		"firstName": "Leta",
 		"lastName": "Koontz",
 		"photo": "/assets/images/teachers/leta-koontz.jpg",
@@ -7,6 +8,7 @@
 		"url": "http://www.leta.guru"
 	},
 	{
+		"_id": 2,
 		"firstName": "Linda",
 		"lastName": "Meacci",
 		"photo": "/assets/images/teachers/linda-meacci.jpg",
@@ -14,6 +16,7 @@
 		"url": "http://www.lindameacciyoga.com"
 	},
 	{
+		"_id": 3,
 		"firstName": "Kendell",
 		"lastName": "Romanelli",
 		"photo": "/assets/images/teachers/kendell-romanelli.jpg",
@@ -21,6 +24,7 @@
 		"url": "http://www.harmoniousheartwellness.com"
 	},
 	{
+		"_id": 4,
 		"firstName": "Richard",
 		"lastName": "Gartner",
 		"photo": "/assets/images/teachers/richard-gartner.jpg",
@@ -28,12 +32,14 @@
 		"url": "http://www.rgyoga.com"
 	},
 	{
+		"_id": 5,
 		"firstName": "Monique",
 		"lastName": "Richards",
 		"photo": "/assets/images/teachers/monique-richards.jpg",
 		"bio": "My love of yoga has grown through years of studying under precise instructions of alignment from Iyengar trained teachers, and beautiful metaphors from Rodney Yee, which he has collected over the years from his instructors. I teach my students to explore and witness the potential for change and to empower them to live in the body in which they currently reside. To accept the body as it is today, but to know that a change can be affected when a dialogue occurs with the body, mind, breath and soul."
 	},
 	{
+		"_id": 6,
 		"firstName": "Joni",
 		"lastName": "Staaf Sturgill",
 		"photo": "/assets/images/teachers/joni-sturgill.jpg",
@@ -41,60 +47,70 @@
 		"url": "http://www.healthybodypeacefulsoul.com"
 	},
 	{
+		"_id": 7,
 		"firstName": "Laurie",
 		"lastName": "Ireland",
 		"photo": "/assets/images/teachers/laurie-held.jpg",
 		"bio": "Laurie has a strong background in gymnastics and has competed in triathlons. In 2003, she discovered Schoolhouse Yoga and became inspired to study yoga. She has studied with Manju Jois, Angelique Sneeden, Tim Miller, and Doug Swenson. Laurie completed teacher trainings in Ashtanga yoga with both David Swenson and Tim Miller."
 	},
 	{
+		"_id": 8,
 		"firstName": "Becky",
 		"lastName": "Mingo",
 		"photo": "/assets/images/teachers/becky-mingo.jpg",
 		"bio": "Becky Mingo has been practicing Ashtanga yoga since 1995. She traveled to India in 1999 to study with Sri K. Pattabhi Jois. Becky has studied locally with Lori Brungard and Angelique Sneeden. In her travels, she has studied and taken workshops with Chuck Miller, Maty Ezraty, Doug Swenson, Sharon Gannon and David Life. Before discovering yoga, Becky spend years studying dance, primarily ballet. She has been teaching yoga since 2001, her focus is a traditional Ashtanga practice."
 	},
 	{
+		"_id": 9,
 		"firstName": "Jennifer",
 		"lastName": "Clark",
 		"photo": "/assets/images/teachers/jen-clark.jpg",
 		"bio": "Jen Clark, RYT, began her study of Ashtanga yoga in Denver, Colorado in 1998 and afterwards has gone on to study many styles of yoga. Since giving birth to two baby girls, she realized the immeasurable benefits that yoga has on the body and soul. Jen is grateful to have studied with Max Strom, David Swenson, Doug Swenson, Desiree Rumbaugh and others all of whom have influenced her teaching style. She loves to incorporate different yoga styles that come together in a vinyasa (flow) style class. Jen hopes that all of her students gain both a sense of peacefulness and strength with their yoga practice. Jen completed her 200 hour teacher training program through 3rd Street Yoga School."
 	},
 	{
+		"_id": 10,
 		"firstName": "Brenda",
 		"lastName": "Maser",
 		"photo": "/assets/images/teachers/brenda-maser.jpg",
 		"bio": "Brenda Maser enjoys sharing her love of yoga with her students, encouraging them to challenge their bodies, quiet their minds, open their hearts and take the practice of yoga off the mat and into their lives. Brenda, RYT, completed the Schoolhouse Yoga Teacher Training Program and has been an enthusiastic yoga practitioner since 2001. Her hope is that each student will experience the joy and amazing benefits of yoga."
 	},
 	{
+		"_id": 11,
 		"firstName": "Karleen",
 		"lastName": "Preator",
 		"photo": "/assets/images/teachers/karleen-preator.jpg",
 		"bio": "Karleen Preator, RYT, began practicing yoga in 1977 and completed her teacher training with 3rd Street Yoga in 2010, continuing her training with Max Strom, Theresa Murphy, Doug Keller, and our own Richard Gartner. Karleen brings her passion for movement, fitness, and humor into her classes, with the intention to challenge the body and calm the mind. She provides detailed instructions to allow students of every level to enjoy the yoga experience and emphasizes the personal practice of yoga as the perfect practice. When not practicing yoga (or working), Karleen spends her time running, hiking, skiing, and kayaking."
 	},
 	{
+		"_id": 12,
 		"firstName": "Mita",
 		"lastName": "Ghosal",
 		"photo": "/assets/images/teachers/mita-ghosal.jpg",
 		"bio": "Mita Ghosal completed the 500 Hour Professional Program through Yoga Works in Los Angeles where she was a regular teacher on the schedule for many years. She has been practicing Ashtanga since 2005 and has studied this system under the late Sri K Pattabhi Jois, his grandson Sharat as well as many other gifted Ashtanga teachers including Richard Freeman, Heather Duplex, Joel Bender and Kino McGregor. A former professional dancer, Mita brings her love of movement and knowledge of the body to her teaching. She hopes to inspire her students to find joy, self-awareness and compassion through the practice."
 	},
 	{
+		"_id": 13,
 		"firstName": "Kristie",
 		"lastName": "Lindblom",
 		"photo": "/assets/images/teachers/kristie-lindblom.jpg",
 		"bio": "Kristie Lindblom, RYT200, RYT500, is a registered instructor with Yoga Alliance and a Certified Yoga Therapist specializing in chronic disease. She began her journey with Yoga in 1994 with Marina Votta and has been honored to receive the teachings of Bob and Cindi Barton, Cheri Clampett, Arturo Peal, Donna Farhi, and Laurel Hodory, among others. After receiving her BFA in Dance from Point Park University in 2003 along with a BA in Education, her dance career ended abruptly when she had a defibrillator/pacemaker placed as a result of a congenital heart condition. She found her daily practice a sustaining constant that carried her through that life altering experience, which led her to her passion of sharing the healing qualities of yoga. Her classes are breath focused, empowering, and healing as she infuses them with a combination of western scientific knowledge and ancient yogic wisdom. In addition to her Hatha and Therapeutic yoga training, Kristie holds a certification in Dynamic Pregnancy Prenatal Yoga™, and is trained in Highmark’s Discover Relaxation With I/II. Kristie is especially honored to work with the Dr. Dean Ornish Program for Reducing Heart Disease as a Stress Management Specialist and instructor at Pittsburgh's branch of the American Heart Association."
 	},
 	{
+		"_id": 14,
 		"firstName": "Diane",
 		"lastName": "Dice",
 		"photo": "/assets/images/teachers/diane-dice.jpg",
 		"bio": "Diane Dice, E-RYT, began practicing yoga in 1999 with Ruth Rittenhouse of the Himalayan Institute of Pittsburgh in both the Sivananda and Himalayan Traditions. The strength, flexibility and peace she found through her personal practice inspired her to pursue a 200-hour teacher training certificate with Joanne VandenHengel at Schoolhouse Yoga. Diane's background in engineering and business management contribute to her analytical style and her ability to craft effective classes and techniques for the busy lives we all lead. Her goal in every class is to create a safe environment with clear instruction so that her students are empowered to make the most of every moment."
 	},
 	{
+		"_id": 15,
 		"firstName": "Laura",
 		"lastName": "Herrmann",
 		"photo": "/assets/images/teachers/laura-herrmann.jpg",
 		"bio": "Laura Herrmann is a licensed massage therapist and certified yoga instructor. She began practicing yoga in 2003 and completed her 200 hour teacher training through Schoolhouse Yoga in 2010. Previously, Laura attended the University of Pittsburgh where she earned degrees in English Literature and Linguistics. Her yoga classes typically include a blend of vigorous vinyasa to warm and tone the muscles, a focus on anatomy to enhance body awareness and improve structural alignment, and the deep releases of yin yoga to stretch the connective tissue and invite relaxation. Her classes are challenging, but remain suitable for all levels. Ever inspired by the beauty of movement and the wisdom of change, Laura often spends her free time in nature, gardening, dancing, and traveling."
 	},
 	{
+		"_id": 16,
 		"firstName": "Abby",
 		"lastName": "Ritter",
 		"photo": "/assets/images/teachers/abby-ritter.jpg",
@@ -102,6 +118,7 @@
 		"url": "http://templewithindesigns.com/about-yoga"
 	},
 	{
+		"_id": 17,
 		"firstName": "Lizzie",
 		"lastName": "Hanulak",
 		"photo": "/assets/images/teachers/lizzie-hanulak.jpg",
@@ -109,80 +126,159 @@
 		"url":"http://lizzzrrd.com"
 	},
 	{
+		"_id": 18,
 		"firstName": "Joanna",
 		"lastName": "Studeny",
 		"photo": "/assets/images/teachers/joanna-studeny.jpg",
 		"bio": "Joanna was first introduced to yoga in 2000 by her college roommate as a way to deepen her mediation practice. She strongly connected to the idea of yoga as a moving meditation and as a vehicle to mindfulness, and completed her 200 hour teacher training through CorePower Yoga in Boulder, Colorado in 2009. Joanna loves to share the benefit of yoga with absolutely everyone, and truly believes we all can and should find our own practice. Her classes are welcoming, fun, playful, and challenging, and emphasize breath, intention, and gratitude for ourselves and our community."
 	},
 	{
+		"_id": 19,
 		"firstName": "Eva",
 		"lastName": "Lin",
 		"photo": "/assets/images/teachers/eva-lin.jpg",
 		"bio": "Eva found yoga in 2009, discovering vinyasa yoga and expanding her yoga knowledge with an Iyengar and Ashtanga based 200-hour teacher training through Yogaworks. She is passionate about exploring our yoga practice as a way to discover new things about ourselves to apply in our daily lives, and help us all be more loving, compassionate, and mindful. Her classes focus on movement with alignment, breath, and yoga philosophy. Through dedicated practice on and off the mat, she hopes to help others live their best life."
 	},
 	{
+		"_id": 20,
 		"firstName": "Laura",
 		"lastName": "Stamm",
 		"photo": "/assets/images/teachers/laura-stamm.jpg",
 		"bio": "Laura began practicing in 2007 completely unaware of how yoga would change her body, mind, and outlook on life. She completed 200 hour YogaWorks Teacher Training with the intention of helping others find strength, flexibility, and space to breathe on and off the mat. Laura&rsquo;s classes are primarily alignment-based Vinyasa, drawing from her mixed personal practice of Ashtanga, Iyengar, and Vinyasa yoga. Along the way, she discovered the need for some yin alongside the yang of a strength-based practice, and also loves to share the peaceful power of yin yoga with others."
 	},
 	{
+		"_id": 21,
 		"firstName": "Bailey",
 		"lastName": "Zembower-Borrow",
 		"photo": "/assets/images/teachers/bailey-zembower.jpg",
 		"bio": "Bailey Zembower-Borrow began her yoga practice at age 13 and is eager to share with others the balance, peace, and confidence that yoga has provided for her from a young age. Bailey completed the 200 hour teacher training at Schoolhouse Yoga while finishing her Master&apos;s in Counseling Psychology. Bailey believes in the power of practicing non-judgment and seeks to share self-acceptance and the joy of yoga with her students. She has completed and presented research related to the effects of yoga and mindfulness meditation on the positive psychological characteristics of college females as well as yoga as a therapeutic intervention for clinicians who work with trauma. As a therapist, Bailey specializes in working with children and adolescents and often uses yoga as a therapeutic tool. From energetic preschoolers to troubled teenagers and everywhere beyond and in between, it is Bailey&apos;s mission as a yoga instructor to create playful, upbeat classes with pace and postures accessible for everyone!"
 	},
 	{
+		"_id": 22,
 		"firstName": "Jamie",
 		"lastName": "DeMarco",
 		"photo": "/assets/images/teachers/jamie-demarco.jpg",
 		"bio": "Jamie DeMarco began practicing yoga in 2007. A former gymnast, she was initially drawn to this practice because of its union of strength, flexibility, and balance. Over the years her love and appreciation of yoga has grown exponentially, with deeper knowledge of not just the physical, but also the mental benefits. Jamie received her Level 1 teacher training through Amazing Yoga in 2014. She then sought out Schoolhouse Yoga in 2015 to receive her 200 hour teacher training. Jamie received her Doctorate in Physical Therapy from the University of Pittsburgh in 2005. She brings a strong anatomical focus to the practice and is knowledgable in modifications for those students suffering injuries. She is currently pursuing her Professional Yoga Therapist certification. Jamie resides in Wexford with her husband and two children."
 	},
 	{
+		"_id": 23,
 		"firstName": "Jennifer",
 		"lastName": "Tober",
 		"photo": "/assets/images/teachers/jennifer-tober.jpg",
 		"bio": "Jennifer began practicing Yoga in New York at Life in Motion Studio and fell in love with Jivamukti and Bhakti Yoga. After practicing for many years, Jennifer completed her Teacher Training with Joanne VandenHengel and Third Street Yoga in 2012. Jennifer&rsquo;s classes combine a lovely mix of challenging poses that flow with a meditative and spiritual aspect. Drawing on her experience as a professional actress, Jennifer brings creativity and humour to the mat and to her students, and believes that yoga is a way to physical, mental and spiritual enlightenment and peace, and heals not only the practitioner, but the world. Jennifer specializes in Yoga 1, Yoga 2, Mommy and Me, and Yoga Groove/Move (yoga with a little infusion of dance). When not teaching Yoga at Schoolhouse, Jennifer teaches at Duquesne University, likes to dance, and serves as the artistic director of Pittsburgh Shakespeare in the Parks."
 	},
 	{
+		"_id": 24,
 		"firstName": "Zo",
 		"lastName": "de Runtz",
 		"photo": "/assets/images/teachers/zo-deruntz.jpg",
 		"bio": "Zo de Runtz, RYT, turned to yoga, over 20 years ago, to help restore her body after childbirth, and provide peace of mind amidst the challenges of raising three children. Over the years, she has studied various styles of yoga, with various teachers, including Max Strom, Ravi Singh and Ana Brett, Amy Weintraub, and many of the teachers at Schoolhouse Yoga; she also studies the writings of Pema Chodron and Thich Naht Hanh. Zo completed her 200 hour teacher training at Schoolhouse Yoga in 2015; and completed the Veterans Yoga Project, Level 1 training in 2016. Zo&apos;s classes blend breathwork, asana, meditation, Kundalini kriyas, humour, and silence. She is passionate about yoga&apos;s role in helping to alleviate symptoms of trauma. She encourages students to move with and explore their own breath, their own bodies, their own yoga, both on and off the mat. She is eternally grateful to Gideon Enz for opening her eyes, heart, and soul to the beauty of practice."
 	},
 	{
+		"_id": 25,
 		"firstName": "Stefanie",
 		"lastName": "Zito",
 		"photo": "/assets/images/teachers/stefanie-zito.jpg",
 		"bio": "Stefanie began her yoga journey in 2010 by looking for a low impact workout upon recovering from a serious bicycle accident. Originally, she had only expected to approach yoga as another way to safely move, heal, and build strength, but what she discovered was so much more. This practice has become inseparable from the overall way in which lives. Yoga has become not only a moving meditation, but a lifestyle by which she engages the world with a growing discovery of beauty, spaciousness, and breath. Stefanie is continually humbled and inspired by this healing and life-changing power of dynamic, joyful, and intentional movement that unites body, mind, and spirit. Stefanie is a 500-hour YogaWorks certified instructor. She is also certified to teach Love Your Brain friendly classes, which specialize in work with TBI survivors."
 	},
 	{
+		"_id": 26,
 		"firstName": "Jill",
 		"lastName": "Clary",
 		"photo": "/assets/images/teachers/jill-clary.jpg",
 		"bio": "Jill Clary, RYT, began practicing yoga in 2003 when weekly classes were offered through her workplace. She developed a regular yoga practice both at home and in local studios and in 2015 completed the Schoolhouse Yoga Teacher Training program. She is a firm believer that yoga is for everyone and her classes, combining different yoga styles such as Ashtanga, Kundalini, and Yin, along with breath work and meditation, move from slow to a challenging flow. She welcomes you to her classes."
 	},
 	{
+		"_id": 27,
 		"firstName": "Alyssa",
 		"lastName": "Jurewicz Johns",
 		"photo": "/assets/images/teachers/alyssa-jurewicz-johns.jpg",
 		"bio": "Through her work as a non-profit community organizer, Alyssa Jurewicz-Johns, RYT, has been engaging local, regional, and international residents in the collaborative creation of healthy, vital communities for over 15 years. Now, through sharing the practice of yoga she continues community building in fresh, innovative ways. A practiced and skilled facilitator, Alyssa's expertise rests within her ability to listen to and connect with people. She provides her clients with a roadmap for alleviating stress, reaching goals, and celebrating their wholeness by creating supportive platforms for therapeutic movement and breath work. Alyssa's work harmonizes personal connection with the universal intention for healthier communities. Alyssa’s has been practicing yoga for over 16 years and has been influenced by a wide spectrum of teachings and philosophies. Her classes are curated recipes full of playful asana, introspective silence and sound healing." 
 	},
 	{
+		"_id": 28,
 		"firstName": "Kara",
 		"lastName": "Kernan",
 		"photo": "/assets/images/teachers/kara-kernan.jpg",
 		"bio": "Kara has been a yoga student for over 10 years. In March of 2015, she decided to deepen her own personal practice by enrolling in yoga teacher training through Schoolhouse Yoga. This decision has ignited a passion within her to share her love of yoga with others. Prior to becoming a yoga instructor, Kara worked for many years within the social service field. She developed the skill of being able to hold space for others through her extensive experience as a social worker. She brings this skill to every one of her classes. The core philosophy of Kara’s classes is that everyone is capable to feel strong and empowered in their own bodies. Her classes focus on dynamic movements, breath work, and proper alignment in order to guide students down a path of self-discovery. Kara creates a supportive environment for students through clear, creative, compassionate and enthusiastic guidance."
 	},
 	{
+		"_id": 29,
 		"firstName": "Leslie",
 		"lastName": "Wright",
 		"photo": "/assets/images/teachers/leslie-wright.jpg",
 		"bio": "Leslie Wright (E-RYT 500) creates stimulating classes that are fun and full of joy. She teaches her students to develop awareness of the structures of their physical bodies through movement, breath, and touch. Students undertake familiar poses as a way of exploring and assessing the state of their tissues. During class, students practice thoughtful exercises which are intended not only to improve their experience of the poses, but also their experience of living in their bodies altogether. Leslie’s investigations will often be supported by a practice of self-massage using Yoga Tune Up balls. Teachers of particular inspiration have been Judith Lasater (Relax and Renew); Susi Hately and Doug Keller, who are clear, good-humored teachers of anatomy; Tom Meyers and Jill Miller, who are reverent lovers of fascia; and all of the faculty at the Himalayan Institute."
 	},
 	{
+		"_id": 30,
+		"firstName": "Tara",
+		"lastName": "Beretsky",
+		"substitute": true
+	},
+	{
+		"_id": 31,
+		"firstName": "Jonathan",
+		"lastName": "Campbell",
+		"substitute": true
+	},
+	{
+		"_id": 32,
+		"firstName": "Sara",
+		"lastName": "DeRoy",
+		"substitute": true
+	},
+	{
+		"_id": 33,
+		"firstName": "Meg",
+		"lastName": "Graham",
+		"substitute": true
+	},
+	{
+		"_id": 34,
+		"firstName": "Sarah",
+		"lastName": "Hall",
+		"substitute": true
+	},
+	{
+		"_id": 35,
 		"firstName": "Eva",
 		"lastName": "Houser",
+		"substitute": true
+	},
+	{
+		"_id": 36,
+		"firstName": "Meghan",
+		"lastName": "Hynson",
+		"substitute": true
+	},
+	{
+		"_id": 37,
+		"firstName": "Sam",
+		"lastName": "McDonough",
+		"substitute": true
+	},
+	{
+		"_id": 38,
+		"firstName": "Ali",
+		"lastName": "Popivchak",
+		"substitute": true
+	},
+	{
+		"_id": 39,
+		"firstName": "Dawn",
+		"lastName": "Posey",
+		"substitute": true
+	},
+	{
+		"_id": 40,
+		"firstName": "Alyssa",
+		"lastName": "Sharp",
+		"substitute": true
+	},
+	{
+		"_id": 41,
+		"firstName": "Katherine",
+		"lastName": "Wren",
 		"substitute": true
 	}
 ]
