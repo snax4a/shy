@@ -1,75 +1,16 @@
 [
-		{
-		"expires": "2017-02-12T15:30:00.000-05:00",
-		"title": "Partner Meditation Workshop with Joni Sturgill",
-		"photo": "/assets/images/workshops/partnermeditation.jpg",
-		"description": "Sustaining healthy, fulfilling relationships (of any kind) can be challenging, especially during times of stress. Do you need to reconnect with your spouse, partner, or close friend? Or maybe you're just looking for something fun to do together to create a stronger bond? Learn to relax together and experience a deeper connection through breathwork and simple meditation techniques, as well as a few gentle partner yoga postures. This workshop is designed to allow you to quietly experience and appreciate each other's unique presence. Price is per couple.",
-		"sections":
-		[
-			{
-				"start": "2017-02-12T14:00:00.000-05:00",
-				"expires": "2017-02-12T15:30:00.000-05:00",
-				"productID": 53,
-				"cost": 35,
-				"location": "East Liberty"
-			}
-		]
-	},
-			{
-		"expires": "2017-02-12T15:30:00.000-05:00",
-		"title": "Women's Healing Circle with Kendell Romanelli",
-		"photo": "/assets/images/workshops/womenscircle.jpg",
-		"description": "This class is designed to use the energy of yoga, mantra and meditation to heal the body, mind and soul. It is open to women of all ages and backgrounds. When we come together in a circle, the power of the group helps to support and upli  all the members of the group. We will begin class with some yoga exercises and stretches. We will then light a candle and speak an intention for healing in  ve words or less. We will support our intention by chanting a healing mantra and close with a deep relaxation supported by the healing power of guided meditation.",
-		"sections":
-		[
-			{
-				"start": "2017-02-24T18:30:00.000-05:00",
-				"expires": "2017-02-25T20:00:00.000-05:00",
-				"productID": 41,
-				"cost": 10,
-				"location": "North Hills"
-			}
-		]
-	},
 	{
-		"expires": "2017-02-12T17:00:00.000-05:00",
+		"expires": "2018-02-12T17:00:00.000-05:00",
 		"title": "Trauma-Informed Yoga Teacher Training – Foundational Skills with Linda Meacci, E-RYT and Paula Soto, LSW, RYT",
 		"photo": "/assets/images/workshops/ahimsa.jpg",
 		"description": "As yoga teachers and licensed therapists understand, people seek remedy for high stress and trauma symptoms by attending yoga classes. In this foundational training, Paula Soto, a licensed social worker and registered yoga teacher, and Linda Meacci, an experienced yoga-teacher-training instructor, will present a spectrum of information, ranging from how to create a non-harming atmosphere in yoga classes and private lessons, to recognizing and responding to nonverbal signs of stress and trauma in students/clients, to setting up yoga services for trauma-impacted populations. Rather than require teachers to veer from their own teaching styles, this training will equip them to apply trauma-informed insights to their established methods of instruction. For detailed information about this Trauma Informed Yoga Teacher Training, please visit www.lindameacciyoga.com",
 		"sections":
 		[
 				{
-				"title": "Day 1: Saturday, February 18",
-				"nodate": true,
-				"start": "2017-02-18T12:00:00.000-05:00",
-				"expires": "2017-02-19T17:00:00.000-05:00",
+				"start": "2017-08-13T16:00:00.000-04:00",
+				"expires": "2017-08-19T18:15:00.000-06:15",
 				"productID": 44,
 				"cost": 90,
-				"location": "East Liberty"
-			},
-			{
-				"title": "Both days: Saturday, February 18 and Sunday the 19",
-				"nodate": true,
-				"start": "2017-02-18T12:00:00.000-05:00",
-				"expires": "2017-02-19T17:00:00.000-05:00",
-				"productID": 45,
-				"cost": 180,
-				"location": "East Liberty"
-			}
-		]
-	},
-		{
-		"expires": "2017-01-15T17:00:00.000-05:00",
-		"title": "The Body is a Pond: Lymphatic Self-Massage and Yoga With Julia Schandelmeier, LMT and Richard Gartner, ERYT",
-		"photo": "/assets/images/workshops/lymphatic.jpg",
-		"description": "What is our lymphatic system, why it is important to us, and how can we increase our own lymphatic flow? Richard Gartner, ERYT, and Julia Schandelmeier, LMT and certified lymphatic therapist, present this experiential and informative workshop about our fluid body. The lymph system is a series of rivers and channels that detoxes the body and aids digestion. This workshop is a guide to keep your lymph system moving and strong. You’ll learn the basics of the lymphatic system, a lymphatic massage routine and yoga postures that support your system. You'll also receive handouts you can take home and refer to at any time. This is an all-levels workshop that assumes a generally healthy lymphatic system. If you have any lymphatic or lymph node conditions, please contact us to see if this workshop is right for you.",
-		"sections":
-		[
-			{
-				"start": "2017-03-05T13:00:00.000-05:00",
-				"expires": "2017-03-06T15:30:00.000-05:00",
-				"productID": 57,
-				"cost": 40,
 				"location": "East Liberty"
 			}
 		]
@@ -81,30 +22,6 @@
 		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
 		"sections":
 		[
-			{
-				"title": "The Snow Moon",
-				"start": "2017-02-10T18:30:00.000-05:00",
-				"expires": "2017-02-11T20:00:00.000-05:00",
-				"productID": 11,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "The Windy Moon",
-				"start": "2017-03-10T18:30:00.000-05:00",
-				"expires": "2017-03-11T20:00:00.000-05:00",
-				"productID": 9,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "The Spring Moon",
-				"start": "2017-04-14T18:30:00.000-04:00",
-				"expires": "2017-04-15T20:00:00.000-04:00",
-				"productID": 10,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"title": "The Flower Moon",
 				"start": "2017-05-12T18:30:00.000-04:00",
