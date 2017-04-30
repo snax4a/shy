@@ -2,12 +2,19 @@
 import angular from 'angular';
 import routes from './locations.routes';
 import uiRouter from 'angular-ui-router';
-import locations from '../../assets/data/locations.json';
 
 export class LocationsController {
   /*@ngInject*/
+  constructor($http) {
+    this.$http = $http;
+  }
+
   $onInit() {
-    this.locations = locations;
+    this.$http.get('/assets/data/locations.json')
+      .then(response => {
+        this.locations = response.data;
+        return null;
+      });
   }
 }
 

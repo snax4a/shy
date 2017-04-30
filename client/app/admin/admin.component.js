@@ -4,8 +4,6 @@ import uiRouter from 'angular-ui-router';
 import routes from './admin.routes';
 import ngResource from 'angular-resource'; // delete() relies on this
 import AuthModule from '../../components/auth/auth.module';
-import classes from '../../assets/data/classes.json';
-import locations from '../../assets/data/locations.json';
 
 export class AdminController {
   /*@ngInject*/
@@ -314,8 +312,16 @@ class ScheduleEditorController {
         this.teachers = response.data;
         return null;
       });
-    this.classes = classes;
-    this.locations = locations;
+    this.$http.get('/assets/data/classes.json')
+      .then(response => {
+        this.classes = response.data;
+        return null;
+      });
+    this.$http.get('/assets/data/locations.json')
+      .then(response => {
+        this.locations = response.data;
+        return null;
+      });
     angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);
   }
 
