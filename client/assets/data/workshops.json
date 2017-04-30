@@ -148,21 +148,21 @@
 			{
 				"start": "2017-06-04T14:00:00.000-04:00",
 				"expires": "2017-06-07T15:00:00.000-04:00",
-				"productID": 61,
+				"productID": 58,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
 			{
 				"start": "2017-07-09T14:00:00.000-04:00",
 				"expires": "2017-07-10T15:00:00.000-04:00",
-				"productID": 61,
+				"productID": 59,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
 			{
 				"start": "2017-08-06T14:00:00.000-04:00",
 				"expires": "2017-08-07T15:00:00.000-04:00",
-				"productID": 61,
+				"productID": 60,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			}
