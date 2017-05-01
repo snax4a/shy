@@ -1,17 +1,16 @@
 .container
   h1 SHYnet
   .row
-    input#student_id(name='student_id', type='hidden')
     .col-sm-6.col-xs-12
       .panel.panel-primary
         .panel-heading
           h4 Students
         .panel-body
-          .form(role='form', onkeypress="javascript:return WebForm_FireDefaultButton(event, 'FindStudent')")
+          .form(role='form')
             .form-group
-              label.sr-only(for='SearchText') Find Student
+              label.sr-only(for='search') Find Student
               .input-group
-                input#SearchText.form-control(name='SearchText', type='text', maxlength='20', autofocus='', placeholder="Student's first or last name")
+                input.form-control(name='search', id='search', type='text', maxlength='20', autofocus='', placeholder="Student's first or last name")
                 span.input-group-btn
                   a#FindStudent.btn.btn-warning(href="javascript:__doPostBack('FindStudent','')")
                     span.glyphicon.glyphicon-search
@@ -42,9 +41,9 @@
                 select.form-control(name='title', id='title', ng-model='$ctrl.scheduleItem.title', ng-options="course.title as course.title for course in $ctrl.classes")
           .row
             .col-xs-6
-              label.sr-only(for='txtClassDate') Class Date
+              label.sr-only(for='date') Class Date
               .input-group.date(data-provide='datepicker')
-                input#txtClassDate.form-control(name='txtClassDate', type='text', value='04/30/2017', onchange="javascript:setTimeout('__doPostBack(\'txtClassDate\',\'\')', 0)", onkeypress='if (WebForm_TextBoxKeyHandler(event) == false) return false;')
+                input.form-control(name='date', id='date', type='text', value='04/30/2017')
                 .input-group-addon
                   span.glyphicon.glyphicon-th
           .row
@@ -66,7 +65,7 @@
                   tbody
                     tr
                       td(colspan='3')  No students in selected class.
-    #pnlNewStudent(onkeypress="javascript:return WebForm_FireDefaultButton(event, 'NewStudentOK')")
+    #pnlNewStudent()
       #NewStudent.modal
         .modal-dialog
           .modal-content
