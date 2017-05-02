@@ -38,7 +38,7 @@
               .form-group
                 label.sr-only(for='title') Class
                 |  
-                select.form-control(name='title', id='title', ng-model='$ctrl.scheduleItem.title', ng-options="course.title as course.title for course in $ctrl.classes")
+                select.form-control(name='title', id='title', ng-model='$ctrl.scheduleItem.title', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
           .row
             .col-xs-6
               label.sr-only(for='date') Class Date
@@ -51,13 +51,13 @@
               .input-group
                 label.sr-only(for='location') Studio
                 |  
-                select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locations")
+                select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
                 |  
                 span.input-group-addon &nbsp;
                 |  
                 label.sr-only(for='teacher') Instructor
                 |  
-                select.form-control(name='teacher', id='teacher', ng-model='$ctrl.teacher', ng-options="teacher.firstName + ' ' + teacher.lastName as teacher.firstName + ' ' + teacher.lastName for teacher in $ctrl.teachers")
+                select.form-control(name='teacher', id='teacher', ng-model='$ctrl.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
           .row
             .col-xs-12
               div
