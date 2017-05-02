@@ -39,6 +39,7 @@
                 label.sr-only(for='title') Class
                 |  
                 select.form-control(name='title', id='title', ng-model='$ctrl.scheduleItem.title', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
+                  option(value='', disabled='', selected='') Select Class
           .row
             .col-xs-6
               label.sr-only(for='date') Class Date
@@ -52,12 +53,14 @@
                 label.sr-only(for='location') Studio
                 |  
                 select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
+                  option(value='', disabled='', selected='') Select Studio
                 |  
                 span.input-group-addon &nbsp;
                 |  
                 label.sr-only(for='teacher') Instructor
                 |  
                 select.form-control(name='teacher', id='teacher', ng-model='$ctrl.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
+                  option(value='', disabled='', selected='') Select Teacher
           .row
             .col-xs-12
               div
@@ -101,6 +104,7 @@
                 label(for='lstPaymentType') Payment method
                 |  
                 select#lstPaymentType.form-control(name='lstPaymentType')
+                  option(value='', disabled='', selected='') Select Payment Type
                   option(value='3f9b38fc-48c9-4c1b-a71f-516b3b602b13') Cash
                   option(value='d2ba5c3a-3b1e-445b-b522-39d01ec1d2a6') Check
                   option(value='4d57d677-3d9c-4b7c-ae7b-da859a21d523') Credit card
