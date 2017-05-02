@@ -1,0 +1,25 @@
+form(name='form', ng-submit="$ctrl.submitPayment(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title Purchase classes for
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='numberOfClasses') Number of classes
+        input.form-control(name='numberOfClasses', id='numberOfClasses', type='text', autofocus='', required='', value='1')
+      .form-group.col-md-12
+        label(for='paymentType') Payment method
+        select.form-control(name='paymentType', id='paymentType')
+          option(value='', disabled='', selected='') Select Payment Type
+          option(value='3f9b38fc-48c9-4c1b-a71f-516b3b602b13') Cash
+          option(value='d2ba5c3a-3b1e-445b-b522-39d01ec1d2a6') Check
+          option(value='4d57d677-3d9c-4b7c-ae7b-da859a21d523') Credit card
+          option(value='29c23cf3-4a60-440d-b865-c6f36a9fee73') IOU
+          option(value='bf66e6d8-56d8-4683-a448-1f74aa625a7c') Gift certificate
+          option(value='33e6600e-65b6-40be-a1d8-78908f9d1bd8') Free
+          option(value='d429c33f-f695-49b0-9905-a4a4035aaffa') Lulu
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Purchase
+
