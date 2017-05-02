@@ -25,6 +25,20 @@ export class SHYnetController {
         this.locations = response.data;
         return null;
       });
+
+    this.classDate = new Date();
+    this.datePickerOpened = false;
+    this.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yyyy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(),
+      startingDay: 1
+    };
+  }
+
+  showCalendar() {
+    this.datePickerOpened = true;
   }
 }
 

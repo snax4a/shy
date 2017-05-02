@@ -42,11 +42,14 @@
                   option(value='', disabled='', selected='') Select Class
           .row
             .col-xs-6
-              label.sr-only(for='date') Class Date
-              .input-group.date(data-provide='datepicker')
-                input.form-control(name='date', id='date', type='text', value='04/30/2017')
-                .input-group-addon
-                  span.glyphicon.glyphicon-th
+              label.sr-only(for='classDate') Class Date
+              .input-group
+                input.form-control(id='classDate', name='classDate', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.classDate', placeholder='Class date')
+                span.input-group-btn
+                  button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
+                    i.glyphicon.glyphicon-calendar
+              ng-messages.help-block.has-error(for='form.classDate.$error', ng-show='form.classDate.$dirty || form.$submitted', role='alert')
+                ng-message(when='required') Please enter a class date.
           .row
             .col-xs-12
               .input-group
