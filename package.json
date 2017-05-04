@@ -55,7 +55,7 @@
   },
   "peerDependencies": {
     "node-sass": "^4.5.2",
-    "webpack": "~2.4.1"
+    "webpack": "^2.5.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.6.4",
@@ -126,7 +126,7 @@
     "strip-ansi": "^3.0.1",
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",
-    "webpack": "~2.4.1",
+    "webpack": "^2.5.0",
     "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-middleware": "^1.10.2"
   },

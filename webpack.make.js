@@ -58,20 +58,6 @@ module.exports = function makeWebpackConfig(options) {
                       uglify: true // no effect on build size or functionality
                     },
                     debug: false,
-                    // exclude: [ // no effect on build size
-                    //   'transform-es2015-block-scoped-functions',
-                    //   'transform-es2015-computed-properties',
-                    //   'transform-es2015-duplicate-keys',
-                    //   'transform-es2015-function-name',
-                    //   'transform-es2015-object-super',
-                    //   'transform-es2015-spread',
-                    //   'transform-es2015-sticky-regex',
-                    //   'transform-es2015-unicode-regex',
-                    //   'transform-regenerator',
-                    //   'transform-exponentiation-operator',
-                    //   'transform-async-to-generator',
-                    //   'syntax-trailing-function-commas'
-                    // ],
                     loose: true, // saves 5K for app and 3K for vendor
                     modules: 'commonjs', // changing to false adds 17K
                     useBuiltIns: true
