@@ -1,3 +1,4 @@
+/* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
@@ -171,16 +172,18 @@ export class AdminController {
 
 class UserEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, User, userSelectedForEditing) {
+  constructor($uibModalInstance, User, userSelectedForEditing, Auth) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.userSelectedForEditing = userSelectedForEditing;
     this.User = User;
+    this.Auth = Auth;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
     this.user = {};
+    this.isAdmin = this.Auth.isAdminSync;
     if(this.userSelectedForEditing) angular.copy(this.userSelectedForEditing, this.user);
   }
 

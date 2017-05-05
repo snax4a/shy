@@ -14,6 +14,7 @@ export class NavbarController {
   $onInit() {
     this.isLoggedIn = this.Auth.isLoggedInSync;
     this.isAdmin = this.Auth.isAdminSync;
+    this.isAdminOrTeacher = this.Auth.isAdminOrTeacherSync;
     this.getCurrentUser = this.Auth.getCurrentUserSync;
     this.isCollapsed = true;
     this.menu = [

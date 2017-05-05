@@ -196,6 +196,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       return Auth.hasRoleSync('admin');
     },
 
+    isAdminOrTeacherSync() {
+      return Auth.hasRoleSync('teacher') || this.isAdminSync();
+    },
+
     /**
      * Get auth token
      *

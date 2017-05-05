@@ -15,7 +15,7 @@
             span.badge(ng-show='item.title == "Cart"') {{ $ctrl.Cart.getTotalItems() }}
         li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
           a(ui-sref='admin', itemprop='url') Admin
-        li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
+        li(ng-show='$ctrl.isAdminOrTeacher()', ui-sref-active='active')
           a(ui-sref='shynet', itemprop='url') SHYnet
       ul.nav.navbar-nav.navbar-right
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
