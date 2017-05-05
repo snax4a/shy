@@ -1,5 +1,7 @@
 # Product Backlog
-* [High] Build SHYnet page
+* [High] Split admin/users tab into usermanager component with alternate search result table formats
+* [High] Allow users with teacher role to modify users but not change role property(server/api/user/user.controller.js)
+* [High] SHYnet - reuse user management component
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
