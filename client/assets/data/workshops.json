@@ -23,11 +23,11 @@
 		"sections":
 		[
 			{
-				"start": "2017-05-21T13:00:00.000-04:00",
-				"expires": "2017-05-22T17:00:00.000-04:00",
-				"productID": 31,
-				"cost": 65,
-				"location": "East Liberty"
+				"start": "2017-06-21T13:00:00.000-04:00",
+				"expires": "2017-06-22T17:00:00.000-04:00",
+				"productID": 17,
+				"cost": 25,
+				"location": "North Hills"
 			}
 		]
 	},
