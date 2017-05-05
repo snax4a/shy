@@ -21,6 +21,7 @@ form(name='form', ng-submit="$ctrl.createStudent(form)", novalidate='', ng-model
         ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please provide an email address.
           ng-message(when='email') Please provide a valid email address.
+          ng-message(when='server') {{ $ctrl.errors.email }}
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

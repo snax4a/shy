@@ -171,7 +171,7 @@ export class AdminController {
 
 class UserEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, userSelectedForEditing, User) {
+  constructor($uibModalInstance, User, userSelectedForEditing) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.userSelectedForEditing = userSelectedForEditing;
@@ -181,7 +181,7 @@ class UserEditorController {
     this.submitted = false;
     this.errors = {};
     this.user = {};
-    angular.copy(this.userSelectedForEditing, this.user);
+    if(this.userSelectedForEditing) angular.copy(this.userSelectedForEditing, this.user);
   }
 
   clearServerError(form, fieldName) {
