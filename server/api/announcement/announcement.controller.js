@@ -18,7 +18,7 @@ export function index(req, res) {
   let flat = req.query.flat;
   return Announcement.findAll({
     attributes: ['_id', 'section', 'title', 'description', 'expires'],
-    order: ['section', 'title'],
+    order: ['section', ['expires', 'DESC']],
     where: { expires: { $gt: new Date() } }
   })
     .then(function(announcements) {
