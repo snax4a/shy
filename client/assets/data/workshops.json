@@ -15,11 +15,27 @@
 			}
 		]
 	},
+		{
+		"expires": "2018-01-08T17:00:00.000-05:00",
+		"title": "Yoga Gives Back Fundraiser",
+		"photo": "/assets/images/workshops/selfcompassion.jpg",
+		"description": "What has yoga given you? Now is your chance to give back! Celebrating the Summer Solstice in the spirit of gratitude and generosity, Schoolhouse Yoga will host a special class featuring six of its talented teachers. We will lead you through a sixty-minute practice suitable for all levels and covering a variety of styles of yoga. Proceeds from the class will be donated to the organization Yoga Gives Back. Yoga Gives Back is a 501©3 non-profit organization dedicated to raising awareness and funds in order to alleviate poverty in India.",
+		"sections":
+		[
+			{
+				"start": "2017-06-21T19:30:00.000-04:00",
+				"expires": "2017-06-22T20:30:00.000-04:00",
+				"productID": 17,
+				"cost": 25,
+				"location": "North Hills"
+			}
+		]
+	},
 	{
 		"expires": "2018-02-12T17:00:00.000-05:00",
 		"title": "Yoga in the Counseling Session with Paula Soto, LSW, ERYT",
 		"photo": "/assets/images/workshops/ahimsa.jpg",
-		"description": "Trauma Foundation Mentoring Group. A discussion and practicum group for mental health professionals who want to skillfully integrate body, breath and mindfulness techniques into their psychotherapy sessions.  While this mentoring focuses on applications specific to the practice of psychotherapy, Yoga teachers seeking to enhance their skills for instructing private students on techniques that support mental focus and emotional and nervous system regulation will also find material of value in this group. Pre-requisite: Attendance at Ahimsa and/or Trauma Foundations training offered by Paula Soto and Linda Meacci; or, commensurate education in trauma-informed psychotherapy/yoga instruction. CEs are available to RYTs and Pennsylvania Licensed Social Workers, Licensed Professional Counselors and Licensed Marriage and Family Therapists through NASW",
+		"description": "Trauma Foundation Mentoring Group. A discussion and practicum group for mental health professionals who want to skillfully integrate body, breath and mindfulness techniques into their psychotherapy sessions.  While this mentoring focuses on applications specific to the practice of psychotherapy, Yoga teachers seeking to enhance their skills for instructing private students on techniques that support mental focus and emotional and nervous system regulation will also find material of value in this group. Pre-requisite: Attendance at Ahimsa and/or Trauma Foundations training offered by Paula Soto and Linda Meacci; or, commensurate education in trauma-informed psychotherapy/yoga instruction. CEs are available to RYTs and Pennsylvania Licensed Social Workers, Licensed Professional Counselors and Licensed Marriage and Family Therapists through NASW.",
 		"sections":
 		[
 				{
