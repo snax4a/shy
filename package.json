@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "angular-mocks": "~1.6.4",
-    "autoprefixer": "^7.0.0",
+    "autoprefixer": "^7.0.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -126,8 +126,8 @@
     "strip-ansi": "^3.0.1",
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",
-    "webpack": "^2.5.0",
-    "webpack-bundle-analyzer": "^2.5.0",
+    "webpack": "^2.5.1",
+    "webpack-bundle-analyzer": "^2.6.0",
     "webpack-dev-middleware": "^1.10.2"
   },
   "engines": {
