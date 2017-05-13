@@ -10,4 +10,5 @@ client/index.html
 dist
 /server/config/local.env.js
 npm-debug.log
+report.html
 coverage
