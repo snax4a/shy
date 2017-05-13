@@ -2,7 +2,8 @@
 * [High] Allow users with teacher role to modify users but not change role property(server/api/user/user.controller.js)
 * [High] SHYnet - add models for tracking classes and purchases
 * [High] SHYnet - add difference of sum purchases less attendances to list of users
-* [Medium] Client tests: add support for headless Chrome
+* [Medium] Intrapage links only work if page is currently displayed (timing issue)
+* [Low] Resolve issue with headless Chrome in karma.conf.js
 * [Low] Fix order model unit test (#purchaserEmail)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
