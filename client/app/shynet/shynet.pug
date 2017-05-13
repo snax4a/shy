@@ -6,28 +6,7 @@
         .panel-heading
           h4 Students
         .panel-body
-          .form(role='form')
-            .form-group
-              label.sr-only(for='search') Find Student
-              .input-group
-                input.form-control(name='search', id='search', type='text', maxlength='20', autofocus='', placeholder="Student's first or last name")
-                span.input-group-btn
-                  a.btn.btn-warning(ng-click='')
-                    span.glyphicon.glyphicon-search
-                    |  Search
-            .form-group
-              a#btnNewStudent.btn.btn-warning(data-toggle='modal', data-target='#NewStudent', href="javascript:__doPostBack('btnNewStudent','')")
-                span.glyphicon.glyphicon-plus-sign
-                |  New Student
-          #loader(style='display:none;', role='status', aria-hidden='true')
-            .text-center
-              img(src='ajax-loader.gif', alt='Loading...')
-              |  Searching for students...
-          div
-            table#gvStudents.table.table-striped.table-hover.table-condensed.table-bordered(cellspacing='0', rules='all', border='1', style='border-collapse:collapse;margin-bottom:0px;')
-              tbody
-                tr
-                  td  No students found matching the search criteria.
+          usermanager
     .col-sm-6.col-xs-12
       .panel.panel-primary
         .panel-heading

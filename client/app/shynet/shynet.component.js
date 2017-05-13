@@ -2,19 +2,16 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './shynet.routes';
-import ngResource from 'angular-resource'; // delete() relies on this
-import { UserEditorController } from '../admin/admin.component';
+import UserManager from '../../components/usermanager/usermanager.component';
 
 export class SHYnetController {
   /*@ngInject*/
-  constructor($http, User, $uibModal) {
+  constructor($http, $uibModal) {
     this.$http = $http;
-    this.User = User;
     this.$uibModal = $uibModal;
   }
 
   $onInit() {
-    this.users = [];
     this.$http.get('/assets/data/teachers.json')
       .then(response => {
         this.teachers = response.data;
@@ -48,7 +45,7 @@ export class SHYnetController {
   }
 }
 
-export default angular.module('shyApp.shynet', [uiRouter])
+export default angular.module('shyApp.shynet', [uiRouter, UserManager])
   .config(routes)
   .component('shynet', {
     template: require('./shynet.pug'),

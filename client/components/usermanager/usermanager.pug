@@ -1,18 +1,21 @@
 .row.tab-spacer
-  .col-md-5.col-xs-7
-    form.form(name='findUserForm', ng-submit='$ctrl.searchUsers(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  form.form(name='findUserForm', ng-submit='$ctrl.searchUsers(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+    .col-xs-9(style='max-width:415px;')
       .form-group
         label.sr-only Find User
         .input-group
-          input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="User's name, phone or email address")
+          input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="First or last name")
           span.input-group-btn
             button.btn.btn-primary(id='submitButton', type='submit')
               span.glyphicon.glyphicon-search 
               |&nbsp;Search
-        p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
-          | Please enter at least the first three characters of the user's first or last name (or email address)
-  .col-md-3.col.xs-3
-    a.btn.btn-warning(ng-click='$ctrl.createUser()') New User
+    .col-xs-3
+      a.btn.btn-warning(ng-click='$ctrl.createUser()') 
+        span.glyphicon.glyphicon-plus 
+        |&nbsp;New User
+  p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
+        | Please enter at least the first three characters of the user's first or last name
+        
 .row
   .col-md-12
     p(ng-show='$ctrl.users.length==0') No users found meeting the search criteria above
