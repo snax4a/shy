@@ -1,0 +1,45 @@
+.row.tab-spacer
+  .col-md-5.col-xs-7
+    form.form(name='findUserForm', ng-submit='$ctrl.searchUsers(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+      .form-group
+        label.sr-only Find User
+        .input-group
+          input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="User's name, phone or email address")
+          span.input-group-btn
+            button.btn.btn-primary(id='submitButton', type='submit')
+              span.glyphicon.glyphicon-search 
+              |&nbsp;Search
+        p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
+          | Please enter at least the first three characters of the user's first or last name (or email address)
+  .col-md-3.col.xs-3
+    a.btn.btn-warning(ng-click='$ctrl.createUser()') New User
+.row
+  .col-md-12
+    p(ng-show='$ctrl.users.length==0') No users found meeting the search criteria above
+    table.table.table-striped(ng-hide='$ctrl.users.length==0')
+      thead
+        th(ng-click="$ctrl.sortUsers('lastName')") Name (click to edit)
+          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th(ng-click="$ctrl.sortUsers('email')") Email 
+          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th(ng-click="$ctrl.sortUsers('phone')") Phone 
+          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th(ng-click="$ctrl.sortUsers('optOut')") Opt out
+          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='optOut'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th(ng-click="$ctrl.sortUsers('role')") Role
+          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='role'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th 
+      tbody
+        tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
+          td
+            a.edit(ng-click="$ctrl.editUser(user)") {{ user.lastName }}, {{ user.firstName }}
+          td
+            a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
+          td
+            a(href='tel:{{ user.phone }}') {{ user.phone }}
+          td {{ user.optOut ? 'Yes' : 'No' }}
+          td {{ user.role }}
+          td
+            a.trash(ng-click='$ctrl.deleteUser(user)')
+              span.glyphicon.glyphicon-trash.pull-right 
+    dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
