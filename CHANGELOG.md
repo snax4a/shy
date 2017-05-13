@@ -1,5 +1,7 @@
 # Product Backlog
-* [High] Split admin/users tab into usermanager component with alternate search result table formats
+* [High] Fix order model unit test (#purchaserEmail)
+* [High] Fix Schedule API PUT /api/schedule/0 integration test (422 error)
+* [High] Fix Schedule API DELETE /api/schedule/undefined integration test (500 error) - undefined?
 * [High] Allow users with teacher role to modify users but not change role property(server/api/user/user.controller.js)
 * [High] SHYnet - reuse user management component
 * [Low] Add method to push newsletters from admin
