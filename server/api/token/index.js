@@ -1,9 +1,7 @@
 'use strict';
-
-var express = require('express');
-var controller = require('./token.controller');
-
-var router = express.Router();
+const express = require('express');
+const controller = require('./token.controller');
+const router = express.Router();
 
 router.get('/', controller.index);
 

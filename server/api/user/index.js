@@ -1,10 +1,8 @@
 'use strict';
-
-import {Router} from 'express';
-import * as controller from './user.controller';
-import * as auth from '../../auth/auth.service';
-
-var router = new Router();
+const express = require('express');
+const controller = require('./user.controller');
+const router = express.Router();
+const auth = require('../../auth/auth.service');
 
 router.get('/', auth.hasRole('admin'), controller.index); // admin, get users
 router.get('/me', auth.isAuthenticated(), controller.me); // user, retrieve profile

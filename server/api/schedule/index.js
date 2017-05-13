@@ -1,10 +1,8 @@
 'use strict';
-
-import {Router} from 'express';
-import * as controller from './schedule.controller';
-import * as auth from '../../auth/auth.service';
-
-var router = new Router();
+const express = require('express');
+const controller = require('./schedule.controller');
+const router = express.Router();
+const auth = require('../../auth/auth.service');
 
 router.get('/', controller.index);
 router.put('/:id', auth.hasRole('admin'), controller.upsert); // admin, update existing schedule item
