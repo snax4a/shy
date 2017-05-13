@@ -103,13 +103,6 @@
 		"bio": "Diane Dice, E-RYT, began practicing yoga in 1999 with Ruth Rittenhouse of the Himalayan Institute of Pittsburgh in both the Sivananda and Himalayan Traditions. The strength, flexibility and peace she found through her personal practice inspired her to pursue a 200-hour teacher training certificate with Joanne VandenHengel at Schoolhouse Yoga. Diane's background in engineering and business management contribute to her analytical style and her ability to craft effective classes and techniques for the busy lives we all lead. Her goal in every class is to create a safe environment with clear instruction so that her students are empowered to make the most of every moment."
 	},
 	{
-		"_id": 15,
-		"firstName": "Laura",
-		"lastName": "Herrmann",
-		"photo": "/assets/images/teachers/laura-herrmann.jpg",
-		"bio": "Laura Herrmann is a licensed massage therapist and certified yoga instructor. She began practicing yoga in 2003 and completed her 200 hour teacher training through Schoolhouse Yoga in 2010. Previously, Laura attended the University of Pittsburgh where she earned degrees in English Literature and Linguistics. Her yoga classes typically include a blend of vigorous vinyasa to warm and tone the muscles, a focus on anatomy to enhance body awareness and improve structural alignment, and the deep releases of yin yoga to stretch the connective tissue and invite relaxation. Her classes are challenging, but remain suitable for all levels. Ever inspired by the beauty of movement and the wisdom of change, Laura often spends her free time in nature, gardening, dancing, and traveling."
-	},
-	{
 		"_id": 16,
 		"firstName": "Abby",
 		"lastName": "Ritter",
@@ -124,20 +117,6 @@
 		"photo": "/assets/images/teachers/lizzie-hanulak.jpg",
 		"bio": "Discovering yoga in 2009, Lizzie had a devout practice full of transcendance and reformation before becoming a 200-hour certified teacher, some years later. The calling to teach still remains about packaging a practice that is achievable to all who step through the door, with a particular emphashis on personal reclamation and recovery. With a blend of vinyasa and hatha/somatic influences, the intention of instruction is to allow the practitioner to find a sense of expansion and individual expression within the confines of their own body. Lizzie has expertise in working with the trauma-affected individual and works to bring yoga to those who might not have access to it ordinarily within the community. Lizzie grew up in New York City and New England and is a visual/graphic artist and mother of two children and three cats. She has no prolific academic background by conventional standards, and this punctuates what she believes is the strongest message she consciously and unconsciously conveys via her classes--you are valid, no matter what!",
 		"url":"http://lizzzrrd.com"
-	},
-	{
-		"_id": 18,
-		"firstName": "Joanna",
-		"lastName": "Studeny",
-		"photo": "/assets/images/teachers/joanna-studeny.jpg",
-		"bio": "Joanna was first introduced to yoga in 2000 by her college roommate as a way to deepen her mediation practice. She strongly connected to the idea of yoga as a moving meditation and as a vehicle to mindfulness, and completed her 200 hour teacher training through CorePower Yoga in Boulder, Colorado in 2009. Joanna loves to share the benefit of yoga with absolutely everyone, and truly believes we all can and should find our own practice. Her classes are welcoming, fun, playful, and challenging, and emphasize breath, intention, and gratitude for ourselves and our community."
-	},
-	{
-		"_id": 19,
-		"firstName": "Eva",
-		"lastName": "Lin",
-		"photo": "/assets/images/teachers/eva-lin.jpg",
-		"bio": "Eva found yoga in 2009, discovering vinyasa yoga and expanding her yoga knowledge with an Iyengar and Ashtanga based 200-hour teacher training through Yogaworks. She is passionate about exploring our yoga practice as a way to discover new things about ourselves to apply in our daily lives, and help us all be more loving, compassionate, and mindful. Her classes focus on movement with alignment, breath, and yoga philosophy. Through dedicated practice on and off the mat, she hopes to help others live their best life."
 	},
 	{
 		"_id": 20,
