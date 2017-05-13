@@ -1,8 +1,9 @@
 # Product Backlog
-* [Low] Fix order model unit test (#purchaserEmail)
 * [High] Allow users with teacher role to modify users but not change role property(server/api/user/user.controller.js)
 * [High] SHYnet - add models for tracking classes and purchases
 * [High] SHYnet - add difference of sum purchases less attendances to list of users
+* [Medium] Client tests: add support for headless Chrome
+* [Low] Fix order model unit test (#purchaserEmail)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
