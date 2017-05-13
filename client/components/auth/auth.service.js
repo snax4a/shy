@@ -3,7 +3,6 @@
 
 // import get from 'lodash/get';
 
-// Need either babel-polyfill or babel-plugin-transform-class-properties
 class _User {
   constructor() {
     this._id = '';
