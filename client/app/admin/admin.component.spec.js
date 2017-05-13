@@ -1,11 +1,10 @@
 /* global describe, beforeEach, it, inject, expect */
 'use strict';
 import angular from 'angular';
-//import ngResource from 'angular-resource';
 import adminPage from './admin.component';
-//import AuthModule from '../../components/auth/auth.module';
 import modal from 'angular-ui-bootstrap/src/modal/index-nocss.js';
-
+//import ngResource from 'angular-resource';
+//import AuthModule from '../../components/auth/auth.module';
 
 describe('Component: AdminComponent', function() {
   // load the controller's module

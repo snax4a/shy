@@ -1,0 +1,22 @@
+.row.tab-spacer
+  .col-md-12
+    a.btn.btn-warning(ng-click='$ctrl.createAnnouncement()') New Announcement
+    p(ng-show='$ctrl.announcements.length==0') No announcements
+    table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
+      thead
+        th Section (click to edit)
+        th Title
+        th Description
+        th Expires
+        th 
+      tbody
+        tr(ng-repeat='announcement in $ctrl.announcements')
+          td
+            a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.section }}
+          td
+            a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.title }}
+          td {{ announcement.description }}
+          td {{ announcement.expires | date: 'd-MMM-yy' }}
+          td
+            a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
+              span.glyphicon.glyphicon-trash.pull-right

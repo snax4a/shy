@@ -6,7 +6,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import UserManager from './usermanager.component';
 import AuthModule from '../../components/auth/auth.module';
 
-describe('Component: LoginComponent', function() {
+describe('Component: UserManagerComponent', function() {
   // load the component's module
   beforeEach(angular.mock.module(uiBootstrap));
   beforeEach(angular.mock.module(ngResource));

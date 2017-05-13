@@ -6,56 +6,7 @@
       usermanager
 
     uib-tab(index='1', heading='Announcements')
-      .row.tab-spacer
-        .col-md-12
-          a.btn.btn-warning(ng-click='$ctrl.createAnnouncement()') New Announcement
-          p(ng-show='$ctrl.announcements.length==0') No announcements
-          table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
-            thead
-              th Section (click to edit)
-              th Title
-              th Description
-              th Expires
-              th 
-            tbody
-              tr(ng-repeat='announcement in $ctrl.announcements')
-                td
-                  a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.section }}
-                td
-                  a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.title }}
-                td {{ announcement.description }}
-                td {{ announcement.expires | date: 'd-MMM-yy' }}
-                td
-                  a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
-                    span.glyphicon.glyphicon-trash.pull-right 
+      announcementmanager
 
     uib-tab(index='2', heading='Class Schedule')
-      .row.tab-spacer
-        .col-md-12
-          a.btn.btn-warning(ng-click='$ctrl.createScheduleItem()') New Schedule Item
-          p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
-          table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
-            thead
-              th Location (click to edit)
-              th Day
-              th Title
-              th Teacher
-              th Starts
-              th Ends
-              th Canceled
-              th 
-            tbody
-              tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
-                td
-                  a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.location }}
-                td
-                  a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.day | weekday }}
-                td 
-                  a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.title }}
-                td {{ scheduleItem.teacher }}
-                td {{ scheduleItem.startTime | ampm }}
-                td {{ scheduleItem.endTime  | ampm }}
-                td {{ scheduleItem.canceled ? 'Yes' : 'No'}}
-                td
-                  a.trash(ng-click='$ctrl.deleteScheduleItem(scheduleItem)')
-                    span.glyphicon.glyphicon-trash.pull-right 
+      schedulemanager
