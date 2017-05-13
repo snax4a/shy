@@ -1,6 +1,8 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
+import amPM from '../ampm/ampm.filter';
+import weekday from '../weekday/weekday.filter';
 
 export class ScheduleManagerController {
   /*@ngInject*/
@@ -121,7 +123,7 @@ class ScheduleEditorController {
   }
 }
 
-export default angular.module('shyApp.schedulemanager', [])
+export default angular.module('shyApp.schedulemanager', [amPM, weekday])
   .component('schedulemanager', {
     template: require('./schedulemanager.pug'),
     controller: ScheduleManagerController

@@ -8,35 +8,26 @@ import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize'; // clean faqs on main
 import ngAria from 'angular-aria';
 
-// Modules
-//import uiBootstrap from 'angular-ui-bootstrap'; // if I ever need all components
-import alert from 'angular-ui-bootstrap/src/alert';
-import carousel from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
-import collapse from 'angular-ui-bootstrap/src/collapse';
-import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
-import dropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
+// Bootstrap UI elements used widely
 import modal from 'angular-ui-bootstrap/src/modal/index-nocss.js';
-import tabs from 'angular-ui-bootstrap/src/tabs';
 
+// General components
 import uiRouter from 'angular-ui-router';
 import CartModule from '../components/cartmodule/cart.module';
 
 // Config for module
 import { routeConfig } from './app.config';
 
-// Sub-page components
+// Loaded by index.html
 import banner from '../components/banner/banner.component';
 import footer from '../components/footer/footer.component';
 import navbar from '../components/navbar/navbar.component';
-import tweet from '../components/tweet/tweet.component';
 
 // General components
 import _Auth from '../components/auth/auth.module';
 import constants from './app.constants';
-import dirPagination from 'angular-utils-pagination';
 import loadingBar from 'angular-loading-bar';
 import util from '../components/util/util.module';
-import jsonLd from '../components/jsonld/jsonld.component';
 
 // Page components
 import mainPage from './main/main.component';
@@ -55,28 +46,16 @@ import signupPage from './signup/signup.component';
 import profilePage from './profile/profile.component';
 import shyNetPage from './shynet/shynet.component';
 
-// Filters
-import ampm from '../components/ampm/ampm.filter';
-import daytodate from '../components/daytodate/daytodate.filter';
-import htmlid from '../components/htmlid/htmlid.filter';
-import nosubs from '../components/nosubs/nosubs.filter';
-import trustedurl from '../components/trustedurl/trustedurl.filter';
-import upcoming from '../components/upcoming/upcoming.filter';
-import weekday from '../components/weekday/weekday.filter';
-
-// Directives used globally
-import compareTo from '../components/compareto/compareto.directive';
-
 // SASS styling
 import './app.scss';
 
 // Inject everything into shyApp
 angular.module('shyApp', [ngAria, ngCookies, ngResource, ngMessages, ngSanitize, uiRouter,
-  alert, carousel, collapse, datepickerPopup, dropdown, modal, tabs,
+  modal,
   _Auth, loginPage, adminPage, navbar, banner, footer, mainPage, classesPage,
   workshopsPage, locationsPage, teachersPage, cartPage, confirmationPage, registerPage,
-  privacyPage, termsPage, signupPage, profilePage, shyNetPage, constants, util, jsonLd, upcoming, htmlid,
-  daytodate, weekday, ampm, trustedurl, tweet, CartModule, dirPagination, loadingBar, compareTo, nosubs])
+  privacyPage, termsPage, signupPage, profilePage, shyNetPage, constants, util,
+  CartModule, loadingBar])
   .config(routeConfig)
   .run(($rootScope, $location, Auth) => {
     'ngInject';

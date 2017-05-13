@@ -6,6 +6,7 @@ import uiRouter from 'angular-ui-router';
 import routes from './profile.routes';
 import AuthModule from '../../components/auth/auth.module';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
+import compareTo from '../../components/compareto/compareto.directive';
 
 export class ProfileController {
   /*@ngInject*/
@@ -55,7 +56,7 @@ export class ProfileController {
   }
 }
 
-export default angular.module('shyApp.profile', [ngResource, uiRouter, AuthModule, oauthButtons])
+export default angular.module('shyApp.profile', [ngResource, uiRouter, AuthModule, oauthButtons, compareTo])
   .config(routes)
   .component('profile', {
     template: require('./profile.pug'),

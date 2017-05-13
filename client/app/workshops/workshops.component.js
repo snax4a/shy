@@ -2,6 +2,11 @@
 import angular from 'angular';
 import routes from './workshops.routes';
 import uiRouter from 'angular-ui-router';
+import alert from 'angular-ui-bootstrap/src/alert';
+import htmlid from '../../components/htmlid/htmlid.filter';
+import tweet from '../../components/tweet/tweet.component';
+import jsonLd from '../../components/jsonld/jsonld.component';
+import upcoming from '../../components/upcoming/upcoming.filter';
 
 export class WorkshopsController {
   /*@ngInject*/
@@ -111,7 +116,7 @@ export class WorkshopsController {
   }
 }
 
-export default angular.module('shyApp.workshops', [uiRouter])
+export default angular.module('shyApp.workshops', [uiRouter, alert, htmlid, tweet, jsonLd, upcoming])
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),

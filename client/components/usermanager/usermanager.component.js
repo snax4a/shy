@@ -1,6 +1,8 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
+import compareTo from '../compareto/compareto.directive';
+import dirPagination from 'angular-utils-pagination';
 
 export class UserManagerController {
   /*@ngInject*/
@@ -141,7 +143,7 @@ class UserEditorController {
   }
 }
 
-export default angular.module('shyApp.usermanager', [])
+export default angular.module('shyApp.usermanager', [compareTo, dirPagination])
   .component('usermanager', {
     template: require('./usermanager.pug'),
     controller: UserManagerController

@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Fix Tweet component on workshops page
 * [High] Fix order model unit test (#purchaserEmail)
 * [High] Fix Schedule API PUT /api/schedule/0 integration test (422 error)
 * [High] Fix Schedule API DELETE /api/schedule/undefined integration test (500 error) - undefined?

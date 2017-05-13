@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routes from './main.routes';
 import faqs from '../../assets/data/faqs.json';
+import carousel from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
 
 export class MainController {
   /*@ngInject*/
@@ -26,7 +27,7 @@ export class MainController {
   }
 }
 
-export default angular.module('shyApp.main', [uiRouter])
+export default angular.module('shyApp.main', [uiRouter, carousel])
   .config(routes)
   .component('main', {
     template: require('./main.pug'),

@@ -5,6 +5,7 @@ import uiRouter from 'angular-ui-router';
 import routes from './signup.routes';
 import AuthModule from '../../components/auth/auth.module';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
+import compareTo from '../../components/compareto/compareto.directive';
 
 export class SignupController {
   /*@ngInject*/
@@ -57,7 +58,7 @@ export class SignupController {
   }
 }
 
-export default angular.module('shyApp.signup', [ngResource, uiRouter, AuthModule, oauthButtons])
+export default angular.module('shyApp.signup', [ngResource, uiRouter, AuthModule, oauthButtons, compareTo])
   .config(routes)
   .component('signup', {
     template: require('./signup.pug'),
