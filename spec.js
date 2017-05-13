@@ -2,7 +2,6 @@
 /* eslint-env node */
 var testsContext;
 
-//require('babel-polyfill');
 require('angular');
 require('angular-mocks');
 require('./client/components/ui-router/ui-router.mock');
