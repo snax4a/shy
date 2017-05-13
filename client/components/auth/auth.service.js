@@ -197,7 +197,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     isAdminOrTeacherSync() {
-      return Auth.hasRoleSync('teacher') || this.isAdminSync();
+      return Auth.hasRoleSync('teacher') || Auth.isAdminSync();
     },
 
     /**
