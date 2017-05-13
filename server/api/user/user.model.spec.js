@@ -33,7 +33,7 @@ describe('User Model', function() {
   });
 
   it('should begin with 4 users seeded', function() {
-    expect(User.findAll()).to.eventually.have.length(4);
+    expect(User.findAll()).to.eventually.have.length.above(4);
   });
 
   it('should fail when saving a duplicate user', function() {

@@ -29,8 +29,8 @@ describe('Announcement Model', function() {
     return Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } });
   });
 
-  it('should begin with 1 announcement seeded', function() {
-    expect(Announcement.findAll()).to.eventually.have.length(4);
+  it('should begin with at least 4 announcements seeded', function() {
+    expect(Announcement.findAll()).to.eventually.have.length.above(4);
   });
 
   describe('#section', function() {
