@@ -17,15 +17,21 @@
       tbody
         tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
           td
-            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.location }}
+            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)')
+              span.glyphicon.glyphicon-new-window 
+              |&nbsp;&nbsp;{{ scheduleItem.location }}
           td
             a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.day | weekday }}
           td 
             a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.title }}
-          td {{ scheduleItem.teacher }}
-          td {{ scheduleItem.startTime | ampm }}
-          td {{ scheduleItem.endTime  | ampm }}
-          td {{ scheduleItem.canceled ? 'Yes' : 'No'}}
+          td
+            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.teacher }}
+          td
+            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.startTime | ampm }}
+          td
+            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.endTime  | ampm }}
+          td
+            a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.canceled ? 'Yes' : 'No'}}
           td
             a.trash(ng-click='$ctrl.deleteScheduleItem(scheduleItem)')
               span.glyphicon.glyphicon-trash.pull-right

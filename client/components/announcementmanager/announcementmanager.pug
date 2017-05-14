@@ -14,11 +14,15 @@
       tbody
         tr(ng-repeat='announcement in $ctrl.announcements')
           td
-            a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.section }}
+            a.edit(ng-click='$ctrl.editAnnouncement(announcement)')
+              span.glyphicon.glyphicon-new-window 
+              |&nbsp;&nbsp;{{ announcement.section }}
           td
             a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.title }}
-          td {{ announcement.description }}
-          td {{ announcement.expires | date: 'd-MMM-yy' }}
+          td
+            a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.description }}
+          td
+            a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.expires | date: 'd-MMM-yy' }}
           td
             a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
               span.glyphicon.glyphicon-trash.pull-right

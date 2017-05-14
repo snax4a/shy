@@ -32,6 +32,8 @@
       tbody
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
           td
+            span.glyphicon.glyphicon-hand-right 
+            | &nbsp; 
             a.edit(ng-click="$ctrl.editUser(user)")
               span.glyphicon.glyphicon-new-window 
               |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }}
