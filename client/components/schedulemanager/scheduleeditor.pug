@@ -2,7 +2,7 @@ form(name='form', ng-submit="$ctrl.submitScheduleItem(form)", novalidate='', ng-
   .modal-header
     button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
       span(aria-hidden='true') &times;
-    h4.modal-title Edit Schedule Item
+    h4.modal-title {{ $ctrl.scheduleItem._id === 0 ? 'New':'Edit'}} Schedule Item
   .modal-body
     .row
       .form-group.col-md-12

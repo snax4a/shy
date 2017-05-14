@@ -27,17 +27,26 @@
           span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
         th(ng-click="$ctrl.sortUsers('phone')") Phone 
           span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+        th Classes
         th 
       tbody
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
           td
-            a.edit(ng-click="$ctrl.editUser(user)") {{ user.lastName }}, {{ user.firstName }}
+            a.edit(ng-click="$ctrl.editUser(user)")
+              span.glyphicon.glyphicon-new-window 
+              |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }}
           td
-            a(href='mailto:{{ user.email }}') {{ user.email }} ({{ user.provider }})
+            a(href='mailto:{{ user.email }}')
+              span.glyphicon.glyphicon-envelope
+              |&nbsp;&nbsp;{{ user.email }} ({{ user.provider }})
           td
-            a(href='tel:{{ user.phone }}') {{ user.phone }}
-          td {{ user.optOut ? 'Yes' : 'No' }}
-          td {{ user.role }}
+            a(href='tel:{{ user.phone }}')
+              span.glyphicon.glyphicon-phone
+              |&nbsp;&nbsp;{{ user.phone }}
+          td
+            span.glyphicon.glyphicon-list-alt
+            | &nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            span.glyphicon.glyphicon-plus-sign
           td
             a.trash(ng-click='$ctrl.deleteUser(user)')
               span.glyphicon.glyphicon-trash.pull-right 

@@ -1,6 +1,8 @@
 .row.tab-spacer
   .col-md-12
-    a.btn.btn-warning(ng-click='$ctrl.createScheduleItem()') New Schedule Item
+    a.btn.btn-warning(ng-click='$ctrl.createScheduleItem()')
+      span.glyphicon.glyphicon-plus-sign
+      |&nbsp;New Schedule Item
     p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
     table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
       thead

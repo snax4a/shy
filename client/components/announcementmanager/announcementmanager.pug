@@ -1,6 +1,8 @@
 .row.tab-spacer
   .col-md-12
-    a.btn.btn-warning(ng-click='$ctrl.createAnnouncement()') New Announcement
+    a.btn.btn-warning(ng-click='$ctrl.createAnnouncement()')
+      span.glyphicon.glyphicon-plus-sign
+      |&nbsp;New Announcement
     p(ng-show='$ctrl.announcements.length==0') No announcements
     table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
       thead
