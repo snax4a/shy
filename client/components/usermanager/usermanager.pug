@@ -11,7 +11,7 @@
               |&nbsp;Search
     .col-xs-3
       a.btn.btn-warning(ng-click='$ctrl.createUser()') 
-        span.glyphicon.glyphicon-plus 
+        span.glyphicon.glyphicon-plus-sign 
         |&nbsp;New User
   p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
         | Please enter at least the first three characters of the user's first or last name
@@ -27,10 +27,6 @@
           span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
         th(ng-click="$ctrl.sortUsers('phone')") Phone 
           span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
-        th(ng-click="$ctrl.sortUsers('optOut')") Opt out
-          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='optOut'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
-        th(ng-click="$ctrl.sortUsers('role')") Role
-          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='role'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
         th 
       tbody
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
