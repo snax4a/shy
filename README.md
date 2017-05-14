@@ -17,13 +17,14 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 - [Node.js 7.7.4 and npm 4.5.0](nodejs.org) (`brew install node`)
 - [PostgreSQL 9.6.2](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
+- [Chrome >= 59](chrome canary) (`brew install Caskroom/versions/google-chrome-canary`) - used for headless testing
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
 
 ### Project setup
 
-1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS)
+1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS). Remove any Chrome versions older than 59 or client testing will not work.
 
 2. Run `git clone https://github.com/nstuyvesant/shy.git` then connect to the /shy directory.
 

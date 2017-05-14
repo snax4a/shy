@@ -23,7 +23,7 @@ module.exports = function(config) {
     //basePath: '', // Default commented out
 
     // Switch to headless Chrome once available (replaces PhantomJS)
-    browsers: ['Chrome'], // 'Safari', 'ChromeHeadless', 'ChromeCanary', 'Firefox', 'Opera', 'IE'
+    browsers: ['ChromeHeadless'], // 'Safari', 'ChromeHeadless', 'ChromeCanary', 'Firefox', 'Opera', 'IE'
 
     client: {
       mocha: {
