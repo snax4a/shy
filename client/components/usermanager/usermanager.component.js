@@ -146,6 +146,9 @@ class UserEditorController {
 export default angular.module('shyApp.usermanager', [compareTo, dirPagination])
   .component('usermanager', {
     template: require('./usermanager.pug'),
-    controller: UserManagerController
+    controller: UserManagerController,
+    bindings: {
+      mini: '@'
+    }
   })
   .name;
