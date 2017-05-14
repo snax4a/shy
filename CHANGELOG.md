@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] Allow users with teacher role to modify users but not change role property(server/api/user/user.controller.js)
 * [High] SHYnet - add models for tracking classes and purchases
 * [High] SHYnet - add difference of sum purchases less attendances to list of users
 * [Medium] Intrapage links only work if page is currently displayed (timing issue)
