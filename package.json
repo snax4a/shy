@@ -110,7 +110,7 @@
     "karma-webpack": "^2.0.3",
     "lazypipe": "^1.0.1",
     "lodash": "^4.17.4",
-    "mocha": "^3.3.0",
+    "mocha": "^3.4.0",
     "ng-annotate-loader": "^0.6.0",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
