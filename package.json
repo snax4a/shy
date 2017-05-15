@@ -46,7 +46,7 @@
     "passport": "~0.3.2",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^6.1.5",
+    "pg": "^6.2.2",
     "pg-native": "^1.10.1",
     "sequelize": "^4.0.0-2",
     "shrink-ray": "^0.1.3",
