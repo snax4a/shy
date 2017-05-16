@@ -15,6 +15,7 @@ module.exports = function makeWebpackConfig(options) {
   const BUILD = !!options.BUILD;
   const TEST = options.TEST || options.E2E;
   const DEV = !!options.DEV;
+  const ANALYZE = false;
 
   // Establish the base configuration
   let config = {
@@ -142,7 +143,7 @@ module.exports = function makeWebpackConfig(options) {
     ]
   };
 
-  if(DEV) {
+  if(DEV && ANALYZE) {
     config.plugins.push(
       new BundleAnalyzerPlugin({analyzerMode: 'static'})
     );
