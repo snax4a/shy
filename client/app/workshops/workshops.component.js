@@ -19,13 +19,12 @@ export class WorkshopsController {
   $onInit() {
     this.subscriber = {};
 
-    // Load Twitter script and widgets
-    this.twitterLoad();
-
     // Load the workshops from the JSON file
     this.$http.get('/assets/data/workshops.json')
       .then(response => {
         this.workshops = response.data;
+        // Load Twitter script and widgets
+        this.twitterLoad();
         return null;
       });
   }
