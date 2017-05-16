@@ -4,10 +4,9 @@ import nodemailer from 'nodemailer';
 
 export default function email(message, res) {
   // If recipient specified, BCC the sender (such as orders), else it's internal
-  message.bcc = 'jen@schoolhouseyoga.com,monique@schoolhouseyoga.com';
-  if(message.to) {
-    message.bcc = `${message.bcc},${config.mail.bcc}`;
-  } else message.to = config.mail.transport.auth.user;
+  if(!message.to) {
+    message.to = config.mail.bcc;
+  } else message.bcc = config.mail.bcc;
 
   message.from = config.mail.transport.auth.user;
   //message.attachments = [{ cid: 'seal.jpg', filename: 'seal.jpg', path: 'https://www.schoolhouseyoga.com/assets/images/seal.jpg'}];
