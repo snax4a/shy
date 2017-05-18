@@ -1,22 +1,20 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('login', {
-      url: '/login',
+  $routeProvider
+    .when('/login', {
       template: '<login></login>',
       title: 'Schoolhouse Yoga Login'
     })
-    .state('logout', {
-      url: '/logout?referrer',
-      referrer: 'main',
+    .when('/logout', {
+      referrer: '/',
       template: '',
-      controller($state, Auth) {
+      controller($location, $route, Auth) {
         'ngInject';
-        let referrer = $state.params.referrer || $state.current.referrer || 'main';
+        let referrer = $route.current.params.referrer || $route.current.referrer || '/';
         Auth.logout();
-        $state.go(referrer);
+        $location.path(referrer);
       }
     });
 }

@@ -1,11 +1,9 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('confirmation', {
-      url: '/confirmation',
-      template: '<confirmation></confirmation>',
-      title: 'Schoolhouse Yoga Checkout'
-    });
+  $routeProvider.when('/confirmation', {
+    template: '<confirmation></confirmation>',
+    title: 'Schoolhouse Yoga Checkout'
+  });
 }

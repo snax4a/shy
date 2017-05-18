@@ -1,11 +1,9 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('terms', {
-      url: '/terms',
-      template: '<terms></terms>',
-      title: 'Schoolhouse Yoga Terms of Use'
-    });
+  $routeProvider.when('/terms', {
+    template: '<terms></terms>',
+    title: 'Schoolhouse Yoga Terms of Use'
+  });
 }

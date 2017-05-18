@@ -1,7 +1,7 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import routes from './admin.routes';
 import tabs from 'angular-ui-bootstrap/src/tabs';
 import UserManager from '../../components/usermanager/usermanager.component';
@@ -12,7 +12,7 @@ export class AdminController {
   /*@ngInject*/
 }
 
-export default angular.module('shyApp.admin', [uiRouter, tabs, UserManager, ScheduleManager, AnnouncementManager])
+export default angular.module('shyApp.admin', [ngRoute, tabs, UserManager, ScheduleManager, AnnouncementManager])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),

@@ -6,26 +6,26 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Schoolhouse Yoga
+      a.navbar-brand(href='/', ng-class='{active: $ctrl.isActive("/")}') Schoolhouse Yoga
 
     #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
-        li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
-          a(ui-sref='{{item.state}}', ng-click='$ctrl.isCollapsed = true', itemprop='url') {{item.title}} 
+        li(ng-repeat='item in $ctrl.menu', ng-class='{active: $ctrl.isActive(item.link)}')
+          a(ng-href='{{item.link}}', ng-click='$ctrl.isCollapsed = true', itemprop='url') {{item.title}} 
             span.badge(ng-show='item.title == "Cart"') {{ $ctrl.Cart.getTotalItems() }}
-        li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
-          a(ui-sref='admin', itemprop='url') Admin
-        li(ng-show='$ctrl.isAdminOrTeacher()', ui-sref-active='active')
-          a(ui-sref='shynet', itemprop='url') SHYnet
+        li(ng-show='$ctrl.isAdmin()', ng-class='{active: $ctrl.isActive("/admin")}')
+          a(href='/admin', itemprop='url') Admin
+        li(ng-show='$ctrl.isAdminOrTeacher()', ng-class='{active: $ctrl.isActive("/shynet")}')
+          a(href='/shynet', itemprop='url') SHYnet
       ul.nav.navbar-nav.navbar-right
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
           a(href='#', uib-dropdown-toggle='') Logged in as {{ $ctrl.getCurrentUser().firstName }}
             span.caret
           ul.dropdown-menu(uib-dropdown-menu='')
+            li(ng-class='{active: $ctrl.isActive("/profile")}')
+              a(href='/profile') Profile
             li
-              a(ui-sref='profile') Profile
-            li
-              a(ui-sref='logout') Logout
+              a(href='/logout') Logout
         li(uib-dropdown='')
           a(href='#', uib-dropdown-toggle='')
             | Contact

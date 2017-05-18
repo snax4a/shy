@@ -1,20 +1,18 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('checkout', {
-      url: '/checkout',
-      template: '<checkout></checkout>'
+  $routeProvider
+    .when('/checkout', {
+      template: '<checkout></checkout>',
+      title: 'Schoolhouse Yoga Checkout'
     })
-    .state('buy', {
-      url: '/buy/{productID}',
+    .when('/buy/:product', {
       template: '',
-      controller($state, Cart) {
+      controller($location, $routeParams, Cart) {
         'ngInject';
-        const productID = $state.params.productID;
-        Cart.addItem(productID, false);
-        $state.go('checkout');
+        Cart.addItem($routeParams.product, false);
+        $location.path('/checkout');
       }
     });
 }

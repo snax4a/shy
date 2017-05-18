@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './locations.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import htmlid from '../../components/htmlid/htmlid.filter';
 import trustedurl from '../../components/trustedurl/trustedurl.filter';
 
@@ -20,7 +20,7 @@ export class LocationsController {
   }
 }
 
-export default angular.module('shyApp.locations', [uiRouter, htmlid, trustedurl])
+export default angular.module('shyApp.locations', [ngRoute, htmlid, trustedurl])
   .config(routes)
   .component('locations', {
     template: require('./locations.pug'),

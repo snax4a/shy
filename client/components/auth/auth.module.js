@@ -8,14 +8,14 @@ import { authInterceptor } from './interceptor.service';
 import { routerDecorator } from './router.decorator';
 import { AuthService } from './auth.service';
 import { UserResource } from './user.service';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 
 function addInterceptor($httpProvider) {
   'ngInject';
   $httpProvider.interceptors.push('authInterceptor');
 }
 
-export default angular.module('shyApp.auth', [constants, util, ngCookies, uiRouter])
+export default angular.module('shyApp.auth', [constants, util, ngCookies, ngRoute])
   .factory('authInterceptor', authInterceptor)
   .run(routerDecorator)
   .factory('Auth', AuthService)

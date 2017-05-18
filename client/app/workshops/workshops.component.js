@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './workshops.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import alert from 'angular-ui-bootstrap/src/alert';
 import htmlid from '../../components/htmlid/htmlid.filter';
 import tweet from '../../components/tweet/tweet.component';
@@ -115,7 +115,7 @@ export class WorkshopsController {
   }
 }
 
-export default angular.module('shyApp.workshops', [uiRouter, alert, htmlid, tweet, jsonLd, upcoming])
+export default angular.module('shyApp.workshops', [ngRoute, alert, htmlid, tweet, jsonLd, upcoming])
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),

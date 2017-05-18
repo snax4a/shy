@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './confirmation.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 
 export class ConfirmationController {
   /*@ngInject*/
@@ -15,7 +15,7 @@ export class ConfirmationController {
   }
 }
 
-export default angular.module('shyApp.confirmation', [uiRouter])
+export default angular.module('shyApp.confirmation', [ngRoute])
   .config(routes)
   .component('confirmation', {
     template: require('./confirmation.pug'),

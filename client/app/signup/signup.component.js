@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import ngResource from 'angular-resource';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import routes from './signup.routes';
 import AuthModule from '../../components/auth/auth.module';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
@@ -9,9 +9,9 @@ import compareTo from '../../components/compareto/compareto.directive';
 
 export class SignupController {
   /*@ngInject*/
-  constructor(Auth, $state) {
+  constructor(Auth, $location) {
     this.Auth = Auth;
-    this.$state = $state;
+    this.$location = $location;
   }
 
   $onInit() {
@@ -40,7 +40,7 @@ export class SignupController {
       })
         .then(() => {
           // Account created, redirect to home
-          this.$state.go('main');
+          this.$location.path('/');
         })
         .catch(err => {
           err = err.data;
@@ -58,7 +58,7 @@ export class SignupController {
   }
 }
 
-export default angular.module('shyApp.signup', [ngResource, uiRouter, AuthModule, oauthButtons, compareTo])
+export default angular.module('shyApp.signup', [ngResource, ngRoute, AuthModule, oauthButtons, compareTo])
   .config(routes)
   .component('signup', {
     template: require('./signup.pug'),

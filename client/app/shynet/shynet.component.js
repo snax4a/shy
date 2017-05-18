@@ -1,6 +1,6 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import routes from './shynet.routes';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import UserManager from '../../components/usermanager/usermanager.component';
@@ -46,7 +46,7 @@ export class SHYnetController {
   }
 }
 
-export default angular.module('shyApp.shynet', [uiRouter, datepickerPopup, UserManager])
+export default angular.module('shyApp.shynet', [ngRoute, datepickerPopup, UserManager])
   .config(routes)
   .component('shynet', {
     template: require('./shynet.pug'),

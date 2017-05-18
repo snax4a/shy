@@ -2,15 +2,15 @@
 'use strict';
 
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import routes from './login.routes';
 import oauthButtons from '../../components/oauth-buttons/oauth-buttons.directive';
 
 export class LoginController {
   /*@ngInject*/
-  constructor(Auth, $state, $uibModal) {
+  constructor(Auth, $location, $uibModal) {
     this.Auth = Auth;
-    this.$state = $state;
+    this.$location = $location;
     this.$uibModal = $uibModal;
   }
 
@@ -37,9 +37,9 @@ export class LoginController {
         .then(() => {
           // Logged in, redirect to home unless admin
           if(this.Auth.isAdminSync()) {
-            return this.$state.go('admin');
+            return this.$location.path('/admin');
           }
-          this.$state.go('profile');
+          return this.$location.path('/');
         })
         .catch(err => {
           this.errors.login = err.message;
@@ -100,18 +100,10 @@ export class ForgotPasswordController {
   }
 }
 
-export default angular.module('shyApp.login', [uiRouter, oauthButtons])
+export default angular.module('shyApp.login', [ngRoute, oauthButtons])
   .config(routes)
   .component('login', {
     template: require('./login.pug'),
     controller: LoginController
   })
-  // .run($rootScope => {
-  //   'ngInject';
-  //   $rootScope.$on('$stateChangeStart', (event, next, nextParams, current) => {
-  //     if(next.name === 'logout' && current && current.name && !current.authenticate) {
-  //       next.referrer = current.name;
-  //     }
-  //   });
-  // })
   .name;

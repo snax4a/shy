@@ -1,16 +1,13 @@
 'use strict';
 import angular from 'angular';
 import routes from './terms.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 
 export class TermsController {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
-  }
 }
 
-export default angular.module('shyApp.terms', [uiRouter])
+export default angular.module('shyApp.terms', [ngRoute])
   .config(routes)
   .component('terms', {
     template: require('./terms.pug'),

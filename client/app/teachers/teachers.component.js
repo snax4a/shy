@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './teachers.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import htmlid from '../../components/htmlid/htmlid.filter';
 import nosubs from '../../components/nosubs/nosubs.filter';
 
@@ -21,7 +21,7 @@ export class TeachersController {
   }
 }
 
-export default angular.module('shyApp.teachers', [uiRouter, htmlid, nosubs])
+export default angular.module('shyApp.teachers', [ngRoute, htmlid, nosubs])
   .config(routes)
   .component('teachers', {
     template: require('./teachers.pug'),

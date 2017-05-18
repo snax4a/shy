@@ -1,6 +1,6 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 import routes from './classes.routes';
 import amPM from '../../components/ampm/ampm.filter';
 import daytodate from '../../components/daytodate/daytodate.filter';
@@ -8,8 +8,9 @@ import htmlid from '../../components/htmlid/htmlid.filter';
 
 export class ClassesController {
   /*@ngInject*/
-  constructor($http) {
+  constructor($http, $anchorScroll) {
     this.$http = $http;
+    this.$anchorScroll = $anchorScroll;
   }
 
   $onInit() {
@@ -21,12 +22,14 @@ export class ClassesController {
     this.$http.get('/api/schedule')
       .then(response => {
         this.classSchedule = response.data;
+        // this.$anchorScroll();
+        // console.log('classes autoscroll');
         return null;
       });
   }
 }
 
-export default angular.module('shyApp.classes', [uiRouter, amPM, daytodate, htmlid])
+export default angular.module('shyApp.classes', [ngRoute, amPM, daytodate, htmlid])
   .config(routes)
   .component('classes', {
     template: require('./classes.pug'),

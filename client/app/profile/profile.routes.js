@@ -1,12 +1,10 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('profile', {
-      url: '/profile',
-      template: '<profile></profile>',
-      authenticate: true,
-      title: 'Schoolhouse Yoga User Profile Settings'
-    });
+  $routeProvider.when('/profile', {
+    template: '<profile></profile>',
+    authenticate: true,
+    title: 'Schoolhouse Yoga User Profile Settings'
+  });
 }

@@ -6,7 +6,8 @@ import dropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
 
 export class NavbarController {
   /*@ngInject*/
-  constructor($uibModal, Cart, Auth) {
+  constructor($location, $uibModal, Cart, Auth) {
+    this.$location = $location;
     this.$uibModal = $uibModal;
     this.Cart = Cart;
     this.Auth = Auth;
@@ -21,25 +22,29 @@ export class NavbarController {
     this.menu = [
       {
         title: 'Classes',
-        state: 'classes'
+        link: '/classes'
       },
       {
         title: 'Workshops',
-        state: 'workshops'
+        link: '/workshops'
       },
       {
         title: 'Locations',
-        state: 'locations'
+        link: '/locations'
       },
       {
         title: 'Teachers',
-        state: 'teachers'
+        link: '/teachers'
       },
       {
         title: 'Cart',
-        state: 'checkout'
+        link: '/checkout'
       }
     ];
+  }
+
+  isActive(route) {
+    return route === this.$location.path();
   }
 
   // Use UI-Bootstrap to open a modal

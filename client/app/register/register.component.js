@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './register.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 
 export class RegisterController {
   constructor(Cart) {
@@ -20,7 +20,7 @@ export class RegisterController {
   }
 }
 
-export default angular.module('shyApp.register', [uiRouter])
+export default angular.module('shyApp.register', [ngRoute])
   .config(routes)
   .component('register', {
     template: require('./register.pug'),

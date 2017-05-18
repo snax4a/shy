@@ -1,11 +1,9 @@
 'use strict';
 
-export default function($stateProvider) {
+export default function($routeProvider) {
   'ngInject';
-  $stateProvider
-    .state('workshops', {
-      url: '/workshops',
-      template: '<workshops></workshops>',
-      title: 'Schoolhouse Yoga Workshops'
-    });
+  $routeProvider.when('/workshops', {
+    template: '<workshops></workshops>',
+    title: 'Schoolhouse Yoga Workshops'
+  });
 }

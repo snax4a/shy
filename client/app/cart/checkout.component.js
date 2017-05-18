@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 import routes from './checkout.routes';
-import uiRouter from 'angular-ui-router';
+import ngRoute from 'angular-route';
 
 export class CheckOutController {
   /*@ngInject*/
@@ -98,7 +98,7 @@ export class CheckOutController {
 
 } // class CheckOutController
 
-export default angular.module('shyApp.checkout', [uiRouter])
+export default angular.module('shyApp.checkout', [ngRoute])
   .config(routes)
   .component('checkout', {
     template: require('./checkout.pug'),
