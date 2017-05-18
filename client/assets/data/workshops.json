@@ -47,23 +47,7 @@
 			}
 		]
 	},
-	{
-		"expires": "2018-02-10T20:00:00.000-05:00",
-		"title": "Moon Salutations with Kendell Romanelli",
-		"photo": "/assets/images/workshops/moonsalutations.jpg",
-		"description": "Moon Salutations are a flowing yoga practice designed to draw the energy of the body, mind and heart, inward to a more reflective nature honoring the energy of the full moon. In this workshop we will combine the Moon Salutation sequence with mantras, meditations and restorative postures. We will use the practice of candle gazing and a guided deep relaxation to clear the mind and calm the soul. It is a time to heal and reflect on all the beauty within us and around us.",
-		"sections":
-		[
-			{
-				"title": "The Flower Moon",
-				"start": "2017-05-12T18:30:00.000-04:00",
-				"expires": "2017-05-13T20:00:00.000-04:00",
-				"productID": 17,
-				"cost": 20,
-				"location": "North Hills"
-			}
-		]
-	},
+
 	{
 		"expires": "2018-02-24T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Quiong Wang",
