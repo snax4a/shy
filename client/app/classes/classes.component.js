@@ -8,9 +8,8 @@ import htmlid from '../../components/htmlid/htmlid.filter';
 
 export class ClassesController {
   /*@ngInject*/
-  constructor($http, $anchorScroll) {
+  constructor($http) {
     this.$http = $http;
-    this.$anchorScroll = $anchorScroll;
   }
 
   $onInit() {
@@ -22,8 +21,6 @@ export class ClassesController {
     this.$http.get('/api/schedule')
       .then(response => {
         this.classSchedule = response.data;
-        // this.$anchorScroll();
-        // console.log('classes autoscroll');
         return null;
       });
   }

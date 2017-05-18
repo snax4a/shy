@@ -71,10 +71,10 @@ angular.module('shyApp', [ngAria, ngCookies, ngResource, ngRoute, ngMessages, ng
     // Change the page title based on the route
     $rootScope.$on('$routeChangeSuccess', () => {
       document.title = $route.current.title;
-      //if($location.hash()) {
-      $anchorScroll();
-        //console.log('$anchorScroll() to ', $location.hash());
-      //}
+      // if($location.hash()) {
+      //   $anchorScroll();
+      //   console.log('$anchorScroll() to ', $location.hash());
+      // }
     });
   });
 
