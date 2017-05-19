@@ -28,7 +28,7 @@
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^2.1.1",
-    "braintree-web": "~3.15.0",
+    "braintree-web": "~3.16.0",
     "composable-middleware": "^0.3.0",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.5.0",
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "angular-mocks": "~1.6.4",
-    "autoprefixer": "^7.1.0",
+    "autoprefixer": "^7.1.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -127,7 +127,7 @@
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",
     "webpack": "^2.5.1",
-    "webpack-bundle-analyzer": "^2.8.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-middleware": "^1.10.2"
   },
   "engines": {
