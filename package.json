@@ -54,8 +54,8 @@
     "sprint-js": "~0.1.0"
   },
   "peerDependencies": {
-    "node-sass": "^4.5.2",
-    "webpack": "^2.5.1"
+    "node-sass": "^4.5.3",
+    "webpack": "^2.6.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.6.4",
