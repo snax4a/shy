@@ -50,7 +50,7 @@ describe('User API Router:', function() {
   describe('GET /api/users', function() {
     it('should verify admin role and route to user.controller.index', function(done) {
       expect(routerStub.get
-        .withArgs('/', 'authService.hasRole.admin', 'userCtrl.index')
+        .withArgs('/', 'authService.hasRole.teacher', 'userCtrl.index')
         ).to.have.been.calledOnce;
       done();
     });
@@ -83,6 +83,7 @@ describe('User API Router:', function() {
     });
   });
 
+  // Update to allow for teacher's role!
   describe('PUT /api/users/:id', function() {
     it('should be authenticated and route to user.controller.update', function(done) {
       expect(routerStub.put

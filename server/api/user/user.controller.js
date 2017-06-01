@@ -29,7 +29,7 @@ class UserError extends Error {
   }
 }
 
-// Gets list of users using filter (admin-only)
+// Gets list of users using filter (teacher or admin-only)
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;
   return User.findAll({
