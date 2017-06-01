@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "passport-azure-ad": "^3.0.6",
     "passport-facebook": "^2.1.1",
+    "passport-outlook": "",
     "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
