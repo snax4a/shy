@@ -17,15 +17,18 @@ let buildUser = function() {
 };
 
 describe('User Model', function() {
-  before(function() {
-    // Sync and clear users before testing
-    return User.sync().then(function() {
-      return User.destroy({ where: { email: 'test@example.com' } });
-    });
-  });
+  // before(function() {
+  //   // Sync and clear users before testing
+  //   return User.sync().then(function() {
+  //     return User.destroy({ where: { email: 'test@example.com' } });
+  //   });
+  // });
 
   beforeEach(function() {
-    buildUser();
+    return User.sync().then(function() {
+      return User.destroy({ where: { email: 'test@example.com' } }).then(buildUser);
+    });
+    //buildUser();
   });
 
   afterEach(function() {
