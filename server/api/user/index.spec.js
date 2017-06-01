@@ -83,7 +83,6 @@ describe('User API Router:', function() {
     });
   });
 
-  // Update to allow for teacher's role!
   describe('PUT /api/users/:id', function() {
     it('should be authenticated and route to user.controller.update', function(done) {
       expect(routerStub.put
@@ -96,7 +95,7 @@ describe('User API Router:', function() {
   describe('PUT /api/users/:id/admin', function() {
     it('should be authenticated and route to user.controller.upsert', function(done) {
       expect(routerStub.put
-        .withArgs('/:id/admin', 'authService.hasRole.admin', 'userCtrl.upsert')
+        .withArgs('/:id/admin', 'authService.hasRole.teacher', 'userCtrl.upsert')
         ).to.have.been.calledOnce;
       done();
     });
