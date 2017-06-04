@@ -1,7 +1,9 @@
 # Product Backlog
+* [High] Extend /server/api/user/user.controller.js:index to return difference between purchases and attendances
+* [High] Build PUT /user/purchase API method
+* [High] Build PUT /user/attendance API method
+* [High] Build DELETE /user/attendance API method
 * [High] Intrapage links don't work because anchors with ids load asynchronously
-* [High] SHYnet - add models for tracking classes and purchases
-* [High] SHYnet - add difference of sum purchases less attendances to list of users
 * [Low] Fix order model unit test (#purchaserEmail)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
