@@ -46,7 +46,8 @@
           td
             span.glyphicon.glyphicon-list-alt
             | &nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            span.glyphicon.glyphicon-plus-sign
+            a.edit(ng-click="$ctrl.addClasses(user)")
+              span.glyphicon.glyphicon-plus-sign
           td
             span.glyphicon.glyphicon-hand-right.pull-right(ng-hide='!$ctrl.mini')
             | &nbsp; 

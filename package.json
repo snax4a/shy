@@ -113,7 +113,7 @@
     "open": "~0.0.5",
     "postcss-loader": "^2.0.5",
     "proxyquire": "^1.8.0",
-    "pug-html-loader": "^1.1.4",
+    "pug-html-loader": "^1.1.5",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.2.2",
     "sass-loader": "^6.0.5",

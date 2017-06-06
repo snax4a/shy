@@ -43,7 +43,7 @@ export class UserManagerController {
       controllerAs: '$ctrl',
       controller: UserEditorController,
       resolve: {
-        userSelectedForEditing: () => user
+        userGettingClasses: () => user
       }
     });
     // Stub for anything that needs to happen after closing dialog
@@ -71,6 +71,28 @@ export class UserManagerController {
   sortUsers(keyname) {
     this.sortKey = keyname;
     this.reverse = !this.reverse;
+  }
+
+  modalClassAdder(user) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./classadder.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: ClassAdderController,
+      resolve: {
+        userGettingClasses: () => user
+      }
+    });
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      // if we add any classes, update the count in the grid
+      // TODO
+    });
+  }
+
+  addClasses(user) {
+    this.modalClassAdder(user);
   }
 
 }
@@ -139,6 +161,50 @@ class UserEditorController {
     if(!this.userSelectedForEditing._id) {
       this.userSelectedForEditing.shouldBeDeleted = true;
     }
+    this.$uibModalInstance.close();
+  }
+}
+
+class ClassAdderController {
+  /*@ngInject*/
+  constructor($uibModalInstance, User, userGettingClasses) {
+    // Dependencies
+    this.$uibModalInstance = $uibModalInstance;
+    this.userGettingClasses = userGettingClasses;
+    this.User = User;
+
+    // Initializations - not in $onInit since not it's own component
+    this.submitted = false;
+    this.errors = {}; // do I really need this?
+    this.purchase = {
+      quantity: 1,
+      method: 'Cash',
+      notes: ''
+    };
+  }
+
+  submit(form) {
+    this.submitted = true;
+    if(form.$valid) {
+      // Add the classes to the user
+      this.User.addClasses(this.purchase)
+        .$promise
+        .then(() => {
+          // Increment the balance for the user
+          //this.userGettingClasses.balance += this.purchase.quantity;
+          this.$uibModalInstance.close();
+          return null;
+        })
+        .catch(response => {
+          let err = response.data;
+          console.log('Error', err);
+          this.errors = {}; // reset to only the latest errors
+          return null;
+        });
+    }
+  }
+
+  cancel() {
     this.$uibModalInstance.close();
   }
 }

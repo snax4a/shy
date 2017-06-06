@@ -1,0 +1,23 @@
+form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', ng-click='$ctrl.cancel()', tabindex='8') &times;
+    h2#modal-label.modal-title Add classes for {{ $ctrl.userGettingClasses.firstName }} {{ $ctrl.userGettingClasses.lastName }}
+  .modal-body
+    .form-group
+      label.sr-only(for='quantity') Quantity
+      input.form-control(name='quantity', id='quantity', type='number', autofocus='', ng-model='$ctrl.purchase.quantity', min='1', max='12', placeholder='Quantity', required='', tabindex='1')
+    .form-group
+      label.sr-only(for='method') Payment method
+      select.form-control(name='method', id='method', ng-model='$ctrl.purchase.method', tabindex='2')
+        option(value='Cash') Cash
+        option(value='Credit Card') Credit Card
+        option(value='Check') Check
+        option(value='Gift Card') Gift Card
+        option(value='IOU') IOU
+        option(value='Free') Free
+    .form-group
+      label.sr-only(for='notes') Notes
+      textarea.form-control(name='notes', id='notes', ng-model='$ctrl.purchase.notes', rows='5', cols='20', placeholder='Notes', tabindex='3')
+  .modal-footer
+    button.btn.btn-default(type='button', id='cancelButton' ng-click='$ctrl.cancel()', tabindex='6') Cancel
+    button.btn.btn-warning(type='submit', id='submitButton', tabindex='7') Purchase
