@@ -186,7 +186,7 @@ export function upsert(req, res) {
 
 // Add classes to a user account (teachers or admins)
 export function addClasses(req, res) {
-  Reflect.deleteProperty(req.body, '_id');
+  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the purchase _id
   let purchaseToAdd = Purchase.build(req.body);
   return purchaseToAdd.save()
     .then(purchase => res.status(200).json({ _id: purchase._id }))
