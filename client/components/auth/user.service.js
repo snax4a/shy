@@ -26,6 +26,12 @@ export function UserResource($resource) {
       params: {
         controller: 'admin'
       }
+    },
+    addClasses: {
+      method: 'PUT',
+      params: {
+        controller: 'classes'
+      }
     }
   });
 }

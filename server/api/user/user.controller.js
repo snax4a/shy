@@ -1,6 +1,6 @@
 'use strict';
 
-import { User } from '../../sqldb';
+import { User, Purchase } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -159,7 +159,7 @@ export function update(req, res) {
     .catch(validationError(res));
 }
 
-// Updates or creates user (admin-only)
+// Updates or creates user (teachers or admins)
 export function upsert(req, res) {
   // New users are flagged with _id of zero, strip it before User.build
   if(req.body._id === 0) Reflect.deleteProperty(req.body, '_id');
@@ -181,6 +181,15 @@ export function upsert(req, res) {
 
   return userToUpsert.save()
     .then(user => res.status(200).json({ _id: user._id }))
+    .catch(validationError(res));
+}
+
+// Add classes to a user account (teachers or admins)
+export function addClasses(req, res) {
+  Reflect.deleteProperty(req.body, '_id');
+  let purchaseToAdd = Purchase.build(req.body);
+  return purchaseToAdd.save()
+    .then(purchase => res.status(200).json({ _id: purchase._id }))
     .catch(validationError(res));
 }
 

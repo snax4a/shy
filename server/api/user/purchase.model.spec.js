@@ -38,14 +38,6 @@ describe('Purchase Model', function() {
     });
   });
 
-  describe('#purchased', function() {
-    it('should fail when saving without a purchase date', function(done) {
-      purchase.purchased = undefined;
-      expect(purchase.save()).to.be.rejected;
-      done();
-    });
-  });
-
   describe('#quantity', function() {
     it('should fail when saving without a quantity', function(done) {
       purchase.quantity = undefined;

@@ -15,13 +15,6 @@ export default function(sequelize, DataTypes) {
       }
     },
 
-    purchased: {
-      type: DataTypes.DATE,
-      validate: {
-        notEmpty: true
-      }
-    },
-
     quantity: {
       type: DataTypes.INTEGER,
       validate: {
@@ -45,7 +38,7 @@ export default function(sequelize, DataTypes) {
 
   const options = {
     indexes: [
-      { fields: ['userId', 'purchased'] }
+      { fields: ['userId', 'createdAt'] }
     ]
   };
 

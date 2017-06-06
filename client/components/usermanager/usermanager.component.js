@@ -43,7 +43,7 @@ export class UserManagerController {
       controllerAs: '$ctrl',
       controller: UserEditorController,
       resolve: {
-        userGettingClasses: () => user
+        userSelectedForEditing: () => user
       }
     });
     // Stub for anything that needs to happen after closing dialog
@@ -61,6 +61,7 @@ export class UserManagerController {
       _id: 0,
       provider: 'local',
       role: 'student',
+      balance: 0,
       optOut: false
     };
 
@@ -94,17 +95,16 @@ export class UserManagerController {
   addClasses(user) {
     this.modalClassAdder(user);
   }
-
 }
 
 class UserEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, User, userSelectedForEditing, Auth) {
+  constructor($uibModalInstance, Auth, User, userSelectedForEditing) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
-    this.userSelectedForEditing = userSelectedForEditing;
-    this.User = User;
     this.Auth = Auth;
+    this.User = User;
+    this.userSelectedForEditing = userSelectedForEditing;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -175,8 +175,9 @@ class ClassAdderController {
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
-    this.errors = {}; // do I really need this?
     this.purchase = {
+      _id: this.userGettingClasses._id,
+      userId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
       notes: ''
@@ -186,7 +187,6 @@ class ClassAdderController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Add the classes to the user
       this.User.addClasses(this.purchase)
         .$promise
         .then(() => {
@@ -198,7 +198,6 @@ class ClassAdderController {
         .catch(response => {
           let err = response.data;
           console.log('Error', err);
-          this.errors = {}; // reset to only the latest errors
           return null;
         });
     }

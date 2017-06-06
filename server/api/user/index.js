@@ -12,6 +12,7 @@ router.post('/forgotpassword', controller.forgotPassword); // gen new password a
 
 router.put('/:id', auth.isAuthenticated(), controller.update); // user, update profile
 router.put('/:id/admin', auth.hasRole('teacher'), controller.upsert); // teacher, admin, update existing user
+router.put('/:id/classes', auth.hasRole('teacher'), controller.addClasses); // teacher, admin, add classes to user
 
 router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
 
