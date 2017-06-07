@@ -30,6 +30,47 @@ class UserError extends Error {
 }
 
 // Gets list of users using filter (teacher or admin-only)
+/*
+SELECT "user"._id,
+    "user"."lastName",
+    "user"."firstName",
+    "user".email,
+    "user"."optOut",
+    "user".phone,
+    "user".role,
+    "user".provider,
+    COALESCE(purchase.purchases, 0::bigint) - COALESCE(attendance.attendances, 0::bigint) AS balance
+   FROM "Users" "user"
+     LEFT JOIN ( SELECT "Purchases"."userId",
+            SUM("Purchases".quantity) AS purchases
+           FROM "Purchases"
+          GROUP BY "Purchases"."userId") purchase ON "user"._id = purchase."userId"
+     LEFT JOIN ( SELECT "Attendances"."userId",
+            COUNT("Attendances"._id) AS attendances
+           FROM "Attendances"
+          GROUP BY "Attendances"."userId") attendance ON "user"._id = attendance."userId";
+
+Equates to...
+  return User.findAll({
+    where: {
+      $or: [
+        { firstName: { $iLike: startsWith } },
+        { lastName: { $iLike: startsWith } },
+        { email: { $iLike: startsWith } }
+      ]
+    },
+    attributes: [
+      '_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider',
+      [db.sequelize.fn('SUM', db.sequelize.col('Purchases.quantity')), 'purchases']
+    ],
+    include: [{
+      model: Purchases,
+      attributes: [], // 'quantity' ?
+      required: false
+    }],
+    group: ['"User"."_id"']
+  })
+*/
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;
   return User.findAll({
@@ -40,7 +81,16 @@ export function index(req, res) {
         { email: { $iLike: startsWith } }
       ]
     },
-    attributes: ['_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider']
+    attributes: [
+      '_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider'
+      //,[db.sequelize.fn('SUM', db.sequelize.col('Purchases.quantity')), 'purchases']
+    ]//,
+    // include: [{
+    //   model: Purchases,
+    //   attributes: [], // 'quantity' ?
+    //   required: false
+    // }],
+    // group: ['"User"."_id"']
   })
     .then(users => res.status(200).json(users))
     .catch(handleError(res));
