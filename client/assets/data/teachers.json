@@ -215,6 +215,14 @@
 		"substitute": false
 	},
 	{
+		"_id": 32,
+		"firstName": "Sara",
+		"lastName": "DeRoy",
+		"photo": "/assets/images/teachers/sara-deroy.jpg",
+		"bio": "Sara started practicing yoga in 2007 when her first teacher, Lilith Bailey-Kroll (Yoga is My Health Insurance) offered workplace yoga classes.  Immediately drawn to the therapeutic, mindful, and invigorating aspects of yoga, she dove into a regular practice. Sara  has studied with many instructors throughout Pittsburgh and especially at Schoolhouse Yoga.  Her influences range from the precision of Iyengar Style to the athleticism of Vinyasa Flow.    She is a professional dancer bringing a dynamic creative energy to her classes.  Through her dance training she was introduced to Viniyoga and loves incorporating its mindful and therapeutic aspects to her sequences. Sara completed Schoolhouse Yoga’s 200 hour teacher training program in 2014. She provides an encouraging and supportive environment to her classes including modifications, connection to breath, an attention to alignment, and opportunities for students to grow.",
+		"substitute": false
+	},
+	{
 		"_id": 30,
 		"firstName": "Tara",
 		"lastName": "Beretsky",
@@ -224,12 +232,6 @@
 		"_id": 31,
 		"firstName": "Jonathan",
 		"lastName": "Campbell",
-		"substitute": true
-	},
-	{
-		"_id": 32,
-		"firstName": "Sara",
-		"lastName": "DeRoy",
 		"substitute": true
 	},
 	{
