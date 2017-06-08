@@ -1,5 +1,5 @@
 'use strict';
-import { User } from '../../sqldb';
+//import { User } from '../../sqldb';
 export default function(sequelize, DataTypes) {
   const attributes = {
     _id: {
@@ -10,10 +10,10 @@ export default function(sequelize, DataTypes) {
 
     userId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: '_id'
-      },
+      // references: {
+      //   model: User,
+      //   key: '_id'
+      // },
       validate: {
         notEmpty: true
       }
