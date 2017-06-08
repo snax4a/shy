@@ -514,6 +514,7 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/newsletter.html`,
+    `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.htaccess`,
     `${clientPath}/apple-developer-merchantid-domain-association`,

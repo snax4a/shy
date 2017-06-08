@@ -1,5 +1,5 @@
 'use strict';
-//import { User } from '../../sqldb';
+import { User } from '../../sqldb';
 export default function(sequelize, DataTypes) {
   const attributes = {
     _id: {
@@ -8,16 +8,14 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
 
-    userId: {
-      type: DataTypes.INTEGER,
-      // references: {
-      //   model: User,
-      //   key: '_id'
-      // },
-      validate: {
-        notEmpty: true
-      }
-    },
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: User,
+    //     key: '_id',
+    //     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    //   }
+    // },
 
     quantity: {
       type: DataTypes.INTEGER,
@@ -42,11 +40,12 @@ export default function(sequelize, DataTypes) {
 
   const options = {
     indexes: [
-      { fields: ['userId', 'createdAt'] }
+      { fields: [/*'userId', */'createdAt'] }
     ]
   };
 
   let Purchase = sequelize.define('Purchase', attributes, options);
+  //Purchase.belongsTo(User);
 
   return Purchase;
 }

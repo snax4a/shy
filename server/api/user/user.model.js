@@ -87,6 +87,12 @@ export default function(sequelize, DataTypes) {
 
   // The only options we're setting are indexes
   const options = {
+    classMethods: {
+      associate: function(models) {
+        User.hasMany(models.Purchase);
+        User.hasMany(models.Attendance);
+      }
+    },
     indexes: [
       { fields: ['lastName'] },
       { fields: ['firstName'] }

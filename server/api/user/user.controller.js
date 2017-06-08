@@ -51,25 +51,11 @@ SELECT "user"._id,
           GROUP BY "Attendances"."userId") attendance ON "user"._id = attendance."userId";
 
 Equates to...
-  return User.findAll({
-    where: {
-      $or: [
-        { firstName: { $iLike: startsWith } },
-        { lastName: { $iLike: startsWith } },
-        { email: { $iLike: startsWith } }
-      ]
-    },
-    attributes: [
-      '_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider',
-      [db.sequelize.fn('SUM', db.sequelize.col('Purchases.quantity')), 'purchases']
-    ],
-    include: [{
-      model: Purchases,
-      attributes: [], // 'quantity' ?
-      required: false
-    }],
-    group: ['"User"."_id"']
-  })
+User.findAll({
+    attributes: ['id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
+    include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: 'id'}],
+    group: ['id', 'lastName', 'firstName', 'email']
+})
 */
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;

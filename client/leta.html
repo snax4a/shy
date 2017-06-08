@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yoga with Leta</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        a, a:hover {
+            color: #9eab59;
+        }
+        .carousel.c-fade .item {
+            -webkit-transition: opacity 1s ease-in-out;
+            -moz-transition: opacity 1s ease-in-out;
+            -ms-transition: opacity 1s ease-in-out;
+            -o-transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel.c-fade .active.left,
+        .carousel.c-fade .active.right {
+            left: 0;
+            z-index: 2;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+        .carousel.c-fade .next,
+        .carousel.c-fade .prev {
+            left: 0;
+            z-index: 1;
+        }
+
+        .carousel.c-fade .carousel-control {
+            z-index: 3;
+        }
+
+        .popover-title, .navbar {
+            background-color: lavenderblush;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <a class="navbar-brand" href="#" style="font-weight:bold;">Yoga with Leta</a><!--Bickham or Voluta-->
+    </nav>
+
+        <div class="container">
+
+            <p style="margin-top:20px;">
+                &nbsp;
+            </p>
+
+            <div class="row">
+                <div class="col-md-8" role="main">
+                    <!-- Carousel -->
+                    <div id="carousel-photos" class="carousel slide c-fade" data-ride="carousel">
+                        <!-- Little circular dots -->
+                        <ol class="carousel-indicators" style="display:none;">
+                            <li data-target="#carousel-photos" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-photos" data-slide-to="1"></li>
+                            <li data-target="#carousel-photos" data-slide-to="2"></li>
+                        </ol>
+                        <!-- Slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="assets/images/leta/dragonfly.jpg" alt="Dragonfly">
+                            </div>
+                            <div class="item">
+                                <img src="assets/images/leta/ekapada.jpg" alt="Ekapada">
+                            </div>
+                            <div class="item">
+                                <img src="assets/images/leta/pigeon.jpg" alt="Pigeon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:50px;margin-top:15px;">
+                <div class="col-md-12" role="main">
+
+                    <div class="popover bottom" style="display: block; float: left; position: relative; margin-right: 10px;">
+                        <h3 class="popover-title">About Leta</h3>
+                        <div class="popover-content">
+                            <img src="images/leta/letaheadshot.jpg" alt="Leta Koontz" style="height:138px;width:118px;float:left;border: solid 1px lightgray;padding-bottom:0px;margin-right:15px;" />
+                            <p>
+                                <b>Leta Koontz</b>, RYT, began her study of Ashtanga Yoga with Lori Brungard in 1998. She has trained at the Ashtanga Yoga Research Institute in Mysore, India, and has completed teacher trainings with the Himalayan Institute and with Tim Miller. In 2002, she founded Schoolhouse Yoga which now has three locations in Pittsburgh. Leta enjoys challenging her students while keeping the practice fun and playful.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="popover bottom" style="display: block; float: left; position: relative; margin-right:10px; xmax-width:340px;">
+
+                        <h3 class="popover-title">Classes</h3>
+                        <div class="popover-content">
+                            <p>
+                                <b>Ashtanga Yoga, Led Primary Series</b><br />
+                               
+                            </p>
+                            <p>
+                                <a href="https://www.schoolhouseyoga.com" target="_blank" rel="noopener noreferrer" style="font-weight:bold;">Schoolhouse Yoga</a><br />
+                                <a href="https://www.google.com/maps/place/2401+Smallman+St/@40.454384,-79.981477,17z/data=!3m1!4b1!4m2!3m1!1s0x8834f3c365fc9a49:0xc40636a5b8e3398d" target="_blank" rel="noopener noreferrer">
+                                    
+                                </a>
+                            </p>
+                            <p>
+                                Ashtanga Yoga is an athletic, challenging and fast-paced style of yoga designed to purify both the body and the mind through a disciplined focus
+                                on the breath (<i>ujjayi pranayama</i>), the gaze (<i>drishti</i>), and the energetic locks (<i>bandhas</i>) of the body.  But that doesn’t mean it can't be fun!
+                            </p>
+                            <p>
+                                Students who attend this class should be in good physical condition and free of injury. Prior yoga experience is helpful though not required.  Modifications will be provided so everyone can participate.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="popover bottom" style="display: block; float: left; position: relative; margin-right: 10px; xmax-width: 340px; ">
+
+                        <h3 class="popover-title">Workshops</h3>
+                        <div class="popover-content">
+                            <p>
+                                <b>Ashtanga Yoga Workshop</b><br />
+                                Saturday, July 23rd, 11am-noon
+                            </p>
+                            <p>
+                                <a href="http://www.sunfloweryogastudio.com" target="_blank" rel="noopener noreferrer" style="font-weight:bold;">Whirl YogaFest</a><br />
+                                <a href="https://www.google.com/maps/place/580+Philadelphia+St/@40.6228916,-79.1504209,17z/data=!3m1!4b1!4m2!3m1!1s0x89cb5b26b904cbff:0x8de60cf941b106ad" target="_blank" rel="noopener noreferrer">
+                                    Point State Park
+                                </a>
+                            <p>
+                            <p>
+                              Students will be introduced to the Primary Series of Ashtanga Yoga (<i>Yoga Chikitsa</i>). The Primary Series is designed to help practitioners develop mental focus and physical stamina.
+                                Be prepared to work!
+                             </p>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="popover bottom" style="display: none; float: left; position: relative; margin-right: 10px; max-width: 340px; ">
+                        <h3 class="popover-title">Videos</h3>
+                        <div class="popover-content">
+                            <p>
+                                coming soon!
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+</body>
+</html>
