@@ -8,7 +8,7 @@ let db = {
   sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options)
 };
 
-// Insert models below
+// Imported model definitions
 db.User = db.sequelize.import('../api/user/user.model');
 db.Order = db.sequelize.import('../api/order/order.model');
 db.Announcement = db.sequelize.import('../api/announcement/announcement.model');

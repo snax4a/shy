@@ -1,10 +1,11 @@
 'use strict';
 
-import { User, Purchase } from '../../sqldb';
+import { User, Attendance, Purchase } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import email from '../../components/email';
+import sequelize from 'sequelize';
 
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
@@ -16,7 +17,10 @@ function validationError(res, statusCode) {
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return err => res.status(statusCode).send(err);
+  return err => {
+    console.log(err);
+    return res.status(statusCode).send(err);
+  };
 }
 
 class UserError extends Error {
@@ -52,9 +56,16 @@ SELECT "user"._id,
 
 Equates to...
 User.findAll({
-    attributes: ['id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
-    include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: 'id'}],
-    group: ['id', 'lastName', 'firstName', 'email']
+    where: {
+      $or: [
+        { firstName: { $iLike: startsWith } },
+        { lastName: { $iLike: startsWith } },
+        { email: { $iLike: startsWith } }
+      ]
+    },
+    attributes: ['_id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
+    include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: '_id'}],
+    group: ['_id', 'lastName', 'firstName', 'email']
 })
 */
 export function index(req, res) {
@@ -69,14 +80,18 @@ export function index(req, res) {
     },
     attributes: [
       '_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider'
-      //,[db.sequelize.fn('SUM', db.sequelize.col('Purchases.quantity')), 'purchases']
-    ]//,
-    // include: [{
-    //   model: Purchases,
-    //   attributes: [], // 'quantity' ?
-    //   required: false
-    // }],
-    // group: ['"User"."_id"']
+    ]
+  // return User.findAll({
+  //   where: {
+  //     $or: [
+  //       { firstName: { $iLike: startsWith } },
+  //       { lastName: { $iLike: startsWith } },
+  //       { email: { $iLike: startsWith } }
+  //     ]
+  //   },
+  //   attributes: ['_id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
+  //   include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: '_id'}],
+  //   group: ['_id', 'lastName', 'firstName', 'email']
   })
     .then(users => res.status(200).json(users))
     .catch(handleError(res));
