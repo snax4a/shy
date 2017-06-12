@@ -53,20 +53,6 @@ SELECT "user"._id,
             COUNT("Attendances"._id) AS attendances
            FROM "Attendances"
           GROUP BY "Attendances"."userId") attendance ON "user"._id = attendance."userId";
-
-Equates to...
-User.findAll({
-    where: {
-      $or: [
-        { firstName: { $iLike: startsWith } },
-        { lastName: { $iLike: startsWith } },
-        { email: { $iLike: startsWith } }
-      ]
-    },
-    attributes: ['_id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
-    include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: '_id'}],
-    group: ['_id', 'lastName', 'firstName', 'email']
-})
 */
 export function index(req, res) {
   let startsWith = `${req.query.filter}%`;
