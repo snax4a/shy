@@ -29,7 +29,8 @@ export default function(app) {
   // All other routes should redirect to the index.html
   app.route('/*')
     .get((req, res) => {
-      if(req.get('host') == 'www.leta.guru') res.sendFile(path.resolve(`${app.get('appPath')}/leta.html`));
-      res.sendFile(path.resolve(`${app.get('appPath')}/index.html`));
+      let fqdn = req.get('host');
+      let startingPoint = fqdn.includes('leta.guru') ? 'leta' : 'index';
+      res.sendFile(path.resolve(`${app.get('appPath')}/${startingPoint}.html`));
     });
 }
