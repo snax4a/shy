@@ -16,4 +16,10 @@ db.Schedule = db.sequelize.import('../api/schedule/schedule.model');
 db.Purchase = db.sequelize.import('../api/user/purchase.model');
 db.Attendance = db.sequelize.import('../api/user/attendance.model');
 
+// Associations
+db.Purchase.belongsTo(db.User);
+db.Attendance.belongsTo(db.User);
+db.User.hasMany(db.Purchase);
+db.User.hasMany(db.Attendance);
+
 module.exports = db;

@@ -8,11 +8,8 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
 
-    userId: {
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: true
-      }
+    UserId: {
+      type: DataTypes.INTEGER
     },
 
     attended: {
@@ -51,7 +48,11 @@ export default function(sequelize, DataTypes) {
 
   const options = {
     indexes: [
-      { fields: ['userId', 'attended', 'location', 'classTitle', 'teacher'] }
+      { fields: ['UserId'] },
+      { fields: ['attended'] },
+      { fields: ['location'] },
+      { fields: ['classTitle'] },
+      { fields: ['teacher'] }
     ]
   };
 
