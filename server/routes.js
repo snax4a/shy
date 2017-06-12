@@ -25,7 +25,6 @@ export default function(app) {
   app.route('/:url(api|auth|components|app|assets)/*')
    .get(errors[404]);
 
-
   // All other routes should redirect to the index.html
   app.route('/*')
     .get((req, res) => {
