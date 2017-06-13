@@ -23,13 +23,13 @@ export default function(app) {
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|assets)/*')
-   .get(errors[404]);
+    .get(errors[404]);
 
   // All other routes should redirect to the index.html
   app.route('/*')
     .get((req, res) => {
-      let fqdn = req.get('host');
-      let startingPoint = fqdn.includes('leta.guru') ? 'leta' : 'index';
+      const fqdn = req.get('host');
+      const startingPoint = fqdn.includes('leta.guru') ? 'leta' : 'index';
       res.sendFile(path.resolve(`${app.get('appPath')}/${startingPoint}.html`));
     });
 }

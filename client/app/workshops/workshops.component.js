@@ -39,8 +39,8 @@ export class WorkshopsController {
 
   condenseName(name) {
     return name.replace(/[\W_]+/g, '')
-    .toLowerCase()
-    .substr(0, 20);
+      .toLowerCase()
+      .substr(0, 20);
   }
 
   getEvent(workshop, section) {

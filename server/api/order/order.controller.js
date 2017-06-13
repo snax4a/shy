@@ -260,10 +260,10 @@ const saveToDB = braintreeTransaction => {
       optOut: false
     })
   ])
-  .catch(err => {
-    console.log('Problem with Order or User upsert', err);
-    return null;
-  });
+    .catch(err => {
+      console.log('Problem with Order or User upsert', err);
+      return null;
+    });
 };
 
 // Attempt to create order, send confirmation email then save to database

@@ -95,7 +95,6 @@ export class CheckOutController {
         });
     } // form.$valid
   } // placeOrder
-
 } // class CheckOutController
 
 export default angular.module('shyApp.checkout', [ngRoute])

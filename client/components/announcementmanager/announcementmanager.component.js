@@ -58,7 +58,6 @@ export class AnnouncementManagerController {
     this.$http.delete(`/api/announcement/${selectedAnnouncement._id}`)
       .then(() => this.announcements.splice(this.announcements.indexOf(selectedAnnouncement), 1));
   }
-
 }
 
 class AnnouncementEditorController {

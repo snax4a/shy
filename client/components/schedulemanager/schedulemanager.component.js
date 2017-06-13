@@ -60,8 +60,8 @@ export class ScheduleManagerController {
     this.$http.delete(`/api/schedule/${selectedScheduleItem._id}`)
       .then(() => this.scheduleItems.splice(this.scheduleItems.indexOf(selectedScheduleItem), 1));
   }
-
 }
+
 class ScheduleEditorController {
   /*@ngInject*/
   constructor($http, $uibModalInstance, scheduleItemSelectedForEditing) {

@@ -75,9 +75,10 @@ export function index(req, res) {
   //       { email: { $iLike: startsWith } }
   //     ]
   //   },
-  //   attributes: ['_id', 'lastName', 'firstName', 'email', [sequelize.literal('COALESCE(SUM(purchase.quantity), 0) - COALESCE(COUNT(attendance.id), 0)'), 'balance']],
-  //   include: [{model: Purchase, attributes: 'quantity'}, {model: Attendance, attributes: '_id'}],
-  //   group: ['_id', 'lastName', 'firstName', 'email']
+  //   attributes: ['_id', 'lastName', 'firstName', 'email'],
+  //   include: [{ model: Purchase, attributes: { include: [[sequelize.fn('SUM', sequelize.col('quantity')), 'purchased']] } }, { model: Attendance, attributes: { include: [[sequelize.fn('COUNT', sequelize.col('Attendances._id')), 'attended']] } }],
+  //   exclude: ['Purchases._id', 'Purchases.UserId'], // exclude must be in include.attributes
+  //   group: ['User._id', 'lastName', 'firstName', 'email']
   })
     .then(users => res.status(200).json(users))
     .catch(handleError(res));

@@ -401,7 +401,7 @@ export class Cart {
     // Tokenize hosted fields to get nonce then post the order
     return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance) // returns payload containing nonce
       .then(this.postOrderInformation.bind(this));
-      //.catch(); // Catch errors in cart.component.js since they affect the view
+    //.catch(); // Catch errors in cart.component.js since they affect the view
   }
 
   // Clear the cartItems during checkout()
@@ -499,5 +499,4 @@ export class Cart {
     let valueToStore = JSON.stringify(this.cartItems);
     this.$window.localStorage[this.key] = valueToStore;
   }
-
 }

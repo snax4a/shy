@@ -7,25 +7,25 @@ function localAuthenticate(User, email, password, done) {
       email: email.toLowerCase()
     }
   })
-  .then(user => {
-    if(!user) {
-      return done(null, false, {
-        message: 'Unrecognized username / password combination.'
-      });
-    }
+    .then(user => {
+      if(!user) {
+        return done(null, false, {
+          message: 'Unrecognized username / password combination.'
+        });
+      }
 
-    return user.authenticate(password, (authError, authenticated) => {
-      if(authError) {
-        return done(authError);
-      }
-      if(!authenticated) {
-        return done(null, false, { message: 'This password is not correct.' });
-      } else {
-        return done(null, user);
-      }
-    });
-  })
-  .catch(err => done(err));
+      return user.authenticate(password, (authError, authenticated) => {
+        if(authError) {
+          return done(authError);
+        }
+        if(!authenticated) {
+          return done(null, false, { message: 'This password is not correct.' });
+        } else {
+          return done(null, user);
+        }
+      });
+    })
+    .catch(err => done(err));
 }
 
 export function setup(User, config) {

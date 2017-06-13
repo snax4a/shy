@@ -10,7 +10,7 @@ export function subscribe(req, res) {
     firstName: 'Student',
     optOut: false
   })
-  .then(() => console.log('Added user from workshops page to newsletter list.'));
+    .then(() => console.log('Added user from workshops page to newsletter list.'));
 
   // Send email to SHY staff
   email({
@@ -29,8 +29,8 @@ export function unsubscribe(req, res) {
     email: req.params.email,
     optOut: true
   })
-  .then(() => {
-    res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
-    return console.log(`Unsubscribed ${req.params.email} from the newsletter.`);
-  });
+    .then(() => {
+      res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
+      return console.log(`Unsubscribed ${req.params.email} from the newsletter.`);
+    });
 }

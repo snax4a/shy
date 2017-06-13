@@ -88,7 +88,6 @@ export class UserManagerController {
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       // if we add any classes, update the count in the grid
-      // TODO
     });
   }
 
