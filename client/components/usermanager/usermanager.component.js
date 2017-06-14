@@ -189,8 +189,8 @@ class ClassAdderController {
       this.User.addClasses(this.purchase)
         .$promise
         .then(() => {
-          // Increment the balance for the user
-          //this.userGettingClasses.balance += this.purchase.quantity;
+          // Increment the balance for the user so we don't have to re-query
+          this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
           this.$uibModalInstance.close();
           return null;
         })

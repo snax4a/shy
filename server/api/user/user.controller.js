@@ -5,7 +5,9 @@ import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import email from '../../components/email';
-import sequelize from 'sequelize';
+import Sequelize from 'sequelize';
+
+const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
@@ -33,53 +35,10 @@ class UserError extends Error {
   }
 }
 
-// Gets list of users using filter (teacher or admin-only)
-/*
-SELECT "user"._id,
-    "user"."lastName",
-    "user"."firstName",
-    "user".email,
-    "user"."optOut",
-    "user".phone,
-    "user".role,
-    "user".provider,
-    COALESCE(purchase.purchases, 0::bigint) - COALESCE(attendance.attendances, 0::bigint) AS balance
-   FROM "Users" "user"
-     LEFT JOIN ( SELECT "Purchases"."userId",
-            SUM("Purchases".quantity) AS purchases
-           FROM "Purchases"
-          GROUP BY "Purchases"."userId") purchase ON "user"._id = purchase."userId"
-     LEFT JOIN ( SELECT "Attendances"."userId",
-            COUNT("Attendances"._id) AS attendances
-           FROM "Attendances"
-          GROUP BY "Attendances"."userId") attendance ON "user"._id = attendance."userId";
-*/
+// Gets list of users with balances using filter (teacher or admin-only)
 export function index(req, res) {
-  let startsWith = `${req.query.filter}%`;
-  return User.findAll({
-    where: {
-      $or: [
-        { firstName: { $iLike: startsWith } },
-        { lastName: { $iLike: startsWith } },
-        { email: { $iLike: startsWith } }
-      ]
-    },
-    attributes: [
-      '_id', 'firstName', 'lastName', 'email', 'optOut', 'phone', 'role', 'provider'
-    ]
-  // return User.findAll({
-  //   where: {
-  //     $or: [
-  //       { firstName: { $iLike: startsWith } },
-  //       { lastName: { $iLike: startsWith } },
-  //       { email: { $iLike: startsWith } }
-  //     ]
-  //   },
-  //   attributes: ['_id', 'lastName', 'firstName', 'email'],
-  //   include: [{ model: Purchase, attributes: { include: [[sequelize.fn('SUM', sequelize.col('quantity')), 'purchased']] } }, { model: Attendance, attributes: { include: [[sequelize.fn('COUNT', sequelize.col('Attendances._id')), 'attended']] } }],
-  //   exclude: ['Purchases._id', 'Purchases.UserId'], // exclude must be in include.attributes
-  //   group: ['User._id', 'lastName', 'firstName', 'email']
-  })
+  sequelize.query('SELECT _id, "lastName", "firstName", email, "optOut", phone, role, provider, COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0) AS balance FROM "Users" "user" LEFT OUTER JOIN (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase ON "user"._id = purchase."UserId" LEFT OUTER JOIN (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance ON "user"._id = attendance."UserId" WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString;',
+    { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT } )
     .then(users => res.status(200).json(users))
     .catch(handleError(res));
 }

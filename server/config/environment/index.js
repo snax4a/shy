@@ -42,7 +42,7 @@ var all = {
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
-      logging: false,
+      logging: true,
       dialect: 'postgres',
       protocol: 'postgres',
       native: true,

@@ -4,11 +4,8 @@ import angular from 'angular';
 export function ampmFilter() {
   return input => {
     let [hour, minutes] = input.split(':');
-    let meridien = 'am';
-    if(hour > 12) {
-      meridien = 'pm';
-      hour = hour - 12;
-    }
+    let meridien = hour >= 12 ? 'pm' : 'am';
+    if(hour > 12) hour = hour - 12;
     let timeString = `${Number.parseInt(hour, 10)}:${minutes}${meridien}`;
     return timeString;
   };
