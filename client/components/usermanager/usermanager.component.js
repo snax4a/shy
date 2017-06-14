@@ -176,7 +176,7 @@ class ClassAdderController {
     this.submitted = false;
     this.purchase = {
       _id: this.userGettingClasses._id,
-      userId: this.userGettingClasses._id,
+      UserId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
       notes: ''
