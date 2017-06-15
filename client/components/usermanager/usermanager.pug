@@ -54,3 +54,26 @@
             a.trash(ng-hide='$ctrl.mini', ng-click='$ctrl.deleteUser(user)')
               span.glyphicon.glyphicon-trash.pull-right 
     dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
+
+.row(ng-show='$ctrl.historyItems.length==0')
+  .col-md-12
+    p History for USER NAME
+    table.table.table-striped(ng-hide='$ctrl.historyItems.length==0')
+      thead
+        th Date
+        th Description 
+        th Qty
+        th Balance
+        th &nbsp;
+      tbody
+        tr(dir-paginate='historyItem in $ctrl.historyItems|orderBy:$ctrl.historyItems.Date|itemsPerPage:8')
+          td
+            a.edit(ng-click="$ctrl.editHistoryItem(historyItem)")
+              span.glyphicon.glyphicon-new-window
+              |&nbsp;&nbsp;{{ historyItem.date }}
+          td {{ historyItem.description }}
+          td {{ historyItem.quantity }}
+          td {{ historyItem.balance }}
+          td
+            a.trash(ng-click='$ctrl.editHistoryItem(historyItem)')
+              span.glyphicon.glyphicon-trash.pull-right
