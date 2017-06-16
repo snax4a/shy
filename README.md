@@ -14,8 +14,8 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 7.7.4 and npm 4.5.0](nodejs.org) (`brew install node`)
-- [PostgreSQL 9.6.2](http://postgresql.org) (`brew install postgresql`)
+- [Node.js 8.1.2 and npm 5.0.3](nodejs.org) (`brew install node`)
+- [PostgreSQL 9.6.3](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
 - [Chrome >= 59](chrome canary) (`brew install Caskroom/versions/google-chrome-canary`) - used for headless testing
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
@@ -48,11 +48,11 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
-[express]: https://img.shields.io/badge/expressjs-4.15.2-blue.svg
+[express]: https://img.shields.io/badge/expressjs-4.15.3-blue.svg
 [express-url]: http://expressjs.com
-[angularjs]: https://img.shields.io/badge/angularjs-1.6.3-blue.svg
+[angularjs]: https://img.shields.io/badge/angularjs-1.6.4-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-7.7.4-blue.svg
+[node]: https://img.shields.io/badge/nodejs-8.1.2-green.svg
 [node-url]: https://nodejs.org
-[postgresql]: https://img.shields.io/badge/postgresql-9.6.2-blue.svg
+[postgresql]: https://img.shields.io/badge/postgresql-9.6.3-blue.svg
 [postgresql-url]: https://www.postgresql.org

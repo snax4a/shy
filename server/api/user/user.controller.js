@@ -1,6 +1,6 @@
 'use strict';
 
-import { User, Attendance, Purchase } from '../../sqldb';
+import { User, Purchase } from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -38,10 +38,36 @@ class UserError extends Error {
 // Gets list of users with balances using filter (teacher or admin-only)
 export function index(req, res) {
   sequelize.query('SELECT _id, "lastName", "firstName", email, "optOut", phone, role, provider, COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0) AS balance FROM "Users" "user" LEFT OUTER JOIN (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase ON "user"._id = purchase."UserId" LEFT OUTER JOIN (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance ON "user"._id = attendance."UserId" WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString;',
-    { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT } )
+    { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT })
     .then(users => res.status(200).json(users))
     .catch(handleError(res));
 }
+
+/*
+SELECT history._id,
+    history."UserId",
+    history.type,
+    history."when",
+    history.what,
+    history.quantity,
+    sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when") AS balance
+   FROM ( SELECT "Attendances"._id,
+            "Attendances"."UserId",
+            'A'::text AS type,
+            "Attendances".attended AS "when",
+            ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
+            '-1'::integer AS quantity
+           FROM "Attendances"
+        UNION
+         SELECT "Purchases"._id,
+            "Purchases"."UserId",
+            'P'::text AS type,
+            "Purchases"."createdAt" AS "when",
+            ((('Purchased '::text || "Purchases".quantity) || ' class pass ('::text) || "Purchases".method::text) || ')'::text AS what,
+            "Purchases".quantity
+           FROM "Purchases") history
+  ORDER BY history."UserId", history."when" DESC;
+*/
 
 // Gets attributes for logged-in user
 export function me(req, res, next) {

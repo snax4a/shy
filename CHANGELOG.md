@@ -1,6 +1,4 @@
 # Product Backlog
-* [High] Extend /server/api/user/user.controller.js:index to return difference between purchases and attendances
-* [High] Build PUT /user/attendance API method
 * [High] Build DELETE /user/attendance API method
 * [High] Intrapage links don't work because anchors with ids load asynchronously
 * [Low] Fix order model unit test (#purchaserEmail)

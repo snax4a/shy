@@ -28,7 +28,7 @@
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^2.1.1",
-    "braintree-web": "^3.18.0",
+    "braintree-web": "^3.19.0",
     "composable-middleware": "^0.3.0",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.5.0",
@@ -127,7 +127,7 @@
     "webpack-dev-middleware": "^1.10.2"
   },
   "engines": {
-    "node": "~7.10.0",
+    "node": "~8.1.2",
     "npm": "~5.0.3",
     "yarn": "^0.24.6"
   },
