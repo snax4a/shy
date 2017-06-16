@@ -5,7 +5,7 @@ import { Purchase } from '../../sqldb';
 let purchase;
 let buildPurchase = function() {
   purchase = Purchase.build({
-    userId: 1,
+    UserId: 1,
     purchased: '2017-05-21T13:00:00.000-04:00',
     quantity: 1,
     method: 'Cash',
