@@ -17,7 +17,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 - [Node.js 8.1.2 and npm 5.0.3](nodejs.org) (`brew install node`)
 - [PostgreSQL 9.6.3](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
-- [Chrome >= 59](chrome canary) (`brew install Caskroom/versions/google-chrome-canary`) - used for headless testing
+- [Chrome >= 59] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
