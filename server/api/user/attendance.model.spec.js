@@ -5,11 +5,11 @@ import { Attendance } from '../../sqldb';
 let attendance;
 let buildAttendance = function() {
   attendance = Attendance.build({
-    userId: 1,
+    UserId: 1,
     attended: '2001-05-21T13:00:00.000-04:00',
     location: 'Squirrel Hill',
     classTitle: 'Test class',
-    teacher: 'Koontz, Leta.'
+    teacher: 'Koontz, Leta'
   });
   return attendance;
 };
@@ -32,7 +32,7 @@ describe('Attendance Model', function() {
 
   describe('#userId', function() {
     it('should fail when saving without a user ID', function(done) {
-      attendance.userId = undefined;
+      attendance.UserId = undefined;
       expect(attendance.save()).to.be.rejected;
       done();
     });
