@@ -1,5 +1,6 @@
 # Product Backlog
 * [High] Build DELETE /user/attendance API method
+* [High] Build method to edit history
 * [High] Intrapage links don't work because anchors with ids load asynchronously
 * [Low] Fix order model unit test (#purchaserEmail)
 * [Low] Add method to push newsletters from admin
