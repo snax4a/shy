@@ -12,14 +12,17 @@ export class UserManagerController {
     this.$uibModal = $uibModal;
   }
 
+  // Initializations
   $onInit() {
     this.users = [];
-    this.history = [];
+    this.historyItems = [];
+    this.historyFor = '';
     this.reverse = false;
     this.sortKey = 'lastName';
     this.submitted = false;
   }
 
+  // Get an array of users whose email, first or last name starts with the filter
   searchUsers(form) {
     this.submitted = true;
     if(form.$valid) {
@@ -31,26 +34,28 @@ export class UserManagerController {
     }
   }
 
+  // Delete the user from the server and in the local array
   deleteUser(selectedUser) {
     selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
 
-  // Makes the /GET /api/users/17895/history 304 57.091 ms - -
+  // Get an array of purchases & attendances with a running balance
   getHistory(selectedUser) {
     this.User.history({ id: selectedUser._id })
       .$promise
-      .then(history => {
-        this.history = history;
+      .then(historyItems => {
+        this.historyFor = `${selectedUser.lastName}, ${selectedUser.firstName}`;
+        this.historyItems = historyItems;
         return null;
       })
       .catch(response => {
-        let err = response.data;
-        console.log('Error', err);
+        console.log('Error', response);
         return null;
       });
   }
 
+  // Open a dialog for editing the user
   modalUserEditor(user) {
     let modalDialog = this.$uibModal.open({
       template: require('./usereditor.pug'),
@@ -68,10 +73,12 @@ export class UserManagerController {
     });
   }
 
+  // Wrap modalUserEditor in case we need to do anything outside of it
   editUser(user) {
     this.modalUserEditor(user);
   }
 
+  // Create a user with the appropriate defaults (enforce role setting server-side)
   createUser() {
     let user = {
       _id: 0,
@@ -85,11 +92,13 @@ export class UserManagerController {
     this.modalUserEditor(user);
   }
 
+  // Manage which column determines the sort and the ASC/DESC
   sortUsers(keyname) {
     this.sortKey = keyname;
     this.reverse = !this.reverse;
   }
 
+  // Open modal to add classes
   modalClassAdder(user) {
     let modalDialog = this.$uibModal.open({
       template: require('./classadder.pug'),
@@ -107,6 +116,7 @@ export class UserManagerController {
     });
   }
 
+  // Wrapper for modalClassAdder
   addClasses(user) {
     this.modalClassAdder(user);
   }
@@ -129,10 +139,12 @@ class UserEditorController {
     if(this.userSelectedForEditing) angular.copy(this.userSelectedForEditing, this.user);
   }
 
+  // Reset server-side error status
   clearServerError(form, fieldName) {
     form[fieldName].$setValidity('server', true);
   }
 
+  // Submit the modified user to the server
   submitUser(form) {
     this.submitted = true;
     if(form.$valid) {
@@ -172,6 +184,7 @@ class UserEditorController {
     }
   }
 
+  // Cancel the user editor dialog
   cancel() {
     if(!this.userSelectedForEditing._id) {
       this.userSelectedForEditing.shouldBeDeleted = true;
@@ -199,6 +212,7 @@ class ClassAdderController {
     };
   }
 
+  // Tell the server to add the classes to the user
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
@@ -218,6 +232,7 @@ class ClassAdderController {
     }
   }
 
+  // Close the modal dialog without doing anything
   cancel() {
     this.$uibModalInstance.close();
   }

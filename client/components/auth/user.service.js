@@ -35,6 +35,7 @@ export function UserResource($resource) {
     },
     history: {
       method: 'GET',
+      isArray: true,
       params: {
         controller: 'history'
       }

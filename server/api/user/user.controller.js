@@ -60,6 +60,7 @@ export function index(req, res) {
     .catch(handleError(res));
 }
 
+// Gets an array containing the user's attendances and purchases with a running balance
 export function history(req, res, next) {
   const sql = `
     SELECT history._id,
@@ -90,7 +91,7 @@ export function history(req, res, next) {
   sequelize.query(sql,
     { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
     .then(history => res.status(200).json(history))
-    .catch(handleError(res));
+    .catch(err => next(err));
 }
 
 // Gets attributes for logged-in user

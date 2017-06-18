@@ -56,25 +56,24 @@
               span.glyphicon.glyphicon-trash.pull-right 
     dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
 
-.row(ng-show='$ctrl.historyItems.length==0')
-  .col-md-12
-    p History for USER NAME
-    table.table.table-striped(ng-hide='$ctrl.historyItems.length==0')
+.row(ng-hide='$ctrl.historyItems.length==0')
+  .col-md-7
+    p History for 
+      b {{ $ctrl.historyFor }}
+    table.table.table-striped
       thead
         th Date
         th Description 
         th Qty
         th Balance
-        th &nbsp;
       tbody
-        tr(dir-paginate='historyItem in $ctrl.historyItems|orderBy:$ctrl.historyItems.Date|itemsPerPage:8')
+        tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8')
           td
             a.edit(ng-click="$ctrl.editHistoryItem(historyItem)")
               span.glyphicon.glyphicon-new-window
-              |&nbsp;&nbsp;{{ historyItem.date }}
-          td {{ historyItem.description }}
-          td {{ historyItem.quantity }}
-          td {{ historyItem.balance }}
-          td
+              |&nbsp;&nbsp;{{ historyItem.when | date: 'd-MMM-yy' }}
+          td {{ historyItem.what }}
+          td.pull-right {{ historyItem.quantity }}
+          td(style='text-align: right;') {{ historyItem.balance }}
             a.trash(ng-click='$ctrl.editHistoryItem(historyItem)')
               span.glyphicon.glyphicon-trash.pull-right
