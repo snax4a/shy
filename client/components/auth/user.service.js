@@ -32,6 +32,12 @@ export function UserResource($resource) {
       params: {
         controller: 'classes'
       }
+    },
+    history: {
+      method: 'GET',
+      params: {
+        controller: 'history'
+      }
     }
   });
 }

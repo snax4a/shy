@@ -14,6 +14,7 @@ export class UserManagerController {
 
   $onInit() {
     this.users = [];
+    this.history = [];
     this.reverse = false;
     this.sortKey = 'lastName';
     this.submitted = false;
@@ -33,6 +34,21 @@ export class UserManagerController {
   deleteUser(selectedUser) {
     selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
+  }
+
+  // Makes the /GET /api/users/17895/history 304 57.091 ms - -
+  getHistory(selectedUser) {
+    this.User.history({ id: selectedUser._id })
+      .$promise
+      .then(history => {
+        this.history = history;
+        return null;
+      })
+      .catch(response => {
+        let err = response.data;
+        console.log('Error', err);
+        return null;
+      });
   }
 
   modalUserEditor(user) {
