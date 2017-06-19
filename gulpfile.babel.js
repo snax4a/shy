@@ -460,7 +460,7 @@ gulp.task('build', cb => {
       'build:images'
     ],
     [
-      'copy:yarn-lock',
+      'copy:npm-lock',
       'copy:extras',
       'copy:assets',
       'copy:fonts:dist',
@@ -522,8 +522,8 @@ gulp.task('copy:extras', () =>
   .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
-gulp.task('copy:yarn-lock', () =>
-  gulp.src(['yarn.lock'], { dot: true })
+gulp.task('copy:npm-lock', () =>
+  gulp.src(['paclage-lock.json'], { dot: true })
   .pipe(gulp.dest(`${paths.dist}`))
 );
 
