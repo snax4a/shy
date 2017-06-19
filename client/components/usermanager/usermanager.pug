@@ -57,23 +57,20 @@
     dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
 
 .row(ng-hide='$ctrl.historyItems.length==0')
-  .col-md-7
+  .col-md-6
     p History for 
       b {{ $ctrl.historyFor }}
     table.table.table-striped
       thead
-        th Date
-        th Description 
+        th(style='text-align: right;') Date
+        th(style='text-align: left;') Description 
         th Qty
         th Balance
       tbody
         tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8')
-          td
-            a.edit(ng-click="$ctrl.editHistoryItem(historyItem)")
-              span.glyphicon.glyphicon-new-window
-              |&nbsp;&nbsp;{{ historyItem.when | date: 'd-MMM-yy' }}
+          td(style='text-align: right;') {{ historyItem.when | date: 'd-MMM-yy' }}
           td {{ historyItem.what }}
-          td.pull-right {{ historyItem.quantity }}
+          td(style='text-align: right;') {{ historyItem.quantity }}
           td(style='text-align: right;') {{ historyItem.balance }}
             a.trash(ng-click='$ctrl.editHistoryItem(historyItem)')
               span.glyphicon.glyphicon-trash.pull-right

@@ -90,7 +90,7 @@ export function history(req, res, next) {
     ORDER BY history."UserId", history."when" DESC;`;
   sequelize.query(sql,
     { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
-    .then(history => res.status(200).json(history))
+    .then(historyItems => res.status(200).json(historyItems))
     .catch(err => next(err));
 }
 
