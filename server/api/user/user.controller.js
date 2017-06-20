@@ -83,7 +83,7 @@ export function history(req, res, next) {
               "Purchases"."UserId",
               'P'::text AS type,
               "Purchases"."createdAt" AS "when",
-              ((('Purchased '::text || "Purchases".quantity) || ' class pass ('::text) || "Purchases".method::text) || ')'::text AS what,
+              'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') '::text || "Purchases".notes::text AS what,
               "Purchases".quantity
             FROM "Purchases"
             WHERE "Purchases"."UserId" = :UserId) history
