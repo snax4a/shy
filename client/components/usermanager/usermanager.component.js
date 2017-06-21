@@ -3,6 +3,7 @@
 import angular from 'angular';
 import compareTo from '../compareto/compareto.directive';
 import dirPagination from 'angular-utils-pagination';
+import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 //import popover from 'angular-ui-bootstrap/src/popover/index-nocss.js';
 
 export class UserManagerController {
@@ -209,8 +210,22 @@ class ClassAdderController {
       UserId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
-      notes: ''
+      notes: '',
+      createdAt: new Date()
     };
+
+    this.datePickerOpened = false;
+    this.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yyyy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(2017, 1, 1),
+      startingDay: 1
+    };
+  }
+
+  showCalendar() {
+    this.datePickerOpened = true;
   }
 
   // Tell the server to add the classes to the user
@@ -239,7 +254,7 @@ class ClassAdderController {
   }
 }
 
-export default angular.module('shyApp.usermanager', [compareTo, dirPagination])
+export default angular.module('shyApp.usermanager', [compareTo, dirPagination, datepickerPopup])
   .component('usermanager', {
     template: require('./usermanager.pug'),
     controller: UserManagerController,

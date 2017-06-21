@@ -4,10 +4,10 @@ form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-option
     h2#modal-label.modal-title Add classes for {{ $ctrl.userGettingClasses.firstName }} {{ $ctrl.userGettingClasses.lastName }}
   .modal-body
     .form-group
-      label.sr-only(for='quantity') Quantity
+      label(for='quantity') Quantity
       input.form-control(name='quantity', id='quantity', type='number', autofocus='', ng-model='$ctrl.purchase.quantity', min='1', max='12', placeholder='Quantity', required='', tabindex='1')
     .form-group
-      label.sr-only(for='method') Payment method
+      label(for='method') Payment method
       select.form-control(name='method', id='method', ng-model='$ctrl.purchase.method', tabindex='2')
         option(value='Cash') Cash
         option(value='Credit Card') Credit Card
@@ -16,8 +16,17 @@ form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-option
         option(value='IOU') IOU
         option(value='Free') Free
     .form-group
-      label.sr-only(for='notes') Notes
+      label(for='notes') Notes
       textarea.form-control(name='notes', id='notes', ng-model='$ctrl.purchase.notes', rows='5', cols='20', placeholder='Notes', tabindex='3')
+    .form-group
+      label(for='createdAt') Purchased on
+      .input-group
+        input.form-control(id='createdAt', name='createdAt', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.purchase.createdAt', placeholder='Purchased on')
+        span.input-group-btn
+          button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
+            i.glyphicon.glyphicon-calendar
+      ng-messages.help-block.has-error(for='form.createdAt.$error', ng-show='form.createdAt.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please enter a class date.
   .modal-footer
     button.btn.btn-default(type='button', id='cancelButton' ng-click='$ctrl.cancel()', tabindex='6') Cancel
     button.btn.btn-warning(type='submit', id='submitButton', tabindex='7') Purchase
