@@ -123,15 +123,18 @@ module.exports = function makeWebpackConfig(options) {
     output: {}, // placeholder to be filled in conditionally
 
     plugins: [ // others added conditionally based on env
+      // Scope hoisting
+      new webpack.optimize.ModuleConcatenationPlugin(),
+
       // Separate CSS from JS
       new ExtractTextPlugin('[name].[chunkhash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
 
       // Define free global variables
       new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
         'process.env.NODE_ENV': DEV ? '"development"'
-        : BUILD ? '"production"'
-        : TEST ? '"test"'
-        : '"development"'}) //,
+          : BUILD ? '"production"'
+            : TEST ? '"test"'
+              : '"development"'}) //,
 
       // new CompressionPlugin({ // https://github.com/webpack-contrib/compression-webpack-plugin
       //   asset: '[path].gz[query]',
