@@ -13,9 +13,11 @@ router.post('/forgotpassword', controller.forgotPassword); // gen new password a
 router.put('/:id', auth.isAuthenticated(), controller.update); // user - update profile
 router.put('/:id/admin', auth.hasRole('teacher'), controller.upsert); // teacher/admin - update existing user
 router.put('/:id/classes', auth.hasRole('teacher'), controller.addClasses); // teacher/admin - add classes to user
+router.put('/:id/attendance', auth.hasRole('teacher'), controller.addAttendance); // teacher/admin - add attendance
 router.get('/:id/history', auth.hasRole('teacher'), controller.history); // teacher/admin - get user history
 
 router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
 router.delete('/:id/history', auth.hasRole('admin'), controller.historyItemDelete); // admin, delete history item
+router.delete('/:id/attendance', auth.hasRole('teacher'), controller.attendanceDelete); // teacher/admin, delete attendance item
 
 module.exports = router;

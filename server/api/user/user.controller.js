@@ -236,6 +236,15 @@ export function addClasses(req, res) {
     .catch(validationError(res));
 }
 
+// Create an attendance record for a user (teachers or admins)
+export function addAttendance(req, res) {
+  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the attendance _id
+  let attendanceToAdd = Attendance.build(req.body);
+  return attendanceToAdd.save()
+    .then(attendance => res.status(200).json({ _id: attendance._id }))
+    .catch(validationError(res));
+}
+
 // Deletes user (admin-only)
 export function destroy(req, res) {
   return User.destroy({ where: { _id: req.params.id } })
@@ -247,6 +256,13 @@ export function destroy(req, res) {
 export function historyItemDelete(req, res) {
   const model = req.query.type == 'P' ? Purchase : Attendance;
   return model.destroy({ where: { _id: req.params.id } })
+    .then(() => res.status(204).end())
+    .catch(handleError(res));
+}
+
+// Deletes user attendance (teacher and admin-only) - similar to historyItemDelete but lacks deletion capability for purchases
+export function attendanceDelete(req, res) {
+  return Attendance.destroy({ where: { _id: req.params.id }})
     .then(() => res.status(204).end())
     .catch(handleError(res));
 }

@@ -33,6 +33,12 @@ export function UserResource($resource) {
         controller: 'classes'
       }
     },
+    addAttendance: {
+      method: 'PUT',
+      params: {
+        controller: 'attendance'
+      }
+    },
     history: {
       method: 'GET',
       isArray: true,
@@ -44,6 +50,12 @@ export function UserResource($resource) {
       method: 'DELETE',
       params: {
         controller: 'history'
+      }
+    },
+    attendanceDelete: {
+      method: 'DELETE',
+      params: {
+        controller: 'attendance'
       }
     }
   });
