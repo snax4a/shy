@@ -72,5 +72,5 @@
           td {{ historyItem.what }}
           td(style='text-align: right;') {{ historyItem.quantity }}
           td(style='text-align: right;') {{ historyItem.balance }}
-            a.trash(ng-click='$ctrl.editHistoryItem(historyItem)')
+            a.trash(ng-click='$ctrl.historyItemDelete(historyItem)')
               span.glyphicon.glyphicon-trash.pull-right

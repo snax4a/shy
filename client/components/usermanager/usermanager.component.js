@@ -122,6 +122,19 @@ export class UserManagerController {
   addClasses(user) {
     this.modalClassAdder(user);
   }
+
+  historyItemDelete(historyItem) {
+    this.User.historyItemDelete({ id: historyItem._id, type: historyItem.type })
+      .$promise
+      .then(() => {
+        this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
+        return null;
+      })
+      .catch(response => {
+        console.log('Error', response);
+        return null;
+      });
+  }
 }
 
 class UserEditorController {

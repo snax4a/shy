@@ -92,6 +92,7 @@ function removeEntity(res) {
           return null;
         });
     }
+    return null;
   };
 }
 

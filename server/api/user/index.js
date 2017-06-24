@@ -16,5 +16,6 @@ router.put('/:id/classes', auth.hasRole('teacher'), controller.addClasses); // t
 router.get('/:id/history', auth.hasRole('teacher'), controller.history); // teacher/admin - get user history
 
 router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
+router.delete('/:id/history', auth.hasRole('admin'), controller.historyItemDelete); // admin, delete history item
 
 module.exports = router;

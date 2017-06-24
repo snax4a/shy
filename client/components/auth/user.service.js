@@ -39,6 +39,12 @@ export function UserResource($resource) {
       params: {
         controller: 'history'
       }
+    },
+    historyItemDelete: {
+      method: 'DELETE',
+      params: {
+        controller: 'history'
+      }
     }
   });
 }
