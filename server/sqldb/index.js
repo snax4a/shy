@@ -1,5 +1,4 @@
 'use strict';
-
 import config from '../config/environment';
 import Sequelize from 'sequelize';
 

@@ -1,7 +1,6 @@
 'use strict';
-const express = require('express');
+const router = require('express').Router();
 const controller = require('./user.controller');
-const router = express.Router();
 const auth = require('../../auth/auth.service');
 
 router.get('/', auth.hasRole('teacher'), controller.index); // teacher, admin, get users

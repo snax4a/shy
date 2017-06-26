@@ -1,10 +1,7 @@
 'use strict';
-
-import express from 'express';
+const router = require('express').Router();
 import passport from 'passport';
 import { signToken } from '../auth.service';
-
-var router = express.Router();
 
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {

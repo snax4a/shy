@@ -1,7 +1,6 @@
 'use strict';
-const express = require('express');
+const router = require('express').Router();
 const controller = require('./message.controller');
-const router = express.Router();
 
 router.post('/', controller.send);
 

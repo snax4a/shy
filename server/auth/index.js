@@ -1,6 +1,5 @@
 'use strict';
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const config = require('../config/environment');
 import { User } from '../sqldb';
 

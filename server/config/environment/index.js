@@ -4,7 +4,7 @@ import path from 'path';
 
 // All configurations will extend these options
 // ============================================
-var all = {
+const all = {
   env: process.env.NODE_ENV,
 
   // Website URL
@@ -75,7 +75,7 @@ var all = {
     clientID: process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
-  },
+  }
 
   // facebook: {
   //   clientID: process.env.FACEBOOK_ID || 'id',
@@ -87,8 +87,7 @@ var all = {
   //   clientID: process.env.TWITTER_ID || 'id',
   //   clientSecret: process.env.TWITTER_SECRET || 'secret',
   //   callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
-  // },
-
+  // }
 };
 
 // Export the config object based on the NODE_ENV

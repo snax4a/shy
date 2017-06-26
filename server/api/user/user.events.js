@@ -1,9 +1,7 @@
 /**
  * User model events
  */
-
 'use strict';
-
 import { EventEmitter } from 'events';
 import { User } from '../../sqldb';
 var UserEvents = new EventEmitter();

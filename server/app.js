@@ -14,7 +14,7 @@ import expressConfig from './config/express';
 
 // Setup server
 let app = express();
-let server = http.createServer(app);
+const server = http.createServer(app);
 
 // Load configuration and routes
 expressConfig(app); // this is where I redirect to HTTPS in production
