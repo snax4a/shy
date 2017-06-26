@@ -123,6 +123,22 @@ export class UserManagerController {
     this.modalClassAdder(user);
   }
 
+  // Problem because SHYnet UI is container for user manager so we need to get the teacher, location, date, and class title
+  addAttendance(user, location, date, classTitle) {
+    const attendance = {
+      user,
+      location,
+      date,
+      classTitle
+    };
+    // Now send the attendance to the server
+  }
+
+  // Same issue
+  attendanceDelete(attendance) {
+
+  }
+
   historyItemDelete(historyItem) {
     this.User.historyItemDelete({ id: historyItem._id, type: historyItem.type })
       .$promise
