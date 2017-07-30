@@ -8,6 +8,9 @@
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
+<a name="1.0.7"></a>
+* Updates for node and webpack
+
 <a name="1.0.6"></a>
 # [1.0.6](https://github.com/nstuyvesant/shy/commit/d40fe19cdf449f33f05104fdc9ae1d2d839b3574) (2017-03-27)
 * Add schedule editing with pick lists bound to JSON files

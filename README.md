@@ -14,9 +14,9 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 8.1.2 and npm 5.0.3](nodejs.org) (`brew install node`)
+- [Node.js 8.2.1 and npm 5.3.0](nodejs.org) (`brew install node`)
 - [PostgreSQL 9.6.3](http://postgresql.org) (`brew install postgresql`)
-- [pgAdmin3](http://postgresql.org) (`brew cask install Caskroom/versions/pgadmin3`)
+- [pgAdmin4](https://www.postgresql.org/download/)
 - [Chrome >= 59] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
@@ -50,9 +50,9 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 [express]: https://img.shields.io/badge/expressjs-4.15.3-blue.svg
 [express-url]: http://expressjs.com
-[angularjs]: https://img.shields.io/badge/angularjs-1.6.4-red.svg
+[angularjs]: https://img.shields.io/badge/angularjs-1.6.5-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-8.1.2-green.svg
+[node]: https://img.shields.io/badge/nodejs-8.2.1-green.svg
 [node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-9.6.3-blue.svg
 [postgresql-url]: https://www.postgresql.org
