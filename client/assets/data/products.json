@@ -65,9 +65,19 @@
     "price": 25
   },
   {
-    "id": 22,
-    "name": "Workshop: Getting Unstuck (July 16)",
-    "price": 35   
+    "id": 28,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Sept 29)",
+    "price": 30   
+  },
+    {
+    "id": 29,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Oct 20)",
+    "price": 30   
+  },
+    {
+    "id": 30,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Nov 17)",
+    "price": 30   
   },
   {
     "id": 31,
