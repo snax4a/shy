@@ -115,7 +115,7 @@
 			},
 			{
 				"start": "2017-11-17T18:30:00.000-05:00",
-				"expires": "2017-11-18T20:00:00.000-04:00",
+				"expires": "2017-11-18T20:00:00.000-05:00",
 				"productID": 30,
 				"cost": 30,
 				"location": "North Hills"
@@ -139,15 +139,15 @@
 		]
 	},
 	{
-		"expires": "2017-01-15T15:00:00.000-05:00",
+		"expires": "2017-09-18T15:00:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
 		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms to be! Bring your partners, a family member or a friend to share a fun prenatal yoga experience where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and to prepare for the arrival of your little one into the world! All stages of pregnancy and levels of experience are welcome. $35 per couple.",
 		"sections":
 		[
 			{
-				"start": "2017-07-09T14:00:00.000-04:00",
-				"expires": "2017-07-10T15:30:00.000-04:00",
+				"start": "2017-09-17T14:00:00.000-04:00",
+				"expires": "2017-09-18T15:30:00.000-04:00",
 				"productID": 14,
 				"cost": 35,
 				"location": "East Liberty"
