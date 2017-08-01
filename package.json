@@ -28,7 +28,7 @@
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^2.2.0",
-    "braintree-web": "^3.20.1",
+    "braintree-web": "^3.21.0",
     "composable-middleware": "^0.3.0",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.5.0",
@@ -94,7 +94,7 @@
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
     "html-webpack-harddisk-plugin": "~0.1.0",
-    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-plugin": "^2.30.1",
     "isparta": "^4.0.0",
     "karma": "^1.7.0",
     "karma-chai-plugins": "^0.9.0",
@@ -107,7 +107,7 @@
     "karma-webpack": "^2.0.4",
     "lazypipe": "^1.0.1",
     "lodash": "^4.17.4",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.0",
     "ng-annotate-loader": "^0.6.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
@@ -125,7 +125,7 @@
     "supertest": "^3.0.0",
     "webpack": "^3.4.1",
     "webpack-bundle-analyzer": "^2.8.3",
-    "webpack-dev-middleware": "^1.11.0"
+    "webpack-dev-middleware": "^1.12.0"
   },
   "engines": {
     "node": "~8.2.1",
