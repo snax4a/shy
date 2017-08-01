@@ -15,7 +15,7 @@
 			}
 		]
 	},
-		{
+	{
 		"expires": "2017-01-08T17:00:00.000-05:00",
 		"title": "Yoga Gives Back Fundraiser",
 		"photo": "/assets/images/workshops/selfcompassion.jpg",
@@ -38,7 +38,7 @@
 		"description": "Trauma Foundation Mentoring Group. A discussion and practicum group for mental health professionals who want to skillfully integrate body, breath and mindfulness techniques into their psychotherapy sessions.  While this mentoring focuses on applications specific to the practice of psychotherapy, Yoga teachers seeking to enhance their skills for instructing private students on techniques that support mental focus and emotional and nervous system regulation will also find material of value in this group. Pre-requisite: Attendance at Ahimsa and/or Trauma Foundations training offered by Paula Soto and Linda Meacci; or, commensurate education in trauma-informed psychotherapy/yoga instruction. CEs are available to RYTs and Pennsylvania Licensed Social Workers, Licensed Professional Counselors and Licensed Marriage and Family Therapists through NASW.",
 		"sections":
 		[
-				{
+			{
 				"start": "2017-08-13T16:00:00.000-04:00",
 				"expires": "2017-08-19T18:15:00.000-04:00",
 				"productID": 44,
@@ -47,7 +47,6 @@
 			}
 		]
 	},
-
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Family Yoga Workshops with Bailey Zembower",
@@ -64,58 +63,57 @@
 			}
 		]
 	},
-	  {
-    "expires": "2017-12-10T20:00:00.000-05:00",
-    "title": "Moon Salutations with Kendell Romanelli",
-    "photo": "/assets/images/workshops/moonsalutations.jpg",
-    "description": "Moon Salutations were developed in the early 1980′s by four women at Kripalu Intstitute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body & mind. This  90 minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
-    "sections":
-    [
-      {
-       "start": "2017-09-08T18:30:00.000-04:00",
-        "expires": "2017-09-09T20:00:00.000-04:00",
-        "productID": 9,
-        "cost": 20,
-        "location": "North Hills"
-      },
-      {
-       "start": "2017-10-06T18:30:00.000-04:00",
-        "expires": "2017-10-07T20:00:00.000-04:00",
-        "productID": 10,
-        "cost": 20,
-        "location": "North Hills"
-      },
-      {
-        "start": "2017-11-03T18:30:00.000-04:00",
-        "expires": "2017-11-04T20:00:00.000-04:00",
-        "productID": 11,
-        "cost": 20,
-        "location": "North Hills"
-      }
-    ]
-  },
-		{
+	{
+		"expires": "2017-12-10T20:00:00.000-05:00",
+		"title": "Moon Salutations with Kendell Romanelli",
+		"photo": "/assets/images/workshops/moonsalutations.jpg",
+		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
+		"sections": [
+			{
+				"start": "2017-09-08T18:30:00.000-04:00",
+				"expires": "2017-09-09T20:00:00.000-04:00",
+				"productID": 9,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2017-10-06T18:30:00.000-04:00",
+				"expires": "2017-10-07T20:00:00.000-04:00",
+				"productID": 10,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2017-11-03T18:30:00.000-04:00",
+				"expires": "2017-11-04T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			}
+		]
+	},
+	{
 		"expires": "2017-11-18T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Quiong Wang",
 		"photo": "/assets/images/workshops/kundalini.jpg",
 		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas~ yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
 		"sections":
 		[
-						{
+			{
 				"start": "2017-09-29T18:30:00.000-04:00",
 				"expires": "2017-09-30T20:00:00.000-04:00",
 				"productID": 28,
 				"cost": 30,
 				"location": "North Hills"
 			},
-									{
+			{
 				"start": "2017-10-20T18:30:00.000-04:00",
 				"expires": "2017-10-21T20:00:00.000-04:00",
 				"productID": 29,
 				"cost": 30,
 				"location": "North Hills"
 			},
-									{
+			{
 				"start": "2017-11-17T18:30:00.000-05:00",
 				"expires": "2017-11-18T20:00:00.000-04:00",
 				"productID": 30,
@@ -124,7 +122,7 @@
 			}
 		]
 	},
-		{
+	{
 		"expires": "2017-01-08T17:00:00.000-05:00",
 		"title": "Getting Unstuck with Yoga and Positive Psychology",
 		"photo": "/assets/images/workshops/fertility.jpg",
