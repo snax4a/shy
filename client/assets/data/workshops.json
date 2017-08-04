@@ -144,7 +144,22 @@
 		]
 	},
 
-
+{
+	"expires": "2017-09-25T15:30:00.000-05:00",
+	"title": "Meditation for Managing Acute Stress Reactions with Joni Sturgill",
+	"photo": "/assets/images/workshops/fertility.jpg",
+	"description": "Whether you've struggled with test anxiety, speaking in public, dealing with conflict or self-criticism, meditation can help you learn to manage these acute stress reactions and overcome your fears. When you learn to anchor yourself in the present moment and soothe the nervous system, you can open the door to being your best self, regardless of your circumstances. Joni will teach several techniques to practice both in preparation for difficult moments and tools to use in the moment. This workshop will include discussion, practice time and a guided relaxation.",
+	"sections":
+	[
+		{
+			"start": "2017-09-24T14:00:00.000-05:00",
+			"expires": "2017-09-25T16:00:00.000-05:00",
+			"productID": 51,
+			"cost": 30,
+			"location": "East Liberty"
+		}
+	]
+},
 {
 	"expires": "2017-10-08T15:30:00.000-05:00",
 	"title": "Partner Meditation Workshop with Joni Sturgill",
