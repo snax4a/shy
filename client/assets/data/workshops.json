@@ -44,8 +44,8 @@
 				"location": "Squirrel Hill"
 			},
 			  		{
-				"start": "2017-11-12T14:00:00.000-04:00",
-				"expires": "2017-11-13T15:00:00.000-04:00",
+				"start": "2017-11-12T14:00:00.000-05:00",
+				"expires": "2017-11-13T15:00:00.000-05:00",
 				"productID": 59,
 				"cost": 10,
 				"location": "Squirrel Hill"
@@ -57,7 +57,7 @@
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Teen Yoga Workshops with Bailey Zembower",
 		"photo": "/assets/images/workshops/teenyoga.jpg",
-		"description": "description coming soon",
+		"description": "In our teen yoga workshop, we will focus on bringing peace and calm to the mind while getting to know our bodies. An introduction to meditation will be provided as it can be used to ground ourselves in stressful times and helps us to become more mindful of our world, our actions, and our words. This would be a great first yoga experience if you are looking to get into yoga or just a more comfortable way to practice and meet other teen yogis. Come build strength and flexibility and open your mind in a safe space with other like-minded teens!",
 		"sections":
 		[
 			 {
