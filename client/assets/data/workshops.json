@@ -175,6 +175,22 @@
 		}
 	]
 },
+ {
+		"expires": "2017-11-06T17:00:00.000-05:00",
+		"title": "Supporting the Perimeter: Practices for the Feet, Hands, Neck and Face",
+		"photo": "/assets/images/workshops/perimeter.jpg",
+		"description": "If you wish to further their practice by accessing your feet, hands, neck and face, this workshop is for you. A typical yoga practice focuses on a few major areas of the body like knees, hamstrings, or spine. This workshop spotlights micro-asanas—practices for the overworked and often ignored parts of our selves. These practices are a boon for anyone with repetitive stress symptoms, tension headaches, sore feet, and anyone who wishes to deepen their yoga experience. Yoga Alliance members receive a digital certificate for 2.5 CE credit hours.",
+		"sections":
+		[
+			{
+				"start": "2017-11-05T13:00:00.000-04:00",
+				"expires": "2017-11-06T14:30:00.000-04:00",
+				"productID": 54,
+				"cost": 40,
+				"location": "East Liberty"
+			}
+		]
+	},
 {
 	"expires": "2017-10-08T15:30:00.000-05:00",
 	"title": "Partner Meditation Workshop with Joni Sturgill",
