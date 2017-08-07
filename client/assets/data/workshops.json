@@ -112,6 +112,22 @@
 			}
 		]
 	},
+		{
+		"expires": "2017-09-23T17:00:00.000-05:00",
+		"title": "Kundalini Yoga and Chant for Abundance with Kendell Romanelli",
+		"photo": "/assets/images/workshops/kundaliniandchant.jpg",
+		"description": "The Autumnal Equinox is the perfect time to celebrate balance and abundance! This beautiful workshop will focus on a Kundalini Yoga Kriya~ yogic exercise set~ to open the body, mind and heart to the bounty within us and all around us. Kundalini Yoga involves moving yogic exercises and chanting meditations. It is appropriate for all levels of yoga and is renowned for it's ability to inspire and heal practitioners. Class will be supported with live guitar music by Rick Romanelli. A great way to experience something new or embrace the beauty of Kundalini Yoga!",
+		"sections":
+		[
+			{
+				"start": "2017-09-22T13:30:00.000-04:00",
+				"expires": "2017-09-23T20:00:00.000-04:00",
+				"productID": 57,
+				"cost": 20,
+				"location": "North Hills"
+			}
+		]
+	},
 	{
 		"expires": "2017-11-18T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Qiong Wang",
