@@ -1,5 +1,5 @@
 'use strict';
-const router = require('express-promise-router')(); // require('express').Router();
+const router = require('express').Router();
 const controller = require('./announcement.controller');
 const auth = require('../../auth/auth.service');
 
