@@ -39,7 +39,7 @@
     "font-awesome": "^4.7.0",
     "gulp-eslint": "^4.0.0",
     "jsonwebtoken": "^7.4.2",
-    "lusca": "^1.5.0--alpha",
+    "lusca": "^1.4.1",
     "method-override": "^2.3.9",
     "mime-types": "^2.1.16",
     "morgan": "~1.8.2",
