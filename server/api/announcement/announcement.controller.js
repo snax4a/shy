@@ -87,10 +87,7 @@ function removeEntity(res) {
   return function(entity) {
     if(entity) {
       return entity.destroy()
-        .then(() => {
-          res.status(204).end();
-          return null;
-        });
+        .then(() => res.status(204).end());
     }
     return null;
   };
@@ -99,8 +96,7 @@ function removeEntity(res) {
 function handleEntityNotFound(res) {
   return function(entity) {
     if(!entity) {
-      res.status(404).end();
-      return null;
+      return res.status(404).end();
     }
     return entity;
   };
@@ -108,5 +104,5 @@ function handleEntityNotFound(res) {
 
 // Authentication callback
 export function authCallback(req, res) {
-  res.redirect('/');
+  return res.redirect('/');
 }

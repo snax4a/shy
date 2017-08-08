@@ -32,7 +32,7 @@ export default function(app) {
     // Force HTTPS for production only (though would be good for dev too)
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
-        res.redirect(`${config.domain}${req.url}`);
+        return res.redirect(`${config.domain}${req.url}`);
       } else { // request was via http, so redirect to https
         return next();
       }

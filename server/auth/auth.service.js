@@ -39,8 +39,7 @@ export function isAuthenticated() {
             return res.status(401).end();
           }
           req.user = user;
-          next();
-          return user; // Resolved unhandled promise
+          return next();
         })
         .catch(err => next(err))
     );
@@ -84,5 +83,5 @@ export function setTokenCookie(req, res) {
   let token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
   if(req.user.role === 'admin') return res.redirect('/admin');
-  res.redirect('/');
+  return res.redirect('/');
 }
