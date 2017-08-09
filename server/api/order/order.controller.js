@@ -99,7 +99,7 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
 
     // Send the response
     res.status(200).json(response);
-    resolve(response);
+    resolve(response); // should this be return?
   });
 });
 
