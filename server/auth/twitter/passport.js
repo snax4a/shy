@@ -11,7 +11,7 @@ export function setup(User, config) {
     profile._json.id = `${profile._json.id}`;
     profile.id = `${profile.id}`;
 
-    User.find({where: {'twitter.id': profile.id}})
+    return User.find({where: {'twitter.id': profile.id}})
       .then(user => {
         if(user) {
           return done(null, user);
@@ -26,7 +26,7 @@ export function setup(User, config) {
           provider: 'twitter',
           twitter: profile._json
         });
-        user.save()
+        return user.save()
           .then(savedUser => done(null, savedUser))
           .catch(err => done(err));
       })

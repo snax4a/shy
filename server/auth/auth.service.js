@@ -39,7 +39,8 @@ export function isAuthenticated() {
             return res.status(401).end();
           }
           req.user = user;
-          return next();
+          next();
+          return null;
         })
         .catch(err => next(err))
     );
@@ -57,7 +58,8 @@ export function hasRole(roleRequired) {
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
       if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
-        return next();
+        next();
+        return null;
       } else {
         return res.status(403).send('Forbidden');
       }

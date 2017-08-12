@@ -34,7 +34,8 @@ export default function(app) {
       if(req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect(`${config.domain}${req.url}`);
       } else { // request was via http, so redirect to https
-        return next();
+        next();
+        return null;
       }
     });
     // Use gzip compression in production
