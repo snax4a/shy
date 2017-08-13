@@ -1,4 +1,5 @@
 # Product Backlog
+* [Medium] Fix promise created in a handler warning in express-sequelize-session/lib/e4store.js:57 to 61 (maybe fork)
 * [High] Build DELETE /user/attendance API method
 * [High] Bound history in ui.bootstrap.popover (https://angular-ui.github.io/bootstrap/#!#popover)
 * [High] Intrapage links don't work because anchors with ids load asynchronously
