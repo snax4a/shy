@@ -8,6 +8,9 @@
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
+<a name="1.0.9"></a>
+* Bump AngularJS, braintree-web, jsonwebtoken, lusca, passport, pg, sequelize, babel-core, babel-loader, babel-register, css-loader, eslint, gulp-babel, gulp-sourcemaps, sinon, sinon-chai, webpack, node
+
 <a name="1.0.7"></a>
 * Updates for node and webpack
 
