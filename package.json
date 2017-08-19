@@ -37,31 +37,18 @@
     "express-session": "^1.15.5",
     "font-awesome": "^4.7.0",
     "gulp-eslint": "^4.0.0",
-<<<<<<< HEAD
     "jsonwebtoken": "^7.4.3",
     "lusca": "^1.5.1",
-=======
-    "jsonwebtoken": "^7.4.2",
-    "lusca": "^1.5.0",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "method-override": "^2.3.9",
     "mime-types": "^2.1.16",
     "morgan": "~1.8.2",
     "nodemailer": "^4.0.1",
-<<<<<<< HEAD
     "passport": "~0.4.0",
-=======
-    "passport": "^0.4.0",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.1.2",
     "pg-native": "^2.0.1",
-<<<<<<< HEAD
     "sequelize": "^4.6.0",
-=======
-    "sequelize": "^4.4.10",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "shrink-ray": "^0.1.3",
     "sodium": "^2.0.1",
     "sprint-js": "~0.1.0"
@@ -82,11 +69,7 @@
     "chai-things": "^0.2.0",
     "css-loader": "^0.28.5",
     "del": "^3.0.0",
-<<<<<<< HEAD
     "eslint": "^4.5.0",
-=======
-    "eslint": "^4.4.1",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "grunt": "^1.0.1",
@@ -133,29 +116,17 @@
     "raw-loader": "^0.5.1",
     "run-sequence": "^2.1.0",
     "sass-loader": "^6.0.6",
-<<<<<<< HEAD
     "sinon": "^3.2.1",
-=======
-    "sinon": "^3.2.0",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "sinon-chai": "^2.13.0",
     "strip-ansi": "^4.0.0",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
-<<<<<<< HEAD
     "webpack": "^3.5.5",
-=======
-    "webpack": "^3.5.4",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0"
   },
   "engines": {
-<<<<<<< HEAD
     "node": "~8.4.0",
-=======
-    "node": "~8.3.0",
->>>>>>> 8e943aeb7b8eccbf7863bbe935f7373df717b260
     "npm": "~5.3.0"
   },
   "scripts": {
