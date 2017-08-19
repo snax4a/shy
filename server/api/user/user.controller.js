@@ -150,7 +150,7 @@ export function forgotPassword(req, res) {
         Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
       return userToUpdate.save()
         .then(user => {
-          res.status(200).send('New password sent.');
+          res.status(200).send('New password sent.'); // don't make user wait for email sending
           email({
             to: user.email,
             subject: 'Schoolhouse Yoga website login',
@@ -269,5 +269,5 @@ export function attendanceDelete(req, res) {
 
 // Authentication callback
 export function authCallback(req, res) {
-  res.redirect('/');
+  return res.redirect('/');
 }

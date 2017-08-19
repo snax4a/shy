@@ -22,11 +22,12 @@ describe('User API:', function() {
       optOut: true
     });
     return user.save()
-      .then(() => User.findOne({ where: { email: config.admin.email } }).then(function(foundAdminUser) {
-        userAdmin = foundAdminUser;
-        return userAdmin;
-      })
-    );
+      .then(() => User.findOne({ where: { email: config.admin.email } })
+        .then(function(foundAdminUser) {
+          userAdmin = foundAdminUser;
+          return userAdmin;
+        })
+      );
   });
 
   // Delete test users

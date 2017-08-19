@@ -9,7 +9,6 @@ import morgan from 'morgan';
 import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
-import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
 import lusca from 'lusca';
@@ -17,12 +16,11 @@ import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
 import sqldb from '../sqldb';
-import expressSequelizeSession from 'express-sequelize-session';
 import mime from 'mime-types';
 
 export default function(app) {
   let env = app.get('env');
-  let Store = expressSequelizeSession(session.Store);
+  let Store = require('connect-session-sequelize')(session.Store);
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
@@ -32,9 +30,10 @@ export default function(app) {
     // Force HTTPS for production only (though would be good for dev too)
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
-        res.redirect(`${config.domain}${req.url}`);
+        return res.redirect(`${config.domain}${req.url}`);
       } else { // request was via http, so redirect to https
-        return next();
+        next();
+        return null;
       }
     });
     // Use gzip compression in production
@@ -43,7 +42,7 @@ export default function(app) {
     // app.get('*.js', (req, res, next) => {
     //   req.url = `${req.url}.gz`;
     //   res.set('Content-Encoding', 'gzip');
-    //   next();
+    //   return next();
     // });
   }
 
@@ -67,7 +66,7 @@ export default function(app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(cookieParser());
+  //app.use(cookieParser());
   app.use(passport.initialize());
 
   // Persist sessions with sequelizeStore
@@ -77,7 +76,7 @@ export default function(app) {
     secret: config.secrets.session,
     saveUninitialized: true,
     resave: false,
-    store: new Store(sqldb.sequelize)
+    store: new Store({db: sqldb.sequelize})
   }));
 
   /**

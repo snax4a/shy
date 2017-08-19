@@ -99,7 +99,7 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
 
     // Send the response
     res.status(200).json(response);
-    resolve(response);
+    resolve(response); // should this be return?
   });
 });
 
@@ -224,6 +224,8 @@ const emailConfirmation = braintreeTransaction => new Promise(resolve => {
   } catch(errEmail) {
     return console.log(errEmail);
   }
+  // Should this be:
+  // return resolve(braintreeTransaction);
   resolve(braintreeTransaction);
 });
 
@@ -268,6 +270,8 @@ const saveToDB = braintreeTransaction => {
 
 // Attempt to create order, send confirmation email then save to database
 export function create(req, res) {
+  // Should probably change this to:
+  // return braintreeGatewayTransactionSale(req, res)
   braintreeGatewayTransactionSale(req, res)
     .then(emailConfirmation)
     .then(saveToDB)

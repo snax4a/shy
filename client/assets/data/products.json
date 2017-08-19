@@ -110,9 +110,19 @@
     "price": 40
   },
   {
-    "id": 57,
-    "name": "Workshop: Lymphatic Self-massage and Yoga (March 5)",
+    "id": 54,
+    "name": "Workshop: Supporting the Perimeter (Nov 5)",
     "price": 40
+  },
+  {
+    "id": 55,
+    "name": "Workshop: Straight from the Shoulder (Nov 19)",
+    "price": 40
+  },
+  {
+    "id": 57,
+    "name": "Workshop: Kundalini Yoga and Chant (Sept 22)",
+    "price": 20
   },
   {
     "id": 58,

@@ -12,6 +12,8 @@
 * Bump AngularJS, braintree-web, jsonwebtoken, lusca, passport, pg, sequelize, babel-core, babel-loader, babel-register, css-loader, eslint, gulp-babel, gulp-sourcemaps, sinon, sinon-chai, webpack, node
 
 <a name="1.0.7"></a>
+* [Medium] Replace express-sequelize-session with node-connect-pg-simple or connect-session-sequelize
+* Removed cookie-parser as express-session (since 1.5) no longer needs it
 * Updates for node and webpack
 
 <a name="1.0.6"></a>

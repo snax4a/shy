@@ -40,7 +40,7 @@ export function isAuthenticated() {
           }
           req.user = user;
           next();
-          return user; // Resolved unhandled promise
+          return null;
         })
         .catch(err => next(err))
     );
@@ -58,7 +58,8 @@ export function hasRole(roleRequired) {
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
       if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
-        return next();
+        next();
+        return null;
       } else {
         return res.status(403).send('Forbidden');
       }
@@ -84,5 +85,5 @@ export function setTokenCookie(req, res) {
   let token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
   if(req.user.role === 'admin') return res.redirect('/admin');
-  res.redirect('/');
+  return res.redirect('/');
 }

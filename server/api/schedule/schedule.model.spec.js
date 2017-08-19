@@ -10,7 +10,8 @@ let buildSchedule = function() {
     title: 'Yoga 1',
     teacher: 'Leta Koontz',
     startTime: '09:00:00.000000',
-    endTime: '10:30:00.000000'
+    endTime: '10:30:00.000000',
+    canceled: false
   });
   return schedule;
 };
@@ -41,7 +42,9 @@ describe('Schedule Model', function() {
 
   describe('#day', function() {
     it('should fail when saving without a day', function(done) {
-      schedule.day = undefined;
+      //Reflect.delete(schedule, 'day');
+      delete schedule.day;
+      //schedule.day = undefined;
       expect(schedule.save()).to.be.rejected;
       done();
     });
