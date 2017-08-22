@@ -55,7 +55,7 @@ describe('Order Model', function() {
   describe('#purchaserEmail', function() {
     it('should fail when saving without a purchaserEmail', function(done) {
       order.purchaserEmail = '';
-      expect(order.save()).to.be.rejected;
+      expect(order.save()).to.be.eventually.rejected;
       done();
     });
   });
@@ -70,8 +70,9 @@ describe('Order Model', function() {
 
   describe('#itemsOrdered', function() {
     it('should fail when saving without a value for itemsOrdered', function(done) {
-      order.itemsOrdered = '';
-      expect(order.save()).to.be.rejected;
+      //order.itemsOrdered = '';
+      delete order.itemsOrdered;
+      expect(order.save()).to.be.eventually.rejected;
       done();
     });
   });
