@@ -11,18 +11,24 @@ export default function(sequelize, DataTypes) {
     },
     amount: {
       type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
       validate: {
         isDecimal: true
       }
     },
     gift: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
+      allowNull: false
     },
     instructions: DataTypes.STRING,
     sendVia: { // Should have used DataTypes.ENUM('Email', 'Mail')
       type: DataTypes.STRING(5),
-      defaultValue: 'Email'
+      defaultValue: 'Email',
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     purchaserFirstName: DataTypes.STRING(20),
     purchaserLastName: DataTypes.STRING(20),
@@ -37,7 +43,7 @@ export default function(sequelize, DataTypes) {
     last4: DataTypes.STRING(4),
     recipientFirstName: DataTypes.STRING(20),
     recipientLastName: DataTypes.STRING(20),
-    recipientAddress: DataTypes.STRING,
+    recipientAddress: DataTypes.STRING(255),
     recipientCity: DataTypes.STRING(20),
     recipientState: DataTypes.STRING(2),
     recipientZipCode: DataTypes.STRING(10),
@@ -51,9 +57,7 @@ export default function(sequelize, DataTypes) {
     recipientPhone: DataTypes.STRING(23),
     itemsOrdered: {
       type: DataTypes.JSON,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     }
   }, {
     indexes: [

@@ -10,6 +10,7 @@ export default function(sequelize, DataTypes) {
 
     location: {
       type: DataTypes.STRING(20),
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -17,13 +18,12 @@ export default function(sequelize, DataTypes) {
 
     day: {
       type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     },
 
     title: {
       type: DataTypes.STRING(100),
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -31,6 +31,7 @@ export default function(sequelize, DataTypes) {
 
     teacher: {
       type: DataTypes.STRING(40),
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -38,16 +39,12 @@ export default function(sequelize, DataTypes) {
 
     startTime: {
       type: DataTypes.TIME,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     },
 
     endTime: {
       type: DataTypes.TIME,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     },
 
     canceled: {

@@ -9,11 +9,13 @@ export default function(sequelize, DataTypes) {
     },
 
     UserId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
 
     attended: {
       type: DataTypes.DATE,
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -25,6 +27,7 @@ export default function(sequelize, DataTypes) {
 
     location: {
       type: DataTypes.STRING(20),
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -32,6 +35,7 @@ export default function(sequelize, DataTypes) {
 
     classTitle: {
       type: DataTypes.STRING(80),
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -40,6 +44,7 @@ export default function(sequelize, DataTypes) {
     // Stored as last name, first name
     teacher: {
       type: DataTypes.STRING(40),
+      allowNull: false,
       validate: {
         notEmpty: true
       }

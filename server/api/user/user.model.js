@@ -57,7 +57,6 @@ export default function(sequelize, DataTypes) {
         isEmail: {
           args: true,
           msg: 'Please provide a valid email address'
-
         }
       }
     },

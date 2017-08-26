@@ -3,7 +3,7 @@
 import { Attendance } from '../../sqldb';
 
 let attendance;
-let buildAttendance = function() {
+let buildAttendance = () => {
   attendance = Attendance.build({
     UserId: 1,
     attended: '2001-05-21T13:00:00.000-04:00',
@@ -14,59 +14,48 @@ let buildAttendance = function() {
   return attendance;
 };
 
-describe('Attendance Model', function() {
-  before(function() {
-    // Sync and clear purchases before testing
-    return Attendance.sync().then(function() {
-      return Attendance.destroy({ where: { classTitle: 'Test class' } });
-    });
-  });
+describe('Attendance Model', () => {
+  before(() => // Sync and clear purchases before testing
+    Attendance.sync().then(() => Attendance.destroy({ where: { classTitle: 'Test class' } })));
 
-  beforeEach(function() {
+  beforeEach(() => {
     buildAttendance();
   });
 
-  afterEach(function() {
-    return Attendance.destroy({ where: { classTitle: 'Test class' } });
-  });
+  afterEach(() => Attendance.destroy({ where: { classTitle: 'Test class' } }));
 
-  describe('#userId', function() {
-    it('should fail when saving without a user ID', function(done) {
-      attendance.UserId = undefined;
-      expect(attendance.save()).to.be.rejected;
-      done();
+  describe('#userId', () => {
+    it('should fail when saving without a user ID', () => {
+      attendance.UserId = null;
+      return attendance.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#attended', function() {
-    it('should fail when saving without an attendance date', function(done) {
+  describe('#attended', () => {
+    it('should fail when saving without an attendance date', () => {
       attendance.attended = undefined;
-      expect(attendance.save()).to.be.rejected;
-      done();
+      return attendance.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#location', function() {
-    it('should fail when saving without a location', function(done) {
+  describe('#location', () => {
+    it('should fail when saving without a location', () => {
       attendance.location = undefined;
-      expect(attendance.save()).to.be.rejected;
-      done();
+      return attendance.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#classTitle', function() {
-    it('should fail when saving without a purchase method', function(done) {
+  describe('#classTitle', () => {
+    it('should fail when saving without a purchase method', () => {
       attendance.classTitle = undefined;
-      expect(attendance.save()).to.be.rejected;
-      done();
+      return attendance.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#teacher', function() {
-    it('should fail when saving without a teacher', function(done) {
+  describe('#teacher', () => {
+    it('should fail when saving without a teacher', () => {
       attendance.teacher = undefined;
-      expect(attendance.save()).to.be.rejected;
-      done();
+      return attendance.save().should.eventually.be.rejected;
     });
   });
 });

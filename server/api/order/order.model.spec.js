@@ -3,7 +3,7 @@
 import { Order } from '../../sqldb';
 
 let order;
-let buildOrder = function() {
+let buildOrder = () => {
   order = Order.build({
     orderNumber: '00000000',
     amount: 100,
@@ -28,52 +28,41 @@ let buildOrder = function() {
   return order;
 };
 
-describe('Order Model', function() {
-  before(function() {
-    // Sync and clear users before testing
-    return Order.sync().then(function() {
-      return Order.destroy({ where: { instructions: 'This is a test' } });
-    });
-  });
+describe('Order Model', () => {
+  before(() => // Sync and clear users before testing
+    Order.sync().then(() =>  Order.destroy({ where: { instructions: 'This is a test' } })));
 
-  beforeEach(function() {
+  beforeEach(() => {
     buildOrder();
   });
 
-  afterEach(function() {
-    return Order.destroy({ where: { instructions: 'This is a test' } });
-  });
+  afterEach(() => Order.destroy({ where: { instructions: 'This is a test' } }));
 
-  describe('#orderNumber', function() {
-    it('should fail when saving without an orderNumber', function(done) {
-      order.orderNumber = '';
-      expect(order.save()).to.be.rejected;
-      done();
+  describe('#orderNumber', () => {
+    it('should fail when saving without an orderNumber', () => {
+      order.orderNumber = null;
+      return order.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#purchaserEmail', function() {
-    it('should fail when saving without a purchaserEmail', function(done) {
+  describe('#purchaserEmail', () => {
+    it('should fail when saving without a purchaserEmail', () => {
       order.purchaserEmail = '';
-      expect(order.save()).to.be.eventually.rejected;
-      done();
+      return order.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#recipientEmail', function() {
-    it('should fail when saving without a recipientEmail', function(done) {
+  describe('#recipientEmail', () => {
+    it('should fail when saving without a recipientEmail', () => {
       order.recipientEmail = '';
-      expect(order.save()).to.be.rejected;
-      done();
+      return order.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#itemsOrdered', function() {
-    it('should fail when saving without a value for itemsOrdered', function(done) {
-      //order.itemsOrdered = '';
-      delete order.itemsOrdered;
-      expect(order.save()).to.be.eventually.rejected;
-      done();
+  describe('#itemsOrdered', () => {
+    it('should fail when saving without a value for itemsOrdered', () => {
+      order.itemsOrdered = null;
+      return order.save().should.eventually.be.rejected;
     });
   });
 });

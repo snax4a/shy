@@ -3,7 +3,7 @@
 import { Schedule } from '../../sqldb';
 
 let schedule;
-let buildSchedule = function() {
+let buildSchedule = () => {
   schedule = Schedule.build({
     location: 'Test',
     day: 1,
@@ -16,69 +16,55 @@ let buildSchedule = function() {
   return schedule;
 };
 
-describe('Schedule Model', function() {
-  before(function() {
-    // Sync and clear users before testing
-    return Schedule.sync().then(function() {
-      return Schedule.destroy({ where: { location: 'Test' } });
-    });
-  });
+describe('Schedule Model', () => {
+  before(() => // Sync and clear users before testing
+    Schedule.sync().then(() => Schedule.destroy({ where: { location: 'Test' } })));
 
-  beforeEach(function() {
+  beforeEach(() => {
     buildSchedule();
   });
 
-  afterEach(function() {
-    return Schedule.destroy({ where: { location: 'Test' } });
-  });
+  afterEach(() => Schedule.destroy({ where: { location: 'Test' } }));
 
-  describe('#location', function() {
-    it('should fail when saving without a location', function(done) {
+  describe('#location', () => {
+    it('should fail when saving without a location', () => {
       schedule.location = '';
-      expect(schedule.save()).to.be.rejected;
-      done();
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#day', function() {
-    it('should fail when saving without a day', function(done) {
-      //Reflect.delete(schedule, 'day');
-      delete schedule.day;
-      //schedule.day = undefined;
-      expect(schedule.save()).to.be.rejected;
-      done();
+  describe('#day', () => {
+    it('should fail when saving with a null day', () => {
+      schedule.day = null;
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#title', function() {
-    it('should fail when saving without a title', function(done) {
+  describe('#title', () => {
+    it('should fail when saving without a title', () => {
       schedule.title = '';
-      expect(schedule.save()).to.be.rejected;
-      done();
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#teacher', function() {
-    it('should fail when saving without a teacher', function(done) {
+  describe('#teacher', () => {
+    it('should fail when saving without a teacher', () =>{
       schedule.teacher = '';
-      expect(schedule.save()).to.be.rejected;
-      done();
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#startTime', function() {
-    it('should fail when saving without a startTime', function(done) {
+  describe('#startTime', () => {
+    it('should fail when saving without a startTime', () => {
       schedule.startTime = '';
-      expect(schedule.save()).to.be.rejected;
-      done();
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#endTime', function() {
-    it('should fail when saving without an endTime', function(done) {
+  describe('#endTime', () => {
+    it('should fail when saving without an endTime', () => {
       schedule.endTime = '';
-      expect(schedule.save()).to.be.rejected;
-      done();
+      return schedule.save().should.eventually.be.rejected;
     });
   });
 });
