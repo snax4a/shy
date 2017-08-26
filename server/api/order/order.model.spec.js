@@ -40,7 +40,7 @@ describe('Order Model', () => {
 
   describe('#orderNumber', () => {
     it('should fail when saving without an orderNumber', () => {
-      order.orderNumber = null;
+      order.set('orderNumber', '', { raw: true }); // Sequelize normally blocks changes by user to primary key
       return order.save().should.eventually.be.rejected;
     });
   });
@@ -60,7 +60,7 @@ describe('Order Model', () => {
   });
 
   describe('#itemsOrdered', () => {
-    it('should fail when saving without a value for itemsOrdered', () => {
+    it('should fail when saving with a null value for itemsOrdered', () => {
       order.itemsOrdered = null;
       return order.save().should.eventually.be.rejected;
     });
