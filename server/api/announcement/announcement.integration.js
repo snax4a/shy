@@ -6,38 +6,38 @@ import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('Announcement API:', function() {
-  var newAnnouncementID;
+describe('Announcement API:', () => {
+  let newAnnouncementID;
 
   // announcement.controller.js:index
-  describe('GET /api/announcement', function() {
-    var announcements;
+  describe('GET /api/announcement', () => {
 
-    beforeEach(function(done) {
-      request(app)
+    it('should respond with JSON array', () => {
+      return request(app)
         .get('/api/announcement')
         .expect(200)
         .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) {
-            return done(err);
-          }
-          announcements = res.body;
-          done();
+        .then(res => {
+          let announcements = res.body;
+          announcements.should.be.instanceOf(Array);
         });
     });
 
-    it('should respond with JSON array', function() {
-      expect(announcements).to.be.instanceOf(Array);
-    });
   });
 
   // announcement.controller.js:upsert
-  describe('PUT /api/announcement/:id', function() {
-    var tokenAdmin;
+  describe('PUT /api/announcement/:id', () => {
+    let newAnnouncement = {
+      _id: 0,
+      section: 'Section 1',
+      title: 'Title 1',
+      description: 'Description 1',
+      expires: '2018-04-15T20:00:00.000-04:00'
+    };
+    let tokenAdmin;
 
-    before(function(done) {
-      request(app)
+    before(() => {
+      return request(app)
         .post('/auth/local')
         .send({
           email: config.admin.email,
@@ -45,39 +45,30 @@ describe('Announcement API:', function() {
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
+        .then(res => {
           tokenAdmin = res.body.token;
-          done();
         });
     });
 
-    it('should upsert the announcement when admin is authenticated', function(done) {
-      request(app)
+    it('should upsert the announcement when admin is authenticated and return a non-zero ID', () => {
+      return request(app)
         .put('/api/announcement/0')
-        .send({
-          _id: 0,
-          section: 'Section 1',
-          title: 'Title 1',
-          description: 'Description 1',
-          expires: '2017-04-15T20:00:00.000-04:00'
-        })
+        .send(newAnnouncement)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
-          newAnnouncementID = res.body._id;
-          expect(newAnnouncementID).to.be.above(0);
-          done();
-        });
+        .then(res => {
+          let newAnnouncementID = res.body._id;
+          newAnnouncementID.should.be.above(0);
+        })
     });
 
-    it('should respond with a 401 when not authenticated', function(done) {
-      request(app)
+    // Gives a 500 error rather than 401 (bug)
+    it('should respond with a 401 when not authenticated', () => {
+      return request(app)
         .put('/api/announcement/0')
+        .send(newAnnouncement)
         .expect(401)
-        .end(done);
     });
   });
 
@@ -97,7 +88,7 @@ describe('Announcement API:', function() {
         .end((err, res) => {
           if(err) return done(err);
           tokenAdmin = res.body.token;
-          done();
+          return done();
         });
     });
 
