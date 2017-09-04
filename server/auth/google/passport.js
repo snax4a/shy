@@ -12,7 +12,8 @@ export function setup(User, config) {
       .then(user => {
         // If the user is already setup...
         if(user) {
-          return done(null, user);
+          done(null, user);
+          return null;
         }
 
         // Map Google's properties to our user model
