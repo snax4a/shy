@@ -1,15 +1,15 @@
-/* global describe, beforeEach, it, expect, after */
+/* global describe, before, it, after */
 'use strict';
 
 import app from '../..';
 import { User } from '../../sqldb';
 import request from 'supertest';
 
-describe('Order API:', function() {
-  describe('POST /api/order', function() {
+describe('Order API:', () => {
+  describe('POST /api/order', () => {
     let confirmation;
 
-    beforeEach(done => {
+    before(() =>
       request(app)
         .post('/api/order')
         .send({
@@ -45,27 +45,25 @@ describe('Order API:', function() {
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
+        .expect(res => {
           confirmation = res.body;
-          done();
-        });
-    });
+        })
+    );
 
     // Delete test users
-    after(function() {
-      return User.destroy({
+    after(() =>
+      User.destroy({
         where: {
           $or: [
             { email: 'john.doe@bitbucket.com' }
           ]
         }
-      });
-    });
+      })
+    );
 
-    it('should respond with a JSON confirmation', function() {
-      expect(confirmation.transaction.customer.firstName).to.equal('John');
-      expect(confirmation.transaction.customer.lastName).to.equal('Doe');
+    it('should return a confirmation with contact info that matches submitted', () => {
+      confirmation.transaction.customer.firstName.should.equal('John');
+      confirmation.transaction.customer.lastName.should.equal('Doe');
     });
   });
 });

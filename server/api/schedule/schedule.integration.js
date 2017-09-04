@@ -1,122 +1,97 @@
 'use strict';
 
-/* globals before, describe, expect, it, beforeEach */
+/* globals before, describe, it, before */
 
 import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('Schedule API:', function() {
-  var newScheduleItemID;
+describe('Schedule API:', () => {
+  let newScheduleItemID;
+  let tokenAdmin;
+
+  // Authenticate the administrator
+  before(() =>
+    request(app)
+      .post('/auth/local')
+      .send({
+        email: config.admin.email,
+        password: config.admin.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        tokenAdmin = res.body.token;
+      })
+  );
+
+  // schedule.controller.js:upsert
+  describe('PUT /api/schedule/:id', () => {
+    let newScheduleItem = {
+      _id: 0,
+      location: 'Test',
+      day: 1,
+      title: 'Yoga 1',
+      teacher: 'Jane Doe',
+      startTime: '09:00:00.000000',
+      endTime: '10:30:00.000000',
+      canceled: false
+    };
+
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .put('/api/schedule/0')
+        .set('authorization', 'Bearer BOGUS')
+        .expect(401)
+    );
+
+    it('should upsert the schedule item when admin is authenticated and return a non-zero ID', () =>
+      request(app)
+        .put('/api/schedule/0')
+        .set('authorization', `Bearer ${tokenAdmin}`)
+        .send(newScheduleItem)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          newScheduleItemID = res.body._id;
+          newScheduleItemID.should.be.above(0);
+        })
+    );
+  });
 
   // schedule.controller.js:index
-  describe('GET /api/schedule', function() {
-    var schedules;
+  describe('GET /api/schedule', () => {
+    let schedules;
 
-    beforeEach(function(done) {
+    before(() =>
       request(app)
         .get('/api/schedule')
         .expect(200)
         .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) {
-            return done(err);
-          }
+        .expect(res => {
           schedules = res.body;
-          done();
-        });
-    });
-
-    it('should respond with JSON array', function() {
-      expect(schedules).to.be.instanceOf(Array);
-    });
-  });
-
-  // schedule.controller.js:upsert
-  describe('PUT /api/schedule/:id', function() {
-    var tokenAdmin;
-
-    before(function(done) {
-      request(app)
-        .post('/auth/local')
-        .send({
-          email: config.admin.email,
-          password: config.admin.password
         })
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
-          tokenAdmin = res.body.token;
-          done();
-        });
-    });
+    );
 
-    it('should upsert the schedule item when admin is authenticated', function(done) {
-      request(app)
-        .put('/api/schedule/0')
-        .send({
-          _id: 0,
-          location: 'Test',
-          day: 1,
-          title: 'Yoga 1',
-          teacher: 'Jane Doe',
-          startTime: '09:00:00.000000',
-          endTime: '10:30:00.000000',
-          canceled: false
-        })
-        .set('authorization', `Bearer ${tokenAdmin}`)
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
-          newScheduleItemID = res.body._id;
-          expect(newScheduleItemID).to.be.above(0);
-          done();
-        });
-    });
-
-    it('should respond with a 401 when not authenticated', function(done) {
-      request(app)
-        .put('/api/schedule/0')
-        .expect(401)
-        .end(done);
+    it('should respond with JSON array', () => {
+      schedules.should.be.instanceOf(Array);
     });
   });
 
   // schedule.controller.js:destroy
-  describe('DELETE /api/schedule/:id', function() {
-    var tokenAdmin;
-
-    before(function(done) {
-      request(app)
-        .post('/auth/local')
-        .send({
-          email: config.admin.email,
-          password: config.admin.password
-        })
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
-          tokenAdmin = res.body.token;
-          done();
-        });
-    });
-
-    it('should respond with a 401 when not authenticated', function(done) {
+  describe('DELETE /api/schedule/:id', () => {
+    it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/schedule/${newScheduleItemID}`)
+        .set('authorization', 'Bearer BOGUS')
         .expect(401)
-        .end(done);
-    });
+    );
 
-    it('should respond with a result code of 204 to confirm deletion when authenticated', function(done) {
+    it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
       request(app)
         .delete(`/api/schedule/${newScheduleItemID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(204)
-        .end(done);
-    });
+    );
   });
 });

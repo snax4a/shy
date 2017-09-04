@@ -1,15 +1,15 @@
-/* global describe, beforeEach, it, expect, after */
+/* global describe, before, it, after */
 'use strict';
 
 import app from '../..';
 import request from 'supertest';
 import { User } from '../../sqldb';
 
-describe('Message API:', function() {
-  describe('POST /api/message', function() {
+describe('Message API:', () => {
+  describe('POST /api/message', () => {
     let response = '';
 
-    beforeEach(function(done) {
+    before(() =>
       request(app)
         .post('/api/message')
         .send({
@@ -17,30 +17,29 @@ describe('Message API:', function() {
           lastName: 'Doe',
           email: 'jdoe@gmail.com',
           question: 'This is a question',
-          optOut: false
+          optOut: false,
+          role: 'student',
+          provider: 'local'
         })
         .expect(200)
         .expect('Content-Type', /html/)
-        .end((err, res) => {
-          if(err) return done(err);
+        .expect(res => {
           response = res.text;
-          done();
-        });
-    });
+        })
+    );
 
-    it('should send response thanking the user for submitting a question or comment', function() {
-      expect(response).to.equal('Thanks for submitting your question or comment. We will respond shortly.');
-    });
+    it('should send response thanking the user for submitting a question or comment', () =>
+      response.should.equal('Thanks for submitting your question or comment. We will respond shortly.'));
 
     // Delete test user
-    after(function() {
-      return User.destroy({
+    after(() =>
+      User.destroy({
         where: {
           $or: [
             { email: 'jdoe@gmail.com' }
           ]
         }
-      });
-    });
+      })
+    );
   });
 });

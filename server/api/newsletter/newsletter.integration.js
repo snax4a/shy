@@ -1,36 +1,37 @@
-/* global describe, it, expect, after */
+/* global describe, it, after */
 'use strict';
 
 import app from '../..';
 import { User } from '../../sqldb';
 import request from 'supertest';
 
-describe('Newsletter API:', function() {
-  describe('POST /api/newsletter', function() {
-    it('should send response thanking the user for subscribing to the newsletter', function(done) {
+describe('Newsletter API:', () => {
+  describe('POST /api/newsletter', () => {
+    let newSubscriber = {
+      email: 'jdoe@gmail.com'
+    };
+
+    it('should send response thanking the user for subscribing to the newsletter', () =>
       request(app)
         .post('/api/newsletter')
-        .send({
-          email: 'jdoe@gmail.com'
-        })
+        .send(newSubscriber)
         .expect(200)
         .expect('Content-Type', /html/)
-        .end((err, res) => {
-          if(err) return done(err);
-          expect(res.text.toString()).to.equal('Thanks for subscribing to our newsletter.');
-          done();
-        });
-    });
+        .expect(res => {
+          let response = res.text.toString();
+          response.should.equal('Thanks for subscribing to our newsletter.');
+        })
+    );
 
     // Delete test user
-    after(function() {
-      return User.destroy({
+    after(() =>
+      User.destroy({
         where: {
           $or: [
             { email: 'jdoe@gmail.com' }
           ]
         }
-      });
-    });
+      })
+    );
   });
 });

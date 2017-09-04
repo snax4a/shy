@@ -44,7 +44,7 @@ describe('Announcement API Router:', function() {
     it('should route to announcement.controller.index', function() {
       expect(routerStub.get
         .withArgs('/', 'announcementCtrl.index')
-        ).to.have.been.calledOnce;
+      ).to.have.been.calledOnce;
     });
   });
 
@@ -52,7 +52,7 @@ describe('Announcement API Router:', function() {
     it('should be authenticated and route to announcement.controller.upsert', function(done) {
       expect(routerStub.put
         .withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.upsert')
-        ).to.have.been.calledOnce;
+      ).to.have.been.calledOnce;
       done();
     });
   });
@@ -61,7 +61,7 @@ describe('Announcement API Router:', function() {
     it('should verify admin role and route to announcement.controller.destroy', function(done) {
       expect(routerStub.delete
         .withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.destroy')
-        ).to.have.been.calledOnce;
+      ).to.have.been.calledOnce;
       done();
     });
   });

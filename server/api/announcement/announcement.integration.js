@@ -1,5 +1,4 @@
-/* globals describe, expect, it, before, beforeEach */
-
+/* globals describe, it, before, beforeEach */
 'use strict';
 
 import app from '../..';
@@ -8,21 +7,26 @@ import config from '../../config/environment';
 
 describe('Announcement API:', () => {
   let newAnnouncementID;
+  let tokenAdmin;
 
-  // announcement.controller.js:index
-  describe('GET /api/announcement', () => {
+  // Authenticate the administrator
+  before(() =>
+    request(app)
+      .post('/auth/local')
+      .send({
+        email: config.admin.email,
+        password: config.admin.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        tokenAdmin = res.body.token;
+      })
+  );
 
-    it('should respond with JSON array', () => {
-      return request(app)
-        .get('/api/announcement')
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-          let announcements = res.body;
-          announcements.should.be.instanceOf(Array);
-        });
-    });
-
+  describe('POST /auth/local', () => {
+    it('should authenticate the administrator and get token with length of 164', () =>
+      tokenAdmin.should.have.length(164));
   });
 
   // announcement.controller.js:upsert
@@ -32,79 +36,64 @@ describe('Announcement API:', () => {
       section: 'Section 1',
       title: 'Title 1',
       description: 'Description 1',
-      expires: '2018-04-15T20:00:00.000-04:00'
+      expires: '2030-04-15T20:00:00.000-04:00'
     };
-    let tokenAdmin;
 
-    before(() => {
-      return request(app)
-        .post('/auth/local')
-        .send({
-          email: config.admin.email,
-          password: config.admin.password
-        })
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-          tokenAdmin = res.body.token;
-        });
-    });
-
-    it('should upsert the announcement when admin is authenticated and return a non-zero ID', () => {
-      return request(app)
+    // Gives a 500 error rather than 401 if authorization header is not provided
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
         .put('/api/announcement/0')
-        .send(newAnnouncement)
-        .set('authorization', `Bearer ${tokenAdmin}`)
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-          let newAnnouncementID = res.body._id;
-          newAnnouncementID.should.be.above(0);
-        })
-    });
-
-    // Gives a 500 error rather than 401 (bug)
-    it('should respond with a 401 when not authenticated', () => {
-      return request(app)
-        .put('/api/announcement/0')
+        .set('authorization', 'Bearer BOGUS')
         .send(newAnnouncement)
         .expect(401)
-    });
+    );
+
+    it('should upsert the announcement when admin is authenticated and return a non-zero ID', () =>
+      request(app)
+        .put('/api/announcement/0')
+        .set('authorization', `Bearer ${tokenAdmin}`)
+        .send(newAnnouncement)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          newAnnouncementID = res.body._id;
+          newAnnouncementID.should.be.above(0);
+        })
+    );
+  });
+
+  // announcement.controller.js:index
+  describe('GET /api/announcement', () => {
+    let announcements;
+
+    // Retrieve list of announcements each time before testing
+    beforeEach(() =>
+      request(app)
+        .get('/api/announcement')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          announcements = res.body;
+        })
+    );
+
+    it('should respond with JSON array', () => announcements.should.be.instanceOf(Array));
   });
 
   // announcement.controller.js:destroy
-  describe('DELETE /api/announcement/:id', function() {
-    var tokenAdmin;
-
-    before(function(done) {
-      request(app)
-        .post('/auth/local')
-        .send({
-          email: config.admin.email,
-          password: config.admin.password
-        })
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end((err, res) => {
-          if(err) return done(err);
-          tokenAdmin = res.body.token;
-          return done();
-        });
-    });
-
-    it('should respond with a 401 when not authenticated', function(done) {
+  describe('DELETE /api/announcement/:id', () => {
+    it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
+        .set('authorization', 'Bearer BOGUS')
         .expect(401)
-        .end(done);
-    });
+    );
 
-    it('should respond with a result code of 204 to confirm deletion when authenticated', function(done) {
+    it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(204)
-        .end(done);
-    });
+    );
   });
 });

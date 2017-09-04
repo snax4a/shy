@@ -1,27 +1,25 @@
-/* global describe, beforeEach, expect, it */
+/* global describe, before, it */
 'use strict';
 
-var app = require('../..');
+import app from '../..';
 import request from 'supertest';
 
-describe('Token API:', function() {
-  describe('GET /api/token', function() {
-    var token;
+describe('Token API:', () => {
+  describe('GET /api/token', () => {
+    let token;
 
-    beforeEach(function(done) {
+    before(() =>
       request(app)
         .get('/api/token')
         .expect(200)
         .expect('Content-Type', /text/)
-        .end(function(err, res) {
-          if(err) return done(err);
+        .expect(res => {
           token = res.text;
-          done();
-        });
-    });
+        })
+    );
 
-    it('should respond with a client token that is 1700 characters or more', function() {
-      expect(token).to.have.length.above(1700);
-    });
+    it('should respond with a client token that is 1700 characters or more', () =>
+      token.should.have.length.above(1700)
+    );
   });
 });

@@ -8,6 +8,26 @@ function validationError(res, statusCode) {
   return err => res.status(statusCode).json(err);
 }
 
+function handleEntityNotFound(res) {
+  return function(entity) {
+    if(!entity) {
+      res.status(404).end();
+      return null;
+    }
+    return entity;
+  };
+}
+
+function removeEntity(res) {
+  return function(entity) {
+    if(entity) {
+      return entity.destroy()
+        .then(() => res.status(204).end());
+    }
+    throw new Error('Entity to remove was not provided'); // handleEntityNotFound should have prevented this
+  };
+}
+
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return err => res.status(statusCode).send(err);
@@ -83,26 +103,7 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-function removeEntity(res) {
-  return function(entity) {
-    if(entity) {
-      return entity.destroy()
-        .then(() => res.status(204).end());
-    }
-    return null;
-  };
-}
-
-function handleEntityNotFound(res) {
-  return function(entity) {
-    if(!entity) {
-      return res.status(404).end();
-    }
-    return entity;
-  };
-}
-
 // Authentication callback
 export function authCallback(req, res) {
-  return res.redirect('/');
+  res.redirect('/');
 }
