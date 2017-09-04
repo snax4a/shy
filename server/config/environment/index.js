@@ -45,7 +45,7 @@ const all = {
       logging: false,
       dialect: 'postgres',
       protocol: 'postgres',
-      native: true,
+      native: false,
       language: 'en'
     }
   },
