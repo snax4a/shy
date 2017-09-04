@@ -8,6 +8,11 @@
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
 
+<a name="1.0.10"></a>
+* Revert from pg 7.2.0 to 6.4.2 and switched sequelize to use native=false to sidestep pg-native issues
+* Fix all integration tests except user.integration.js (PUT /api/users/:id/admin)
+* Add return null to /server/api/auth/google/passport to prevent promise warning
+
 <a name="1.0.9"></a>
 * Bump AngularJS, braintree-web, jsonwebtoken, lusca, passport, pg, sequelize, babel-core, babel-loader, babel-register, css-loader, eslint, gulp-babel, gulp-sourcemaps, sinon, sinon-chai, webpack, node
 
