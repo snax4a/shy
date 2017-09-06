@@ -11,14 +11,15 @@ describe('User API:', () => {
   let token;
   let user; // Set by getUserProfile()
 
-  // Object literal will suffice (class is overkill)
-  let testUser = {
-    firstName: 'Boaty',
-    lastName: 'McBoatface',
-    email,
-    password,
-    optOut: false,
-    phone: '412-555-1212'
+  const createUser = function() {
+    return {
+      firstName: 'Boaty',
+      lastName: 'McBoatface',
+      email,
+      password,
+      optOut: false,
+      phone: '412-555-1212'
+    };
   };
 
   // Retrieve the current user
@@ -38,7 +39,7 @@ describe('User API:', () => {
       .then(() =>
         request(app)
           .post('/api/users')
-          .send(testUser)
+          .send(createUser())
           .expect(200)
           .expect('Content-Type', /json/)
           .expect(res => {
@@ -102,12 +103,11 @@ describe('User API:', () => {
 
     // Check response from user.controller.js:update
     describe('PUT /api/users/:id', () => {
-      testUser.firstName = 'Something';
-      testUser.lastName = 'Changed';
-      //testUser.optOut = true;
-      testUser.phone = '000-000-0000';
-
-      console.log('TESTUSER', testUser);
+      let updatedUser = createUser();
+      updatedUser.firstName = 'Something';
+      updatedUser.lastName = 'Changed';
+      updatedUser.optOut = true;
+      updatedUser.phone = '000-000-0000';
 
       it('should respond with a 401 when not authenticated', () =>
         getUserProfile()
@@ -115,7 +115,7 @@ describe('User API:', () => {
             request(app)
               .put(`/api/users/${user._id}`)
               .set('authorization', 'Bearer BOGUS')
-              .send(testUser)
+              .send(updatedUser)
               .expect(401)
           )
       );
@@ -126,7 +126,7 @@ describe('User API:', () => {
             request(app)
               .put(`/api/users/${user._id}`)
               .set('authorization', `Bearer ${token}`)
-              .send(testUser)
+              .send(updatedUser)
               .expect(200)
               .expect('Content-Type', /json/)
               .expect(res => {
@@ -135,10 +135,10 @@ describe('User API:', () => {
                 return User.findOne({ where: { email } })
                   .then(foundUser => {
                     // Now verify updates made it to database
-                    foundUser.firstName.should.equal(testUser.firstName);
-                    foundUser.lastName.should.equal(testUser.lastName);
-                    foundUser.phone.should.equal(testUser.phone);
-                    // foundUser.optOut.should.be.true;
+                    foundUser.firstName.should.equal(updatedUser.firstName);
+                    foundUser.lastName.should.equal(updatedUser.lastName);
+                    foundUser.phone.should.equal(updatedUser.phone);
+                    foundUser.optOut.should.be.true;
                   });
               })
           )
