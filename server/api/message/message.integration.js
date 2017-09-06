@@ -28,9 +28,6 @@ describe('Message API:', () => {
         })
     );
 
-    it('should send response thanking the user for submitting a question or comment', () =>
-      response.should.equal('Thanks for submitting your question or comment. We will respond shortly.'));
-
     // Delete test user
     after(() =>
       User.destroy({
@@ -41,5 +38,8 @@ describe('Message API:', () => {
         }
       })
     );
+
+    it('should send response thanking the user for submitting a question or comment', () =>
+      response.should.equal('Thanks for submitting your question or comment. We will respond shortly.'));
   });
 });
