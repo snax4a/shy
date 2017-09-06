@@ -4,12 +4,12 @@
 import app from '../..';
 import { User } from '../../sqldb';
 import request from 'supertest';
-import config from '../../config/environment';
 
 describe('User API:', () => {
+  const email = 'nul@bitbucket.com';
   let token;
-  let user;
-  let email = 'nul@bitbucket.com';
+  let user; // Set by getUserProfile()
+
   let password = 'password';
   let newUser = {
     firstName: 'Boaty',
@@ -19,6 +19,31 @@ describe('User API:', () => {
     phone: '412-555-1212',
     optOut: false
   };
+
+  // Return a new user object with appropriate defaults
+  class TestUser {
+    constructor(role, firstName, lastName, password) {
+      this.role = role || 'student';
+      this.firstName = firstName || 'Boaty';
+      this.lastName = lastName || 'McBoatface';
+      this.email = email;
+      this.password = password || 'password';
+      this.optOut = false;
+      this.phone = '412-555-1212';
+      this.provider = 'local';
+    }
+  }
+
+  // Retrieve the current user
+  const getUserProfile = () =>
+    request(app)
+      .get('/api/users/me')
+      .set('authorization', `Bearer ${token}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        user = res.body;
+      });
 
   // Delete student test account (if it exists) then sign-up and get token
   const recreateUser = () =>
@@ -36,32 +61,6 @@ describe('User API:', () => {
 
   // Only delete the student test account
   const deleteUser = () => User.destroy({ where: { email } });
-
-  // Retrieve the current user
-  const getUserProfile = () =>
-    request(app)
-      .get('/api/users/me')
-      .set('authorization', `Bearer ${token}`)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .expect(res => {
-        user = res.body;
-      });
-
-  /*
-  const login = (userName, providedPassword) =>
-    request(app)
-      .post('/auth/local')
-      .send({
-        email: userName,
-        password: providedPassword
-      })
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .expect(res => {
-        token = res.body.token;
-      });
-  */
 
   describe('Methods for anyone:', () => {
     before(() => recreateUser());
