@@ -7,32 +7,19 @@ import request from 'supertest';
 
 describe('User API:', () => {
   const email = 'nul@bitbucket.com';
+  const password = 'password';
   let token;
   let user; // Set by getUserProfile()
 
-  let password = 'password';
-  let newUser = {
+  // Object literal will suffice (class is overkill)
+  let testUser = {
     firstName: 'Boaty',
     lastName: 'McBoatface',
     email,
     password,
-    phone: '412-555-1212',
-    optOut: false
+    optOut: false,
+    phone: '412-555-1212'
   };
-
-  // Return a new user object with appropriate defaults
-  class TestUser {
-    constructor(role, firstName, lastName, password) {
-      this.role = role || 'student';
-      this.firstName = firstName || 'Boaty';
-      this.lastName = lastName || 'McBoatface';
-      this.email = email;
-      this.password = password || 'password';
-      this.optOut = false;
-      this.phone = '412-555-1212';
-      this.provider = 'local';
-    }
-  }
 
   // Retrieve the current user
   const getUserProfile = () =>
@@ -51,7 +38,7 @@ describe('User API:', () => {
       .then(() =>
         request(app)
           .post('/api/users')
-          .send(newUser)
+          .send(testUser)
           .expect(200)
           .expect('Content-Type', /json/)
           .expect(res => {
@@ -78,7 +65,7 @@ describe('User API:', () => {
       it('should generate a new password and email it to the user', () =>
         request(app)
           .post('/api/users/forgotpassword')
-          .send({ email }) // shorthand for email: email
+          .send({ email })
           .expect(200)
           .expect('Content-Type', /html/)
           .expect(res => {
@@ -115,16 +102,12 @@ describe('User API:', () => {
 
     // Check response from user.controller.js:update
     describe('PUT /api/users/:id', () => {
-      let newPhone = '000-000-0000';
-      let newLastName = 'Changed';
-      let updatedUser = {
-        firstName: newUser.firstName,
-        lastName: newLastName,
-        email,
-        password: newUser.password,
-        phone: newPhone,
-        optOut: true // flipped from false
-      };
+      testUser.firstName = 'Something';
+      testUser.lastName = 'Changed';
+      //testUser.optOut = true;
+      testUser.phone = '000-000-0000';
+
+      console.log('TESTUSER', testUser);
 
       it('should respond with a 401 when not authenticated', () =>
         getUserProfile()
@@ -132,7 +115,7 @@ describe('User API:', () => {
             request(app)
               .put(`/api/users/${user._id}`)
               .set('authorization', 'Bearer BOGUS')
-              .send(updatedUser)
+              .send(testUser)
               .expect(401)
           )
       );
@@ -143,7 +126,7 @@ describe('User API:', () => {
             request(app)
               .put(`/api/users/${user._id}`)
               .set('authorization', `Bearer ${token}`)
-              .send(updatedUser)
+              .send(testUser)
               .expect(200)
               .expect('Content-Type', /json/)
               .expect(res => {
@@ -152,14 +135,16 @@ describe('User API:', () => {
                 return User.findOne({ where: { email } })
                   .then(foundUser => {
                     // Now verify updates made it to database
-                    foundUser.phone.should.equal(updatedUser.phone);
-                    foundUser.optOut.should.be.true;
+                    foundUser.firstName.should.equal(testUser.firstName);
+                    foundUser.lastName.should.equal(testUser.lastName);
+                    foundUser.phone.should.equal(testUser.phone);
+                    // foundUser.optOut.should.be.true;
                   });
               })
           )
-      ); // it
-    }); // describe PUT
-  }); // describe methods for current user
+      );
+    });
+  });
 
   describe('Methods for teachers or admins:', () => {
     // Recreate user, change role to teacher (think about testing for admin, too)
@@ -175,8 +160,6 @@ describe('User API:', () => {
           foundUser.role = role;
           return foundUser.save();
         });
-
-    //let user;
 
     // controller.index (teacher or admin)
     describe('GET /api/users/', () => {
