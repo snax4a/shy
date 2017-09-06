@@ -85,7 +85,7 @@ function whenServerReady(cb) {
       serverReady = true;
       cb();
     }),
-    100);
+  100);
 }
 
 /********************
@@ -131,7 +131,7 @@ let transpileServer = lazypipe()
 let mocha = lazypipe()
   .pipe(plugins.mocha, {
     reporter: 'spec',
-    timeout: 10000,
+    timeout: 15000,
     require: ['./mocha.conf']
   });
 
@@ -193,16 +193,16 @@ gulp.task('inject:scss', () =>
     .pipe(plugins.inject(
       gulp.src(union(paths.client.styles, [`!${paths.client.mainStyle}`]), {read: false})
         .pipe(plugins.sort()), {
-          transform: filepath => {
-            let newPath = filepath
-              .replace(`/${clientPath}/app/`, '')
-              .replace(`/${clientPath}/components/`, '../components/')
-              .replace(/_(.*).scss/, (match, p1, offset, string) => p1)
-              .replace('.scss', '');
-            return `@import '${newPath}';`;
-          }
-        }))
-        .pipe(gulp.dest(`${clientPath}/app`))
+        transform: filepath => {
+          let newPath = filepath
+            .replace(`/${clientPath}/app/`, '')
+            .replace(`/${clientPath}/components/`, '../components/')
+            .replace(/_(.*).scss/, (match, p1, offset, string) => p1)
+            .replace('.scss', '');
+          return `@import '${newPath}';`;
+        }
+      }))
+    .pipe(gulp.dest(`${clientPath}/app`))
 );
 
 // Generate the webpack config based on environment
@@ -248,7 +248,7 @@ gulp.task('lint:scripts:client', () =>
     paths.client.scripts,
     paths.client.test.map(blob => `!${blob}`)
   ))
-  .pipe(lintClientScripts())
+    .pipe(lintClientScripts())
 );
 
 gulp.task('lint:scripts:server', () =>
@@ -257,7 +257,7 @@ gulp.task('lint:scripts:server', () =>
     paths.server.test.integration.map(blob => `!${blob}`),
     paths.server.test.unit.map(blob => `!${blob}`)
   ))
-  .pipe(lintServerScripts())
+    .pipe(lintServerScripts())
 );
 
 gulp.task('lint:scripts:clientTest', () =>
@@ -519,12 +519,12 @@ gulp.task('copy:extras', () =>
     `${clientPath}/.htaccess`,
     `${clientPath}/apple-developer-merchantid-domain-association`,
   ], { dot: true })
-  .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
+    .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
 gulp.task('copy:npm-lock', () =>
   gulp.src(['paclage-lock.json'], { dot: true })
-  .pipe(gulp.dest(`${paths.dist}`))
+    .pipe(gulp.dest(`${paths.dist}`))
 );
 
 gulp.task('copy:fonts:dev', () =>
@@ -545,7 +545,7 @@ gulp.task('copy:assets', () =>
 
 gulp.task('copy:server', () =>
   gulp.src(['package.json'], {cwdbase: true})
-  .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.dist))
 );
 
 // Equivalent of grunt file. Replace with Gulp tasks or npm in future.
@@ -591,9 +591,9 @@ gulp.task('deploy', done => {
 // git symbolic-ref HEAD refs/heads/master
 // git reset
 // IF there are changes...
-  // git add -A .
-  // git commit --file=commitFile-fecc28
-// git push heroku master
+//  git add -A .
+//  git commit --file=commitFile-fecc28
+//  git push heroku master
 // Why not turn these into an npm script? Not even platform-specific.
 
 // Not using OpenShift
