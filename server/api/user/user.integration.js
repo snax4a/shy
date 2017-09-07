@@ -29,7 +29,6 @@ describe('User API:', () => {
   updatedUser.lastName = 'Changed';
   updatedUser.optOut = true;
   updatedUser.phone = '000-000-0000';
-  Reflect.deleteProperty(updatedUser, 'password');
 
   // Retrieve the current user
   const getUserProfile = () =>
@@ -131,7 +130,7 @@ describe('User API:', () => {
           )
       );
 
-      // 422 error from user.controller.js:update
+      // 422 error from user.controller.js:update - bad password!
       it('should update the user\'s profile when authenticated', () =>
         getUserProfile()
           .then(() =>
