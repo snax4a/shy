@@ -11,6 +11,7 @@ describe('User API:', () => {
   let token;
   let user; // Set by getUserProfile()
 
+  // Factory function to create user
   const createUser = function() {
     return {
       firstName: 'Boaty',
@@ -21,6 +22,14 @@ describe('User API:', () => {
       phone: '412-555-1212'
     };
   };
+
+  // For API calls that make changes
+  let updatedUser = createUser();
+  updatedUser.firstName = 'Something';
+  updatedUser.lastName = 'Changed';
+  updatedUser.optOut = true;
+  updatedUser.phone = '000-000-0000';
+  Reflect.deleteProperty(updatedUser, 'password');
 
   // Retrieve the current user
   const getUserProfile = () =>
@@ -49,6 +58,14 @@ describe('User API:', () => {
 
   // Only delete the student test account
   const deleteUser = () => User.destroy({ where: { email } });
+
+  // Change user's role
+  const setRole = role =>
+    User.findOne({ where: { email } })
+      .then(foundUser => {
+        foundUser.role = role;
+        return foundUser.save();
+      });
 
   describe('Methods for anyone:', () => {
     before(() => recreateUser());
@@ -103,12 +120,6 @@ describe('User API:', () => {
 
     // Check response from user.controller.js:update
     describe('PUT /api/users/:id', () => {
-      let updatedUser = createUser();
-      updatedUser.firstName = 'Something';
-      updatedUser.lastName = 'Changed';
-      updatedUser.optOut = true;
-      updatedUser.phone = '000-000-0000';
-
       it('should respond with a 401 when not authenticated', () =>
         getUserProfile()
           .then(() =>
@@ -120,6 +131,7 @@ describe('User API:', () => {
           )
       );
 
+      // 422 error from user.controller.js:update
       it('should update the user\'s profile when authenticated', () =>
         getUserProfile()
           .then(() =>
@@ -150,16 +162,9 @@ describe('User API:', () => {
     // Recreate user, change role to teacher (think about testing for admin, too)
     before(() =>
       recreateUser()
-        .then(() => tryAs('admin')) // teacher role seems to be broken right now (address later)
+        .then(() => setRole('admin')) // teacher role seems to be broken right now (address later)
     );
     after(() => deleteUser()); // should be done by DELETE /api/users/:id but here in case of errors
-
-    const tryAs = role =>
-      User.findOne({ where: { email } })
-        .then(foundUser => {
-          foundUser.role = role;
-          return foundUser.save();
-        });
 
     // controller.index (teacher or admin)
     describe('GET /api/users/', () => {
@@ -185,36 +190,29 @@ describe('User API:', () => {
 
     // controller.upsert (teacher or admin)
     describe('PUT /api/users/:id/admin', () => {
-      // let existingUser = {
-      //   _id: user._id, // need to define user object
-      //   firstName: 'Jane',
-      //   lastName: 'Doe',
-      //   email: 'test@example.com',
-      //   optOut: true,
-      //   phone: '412-555-0000',
-      //   role: 'student',
-      //   provider: 'local'
-      // };
-
-      // it('should upsert the user\'s profile when admin is authenticated', () =>
-      //   request(app)
-      //     .put(`/api/users/${user._id}/admin`) // test user is updating their own profile
-      //     .send(newUser)
-      //     .set('authorization', `Bearer ${token}`)
-      //     .expect(200)
-      //     .expect('Content-Type', /json/)
-      //     .expect(res => {
-      //       console.log('UPSERT response', res);
-      //       //let userId = res.body._id.toString();
-      //       //userId.should.equal(user._id.toString());
-      //     })
-      // );
-
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .put(`/api/users/${user._id}/admin`)
           .set('authorization', 'Bearer BOGUS')
           .expect(401)
+      );
+
+      it('should upsert the user\'s profile when admin is authenticated', () =>
+        getUserProfile() // We are upserting the user that is authenticated
+          .then(() => {
+            // Add fields normally sent from admin UI
+            updatedUser._id = user._id;
+            return request(app)
+              .put(`/api/users/${user._id}/admin`) // test user is updating their own profile
+              .send(updatedUser)
+              .set('authorization', `Bearer ${token}`)
+              .expect(200)
+              .expect('Content-Type', /json/)
+              .expect(res => {
+                let userId = res.body._id.toString();
+                userId.should.equal(user._id.toString());
+              });
+          })
       );
     });
 
@@ -237,6 +235,7 @@ describe('User API:', () => {
           .expect(401)
       );
 
+      // Depends on current user having admin role
       it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
         request(app)
           .delete(`/api/users/${user._id}`)

@@ -216,7 +216,7 @@ export function upsert(req, res) {
   } else userToUpsert.isNewRecord = false;
 
   // Determine whether password is to be updated or not
-  if(req.body.password) {
+  if(req.body.password && req.body.passwordConfirm) {
     if(req.body.password === req.body.passwordConfirm) {
       userToUpsert.setDataValue('password', req.body.password);
     } else throw new UserError('Passwords must match.', 'passwordConfirm');
