@@ -10,7 +10,7 @@
 
 <a name="1.0.10"></a>
 * Revert from pg 7.2.0 to 6.4.2 and switched sequelize to use native=false to sidestep pg-native issues
-* Fix all integration tests except user.integration.js (PUT /api/users/:id/admin)
+* Fix all integration tests
 * Add return null to /server/api/auth/google/passport to prevent promise warning
 
 <a name="1.0.9"></a>
