@@ -41,7 +41,6 @@ describe('Schedule API:', () => {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .put('/api/schedule/0')
-        .set('authorization', 'Bearer BOGUS')
         .expect(401)
     );
 
@@ -83,7 +82,6 @@ describe('Schedule API:', () => {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/schedule/${newScheduleItemID}`)
-        .set('authorization', 'Bearer BOGUS')
         .expect(401)
     );
 

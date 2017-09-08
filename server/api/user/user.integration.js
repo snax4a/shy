@@ -101,7 +101,6 @@ describe('User API:', () => {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .get('/api/users/me')
-          .set('authorization', 'Bearer BOGUS')
           .expect(401)
       );
 
@@ -124,7 +123,6 @@ describe('User API:', () => {
           .then(() =>
             request(app)
               .put(`/api/users/${user._id}`)
-              .set('authorization', 'Bearer BOGUS')
               .send(updatedUser)
               .expect(401)
           )
@@ -170,7 +168,6 @@ describe('User API:', () => {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .get('/api/users?filter=SHY')
-          .set('authorization', 'Bearer BOGUS')
           .expect(401)
       );
 
@@ -192,7 +189,6 @@ describe('User API:', () => {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .put(`/api/users/${user._id}/admin`)
-          .set('authorization', 'Bearer BOGUS')
           .expect(401)
       );
 
@@ -230,7 +226,6 @@ describe('User API:', () => {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .delete(`/api/users/${user._id}`)
-          .set('authorization', 'Bearer BOGUS')
           .expect(401)
       );
 

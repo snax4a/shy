@@ -30,6 +30,7 @@ const braintreeGatewayTransactionSale = (req, res) => new Promise((resolve, reje
   let cartItems = req.body.cartItems;
 
   // Grab Braintree gateway settings from config
+  // Add error handling for no connection
   const gateway = braintree.connect(config.gateway);
   const orderInfo = {
     paymentMethodNonce: req.body.nonceFromClient,
@@ -270,9 +271,7 @@ const saveToDB = braintreeTransaction => {
 
 // Attempt to create order, send confirmation email then save to database
 export function create(req, res) {
-  // Should probably change this to:
-  // return braintreeGatewayTransactionSale(req, res)
-  braintreeGatewayTransactionSale(req, res)
+  return braintreeGatewayTransactionSale(req, res)
     .then(emailConfirmation)
     .then(saveToDB)
     .catch(err => console.log('Problem somewhere in chain', err));

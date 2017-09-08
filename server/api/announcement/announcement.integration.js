@@ -43,7 +43,6 @@ describe('Announcement API:', () => {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .put('/api/announcement/0')
-        .set('authorization', 'Bearer BOGUS')
         .send(newAnnouncement)
         .expect(401)
     );
@@ -85,7 +84,6 @@ describe('Announcement API:', () => {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
-        .set('authorization', 'Bearer BOGUS')
         .expect(401)
     );
 
