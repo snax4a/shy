@@ -24,7 +24,7 @@
     "angular-sanitize": "~1.6.6",
     "angular-ui-bootstrap": "~2.5.0",
     "angular-utils-pagination": "^0.11.1",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.0",
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^2.2.0",
