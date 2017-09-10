@@ -1,7 +1,6 @@
 'use strict';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import Sequelize from 'sequelize';
 import { User, Purchase, Attendance } from '../../sqldb';
 import config from '../../config/environment';
@@ -151,20 +150,20 @@ export function forgotPassword(req, res) {
       return userToUpdate.save();
     })
     .then(() => {
-      //res.status(200).send('New password sent.'); // don't make user wait for email sending
-      let transporter = nodemailer.createTransport(config.mail.transport, { from: config.mail.transport.auth.user });
       const message = {
         to: req.body.email,
         subject: 'Schoolhouse Yoga website login',
         html
       };
       // Send the email then let the user know it was sent
-      return transporter.sendMail(message)
+      let promise = config.mail.transporter.sendMail(message)
         .then(info => {
           res.status(200).send('New password sent.'); // if I do this too early, the email doesn't go out
           return console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`);
         })
         .catch(error => console.log(error.message));
+      //res.status(200).send('New password sent.');
+      return promise;
     })
     .catch(error => {
       console.log(error.message, error);

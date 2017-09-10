@@ -1,6 +1,7 @@
 /* eslint no-process-env:0 */
 'use strict';
 import path from 'path';
+import nodemailer from 'nodemailer';
 
 // All configurations will extend these options
 // ============================================
@@ -55,13 +56,13 @@ const all = {
 
   // Nodemailer settings
   mail: {
-    transport: {
+    transporter: nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.office365.com',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD
       }
-    },
+    }, { from: process.env.SMTP_USER }),
     admins: process.env.SMTP_ADMINS
   },
 

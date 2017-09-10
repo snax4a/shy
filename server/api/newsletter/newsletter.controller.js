@@ -1,5 +1,4 @@
 'use strict';
-import nodemailer from 'nodemailer';
 import config from '../../config/environment';
 import { User } from '../../sqldb';
 
@@ -11,13 +10,12 @@ export function subscribe(req, res) {
     optOut: false
   })
     .then(() => {
-      let transporter = nodemailer.createTransport(config.mail.transport, { from: config.mail.transport.auth.user }); // to send the emails
       const message = {
         to: config.mail.admins,
         subject: 'Subscriber from Workshops page',
         text: `Email: ${req.body.email}`
       };
-      return transporter.sendMail(message);
+      return config.mail.transporter.sendMail(message);
     })
     .then(info => {
       console.log(`Emailed newsletter subscription to admins ${info.messageId}`);

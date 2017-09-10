@@ -3,7 +3,6 @@
 */
 'use strict';
 import braintree from 'braintree';
-import nodemailer from 'nodemailer';
 import Sequelize from 'sequelize';
 import config from '../../config/environment';
 import { User, Order } from '../../sqldb';
@@ -243,27 +242,24 @@ const saveToDB = braintreeTransaction => {
     .then(() => braintreeTransaction);
 };
 
-// Return a promise to the Braintree Transaction - sends order confirmation via email
-const emailConfirmation = braintreeTransaction => {
-  if(!braintreeTransaction) return null; // Not an error in chain but don't send email  
-  let confirmation = braintreeTransaction.transaction;
-  let transporter = nodemailer.createTransport(config.mail.transport, { from: config.mail.transport.auth.user }); // to send the emails
-  let message = buildConfirmationEmail(confirmation);
-
-  // Send email and notify user
-  return transporter.sendMail(message)
-    .then(info => {
-      console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`);
-      return braintreeTransaction;
-    });
-};
-
-// Attempt to create order, send confirmation email then save to database
+// Create order -> save to db -> send 200 response -> email confirmation
 export function create(req, res) {
   return braintreeGatewayTransactionSale(req, res)
     .then(saveToDB)
-    .then(emailConfirmation)
-    .then(braintreeTransaction => {
+    .then(braintreeTransaction => { //send HTTP 200 response and order confirmation via email
+      if(!braintreeTransaction) return null; // Payment declined but not an error  
+      let confirmation = braintreeTransaction.transaction;
+      let message = buildConfirmationEmail(confirmation);
+
+      let promise = config.mail.transporter.sendMail(message)
+        .then(info => {
+          console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`);
+          return braintreeTransaction;
+        });
+      //res.status(200).json(braintreeTransaction);
+      return promise;
+    })
+    .then(braintreeTransaction => { // Doing it her ensures the transporter.sendMail but slow
       res.status(200).json(braintreeTransaction);
     })
     .catch(error => {

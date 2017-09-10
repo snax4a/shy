@@ -1,5 +1,5 @@
 'use strict';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 import config from '../../config/environment';
 import { User } from '../../sqldb';
 
@@ -8,7 +8,6 @@ export function send(req, res) {
   return User.upsert(req.body)
     .then(wasInserted => {
       console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
-      let transporter = nodemailer.createTransport(config.mail.transport, { from: config.mail.transport.auth.user });
       const message = {
         to: config.mail.admins,
         subject: 'Question/comment from website',
@@ -20,7 +19,7 @@ ${req.body.question}
 
 ${(req.body.optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
       };
-      return transporter.sendMail(message);
+      return config.mail.transporter.sendMail(message);
     })
     .then(info => {
       console.log(`Emailed question or comment to admins ${info.messageId}`);
