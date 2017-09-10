@@ -57,14 +57,9 @@ const all = {
   mail: {
     transport: {
       host: process.env.SMTP_HOST || 'smtp.office365.com',
-      port: process.env.SMTP_PORT || 587,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD
-      },
-      secureConnection: 'false', // Use SSL instead of TLS
-      tls: {
-        ciphers: process.env.SMTP_TLS_CIPHERS || 'SSLv3'
       }
     },
     admins: process.env.SMTP_ADMINS

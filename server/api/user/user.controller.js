@@ -1,11 +1,10 @@
 'use strict';
-
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import Sequelize from 'sequelize';
 import { User, Purchase, Attendance } from '../../sqldb';
 import config from '../../config/environment';
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
-import email from '../../components/email';
-import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 
@@ -136,31 +135,42 @@ export function create(req, res) {
 // Resets password for user and emails it to them (add security question in future)
 export function forgotPassword(req, res) {
   // If a local user exists, generate and email a new random password
+  let html;
   return User.findOne({
     where: {
       email: req.body.email
     }
   })
     .then(userToUpdate => {
-      if(!userToUpdate) throw new UserError('No user with that email address was found.', 'email');
+      if(!userToUpdate) throw new UserError('No user with that email address was found.');
       if(userToUpdate.provider !== 'local') throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
       const newPassword = crypto.randomBytes(8).toString('base64'); // new password
       userToUpdate.password = newPassword;
-      const html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
+      html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
         Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
-      return userToUpdate.save()
-        .then(user => {
-          res.status(200).send('New password sent.'); // don't make user wait for email sending
-          email({
-            to: user.email,
-            subject: 'Schoolhouse Yoga website login',
-            html
-          });
-          return null;
-        })
-        .catch(validationError(res));
+      return userToUpdate.save();
     })
-    .catch(validationError(res, 404));
+    .then(() => {
+      //res.status(200).send('New password sent.'); // don't make user wait for email sending
+      let transporter = nodemailer.createTransport(config.mail.transport, { from: config.mail.transport.auth.user });
+      const message = {
+        to: req.body.email,
+        subject: 'Schoolhouse Yoga website login',
+        html
+      };
+      // Send the email then let the user know it was sent
+      return transporter.sendMail(message)
+        .then(info => {
+          res.status(200).send('New password sent.'); // if I do this too early, the email doesn't go out
+          return console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`);
+        })
+        .catch(error => console.log(error.message));
+    })
+    .catch(error => {
+      console.log(error.message, error);
+      if(!res.headersSent) return res.status(404).json(error);
+      return null;
+    });
 }
 
 // Updates attributes for authenticated user (Profile page)

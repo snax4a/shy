@@ -29,7 +29,7 @@ describe('Order API:', () => {
           purchaser: {
             firstName: 'John',
             lastName: 'Doe',
-            email: 'john.doe@bitbucket.com',
+            email: 'leta@schoolhouseyoga.com',
             phone: '412-555-1212'
           },
           recipient: {
