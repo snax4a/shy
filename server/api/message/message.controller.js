@@ -1,5 +1,4 @@
 'use strict';
-//import nodemailer from 'nodemailer';
 import config from '../../config/environment';
 import { User } from '../../sqldb';
 
