@@ -256,7 +256,6 @@ export function create(req, res) {
           console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`);
           return braintreeTransaction;
         });
-      //res.status(200).json(braintreeTransaction);
       return promise;
     })
     .then(braintreeTransaction => { // Doing it her ensures the transporter.sendMail but slow
