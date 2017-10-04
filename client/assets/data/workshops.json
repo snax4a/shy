@@ -22,20 +22,6 @@
 		"description": "In our family yoga workshop, we will focus on fun and playful movement as well as calming breath work to bring the family together in a lighthearted practice. We will move through a physical asana practice designed to be mindful of the bodies and minds of children and teenagers. Join us to unite your practice with your family as we include a brief guided meditation to help to focus busy minds of children and parents alike. Family members and friends of young yogis (ages 4 and over) are welcome. $10 per person",
 		"sections":
 		[
-  		{
-				"start": "2017-08-06T14:00:00.000-04:00",
-				"expires": "2017-08-07T15:00:00.000-04:00",
-				"productID": 60,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			  		{
-				"start": "2017-09-10T14:00:00.000-04:00",
-				"expires": "2017-09-11T15:00:00.000-04:00",
-				"productID": 61,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
 			  		{
 				"start": "2017-10-08T14:00:00.000-04:00",
 				"expires": "2017-10-09T15:00:00.000-04:00",
@@ -60,13 +46,6 @@
 		"description": "In our teen yoga workshop, we will focus on bringing peace and calm to the mind while getting to know our bodies. An introduction to meditation will be provided as it can be used to ground ourselves in stressful times and helps us to become more mindful of our world, our actions, and our words. This would be a great first yoga experience if you are looking to get into yoga or just a more comfortable way to practice and meet other teen yogis. Come build strength and flexibility and open your mind in a safe space with other like-minded teens!",
 		"sections":
 		[
-			 {
-				"start": "2017-09-10T15:30:00.000-04:00",
-				"expires": "2017-09-11T16:30:00.000-04:00",
-				"productID": 62,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
 			{
 				"start": "2017-10-08T15:30:00.000-04:00",
 				"expires": "2017-10-09T16:30:00.000-04:00",
@@ -89,13 +68,6 @@
 		"photo": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
 		"sections": [
-			{
-				"start": "2017-09-08T18:30:00.000-04:00",
-				"expires": "2017-09-09T20:00:00.000-04:00",
-				"productID": 9,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"start": "2017-10-06T18:30:00.000-04:00",
 				"expires": "2017-10-07T20:00:00.000-04:00",
@@ -152,22 +124,6 @@
 		]
 	},
 
-{
-	"expires": "2017-09-25T15:30:00.000-05:00",
-	"title": "Meditation for Managing Acute Stress Reactions with Joni Sturgill",
-	"photo": "/assets/images/workshops/fertility.jpg",
-	"description": "Whether you've struggled with test anxiety, speaking in public, dealing with conflict or self-criticism, meditation can help you learn to manage these acute stress reactions and overcome your fears. When you learn to anchor yourself in the present moment and soothe the nervous system, you can open the door to being your best self, regardless of your circumstances. Joni will teach several techniques to practice both in preparation for difficult moments and tools to use in the moment. This workshop will include discussion, practice time and a guided relaxation.",
-	"sections":
-	[
-		{
-			"start": "2017-09-24T14:00:00.000-04:00",
-			"expires": "2017-09-25T16:00:00.000-04:00",
-			"productID": 51,
-			"cost": 30,
-			"location": "East Liberty"
-		}
-	]
-},
  {
 		"expires": "2017-11-06T17:00:00.000-05:00",
 		"title": "Supporting the Perimeter with Richard Gartner",
@@ -245,23 +201,6 @@
 				"productID": 101,
 				"cost": 25,
 				"location": "Squirrel Hill"
-			}
-		]
-	},
-
-	{
-		"expires": "2017-09-18T15:00:00.000-05:00",
-		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
-		"photo": "/assets/images/workshops/prenatalpartner.jpg",
-		"description": "Moms to be! Bring your partners, a family member or a friend to share a fun prenatal yoga experience where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and to prepare for the arrival of your little one into the world! All stages of pregnancy and levels of experience are welcome. $35 per couple.",
-		"sections":
-		[
-			{
-				"start": "2017-09-17T14:00:00.000-04:00",
-				"expires": "2017-09-18T15:30:00.000-04:00",
-				"productID": 14,
-				"cost": 35,
-				"location": "East Liberty"
 			}
 		]
 	}
