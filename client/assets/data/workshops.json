@@ -113,13 +113,6 @@
 				"productID": 29,
 				"cost": 30,
 				"location": "North Hills"
-			},
-			{
-				"start": "2017-11-17T18:30:00.000-05:00",
-				"expires": "2017-11-18T20:00:00.000-05:00",
-				"productID": 30,
-				"cost": 30,
-				"location": "North Hills"
 			}
 		]
 	},
