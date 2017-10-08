@@ -2,9 +2,9 @@
 
 /* globals sinon, describe, expect, it */
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var userCtrlStub = {
+const userCtrlStub = {
   index: 'userCtrl.index',
   destroy: 'userCtrl.destroy',
   me: 'userCtrl.me',
@@ -14,7 +14,7 @@ var userCtrlStub = {
   upsert: 'userCtrl.upsert'
 };
 
-var authServiceStub = {
+const authServiceStub = {
   isAuthenticated() {
     return 'authService.isAuthenticated';
   },
@@ -23,7 +23,7 @@ var authServiceStub = {
   }
 };
 
-var routerStub = {
+const routerStub = {
   get: sinon.spy(),
   put: sinon.spy(),
   post: sinon.spy(),
@@ -31,7 +31,7 @@ var routerStub = {
 };
 
 // require the index with our stubbed out modules
-var userIndex = proxyquire('./index', {
+const userIndex = proxyquire('./index', {
   express: {
     Router() {
       return routerStub;
@@ -41,71 +41,57 @@ var userIndex = proxyquire('./index', {
   '../../auth/auth.service': authServiceStub
 });
 
-describe('User API Router:', function() {
-  it('should return an express router instance', function(done) {
-    expect(userIndex).to.equal(routerStub);
+describe('User API Router:', () => {
+  it('should return an express router instance', done => {
+    userIndex.should.equal(routerStub);
     done();
   });
 
-  describe('GET /api/users', function() {
-    it('should verify admin role and route to user.controller.index', function(done) {
-      expect(routerStub.get
-        .withArgs('/', 'authService.hasRole.teacher', 'userCtrl.index')
-        ).to.have.been.calledOnce;
+  describe('GET /api/users', () => {
+    it('should verify admin role and route to user.controller.index', done => {
+      routerStub.get.withArgs('/', 'authService.hasRole.teacher', 'userCtrl.index').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('GET /api/users/me', function() {
-    it('should be authenticated and route to user.controller.me', function(done) {
-      expect(routerStub.get
-        .withArgs('/me', 'authService.isAuthenticated', 'userCtrl.me')
-        ).to.have.been.calledOnce;
+  describe('GET /api/users/me', () => {
+    it('should be authenticated and route to user.controller.me', done => {
+      routerStub.get.withArgs('/me', 'authService.isAuthenticated', 'userCtrl.me').should.to.have.been.calledOnce;
       done();
     });
   });
 
-  describe('POST /api/users', function() {
-    it('should route to user.controller.create', function(done) {
-      expect(routerStub.post
-        .withArgs('/', 'userCtrl.create')
-        ).to.have.been.calledOnce;
+  describe('POST /api/users', () => {
+    it('should route to user.controller.create', done => {
+      routerStub.post.withArgs('/', 'userCtrl.create').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('POST /api/users/forgotpassword', function() {
-    it('should route to user.controller.forgotPassword', function(done) {
-      expect(routerStub.post
-        .withArgs('/forgotpassword', 'userCtrl.forgotPassword')
-        ).to.have.been.calledOnce;
+  describe('POST /api/users/forgotpassword', () => {
+    it('should route to user.controller.forgotPassword', done => {
+      routerStub.post.withArgs('/forgotpassword', 'userCtrl.forgotPassword').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('PUT /api/users/:id', function() {
-    it('should be authenticated and route to user.controller.update', function(done) {
-      expect(routerStub.put
-        .withArgs('/:id', 'authService.isAuthenticated', 'userCtrl.update')
-        ).to.have.been.calledOnce;
+  describe('PUT /api/users/:id', () => {
+    it('should be authenticated and route to user.controller.update', done => {
+      routerStub.put.withArgs('/:id', 'authService.isAuthenticated', 'userCtrl.update').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('PUT /api/users/:id/admin', function() {
-    it('should be authenticated and route to user.controller.upsert', function(done) {
-      expect(routerStub.put
-        .withArgs('/:id/admin', 'authService.hasRole.teacher', 'userCtrl.upsert')
-        ).to.have.been.calledOnce;
+  describe('PUT /api/users/:id/admin', () => {
+    it('should be authenticated and route to user.controller.upsert', done => {
+      routerStub.put.withArgs('/:id/admin', 'authService.hasRole.teacher', 'userCtrl.upsert').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('DELETE /api/users/:id', function() {
-    it('should verify admin role and route to user.controller.destroy', function(done) {
-      expect(routerStub.delete
-        .withArgs('/:id', 'authService.hasRole.admin', 'userCtrl.destroy')
-        ).to.have.been.calledOnce;
+  describe('DELETE /api/users/:id', () => {
+    it('should verify admin role and route to user.controller.destroy', done => {
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'userCtrl.destroy').should.have.been.calledOnce;
       done();
     });
   });

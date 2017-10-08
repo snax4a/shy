@@ -1,18 +1,18 @@
 /* global sinon, describe, it, expect */
 'use strict';
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var tokenCtrlStub = {
+const tokenCtrlStub = {
   index: 'tokenCtrl.index'
 };
 
-var routerStub = {
+const routerStub = {
   get: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var tokenIndex = proxyquire('./index.js', {
+const tokenIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
@@ -21,17 +21,15 @@ var tokenIndex = proxyquire('./index.js', {
   './token.controller': tokenCtrlStub
 });
 
-describe('Token API Router:', function() {
-  it('should return an express router instance', function(done) {
-    expect(tokenIndex).to.equal(routerStub);
+describe('Token API Router:', () => {
+  it('should return an express router instance', done => {
+    tokenIndex.should.equal(routerStub);
     done();
   });
 
-  describe('GET /api/token', function() {
-    it('should route to token.controller.index', function(done) {
-      expect(routerStub.get
-        .withArgs('/', 'tokenCtrl.index')
-        ).to.have.been.calledOnce;
+  describe('GET /api/token', () => {
+    it('should route to token.controller.index', done => {
+      routerStub.get.withArgs('/', 'tokenCtrl.index').should.have.been.calledOnce;
       done();
     });
   });
