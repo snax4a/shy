@@ -1,15 +1,15 @@
 /* globals sinon, describe, expect, it */
 'use strict';
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var announcementCtrlStub = {
+const announcementCtrlStub = {
   index: 'announcementCtrl.index',
   upsert: 'announcementCtrl.upsert',
   destroy: 'announcementCtrl.destroy'
 };
 
-var authServiceStub = {
+const authServiceStub = {
   isAuthenticated() {
     return 'authService.isAuthenticated';
   },
@@ -18,14 +18,14 @@ var authServiceStub = {
   }
 };
 
-var routerStub = {
+const routerStub = {
   get: sinon.spy(),
   put: sinon.spy(),
   delete: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var announcementIndex = proxyquire('./index.js', {
+const announcementIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
@@ -35,33 +35,32 @@ var announcementIndex = proxyquire('./index.js', {
   '../../auth/auth.service': authServiceStub
 });
 
-describe('Announcement API Router:', function() {
-  it('should return an express router instance', function() {
-    expect(announcementIndex).to.equal(routerStub);
+describe('Announcement API Router:', () => {
+  it('should return an express router instance', done => {
+    announcementIndex.should.equal(routerStub);
+    done();
   });
 
-  describe('GET /api/announcement', function() {
-    it('should route to announcement.controller.index', function() {
-      expect(routerStub.get
-        .withArgs('/', 'announcementCtrl.index')
-      ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('PUT /api/announcement/:id', function() {
-    it('should be authenticated and route to announcement.controller.upsert', function(done) {
-      expect(routerStub.put
-        .withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.upsert')
-      ).to.have.been.calledOnce;
+  describe('GET /api/announcement', () => {
+    it('should route to announcement.controller.index', done => {
+      routerStub.get.withArgs('/', 'announcementCtrl.index')
+      .should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('DELETE /api/announcement/:id', function() {
-    it('should verify admin role and route to announcement.controller.destroy', function(done) {
-      expect(routerStub.delete
-        .withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.destroy')
-      ).to.have.been.calledOnce;
+  describe('PUT /api/announcement/:id', () => {
+    it('should be authenticated and route to announcement.controller.upsert', done => {
+      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.upsert')
+      .should.have.been.calledOnce;
+      done();
+    });
+  });
+
+  describe('DELETE /api/announcement/:id', () => {
+    it('should verify admin role and route to announcement.controller.destroy', done => {
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.destroy')
+      .should.have.been.calledOnce;
       done();
     });
   });

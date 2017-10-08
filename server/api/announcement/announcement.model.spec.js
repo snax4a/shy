@@ -3,7 +3,7 @@
 import { Announcement } from '../../sqldb';
 
 let announcement;
-let buildAnnouncement = function() {
+let buildAnnouncement = () => {
   announcement = Announcement.build({
     section: 'Sunday, April 16th Class Schedule',
     title: 'East Liberty School',
@@ -13,55 +13,47 @@ let buildAnnouncement = function() {
   return announcement;
 };
 
-describe('Announcement Model', function() {
-  before(function() {
+describe('Announcement Model', () => {
+  before(() => {
     // Sync and clear users before testing
-    return Announcement.sync().then(function() {
+    return Announcement.sync().then(() => {
       return Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } });
     });
   });
 
-  beforeEach(function() {
+  beforeEach(() => {
     buildAnnouncement();
   });
 
-  afterEach(function() {
-    return Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } });
-  });
+  afterEach(() => Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } }));
 
-  it('should begin with at least 4 announcements seeded', function() {
-    expect(Announcement.findAll()).to.eventually.have.length.above(4);
-  });
+  it('should begin with at least 4 announcements seeded', () => Announcement.findAll().should.eventually.have.length.above(4));
 
-  describe('#section', function() {
-    it('should fail when saving without a section', function(done) {
+  describe('#section', () => {
+    it('should fail when saving without a section', () => {
       announcement.section = '';
-      expect(announcement.save()).to.be.rejected;
-      done();
+      return announcement.save().should.be.rejected;
     });
   });
 
-  describe('#title', function() {
-    it('should fail when saving without a title', function(done) {
+  describe('#title', () => {
+    it('should fail when saving without a title', () => {
       announcement.title = '';
-      expect(announcement.save()).to.be.rejected;
-      done();
+      return announcement.save().should.be.rejected;
     });
   });
 
-  describe('#description', function() {
-    it('should fail when saving without a description', function(done) {
+  describe('#description', () => {
+    it('should fail when saving without a description', () => {
       announcement.description = '';
-      expect(announcement.save()).to.be.rejected;
-      done();
+      return announcement.save().should.be.rejected;
     });
   });
 
-  describe('#expires', function() {
-    it('should fail when saving without an expiration date', function(done) {
+  describe('#expires', () => {
+    it('should fail when saving without an expiration date', () => {
       announcement.expires = '';
-      expect(announcement.save()).to.be.rejected;
-      done();
+      return announcement.save().should.be.rejected;
     });
   });
 });
