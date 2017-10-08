@@ -1,20 +1,20 @@
 /* global sinon, describe, it, expect */
 'use strict';
 
-var proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire').noPreserveCache();
 
-var newsletterCtrlStub = {
+const newsletterCtrlStub = {
   subscribe: 'newsletterCtrl.subscribe',
   unsubscribe: 'newsletterCtrl.unsubscribe'
 };
 
-var routerStub = {
+const routerStub = {
   post: sinon.spy(),
   get: sinon.spy()
 };
 
 // require the index with our stubbed out modules
-var newsletterIndex = proxyquire('./index.js', {
+const newsletterIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
@@ -23,26 +23,22 @@ var newsletterIndex = proxyquire('./index.js', {
   './newsletter.controller': newsletterCtrlStub
 });
 
-describe('Newsletter API Router:', function() {
-  it('should return an express router instance', function(done) {
-    expect(newsletterIndex).to.equal(routerStub);
+describe('Newsletter API Router:', () => {
+  it('should return an express router instance', done => {
+    newsletterIndex.should.equal(routerStub);
     done();
   });
 
-  describe('POST /api/newsletter', function() {
-    it('should route to newsletter.controller.subscribe', function(done) {
-      expect(routerStub.post
-        .withArgs('/', 'newsletterCtrl.subscribe')
-        ).to.have.been.calledOnce;
+  describe('POST /api/newsletter', () => {
+    it('should route to newsletter.controller.subscribe', done => {
+      routerStub.post.withArgs('/', 'newsletterCtrl.subscribe').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('GET /api/newsletter/unsubscribe/:email', function() {
-    it('should route to newsletter.controller.unsubscribe', function(done) {
-      expect(routerStub.get
-        .withArgs('/unsubscribe/:email', 'newsletterCtrl.unsubscribe')
-        ).to.have.been.calledOnce;
+  describe('GET /api/newsletter/unsubscribe/:email', () => {
+    it('should route to newsletter.controller.unsubscribe', done => {
+      routerStub.get.withArgs('/unsubscribe/:email', 'newsletterCtrl.unsubscribe').should.have.been.calledOnce;
       done();
     });
   });

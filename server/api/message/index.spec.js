@@ -20,17 +20,15 @@ const messageIndex = proxyquire('./index.js', {
   './message.controller': messageCtrlStub
 });
 
-describe('Message API Router:', function() {
-  it('should return an express router instance', function(done) {
-    expect(messageIndex).to.equal(routerStub);
+describe('Message API Router:', () => {
+  it('should return an express router instance', done => {
+    messageIndex.should.equal(routerStub);
     done();
   });
 
   describe('POST /api/message', function() {
-    it('should route to message.controller.send', function(done) {
-      expect(routerStub.post
-        .withArgs('/', 'messageCtrl.send')
-        ).to.have.been.calledOnce;
+    it('should route to message.controller.send', done => {
+      routerStub.post.withArgs('/', 'messageCtrl.send').should.have.been.calledOnce;
       done();
     });
   });
