@@ -49,11 +49,11 @@ module.exports = function makeWebpackConfig(options) {
                   ['env', {
                     targets: {
                       browsers: [
-                        'chrome >= 56',
+                        'chrome >= 59',
                         'firefox >= 52',
                         'safari >= 9',
                         'ie >= 11',
-                        'ios >= 9.3',
+                        'ios >= 10',
                         'android >= 5.1'
                       ],
                       uglify: true // no effect on build size or functionality
