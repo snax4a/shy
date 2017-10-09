@@ -3,7 +3,7 @@
 import { Purchase } from '../../sqldb';
 
 let purchase;
-let buildPurchase = function() {
+let buildPurchase = () => {
   purchase = Purchase.build({
     UserId: 1,
     purchased: '2017-05-21T13:00:00.000-04:00',
@@ -14,43 +14,34 @@ let buildPurchase = function() {
   return purchase;
 };
 
-describe('Purchase Model', function() {
-  before(function() {
-    // Sync and clear purchases before testing
-    return Purchase.sync().then(function() {
-      return Purchase.destroy({ where: { notes: 'Testing.' } });
-    });
-  });
+describe('Purchase Model', () => {
+  before(() => Purchase.sync()
+    .then(() => Purchase.destroy({ where: { notes: 'Testing.' } })));
 
-  beforeEach(function() {
+  beforeEach(() => {
     buildPurchase();
   });
 
-  afterEach(function() {
-    return Purchase.destroy({ where: { notes: 'Testing.' } });
-  });
+  afterEach(() => Purchase.destroy({ where: { notes: 'Testing.' } }));
 
-  describe('#userId', function() {
-    it('should fail when saving without a user ID', function(done) {
+  describe('#userId', () => {
+    it('should fail when saving without a user ID', () => {
       purchase.userId = undefined;
-      expect(purchase.save()).to.be.rejected;
-      done();
+      return purchase.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#quantity', function() {
-    it('should fail when saving without a quantity', function(done) {
+  describe('#quantity', () => {
+    it('should fail when saving without a quantity', () => {
       purchase.quantity = undefined;
-      expect(purchase.save()).to.be.rejected;
-      done();
+      return purchase.save().should.eventually.be.rejected;
     });
   });
 
-  describe('#method', function() {
-    it('should fail when saving without a purchase method', function(done) {
+  describe('#method', () => {
+    it('should fail when saving without a purchase method', () => {
       purchase.method = undefined;
-      expect(purchase.save()).to.be.rejected;
-      done();
+      return purchase.save().should.eventually.be.rejected;
     });
   });
 });

@@ -30,7 +30,7 @@ let buildOrder = () => {
 
 describe('Order Model', () => {
   before(() => // Sync and clear users before testing
-    Order.sync().then(() =>  Order.destroy({ where: { instructions: 'This is a test' } })));
+    Order.sync().then(() => Order.destroy({ where: { instructions: 'This is a test' } })));
 
   beforeEach(() => {
     buildOrder();

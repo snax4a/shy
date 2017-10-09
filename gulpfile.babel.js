@@ -365,11 +365,23 @@ gulp.task('test:server', cb => {
 gulp.task('mocha:unit', () =>
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
+    // .once('error', () => {
+		// 	process.exit(1);
+		// })
+		// .once('end', () => {
+		// 	process.exit();
+		// })
 );
 
 gulp.task('mocha:integration', () =>
   gulp.src(paths.server.test.integration)
     .pipe(mocha())
+    // .once('error', () => {
+		// 	process.exit(1);
+		// })
+		// .once('end', () => {
+		// 	process.exit();
+		// })
 );
 
 // Run all unit tests in debug mode

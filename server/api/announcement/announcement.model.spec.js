@@ -14,12 +14,9 @@ let buildAnnouncement = () => {
 };
 
 describe('Announcement Model', () => {
-  before(() => {
-    // Sync and clear users before testing
-    return Announcement.sync().then(() => {
-      return Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } });
-    });
-  });
+  before(() => Announcement.sync()
+    .then(() => Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } })
+  ));
 
   beforeEach(() => {
     buildAnnouncement();

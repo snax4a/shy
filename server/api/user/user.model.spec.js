@@ -28,11 +28,11 @@ describe('User Model', () => {
 
   it('should begin with 4 users seeded', () => User.findAll().should.eventually.have.length.above(4));
 
-  it('should fail when saving a duplicate user', () => expect(user.save()
+  it('should fail when saving a duplicate user', () => user.save()
       .then(() => {
         let userDup = buildUser();
         return userDup.save();
-      })).to.be.rejected);
+      }).should.eventually.be.rejected);
 
   describe('#email', () => {
     it('should fail when saving without an email', () => {
