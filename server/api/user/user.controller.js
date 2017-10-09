@@ -155,15 +155,13 @@ export function forgotPassword(req, res) {
         subject: 'Schoolhouse Yoga website login',
         html
       };
+      const DELAY = 0; // milliseconds
       // Send the email then let the user know it was sent
-      let promise = config.mail.transporter.sendMail(message)
-        .then(info => {
-          res.status(200).send('New password sent.'); // if I do this too early, the email doesn't go out
-          return console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`);
-        })
-        .catch(error => console.log(error.message));
-      //res.status(200).send('New password sent.');
-      return promise;
+      setTimeout(() => config.mail.transporter.sendMail(message)
+        .then(info => console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`))
+        .catch(error => console.log(`Email error occurred: ${error.message}`, error))
+        , DELAY);
+      return res.status(200).send('New password sent.');
     })
     .catch(error => {
       console.log(error.message, error);

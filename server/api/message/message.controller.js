@@ -6,7 +6,7 @@ import { User } from '../../sqldb';
 export function send(req, res) {
   return User.upsert(req.body)
     .then(wasInserted => {
-      console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
+      const DELAY = 0; // milliseconds
       const message = {
         to: config.mail.admins,
         subject: 'Question/comment from website',
@@ -18,14 +18,11 @@ ${req.body.question}
 
 ${(req.body.optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
       };
-      return config.mail.transporter.sendMail(message);
-    })
-    .then(info => {
-      console.log(`Emailed question or comment to admins ${info.messageId}`);
+      console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
+      setTimeout(() => config.mail.transporter.sendMail(message)
+        .then(info => console.log(`Emailed question or comment to admins ${info.messageId}`))
+        .catch(error => console.log(`Email error occurred: ${error.message}`, error))
+        , DELAY);
       return res.status(200).send('Thanks for submitting your question or comment. We will respond shortly.');
-    })
-    .catch(error => {
-      console.log(`Email error occurred: ${error.message}`);
-      return res.status(500).send('Error occurred submitting your question or comment. Please try again later.');
     });
 }
