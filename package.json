@@ -22,7 +22,7 @@
     "angular-resource": "~1.6.6",
     "angular-route": "~1.6.6",
     "angular-sanitize": "~1.6.6",
-    "angular-ui-bootstrap": "~2.5.3",
+    "angular-ui-bootstrap": "2.5.0",
     "angular-utils-pagination": "^0.11.1",
     "body-parser": "^1.18.2",
     "bootstrap-sass": "~3.3.7",
