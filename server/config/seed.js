@@ -6,18 +6,16 @@
 import config from './environment/';
 import { User } from '../sqldb';
 import Sequelize from 'sequelize';
+const Op = Sequelize.Op;
 
 export default function seedDatabaseIfNeeded() {
   if(config.seedDB) { // Only run if enabled
     return Sequelize.Promise.all([
       User.destroy({
         where: {
-          $or: [
-            { email: {$eq: config.teacher.email} },
-            { email: {$eq: config.admin.email} },
-            { email: {$eq: 'leta@schoolhouseyoga.com'} },
-            { email: {$eq: 'nstuyvesant@gmail.com'} }
-          ]
+          email: {
+            [Op.in]: [config.teacher.email, config.admin.email, 'leta@schoolhouseyoga.com', 'nstuyvesant@gmail.com']
+          }
         }
       })
         .then(() =>
@@ -115,10 +113,7 @@ export default function seedDatabaseIfNeeded() {
 
       Announcement.destroy({
         where: {
-          $and: [
-            { section: {$eq: 'Sunday, April 16th Class Schedule'} },
-            { title: {$eq: 'East Liberty School'} }
-          ]
+          section: 'Sunday, April 16th Class Schedule'
         }
       })
       .then(() =>

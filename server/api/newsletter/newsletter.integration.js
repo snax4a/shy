@@ -27,9 +27,7 @@ describe('Newsletter API:', () => {
     after(() =>
       User.destroy({
         where: {
-          $or: [
-            { email: 'jdoe@gmail.com' }
-          ]
+          email: 'jdoe@gmail.com'
         }
       })
     );

@@ -1,6 +1,8 @@
 'use strict';
 
+import Sequelize from 'sequelize';
 import { Announcement } from '../../sqldb';
+const Op = Sequelize.Op;
 
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
@@ -39,7 +41,7 @@ export function index(req, res) {
   return Announcement.findAll({
     attributes: ['_id', 'section', 'title', 'description', 'expires'],
     order: ['section', 'expires'],
-    where: { expires: { $gt: new Date() } }
+    where: { expires: { [Op.gt]: new Date() } }
   })
     .then(function(announcements) {
       return flat ? res.status(200).json(announcements) : res.status(200).json(nest(announcements));

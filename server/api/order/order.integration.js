@@ -54,9 +54,7 @@ describe('Order API:', () => {
     after(() =>
       User.destroy({
         where: {
-          $or: [
-            { email: 'john.doe@bitbucket.com' }
-          ]
+          email: 'john.doe@bitbucket.com'
         }
       })
     );

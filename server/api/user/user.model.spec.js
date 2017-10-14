@@ -1,4 +1,4 @@
-/* global describe, before, beforeEach, afterEach, expect, it */
+/* global describe, before, beforeEach, afterEach, it */
 'use strict';
 import { User } from '../../sqldb';
 
@@ -17,9 +17,8 @@ let buildUser = () => {
 };
 
 describe('User Model', () => {
-
   before(() => User.sync().then(() => User.destroy({ where: { email: 'test@example.com' } }).then(buildUser)));
-  
+
   beforeEach(() => {
     buildUser();
   });
@@ -29,10 +28,10 @@ describe('User Model', () => {
   it('should begin with 4 users seeded', () => User.findAll().should.eventually.have.length.above(4));
 
   it('should fail when saving a duplicate user', () => user.save()
-      .then(() => {
-        let userDup = buildUser();
-        return userDup.save();
-      }).should.eventually.be.rejected);
+    .then(() => {
+      let userDup = buildUser();
+      return userDup.save();
+    }).should.eventually.be.rejected);
 
   describe('#email', () => {
     it('should fail when saving without an email', () => {
@@ -51,7 +50,7 @@ describe('User Model', () => {
     it('should not authenticate user if password changes', () => {
       user.password = 'something else';
       return user.save()
-        .then((u) => u.authenticate('password').should.be.false);
+        .then(u => u.authenticate('password').should.be.false);
     });
   });
 });
