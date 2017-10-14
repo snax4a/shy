@@ -170,7 +170,8 @@ const buildConfirmationEmail = confirmation => {
               ${(confirmation.customFields.instructions !== undefined ? `Instructions: ${confirmation.customFields.instructions}` : '')}
             </p>
             <p style="margin-top:20px;">
-              Thanks for your order. Visit us again at <a href="https://www.schoolhouseyoga.com">https://www.schoolhouseyoga.com</a>.
+              Thanks for your order. Visit us again at <a href="https://www.schoolhouseyoga.com">https://www.schoolhouseyoga.com</a>.<br/>
+              Please note: class passes expire 6 months after date purchased.
             </p>
           </td>
         </tr>
@@ -248,18 +249,15 @@ export function create(req, res) {
     .then(saveToDB)
     .then(braintreeTransaction => { //send HTTP 200 response and order confirmation via email
       if(!braintreeTransaction) return null; // Payment declined but not an error  
-      let confirmation = braintreeTransaction.transaction;
-      let message = buildConfirmationEmail(confirmation);
+      const DELAY = 0; // milliseconds
+      const confirmation = braintreeTransaction.transaction;
+      const message = buildConfirmationEmail(confirmation);
 
-      let promise = config.mail.transporter.sendMail(message)
-        .then(info => {
-          console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`);
-          return braintreeTransaction;
-        });
-      return promise;
-    })
-    .then(braintreeTransaction => { // Doing it her ensures the transporter.sendMail but slow
-      res.status(200).json(braintreeTransaction);
+      setTimeout(() => config.mail.transporter.sendMail(message)
+        .then(info => console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`))
+        .catch(error => console.log(`Email error occurred: ${error.message}`, error))
+        , DELAY);
+      return res.status(200).json(braintreeTransaction);
     })
     .catch(error => {
       console.log('Problem processing the order: ', error.message);
