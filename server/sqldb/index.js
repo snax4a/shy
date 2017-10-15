@@ -1,11 +1,9 @@
 'use strict';
-import config from '../config/environment';
-import Sequelize from 'sequelize';
 
-let db = {
-  Sequelize,
-  sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options)
-};
+const config = require('../config/environment');
+const Sequelize = require('sequelize');
+
+let db = { Sequelize, sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options) };
 
 // Imported model definitions
 db.User = db.sequelize.import('../api/user/user.model');

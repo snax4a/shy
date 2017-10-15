@@ -43,11 +43,8 @@ const all = {
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
-      logging: false,
       dialect: 'postgres',
-      protocol: 'postgres',
-      native: false,
-      language: 'en'
+      logging: false
     }
   },
 

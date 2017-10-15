@@ -1,24 +1,17 @@
-/**
- * Main application file
- */
-
 'use strict';
 
-import express from 'express';
-import sqldb from './sqldb';
-import config from './config/environment';
-import http from 'http';
-import seedDatabaseIfNeeded from './config/seed';
-import routes from './routes';
-import expressConfig from './config/express';
+const express = require('express');
+const sqldb = require('./sqldb');
+const config = require('./config/environment');
+const http = require('http');
 
 // Setup server
 let app = express();
 const server = http.createServer(app);
 
 // Load configuration and routes
-expressConfig(app); // this is where I redirect to HTTPS in production
-routes(app);
+require('./config/express').default(app); // handles HTTP -> HTTPS redirection
+require('./routes').default(app);
 
 // Start server
 function startServer() {
@@ -29,7 +22,7 @@ function startServer() {
 
 // Sync the database which will seed it (if appropriate) then startServer
 sqldb.sequelize.sync()
-  .then(seedDatabaseIfNeeded) // Only if config.seed
+  .then(require('./config/seed').default) // Only if config.seed
   .then(startServer)
   .catch(err => console.log('Server failed to start due to error: ', err));
 
