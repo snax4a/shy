@@ -1,9 +1,14 @@
+/* eslint no-process-exit:0 */
 /* global after */
 import app from './';
 import db from './server/sqldb';
 
 after(done => {
-  db.sequelize.close().then(() => console.log('Database connections closed.'));
-  app.shy.on('close', () => done());
+  app.shy.on('close', () => {
+    db.sequelize.close().then(() => {
+      done();
+      process.exit(); // Needed for now since one of the mocha unit tests are hanging
+    });
+  });
   app.shy.close();
 });

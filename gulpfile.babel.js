@@ -1,4 +1,4 @@
-/* eslint no-process-env:0 */
+/* eslint no-process-env:0 no-process-exit:0 */
 /* global console, setInterval, clearInterval, require, process, __dirname, styles */
 'use strict';
 
@@ -197,7 +197,7 @@ gulp.task('inject:scss', () =>
           let newPath = filepath
             .replace(`/${clientPath}/app/`, '')
             .replace(`/${clientPath}/components/`, '../components/')
-            .replace(/_(.*).scss/, (match, p1, offset, string) => p1)
+            .replace(/_(.*).scss/, (match, p1/*, offset, string*/) => p1)
             .replace('.scss', '');
           return `@import '${newPath}';`;
         }
@@ -364,16 +364,12 @@ gulp.task('test:server', cb => {
 
 gulp.task('mocha:unit', () =>
   gulp.src(paths.server.test.unit)
-    .pipe(mocha({
-      compilers: 'js:babel-core/register'
-    }))
+    .pipe(mocha())
 );
 
 gulp.task('mocha:integration', () =>
   gulp.src(paths.server.test.integration)
-    .pipe(mocha({
-      compilers: 'js:babel-core/register'
-    }))
+    .pipe(mocha())
 );
 
 // Run all unit tests in debug mode
