@@ -5,6 +5,6 @@ export default function routes($routeProvider) {
 
   $routeProvider.when('/', {
     template: '<main></main>',
-    title: 'Pittsburgh Yoga: Schoolhouse Yoga Pittsburgh'
+    title: 'Schoolhouse Yoga'
   });
 }
