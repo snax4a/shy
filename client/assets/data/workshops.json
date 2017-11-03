@@ -1,34 +1,11 @@
 [
 	{
-		"expires": "2017-02-12T17:00:00.000-05:00",
-		"title": "Yoga in the Counseling Session with Paula Soto, LSW, ERYT",
-		"photo": "/assets/images/workshops/ahimsa.jpg",
-		"description": "Trauma Foundation Mentoring Group. A discussion and practicum group for mental health professionals who want to skillfully integrate body, breath and mindfulness techniques into their psychotherapy sessions.  While this mentoring focuses on applications specific to the practice of psychotherapy, Yoga teachers seeking to enhance their skills for instructing private students on techniques that support mental focus and emotional and nervous system regulation will also find material of value in this group. Pre-requisite: Attendance at Ahimsa and/or Trauma Foundations training offered by Paula Soto and Linda Meacci; or, commensurate education in trauma-informed psychotherapy/yoga instruction. CEs are available to RYTs and Pennsylvania Licensed Social Workers, Licensed Professional Counselors and Licensed Marriage and Family Therapists through NASW.",
-		"sections":
-		[
-			{
-				"start": "2017-08-13T16:00:00.000-04:00",
-				"expires": "2017-08-19T18:15:00.000-04:00",
-				"productID": 44,
-				"cost": 40,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Family Yoga Workshops with Bailey Zembower",
 		"photo": "/assets/images/workshops/mothering.jpg",
 		"description": "In our family yoga workshop, we will focus on fun and playful movement as well as calming breath work to bring the family together in a lighthearted practice. We will move through a physical asana practice designed to be mindful of the bodies and minds of children and teenagers. Join us to unite your practice with your family as we include a brief guided meditation to help to focus busy minds of children and parents alike. Family members and friends of young yogis (ages 4 and over) are welcome. $10 per person.",
 		"sections":
 		[
-			  		{
-				"start": "2017-10-08T14:00:00.000-04:00",
-				"expires": "2017-10-09T15:00:00.000-04:00",
-				"productID": 58,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
 			  		{
 				"start": "2017-11-12T14:00:00.000-05:00",
 				"expires": "2017-11-13T15:00:00.000-05:00",
@@ -47,13 +24,6 @@
 		"sections":
 		[
 			{
-				"start": "2017-10-08T15:30:00.000-04:00",
-				"expires": "2017-10-09T16:30:00.000-04:00",
-				"productID": 63,
-				"cost": 10,
-				"location": "Squirrel Hill"
-			},
-			{
 				"start": "2017-11-12T15:30:00.000-05:00",
 				"expires": "2017-11-13T16:30:00.000-05:00",
 				"productID": 64,
@@ -69,32 +39,54 @@
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
 		"sections": [
 			{
-				"start": "2017-10-06T18:30:00.000-04:00",
-				"expires": "2017-10-07T20:00:00.000-04:00",
-				"productID": 10,
+				"start": "2017-11-03T18:30:00.000-04:00",
+				"expires": "2017-11-04T20:00:00.000-04:00",
+				"productID": 11,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
-				"start": "2017-11-03T18:30:00.000-04:00",
-				"expires": "2017-11-04T20:00:00.000-04:00",
+				"start": "2017-12-01T18:30:00.000-04:00",
+				"expires": "2017-12-02T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-1-01T18:30:00.000-04:00",
+				"expires": "2018-1-02T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-02-02T18:30:00.000-04:00",
+				"expires": "2018-02-03T20:00:00.000-04:00",
 				"productID": 11,
 				"cost": 20,
 				"location": "North Hills"
 			}
 		]
 	},
-		{
-		"expires": "2017-09-23T17:00:00.000-05:00",
-		"title": "Kundalini Yoga and Chant for Abundance with Kendell Romanelli",
+
+	{
+		"expires": "2017-10-18T20:00:00.000-05:00",
+		"title": "Kundalini Yoga and Chant with Kendell Romanelli",
 		"photo": "/assets/images/workshops/kundaliniandchant.jpg",
-		"description": "The Autumnal Equinox is the perfect time to celebrate balance and abundance! This beautiful workshop will focus on a Kundalini Yoga Kriya~ yogic exercise set~ to open the body, mind and heart to the bounty within us and all around us. Kundalini Yoga involves moving yogic exercises and chanting meditations. It is appropriate for all levels of yoga and is renowned for it's ability to inspire and heal practitioners. Class will be supported with live guitar music by Rick Romanelli. A great way to experience something new or embrace the beauty of Kundalini Yoga!",
-		"sections":
+		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas~ yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
+		"sections":		
 		[
 			{
-				"start": "2017-09-22T18:30:00.000-04:00",
-				"expires": "2017-09-23T20:00:00.000-04:00",
-				"productID": 57,
+				"start": "2017-12-22T18:30:00.000-04:00",
+				"expires": "2017-12-23T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-01-26T18:30:00.000-04:00",
+				"expires": "2018-01-27T20:00:00.000-04:00",
+				"productID": 11,
 				"cost": 20,
 				"location": "North Hills"
 			}
@@ -107,7 +99,20 @@
 		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas~ yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
 		"sections":		
 		[
-
+			{
+				"start": "2018-1-12T18:30:00.000-04:00",
+				"expires": "2018-1-13T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-02-16T18:30:00.000-04:00",
+				"expires": "2018-02-17T20:00:00.000-04:00",
+				"productID": 11,
+				"cost": 20,
+				"location": "North Hills"
+			}
 		]
 	},
 
@@ -174,21 +179,7 @@
 				"location": "East Liberty"
 			}
 		]
-	},
-		{
-		"expires": "2017-10-16T17:00:00.000-05:00",
-		"title": "Sitting is Killing me with Jill Clary",
-		"photo": "/assets/images/workshops/officeyoga.jpg",
-		"description": "Do you sit at a keyboard for hours? Do you have tight hips, legs, or neck, shoulder and back pain? Camping out all day at a desk can also create an unhealthy posture: the back and shoulders hunch down and the neck protrudes forward - that you take with you when you leave for the day. Join Jill Clary, RYT, for a practice designed to relieve tension and lesson the chronic ache of office work. We'll start with a chair practice we can do while at our desk or on our commute, move to our mat for a floor practice concentrated on these key areas, and finish with restorative/yin poses to leave us feeling renewed and recharged.",
-		"sections":
-		[
-			{
-				"start": "2017-10-15T13:30:00.000-04:00",
-				"expires": "2017-10-16T15:30:00.000-04:00",
-				"productID": 101,
-				"cost": 25,
-				"location": "Squirrel Hill"
-			}
+	}
 		]
 	}
 ]
