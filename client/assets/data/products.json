@@ -41,17 +41,17 @@
   },
   {
     "id": 9,
-    "name": "Workshop: Moon Salutations (Sept 8)",
+    "name": "Workshop: Moon Salutations (Dec 1)",
     "price": 20
   },
   {
     "id": 10,
-    "name": "Workshop: Moon Salutations (Oct 6)",
+    "name": "Workshop: Moon Salutations (Jan 1)",
     "price": 20
   },
   {
     "id": 11,
-    "name": "Workshop: Moon Salutations (Nov 3)",
+    "name": "Workshop: Moon Salutations (Feb 2)",
     "price": 20
   },
   {
@@ -66,12 +66,12 @@
   },
   {
     "id": 28,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (Sept 29)",
-    "price": 30   
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Jan 12)",
+    "price": 30  
   },
     {
     "id": 29,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (Oct 20)",
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Feb 16)",
     "price": 30   
   },
     {
@@ -121,12 +121,12 @@
   },
   {
     "id": 57,
-    "name": "Workshop: Kundalini Yoga and Chant (Sept 22)",
+    "name": "Workshop: Kundalini Yoga and Chant (Dec 22)",
     "price": 20
   },
   {
     "id": 58,
-    "name": "Workshop: Family Yoga (Oct 8)",
+    "name": "Workshop: Kundalni Yoga and Chant (Jan 26)",
     "price": 10
   },
   {
