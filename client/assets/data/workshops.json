@@ -6,14 +6,35 @@
 		"description": "In our family yoga workshop, we will focus on fun and playful movement as well as calming breath work to bring the family together in a lighthearted practice. We will move through a physical asana practice designed to be mindful of the bodies and minds of children and teenagers. Join us to unite your practice with your family as we include a brief guided meditation to help to focus busy minds of children and parents alike. Family members and friends of young yogis (ages 4 and over) are welcome. $10 per person.",
 		"sections":
 		[
-			  		{
+			{
 				"start": "2017-11-12T14:00:00.000-05:00",
 				"expires": "2017-11-13T15:00:00.000-05:00",
 				"productID": 59,
 				"cost": 10,
 				"location": "Squirrel Hill"
+			},
+			{
+				"start": "2017-12-10T14:00:00.000-05:00",
+				"expires": "2017-12-11T15:00:00.000-05:00",
+				"productID": 59,
+				"cost": 10,
+				"location": "Squirrel Hill"
+			},
+			{
+			"start": "2018-01-12T14:00:00.000-05:00",
+			"expires": "2018-01-13T15:00:00.000-05:00",
+			"productID": 59,
+			"cost": 10,
+			"location": "Squirrel Hill"
+			},
+			{
+			"start": "2018-02-11T14:00:00.000-05:00",
+			"expires": "2018-02-12T15:00:00.000-05:00",
+			"productID": 59,
+			"cost": 10,
+			"location": "Squirrel Hill"
 			}
-		]
+		]	
 	},
 
 
