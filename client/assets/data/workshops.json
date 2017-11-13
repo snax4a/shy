@@ -151,6 +151,24 @@
 		]
 	},
 
+	[
+		{
+			"expires": "2018-03-05T15:00:00.000-05:00",
+			"title": "Meditation for Parents",
+			"photo": "/assets/images/workshops/fertility.jpg",
+			"description": "Wanting your child to be more calm, focused and balanced? Thinking that mindfulness practices  can help? It starts with you. Choosing your own behavior, as a parent, with mindful intention, patience, and emotional regulation will benefit your child and your relationship. You and your child’s confidence and resilience will grow as he/she learns mindfulness through you. This workshop includes discussion, time to practice techniques, Q&A, and a handout to be emailed after the session. This session is for parents only, not children. Joni Sturgill is an ERYT and has a Master of Science in Counseling Psychology.",
+			"sections":
+			[
+							{
+					"start": "2018-01-28T14:00:00.000-05:00",
+					"expires": "2018-01-29T16:00:00.000-05:00",
+					"productID": 59,
+					"cost": 10,
+					"location": "Squirrel Hill"
+				}
+			]
+		},
+
 	
 {
 	"expires": "2018-02-18T15:30:00.000-05:00",
