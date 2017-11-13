@@ -162,9 +162,9 @@
 							{
 					"start": "2018-01-28T14:00:00.000-05:00",
 					"expires": "2018-01-29T16:00:00.000-05:00",
-					"productID": 59,
-					"cost": 10,
-					"location": "Squirrel Hill"
+					"productID": 51,
+					"cost": 30,
+					"location": "East Liberty"
 				}
 			]
 		},
