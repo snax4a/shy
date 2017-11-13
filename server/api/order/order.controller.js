@@ -248,7 +248,7 @@ export function create(req, res) {
   return braintreeGatewayTransactionSale(req, res)
     .then(saveToDB)
     .then(braintreeTransaction => { //send HTTP 200 response and order confirmation via email
-      if(!braintreeTransaction) return null; // Payment declined but not an error  
+      if(!braintreeTransaction) return null; // Payment declined but not an error
       const DELAY = 0; // milliseconds
       const confirmation = braintreeTransaction.transaction;
       const message = buildConfirmationEmail(confirmation);
