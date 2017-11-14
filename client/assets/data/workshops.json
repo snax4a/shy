@@ -227,6 +227,44 @@
 			}
 		]
 	},
+
+	{
+		"expires": "2018-02-18T15:30:00.000-05:00",
+		"title": "Ashtanga Yoga Workshops with Kino MacGregor",
+		"photo": "/assets/images/workshops/kino.jpg",
+		"description": "Decription coming soon",
+		"sections":
+		[
+			{
+				"start": "2018-02-03T10:30:00.000-05:00",
+				"expires": "2018-02-05T12:00:00.000-05:00",
+				"productID": 53,
+				"cost": 40,
+				"location": "East Liberty"
+			},
+			{
+				"start": "2018-02-03T14:00:00.000-05:00",
+				"expires": "2018-02-05T18:00:00.000-05:00",
+				"productID": 53,
+				"cost": 40,
+				"location": "East Liberty"
+			},
+			{
+				"start": "2018-02-04T10:00:00.000-05:00",
+				"expires": "2018-02-05T12:00:00.000-05:00",
+				"productID": 53,
+				"cost": 40,
+				"location": "East Liberty"
+			},
+			{
+				"start": "2018-02-04T14:00:00.000-05:00",
+				"expires": "2018-02-05T18:00:00.000-05:00",
+				"productID": 53,
+				"cost": 40,
+				"location": "East Liberty"
+			}
+		]
+	},
 	
 	{
 		"expires": "2018-02-18T15:30:00.000-05:00",
