@@ -28,7 +28,7 @@
     "bootstrap-sass": "~3.3.7",
     "bootstrap-social": "~5.1.1",
     "braintree": "^2.3.0",
-    "braintree-web": "^3.25.0",
+    "braintree-web": "^3.26.0",
     "composable-middleware": "^0.3.0",
     "connect-session-sequelize": "^5.0.1",
     "errorhandler": "^1.5.0",
