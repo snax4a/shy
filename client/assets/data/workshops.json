@@ -221,6 +221,48 @@
 		]
 	},
 
+	
+  {
+    "expires": "2018-02-18T15:30:00.000-05:00",
+    "title": "Ashtanga Yoga Workshops with Kino MacGregor",
+    "photo": "/assets/images/workshops/kino.jpg",
+    "description": "Decription coming soon",
+    "sections":
+    [
+      {
+				"title": "Teens in trouble",
+				"description": "This is a story about a man named Jed, a poor mountaineer, barely kept his family fed. Then one day he was shooting at some food and up from the ground come a bubbling crude.",
+			  "start": "2018-02-03T10:30:00.000-05:00",
+        "expires": "2018-02-05T12:00:00.000-05:00",
+        "productID": 53,
+        "cost": 40,
+        "location": "East Liberty"
+      },
+      {
+        "start": "2018-02-03T14:00:00.000-05:00",
+        "expires": "2018-02-05T18:00:00.000-05:00",
+        "productID": 53,
+        "cost": 40,
+        "location": "East Liberty"
+      },
+      {
+        "start": "2018-02-04T10:00:00.000-05:00",
+        "expires": "2018-02-05T12:00:00.000-05:00",
+        "productID": 53,
+        "cost": 40,
+        "location": "East Liberty"
+      },
+      {
+        "start": "2018-02-04T14:00:00.000-05:00",
+        "expires": "2018-02-05T18:00:00.000-05:00",
+        "productID": 53,
+        "cost": 40,
+        "location": "East Liberty"
+      }
+    ]
+  },
+
+
 
 	
 	{
@@ -248,8 +290,6 @@
 		"sections":
 		[
 			{
-				"title": "Teens in trouble",
-				"description": "This is a story about a man named Jed, a poor mountaineer, barely kept his family fed. Then one day he was shooting at some food and up from the ground come a bubbling crude.",
 				"start": "2018-02-18T14:00:00.000-05:00",
 				"expires": "2018-02-19T15:30:00.000-05:00",
 				"productID": 14,
