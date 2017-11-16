@@ -26,7 +26,9 @@
         tweet(url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', text='{{ workshop.title }} #shyoga')
       p(ng-repeat='section in workshop.sections | upcoming', ng-init="event = $ctrl.getEvent(workshop, section)")
         paynow(product='{{ section.productID }}')
-        span(ng-if='section.title') {{ section.title }}
+        span(ng-if='section.title')
+          b {{ section.title }} 
+          span(ng-if='section.description') {{ section.description }}
           br
         b(ng-if='!section.nodate') {{ section.start | date:'EEEE, MMMM d' }} &nbsp;&nbsp;| &nbsp;&nbsp;
         | {{ section.start | date:'shortTime' }} - {{ section.expires | date:'shortTime' }}
