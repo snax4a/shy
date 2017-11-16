@@ -95,6 +95,31 @@
     "price": 40
   },
   {
+    "id": 34,
+    "name": "Workshop: Kino (Feb 3, 10am)",
+    "price": 65
+  },
+  {
+    "id": 35,
+    "name": "Workshop: Kino (Feb 3, 2pm)",
+    "price": 65
+  },
+  {
+    "id": 36,
+    "name": "Workshop: Kino (Feb 4, 10am)",
+    "price": 65
+  },
+  {
+    "id": 37,
+    "name": "Workshop: Kino (Feb 4, 2pm)",
+    "price": 40
+  },
+  {
+    "id": 38,
+    "name": "Workshop: Kino (entire weekend)",
+    "price": 250
+  },
+  {
     "id": 45,
     "name": "Workshop: Trauma-Informed Yoga Teacher Training (Feb 18-19)",
     "price": 180
