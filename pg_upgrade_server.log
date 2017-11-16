@@ -1,0 +1,30 @@
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Nov 12 21:58:09 2017
+-----------------------------------------------------------------
+
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Nov 12 21:58:59 2017
+-----------------------------------------------------------------
+
+command: "/usr/local/Cellar/postgresql@9.6/9.6.6/bin/pg_ctl" -w -l "pg_upgrade_server.log" -D "/usr/local/var/postgres96" -o "-p 50432 -c autovacuum=off -c autovacuum_freeze_max_age=2000000000  -c listen_addresses='' -c unix_socket_permissions=0700" start >> "pg_upgrade_server.log" 2>&1
+pg_ctl: another server might be running; trying to start server anyway
+waiting for server to start....FATAL:  "/usr/local/var/postgres96" is not a valid data directory
+DETAIL:  File "/usr/local/var/postgres96/PG_VERSION" does not contain valid data.
+HINT:  You might need to initdb.
+ stopped waiting
+pg_ctl: could not start server
+Examine the log output.
+
+
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Nov 12 21:59:54 2017
+-----------------------------------------------------------------
+
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Nov 12 22:00:36 2017
+-----------------------------------------------------------------
+

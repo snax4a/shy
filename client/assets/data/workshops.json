@@ -37,7 +37,6 @@
 		]	
 	},
 
-
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Teen Yoga Workshops with Bailey Zembower",
@@ -76,7 +75,6 @@
 		]
 	},
 
-
 	{
 		"expires": "2017-12-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
@@ -107,7 +105,6 @@
 		]
 	},
 
-
 	{
 		"expires": "2018-10-18T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Chant with Kendell Romanelli",
@@ -131,7 +128,6 @@
 			}
 		]
 	},
-
 
 	{
 		"expires": "2018-10-18T20:00:00.000-05:00",
@@ -157,7 +153,6 @@
 		]
 	},
 
-
  	{
 		"expires": "2017-11-06T17:00:00.000-05:00",
 		"title": "Supporting the Perimeter with Richard Gartner",
@@ -175,7 +170,6 @@
 		]
 	},
 
-
 	{
 		"expires": "2017-11-20T17:00:00.000-05:00",
 		"title": "Straight from the Shoulder with Richard Gartner",
@@ -192,7 +186,6 @@
 			}
 		]
 	},
-
 
 	{
 		"expires": "2018-01-02T15:00:00.000-05:00",
@@ -255,6 +248,8 @@
 		"sections":
 		[
 			{
+				"title": "Teens in trouble",
+				"description": "This is a story about a man named Jed, a poor mountaineer, barely kept his family fed. Then one day he was shooting at some food and up from the ground come a bubbling crude.",
 				"start": "2018-02-18T14:00:00.000-05:00",
 				"expires": "2018-02-19T15:30:00.000-05:00",
 				"productID": 14,
