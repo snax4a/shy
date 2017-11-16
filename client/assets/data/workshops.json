@@ -264,13 +264,7 @@
         "productID": 37,
         "cost": 65,
         "location": "Union Project, 801 N Negley Avenue"
-			},
-			{
-				"title": "Entire Weekend",
-	      "productID": 38,
-        "cost": 250,
-        "location": "Union Project, 801 N Negley Avenue"
-      }
+			}
     ]
   },
 
