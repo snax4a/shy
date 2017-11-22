@@ -37,5 +37,18 @@
 		"review": "https://www.google.com/search?q=Schoolhouse+Yoga+North+Hills&oq=Schoolhouse+Yoga+North+Hills&aqs=chrome..69i57.5468j0j9&sourceid=chrome&ie=UTF-8#q=Schoolhouse+Yoga+McKnight&*&lrd=0x88348b578bfceebd:0xf43ca20cbed696a2,3,",
 		"note1": "Our North Hills studio is located on the drive up to the Ross Park Mall.",
 		"note2": "We have a free parking lot at this location."
+	},
+	{
+		"name": "Union Project",
+		"address": "801 N Negley Avenue",
+		"city": "Pittsburgh",
+		"state": "PA",
+		"zipCode": "15206",
+		"map": "https://www.google.com/maps/place/Union+Project/@40.4719561,-79.928679,17z/data=!3m1!4b1!4m5!3m4!1s0x8834f27bc00bc483:0xdaf828f268c8c4ca!8m2!3d40.471952!4d-79.926485",
+		"street": "https://www.google.com/maps/place/Union+Project/@40.4718613,-79.9261211,3a,92.7y,90t/data=!3m8!1e2!3m6!1shttp:%2F%2Fcloudfront.sproutfund.org%2Ffiles%2F2014%2F10%2Funionproject.jpg!2e7!3e27!6s%2F%2Flh5.googleusercontent.com%2Fproxy%2FnurznYu581Mn3PqiUG3dentYJsBUl7mo8k02gjhZGbOsZ1lqtWr9YaiV1O-DyC5DybrOedPCUUxfT_NTzJIOO9hVX4mZoI4QU6_b8mkyxI9bLUTP4WNVFySX_NMSh3W9GYKBB5ekEdBMRwoLJAQn65A5AfV9CA%3Dw129-h86-k-no!7i840!8i560!4m5!3m4!1s0x8834f27bc00bc483:0xdaf828f268c8c4ca!8m2!3d40.471952!4d-79.926485",
+		"directions": "https://www.google.com/maps/dir//Union+Project,+801+N+Negley+Ave,+Pittsburgh,+PA+15206/@40.4719561,-79.928679,17z/data=!4m15!1m6!3m5!1s0x8834f27bc00bc483:0xdaf828f268c8c4ca!2sUnion+Project!8m2!3d40.471952!4d-79.926485!4m7!1m0!1m5!1m1!1s0x8834f27bc00bc483:0xdaf828f268c8c4ca!2m2!1d-79.926485!2d40.471952",
+		"review": "https://www.google.com/search?q=Schoolhouse+Yoga+North+Hills&oq=Schoolhouse+Yoga+North+Hills&aqs=chrome..69i57.5468j0j9&sourceid=chrome&ie=UTF-8#q=Schoolhouse+Yoga+McKnight&*&lrd=0x88348b578bfceebd:0xf43ca20cbed696a2,3,",
+		"note1": "Kino's workshops will be held at the Union Project.",
+		"note2": "On-street parking."
 	}
 ]
