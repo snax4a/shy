@@ -1,11 +1,15 @@
 # Product Backlog
-* [High] Build DELETE /user/attendance API method
-* [High] Bound history in ui.bootstrap.popover (https://angular-ui.github.io/bootstrap/#!#popover)
-* [Low] Fix order model unit test (#purchaserEmail)
-* [Low] Add method to push newsletters from admin
+* [High] SHYnet: Move student attendance history UI to ui.bootstrap.popover (https://angular-ui.github.io/bootstrap/#!#popover) with pager (or new tab)
+* [High] SHYnet: Build GET /user/attendance API method
+* [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
+* [High] SHYnet: Build POST /user/attendance API method
+* [High] SHYnet: Implement GUI to add users to class and record in database (only allow if class, date, studio, and teacher are selected)
+* [High] SHYnet: Build DELETE /user/attendance API method
+* [High] SHYnet: Implement GUI to call API method to remove users from class (including underlying record in database)
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
+* [Low] Add method to push newsletters from admin (perhaps use sendinblue's API)
 
 <a name="1.0.11"></a>
 * [High] Intrapage links didn't work because anchors with ids loaded asynchronously - changed to synchronous
