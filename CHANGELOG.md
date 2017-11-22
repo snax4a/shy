@@ -1,12 +1,14 @@
 # Product Backlog
 * [High] Build DELETE /user/attendance API method
 * [High] Bound history in ui.bootstrap.popover (https://angular-ui.github.io/bootstrap/#!#popover)
-* [High] Intrapage links don't work because anchors with ids load asynchronously
 * [Low] Fix order model unit test (#purchaserEmail)
 * [Low] Add method to push newsletters from admin
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
+
+<a name="1.0.11"></a>
+* [High] Intrapage links didn't work because anchors with ids loaded asynchronously - changed to synchronous
 
 <a name="1.0.10"></a>
 * Revert from pg 7.2.0 to 6.4.2 and switched sequelize to use native=false to sidestep pg-native issues

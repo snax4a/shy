@@ -4,19 +4,21 @@ import routes from './locations.routes';
 import ngRoute from 'angular-route';
 import htmlid from '../../components/htmlid/htmlid.filter';
 import trustedurl from '../../components/trustedurl/trustedurl.filter';
+import locations from '../../assets/data/locations.json';
 
 export class LocationsController {
   /*@ngInject*/
-  constructor($http) {
-    this.$http = $http;
-  }
+  // constructor($http) {
+  //   this.$http = $http;
+  // }
 
   $onInit() {
-    this.$http.get('/assets/data/locations.json')
-      .then(response => {
-        this.locations = response.data;
-        return null;
-      });
+    this.locations = locations; // load synchronously or links to locations won't work
+    // this.$http.get('/assets/data/locations.json')
+    //   .then(response => {
+    //     this.locations = response.data;
+    //     return null;
+    //   });
   }
 }
 
