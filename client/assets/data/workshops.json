@@ -85,8 +85,6 @@
 				"title": "SOLD OUT",
 				"start": "2018-01-01T16:30:00.000-05:00",
 				"expires": "2018-01-02T18:00:00.000-05:00",
-				"productID": 10,
-				"cost": 20,
 				"location": "North Hills"
 			},
 			{
