@@ -82,9 +82,10 @@
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
 		"sections": [
 			{
+				"title": "SOLD OUT",
 				"start": "2018-01-01T16:30:00.000-05:00",
 				"expires": "2018-01-02T18:00:00.000-05:00",
-				"location": "SOLD OUT"
+				"location": "North Hills"
 			},
 			{
 				"start": "2018-01-01T18:30:00.000-05:00",
@@ -193,6 +194,7 @@
 		"sections":
 		[
 			{
+				"title": "SOLD OUT",
 				"start": "2018-01-01T10:00:00.000-05:00",
 				"expires": "2018-01-02T12:30:00.000-05:00",
 				"location": "East Liberty"
