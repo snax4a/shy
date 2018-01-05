@@ -136,6 +136,7 @@
 		"sections":		
 		[
 			{
+				"title": "THIS SESSION SOLD OUT",
 				"start": "2018-01-12T18:30:00.000-05:00",
 				"expires": "2018-01-13T20:00:00.000-05:00",
 				"productID": 28,
@@ -152,55 +153,9 @@
 		]
 	},
 
- 	{
-		"expires": "2017-11-06T17:00:00.000-05:00",
-		"title": "Supporting the Perimeter with Richard Gartner",
-		"photo": "/assets/images/workshops/perimeter.jpg",
-		"description": "If you wish to further your practice by accessing your feet, hands, neck and face, this workshop is for you. A typical yoga practice focuses on a few major areas of the body like knees, hamstrings, or spine. This workshop spotlights micro-asanas—practices for the overworked and often ignored parts of our selves. These practices are a boon for anyone with repetitive stress symptoms, tension headaches, sore feet, and anyone who wishes to deepen their yoga experience. Yoga Alliance members receive a digital certificate for 2.5 CE credit hours.",
-		"sections":
-		[
-			{
-				"start": "2017-11-05T13:00:00.000-05:00",
-				"expires": "2017-11-06T15:30:00.000-05:00",
-				"productID": 54,
-				"cost": 40,
-				"location": "East Liberty"
-			}
-		]
-	},
 
-	{
-		"expires": "2017-11-20T17:00:00.000-05:00",
-		"title": "Straight from the Shoulder with Richard Gartner",
-		"photo": "/assets/images/workshops/shoulder.jpg",
-		"description": "This all-levels workshop explores ways to strengthen the upper body safely and develop a sense of security in the shoulders and arms. Part anatomy lesson, part practice, this workshop is a boon for yogis who have experienced rotator cuff or elbow injuries. Richard reviews the muscular anatomy of the upper body. He then guides students through long holds and dynamic exercises. Using common poses, students gain insight into their shoulder and arm positions and develop strength. Students should be able to bear some weight on their hands, and their wrists should be free of recent injury. Yoga Alliance members receive a digital certificate for 2.5 CE credit hours.",
-		"sections":
-		[
-			{
-				"start": "2017-11-19T13:00:00.000-05:00",
-				"expires": "2017-11-20T15:30:00.000-05:00",
-				"productID": 55,
-				"cost": 40,
-				"location": "East Liberty"
-			}
-		]
-	},
 
-	{
-		"expires": "2018-01-02T15:00:00.000-05:00",
-		"title": "New Year's Day Yoga Celebration with Linda",
-		"photo": "/assets/images/workshops/NYD.jpg",
-		"description": "Jivanmukti—Be Here Now: There’s no better place than on your yoga mat to start the New Year! Invigorate body, mind and spirit and step into a shining 2018. This mindful, energetic practice—a blend of asana, contemplation, revelation and music—will make for an auspicious start to your New Year. We will reflect upon life principles as we move fluidly in Sun Salutes, Warrior postures and stabilizing balance postures. Rhythm and playfulness will be explored in backbends and hip asanas. A deep relaxation ties it all together. Walk into the New Year with a strong intention for harmony, self-care, and levity! Jivanmukti—freedom here and now! All levels welcome. Modifications will be provided. Sign-up early. Space is limited!",
-		"sections":
-		[
-			{
-				"title": "SOLD OUT",
-				"start": "2018-01-01T10:00:00.000-05:00",
-				"expires": "2018-01-02T12:30:00.000-05:00",
-				"location": "East Liberty"
-			}
-		]
-	},
+
 
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
