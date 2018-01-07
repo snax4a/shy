@@ -24,7 +24,7 @@ describe('Announcement Model', () => {
 
   afterEach(() => Announcement.destroy({ where: { section: 'Sunday, April 16th Class Schedule' } }));
 
-  it('should begin with at least 4 announcements seeded', () => Announcement.findAll().should.eventually.have.length.above(4));
+  it('should begin with at least one announcement', () => Announcement.findAll().should.eventually.have.length.above(0));
 
   describe('#section', () => {
     it('should fail when saving without a section', () => {

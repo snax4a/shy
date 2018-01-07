@@ -25,7 +25,7 @@ describe('User Model', () => {
 
   afterEach(() => User.destroy({ where: { email: 'test@example.com' } }));
 
-  it('should begin with 4 users seeded', () => User.findAll().should.eventually.have.length.above(4));
+  it('should begin with 4 users seeded', () => User.findAll().should.eventually.have.length.above(3));
 
   it('should fail when saving a duplicate user', () => user.save()
     .then(() => {
