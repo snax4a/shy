@@ -48,9 +48,9 @@ export default function(app) {
 
   app.set('appPath', path.join(config.root, 'client'));
 
-  // Set Cache-Control to 1y unless it's an HTML file
+  // Set Cache-Control to 1d unless it's an HTML file
   app.use(express.static(app.get('appPath'), {
-    maxAge: '1y',
+    maxAge: '1d',
     setHeaders: (res, filePath) => {
       const mimeType = mime.lookup(filePath);
       if(mimeType === 'text/html' || mimeType == 'application/json') res.setHeader('Cache-Control', 'public, max-age=0');
