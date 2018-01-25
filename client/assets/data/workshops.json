@@ -112,13 +112,7 @@
 		"sections":		
 		[
 			{
-				"start": "2017-12-22T18:30:00.000-05:00",
-				"expires": "2017-12-23T20:00:00.000-05:00",
-				"productID": 57,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
+				"title": "SOLD OUT",
 				"start": "2018-01-26T18:30:00.000-05:00",
 				"expires": "2018-01-27T20:00:00.000-05:00",
 				"productID": 58,
@@ -135,14 +129,6 @@
 		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that help to benefit our modern lifestyle. In this workshop Kendell will guide us through powerful Kundalini Yoga Kriyas - yogic exercise sets to cleanse and balance the body and mind. Then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
 		"sections":		
 		[
-			{
-				"title": "THIS SESSION SOLD OUT",
-				"start": "2018-01-12T18:30:00.000-05:00",
-				"expires": "2018-01-13T20:00:00.000-05:00",
-				"productID": 28,
-				"cost": 30,
-				"location": "North Hills"
-			},
 			{
 				"start": "2018-02-16T18:30:00.000-05:00",
 				"expires": "2018-02-17T20:00:00.000-05:00",
