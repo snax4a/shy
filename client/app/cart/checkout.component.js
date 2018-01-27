@@ -93,6 +93,8 @@ export class CheckOutController {
           this.$log.info(`Braintree error: ${this.braintreeError}`, braintreeError);
           if(this.braintreeError.includes('card')) this.focusOnCardNumber();
         });
+    } else {
+      alert('The checkout form is not valid. Please contact info@schoolhouseyoga.com or call 412-401-4444.');
     } // form.$valid
   } // placeOrder
 } // class CheckOutController
