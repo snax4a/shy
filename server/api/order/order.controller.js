@@ -16,47 +16,55 @@ const getGrandTotal = cartItems => {
   let total = 0;
   for(let cartItem of cartItems) {
     // Get the corrected price from the master product list and override in case of tampering
-    cartItems.price = products.find(product => product.id === parseInt(cartItem.id, 10)).price;
+    cartItem.price = products.find(product => product.id === parseInt(cartItem.id, 10)).price;
     total += getLineItemTotal(cartItem);
   }
   return parseFloat(total).toFixed(0);
 };
 
+const abbreviateCartItems = cartItems => {
+  let abbreviation = '';
+  for(let cartItem of cartItems) {
+    abbreviation += `${cartItem.quantity} x ${cartItem.id} @ $${cartItem.price}, `;
+  }
+  return abbreviation.substring(0, abbreviation.length - 2); // remove last comma and space
+};
+
 // Generate the order object from the HTTP request
-const buildOrder = req => {
-  let cartItems = req.body.cartItems;
+const buildOrder = body => {
+  let cartItems = body.cartItems;
   return {
-    paymentMethodNonce: req.body.nonceFromClient,
+    paymentMethodNonce: body.nonceFromClient,
     amount: getGrandTotal(cartItems),
     descriptor: {
       name: 'SH Yoga*Class Workshop',
       phone: '412-401-4444',
     },
     customFields: {
-      gift: req.body.gift,
-      sendvia: req.body.sendVia,
-      instructions: req.body.instructions,
-      items: JSON.stringify(cartItems),
-      recipientphone: req.body.recipient.phone,
-      recipientemail: req.body.recipient.email
+      gift: body.gift,
+      sendvia: body.sendVia,
+      instructions: body.instructions,
+      items: abbreviateCartItems(cartItems),
+      recipientphone: body.recipient.phone,
+      recipientemail: body.recipient.email
     },
     customer: {
-      firstName: req.body.purchaser.firstName,
-      lastName: req.body.purchaser.lastName,
-      email: req.body.purchaser.email,
-      phone: req.body.purchaser.phone
+      firstName: body.purchaser.firstName,
+      lastName: body.purchaser.lastName,
+      email: body.purchaser.email,
+      phone: body.purchaser.phone
     },
     billing: {
-      firstName: req.body.purchaser.firstName,
-      lastName: req.body.purchaser.lastName
+      firstName: body.purchaser.firstName,
+      lastName: body.purchaser.lastName
     },
     shipping: {
-      firstName: req.body.recipient.firstName,
-      lastName: req.body.recipient.lastName,
-      streetAddress: req.body.recipient.address || null,
-      locality: req.body.recipient.city || null,
-      region: req.body.recipient.state ? req.body.recipient.state.toUpperCase() : 'PA',
-      postalCode: req.body.recipient.zipCode || null,
+      firstName: body.recipient.firstName,
+      lastName: body.recipient.lastName,
+      streetAddress: body.recipient.address || null,
+      locality: body.recipient.city || null,
+      region: body.recipient.state ? body.recipient.state.toUpperCase() : 'PA',
+      postalCode: body.recipient.zipCode || null,
       countryName: 'US'
     },
     taxExempt: true,
@@ -185,15 +193,14 @@ const braintreeGatewayTransactionSale = (req, res) => {
   let gateway = braintree.connect(config.gateway);
 
   // Submit orderInfo to Braintree
-  return gateway.transaction.sale(buildOrder(req))
-    .then(braintreeTransaction => { // Did not get an error
+  return gateway.transaction.sale(buildOrder(req.body))
+    .then(braintreeTransaction => {
       // Reformat some of the response
       braintreeTransaction.transaction.id = braintreeTransaction.transaction.id.toUpperCase();
       braintreeTransaction.transaction.customFields.gift = braintreeTransaction.transaction.customFields.gift === 'true';
       braintreeTransaction.transaction.createdAt = new Date(braintreeTransaction.transaction.createdAt).toLocaleString();
-      braintreeTransaction.transaction.customFields.items = JSON.parse(braintreeTransaction.transaction.customFields.items);
 
-      if(braintreeTransaction.success) {
+      if(braintreeTransaction.success) { // Did not get an error
         console.log(`Braintree order ${braintreeTransaction.transaction.id} created`);
         //res.status(200).json(result); // send response to client so it doesn't wait
         return braintreeTransaction;
@@ -245,12 +252,14 @@ const saveToDB = braintreeTransaction => {
 
 // Create order -> save to db -> send 200 response -> email confirmation
 export function create(req, res) {
+  // Here, req.body.cartItems is fine
   return braintreeGatewayTransactionSale(req, res)
     .then(saveToDB)
     .then(braintreeTransaction => { //send HTTP 200 response and order confirmation via email
       if(!braintreeTransaction) return null; // Payment declined but not an error
       const DELAY = 0; // milliseconds
       const confirmation = braintreeTransaction.transaction;
+      confirmation.customFields.items = req.body.cartItems; // Add back in for confirmation
       const message = buildConfirmationEmail(confirmation);
 
       setTimeout(() => config.mail.transporter.sendMail(message)
