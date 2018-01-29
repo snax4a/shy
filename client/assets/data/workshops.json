@@ -21,18 +21,18 @@
 				"location": "Squirrel Hill"
 			},
 			{
-			"start": "2018-01-14T14:00:00.000-05:00",
-			"expires": "2018-01-15T15:00:00.000-05:00",
-			"productID": 61,
-			"cost": 10,
-			"location": "Squirrel Hill"
+				"start": "2018-01-14T14:00:00.000-05:00",
+				"expires": "2018-01-15T15:00:00.000-05:00",
+				"productID": 61,
+				"cost": 10,
+				"location": "Squirrel Hill"
 			},
 			{
-			"start": "2018-02-11T14:00:00.000-05:00",
-			"expires": "2018-02-12T15:00:00.000-05:00",
-			"productID": 62,
-			"cost": 10,
-			"location": "Squirrel Hill"
+				"start": "2018-02-11T14:00:00.000-05:00",
+				"expires": "2018-02-12T15:00:00.000-05:00",
+				"productID": 62,
+				"cost": 10,
+				"location": "Squirrel Hill"
 			}
 		]	
 	},
@@ -139,10 +139,6 @@
 		]
 	},
 
-
-
-
-
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Meditation for Parents with Joni Sturgill",
@@ -160,8 +156,7 @@
 		]
 	},
 
-	
-  {
+	{
     "expires": "2018-02-18T15:30:00.000-05:00",
     "title": "Ashtanga Yoga Workshops with Kino MacGregor",
     "photo": "/assets/images/workshops/kino.jpg",
@@ -207,9 +202,6 @@
     ]
   },
 
-
-
-	
 	{
 		"expires": "2018-02-18T15:30:00.000-05:00",
 		"title": "Partner Meditation Workshop with Joni Sturgill",
