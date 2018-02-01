@@ -50,11 +50,6 @@
     "price": 20
   },
   {
-    "id": 11,
-    "name": "Workshop: Moon Salutations (Feb 2)",
-    "price": 20
-  },
-  {
     "id": 14,
     "name": "Workshop: Prenatal Partner Yoga (Feb 18)",
     "price": 40
@@ -63,11 +58,6 @@
     "id": 17,
     "name": "Workshop: Neuroscience (Nov 11)",
     "price": 115
-  },
-  {
-    "id": 29,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (Feb 16)",
-    "price": 30   
   },
   {
     "id": 30,
