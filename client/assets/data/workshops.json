@@ -181,51 +181,7 @@
 		]
 	},
 
-	{
-    "expires": "2018-02-18T15:30:00.000-05:00",
-    "title": "Ashtanga Yoga Workshops with Kino MacGregor",
-    "photo": "/assets/images/workshops/kino.jpg",
-    "description": "Kino MacGregor is an international yoga teacher, author of four books, producer of six DVDs and co-founder of Miami Life Center and OmStars. She is one of a select group of people to receive the Certification to teach Ashtanga Yoga by its founder Sri K Pattabhi Jois.",
-    "sections":
-    [
-      {
-				"title": "Ashtanga Magic: Breath, Posture and Gaze",
-				"description": "Delve into the secrets of the Ashtanga Yoga lineage, known as the Tristana method, and discover the magic of breath (pranayama), posture (asana) and focal point (dristhi). Break down the energetic alignment of key postures in the Ashtanga Yoga method and build the foundation for a meditative, awareness based practice. Starting off with the Sun Salutations and progressing through the Standing Postures, Kino guides you into a devotional practice that mergers the physical and subtle bodies and honors tradition while embodying the present. All levels.",
-			  "start": "2018-02-03T10:00:00.000-05:00",
-        "expires": "2018-02-05T12:00:00.000-05:00",
-        "productID": 34,
-        "cost": 65,
-        "location": "Union Project"
-      },
-      {
-				"title": "Twist into Your Center",
-				"description": "Deep twisting increases energy levels, cleanses the body and opens the mind to new levels of awareness. Find the perfect balance between activation and release in this new approach to twisting. Learn healthy technique to increase flexibility in your spine and shoulders while creating solid foundation in your pelvis. Use the core strength of the body to support the twisting and extension. You will have fun with many levels of twists and even use the twisting position to enter some challenging arm balances!",
-			  "start": "2018-02-03T14:00:00.000-05:00",
-        "expires": "2018-02-05T16:00:00.000-05:00",
-        "productID": 35,
-        "cost": 65,
-        "location": "Union Project"
-      },
-      {
-				"title": "Ashtanga Yoga Full Primary Series",
-				"description": "Surrender to the traditional Ashtanga Yoga method with careful emphasis on the traditional vinyasa method and have fun along the journey. Experience the integrity and purity of the Ashtanga Yoga practice and be prepared to sweat.",
-			  "start": "2018-02-04T10:00:00.000-05:00",
-        "expires": "2018-02-05T12:00:00.000-05:00",
-        "productID": 36,
-        "cost": 65,
-        "location": "Union Project"
-      },
-      {
-				"title": "Handstands Lovers",
-				"description": "No matter how long you practice handstand is a benchmark of strength and steadiness that transcends physical disciplines. From yoga to martial arts to gymnastics a stable handstand is the key test of alignment and mastery. The only thing you need to join this class is a love of handstands. Whether you are a total beginner or have a stable handstand you will learn tools to build strength and alignment while balancing on your hands.  Leave with a strength building program that you can do every day to develop the physical and emotional strength to support your handstanding journey.",
-			  "start": "2018-02-04T14:00:00.000-05:00",
-        "expires": "2018-02-05T16:00:00.000-05:00",
-        "productID": 37,
-        "cost": 65,
-        "location": "Union Project"
-			}
-    ]
-  },
+ 
 
 	{
 		"expires": "2018-02-18T15:30:00.000-05:00",
@@ -252,8 +208,8 @@
 		"sections":
 		[
 			{
-				"start": "2018-02-18T14:00:00.000-05:00",
-				"expires": "2018-02-19T15:30:00.000-05:00",
+				"start": "2018-04-08T14:00:00.000-04:00",
+				"expires": "2018-04-10T15:30:00.000-04:00",
 				"productID": 14,
 				"cost": 40,
 				"location": "East Liberty"

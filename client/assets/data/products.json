@@ -51,7 +51,7 @@
   },
   {
     "id": 14,
-    "name": "Workshop: Prenatal Partner Yoga (Feb 18)",
+    "name": "Workshop: Prenatal Partner Yoga (April 8)",
     "price": 40
   },
   {
@@ -88,36 +88,6 @@
     "id": 33,
     "name": "Workshop: Teen Yoga (Feb 11)",
     "price": 10
-  },
-  {
-    "id": 34,
-    "name": "Workshop: Kino (Feb 3, 10am)",
-    "price": 65
-  },
-  {
-    "id": 35,
-    "name": "Workshop: Kino (Feb 3, 2pm)",
-    "price": 65
-  },
-  {
-    "id": 36,
-    "name": "Workshop: Kino (Feb 4, 10am)",
-    "price": 65
-  },
-  {
-    "id": 37,
-    "name": "Workshop: Kino (Feb 4, 2pm)",
-    "price": 65
-  },
-  {
-    "id": 38,
-    "name": "Workshop: Kino (entire weekend)",
-    "price": 250
-  },
-  {
-    "id": 44,
-    "name": "Workshop: NYD",
-    "price": 35
   },
   {
     "id": 45,
@@ -188,11 +158,6 @@
     "id": 99,
     "name": "Yoga Teacher Training (monthly)",
     "price": 334
-  },
-  {
-    "id": 101,
-    "name": "New Year's Day workshop (Jan 1)",
-    "price": 35
   },
   {
     "id": 102,
