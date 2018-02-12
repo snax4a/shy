@@ -41,7 +41,7 @@
   },
   {
     "id": 9,
-    "name": "Workshop: Moon Salutations (March 2",
+    "name": "Workshop: Moon Salutations (March 2)",
     "price": 20
   },
   {
@@ -60,8 +60,18 @@
     "price": 20
   },
   {
+    "id": 28,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (March 16)",
+    "price": 30   
+  },
+  {
+    "id": 29,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (April 13)",
+    "price": 30   
+  },
+  {
     "id": 30,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (Nov 17)",
+    "name": "Workshop: Kundalini Yoga and Acupuncture (May 11)",
     "price": 30   
   },
   {
@@ -131,7 +141,7 @@
   },
   {
     "id": 55,
-    "name": "Workshop: Kundalini Yoga and Chant (March 23",
+    "name": "Workshop: Kundalini Yoga and Chant (March 23)",
     "price": 20
   },
   {
