@@ -75,21 +75,6 @@
     "price": 30   
   },
   {
-    "id": 31,
-    "name": "Workshop: Teen Yoga (Dec 10)",
-    "price": 10   
-  },
-  {
-    "id": 32,
-    "name": "Workshop: Teen Yoga (Jan 14)",
-    "price": 10
-  },
-  {
-    "id": 33,
-    "name": "Workshop: Teen Yoga (Feb 11)",
-    "price": 10
-  },
-  {
     "id": 45,
     "name": "Workshop: Trauma-Informed Yoga Teacher Training (Feb 18-19)",
     "price": 180
@@ -126,27 +111,32 @@
   },
   {
     "id": 60,
-    "name": "Workshop: Family Yoga (Dec 10)",
+    "name": "Workshop: Family Yoga (March 4)",
     "price": 10
   },
   {
     "id": 61,
-    "name": "Workshop: Family Yoga (Jan 14)",
+    "name": "Workshop: Family Yoga (April 1)",
     "price": 10
   },
   {
     "id": 62,
-    "name": "Workshop: Family Yoga (Feb 11)",
+    "name": "Workshop: Family Yoga (May 6)",
     "price": 10
   },
   {
     "id": 63,
-    "name": "Workshop: Teen Yoga (Dec 10)",
+    "name": "Workshop: Teen Yoga (March 4)",
     "price": 10
   },
   {
     "id": 64,
-    "name": "Workshop: Teen Yoga (Nov 12)",
+    "name": "Workshop: Teen Yoga (April 1)",
+    "price": 10
+  },
+  {
+    "id": 65,
+    "name": "Workshop: Teen Yoga (May 6)",
     "price": 10
   },
   {
@@ -158,10 +148,5 @@
     "id": 99,
     "name": "Yoga Teacher Training (monthly)",
     "price": 334
-  },
-  {
-    "id": 102,
-    "name": "Ayurveda, both days",
-    "price": 60
   }
 ]
