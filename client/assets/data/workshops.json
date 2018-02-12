@@ -119,14 +119,14 @@
 			{
 				"start": "2018-03-23T18:30:00.000-04:00",
 				"expires": "2018-03-25T20:00:00.000-04:00",
-				"productID": 58,
+				"productID": 55,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-05-04T18:30:00.000-04:00",
 				"expires": "2018-05-06T20:00:00.000-04:00",
-				"productID": 58,
+				"productID": 56,
 				"cost": 20,
 				"location": "North Hills"
 			}
