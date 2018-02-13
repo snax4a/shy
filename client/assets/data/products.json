@@ -145,6 +145,21 @@
     "price": 10
   },
   {
+    "id": 66,
+    "name": "Workshop: Labyrinth (March 24)",
+    "price": 35
+  },
+  {
+    "id": 67,
+    "name": "Workshop: Labyrinth (April 20)",
+    "price": 35
+  },
+  {
+    "id": 68,
+    "name": "Workshop: Labyrinth (May 18)",
+    "price": 35
+  },
+  {
     "id": 98,
     "name": "Yoga Teacher Training (in full)",
     "price": 2750
