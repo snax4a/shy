@@ -250,14 +250,14 @@
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Yoga for Digestion with Jill Clary",
-		"photo": "/assets/images/workshops/officeyoga.jpg",
+		"photo": "/assets/images/workshops/stomche.jpg",
 		"description": "Want to beat bloat and ease stomach pains including acid reflux, IBS, colitis, crohn's, diverticulitis, and gallstones? Yoga is not a cure for any of these issues but it can provide temporary relief. Moving and breathing deeply can help relieve the stress that is often to blame for GI upset. Join Jill Clary, E-RYT 200, to learn specific poses to massage and compress the digestive organs.",
 		"sections":
 		[
 			{
 				"start": "2018-04-15T14:00:00.000-04:00",
 				"expires": "2018-04-17T16:00:00.000-04:00",
-				"productID": 50,
+				"productID": 57,
 				"cost": 30,
 				"location": "Squirrel Hill"
 			}
