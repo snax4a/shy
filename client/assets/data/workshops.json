@@ -274,6 +274,35 @@
 		]
 	},
 
+
+	{
+		"expires": "2018-10-18T20:00:00.000-05:00",
+		"title": "Trauma-Informed Foundations with Linda Meacci, ERYT 500 and Paula Soto, LSW",
+		"photo": "/assets/images/workshops/ahimsa.jpg",
+		"description": "As we enter an era of increased awareness around assault, emotional abuse and predatory behavior, trauma-informed yoga instruction and mindfulness practices are taking on new significance. In this workshop and practicum, yoga teachers, therapists, social workers and other wellness professionals will gain a deeper understanding of how the effects of trauma may show up in classes or one-on-one sessions and the tools they can use to support the situation. This training will offer review and also build upon what Linda and Paula have presented in past workshops. Yoga Alliance continuing education credits can be earned.",
+		"sections":		
+		[
+			{
+				"title": "Ahimsa: Trauma-Informed Basics",
+				"description": "This workshop will provide introductory information about the prevalence and impact of trauma, and how yoga can help to heal or further harm a yoga student who has been impacted by trauma.  This session is a prerequisite for Saturday's practicum. If you have already taken Ahimsa with Linda and Paula or Trauma Informed training, then this session is not necessary unless you want a review.",
+				"start": "2018-04-13T18:00:00.000-04:00",
+				"expires": "2018-04-17T20:30:00.000-04:00",
+				"productID": 28,
+				"cost": 30,
+				"location": "East Liberty"
+			},
+			{
+				"tilte": "Trauma Foundations Practicum",
+				"description": "This practicum will build on pre-requisite trauma informed trainings. Participants will learn and practice a sampling of trauma-informed mindfulness techniques and yoga teaching skills. This practicum will also include: understanding how the nervous system and the brain are impacted; managing hyper- and hypo-arousal states, learning how to better attune the student/client's nervous system; offering appropriate modifications in a yoga setting; learning trauma-informed tips for restorative practices. We will close the training with a practice of yoga nidra (yoga sleep). Both group classes and private sessions will be addressed. Curated discussion will be included. Pre-requisite for Trauma Foundations Practicum (Day 2):  Ahimsa/Trauma Foundations workshop attendance or commensurate knowledge/training about trauma and yoga.",
+				"start": "2018-04-14T18:30:00.000-04:00",
+				"expires": "2018-04-17T20:00:00.000-04:00",
+				"productID": 29,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
 	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Meditation and Restorative Yoga for those in the Helping Professions",
