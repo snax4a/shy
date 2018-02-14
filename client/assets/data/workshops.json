@@ -193,36 +193,36 @@
 			{
 				"start": "2018-04-27T18:00:00.000-04:00",
 				"expires": "2018-04-30T20:00:00.000-04:00",
-				"productID": 66,
-				"cost": 35,
+				"productID": 70,
+				"cost": 55,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-04-28T10:00:00.000-04:00",
 				"expires": "2018-04-30T12:00:00.000-04:00",
-				"productID": 67,
-				"cost": 35,
+				"productID": 71,
+				"cost": 55,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-04-28T14:00:00.000-04:00",
 				"expires": "2018-04-30T16:00:00.000-04:00",
-				"productID": 68,
-				"cost": 35,
+				"productID": 72,
+				"cost": 55,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-04-29T10:00:00.000-04:00",
 				"expires": "2018-04-30T12:00:00.000-04:00",
-				"productID": 68,
-				"cost": 35,
+				"productID": 73,
+				"cost": 55,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-04-29T14:00:00.000-04:00",
 				"expires": "2018-04-30T16:00:00.000-04:00",
-				"productID": 68,
-				"cost": 35,
+				"productID": 74,
+				"cost": 55,
 				"location": "North Hills"
 			}
 		]
