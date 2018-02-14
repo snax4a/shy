@@ -184,6 +184,39 @@
 
 
 	{
+		"expires": "2018-10-18T20:00:00.000-05:00",
+		"title": "Max Strom",
+		"photo": "/assets/images/workshops/maxstrom.jpg",
+		"description": "Come join in this special evening with Abby Ritter, E-RYT 500hr certified hatha yoga teacher and Ayurvedic Yoga Specialist, along with her mother Marcia Ritter a 200hr certified hatha yoga teacher and labyrinth facilitator. During this time together you will learn what a labyrinth is and how it is used for self-reflection and as a meditative tool to bring inner peace.  You will then be guided through a candle lit walk and meditation on the labyrinth—settling the mind and facilitating a journey deep within to find a sense of inner peace, transformation, and renewal.",
+		"sections":		
+		[
+			{
+				"title": "Test"
+				"start": "2018-03-24T18:00:00.000-04:00",
+				"expires": "2018-03-25T20:00:00.000-04:00",
+				"productID": 66,
+				"cost": 35,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-04-20T18:00:00.000-04:00",
+				"expires": "2018-04-21T20:00:00.000-04:00",
+				"productID": 67,
+				"cost": 35,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-05-18T18:00:00.000-04:00",
+				"expires": "2018-05-19T20:00:00.000-04:00",
+				"productID": 68,
+				"cost": 35,
+				"location": "North Hills"
+			}
+		]
+	},
+
+
+	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Mindfulness and Poetry with Joni Sturgill",
 		"photo": "/assets/images/workshops/officeyoga.jpg",
