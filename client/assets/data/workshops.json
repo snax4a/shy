@@ -184,53 +184,6 @@
 
 
 	{
-		"expires": "2018-10-18T20:00:00.000-05:00",
-		"title": "Max Strom",
-		"photo": "/assets/images/workshops/maxstrom.jpg",
-		"description": "Many know him for his two inspiring books: A Life Worth Breathing, now published in five languages, and There is No APP for Happiness, his most recent title addressing the challenge of finding meaning in the digital age. Among Max's recent speaking appearances were three TEDx events and a keynote speech on ethics in business at a Fortune 500 corporation. His articles and interviews have appeared in print, online media, radio, and television around the globe. As an in-demand speaker, Max has presented his method at the first Wellness Symposium in Saudi Arabia, The Inner Idea Conference, the Happinez Festival in the Netherlands, The Singularity University in the Silicon Valley, The Sea Island resort, as well as many yoga conferences.",
-		"sections":		
-		[
-			{
-				"title": "Opening the Chest and Shoulders - a New State of Energy",
-				"description": "Some of the negative side effects of using a computer are that we find ourselves with frozen shoulders, sore forearms, and injured wrists. This workshop targets these issues with a special sequence of postures that opens the chest and shoulders, as well as the entire boy. This induces an emotional sense of release, brings the mind into stillness, and the body into a new state of energy. Open to all levels except absolute beginners. This movement workshop is both challenging and very healing.",
-				"start": "2018-04-28T10:00:00.000-04:00",
-				"expires": "2018-04-30T12:00:00.000-04:00",
-				"productID": 71,
-				"cost": 55,
-				"location": "East Liberty"
-			},
-			{
-				"title": "Max Strom's End Anxiety and Re-inspire",
-				"description": "The Extraordinary power of Conscious Breathing Patterns.We currently have an epidemic of stress and anxiety in the world that is stifling happiness, meaning, and connection with each other.  In the face of such a pervasive problem, it might seem that something as simple as breathing patterns couldn't possibly help. But scientific research and Max's personal experience engaging with tens of thousands of people around the world have both found that utilizing conscious breathing patterns for a few minutes every day is the most productive approach for creating immediate relief from stress and anxiety. In this event, Max will lecture and demonstrate, followed by interactive instruction. Max teaches leaders how to use your breath to trigger more inspiration, focus, health, and better sleep. Be sure to bring writing materials for writing answers to a series of questions that will help you identify the causes of your anxiety.",
-				"start": "2018-04-28T14:00:00.000-04:00",
-				"expires": "2018-04-30T16:00:00.000-04:00",
-				"productID": 72,
-				"cost": 55,
-				"location": "East Liberty"
-			}
-		]
-	},
-
-
-	{
-		"expires": "2018-03-05T15:00:00.000-05:00",
-		"title": "Mindfulness and Poetry with Joni Sturgill",
-		"photo": "/assets/images/workshops/officeyoga.jpg",
-		"description": "We live in stressful times, plus personal life changes like moving, losing or starting a job, the end or beginning of a relationship, or the death of a loved one can leave us feeling overwhelmed. How can we process our challenging life events, along with all of the emotions that surround them? The practice of mindfulness can help us understand ourselves better, to see where we are stuck, and to see our strengths as well. Writing can also be a therapeutic, healing exercise to help you acknowledge your emotions and negative thoughts and move through them. In this workshop, Amazon best-selling poet and mindfulness facilitator Joni Sturgill will lead you through gentle movement, breathing exercises, mindfulness practices, and teach you how to use your experience to write poetry. No experience required. Please bring a journal or paper and pen.",
-		"sections":
-		[
-			{
-				"start": "2018-03-18T14:00:00.000-04:00",
-				"expires": "2018-03-20T16:00:00.000-04:00",
-				"productID": 50,
-				"cost": 30,
-				"location": "Squirrel Hill"
-			}
-		]
-	},
-
-
-	{
 		"expires": "2018-03-05T15:00:00.000-05:00",
 		"title": "Yoga for Digestion with Jill Clary",
 		"photo": "/assets/images/workshops/stomache.jpg",
