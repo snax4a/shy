@@ -220,6 +220,25 @@
 
 
 	{
+		"expires": "2018-04-24T15:00:00.000-05:00",
+		"title": "Prop-el Your Practice! with Stefanie Zito",
+		"photo": "/assets/images/workshops/props.jpg",
+		"description": "Props are a real gift to the yoga practice, often used for support and proprioceptive feedback, and rightly so. They can also, however, encourage a unique increase of challenge when introduced in certain approaches to asana, which is what this workshop will explore. While many standard props will be utilized, our focus will primarily be using blankets to discover fun and creative ways to move, stabilize, and strengthen the whole body.",
+		"sections":
+		[
+			{
+				"start": "2018-05-20T14:00:00.000-04:00",
+				"expires": "2018-05-22T16:30:00.000-04:00",
+				"productID": 34,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+
+
+	{
 		"expires": "2018-10-18T20:00:00.000-05:00",
 		"title": "Trauma-Informed Foundations with Linda Meacci, ERYT 500 and Paula Soto, LSW",
 		"photo": "/assets/images/workshops/ahimsa.jpg",
