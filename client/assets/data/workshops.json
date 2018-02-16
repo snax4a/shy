@@ -200,6 +200,24 @@
 		]
 	},
 
+	{
+		"expires": "2018-04-24T15:00:00.000-05:00",
+		"title": "Breathe the Body, Ease the Mind with Zo",
+		"photo": "/assets/images/workshops/breathe.jpg",
+		"description": "Breathing. Right now, you are breathing. Breath in motion, body in motion. No thought necessary; it is a given. So, why investigate the given? Because, your breath, and the way you breathe it, is vital to the health of your entire physical being; and the state of your physical body directly influences your mental state. So, if the breath is vital to physical health, we can see that the breath is also vital to mental health. Join me for a discovery-based practice to become more consciously attuned to your unique breath. We'll explore our nature through self-inquiry, journaling, discussion of the anatomy and physics of breathing, discussion of various breathing patterns, all supplemented and guided by gentle flowing movement, static postures, and watching the breath in meditation.",
+		"sections":
+		[
+			{
+				"start": "2018-04-22T13:00:00.000-04:00",
+				"expires": "2018-04-24T15:00:00.000-04:00",
+				"productID": 33,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+
 
 	{
 		"expires": "2018-10-18T20:00:00.000-05:00",
