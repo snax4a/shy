@@ -270,7 +270,7 @@
 		"expires": "2018-06-05T15:00:00.000-05:00",
 		"title": "Meditation and Restorative Yoga for those in the Helping Professions",
 		"photo": "/assets/images/workshops/restorative.jpg",
-		"description": "Are you a caretaker by profession or by nature? If you are a counselor, social worker, teacher, physician, nurse or parent - or anyone in the social/helping professions - do you really take the time to restore your own body, mind, emotions or energy? Are you finding ways to manage stress in your life? Join Joni in this workshop and learn techniques you can practice regularly to renew yourself, so you can avoid or minimize burnout. You’ll learn meditation techniques to calm and focus the mind, plus how to position the body, using props, to encourage complete relaxation. No experience necessary. Open to anyone who needs to relax",
+		"description": "Are you a caretaker by profession or by nature? If you are a counselor, social worker, teacher, physician, nurse or parent - or anyone in the social/helping professions - do you really take the time to restore your own body, mind, emotions or energy? Are you finding ways to manage stress in your life? Join Joni in this workshop and learn techniques you can practice regularly to renew yourself, so you can avoid or minimize burnout. You’ll learn meditation techniques to calm and focus the mind, plus how to position the body, using props, to encourage complete relaxation. No experience necessary. Open to anyone who needs to relax.",
 		"sections":
 		[
 			{
@@ -279,6 +279,23 @@
 				"productID": 51,
 				"cost": 30,
 				"location": "East Liberty"
+			}
+		]
+	},
+
+	{
+		"expires": "2018-06-05T15:00:00.000-05:00",
+		"title": "Mindfulness and Poetry with Joni Sturgill",
+		"photo": "/assets/images/workshops/officeyoga.jpg",
+		"description": "We live in stressful times, plus personal life changes like moving, losing or starting a job, the end or beginning of a relationship, or the death of a loved one can leave us feeling overwhelmed. How can we process our challenging life events, along with all of the emotions that surround them? The practice of mindfulness can help us understand ourselves better, to see where we are stuck, and to see our strengths as well. Writing can also be a therapeutic, healing exercise to help you acknowledge your emotions and negative thoughts and move through them. In this workshop, Amazon best-selling poet and mindfulness facilitator Joni Sturgill will lead you through gentle movement, breathing exercises, mindfulness practices, and teach you how to use your experience to write poetry. No experience required. Please bring a journal or paper and pen.",
+		"sections":
+		[
+			{
+				"start": "2018-03-18T14:00:00.000-04:00",
+				"expires": "2018-03-20T16:00:00.000-04:00",
+				"productID": 50,
+				"cost": 30,
+				"location": "Squirrel Hill"
 			}
 		]
 	},
