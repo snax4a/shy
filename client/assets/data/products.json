@@ -41,73 +41,63 @@
   },
   {
     "id": 9,
-    "name": "Workshop: Moon Salutations (Dec 1)",
+    "name": "Workshop: Moon Salutations (March 2)",
     "price": 20
   },
   {
     "id": 10,
-    "name": "Workshop: Moon Salutations (Jan 1, 6:30pm)",
+    "name": "Workshop: Moon Salutations (March 30)",
     "price": 20
   },
   {
-    "id": 14,
+    "id": 13,
     "name": "Workshop: Prenatal Partner Yoga (Feb 18)",
     "price": 40
   },
   {
+    "id": 14,
+    "name": "Workshop: Prenatal Partner Yoga (April 8)",
+    "price": 40
+  },
+  {
     "id": 17,
-    "name": "Workshop: Neuroscience (Nov 11)",
-    "price": 115
+    "name": "Workshop: Moon Salutations (April 27)",
+    "price": 20
+  },
+  {
+    "id": 28,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (March 16)",
+    "price": 30   
+  },
+  {
+    "id": 29,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (April 13)",
+    "price": 30   
   },
   {
     "id": 30,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (Nov 17)",
+    "name": "Workshop: Kundalini Yoga and Acupuncture (May 11)",
     "price": 30   
   },
   {
     "id": 31,
-    "name": "Workshop: Teen Yoga (Dec 10)",
-    "price": 10   
+    "name": "Workshop: Trauma-Informed Foundations (April 13)",
+    "price": 30   
   },
   {
     "id": 32,
-    "name": "Workshop: Teen Yoga (Jan 14)",
-    "price": 10
+    "name": "Workshop: Trauma-Informed Foundations (April 14)",
+    "price": 30   
   },
   {
     "id": 33,
-    "name": "Workshop: Teen Yoga (Feb 11)",
-    "price": 10
+    "name": "Workshop: Breathe the Body (April 22)",
+    "price": 30   
   },
   {
     "id": 34,
-    "name": "Workshop: Kino (Feb 3, 10am)",
-    "price": 65
-  },
-  {
-    "id": 35,
-    "name": "Workshop: Kino (Feb 3, 2pm)",
-    "price": 65
-  },
-  {
-    "id": 36,
-    "name": "Workshop: Kino (Feb 4, 10am)",
-    "price": 65
-  },
-  {
-    "id": 37,
-    "name": "Workshop: Kino (Feb 4, 2pm)",
-    "price": 65
-  },
-  {
-    "id": 38,
-    "name": "Workshop: Kino (entire weekend)",
-    "price": 250
-  },
-  {
-    "id": 44,
-    "name": "Workshop: NYD",
-    "price": 35
+    "name": "Workshop: Prop-el Your Practice (May 20)",
+    "price": 30   
   },
   {
     "id": 45,
@@ -115,8 +105,13 @@
     "price": 180
   },
   {
+    "id": 50,
+    "name": "Workshop: Mindfulness and Poetry (March 18)",
+    "price": 30
+  },
+  {
     "id": 51,
-    "name": "Workshop: Meditation for Parents (Jan 28)",
+    "name": "Workshop: Meditation and Restorative Yoga (May 12)",
     "price": 30
   },
   {
@@ -131,13 +126,18 @@
   },
   {
     "id": 55,
-    "name": "Workshop: Straight from the Shoulder (Nov 19)",
-    "price": 40
+    "name": "Workshop: Kundalini Yoga and Chant (March 23)",
+    "price": 20
+  },
+  {
+    "id": 56,
+    "name": "Workshop: Kundalini Yoga and Chant (May 4)",
+    "price": 20
   },
   {
     "id": 57,
-    "name": "Workshop: Kundalini Yoga and Chant (Dec 22)",
-    "price": 20
+    "name": "Workshop: Yoga for Digestion (April 15)",
+    "price": 30
   },
   {
     "id": 59,
@@ -146,28 +146,72 @@
   },
   {
     "id": 60,
-    "name": "Workshop: Family Yoga (Dec 10)",
+    "name": "Workshop: Family Yoga (March 4)",
     "price": 10
   },
   {
     "id": 61,
-    "name": "Workshop: Family Yoga (Jan 14)",
+    "name": "Workshop: Family Yoga (April 8)",
     "price": 10
   },
   {
     "id": 62,
-    "name": "Workshop: Family Yoga (Feb 11)",
+    "name": "Workshop: Family Yoga (May 6)",
     "price": 10
   },
   {
     "id": 63,
-    "name": "Workshop: Teen Yoga (Dec 10)",
+    "name": "Workshop: Teen Yoga (March 4)",
     "price": 10
   },
   {
     "id": 64,
-    "name": "Workshop: Teen Yoga (Nov 12)",
+    "name": "Workshop: Teen Yoga (April 8)",
     "price": 10
+  },
+  {
+    "id": 65,
+    "name": "Workshop: Teen Yoga (May 6)",
+    "price": 10
+  },
+  {
+    "id": 66,
+    "name": "Workshop: Labyrinth (March 24)",
+    "price": 35
+  },
+  {
+    "id": 67,
+    "name": "Workshop: Labyrinth (April 20)",
+    "price": 35
+  },
+  {
+    "id": 68,
+    "name": "Workshop: Labyrinth (May 18)",
+    "price": 35
+  },
+  {
+    "id": 70,
+    "name": "Max Strom (April 27, 6pm)",
+    "price": 55
+  },
+  {
+    "id": 71,
+    "name": "Max Strom (April 28, 10am)",
+    "price": 55
+  },
+  {
+    "id": 72,
+    "name": "Max Strom (April 28, 2pm)",
+    "price": 55
+  },
+  {
+    "id": 73,
+    "name": "Max Strom (April 29, 10am)",
+    "price": 55
+  },  {
+    "id": 74,
+    "name": "Max Strom (April 29, 2pm)",
+    "price": 55
   },
   {
     "id": 98,
@@ -178,15 +222,5 @@
     "id": 99,
     "name": "Yoga Teacher Training (monthly)",
     "price": 334
-  },
-  {
-    "id": 101,
-    "name": "New Year's Day workshop (Jan 1)",
-    "price": 35
-  },
-  {
-    "id": 102,
-    "name": "Ayurveda, both days",
-    "price": 60
   }
 ]
