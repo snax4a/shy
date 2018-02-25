@@ -213,6 +213,11 @@
     "name": "Max Strom (April 29, 2pm)",
     "price": 55
   },
+ {
+    "id": 75,
+    "name": "Max Strom (teacher payment)",
+    "price": 38.50
+  },
   {
     "id": 98,
     "name": "Yoga Teacher Training (in full)",
