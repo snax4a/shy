@@ -6,6 +6,7 @@
 * [High] SHYnet: Implement GUI to add users to class and record in database (only allow if class, date, studio, and teacher are selected)
 * [High] SHYnet: Build DELETE /user/attendance API method
 * [High] SHYnet: Implement GUI to call API method to remove users from class (including underlying record in database)
+* [Medium] Update to Webpack 4.0.1+
 * [Low] Embed images in order confirmations and newsletters using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Braintree subscription payments for Teacher Training's multiple payments option
