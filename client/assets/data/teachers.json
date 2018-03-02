@@ -293,11 +293,5 @@
 		"firstName": "Anne",
 		"lastName": "Jarusinski",
 		"substitute": true
-	},
-	{
-		"_id": 43,
-		"firstName": "Sha",
-		"lastName": "Zhao",
-		"substitute": true
 	}
 ]
