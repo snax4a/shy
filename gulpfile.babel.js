@@ -211,13 +211,25 @@ function webpackCompile(options, cb) {
 
   compiler.run((err, stats) => {
     if(err) return cb(err);
-
     plugins.util.log(stats.toString({
+      assets: true,
+      cached: false,
+      cachedAssets: false,
+      children: false,
       colors: true,
-      chunks: false, //options.BUILD,
+      chunks: false,
+      chunkModules: false,
+      chunkOrigins: false,
+      depth: false,
+      env: false,
+      errors: true,
       errorDetails: true,
       hash: false,
-      timings: true
+      modules: false,
+      performance: true,
+      reasons: true,
+      timings: false, // Redundant since gulp provides timing
+      warnings: true
     }));
     cb();
   });
@@ -226,7 +238,6 @@ function webpackCompile(options, cb) {
 gulp.task('webpack:dev', cb => webpackCompile({ DEV: true }, cb));
 gulp.task('webpack:dist', cb => webpackCompile({ BUILD: true }, cb));
 gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
-gulp.task('webpack:e2e', cb => webpackCompile({ E2E: true }, cb));
 
 gulp.task('styles', () =>
   gulp.src(paths.client.mainStyle)
@@ -420,7 +431,7 @@ gulp.task('coverage:integration', () =>
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], () => {
+gulp.task('test:e2e', ['webpack:test', 'env:all', 'env:test', 'start:server', 'webdriver_update'], () => {
   gulp.src(paths.client.e2e)
     .pipe(protractor({
       configFile: 'protractor.conf.js',
@@ -523,7 +534,7 @@ gulp.task('copy:extras', () =>
 );
 
 gulp.task('copy:npm-lock', () =>
-  gulp.src(['paclage-lock.json'], { dot: true })
+  gulp.src(['package-lock.json'], { dot: true })
     .pipe(gulp.dest(`${paths.dist}`))
 );
 

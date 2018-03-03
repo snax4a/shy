@@ -12,9 +12,10 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 module.exports = function makeWebpackConfig(options) {
   // Set by gulpfile.babel.js or karma.conf.js
-  const BUILD = !!options.BUILD;
-  const TEST = options.TEST || options.E2E;
   const DEV = !!options.DEV;
+  const TEST = !!options.TEST;
+  const BUILD = !!options.BUILD;
+
   const ANALYZE = false;
 
   // Establish the base configuration
