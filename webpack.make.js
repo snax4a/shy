@@ -20,13 +20,14 @@ module.exports = function makeWebpackConfig(options) {
 
   // Establish the base configuration
   let config = {
-    cache: DEV,
 
     devtool: '', // placeholder to be filled in conditionally
 
     entry: {
       app: ['./client/app/app.js'] // switched to transform-runtime from babel-polyfill
     },
+
+    mode: BUILD ? 'production' : 'development',
 
     module: {
       rules: [
@@ -121,6 +122,8 @@ module.exports = function makeWebpackConfig(options) {
       setImmediate: false // do not schedule immediate callback
     },
 
+    optimization: {},
+
     output: {}, // placeholder to be filled in conditionally
 
     plugins: [ // others added conditionally based on env
@@ -178,12 +181,6 @@ module.exports = function makeWebpackConfig(options) {
     };
 
     config.plugins.push(
-      // Separate vendor chunk
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: (module, count) => module.context && module.context.indexOf('node_modules') >= 0
-      }),
-
       // Don't render index.html
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
@@ -194,26 +191,24 @@ module.exports = function makeWebpackConfig(options) {
           removeComments: true,
           minifyJS: true
         }
-      }),
-      new HtmlWebpackHarddiskPlugin()
+      })//,
+      //new HtmlWebpackHarddiskPlugin()
     );
   }
 
   // Add build specific plugins
-  if(BUILD) {
-    config.plugins.push(
-      // Only emit files when there are no errors
-      new webpack.NoEmitOnErrorsPlugin(), //http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-
-      // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-        mangle: false,
-        sourceMap: true,
-        comments: false,
-        exclude: [/\.min\.js$/gi] // skip pre-minified libs
-      })
-    );
-  }
+  //if(BUILD) {
+  //  config.plugins.push(
+  // Minify all javascript, switch loaders to minimizing mode
+  // new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+  //   mangle: false,
+  //   sourceMap: true,
+  //   comments: false,
+  //   exclude: [/\.min\.js$/gi] // skip pre-minified libs
+  // })
+  //);
+  // config.optimization.minimize instead
+  //}
 
   // For debugging Webpack configuration
   // const util = require('util');
@@ -225,6 +220,7 @@ module.exports = function makeWebpackConfig(options) {
   // } catch(e) {
   //   console.error(e.message);
   // }
+
   return config;
 };
 
