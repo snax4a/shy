@@ -4,6 +4,7 @@
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackHarddiskPlugin from './htmlwebpackharddiskplugin'; // until html-webpack-harddisk-plugin gets updated for Webpack 4
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -22,7 +23,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: 'source-map',
 
     entry: {
-      app: ['./client/app/app.js'] // switched to transform-runtime from babel-polyfill
+      app: './client/app/app.js'
     },
 
     mode: BUILD ? 'production' : 'development',
@@ -36,7 +37,7 @@ module.exports = function makeWebpackConfig(options) {
           ],
           exclude: /node_modules/,
           use: [
-            {loader: 'ng-annotate-loader?single_quotes'},
+            {loader: 'ng-annotate-loader'},
             {
               loader: 'babel-loader',
               options: {
@@ -123,7 +124,7 @@ module.exports = function makeWebpackConfig(options) {
     ]
   };
 
-  if(DEV && ANALYZE) {
+  if(ANALYZE) {
     config.plugins.push(
       new BundleAnalyzerPlugin({analyzerMode: 'static'})
     );
@@ -150,11 +151,12 @@ module.exports = function makeWebpackConfig(options) {
         template: 'client/_index.html',
         filename: '../client/index.html',
         alwaysWriteToDisk: true
-      })
+      }),
+      new HtmlWebpackHarddiskPlugin()
     );
   } else config.devtool = 'inline-source-map';
 
-  // For debugging Webpack configuration
+  //For debugging Webpack configuration
   // const util = require('util');
   // console.log('Webpack Config (as entered):', util.inspect(config, { showHidden: false, depth: null }));
   // var compiler;
