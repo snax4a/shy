@@ -9,7 +9,7 @@ import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 module.exports = function makeWebpackConfig(options) {
-  // Set by gulpfile.babel.js or karma.conf.js
+  // Passed by gulpfile.babel.js or karma.conf.js
   const DEV = !!options.DEV;
   const TEST = !!options.TEST;
   const BUILD = !!options.BUILD;
@@ -43,7 +43,6 @@ module.exports = function makeWebpackConfig(options) {
                 babelrc: false, // .babelrc configured for tools and server transpile only
                 cacheDirectory: true,
                 comments: true, // if false, messes up ng-annotate-loader
-                minified: true,
                 plugins: ['transform-runtime'],
                 presets: [
                   ['env', {
@@ -106,12 +105,8 @@ module.exports = function makeWebpackConfig(options) {
     },
 
     node: {
-      //crypto: 'empty',
-      //clearImmediate: false, // do not stop timer associated with callback
       setImmediate: false // do not schedule immediate callback // save 4K
     },
-
-    optimization: {},
 
     output: {}, // placeholder to be filled in conditionally
 
@@ -154,29 +149,10 @@ module.exports = function makeWebpackConfig(options) {
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
         filename: '../client/index.html',
-        alwaysWriteToDisk: true,
-        // minify: {
-        //   removeScriptTypeAttributes: true,
-        //   removeComments: true,
-        //   minifyJS: true
-        // }
+        alwaysWriteToDisk: true
       })
     );
   } else config.devtool = 'inline-source-map';
-
-  // Add build specific plugins
-  //if(BUILD) {
-  //  config.plugins.push(
-  // Minify all javascript, switch loaders to minimizing mode
-  // new webpack.optimize.UglifyJsPlugin({ // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-  //   mangle: false,
-  //   sourceMap: true,
-  //   comments: false,
-  //   exclude: [/\.min\.js$/gi] // skip pre-minified libs
-  // })
-  //);
-  // config.optimization.minimize instead
-  //}
 
   // For debugging Webpack configuration
   // const util = require('util');
@@ -191,4 +167,3 @@ module.exports = function makeWebpackConfig(options) {
 
   return config;
 };
-
