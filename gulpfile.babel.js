@@ -226,7 +226,7 @@ function webpackCompile(options, cb) {
       errorDetails: true,
       hash: false,
       modules: false,
-      performance: false,
+      performance: true,
       reasons: false,
       timings: false, // Redundant since gulp provides timing
       warnings: false
