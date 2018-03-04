@@ -4,11 +4,9 @@
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-//import CompressionPlugin from 'compression-webpack-plugin';
 
 module.exports = function makeWebpackConfig(options) {
   // Set by gulpfile.babel.js or karma.conf.js
@@ -21,7 +19,7 @@ module.exports = function makeWebpackConfig(options) {
   // Establish the base configuration
   let config = {
 
-    devtool: '', // placeholder to be filled in conditionally
+    devtool: 'source-map',
 
     entry: {
       app: ['./client/app/app.js'] // switched to transform-runtime from babel-polyfill
@@ -57,13 +55,10 @@ module.exports = function makeWebpackConfig(options) {
                         'ie >= 11',
                         'ios >= 10',
                         'android >= 5.1'
-                      ],
-                      uglify: true // no effect on build size or functionality
+                      ]
                     },
                     debug: false,
-                    loose: true, // saves 5K for app and 3K for vendor
-                    modules: 'commonjs', // changing to false adds 17K
-                    useBuiltIns: true
+                    loose: true // saves 4K
                   }]
                 ]
               }
@@ -78,7 +73,6 @@ module.exports = function makeWebpackConfig(options) {
 
         {
           test: /\.pug$/,
-          // loader: 'pug-loader' // https://github.com/pugjs/pug-loader // adds 6K
           use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
         },
 
@@ -93,22 +87,17 @@ module.exports = function makeWebpackConfig(options) {
               {
                 loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
                 options: {
-                  minimize: true,
-                  sourceMap: false
+                  minimize: true
                 }
               },
               { // Shrinks CSS file by 12K
                 loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
                 options: {
-                  plugins: () => [autoprefixer({browsers: ['last 2 versions']})],
-                  sourceMap: false
+                  plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
                 }
               },
               {
                 loader: 'sass-loader', // https://github.com/webpack-contrib/sass-loader
-                options: {
-                  outputStyle: 'compressed',
-                }
               }
             ]
           })
@@ -117,9 +106,9 @@ module.exports = function makeWebpackConfig(options) {
     },
 
     node: {
-      crypto: 'empty',
-      clearImmediate: false, // do not stop timer associated with callback
-      setImmediate: false // do not schedule immediate callback
+      //crypto: 'empty',
+      //clearImmediate: false, // do not stop timer associated with callback
+      setImmediate: false // do not schedule immediate callback // save 4K
     },
 
     optimization: {},
@@ -127,9 +116,6 @@ module.exports = function makeWebpackConfig(options) {
     output: {}, // placeholder to be filled in conditionally
 
     plugins: [ // others added conditionally based on env
-      // Scope hoisting
-      new webpack.optimize.ModuleConcatenationPlugin(),
-
       // Separate CSS from JS
       new ExtractTextPlugin('[name].[chunkhash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
 
@@ -138,15 +124,7 @@ module.exports = function makeWebpackConfig(options) {
         'process.env.NODE_ENV': DEV ? '"development"'
           : BUILD ? '"production"'
             : TEST ? '"test"'
-              : '"development"'}) //,
-
-      // new CompressionPlugin({ // https://github.com/webpack-contrib/compression-webpack-plugin
-      //   asset: '[path].gz[query]',
-      //   algorithm: 'gzip',
-      //   test: /\.(js|html|css)$/,
-      //   threshold: 10240,
-      //   minRatio: 0.8
-      // })
+              : '"development"'})
     ]
   };
 
@@ -154,15 +132,6 @@ module.exports = function makeWebpackConfig(options) {
     config.plugins.push(
       new BundleAnalyzerPlugin({analyzerMode: 'static'})
     );
-  }
-
-  // Type of sourcemap to use per build type
-  if(TEST) {
-    config.devtool = 'inline-source-map';
-  } else if(BUILD || DEV) {
-    config.devtool = 'source-map';
-  } else {
-    config.devtool = 'eval';
   }
 
   if(!TEST) {
@@ -186,15 +155,14 @@ module.exports = function makeWebpackConfig(options) {
         template: 'client/_index.html',
         filename: '../client/index.html',
         alwaysWriteToDisk: true,
-        minify: {
-          removeScriptTypeAttributes: true,
-          removeComments: true,
-          minifyJS: true
-        }
-      })//,
-      //new HtmlWebpackHarddiskPlugin()
+        // minify: {
+        //   removeScriptTypeAttributes: true,
+        //   removeComments: true,
+        //   minifyJS: true
+        // }
+      })
     );
-  }
+  } else config.devtool = 'inline-source-map';
 
   // Add build specific plugins
   //if(BUILD) {

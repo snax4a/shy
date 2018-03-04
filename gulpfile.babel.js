@@ -226,10 +226,10 @@ function webpackCompile(options, cb) {
       errorDetails: true,
       hash: false,
       modules: false,
-      performance: true,
-      reasons: true,
+      performance: false,
+      reasons: false,
       timings: false, // Redundant since gulp provides timing
-      warnings: true
+      warnings: false
     }));
     cb();
   });
