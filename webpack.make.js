@@ -42,8 +42,6 @@ module.exports = function makeWebpackConfig(options) {
               loader: 'babel-loader',
               options: {
                 babelrc: false, // .babelrc configured for tools and server transpile only
-                cacheDirectory: true,
-                comments: true, // if false, messes up ng-annotate-loader
                 plugins: ['transform-runtime'],
                 presets: [
                   ['env', {
@@ -146,11 +144,11 @@ module.exports = function makeWebpackConfig(options) {
     };
 
     config.plugins.push(
-      // Don't render index.html
+      // Generate index.html from template
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
         filename: '../client/index.html',
-        alwaysWriteToDisk: true
+        alwaysWriteToDisk: true // property from HtmlWebpackHarddiskPlugin
       }),
       new HtmlWebpackHarddiskPlugin()
     );
