@@ -4,7 +4,7 @@
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import HtmlWebpackHarddiskPlugin from './htmlwebpackharddiskplugin'; // until html-webpack-harddisk-plugin gets updated for Webpack 4
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
