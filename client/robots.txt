@@ -1,4 +1,2 @@
-# robotstxt.org
 User-agent: *
-Disallow: /confirmation
 Sitemap: https://www.schoolhouseyoga.com/sitemap.xml
