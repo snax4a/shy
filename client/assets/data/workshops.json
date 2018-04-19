@@ -108,14 +108,6 @@
 		"sections":		
 		[
 			{
-				"title": "SOLD OUT",
-				"start": "2018-04-13T18:30:00.000-04:00",
-				"expires": "2018-04-17T20:00:00.000-04:00",
-				"productID": 29,
-				"cost": 30,
-				"location": "North Hills"
-			},
-			{
 				"start": "2018-05-11T18:30:00.000-04:00",
 				"expires": "2018-05-17T20:00:00.000-04:00",
 				"productID": 30,
@@ -133,13 +125,6 @@
 		"description": "Come join in this special evening with Abby Ritter, E-RYT 500hr certified Hatha yoga teacher and Ayurvedic Yoga Specialist, along with her mother Marcia Ritter a 200hr certified Hatha yoga teacher and labyrinth facilitator. During this time together you will learn what a labyrinth is and how it is used for self-reflection and as a meditative tool to bring inner peace.  You will then be guided through a candle lit walk and meditation on the labyrinth—settling the mind and facilitating a journey deep within to find a sense of inner peace, transformation, and renewal.",
 		"sections":		
 		[
-			{
-				"start": "2018-03-24T18:00:00.000-04:00",
-				"expires": "2018-03-25T20:00:00.000-04:00",
-				"productID": 66,
-				"cost": 35,
-				"location": "North Hills"
-			},
 			{
 				"start": "2018-04-20T18:00:00.000-04:00",
 				"expires": "2018-04-21T20:00:00.000-04:00",
@@ -322,7 +307,7 @@
         "location": "East Liberty"
 			},
 			{
-        "title": "Crisis is the Axis for transformation",
+        "title": "SOLD OUT: Crisis is the Axis for transformation",
         "description": "This workshop deals directly with the modern epidemic of stress in industrial societies across the world. A great many of us are plagued with anxiety and depression because we are actually in a quiet state of crisis. The opportunity of crisis is that you have a clarity that is unparalleled to any other time in your life. What is important and not important becomes almost blindingly clear. So, there is no better time to rebuild your vision of your life. The special seminar will give you knowledge to take home with you to help you live a more authentic life with improved sleep. Class includes lecture, self-enquiry, and writing. All levels are welcome. Bring writing materials.",
         "start": "2018-04-29T14:00:00.000-04:00",
         "expires": "2018-04-30T16:00:00.000-04:00",
