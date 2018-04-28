@@ -169,6 +169,16 @@
     "name": "Workshop: Labyrinth (May 18)",
     "price": 35
   },
+  {
+    "id": 73,
+    "name": "Max Strom (Sun, 10am)",
+    "price": 55
+  },
+  {
+    "id": 74,
+    "name": "Max Strom (Sun, 2pm)",
+    "price": 55
+  },
  {
     "id": 75,
     "name": "Max Strom (teacher payment)",
