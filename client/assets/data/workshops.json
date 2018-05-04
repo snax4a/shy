@@ -50,20 +50,12 @@
 
 
 	{
-		"expires": "2018-06-10T20:00:00.000-05:00",
+		"expires": "2018-04-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
 		"photo": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. Each month follows the theme of the full moon for that month with slight variations to the Moon Salutation, mantra and music. A perfect way to end your work week!",
 		"sections":
 		 [
-			{
-				"title": "SOLD OUT",
-				"start": "2018-03-30T18:30:00.000-04:00",
-				"expires": "2018-04-02T20:00:00.000-04:00",
-				"productID": 10,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"start": "2018-04-27T18:30:00.000-04:00",
 				"expires": "2018-04-29T20:00:00.000-04:00",
@@ -83,13 +75,6 @@
 		"description": "This beautiful workshop will focus on a Kundalini Yoga Kriya - yogic exercise set - to open the body, mind and heart to the beauty within us and all around us. Kundalini Yoga involves moving yogic exercises and chanting meditations. It is appropriate for all levels of yoga and is renowned for it’s ability to inspire and heal practitioners. Class will be supported with live guitar music by Rick Romanelli. A great way to experience something new or embrace the beauty of Kundalini Yoga!",
 		"sections":		
 		[
-			{
-				"start": "2018-03-23T18:30:00.000-04:00",
-				"expires": "2018-03-25T20:00:00.000-04:00",
-				"productID": 55,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"start": "2018-05-04T18:30:00.000-04:00",
 				"expires": "2018-05-06T20:00:00.000-04:00",
@@ -126,53 +111,11 @@
 		"sections":		
 		[
 			{
-				"start": "2018-04-20T18:00:00.000-04:00",
-				"expires": "2018-04-21T20:00:00.000-04:00",
-				"productID": 67,
-				"cost": 35,
-				"location": "North Hills"
-			},
-			{
 				"start": "2018-05-18T18:00:00.000-04:00",
 				"expires": "2018-05-19T20:00:00.000-04:00",
 				"productID": 68,
 				"cost": 35,
 				"location": "North Hills"
-			}
-		]
-	},
-
-
-	{
-		"expires": "2018-06-05T15:00:00.000-05:00",
-		"title": "Yoga for Digestion with Jill Clary",
-		"photo": "/assets/images/workshops/stomache.jpg",
-		"description": "Want to beat bloat and ease stomach pains including acid reflux, IBS, colitis, crohn's, diverticulitis, and gallstones? Yoga is not a cure for any of these issues but it can provide temporary relief. Moving and breathing deeply can help relieve the stress that is often to blame for GI upset. Join Jill Clary, E-RYT 200, to learn specific poses to massage and compress the digestive organs.",
-		"sections":
-		[
-			{
-				"start": "2018-04-15T14:00:00.000-04:00",
-				"expires": "2018-04-17T16:00:00.000-04:00",
-				"productID": 57,
-				"cost": 30,
-				"location": "Squirrel Hill"
-			}
-		]
-	},
-
-	{
-		"expires": "2018-06-24T15:00:00.000-05:00",
-		"title": "Breathe the Body, Ease the Mind with Zo",
-		"photo": "/assets/images/workshops/breathe.jpg",
-		"description": "Breathing. Right now, you are breathing. Breath in motion, body in motion. No thought necessary; it is a given. So, why investigate the given? Because, your breath, and the way you breathe it, is vital to the health of your entire physical being; and the state of your physical body directly influences your mental state.  We'll explore our nature through self-inquiry, journaling, discussion of the anatomy and physics of breathing, discussion of various breathing patterns, all supplemented and guided by gentle flowing movement, static postures, and watching the breath in meditation. Participants should bring a journal.",
-		"sections":
-		[
-			{
-				"start": "2018-04-22T13:00:00.000-04:00",
-				"expires": "2018-04-24T15:30:00.000-04:00",
-				"productID": 33,
-				"cost": 30,
-				"location": "East Liberty"
 			}
 		]
 	},
@@ -199,7 +142,7 @@
 
 
 	{
-		"expires": "2018-06-18T20:00:00.000-05:00",
+		"expires": "2018-04-18T20:00:00.000-05:00",
 		"title": "Trauma-Informed Foundations with Linda Meacci, ERYT 500 and Paula Soto, LSW",
 		"photo": "/assets/images/workshops/ahimsa.jpg",
 		"description": "As we enter an era of increased awareness around assault, emotional abuse and predatory behavior, trauma-informed yoga instruction and mindfulness practices are taking on new significance. In this workshop and practicum, yoga teachers, therapists, social workers and other wellness professionals will gain a deeper understanding of how the effects of trauma may show up in classes or one-on-one sessions and the tools they can use to support the situation. This training will offer review and also build upon what Linda and Paula have presented in past workshops. Yoga Alliance continuing education credits can be earned.",
@@ -243,96 +186,14 @@
 		]
 	},
 
-	{
-		"expires": "2018-03-05T15:00:00.000-05:00",
-		"title": "Mindfulness and Poetry with Joni Sturgill",
-		"photo": "/assets/images/workshops/officeyoga.jpg",
-		"description": "We live in stressful times, plus personal life changes like moving, losing or starting a job, the end or beginning of a relationship, or the death of a loved one can leave us feeling overwhelmed. How can we process our challenging life events, along with all of the emotions that surround them? The practice of mindfulness can help us understand ourselves better, to see where we are stuck, and to see our strengths as well. Writing can also be a therapeutic, healing exercise to help you acknowledge your emotions and negative thoughts and move through them. In this workshop, Amazon best-selling poet and mindfulness facilitator Joni Sturgill will lead you through gentle movement, breathing exercises, mindfulness practices, and teach you how to use your experience to write poetry. No experience required. Please bring a journal or paper and pen.",
-		"sections":
-		[
-			{
-				"start": "2018-03-18T14:00:00.000-04:00",
-				"expires": "2018-03-20T16:00:00.000-04:00",
-				"productID": 50,
-				"cost": 30,
-				"location": "Squirrel Hill"
-			}
-		]
-	},
-
-
-		
-
-  {
-    "expires": "2018-10-18T20:00:00.000-05:00",
-    "title": "Max Strom",
-    "photo": "/assets/images/workshops/maxstrom.jpg",
-    "description": "Many know him for his two inspiring books: A Life Worth Breathing, now published in five languages, and There is No APP for Happiness, his most recent title addressing the challenge of finding meaning in the digital age. Among Max's recent speaking appearances were three TEDx events and a keynote speech on ethics in business at a Fortune 500 corporation. His articles and interviews have appeared in print, online media, radio, and television around the globe. As an in-demand speaker, Max has presented his method at the first Wellness Symposium in Saudi Arabia, The Inner Idea Conference, the Happinez Festival in the Netherlands, The Singularity University in the Silicon Valley, The Sea Island resort, as well as many yoga conferences.",
-    "sections":   
-    [
-			{
-        "title": "SOLD OUT: Vital Life-Better Sleep: Stress management",
-        "description": "This workshop deals directly with the modern plague of sleeplessness and stress.  In America, the Center for Disease Control has declared sleep disorder an epidemic, and this is happening in industrial cities across the world.  This workshop will help you re-think your priorities and give you knowledge to take home with you to help you sleep and live more at ease. This workshop begins with a lecture, and then moves into a gentle restorative sequence of postures and gentle movement that immediately trigger deep relaxation. Simple, powerful, accessible. Max will give you knowledge to take home with you to help you live more at ease with improved sleep.  All levels are welcome. Bring writing materials.",
-        "start": "2018-04-27T18:00:00.000-04:00",
-        "expires": "2018-04-30T20:00:00.000-04:00",
-        "productID": 70,
-        "cost": 55,
-        "location": "East Liberty"
-      },
-      {
-        "title": "SOLD OUT: Opening the Chest and Shoulders - a New State of Energy",
-        "description": "Some of the negative side effects of using a computer are that we find ourselves with frozen shoulders, sore forearms, and injured wrists. This workshop targets these issues with a special sequence of postures that opens the chest and shoulders, as well as the entire body. This induces an emotional sense of release, brings the mind into stillness, and the body into a new state of energy. Open to all levels except absolute beginners. This movement workshop is both challenging and very healing.",
-        "start": "2018-04-28T10:00:00.000-04:00",
-        "expires": "2018-04-30T12:00:00.000-04:00",
-        "productID": 71,
-        "cost": 55,
-        "location": "East Liberty"
-      },
-      {
-        "title": "SOLD OUT: Max Strom's End Anxiety and Re-inspire",
-        "description": "The Extraordinary power of Conscious Breathing Patterns. We currently have an epidemic of stress and anxiety in the world that is stifling happiness, meaning, and connection with each other.  In the face of such a pervasive problem, it might seem that something as simple as breathing patterns couldn't possibly help. But scientific research and Max's personal experience engaging with tens of thousands of people around the world have both found that utilizing conscious breathing patterns for a few minutes every day is the most productive approach for creating immediate relief from stress and anxiety. In this event, Max will lecture and demonstrate, followed by interactive instruction. Max teaches leaders how to use your breath to trigger more inspiration, focus, health, and better sleep. Be sure to bring writing materials for writing answers to a series of questions that will help you identify the causes of your anxiety.",
-        "start": "2018-04-28T14:00:00.000-04:00",
-        "expires": "2018-04-30T16:00:00.000-04:00",
-        "productID": 72,
-        "cost": 55,
-        "location": "East Liberty"
-			},
-			{
-        "title": "SOLD OUT: Strength, Grace, and Healing",
-        "description": "The intent of yoga is not only to increase our strength and flexibility, but also to promote health and vitality.  The next layer is to transform our behavior from coarse to gracious, and to transform even our very thoughts, from chaos to beauty.  Experience Max Strom's unique yoga practice, called, Inner Axis, with emphasis on emotional transformation. Class will include a short talk, inner axis yoga, non-dogmatic philosophy, breathing, and meditation.",
-        "start": "2018-04-29T10:00:00.000-04:00",
-        "expires": "2018-04-30T12:00:00.000-04:00",
-        "productID": 73,
-        "cost": 55,
-        "location": "East Liberty"
-			},
-			{
-        "title": "SOLD OUT: Crisis is the Axis for transformation",
-        "description": "This workshop deals directly with the modern epidemic of stress in industrial societies across the world. A great many of us are plagued with anxiety and depression because we are actually in a quiet state of crisis. The opportunity of crisis is that you have a clarity that is unparalleled to any other time in your life. What is important and not important becomes almost blindingly clear. So, there is no better time to rebuild your vision of your life. The special seminar will give you knowledge to take home with you to help you live a more authentic life with improved sleep. Class includes lecture, self-enquiry, and writing. All levels are welcome. Bring writing materials.",
-        "start": "2018-04-29T14:00:00.000-04:00",
-        "expires": "2018-04-30T16:00:00.000-04:00",
-        "productID": 74,
-        "cost": 55,
-        "location": "East Liberty"
-      }
-    ]
-  },
-
 
 	{
-		"expires": "2018-06-19T15:30:00.000-05:00",
+		"expires": "2018-04-19T15:30:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
 		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms-to-be bring your partner, a family member or a friend to this fun workshop where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and prepare for the arrival of your little one! All stages of pregnancy and levels of experience are welcome. Price is per couple.",
 		"sections":
 		[
-			{
-				"start": "2018-02-18T14:00:00.000-05:00",
-				"expires": "2018-02-20T15:30:00.000-05:00",
-				"productID": 13,
-				"cost": 40,
-				"location": "East Liberty"
-			},
 			{
 				"start": "2018-04-08T14:00:00.000-04:00",
 				"expires": "2018-04-10T15:30:00.000-04:00",
