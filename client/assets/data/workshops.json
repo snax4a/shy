@@ -9,21 +9,21 @@
 			{
 				"start": "2018-06-10T14:00:00.000-04:00",
 				"expires": "2018-06-11T15:00:00.000-04:00",
-				"productID": 61,
+				"productID": 59,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
 			{
 				"start": "2018-07-08T14:00:00.000-04:00",
 				"expires": "2018-07-09T15:00:00.000-04:00",
-				"productID": 62,
+				"productID": 60,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
 			{
 				"start": "2018-08-12T14:00:00.000-04:00",
 				"expires": "2018-08-13T15:00:00.000-04:00",
-				"productID": 62,
+				"productID": 61,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			}
@@ -40,14 +40,14 @@
 			{
 				"start": "2018-06-10T15:30:00.000-04:00",
 				"expires": "2018-06-11T16:30:00.000-04:00",
-				"productID": 64,
+				"productID": 63,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
 			{
 				"start": "2018-07-08T15:30:00.000-04:00",
 				"expires": "2018-07-09T16:30:00.000-04:00",
-				"productID": 65,
+				"productID": 64,
 				"cost": 10,
 				"location": "Squirrel Hill"
 			},
