@@ -41,7 +41,7 @@
   },
   {
     "id": 13,
-    "name": "Workshop: Prenatal Partner Yoga (Feb 18)",
+    "name": "Workshop: Prenatal Partner Yoga (July 15)",
     "price": 40
   },
   {
@@ -65,11 +65,6 @@
     "price": 100  
   },
   {
-    "id": 33,
-    "name": "Workshop: Breathe the Body (April 22)",
-    "price": 30   
-  },
-  {
     "id": 34,
     "name": "Workshop: Prop-el Your Practice (May 20)",
     "price": 30   
@@ -78,11 +73,6 @@
     "id": 45,
     "name": "Workshop: Trauma-Informed Yoga Teacher Training (Feb 18-19)",
     "price": 180
-  },
-  {
-    "id": 50,
-    "name": "Workshop: Mindfulness and Poetry (March 18)",
-    "price": 30
   },
   {
     "id": 51,
@@ -95,11 +85,6 @@
     "price": 40
   },
   {
-    "id": 54,
-    "name": "Workshop: Supporting the Perimeter (Nov 5)",
-    "price": 40
-  },
-  {
     "id": 55,
     "name": "Workshop: Kundalini Yoga and Chant (June 22)",
     "price": 20
@@ -108,11 +93,6 @@
     "id": 56,
     "name": "Workshop: Kundalini Yoga and Acupuncture (June 1)",
     "price": 20
-  },
-  {
-    "id": 57,
-    "name": "Workshop: Yoga for Digestion (April 15)",
-    "price": 30
   },
   {
     "id": 59,
@@ -163,21 +143,6 @@
     "id": 68,
     "name": "Workshop: Labyrinth (May 18)",
     "price": 35
-  },
-  {
-    "id": 72,
-    "name": "Max Strom (Sat, 2pm)",
-    "price": 55
-  },
-  {
-    "id": 74,
-    "name": "Max Strom (Sun, 2pm)",
-    "price": 55
-  },
- {
-    "id": 75,
-    "name": "Max Strom (teacher payment)",
-    "price": 38
   },
   {
     "id": 98,
