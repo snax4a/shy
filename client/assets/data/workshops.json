@@ -134,6 +134,23 @@
 		]
 	},
 
+	{
+		"expires": "2018-06-18T20:00:00.000-05:00",
+		"title": "Mindful Couples Connection",
+		"photo": "/assets/images/workshops/labyrinth.jpg",
+		"description": "Making time to connect, as a couple, is so important for a healthy and enjoyable relationship. Deep connection is formed by being present together, really listening and learning from each other, physically, mentally and emotionally. The practices of mindfulness, yoga and dance can facilitate growth, intimacy, and spark a relationship to life! Join yoga & mindfulness facilitator Joni Sturgill, and ballroom dance instructor, Trevor Runco, as they guide you on a mindful journey of partner yoga & meditation, and the basics of partner dancing. You’ll stretch, laugh and most importantly, connect in a meaningful way. $50/couple.",
+		"sections":		
+		[
+			{
+				"start": "2018-07-20T18:30:00.000-04:00",
+				"expires": "2018-07-21T20:30:00.000-04:00",
+				"productID": 68,
+				"cost": 50,
+				"location": "North Hills"
+			}
+		]
+	},
+
 
 
 	{
