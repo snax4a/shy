@@ -173,28 +173,17 @@
 
 
 	{
-		"expires": "2018-04-18T20:00:00.000-05:00",
-		"title": "Trauma-Informed Foundations with Linda Meacci, ERYT 500 and Paula Soto, LSW",
+		"expires": "2018-08-18T20:00:00.000-05:00",
+		"title": "Trauma-Focused Yoga with Paula Soto LSW, ERYT",
 		"photo": "/assets/images/workshops/ahimsa.jpg",
-		"description": "As we enter an era of increased awareness around assault, emotional abuse and predatory behavior, trauma-informed yoga instruction and mindfulness practices are taking on new significance. In this workshop and practicum, yoga teachers, therapists, social workers and other wellness professionals will gain a deeper understanding of how the effects of trauma may show up in classes or one-on-one sessions and the tools they can use to support the situation. This training will offer review and also build upon what Linda and Paula have presented in past workshops. Yoga Alliance continuing education credits can be earned.",
+		"description": "Trauma-focused yoga specifically addresses the needs of trauma-impacted individuals, conveying tools for self-regulation, and other recovery-related skills. This discussion and practicum group provides guidance to people who are currently offering, or curious to learn about, trauma-focused yoga classes; and provides case consultation for yoga teachers and mental health therapists who are working with traumatized individuals. CEs are available for yoga teachers and PA licensed mental health professionals. Pre-requisite: attendance at Ahimsa/Trauma Basics; Yoga for Trauma – A Survivor’s Perspective; or commensurate knowledge/training about trauma and yoga. Trauma Foundations is a dual-profession, continuing education offering developed by Linda Meacci, ERYT and Paula Soto, LSW, ERYT, empowering yoga teachers and mental health providers to connect, learn, and collaborate, so that we may effectively serve trauma-impacted individuals and communities.",
 		"sections":		
 		[
 			{
-				"title": "Ahimsa: Trauma-Informed Basics",
-				"description": "This workshop will provide introductory information about the prevalence and impact of trauma, and how yoga can help to heal or further harm a yoga student who has been impacted by trauma.  This session is a prerequisite for Saturday's practicum. If you have already taken Ahimsa with Linda and Paula or Trauma Informed training, then this session is not necessary unless you want a review.",
-				"start": "2018-04-13T18:00:00.000-04:00",
-				"expires": "2018-04-17T20:30:00.000-04:00",
+				"start": "2018-08-11T14:00:00.000-04:00",
+				"expires": "2018-08-12T17:00:00.000-04:00",
 				"productID": 31,
-				"cost": 50,
-				"location": "East Liberty"
-			},
-			{
-				"title": "Trauma Foundations Practicum",
-				"description": "This practicum will build on pre-requisite trauma informed trainings. Participants will learn and practice a sampling of trauma-informed mindfulness techniques and yoga teaching skills. This practicum will also include: understanding how the nervous system and the brain are impacted; managing hyper- and hypo-arousal states, learning how to better attune the student/client's nervous system; offering appropriate modifications in a yoga setting; learning trauma-informed tips for restorative practices. Pre-requisite for Trauma Foundations Practicum (Day 2):  Ahimsa/Trauma Foundations workshop (Day 1) or equivalent knowledge/training about trauma and yoga. Please direct pre-requisite questions or other inquires to Paula at paula@intersectionswellness.com",
-				"start": "2018-04-14T12:30:00.000-04:00",
-				"expires": "2018-04-17T17:30:00.000-04:00",
-				"productID": 32,
-				"cost": 100,
+				"cost": 55,
 				"location": "East Liberty"
 			}
 		]
