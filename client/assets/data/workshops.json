@@ -119,23 +119,6 @@
 
 	{
 		"expires": "2018-06-18T20:00:00.000-05:00",
-		"title": "Labyrinth: Setting the Mind, an Inward Journey for the Soul",
-		"photo": "/assets/images/workshops/labyrinth.jpg",
-		"description": "Come join in this special evening with Abby Ritter, E-RYT 500hr certified Hatha yoga teacher and Ayurvedic Yoga Specialist, along with her mother Marcia Ritter a 200hr certified Hatha yoga teacher and labyrinth facilitator. During this time together you will learn what a labyrinth is and how it is used for self-reflection and as a meditative tool to bring inner peace.  You will then be guided through a candle lit walk and meditation on the labyrinth—settling the mind and facilitating a journey deep within to find a sense of inner peace, transformation, and renewal.",
-		"sections":		
-		[
-			{
-				"start": "2018-05-18T18:00:00.000-04:00",
-				"expires": "2018-05-19T20:00:00.000-04:00",
-				"productID": 68,
-				"cost": 35,
-				"location": "North Hills"
-			}
-		]
-	},
-
-	{
-		"expires": "2018-06-18T20:00:00.000-05:00",
 		"title": "Mindful Couples Connection with Joni Sturgill",
 		"photo": "/assets/images/workshops/partnermeditation.jpg",
 		"description": "Making time to connect, as a couple, is so important for a healthy and enjoyable relationship. Deep connection is formed by being present together, really listening and learning from each other, physically, mentally and emotionally. The practices of mindfulness, yoga and dance can facilitate growth, intimacy, and spark a relationship to life! Join yoga & mindfulness facilitator Joni Sturgill, and ballroom dance instructor, Trevor Runco, as they guide you on a mindful journey of partner yoga & meditation, and the basics of partner dancing. You’ll stretch, laugh and most importantly, connect in a meaningful way. $50/couple.",
@@ -152,23 +135,6 @@
 	},
 
 
-
-	{
-		"expires": "2018-06-24T15:00:00.000-05:00",
-		"title": "Prop-el Your Practice! with Stefanie Zito",
-		"photo": "/assets/images/workshops/props.jpg",
-		"description": "Props are a real gift to the yoga practice, often used for support and proprioceptive feedback, and rightly so. They can also, however, encourage a unique increase of challenge when introduced in certain approaches to asana, which is what this workshop will explore. While many standard props will be utilized, our focus will primarily be using blankets to discover fun and creative ways to move, stabilize, and strengthen the whole body.",
-		"sections":
-		[
-			{
-				"start": "2018-05-20T14:00:00.000-04:00",
-				"expires": "2018-05-22T16:30:00.000-04:00",
-				"productID": 34,
-				"cost": 30,
-				"location": "East Liberty"
-			}
-		]
-	},
 
 
 
