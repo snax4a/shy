@@ -6,7 +6,7 @@
 
 import express from 'express';
 import morgan from 'morgan';
-import shrinkRay from 'shrink-ray';
+import compression from 'compression';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import errorHandler from 'errorhandler';
@@ -37,7 +37,7 @@ export default function(app) {
       }
     });
     // Use gzip compression in production
-    app.use(shrinkRay());
+    app.use(compression());
     // If we decide to pre-compress content in the future
     // app.get('*.js', (req, res, next) => {
     //   req.url = `${req.url}.gz`;
