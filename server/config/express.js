@@ -134,7 +134,7 @@ export default function(app) {
      * Reload all devices when bundle is complete
      * or send a fullscreen error message to the browser instead
      */
-    compiler.plugin('done', stats => {
+    compiler.plugin('done', stats => { // DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead
       console.log('webpack done hook');
       if(stats.hasErrors() || stats.hasWarnings()) {
         return browserSync.sockets.emit('fullscreen:message', {

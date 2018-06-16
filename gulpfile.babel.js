@@ -9,7 +9,7 @@ import gulpLoadPlugins from 'gulp-load-plugins'
 import http from 'http'
 import lazypipe from 'lazypipe'
 import nodemon from 'nodemon'
-import open from 'open'
+import open from 'open' // Not a recommended npm package due to security issue but only used during development
 import path from 'path'
 import { Server as KarmaServer } from 'karma'
 import { protractor, webdriver_update } from 'gulp-protractor'
@@ -272,10 +272,10 @@ gulp.task('lint:scripts', done => {
 
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], { dot: true }))
 
-gulp.task('start:client', cb => {
+gulp.task('start:client', done => {
   whenServerReady(() => {
     open(`http://localhost:${config.browserSyncPort}`);
-    cb();
+    done();
   })
 })
 
@@ -523,7 +523,7 @@ grunt.initConfig({
   }
 })
 
-// Using to deploy builds to Heroku (though OpenShift also supported)
+// Using to deploy builds to Heroku
 grunt.loadNpmTasks('grunt-build-control')
 
 gulp.task('deploy', done => {
