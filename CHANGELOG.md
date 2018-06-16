@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] npm install @babel/core @babel/register --save-dev (replace older babel)
 * [High] SHYnet: Move student attendance history UI to ui.bootstrap.popover (https://angular-ui.github.io/bootstrap/#!#popover) with pager (or new tab)
 * [High] SHYnet: Build GET /user/attendance API method
 * [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
