@@ -48,11 +48,11 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
-[express]: https://img.shields.io/badge/expressjs-4.16.2-blue.svg
+[express]: https://img.shields.io/badge/expressjs-4.16.3-blue.svg
 [express-url]: http://expressjs.com
-[angularjs]: https://img.shields.io/badge/angularjs-1.6.9-red.svg
+[angularjs]: https://img.shields.io/badge/angularjs-1.7.2-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-9.7.1-green.svg
+[node]: https://img.shields.io/badge/nodejs-10.5.0-green.svg
 [node-url]: https://nodejs.org
-[postgresql]: https://img.shields.io/badge/postgresql-10.3.0-blue.svg
+[postgresql]: https://img.shields.io/badge/postgresql-10.4.0-blue.svg
 [postgresql-url]: https://www.postgresql.org
