@@ -15,7 +15,7 @@ describe('Message API:', () => {
         .send({
           firstName: 'John',
           lastName: 'Doe',
-          email: 'jdoe@gmail.com',
+          email: 'nul@bitbucket.com',
           question: 'This is a question',
           optOut: false,
           role: 'student',

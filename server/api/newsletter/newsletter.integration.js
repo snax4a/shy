@@ -8,7 +8,7 @@ import request from 'supertest';
 describe('Newsletter API:', () => {
   describe('POST /api/newsletter', () => {
     let newSubscriber = {
-      email: 'jdoe@gmail.com'
+      email: 'nul@bitbucket.com'
     };
 
     it('should send response thanking the user for subscribing to the newsletter', () =>
