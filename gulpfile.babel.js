@@ -491,7 +491,7 @@ gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:all', 'env:te
 gulp.task('webdriver_update', webdriver_update);
 
 // gulp.task('test:e2e', ['webpack:test', 'env:all', 'env:test', 'start:server', 'webdriver_update'], () => {
-gulp.task('test:e2e', gulp.parallel('webpack:test', 'env:all', 'env:test', 'start:server', 'webdriver_update'), () => {
+gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:all', 'env:test', 'start:server', 'webdriver_update'), () => {
   gulp.src(paths.client.e2e)
     .pipe(protractor({
       configFile: 'protractor.conf.js',
