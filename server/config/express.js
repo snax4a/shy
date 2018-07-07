@@ -7,7 +7,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import compression from 'compression';
-import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import errorHandler from 'errorhandler';
 import path from 'path';
@@ -63,8 +62,8 @@ export default function(app) {
   // app.set('views', `${config.root}/server/views`);
   // app.set('view engine', 'pug');
 
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(express.urlencoded({ extended: false }))
+  app.use(express.json());
   app.use(methodOverride());
   //app.use(cookieParser());
   app.use(passport.initialize());

@@ -2,7 +2,7 @@
 'use strict';
 
 import autoprefixer from 'autoprefixer';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
@@ -75,30 +75,28 @@ module.exports = function makeWebpackConfig(options) {
         },
 
         {
-          test: /\.scss$/,
+          test: /\.(sa|sc|c)ss$/,
           include: [
             path.resolve(__dirname, 'client/app/app.scss')
           ],
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader', // https://github.com/webpack/style-loader
-            use: [
-              {
-                loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
-                options: {
-                  minimize: true
-                }
-              },
-              { // Shrinks CSS file by 12K
-                loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
-                options: {
-                  plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
-                }
-              },
-              {
-                loader: 'sass-loader', // https://github.com/webpack-contrib/sass-loader
+          use: [
+            DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
+              options: {
+                minimize: true
               }
-            ]
-          })
+            },
+            { // Shrinks CSS file by 12K
+              loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
+              options: {
+                plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
+              }
+            },
+            {
+              loader: 'sass-loader', // https://github.com/webpack-contrib/sass-loader
+            }
+          ]
         }
       ]
     },
@@ -111,7 +109,10 @@ module.exports = function makeWebpackConfig(options) {
 
     plugins: [ // others added conditionally based on env
       // Separate CSS from JS
-      new ExtractTextPlugin('[name].[chunkhash].css'), // https://github.com/webpack-contrib/extract-text-webpack-plugin
+      new MiniCssExtractPlugin({
+        filename: DEV ? '[name].css' : '[name].[hash].css',
+        chunkFilename: DEV ? '[id].css' : '[id].[hash].css',
+      }), 
 
       // Define free global variables
       new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
