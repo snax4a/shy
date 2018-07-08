@@ -3,6 +3,8 @@
 
 import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
@@ -103,6 +105,19 @@ module.exports = function makeWebpackConfig(options) {
 
     node: {
       setImmediate: false // do not schedule immediate callback // save 4K
+    },
+
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true // set to true if you want JS source maps
+        }),
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }
+        })
+      ]
     },
 
     output: {}, // placeholder to be filled in conditionally
