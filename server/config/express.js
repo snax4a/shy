@@ -5,9 +5,9 @@
 'use strict';
 
 import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
 import morgan from 'morgan';
 import compression from 'compression';
-import methodOverride from 'method-override';
 import errorHandler from 'errorhandler';
 import path from 'path';
 import lusca from 'lusca';
@@ -23,6 +23,7 @@ export default function(app) {
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(require('cors'));
   }
 
   if(env === 'production') {
@@ -35,14 +36,6 @@ export default function(app) {
         return null;
       }
     });
-    // Use gzip compression in production
-    app.use(compression());
-    // If we decide to pre-compress content in the future
-    // app.get('*.js', (req, res, next) => {
-    //   req.url = `${req.url}.gz`;
-    //   res.set('Content-Encoding', 'gzip');
-    //   return next();
-    // });
   }
 
   app.set('appPath', path.join(config.root, 'client'));
@@ -56,16 +49,23 @@ export default function(app) {
     }
   }));
 
+  if(env === 'production') {
+    app.use("/", expressStaticGzip(app.get('appPath')));
+  }
+
   app.use(morgan('dev')); // middleware logger
 
   // Server-side views only
-  // app.set('views', `${config.root}/server/views`);
-  // app.set('view engine', 'pug');
+  app.set('views', `${config.root}/server/views`);
+  app.set('view engine', 'pug');
 
+  app.use(compression());
+
+  // Support JSON in req.body
   app.use(express.urlencoded({ extended: false }))
   app.use(express.json());
-  app.use(methodOverride());
-  //app.use(cookieParser());
+
+  // Initialize the passport
   app.use(passport.initialize());
 
   // Persist sessions with sequelizeStore
