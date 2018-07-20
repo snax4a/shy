@@ -23,7 +23,6 @@ export default function(app) {
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
-    app.use(require('cors'));
   }
 
   if(env === 'production') {
@@ -50,7 +49,7 @@ export default function(app) {
   }));
 
   if(env === 'production') {
-    app.use("/", expressStaticGzip(app.get('appPath')));
+    app.use('/', expressStaticGzip(app.get('appPath')));
   }
 
   app.use(morgan('dev')); // middleware logger

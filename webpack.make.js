@@ -115,7 +115,7 @@ module.exports = function makeWebpackConfig(options) {
           sourceMap: true // set to true if you want JS source maps
         }),
         new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }
+          cssProcessorOptions: { /*safe: true,*/ discardComments: { removeAll: true } }
         })
       ]
     },
@@ -127,7 +127,7 @@ module.exports = function makeWebpackConfig(options) {
       new MiniCssExtractPlugin({
         filename: DEV ? '[name].css' : '[name].[hash].css',
         chunkFilename: DEV ? '[id].css' : '[id].[hash].css',
-      }), 
+      }),
 
       // Define free global variables
       new webpack.DefinePlugin({ // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
