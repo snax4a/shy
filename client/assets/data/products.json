@@ -81,12 +81,17 @@
   },
   {
     "id": 32,
-    "name": "Workshop: Trauma-Informed Foundations (April 14)",
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Oct 5)",
     "price": 100  
   },
   {
+    "id": 33,
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Nov 2)",
+    "price": 30   
+  },
+  {
     "id": 34,
-    "name": "Workshop: Prop-el Your Practice (May 20)",
+    "name": "Workshop: Kundalini Yoga and Acupuncture (Nov 30)",
     "price": 30   
   },
   {
@@ -106,12 +111,12 @@
   },
   {
     "id": 55,
-    "name": "Workshop: Kundalini Yoga and Chant (June 22)",
+    "name": "Workshop: Kundalini Yoga and Chant (Sept 28)",
     "price": 20
   },
   {
     "id": 56,
-    "name": "Workshop: Kundalini Yoga and Acupuncture (June 1)",
+    "name": "Workshop: Kundalini Yoga and Chant (Nov 16)",
     "price": 30
   },
   {

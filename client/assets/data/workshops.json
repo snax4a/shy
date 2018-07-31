@@ -145,7 +145,7 @@
 			{
 				"start": "2018-11-16T18:30:00.000-05:00",
 				"expires": "2018-11-17T20:00:00.000-05:00",
-				"productID": 55,
+				"productID": 56,
 				"cost": 20,
 				"location": "North Hills"
 			}
@@ -162,21 +162,21 @@
 			{
 				"start": "2018-10-05T18:30:00.000-04:00",
 				"expires": "2018-10-06T20:00:00.000-04:00",
-				"productID": 56,
+				"productID": 32,
 				"cost": 30,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-11-02T18:30:00.000-04:00",
 				"expires": "2018-11-03T20:00:00.000-04:00",
-				"productID": 56,
+				"productID": 33,
 				"cost": 30,
 				"location": "North Hills"
 			},
 			{
 				"start": "2018-11-30T18:30:00.000-05:00",
 				"expires": "2018-12-01T20:00:00.000-05:00",
-				"productID": 56,
+				"productID": 34,
 				"cost": 30,
 				"location": "North Hills"
 			}
