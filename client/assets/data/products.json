@@ -51,7 +51,27 @@
   },
   {
     "id": 17,
-    "name": "Workshop: Moon Salutations (April 27)",
+    "name": "Workshop: Moon Salutations (Sept 24)",
+    "price": 20
+  },
+  {
+    "id": 18,
+    "name": "Workshop: Moon Salutations (Oct 12)",
+    "price": 20
+  },
+  {
+    "id": 19,
+    "name": "Workshop: Moon Salutations (Oct 26)",
+    "price": 20
+  },
+  {
+    "id": 20,
+    "name": "Workshop: Moon Salutations (Nov 9)",
+    "price": 20
+  },
+  {
+    "id": 21,
+    "name": "Workshop: Moon Salutations (Nov 23)",
     "price": 20
   },
   {
