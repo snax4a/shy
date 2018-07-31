@@ -95,33 +95,23 @@
     "price": 30
   },
   {
-    "id": 59,
-    "name": "Workshop: Family Yoga (June 10)",
-    "price": 10
-  },
-  {
-    "id": 60,
-    "name": "Workshop: Family Yoga (July 8)",
-    "price": 10
-  },
-  {
     "id": 61,
     "name": "Workshop: Family Yoga (August 12)",
     "price": 10
   },
   {
     "id": 62,
-    "name": "Workshop: Family Yoga (May 6)",
+    "name": "Workshop: Family Yoga (Sept 2)",
     "price": 10
   },
   {
     "id": 63,
-    "name": "Workshop: Teen Yoga (June 10)",
+    "name": "Workshop: Family Yoga (Oct 7)",
     "price": 10
   },
   {
     "id": 64,
-    "name": "Workshop: Teen Yoga (July 8)",
+    "name": "Workshop: Family Yoga (Nov 4)",
     "price": 10
   },
   {
@@ -131,17 +121,17 @@
   },
   {
     "id": 66,
-    "name": "Workshop: Labyrinth (March 24)",
+    "name": "Workshop: Teen Yoga (Sept 2)",
     "price": 35
   },
   {
     "id": 67,
-    "name": "Workshop: Labyrinth (April 20)",
+    "name": "Workshop: Teen Yoga (Oct 7)",
     "price": 35
   },
   {
     "id": 68,
-    "name": "Workshop: Labyrinth (May 18)",
+    "name": "Workshop: Teen Yoga (Nov 4)",
     "price": 35
   },
   {
