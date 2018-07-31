@@ -84,8 +84,37 @@
 		"sections":
 		 [
 			{
-				"start": "2018-04-27T18:30:00.000-04:00",
-				"expires": "2018-04-29T20:00:00.000-04:00",
+				"title": "Full Moon",
+				"start": "2018-09-21T18:30:00.000-04:00",
+				"expires": "2018-09-22T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-10-12T18:30:00.000-04:00",
+				"expires": "2018-10-13T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-10-26T18:30:00.000-04:00",
+				"expires": "2018-10-27T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-11-09T18:30:00.000-04:00",
+				"expires": "2018-11-10T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"start": "2018-11-23T18:30:00.000-04:00",
+				"expires": "2018-11-24T20:00:00.000-04:00",
 				"productID": 17,
 				"cost": 20,
 				"location": "North Hills"
