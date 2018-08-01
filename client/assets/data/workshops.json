@@ -265,10 +265,10 @@
 		"sections":
 		[
 			{
-				"start": "2018-09-30T1:00:00.000-04:00",
+				"start": "2018-09-30T01:00:00.000-04:00",
 				"expires": "2018-10-01T14:30:00.000-04:00",
-				"productID": 51,
-				"cost": 75,
+				"productID": 53,
+				"cost": 40,
 				"location": "East Liberty"
 			}
 		]
