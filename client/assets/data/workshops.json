@@ -255,6 +255,23 @@
 				"location": "Squirrel Hill"
 			}
 		]
+	},
+
+	{
+		"expires": "2018-09-05T15:00:00.000-05:00",
+		"title": "The Basics of Yoga Nidra & Other Forms of Relaxation with Joni Sturgill",
+		"photo": "/assets/images/workshops/restorative.jpg", 
+		"description": "In this course, you will learn about the basic framework of the deep relaxation practice called Yoga Nidra. You’ll gain a philosophical understanding of the koshas (layers that make up a human being), a basic script skeleton, and knowledge of the science behind the practice, so you can both practice it yourself and share it with others. Other relaxation practices will be discussed and practiced and Joni will guide you in a 35-40 minute yoga nidra session. This is for anyone interested in deep relaxation and possibly sharing it with others (yoga teachers, therapists, parents, etc.). Continuing education credits are available for yoga teachers. 2.5 hours",
+		"sections":
+		[
+			{
+				"start": "2018-09-30T1:00:00.000-04:00",
+				"expires": "2018-10-01T14:30:00.000-04:00",
+				"productID": 51,
+				"cost": 75,
+				"location": "East Liberty"
+			}
+		]
 	}
 
 ]
