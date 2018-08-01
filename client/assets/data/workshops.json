@@ -241,15 +241,15 @@
 
 
 	{
-		"expires": "2018-07-19T15:30:00.000-05:00",
+		"expires": "2018-10-29T15:30:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
 		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms-to-be bring your partner, a family member or a friend to this fun workshop where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and prepare for the arrival of your little one! All stages of pregnancy and levels of experience are welcome. Price is per couple.",
 		"sections":
 		[
 			{
-				"start": "2018-07-15T14:00:00.000-04:00",
-				"expires": "2018-07-16T15:30:00.000-04:00",
+				"start": "2018-10-28T14:00:00.000-04:00",
+				"expires": "2018-10-29T15:30:00.000-04:00",
 				"productID": 13,
 				"cost": 40,
 				"location": "East Liberty"
