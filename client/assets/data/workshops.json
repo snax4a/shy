@@ -109,6 +109,23 @@
 
 
 	{
+		"expires": "2018-09-25T20:00:00.000-05:00",
+		"title": "Feet with Stefanie Zito",
+		"photo": "/assets/images/workshops/feet.jpg",
+		"description": "As the integrity of any structure is contingent on its foundation, so it is with the function of our feet in relation to the rest of our bodies. Yet most of our society spends considerable time in footwear, and our minimal time barefoot results in disconnection from our crucial foundation. Our feet are one of the most nerve-dense parts of our bodies, and its 33 joints and 26 bones suggest that we have a great capacity for mobility, which is often unexplored, and for which a toll is taken on the rest of the body. Get grounded and explore the function of your foundation with this exciting and fascinating workshop all about the function of your feet, and enjoy the direct benefits up the chain.",
+		"sections":		
+		[
+			{
+				"start": "2018-09-23T14:00:00.000-04:00",
+				"expires": "2018-09-23T16:00:00.000-04:00",
+				"productID": 62,
+				"cost": 30,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+	{
 		"expires": "2018-10-25T20:00:00.000-05:00",
 		"title": "Mindfulness and Poetry Workshop with Joni Sturgill",
 		"photo": "/assets/images/workshops/officeyoga.jpg",
