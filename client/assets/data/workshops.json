@@ -1,5 +1,39 @@
 [
+	{
+		"expires": "2018-08-18T20:00:00.000-05:00",
+		"title": "Trauma-Focused Yoga with Paula Soto LSW, ERYT",
+		"photo": "/assets/images/workshops/ahimsa.jpg",
+		"description": "Trauma-focused yoga specifically addresses the needs of trauma-impacted individuals, conveying tools for self-regulation, and other recovery-related skills. This discussion and practicum group provides guidance to people who are currently offering, or curious to learn about, trauma-focused yoga classes; and provides case consultation for yoga teachers and mental health therapists who are working with traumatized individuals. CEs are available for yoga teachers and PA licensed mental health professionals. Pre-requisite: attendance at Ahimsa/Trauma Basics; Yoga for Trauma – A Survivor’s Perspective; or commensurate knowledge/training about trauma and yoga. Trauma Foundations is a dual-profession, continuing education offering developed by Linda Meacci, ERYT and Paula Soto, LSW, ERYT, empowering yoga teachers and mental health providers to connect, learn, and collaborate, so that we may effectively serve trauma-impacted individuals and communities.",
+		"sections":		
+		[
+			{
+				"start": "2018-08-11T14:00:00.000-04:00",
+				"expires": "2018-08-12T17:00:00.000-04:00",
+				"productID": 31,
+				"cost": 55,
+				"location": "East Liberty"
+			}
+		]
+	},
 
+	{
+		"expires": "2018-09-05T15:00:00.000-05:00",
+		"title": "Teaching Relaxation and Restorative Yoga with Joni Sturgill",
+		"photo": "/assets/images/workshops/restorative.jpg",
+		"description": "Approximately 40 million adults suffer from anxiety in the United States. And these are just the ones who seek treatment. Learn how to calm and soothe your students' nervous systems gently through simple relaxation practices and restorative yoga postures. You will learn how to teach gentle yoga movements appropriate for all populations, and how to set up and adapt a handful of restorative yoga postures, effectively using a multitude of props, and what to do when props aren't available. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
+		"sections":
+		[
+			{
+				"start": "2018-08-26T12:00:00.000-04:00",
+				"expires": "2018-08-27T16:00:00.000-04:00",
+				"productID": 51,
+				"cost": 75,
+				"location": "East Liberty"
+			}
+		]
+	},
+
+	
 	{
 		"expires": "2018-12-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
@@ -162,42 +196,6 @@
 	},
 
 
-
-
-
-	{
-		"expires": "2018-08-18T20:00:00.000-05:00",
-		"title": "Trauma-Focused Yoga with Paula Soto LSW, ERYT",
-		"photo": "/assets/images/workshops/ahimsa.jpg",
-		"description": "Trauma-focused yoga specifically addresses the needs of trauma-impacted individuals, conveying tools for self-regulation, and other recovery-related skills. This discussion and practicum group provides guidance to people who are currently offering, or curious to learn about, trauma-focused yoga classes; and provides case consultation for yoga teachers and mental health therapists who are working with traumatized individuals. CEs are available for yoga teachers and PA licensed mental health professionals. Pre-requisite: attendance at Ahimsa/Trauma Basics; Yoga for Trauma – A Survivor’s Perspective; or commensurate knowledge/training about trauma and yoga. Trauma Foundations is a dual-profession, continuing education offering developed by Linda Meacci, ERYT and Paula Soto, LSW, ERYT, empowering yoga teachers and mental health providers to connect, learn, and collaborate, so that we may effectively serve trauma-impacted individuals and communities.",
-		"sections":		
-		[
-			{
-				"start": "2018-08-11T14:00:00.000-04:00",
-				"expires": "2018-08-12T17:00:00.000-04:00",
-				"productID": 31,
-				"cost": 55,
-				"location": "East Liberty"
-			}
-		]
-	},
-
-	{
-		"expires": "2018-09-05T15:00:00.000-05:00",
-		"title": "Teaching Relaxation and Restorative Yoga with Joni Sturgill",
-		"photo": "/assets/images/workshops/restorative.jpg",
-		"description": "Approximately 40 million adults suffer from anxiety in the United States. And these are just the ones who seek treatment. Learn how to calm and soothe your students' nervous systems gently through simple relaxation practices and restorative yoga postures. You will learn how to teach gentle yoga movements appropriate for all populations, and how to set up and adapt a handful of restorative yoga postures, effectively using a multitude of props, and what to do when props aren't available. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
-		"sections":
-		[
-			{
-				"start": "2018-08-26T12:00:00.000-04:00",
-				"expires": "2018-08-27T16:00:00.000-04:00",
-				"productID": 51,
-				"cost": 75,
-				"location": "East Liberty"
-			}
-		]
-	},
 
 
 	{
