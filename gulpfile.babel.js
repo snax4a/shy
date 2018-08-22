@@ -349,7 +349,6 @@ gulp.task('copy:extras', () =>
     `${clientPath}/sitemap.xml`,
     `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/apple-touch-icon-120.png`,
-    `${clientPath}/newsletter.html`,
     `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.htaccess`,
@@ -393,8 +392,8 @@ gulp.task('build:images', () =>
 )
 
 gulp.task('revReplaceWebpack', () =>
-  // Use cache-busting URLs for images in JS code and newsletter
-  gulp.src(['dist/client/app.*.js', 'dist/client/newsletter.html', 'dist/client/leta.html'])
+  // Use cache-busting URLs for images in JS code
+  gulp.src(['dist/client/app.*.js', 'dist/client/leta.html'])
     .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
     .pipe(gulp.dest('dist/client'))
 )
