@@ -122,7 +122,7 @@ export default function seedDatabaseIfNeeded() {
             section: 'Sunday, April 16th Class Schedule',
             title: 'East Liberty School',
             description: '- all classes running as scheduled',
-            expires: '2017-04-30T00:00:00.000-05:00'
+            expires: '2018-12-31T00:00:00.000-05:00'
           }
         ])
       )

@@ -6,7 +6,7 @@ let purchase;
 let buildPurchase = () => {
   purchase = Purchase.build({
     UserId: 1,
-    purchased: '2017-05-21T13:00:00.000-04:00',
+    purchased: '2018-12-31T13:00:00.000-04:00',
     quantity: 1,
     method: 'Cash',
     notes: 'Testing.'
