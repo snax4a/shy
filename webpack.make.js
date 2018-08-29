@@ -39,14 +39,13 @@ module.exports = function makeWebpackConfig(options) {
           ],
           exclude: /node_modules/,
           use: [
-            {loader: 'ng-annotate-loader'},
             {
               loader: 'babel-loader',
               options: {
                 babelrc: false, // .babelrc configured for tools and server transpile only
-                plugins: ['transform-runtime'],
+                plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate'],
                 presets: [
-                  ['env', {
+                  ['@babel/preset-env', {
                     targets: {
                       browsers: [
                         'chrome >= 59',
