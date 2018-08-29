@@ -14,8 +14,8 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 9.7.1 and npm 5.7.1](nodejs.org) (`brew install node`)
-- [PostgreSQL 10.3.0](http://postgresql.org) (`brew install postgresql`)
+- [Node.js 10.9.0 and npm 6.4.0](nodejs.org) (`brew install node`)
+- [PostgreSQL 10.5.0](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin4](https://www.postgresql.org/download/)
 - [Chrome >= 62] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
 - To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
@@ -52,7 +52,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 [express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.7.3-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-10.8.0-green.svg
+[node]: https://img.shields.io/badge/nodejs-10.9.0-green.svg
 [node-url]: https://nodejs.org
-[postgresql]: https://img.shields.io/badge/postgresql-10.4.0-blue.svg
+[postgresql]: https://img.shields.io/badge/postgresql-10.5.0-blue.svg
 [postgresql-url]: https://www.postgresql.org
