@@ -57,7 +57,7 @@ module.exports = function makeWebpackConfig(options) {
                       ]
                     },
                     debug: false,
-                    loose: true // saves 4K
+                    loose: true // fails if false
                   }]
                 ]
               }
