@@ -9,7 +9,7 @@ import gulpLoadPlugins from 'gulp-load-plugins'
 import http from 'http'
 import lazypipe from 'lazypipe'
 import nodemon from 'nodemon'
-import open from 'open' // Not a recommended npm package due to security issue but only used during development
+import opn from 'opn'
 import path from 'path'
 import { Server as KarmaServer } from 'karma'
 import { protractor, webdriver_update } from 'gulp-protractor'
@@ -274,7 +274,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], { dot: true }))
 
 gulp.task('start:client', done => {
   whenServerReady(() => {
-    open(`http://localhost:${config.browserSyncPort}`);
+    opn(`http://localhost:${config.browserSyncPort}`);
     done();
   })
 })
