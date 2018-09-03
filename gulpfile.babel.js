@@ -312,14 +312,9 @@ gulp.task('watch', () => {
     .pipe(lintServerTestScripts())
 })
 
-gulp.task('copy:fonts:dev', () =>
-  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*', 'node_modules/font-awesome/fonts/*'])
-    .pipe(gulp.dest(`${clientPath}/assets/fonts`))
-)
-
 gulp.task('serve',
   gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts:dev', 'env:all'),
+    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'env:all'),
     // 'webpack:dev', // why is this needed?
     gulp.parallel('start:server', 'start:client'),
     'watch'
@@ -328,7 +323,7 @@ gulp.task('serve',
 
 gulp.task('serve:debug',
   gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts:dev', 'env:all'), 
+    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'env:all'), 
     'webpack:dev',
     gulp.parallel('start:server:debug', 'start:client'),
     'watch'
@@ -361,11 +356,6 @@ gulp.task('copy:extras', () =>
 gulp.task('copy:assets', () =>
   gulp.src([paths.client.assets, `!${paths.client.images}`])
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
-)
-
-gulp.task('copy:fonts:dist', () =>
-  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*', 'node_modules/font-awesome/fonts/*'])
-    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`))
 )
 
 gulp.task('copy:server', () =>
@@ -411,7 +401,7 @@ gulp.task('build',
     'inject:scss',
     'transpile:server',
     'build:images',
-    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:fonts:dist', 'copy:server', 'webpack:dist'),
+    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:server', 'webpack:dist'),
     'revReplaceWebpack',
     'revReplaceJson'
   )
@@ -489,7 +479,6 @@ gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:all', 'env:te
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-// gulp.task('test:e2e', ['webpack:test', 'env:all', 'env:test', 'start:server', 'webdriver_update'], () => {
 gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:all', 'env:test', 'start:server', 'webdriver_update'), () => {
   gulp.src(paths.client.e2e)
     .pipe(protractor({

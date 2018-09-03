@@ -25,7 +25,7 @@
                 input.form-control(id='classDate', name='classDate', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.classDate', placeholder='Class date')
                 span.input-group-btn
                   button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
-                    i.glyphicon.glyphicon-calendar
+                    i.far.fa-calendar-alt
               ng-messages.help-block.has-error(for='form.classDate.$error', ng-show='form.classDate.$dirty || form.$submitted', role='alert')
                 ng-message(when='required') Please enter a class date.
           .row

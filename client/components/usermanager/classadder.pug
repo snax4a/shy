@@ -24,7 +24,7 @@ form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-option
         input.form-control(id='createdAt', name='createdAt', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.purchase.createdAt', placeholder='Purchased on')
         span.input-group-btn
           button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
-            i.glyphicon.glyphicon-calendar
+            i.far.fa-calendar-alt
       ng-messages.help-block.has-error(for='form.createdAt.$error', ng-show='form.createdAt.$dirty || form.$submitted', role='alert')
         ng-message(when='required') Please enter a class date.
   .modal-footer

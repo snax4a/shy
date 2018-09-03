@@ -1,4 +1,4 @@
-$icon-font-path: '/assets/fonts/';
+$icon-font-path: '/assets/fonts/'; // needed for BootStrap 3's glyphicons (not used in this project)
 
 // My overrides for variables
 $brand-base: #6f5499;
@@ -9,14 +9,17 @@ $shy-lavender: #c9bddb;
 $shy-errors: #a94442;
 $link-hover-decoration: none;
 $input-border-focus: $brand-base;
+$enable-gradients: true;
 
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // Optional theme (3D style)
+@import '~bootstrap-sass/assets/stylesheets/bootstrap'; // Bootstrap 3.x
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // 3D style (replaced by $enable-gradients in Bootstrap 4)
+// @import '~bootstrap/scss/bootstrap'; // Bootstrap 4.x
 
-// For oauth-buttons directive
-@import '~bootstrap-social/bootstrap-social';
-$fa-font-path: '/assets/fonts/';
-@import '~font-awesome/scss/font-awesome';
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome'; // FontAwesome 5.x
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
 
 /**
  * App-wide Styles

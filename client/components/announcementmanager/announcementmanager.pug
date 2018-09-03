@@ -1,7 +1,7 @@
 .row.tab-spacer
   .col-md-12
     a.btn.btn-warning(ng-click='$ctrl.createAnnouncement()')
-      span.glyphicon.glyphicon-plus-sign
+      span.fas.fa-plus-circle
       |&nbsp;New Announcement
     p(ng-show='$ctrl.announcements.length==0') No announcements
     table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
@@ -15,7 +15,7 @@
         tr(ng-repeat='announcement in $ctrl.announcements')
           td
             a.edit(ng-click='$ctrl.editAnnouncement(announcement)')
-              span.glyphicon.glyphicon-new-window 
+              span.fas.fa-pencil-alt 
               |&nbsp;&nbsp;{{ announcement.section }}
           td
             a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.title }}
@@ -25,4 +25,4 @@
             a.edit(ng-click='$ctrl.editAnnouncement(announcement)') {{ announcement.expires | date: 'd-MMM-yy' }}
           td
             a.trash(ng-click='$ctrl.deleteAnnouncement(announcement)')
-              span.glyphicon.glyphicon-trash.pull-right
+              span.far.fa-trash-alt.pull-right

@@ -26,7 +26,7 @@ form(name='form', ng-submit="$ctrl.submitAnnouncement(form)", novalidate='', ng-
           input.form-control(type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.announcement.expires', name='expires', id='expires', required='true', placeholder='Expiration')
           span.input-group-btn
             button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
-              i.glyphicon.glyphicon-calendar
+              i.far.fa-calendar-alt
         ng-messages.help-block.has-error(for='form.expires.$error', ng-show='form.expires.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter when the announcement should be removed.
   .modal-footer

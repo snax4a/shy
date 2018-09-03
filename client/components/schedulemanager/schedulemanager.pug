@@ -1,7 +1,7 @@
 .row.tab-spacer
   .col-md-12
     a.btn.btn-warning(ng-click='$ctrl.createScheduleItem()')
-      span.glyphicon.glyphicon-plus-sign
+      span.fas.fa-plus-circle
       |&nbsp;New Schedule Item
     p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
     table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
@@ -18,7 +18,7 @@
         tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
           td
             a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)')
-              span.glyphicon.glyphicon-new-window 
+              span.fas.fa-pencil-alt 
               |&nbsp;&nbsp;{{ scheduleItem.location }}
           td
             a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.day | weekday }}
@@ -34,4 +34,4 @@
             a.edit(ng-click='$ctrl.editScheduleItem(scheduleItem)') {{ scheduleItem.canceled ? 'Yes' : 'No'}}
           td
             a.trash(ng-click='$ctrl.deleteScheduleItem(scheduleItem)')
-              span.glyphicon.glyphicon-trash.pull-right
+              span.far.fa-trash-alt.pull-right

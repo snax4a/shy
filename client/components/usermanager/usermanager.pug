@@ -7,11 +7,11 @@
           input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="First or last name")
           span.input-group-btn
             button.btn.btn-primary(id='submitButton', type='submit')
-              span.glyphicon.glyphicon-search 
+              span.fas.fa-plus-circle 
               |&nbsp;Search
     .col-xs-3
       a.btn.btn-warning(ng-click='$ctrl.createUser()') 
-        span.glyphicon.glyphicon-plus-sign 
+        span.fas.fa-plus-circle 
         |&nbsp;New User
   p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
         | Please enter at least the first three characters of the user's first or last name
@@ -22,38 +22,38 @@
     table.table.table-striped(ng-hide='$ctrl.users.length==0')
       thead
         th(ng-click="$ctrl.sortUsers('lastName')") Name (click to edit)
-          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          span.fas.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th(ng-hide='$ctrl.mini', ng-click="$ctrl.sortUsers('email')") Email 
-          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          span.fas.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th(ng-hide='$ctrl.mini', ng-click="$ctrl.sortUsers('phone')") Phone 
-          span.glyphicon.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'glyphicon-chevron-up':$ctrl.reverse,'glyphicon-chevron-down':!$ctrl.reverse}")
+          span.fas.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th Classes
         th(style='text-align:right;') Action
       tbody
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
           td
             a.edit(ng-click="$ctrl.editUser(user)")
-              span.glyphicon.glyphicon-new-window 
+              span.fas.fa-pencil-alt 
               |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }}
           td(ng-hide='$ctrl.mini')
             a(href='mailto:{{ user.email }}')
-              span.glyphicon.glyphicon-envelope
+              span.far.fa-envelope
               |&nbsp;&nbsp;{{ user.email }} ({{ user.provider }})
           td(ng-hide='$ctrl.mini')
             a(href='tel:{{ user.phone }}')
-              span.glyphicon.glyphicon-phone
+              span.fas.fa-phone
               |&nbsp;&nbsp;{{ user.phone }}
           td
             a.edit(ng-click="$ctrl.getHistory(user)")
-              span.glyphicon.glyphicon-list-alt
+              span.fas.fa-history
               | &nbsp;&nbsp;{{ user.balance }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             a.edit(ng-click="$ctrl.addClasses(user)")
-              span.glyphicon.glyphicon-plus-sign
+              span.fas.fa-plus-circle
           td
-            span.glyphicon.glyphicon-hand-right.pull-right(ng-hide='!$ctrl.mini')
+            span.fas.fa-arrow-circle-right.pull-right(ng-hide='!$ctrl.mini')
             | &nbsp; 
             a.trash(ng-hide='$ctrl.mini', ng-click='$ctrl.deleteUser(user)')
-              span.glyphicon.glyphicon-trash.pull-right 
+              span.far.fa-trash-alt.pull-right 
     dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
 
 .row(ng-hide='$ctrl.historyItems.length==0')
@@ -73,4 +73,4 @@
           td(style='text-align: right;') {{ historyItem.quantity }}
           td(style='text-align: right;') {{ historyItem.balance }}
             a.trash(ng-click='$ctrl.historyItemDelete(historyItem)')
-              span.glyphicon.glyphicon-trash.pull-right
+              span.far.fa-trash-alt.pull-right
