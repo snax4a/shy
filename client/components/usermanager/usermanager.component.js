@@ -4,7 +4,6 @@ import angular from 'angular';
 import compareTo from '../compareto/compareto.directive';
 import dirPagination from 'angular-utils-pagination';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
-//import popover from 'angular-ui-bootstrap/src/popover/index-nocss.js';
 
 export class UserManagerController {
   /*@ngInject*/

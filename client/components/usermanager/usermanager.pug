@@ -30,7 +30,7 @@
         th Classes
         th(style='text-align:right;') Action
       tbody
-        tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8')
+        tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8', pagination-id='users')
           td
             a.edit(ng-click="$ctrl.editUser(user)")
               span.fas.fa-pencil-alt 
@@ -54,23 +54,28 @@
             | &nbsp; 
             a.trash(ng-hide='$ctrl.mini', ng-click='$ctrl.deleteUser(user)')
               span.far.fa-trash-alt.pull-right 
-    dir-pagination-controls(max-size='5', direction-links='true', boundary-links='true')
+    dir-pagination-controls(pagination-id='users', max-size='5', direction-links='true', boundary-links='true')
 
 .row(ng-hide='$ctrl.historyItems.length==0')
-  .col-md-6
-    p History for 
-      b {{ $ctrl.historyFor }}
+  .col-md-12
+    ul.nav.nav-tabs
+      li.active(role='presentation') 
+        a History: {{ $ctrl.historyFor }}
     table.table.table-striped
       thead
-        th(style='text-align: right;') Date
+        th(style='text-align: left;') Date
         th(style='text-align: left;') Description 
-        th Qty
-        th Balance
+        th(style='text-align: right;') Qty
+        th(style='text-align: right;') Balance
+        th(ng-hide='$ctrl.mini', style='text-align:right;') Action
       tbody
-        tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8')
-          td(style='text-align: right;') {{ historyItem.when | date: 'd-MMM-yy' }}
+        tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8', pagination-id='history')
+          td(style='text-align: left;')
+            nobr {{ historyItem.when | date: 'd-MMM-yy' }}
           td {{ historyItem.what }}
           td(style='text-align: right;') {{ historyItem.quantity }}
           td(style='text-align: right;') {{ historyItem.balance }}
+          td(ng-hide='$ctrl.mini')
             a.trash(ng-click='$ctrl.historyItemDelete(historyItem)')
               span.far.fa-trash-alt.pull-right
+    dir-pagination-controls(pagination-id='history', max-size='5', direction-links='true', boundary-links='true')
