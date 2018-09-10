@@ -64,13 +64,17 @@
     table.table.table-striped
       thead
         th(style='text-align: left;') Date
-        th(style='text-align: left;') Description 
+        th(style='text-align: left;') Description
         th(style='text-align: right;') Qty
         th(style='text-align: right;') Balance
         th(ng-hide='$ctrl.mini', style='text-align:right;') Action
       tbody
         tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8', pagination-id='history')
           td(style='text-align: left;')
+            span(ng-hide='$ctrl.mini')
+              a.edit(ng-click="$ctrl.historyItemEdit(historyItem)")
+                span.fas.fa-pencil-alt
+            |&nbsp;&nbsp;
             nobr {{ historyItem.when | date: 'd-MMM-yy' }}
           td {{ historyItem.what }}
           td(style='text-align: right;') {{ historyItem.quantity }}

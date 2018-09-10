@@ -138,6 +138,10 @@ export class UserManagerController {
 
   }
 
+  historyItemEdit(historyItem) {
+    
+  }
+
   historyItemDelete(historyItem) {
     this.User.historyItemDelete({ id: historyItem._id, type: historyItem.type })
       .$promise
