@@ -9,7 +9,7 @@ export class UserManagerController {
   /*@ngInject*/
   constructor($http, User, $uibModal) {
     this.$http = $http;
-    this.User = User; // used by searchUsers()
+    this.User = User; // used by search()
     this.$uibModal = $uibModal;
   }
 
@@ -24,7 +24,7 @@ export class UserManagerController {
   }
 
   // Get an array of users whose email, first or last name starts with the filter
-  searchUsers(form) {
+  search(form) {
     this.submitted = true;
     if(form.$valid) {
       this.User.query({ filter: this.filterField})
@@ -36,7 +36,7 @@ export class UserManagerController {
   }
 
   // Delete the user from the server and in the local array
-  deleteUser(selectedUser) {
+  delete(selectedUser) {
     selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
@@ -54,49 +54,6 @@ export class UserManagerController {
         console.log('Error', response);
         return null;
       });
-  }
-
-  // Open a dialog for editing the user
-  modalUserEditor(user) {
-    let modalDialog = this.$uibModal.open({
-      template: require('./usereditor.pug'),
-      ariaLabelledBy: 'modal-title',
-      ariaDescribedBy: 'modal-body',
-      controllerAs: '$ctrl',
-      controller: UserEditorController,
-      resolve: {
-        userSelectedForEditing: () => user
-      }
-    });
-    // Stub for anything that needs to happen after closing dialog
-    modalDialog.result.then(() => {
-      if(user.shouldBeDeleted) this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
-    });
-  }
-
-  // Wrap modalUserEditor in case we need to do anything outside of it
-  editUser(user) {
-    this.modalUserEditor(user);
-  }
-
-  // Create a user with the appropriate defaults (enforce role setting server-side)
-  createUser() {
-    let user = {
-      _id: 0,
-      provider: 'local',
-      role: 'student',
-      balance: 0,
-      optOut: false
-    };
-
-    this.users.unshift(user);
-    this.modalUserEditor(user);
-  }
-
-  // Manage which column determines the sort and the ASC/DESC
-  sortUsers(keyname) {
-    this.sortKey = keyname;
-    this.reverse = !this.reverse;
   }
 
   // Open modal to add classes
@@ -117,13 +74,56 @@ export class UserManagerController {
     });
   }
 
+  // Open a dialog for editing the user
+  modalUserEditor(user) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./usereditor.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: UserEditorController,
+      resolve: {
+        userSelectedForEditing: () => user
+      }
+    });
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      if(user.shouldBeDeleted) this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
+    });
+  }
+
+  // Create a user with the appropriate defaults (enforce role setting server-side)
+  createUser() {
+    let user = {
+      _id: 0,
+      provider: 'local',
+      role: 'student',
+      balance: 0,
+      optOut: false
+    };
+
+    this.users.unshift(user);
+    this.modalUserEditor(user);
+  }
+
+  // Wrap modalUserEditor in case we need to do anything outside of it
+  editUser(user) {
+    this.modalUserEditor(user);
+  }
+
+  // Manage which column determines the sort and the ASC/DESC
+  sortUsers(keyname) {
+    this.sortKey = keyname;
+    this.reverse = !this.reverse;
+  }
+
   // Wrapper for modalClassAdder
-  addClasses(user) {
+  classAdd(user) {
     this.modalClassAdder(user);
   }
 
   // Problem because SHYnet UI is container for user manager so we need to get the teacher, location, date, and class title
-  addAttendance(user, location, date, classTitle) {
+  attendanceAdd(user, location, date, classTitle) {
     const attendance = {
       user,
       location,
@@ -264,7 +264,7 @@ class ClassAdderController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
-      this.User.addClasses(this.purchase)
+      this.User.classAdd(this.purchase)
         .$promise
         .then(() => {
           // Increment the balance for the user so we don't have to re-query

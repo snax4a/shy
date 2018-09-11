@@ -27,16 +27,22 @@ export function UserResource($resource) {
         controller: 'admin'
       }
     },
-    addClasses: {
-      method: 'PUT',
-      params: {
-        controller: 'classes'
-      }
-    },
-    addAttendance: {
+    attendanceAdd: {
       method: 'PUT',
       params: {
         controller: 'attendance'
+      }
+    },
+    attendanceDelete: {
+      method: 'DELETE',
+      params: {
+        controller: 'attendance'
+      }
+    },
+    classAdd: {
+      method: 'PUT',
+      params: {
+        controller: 'classes'
       }
     },
     history: {
@@ -50,12 +56,6 @@ export function UserResource($resource) {
       method: 'DELETE',
       params: {
         controller: 'history'
-      }
-    },
-    attendanceDelete: {
-      method: 'DELETE',
-      params: {
-        controller: 'attendance'
       }
     }
   });

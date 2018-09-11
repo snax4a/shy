@@ -42,7 +42,7 @@ describe('User API:', () => {
       });
 
   // Delete student test account (if it exists) then sign-up and get token
-  const recreateUser = () =>
+  const recreate = () =>
     User.destroy({ where: { email } })
       .then(() =>
         request(app)
@@ -56,7 +56,7 @@ describe('User API:', () => {
       );
 
   // Only delete the student test account
-  const deleteUser = () => User.destroy({ where: { email } });
+  const destroy = () => User.destroy({ where: { email } });
 
   // Change user's role
   const setRole = role =>
@@ -67,8 +67,8 @@ describe('User API:', () => {
       });
 
   describe('Methods for anyone:', () => {
-    before(() => recreateUser());
-    after(() => deleteUser());
+    before(() => recreate());
+    after(() => destroy());
 
     // Check token from user.controller.js:create (sign-up)
     describe('POST /api/users/', () => {
@@ -93,8 +93,8 @@ describe('User API:', () => {
   });
 
   describe('Methods for current user:', () => {
-    before(() => recreateUser());
-    after(() => deleteUser());
+    before(() => recreate());
+    after(() => destroy());
 
     // user.controller.js:me
     describe('GET /api/users/me', () => {
@@ -158,10 +158,10 @@ describe('User API:', () => {
   describe('Methods for teachers or admins:', () => {
     // Recreate user, change role to teacher (think about testing for admin, too)
     before(() =>
-      recreateUser()
+      recreate()
         .then(() => setRole('admin')) // teacher role seems to be broken right now (address later)
     );
-    after(() => deleteUser()); // should be done by DELETE /api/users/:id but here in case of errors
+    after(() => destroy()); // should be done by DELETE /api/users/:id but here in case of errors
 
     // controller.index (teacher or admin)
     describe('GET /api/users/', () => {
@@ -211,15 +211,15 @@ describe('User API:', () => {
       );
     });
 
-    // controller.addClasses (teacher or admin)
-
-    // controller.addAttendance (teacher or admin)
-
     // controller.history (teacher or admin)
+
+    // controller.attendanceAdd (teacher or admin)
 
     // controller.attendanceDelete (teacher or admin)
 
     // controller.attendanceDelete (admin only)
+
+    // controller.classAdd (teacher or admin)
 
     // controller.destroy (admin only)
     describe('DELETE /api/users/:id', () => {

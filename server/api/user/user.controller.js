@@ -160,7 +160,7 @@ export function forgotPassword(req, res) {
       setTimeout(() => config.mail.transporter.sendMail(message)
         .then(info => console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`))
         .catch(error => console.log(`Email error occurred: ${error.message}`, error))
-        , DELAY);
+      , DELAY);
       return res.status(200).send('New password sent.');
     })
     .catch(error => {
@@ -235,7 +235,7 @@ export function upsert(req, res) {
 }
 
 // Add classes to a user account (teachers or admins)
-export function addClasses(req, res) {
+export function classAdd(req, res) {
   Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the purchase _id
   let purchaseToAdd = Purchase.build(req.body);
   return purchaseToAdd.save()
@@ -244,7 +244,7 @@ export function addClasses(req, res) {
 }
 
 // Create an attendance record for a user (teachers or admins)
-export function addAttendance(req, res) {
+export function attendanceAdd(req, res) {
   Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the attendance _id
   let attendanceToAdd = Attendance.build(req.body);
   return attendanceToAdd.save()
