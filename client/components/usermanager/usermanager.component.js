@@ -74,6 +74,24 @@ export class UserManagerController {
     });
   }
 
+  // Open a dialog for editing the selected history item
+  modalHistoryEditor(historyItem) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./historyeditor.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: HistoryEditorController,
+      resolve: {
+        historyItemSelectedForEditing: () => historyItem
+      }
+    });
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+      // If we added a history record, update the count in the grid
+    });
+  }
+
   // Open a dialog for editing the user
   modalUserEditor(user) {
     let modalDialog = this.$uibModal.open({
@@ -139,7 +157,7 @@ export class UserManagerController {
   }
 
   historyItemEdit(historyItem) {
-    
+    this.modalHistoryEditor(historyItem);
   }
 
   historyItemDelete(historyItem) {
@@ -268,6 +286,63 @@ class ClassAdderController {
         .$promise
         .then(() => {
           // Increment the balance for the user so we don't have to re-query
+          this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
+          this.$uibModalInstance.close();
+          return null;
+        })
+        .catch(response => {
+          let err = response.data;
+          console.log('Error', err);
+          return null;
+        });
+    }
+  }
+
+  // Close the modal dialog without doing anything
+  cancel() {
+    this.$uibModalInstance.close();
+  }
+}
+
+/*
+  To do's:
+  1. Add historyItemUpdate() to /server/api/user/user.controller.js and tests for index.spec.js, and user.integration.js
+  2. Hookup calendar picker to date field in modal.
+  3. Define what the historyItem object properties should be.
+*/
+class HistoryEditorController {
+  /*@ngInject*/
+  constructor($uibModalInstance, User, historyItem) {
+    // Dependencies
+    this.$uibModalInstance = $uibModalInstance;
+    this.User = User;
+    this.historyItem = historyItem;
+
+    // Initializations - not in $onInit since not it's own component
+    this.submitted = false;
+
+    this.datePickerOpened = false;
+    this.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yyyy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(2013, 1, 1),
+      startingDay: 1
+    };
+  }
+
+  showCalendar() {
+    this.datePickerOpened = true;
+  }
+
+  // Tell the server to add the classes to the user
+  submit(form) {
+    this.submitted = true;
+    if(form.$valid) {
+      this.User.historyItemUpdate(this.historyItem)
+        .$promise
+        .then(() => {
+          // TODO: redisplay the history with running total as it might have changed and refesh the user balances
           this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
           this.$uibModalInstance.close();
           return null;

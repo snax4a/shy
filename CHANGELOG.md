@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] SHYnet: Move history to separate panel in usermanager.pug
 * [High] SHYnet: Build history modal dialog editor - historyeditor.pug
 * [High] SHYnet: Build GET /user/attendance API method
 * [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
