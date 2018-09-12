@@ -7,7 +7,11 @@ form(name='form', ng-submit="$ctrl.submitHistory(form)", novalidate='', ng-model
     .row
       .form-group.col-md-12
         label(for='when') When
-        input.form-control(type='date', name='when', id='when', ng-model='$ctrl.history.when', maxlength='20', autofocus='', required='true', placeholder='Date')
+        .input-group
+          input.form-control(id='when', name='when', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.historyItem.when', placeholder='Date')
+          span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
+              i.far.fa-calendar-alt
         ng-messages.help-block.has-error(for='form.when.$error', ng-show='form.when.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter a date.
       span(ng-if="$ctrl.history.transactionType=='A'")
