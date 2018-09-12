@@ -267,6 +267,16 @@ export function historyItemDelete(req, res) {
     .catch(handleError(res));
 }
 
+// Updates a history item (admin-only)
+export function historyItemUpdate(req, res) {
+  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the history item _id
+  const model = req.query.type == 'P' ? Purchase : Attendance;
+  let historyItemToUpdate = model.build(req.body);
+  return historyItemToUpdate.save()
+    .then(() => res.status(200).end())
+    .catch(validationError(res));
+}
+
 // Deletes user attendance (teacher and admin-only) - similar to historyItemDelete but lacks deletion capability for purchases
 export function attendanceDelete(req, res) {
   return Attendance.destroy({ where: { _id: req.params.id }})

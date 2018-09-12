@@ -14,7 +14,7 @@ router.put('/:id', auth.isAuthenticated(), controller.update); // user - update 
 router.put('/:id/admin', auth.hasRole('teacher'), controller.upsert); // teacher/admin - update existing user
 router.put('/:id/classes', auth.hasRole('teacher'), controller.classAdd); // teacher/admin - add classes to user
 router.put('/:id/attendance', auth.hasRole('teacher'), controller.attendanceAdd); // teacher/admin - add attendance
-router.put('/history', auth.hasRole('admin'), controller.historyItemUpdate); // admin, update history item
+router.put('/:id/history', auth.hasRole('admin'), controller.historyItemUpdate); // admin, update history item
 
 router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
 router.delete('/:id/history', auth.hasRole('admin'), controller.historyItemDelete); // admin, delete history item
