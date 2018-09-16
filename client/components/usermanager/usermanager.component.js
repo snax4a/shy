@@ -312,12 +312,12 @@ class ClassAdderController {
 */
 class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, User, historyItem) {
+  constructor($uibModalInstance, User, historyItemSelectedForEditing) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.User = User;
-    this.historyItem = historyItem;
-
+    this.historyItem = historyItemSelectedForEditing;
+    console.log(this.historyItem);
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
 

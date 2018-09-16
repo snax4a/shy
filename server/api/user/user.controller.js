@@ -60,26 +60,39 @@ export function history(req, res, next) {
       history."UserId",
       history.type,
       history."when",
+      history.location,
+      history."classTitle",
+      history.teacher,
+      history."purchaseMethod",
       history.what,
       history.quantity,
-      sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when") AS balance
-    FROM (SELECT "Attendances"._id,
-            "Attendances"."UserId",
-            'A'::text AS type,
-            "Attendances".attended AS "when",
-            ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
-            '-1'::integer AS quantity
-            FROM "Attendances"
-            WHERE "Attendances"."UserId" = :UserId
-          UNION
-          SELECT "Purchases"._id,
-              "Purchases"."UserId",
-              'P'::text AS type,
-              "Purchases"."createdAt" AS "when",
-              'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') '::text || "Purchases".notes::text AS what,
-              "Purchases".quantity
-            FROM "Purchases"
-            WHERE "Purchases"."UserId" = :UserId) history
+      (sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
+    FROM (
+      SELECT "Attendances"._id,
+        "Attendances"."UserId",
+        'A'::text AS type,
+        "Attendances".attended AS "when",
+        "Attendances".location,
+        "Attendances"."classTitle",
+        "Attendances".teacher,
+        NULL AS "purchaseMethod",
+        ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
+        '-1'::integer AS quantity
+      FROM "Attendances"
+      WHERE "Attendances"."UserId" = :UserId
+      UNION
+      SELECT "Purchases"._id,
+        "Purchases"."UserId",
+        'P'::text AS type,
+        "Purchases"."createdAt" AS "when",
+        NULL AS location,
+        NULL AS "classTitle",
+        NULL AS teacher,
+        "Purchases".method AS "purchaseMethod",
+        'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ')'::text || "Purchases".notes::text AS what,
+        "Purchases".quantity
+      FROM "Purchases"
+      WHERE "Purchases"."UserId" = :UserId) history
     ORDER BY history."UserId", history."when" DESC;`;
   sequelize.query(sql,
     { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })

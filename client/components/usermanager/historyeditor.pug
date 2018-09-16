@@ -14,27 +14,27 @@ form(name='form', ng-submit="$ctrl.submitHistory(form)", novalidate='', ng-model
               i.far.fa-calendar-alt
         ng-messages.help-block.has-error(for='form.when.$error', ng-show='form.when.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter a date.
-      span(ng-if="$ctrl.history.transactionType=='A'")
+      span(ng-if="$ctrl.historyItem.type=='A'")
         .form-group.col-md-12
           label(for='teacher') Teacher
-          select.form-control(name='teacher', id='teacher', ng-model='$ctrl.history.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
+          select.form-control(name='teacher', id='teacher', ng-model='$ctrl.historyItem.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
             option(value='', disabled='', selected='') Select Teacher
         .form-group.col-md-12
           label(for='title') Class
-          select.form-control(name='title', id='title', ng-model='$ctrl.history.title', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
+          select.form-control(name='title', id='title', ng-model='$ctrl.historyItem.title', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
             option(value='', disabled='', selected='') Select Class
         .form-group.col-md-12
           label(for='location') Studio
-            select.form-control(name='location', id='location', ng-model='$ctrl.history.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
+            select.form-control(name='location', id='location', ng-model='$ctrl.historyItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
               option(value='', disabled='', selected='') Select Studio
-      span(ng-if="$ctrl.history.transactionType=='P'")
+      span(ng-if="$ctrl.historyItem.type=='P'")
         .form-group.col-md-12
           label(for='paymentType') Payment Type
-            select.form-control(name='paymentType', id='paymentType', ng-model='$ctrl.history.paymentType', ng-options="paymentType.name as paymentType.name for paymentType in $ctrl.paymentTypes | orderBy: 'name'")
+            select.form-control(name='paymentType', id='paymentType', ng-model='$ctrl.historyItem.paymentType', ng-options="paymentType.name as paymentType.name for paymentType in $ctrl.paymentTypes | orderBy: 'name'")
               option(value='', disabled='', selected='') Select Payment Type
         .form-group.col-md-12
           label(for='quantity') Quantity
-          input.form-control(type='number', name='quantity', id='quantity', ng-model='$ctrl.history.quantity', required='true', maxlength='2', placeholder='Quantity')
+          input.form-control(type='number', name='quantity', id='quantity', ng-model='$ctrl.historyItem.quantity', required='true', maxlength='2', placeholder='Quantity')
           ng-messages.help-block.has-error(for='form.passwordConfirm.$error', ng-show='form.passwordConfirm.$dirty || form.$submitted', role='alert')
             ng-message(when='required') Please provide a quantity.
   .modal-footer
