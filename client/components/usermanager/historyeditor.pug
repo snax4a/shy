@@ -8,7 +8,7 @@ form(name='form', ng-submit="$ctrl.submitHistory(form)", novalidate='', ng-model
       .form-group.col-md-12
         label(for='when') When
         .input-group
-          input.form-control(id='when', name='when', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.historyItem.when', placeholder='Date')
+          input.form-control(id='when', name='when', type='text', autofocus='', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.historyItem.when', placeholder='Transaction Date')
           span.input-group-btn
             button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
               i.far.fa-calendar-alt
@@ -18,20 +18,25 @@ form(name='form', ng-submit="$ctrl.submitHistory(form)", novalidate='', ng-model
         .form-group.col-md-12
           label(for='teacher') Teacher
           select.form-control(name='teacher', id='teacher', ng-model='$ctrl.historyItem.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
-            option(value='', disabled='', selected='') Select Teacher
         .form-group.col-md-12
           label(for='title') Class
-          select.form-control(name='title', id='title', ng-model='$ctrl.historyItem.title', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
-            option(value='', disabled='', selected='') Select Class
+          select.form-control(name='title', id='title', ng-model='$ctrl.historyItem.classTitle', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
         .form-group.col-md-12
           label(for='location') Studio
             select.form-control(name='location', id='location', ng-model='$ctrl.historyItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
-              option(value='', disabled='', selected='') Select Studio
       span(ng-if="$ctrl.historyItem.type=='P'")
         .form-group.col-md-12
-          label(for='paymentType') Payment Type
-            select.form-control(name='paymentType', id='paymentType', ng-model='$ctrl.historyItem.paymentType', ng-options="paymentType.name as paymentType.name for paymentType in $ctrl.paymentTypes | orderBy: 'name'")
-              option(value='', disabled='', selected='') Select Payment Type
+          label(for='paymentMethod') Payment method
+          select.form-control(name='paymentMethod', id='paymentMethod', ng-model='$ctrl.historyItem.paymentMethod', tabindex='2')
+            option(value='Cash') Cash
+            option(value='Credit Card') Credit Card
+            option(value='Check') Check
+            option(value='Gift Card') Gift Card
+            option(value='IOU') IOU
+            option(value='Free') Free
+        .form-group.col-md-12
+          label(for='notes') Notes
+          textarea.form-control(name='notes', id='notes', ng-model='$ctrl.historyItem.notes', rows='5', cols='20', placeholder='Notes', tabindex='3')
         .form-group.col-md-12
           label(for='quantity') Quantity
           input.form-control(type='number', name='quantity', id='quantity', ng-model='$ctrl.historyItem.quantity', required='true', maxlength='2', placeholder='Quantity')

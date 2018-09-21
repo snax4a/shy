@@ -1,11 +1,10 @@
 # Product Backlog
-* [High] SHYnet: Build history modal dialog editor - historyeditor.pug
-* [High] SHYnet: Build GET /user/attendance API method
-* [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
-* [High] SHYnet: Build POST /user/attendance API method
+* [High] BUG: History Editor - open and hit Cancel, open second time and Cancel, date value in historyItems array becomes null then undefined
+* [High] History Editor - implement Save feature
 * [High] SHYnet: Implement GUI to add users to class and record in database (only allow if class, date, studio, and teacher are selected)
-* [High] SHYnet: Build DELETE /user/attendance API method
+* [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
 * [High] SHYnet: Implement GUI to call API method to remove users from class (including underlying record in database)
+* [Medium] Calendar date picker can't find glyph-icons-halflings-regular.woff2, .woff, or .ttf in /assets/fonts
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Add method to push newsletters from admin (perhaps use sendinblue's API)

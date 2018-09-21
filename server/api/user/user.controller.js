@@ -63,7 +63,8 @@ export function history(req, res, next) {
       history.location,
       history."classTitle",
       history.teacher,
-      history."purchaseMethod",
+      history."paymentMethod",
+      history.notes,
       history.what,
       history.quantity,
       (sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
@@ -71,11 +72,12 @@ export function history(req, res, next) {
       SELECT "Attendances"._id,
         "Attendances"."UserId",
         'A'::text AS type,
-        "Attendances".attended AS "when",
+        "Attendances".attended AS when,
         "Attendances".location,
         "Attendances"."classTitle",
         "Attendances".teacher,
-        NULL AS "purchaseMethod",
+        NULL AS "paymentMethod",
+        NULL AS notes,
         ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
         '-1'::integer AS quantity
       FROM "Attendances"
@@ -88,8 +90,9 @@ export function history(req, res, next) {
         NULL AS location,
         NULL AS "classTitle",
         NULL AS teacher,
-        "Purchases".method AS "purchaseMethod",
-        'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ')'::text || "Purchases".notes::text AS what,
+        "Purchases".method AS "paymentMethod",
+        "Purchases".notes,
+        'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') - '::text || "Purchases".notes::text AS what,
         "Purchases".quantity
       FROM "Purchases"
       WHERE "Purchases"."UserId" = :UserId) history

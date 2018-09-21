@@ -312,15 +312,18 @@ class ClassAdderController {
 */
 class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, User, historyItemSelectedForEditing) {
+  constructor($uibModalInstance, $http, User, historyItemSelectedForEditing) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
+    this.$http = $http;
     this.User = User;
     this.historyItem = historyItemSelectedForEditing;
-    console.log(this.historyItem);
+    this.historyItem.when = Date.parse(this.historyItem.when); // Convert ISO 8601 date string to JavaScript date
+
+    console.log('$ctrl.historyItem', this.historyItem);
+
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
-
     this.datePickerOpened = false;
     this.dateOptions = {
       dateDisabled: false,
@@ -329,6 +332,21 @@ class HistoryEditorController {
       minDate: new Date(2013, 1, 1),
       startingDay: 1
     };
+    this.$http.get('/assets/data/teachers.json')
+      .then(response => {
+        this.teachers = response.data;
+        return null;
+      });
+    this.$http.get('/assets/data/classes.json')
+      .then(response => {
+        this.classes = response.data;
+        return null;
+      });
+    this.$http.get('/assets/data/locations.json')
+      .then(response => {
+        this.locations = response.data;
+        return null;
+      });
   }
 
   showCalendar() {
