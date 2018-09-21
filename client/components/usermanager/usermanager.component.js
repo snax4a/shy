@@ -83,7 +83,7 @@ export class UserManagerController {
       controllerAs: '$ctrl',
       controller: HistoryEditorController,
       resolve: {
-        historyItemSelectedForEditing: () => historyItem
+        historyItemToEdit: () => historyItem
       }
     });
     // Stub for anything that needs to happen after closing dialog
@@ -200,7 +200,7 @@ class UserEditorController {
   submitUser(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Make a copy of this.user or upsert fails
+      // Make a copy of this.user in case upsert fails
       let upsertedUser = {};
       angular.copy(this.user, upsertedUser);
       this.User.upsert(upsertedUser)
@@ -310,18 +310,17 @@ class ClassAdderController {
 */
 class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, $http, User, historyItemSelectedForEditing) {
+  constructor($uibModalInstance, $http, User, historyItemToEdit) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.$http = $http;
     this.User = User;
+    this.historyItemToEdit = historyItemToEdit;
     this.historyItem = {};
-    angular.copy(historyItemSelectedForEditing, this.historyItem);
+    angular.copy(this.historyItemToEdit, this.historyItem);
     this.historyItem.when = Date.parse(this.historyItem.when); // Convert ISO 8601 date string to JavaScript date
 
     console.log('$ctrl.historyItem', this.historyItem);
-    var test = new Date(2018, 9, 21);
-    console.log(test);
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -358,11 +357,24 @@ class HistoryEditorController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
-      this.User.historyItemUpdate(this.historyItem)
+      let updatedHistoryItem = {};
+      angular.copy(this.historyItemToEdit, updatedHistoryItem);
+      this.User.historyItemUpdate(updatedHistoryItem) // TODO: build this method
         .$promise
         .then(() => {
-          // TODO: redisplay the history with running total as it might have changed and refesh the user balances
-          this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
+          // TODO: Convert date back to ISO 8601 if needed
+          // Recalculate balance based on change to quantity
+          updatedHistoryItem.balance = parseInt(this.historyItemToEdit.balance, 10) + parseInt(updatedHistoryItem.quantity, 10) - parseInt(this.historyItem.quantity, 10);
+          // Rewrite "what" property
+          if(updatedHistoryItem.type == 'P') {
+            updatedHistoryItem.what = `Purchased ${updatedHistoryItem.quantity} class pass (${updatedHistoryItem.paymentMethod}) - ${updatedHistoryItem.notes}`;
+          } else {
+            updatedHistoryItem.what = `Attended ${updatedHistoryItem.classTitle} in ${updatedHistoryItem.location} (${updatedHistoryItem.teacher})`;
+          }
+
+          // Graft historyItem back
+          angular.extend(this.historyItemToEdit, updatedHistoryItem);
+
           this.$uibModalInstance.close();
           return null;
         })
