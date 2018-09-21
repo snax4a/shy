@@ -307,8 +307,6 @@ class ClassAdderController {
 /*
   To do's:
   1. Add historyItemUpdate() to /server/api/user/user.controller.js and tests for index.spec.js, and user.integration.js
-  2. Hookup calendar picker to date field in modal.
-  3. Define what the historyItem object properties should be.
 */
 class HistoryEditorController {
   /*@ngInject*/
@@ -317,10 +315,13 @@ class HistoryEditorController {
     this.$uibModalInstance = $uibModalInstance;
     this.$http = $http;
     this.User = User;
-    this.historyItem = historyItemSelectedForEditing;
+    this.historyItem = {};
+    angular.copy(historyItemSelectedForEditing, this.historyItem);
     this.historyItem.when = Date.parse(this.historyItem.when); // Convert ISO 8601 date string to JavaScript date
 
     console.log('$ctrl.historyItem', this.historyItem);
+    var test = new Date(2018, 9, 21);
+    console.log(test);
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -353,7 +354,7 @@ class HistoryEditorController {
     this.datePickerOpened = true;
   }
 
-  // Tell the server to add the classes to the user
+  // Refresh historyItem.what, recalculate balance, and save historyItem
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
