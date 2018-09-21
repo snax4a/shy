@@ -312,24 +312,6 @@ gulp.task('watch', () => {
     .pipe(lintServerTestScripts())
 })
 
-gulp.task('serve',
-  gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'env:all'),
-    // 'webpack:dev', // why is this needed?
-    gulp.parallel('start:server', 'start:client'),
-    'watch'
-  )
-)
-
-gulp.task('serve:debug',
-  gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'env:all'), 
-    'webpack:dev',
-    gulp.parallel('start:server:debug', 'start:client'),
-    'watch'
-  )
-)
-
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}))
 
 gulp.task('copy:npm-lock', () =>
@@ -350,6 +332,12 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-developer-merchantid-domain-association`,
   ], { dot: true })
     .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
+)
+
+// Copy woff2 and woff fonts to /assets/fonts
+gulp.task('copy:fonts', () =>
+  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*.woff*', 'node_modules/@fortawesome/fontawesome-free/webfonts/*.woff*'])
+    .pipe(gulp.dest(`${clientPath}/assets/fonts`))
 )
 
 // Copy everything except images (leave that to Webpack)
@@ -401,9 +389,28 @@ gulp.task('build',
     'inject:scss',
     'transpile:server',
     'build:images',
+    'copy:fonts',
     gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:server', 'webpack:dist'),
     'revReplaceWebpack',
     'revReplaceJson'
+  )
+)
+
+gulp.task('serve',
+  gulp.series(
+    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts', 'env:all'),
+    // 'webpack:dev', // why is this needed?
+    gulp.parallel('start:server', 'start:client'),
+    'watch'
+  )
+)
+
+gulp.task('serve:debug',
+  gulp.series(
+    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts', 'env:all'),
+    'webpack:dev',
+    gulp.parallel('start:server:debug', 'start:client'),
+    'watch'
   )
 )
 

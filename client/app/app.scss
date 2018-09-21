@@ -15,7 +15,7 @@ $enable-gradients: true;
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/theme'; // 3D style (replaced by $enable-gradients in Bootstrap 4)
 // @import '~bootstrap/scss/bootstrap'; // Bootstrap 4.x
 
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+$fa-font-path: '/assets/fonts/';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome'; // FontAwesome 5.x
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';

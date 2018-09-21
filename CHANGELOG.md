@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] BUG: History Editor - open and hit Cancel, open second time and Cancel, date value in historyItems array becomes null then undefined
+* [High] BUG: History Editor - open and hit Cancel, open second time and Cancel, date value in historyItems array becomes null then undefined. Saves values even if canceled.
 * [High] History Editor - implement Save feature
 * [High] SHYnet: Implement GUI to add users to class and record in database (only allow if class, date, studio, and teacher are selected)
 * [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
