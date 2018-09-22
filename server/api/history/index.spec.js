@@ -21,6 +21,7 @@ const authServiceStub = {
 
 const routerStub = {
   get: sinon.spy(),
+  post: sinon.spy(),
   put: sinon.spy(),
   delete: sinon.spy()
 };
@@ -44,7 +45,7 @@ describe('History API Router:', () => {
 
   describe('GET /api/history/:id', () => {
     it('should route to history.controller.index', done => {
-      routerStub.get.withArgs('/:id', 'historyCtrl.index')
+      routerStub.get.withArgs('/:id', 'authService.hasRole.teacher', 'historyCtrl.index')
         .should.have.been.calledOnce;
       done();
     });
@@ -52,7 +53,7 @@ describe('History API Router:', () => {
 
   describe('POST /api/history/:id', () => {
     it('should be authenticated and route to history.controller.create', done => {
-      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'historyCtrl.creaste')
+      routerStub.post.withArgs('/', 'authService.hasRole.teacher', 'historyCtrl.create')
         .should.have.been.calledOnce;
       done();
     });

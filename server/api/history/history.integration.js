@@ -6,7 +6,7 @@ import request from 'supertest';
 import config from '../../config/environment';
 
 describe('History API:', () => {
-  let newAnnouncementID;
+  let newID;
   let tokenAdmin;
 
   // Authenticate the administrator
@@ -30,66 +30,99 @@ describe('History API:', () => {
   });
 
   // history.controller.js:update
-  describe('PUT /api/history/:id', () => {
-    let newAnnouncement = {
-      _id: 0,
-      section: 'Section 1',
-      title: 'Title 1',
-      description: 'Description 1',
-      expires: '2030-04-15T20:00:00.000-04:00'
+  describe('POST /api/history', () => {
+    let newHistoryItem = {
+      UserId: 24601, // should dynamically create user
+      type: 'P',
+      quantity: 3,
+      method: 'Cash',
+      notes: 'Integration test'
     };
 
     // Gives a 500 error rather than 401 if authorization header is not provided
     it('should respond with a 401 when not authenticated', () =>
       request(app)
-        .put('/api/history/0')
-        .send(newAnnouncement)
+        .post('/api/history')
+        .send(newHistoryItem)
         .expect(401)
     );
 
     it('should upsert the history item when admin is authenticated and return a non-zero ID', () =>
       request(app)
-        .put('/api/history/0')
+        .post('/api/history')
         .set('authorization', `Bearer ${tokenAdmin}`)
-        .send(newAnnouncement)
+        .send(newHistoryItem)
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(res => {
-          newAnnouncementID = res.body._id;
-          newAnnouncementID.should.be.above(0);
+          newID = res.body._id;
+          newID.should.be.above(0);
+        })
+    );
+  });
+
+  // history.controller.js:update
+  describe('PUT /api/history/:id', () => {
+    let newHistoryItem = {
+      _id: 72,
+      UserId: 24601, // should dynamically create user
+      type: 'P',
+      quantity: 3,
+      method: 'Cash',
+      notes: 'Integration test'
+    };
+
+    // Gives a 500 error rather than 401 if authorization header is not provided
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .put('/api/history')
+        .send(newHistoryItem)
+        .expect(401)
+    );
+
+    it('should upsert the history item when admin is authenticated and return a non-zero ID', () =>
+      request(app)
+        .put('/api/history')
+        .set('authorization', `Bearer ${tokenAdmin}`)
+        .send(newHistoryItem)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          newID = res.body._id;
+          newID.should.be.above(0);
         })
     );
   });
 
   // history.controller.js:index
   describe('GET /api/history/:id', () => {
-    let announcements;
+    let historyItems;
 
     // Retrieve list of announcements each time before testing
     beforeEach(() =>
       request(app)
-        .get('/api/history')
+        .get('/api/history/24601') // I should create a user dynamically instead
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(res => {
-          announcements = res.body;
+          historyItems = res.body;
         })
     );
 
-    it('should respond with JSON array', () => announcements.should.be.instanceOf(Array));
+    it('should respond with JSON array', () => historyItems.should.be.instanceOf(Array));
   });
 
   // history.controller.js:destroy
   describe('DELETE /api/history/:id', () => {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
-        .delete(`/api/history/${newAnnouncementID}`)
+        .delete(`/api/history/${newID}?type=P`)
         .expect(401)
     );
 
     it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
       request(app)
-        .delete(`/api/history/${newAnnouncementID}`)
+        .delete(`/api/history/${newID}?type=P`)
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(204)
     );

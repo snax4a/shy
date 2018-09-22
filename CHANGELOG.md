@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] History Editor - implement Save feature
+* [High] History Editor - make sure opening editor doesn't yield empty date field (ever)
 * [High] SHYnet: Implement GUI to add users to class and record in database (only allow if class, date, studio, and teacher are selected)
 * [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
 * [High] SHYnet: Implement GUI to call API method to remove users from class (including underlying record in database)
