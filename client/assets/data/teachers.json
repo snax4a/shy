@@ -223,6 +223,14 @@
 		"substitute": false
 	},
 	{
+		"_id": 43,
+		"firstName": "Leigh Ann",
+		"lastName": "Cutright",
+		"photo": "/assets/images/teachers/leighann-cutright.jpg",
+		"bio": "Leigh Ann often says that training with Ana Forrest is the best decision she has ever made. Since then, she has completed 4 additional teacher trainings and taught more than 6,000 hours of classes. Yoga has permeated all aspects of her life, and teaching has become her passion.  Leigh Ann practices and teaches yoga as a tool for building awareness and health. She is a firm believer that classes with chairs and classes with handstands are equally valuable, and that each person’s body is different. Expect precise alignment cues, intelligent sequencing, and a lightheartedness not normally associated with yoga.",
+		"substitute": false
+	},
+	{
 		"_id": 30,
 		"firstName": "Tara",
 		"lastName": "Beretsky",
