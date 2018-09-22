@@ -75,22 +75,17 @@ describe('History API:', () => {
     // Gives a 500 error rather than 401 if authorization header is not provided
     it('should respond with a 401 when not authenticated', () =>
       request(app)
-        .put('/api/history')
+        .put('/api/history/72?type=P') // Don't hardcode in future
         .send(newHistoryItem)
         .expect(401)
     );
 
-    it('should upsert the history item when admin is authenticated and return a non-zero ID', () =>
+    it('should update the history item when admin is authenticated and return a non-zero ID', () =>
       request(app)
-        .put('/api/history')
+        .put('/api/history/72?type=P') // Don't hardcode in future
         .set('authorization', `Bearer ${tokenAdmin}`)
         .send(newHistoryItem)
         .expect(200)
-        .expect('Content-Type', /json/)
-        .expect(res => {
-          newID = res.body._id;
-          newID.should.be.above(0);
-        })
     );
   });
 
@@ -98,10 +93,16 @@ describe('History API:', () => {
   describe('GET /api/history/:id', () => {
     let historyItems;
 
-    // Retrieve list of announcements each time before testing
-    beforeEach(() =>
+    it('should respond with a 401 when not authenticated', () =>
       request(app)
-        .get('/api/history/24601') // I should create a user dynamically instead
+        .get('/api/history/24601') // shouldn't hardcode user ID
+        .expect(401)
+    );
+
+    it('should respond with a result code of 200 to confirm when authenticated', () =>
+      request(app)
+        .get('/api/history/24601')
+        .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(res => {
