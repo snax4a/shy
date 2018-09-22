@@ -1,4 +1,4 @@
-/* global describe, before, beforeEach, afterEach, expect, it */
+/* global describe, before, beforeEach, afterEach, it */
 'use strict';
 import { Attendance } from '../../sqldb';
 

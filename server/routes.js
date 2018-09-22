@@ -14,6 +14,7 @@ export default function(app) {
   app.use('/api/order', require('./api/order'));
   app.use('/api/newsletter', require('./api/newsletter'));
   app.use('/api/users', require('./api/user'));
+  app.use('/api/history', require('./api/history'));
   app.use('/auth', require('./auth').default);
 
   // Return Apple's merchant ID domain association file

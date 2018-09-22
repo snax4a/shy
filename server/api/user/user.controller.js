@@ -2,8 +2,9 @@
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import Sequelize from 'sequelize';
-import { User, Purchase, Attendance } from '../../sqldb';
+
 import config from '../../config/environment';
+import { User } from '../../sqldb';
 
 const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 
@@ -51,56 +52,6 @@ export function index(req, res) {
     { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT })
     .then(users => res.status(200).json(users))
     .catch(handleError(res));
-}
-
-// Gets an array containing the user's attendances and purchases with a running balance
-export function history(req, res, next) {
-  const sql = `
-    SELECT history._id,
-      history."UserId",
-      history.type,
-      history."when",
-      history.location,
-      history."classTitle",
-      history.teacher,
-      history."paymentMethod",
-      history.notes,
-      history.what,
-      history.quantity,
-      (sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
-    FROM (
-      SELECT "Attendances"._id,
-        "Attendances"."UserId",
-        'A'::text AS type,
-        "Attendances".attended AS when,
-        "Attendances".location,
-        "Attendances"."classTitle",
-        "Attendances".teacher,
-        NULL AS "paymentMethod",
-        NULL AS notes,
-        ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
-        '-1'::integer AS quantity
-      FROM "Attendances"
-      WHERE "Attendances"."UserId" = :UserId
-      UNION
-      SELECT "Purchases"._id,
-        "Purchases"."UserId",
-        'P'::text AS type,
-        "Purchases"."createdAt" AS "when",
-        NULL AS location,
-        NULL AS "classTitle",
-        NULL AS teacher,
-        "Purchases".method AS "paymentMethod",
-        "Purchases".notes,
-        'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') - '::text || "Purchases".notes::text AS what,
-        "Purchases".quantity
-      FROM "Purchases"
-      WHERE "Purchases"."UserId" = :UserId) history
-    ORDER BY history."UserId", history."when" DESC;`;
-  sequelize.query(sql,
-    { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
-    .then(historyItems => res.status(200).json(historyItems))
-    .catch(err => next(err));
 }
 
 // Gets attributes for logged-in user
@@ -250,52 +201,9 @@ export function upsert(req, res) {
     .catch(validationError(res));
 }
 
-// Add classes to a user account (teachers or admins)
-export function classAdd(req, res) {
-  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the purchase _id
-  let purchaseToAdd = Purchase.build(req.body);
-  return purchaseToAdd.save()
-    .then(purchase => res.status(200).json({ _id: purchase._id }))
-    .catch(validationError(res));
-}
-
-// Create an attendance record for a user (teachers or admins)
-export function attendanceAdd(req, res) {
-  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the attendance _id
-  let attendanceToAdd = Attendance.build(req.body);
-  return attendanceToAdd.save()
-    .then(attendance => res.status(200).json({ _id: attendance._id }))
-    .catch(validationError(res));
-}
-
 // Deletes user (admin-only)
 export function destroy(req, res) {
   return User.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
-    .catch(handleError(res));
-}
-
-// Deletes user (admin-only)
-export function historyItemDelete(req, res) {
-  const model = req.query.type == 'P' ? Purchase : Attendance;
-  return model.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
-    .catch(handleError(res));
-}
-
-// Updates a history item (admin-only)
-export function historyItemUpdate(req, res) {
-  Reflect.deleteProperty(req.body, '_id'); // Prevent user _id from being viewed as the history item _id
-  const model = req.query.type == 'P' ? Purchase : Attendance;
-  let historyItemToUpdate = model.build(req.body);
-  return historyItemToUpdate.save()
-    .then(() => res.status(200).end())
-    .catch(validationError(res));
-}
-
-// Deletes user attendance (teacher and admin-only) - similar to historyItemDelete but lacks deletion capability for purchases
-export function attendanceDelete(req, res) {
-  return Attendance.destroy({ where: { _id: req.params.id }})
     .then(() => res.status(204).end())
     .catch(handleError(res));
 }
@@ -304,3 +212,4 @@ export function attendanceDelete(req, res) {
 export function authCallback(req, res) {
   return res.redirect('/');
 }
+

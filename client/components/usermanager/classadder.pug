@@ -5,7 +5,11 @@ form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-option
   .modal-body
     .form-group
       label(for='quantity') Quantity
-      input.form-control(name='quantity', id='quantity', type='number', autofocus='', ng-model='$ctrl.purchase.quantity', min='1', max='12', placeholder='Quantity', required='', tabindex='1')
+      input.form-control(name='quantity', id='quantity', type='number', autofocus='', ng-model='$ctrl.purchase.quantity', min='1', max='100', placeholder='Quantity', required='', tabindex='1')
+      ng-messages.help-block.has-error(for='form.quantity.$error', ng-show='form.quantity.$dirty || form.$submitted', role='alert')
+        ng-message(when='required') Please enter a valid quantity.
+        ng-message(when='min') The quantity must be at least 1.
+        ng-message(when='max') The quantity must be less than 100.
     .form-group
       label(for='method') Payment method
       select.form-control(name='method', id='method', ng-model='$ctrl.purchase.method', tabindex='2')

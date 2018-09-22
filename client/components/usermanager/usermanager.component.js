@@ -41,21 +41,6 @@ export class UserManagerController {
     this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
   }
 
-  // Get an array of purchases & attendances with a running balance
-  getHistory(selectedUser) {
-    this.User.history({ id: selectedUser._id })
-      .$promise
-      .then(historyItems => {
-        this.historyFor = `${selectedUser.lastName}, ${selectedUser.firstName}`;
-        this.historyItems = historyItems;
-        return null;
-      })
-      .catch(response => {
-        console.log('Error', response);
-        return null;
-      });
-  }
-
   // Open modal to add classes
   modalClassAdder(user) {
     let modalDialog = this.$uibModal.open({
@@ -140,20 +125,18 @@ export class UserManagerController {
     this.modalClassAdder(user);
   }
 
-  // Problem because SHYnet UI is container for user manager so we need to get the teacher, location, date, and class title
-  attendanceAdd(user, location, date, classTitle) {
-    const attendance = {
-      user,
-      location,
-      date,
-      classTitle
-    };
-    // Now send the attendance to the server
-  }
-
-  // Same issue
-  attendanceDelete(attendance) {
-
+  // Get an array of purchases & attendances with a running balance
+  historyGet(selectedUser) {
+    this.$http.get(`/api/history/${selectedUser._id}`)
+      .then(response => {
+        this.historyFor = `${selectedUser.lastName}, ${selectedUser.firstName}`;
+        this.historyItems = response.data;
+        return null;
+      })
+      .catch(response => {
+        console.log('Error', response);
+        return null;
+      });
   }
 
   historyItemEdit(historyItem) {
@@ -161,8 +144,7 @@ export class UserManagerController {
   }
 
   historyItemDelete(historyItem) {
-    this.User.historyItemDelete({ id: historyItem._id, type: historyItem.type })
-      .$promise
+    this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
         return null;
@@ -247,16 +229,16 @@ class UserEditorController {
 
 class ClassAdderController {
   /*@ngInject*/
-  constructor($uibModalInstance, User, userGettingClasses) {
+  constructor($uibModalInstance, $http, userGettingClasses) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
+    this.$http = $http;
     this.userGettingClasses = userGettingClasses;
-    this.User = User;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.purchase = {
-      _id: this.userGettingClasses._id,
+      type: 'P',
       UserId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
@@ -282,8 +264,7 @@ class ClassAdderController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
-      this.User.classAdd(this.purchase)
-        .$promise
+      this.$http.post('/api/history', this.purchase)
         .then(() => {
           // Increment the balance for the user so we don't have to re-query
           this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
@@ -291,8 +272,7 @@ class ClassAdderController {
           return null;
         })
         .catch(response => {
-          let err = response.data;
-          console.log('Error', err);
+          console.log('Error', response);
           return null;
         });
     }
@@ -310,17 +290,14 @@ class ClassAdderController {
 */
 class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, $http, User, historyItemToEdit) {
+  constructor($uibModalInstance, $http, historyItemToEdit) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.$http = $http;
-    this.User = User;
     this.historyItemToEdit = historyItemToEdit;
     this.historyItem = {};
     angular.copy(this.historyItemToEdit, this.historyItem);
     this.historyItem.when = Date.parse(this.historyItem.when); // Convert ISO 8601 date string to JavaScript date
-
-    console.log('$ctrl.historyItem', this.historyItem);
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
@@ -357,12 +334,15 @@ class HistoryEditorController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
+      // Adjust for differences between server and client
       let updatedHistoryItem = {};
-      angular.copy(this.historyItemToEdit, updatedHistoryItem);
-      this.User.historyItemUpdate(updatedHistoryItem) // TODO: build this method
-        .$promise
+      angular.copy(this.historyItem, updatedHistoryItem);
+      updatedHistoryItem.createdAt = this.historyItem.when;
+      updatedHistoryItem.attended = this.historyItem.when;
+      updatedHistoryItem.method = this.historyItem.paymentMethod;
+      // Send update via HTTP PUT
+      this.$http.put(`/api/history/${updatedHistoryItem._id}`, updatedHistoryItem)
         .then(() => {
-          // TODO: Convert date back to ISO 8601 if needed
           // Recalculate balance based on change to quantity
           updatedHistoryItem.balance = parseInt(this.historyItemToEdit.balance, 10) + parseInt(updatedHistoryItem.quantity, 10) - parseInt(this.historyItem.quantity, 10);
           // Rewrite "what" property
@@ -379,8 +359,7 @@ class HistoryEditorController {
           return null;
         })
         .catch(response => {
-          let err = response.data;
-          console.log('Error', err);
+          console.log('Error', response);
           return null;
         });
     }

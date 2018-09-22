@@ -211,16 +211,6 @@ describe('User API:', () => {
       );
     });
 
-    // controller.history (teacher or admin)
-
-    // controller.attendanceAdd (teacher or admin)
-
-    // controller.attendanceDelete (teacher or admin)
-
-    // controller.attendanceDelete (admin only)
-
-    // controller.classAdd (teacher or admin)
-
     // controller.destroy (admin only)
     describe('DELETE /api/users/:id', () => {
       it('should respond with a 401 when not authenticated', () =>

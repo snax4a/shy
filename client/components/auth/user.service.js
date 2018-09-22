@@ -26,37 +26,6 @@ export function UserResource($resource) {
       params: {
         controller: 'admin'
       }
-    },
-    attendanceAdd: {
-      method: 'PUT',
-      params: {
-        controller: 'attendance'
-      }
-    },
-    attendanceDelete: {
-      method: 'DELETE',
-      params: {
-        controller: 'attendance'
-      }
-    },
-    classAdd: {
-      method: 'PUT',
-      params: {
-        controller: 'classes'
-      }
-    },
-    history: {
-      method: 'GET',
-      isArray: true,
-      params: {
-        controller: 'history'
-      }
-    },
-    historyItemDelete: {
-      method: 'DELETE',
-      params: {
-        controller: 'history'
-      }
     }
   });
 }

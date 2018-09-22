@@ -10,8 +10,8 @@ db.User = db.sequelize.import('../api/user/user.model');
 db.Order = db.sequelize.import('../api/order/order.model');
 db.Announcement = db.sequelize.import('../api/announcement/announcement.model');
 db.Schedule = db.sequelize.import('../api/schedule/schedule.model');
-db.Purchase = db.sequelize.import('../api/user/purchase.model');
-db.Attendance = db.sequelize.import('../api/user/attendance.model');
+db.Purchase = db.sequelize.import('../api/history/purchase.model');
+db.Attendance = db.sequelize.import('../api/history/attendance.model');
 
 // Associations
 db.Purchase.belongsTo(db.User, { onDelete: 'cascade', hooks: true });
