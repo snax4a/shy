@@ -90,6 +90,30 @@ describe('History API:', () => {
   });
 
   // history.controller.js:index
+  describe('GET /api/history/attendees', () => {
+    let attendees;
+
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .get('/api/history/attendees') // shouldn't hardcode user ID
+        .expect(401)
+    );
+
+    it('should respond with a result code of 200 to confirm when authenticated', () =>
+      request(app)
+        .get('/api/history/attendees?attended=2018-09-01&location=Squirrel+Hill&teacher=Koontz,+Leta&classTitle=Yoga+1')
+        .set('authorization', `Bearer ${tokenAdmin}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          attendees = res.body;
+        })
+    );
+
+    it('should respond with JSON array', () => attendees.should.be.instanceOf(Array));
+  });
+
+  // history.controller.js:index
   describe('GET /api/history/:id', () => {
     let historyItems;
 

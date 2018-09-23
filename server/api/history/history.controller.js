@@ -16,6 +16,27 @@ function handleError(res, statusCode) {
   return err => res.status(statusCode).send(err);
 }
 
+export function attendees(req, res) {
+  let { attended, location, teacher, classTitle } = req.query;
+  const sql = `
+    SELECT
+      "Attendances"._id,
+      "Attendances"."UserId",
+      "Users"."lastName" || ", " || "Users"."firstName" AS name
+    FROM
+      "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
+    WHERE
+      "Attendances".attended = :attended AND
+      "Attendances".location = :location AND
+      "Attendances".teacher = :teacher AND
+      "Attendances"."classTitle" = :classTitle
+    ORDER BY "Users"."lastName", "Users"."firstName";`;
+  sequelize.query(sql,
+    { replacements: { attended: `${attended}`, location: `${location}`, teacher: `${teacher}`, classTitle: `${classTitle}` }, type: sequelize.QueryTypes.SELECT })
+    .then(attendeeList => res.status(200).json(attendeeList))
+    .catch(handleError(res));
+}
+
 // Get a list of history items for a particular user with a running balance
 export function index(req, res, next) {
   const sql = `
