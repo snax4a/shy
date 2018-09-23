@@ -39,6 +39,7 @@ export class SHYnetController {
       startingDay: 1
     };
     this.submitted = false;
+    this.attendees = [];
   }
 
   showCalendar() {

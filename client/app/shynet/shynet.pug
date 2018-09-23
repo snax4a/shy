@@ -43,5 +43,7 @@
               div
                 table#gvAttendees.table.table-striped.table-hover.table-condensed.table-bordered(cellspacing='0', rules='all', border='1', style='border-collapse:collapse;margin-bottom:0px;')
                   tbody
-                    tr
-                      td(colspan='3')  No students in selected class.
+                    tr(ng-show='$ctrl.attendees.length == 0')
+                      td No students in selected class.
+                    tr(ng-repeat='attendee in $ctrl.attendees')
+                      td {{ attendee.name }} 
