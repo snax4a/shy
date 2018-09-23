@@ -156,6 +156,7 @@ export class UserManagerController {
   }
 }
 
+// Controller for modal dialog for editing users
 class UserEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, Auth, User, userSelectedForEditing) {
@@ -227,6 +228,7 @@ class UserEditorController {
   }
 }
 
+// Controller for modal dialog to add classes
 class ClassAdderController {
   /*@ngInject*/
   constructor($uibModalInstance, $http, userGettingClasses) {
@@ -284,10 +286,7 @@ class ClassAdderController {
   }
 }
 
-/*
-  To do's:
-  1. Add historyItemUpdate() to /server/api/user/user.controller.js and tests for index.spec.js, and user.integration.js
-*/
+// Controller for modal dialog - History Editor
 class HistoryEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, $http, historyItemToEdit) {
