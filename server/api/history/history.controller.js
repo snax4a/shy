@@ -2,6 +2,7 @@
 import Sequelize from 'sequelize';
 import { Attendance, Purchase } from '../../sqldb';
 import config from '../../config/environment';
+import PGNativeClient from 'pg-native';
 
 const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 
@@ -17,31 +18,63 @@ function handleError(res, statusCode) {
 }
 
 export function attendees(req, res) {
-  console.log(req.query);
-  const sql = `
-    SELECT
-      "Attendances"._id,
-      "Attendances"."UserId",
-      "Users"."lastName" || ', ' || "Users"."firstName" AS name
-    FROM
-      "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
-    WHERE
-      "Attendances".attended = :attended AND
-      "Attendances".location = :location AND
-      "Attendances".teacher = :teacher AND
-      "Attendances"."classTitle" = :classTitle
-    ORDER BY "Users"."lastName", "Users"."firstName";`;
-  sequelize.query(
-    sql,
-    {
-      replacements: req.query,
-      type: sequelize.QueryTypes.SELECT
-    })
-    .then(attendeeList => {
-      console.log(attendeeList);
-      return res.status(200).json(attendeeList);
-    })
-    .catch(handleError(res));
+  // pg-native way
+  const client = new PGNativeClient();
+  client.connect(config.sequelize.uri, err => {
+    if(err) {
+      res.status(401).json({ message: 'Not able to connect to database to get list of attendees.' });
+      return;
+    }
+    const sql = `
+      SELECT
+        "Attendances"._id,
+        "Attendances"."UserId",
+        "Users"."lastName" || ', ' || "Users"."firstName" AS name
+      FROM
+        "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
+      WHERE
+        "Attendances".attended = $1::DATE AND
+        "Attendances".location = $2 AND
+        "Attendances".teacher = $3 AND
+        "Attendances"."classTitle" = $4
+      ORDER BY "Users"."lastName", "Users"."firstName";`;
+    const { attended, location, teacher, classTitle } = req.query;
+    client.query(sql, [attended, location, teacher, classTitle], (err, rows) => {
+      if(err) {
+        res.status(424).json({ message: 'Not able to retrieve attendees from database (but connected successfully).' });
+        return;
+      }
+      if(rows.length === 0) {
+        res.status(404).json({ message: 'No attendees for that date/class/location/teacher combination.' });
+        return;
+      }
+      res.status(200).json(rows);
+    });
+  });
+
+  // Sequelize way...
+  // const sql = `SELECT
+  //     "Attendances"._id,
+  //     "Attendances"."UserId",
+  //     ("Users"."lastName" || ', ' || "Users"."firstName")::text AS name
+  //   FROM
+  //     "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
+  //   WHERE
+  //     "Attendances".attended = :attended AND
+  //     "Attendances".location = :location AND
+  //     "Attendances".teacher = :teacher AND
+  //     "Attendances"."classTitle" = :classTitle
+  //   ORDER BY "Users"."lastName", "Users"."firstName";`;
+  // sequelize.query(sql, {
+  //   replacements: req.query,
+  //   logging: true,
+  //   type: sequelize.QueryTypes.SELECT
+  // })
+  //   .then(results => {
+  //     console.log(results);
+  //     return res.status(200).json(results);
+  //   })
+  //   .catch(err => next(err));
 }
 
 // Get a list of history items for a particular user with a running balance
@@ -88,8 +121,7 @@ export function index(req, res, next) {
       FROM "Purchases"
       WHERE "Purchases"."UserId" = :UserId) history
     ORDER BY history."UserId", history."when" DESC;`;
-  sequelize.query(sql,
-    { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
+  sequelize.query(sql, { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
     .then(historyItems => res.status(200).json(historyItems))
     .catch(err => next(err));
 }
