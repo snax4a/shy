@@ -30,20 +30,36 @@ export class SHYnetController {
       });
 
     this.classDate = new Date();
+    // this.location = '';
+    // this.teacher = '';
+    // this.classTitle = '';
     this.datePickerOpened = false;
     this.dateOptions = {
       dateDisabled: false,
       formatYear: 'yyyy',
       maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
+      minDate: new Date(2018, 1, 1),
       startingDay: 1
     };
     this.submitted = false;
-    this.attendees = [];
+    this.attendees = [{ name: 'Koontz, Leta'}, { name: 'Stuyvesant, Nate'}];
   }
 
   showCalendar() {
     this.datePickerOpened = true;
+  }
+
+  attendeeLookup() {
+    if(!!this.classDate && !!this.location && !!this.classTitle && !!this.teacher) {
+      var tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+      var localISODate = (new Date(this.classDate - tzoffset)).toISOString().substring(0, 10);
+      this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(this.location)}&teacher=${encodeURI(this.teacher)}&classTitle=${encodeURI(this.classTitle)}`)
+        .then(response => {
+          console.log(response.data);
+          this.attendees = response.data;
+          return null;
+        });
+    }
   }
 }
 

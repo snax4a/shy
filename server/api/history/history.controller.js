@@ -17,12 +17,13 @@ function handleError(res, statusCode) {
 }
 
 export function attendees(req, res) {
-  let { attended, location, teacher, classTitle } = req.query;
+  //let { attended, location, teacher, classTitle } = req.query;
+  console.log(req.query);
   const sql = `
     SELECT
       "Attendances"._id,
       "Attendances"."UserId",
-      "Users"."lastName" || ", " || "Users"."firstName" AS name
+      "Users"."lastName" || ', ' || "Users"."firstName" AS name
     FROM
       "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
     WHERE
@@ -31,9 +32,22 @@ export function attendees(req, res) {
       "Attendances".teacher = :teacher AND
       "Attendances"."classTitle" = :classTitle
     ORDER BY "Users"."lastName", "Users"."firstName";`;
-  sequelize.query(sql,
-    { replacements: { attended: `${attended}`, location: `${location}`, teacher: `${teacher}`, classTitle: `${classTitle}` }, type: sequelize.QueryTypes.SELECT })
-    .then(attendeeList => res.status(200).json(attendeeList))
+  sequelize.query(
+    sql,
+    {
+      replacements: req.query,
+      // replacements: {
+      //   attended: '2019-09-21',
+      //   location: 'Squirrel Hill',
+      //   teacher: 'Koontz, Leta',
+      //   classTitle: 'Yoga 1'
+      // },
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(attendeeList => {
+      console.log(attendeeList);
+      return res.status(200).json(attendeeList);
+    })
     .catch(handleError(res));
 }
 
