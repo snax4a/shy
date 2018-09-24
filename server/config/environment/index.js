@@ -44,7 +44,7 @@ const all = {
     uri: process.env.DATABASE_URL,
     options: {
       dialect: 'postgres',
-      logging: false,
+      logging: false, // console.log
       operatorsAliases: false // prevents warning
     }
   },

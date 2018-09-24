@@ -17,7 +17,6 @@ function handleError(res, statusCode) {
 }
 
 export function attendees(req, res) {
-  //let { attended, location, teacher, classTitle } = req.query;
   console.log(req.query);
   const sql = `
     SELECT
@@ -36,12 +35,6 @@ export function attendees(req, res) {
     sql,
     {
       replacements: req.query,
-      // replacements: {
-      //   attended: '2019-09-21',
-      //   location: 'Squirrel Hill',
-      //   teacher: 'Koontz, Leta',
-      //   classTitle: 'Yoga 1'
-      // },
       type: sequelize.QueryTypes.SELECT
     })
     .then(attendeeList => {
