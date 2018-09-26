@@ -478,7 +478,7 @@ gulp.task('coverage:integration', done => {
   gulp.src(paths.server.test.integration)
     .pipe(mocha())
     .pipe(istanbul())
-    done()
+  done()
 })
 
 gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:all', 'env:test', 'coverage:unit', 'coverage:integration'))
