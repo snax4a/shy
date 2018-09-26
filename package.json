@@ -49,7 +49,7 @@
     "pg": "^7.4.3",
     "pg-native": "^3.0.0",
     "popper.js": "~1.14.4",
-    "sequelize": "^4.38.1",
+    "sequelize": "^4.39.0",
     "sodium": "^2.0.3",
     "sprint-js": "~0.1.0"
   },
@@ -60,7 +60,7 @@
     "@babel/register": "^7.0.0",
     "angular-mocks": "~1.7.4",
     "autoprefixer": "^9.1.5",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-angularjs-annotate": "^0.9.0",
     "browser-sync": "^2.24.7",
@@ -123,7 +123,7 @@
     "style-loader": "^0.23.0",
     "supertest": "^3.3.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.19.1",
+    "webpack": "^4.20.2",
     "webpack-bundle-analyzer": "^3.0.2",
     "webpack-dev-middleware": "^3.4.0"
   },
