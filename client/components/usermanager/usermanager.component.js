@@ -147,6 +147,7 @@ export class UserManagerController {
     this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
+        //TODO: update the user's balance
         return null;
       })
       .catch(response => {

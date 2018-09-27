@@ -63,6 +63,7 @@ export class SHYnetController {
     this.$http.delete(`/api/history/${attendee._id}?type=A`)
       .then(() => {
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
+        //TODO: Increase the user's balance by one
         return null;
       })
       .catch(response => {
