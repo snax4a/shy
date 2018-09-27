@@ -30,9 +30,6 @@ export class SHYnetController {
       });
 
     this.classDate = new Date();
-    // this.location = '';
-    // this.teacher = '';
-    // this.classTitle = '';
     this.datePickerOpened = false;
     this.dateOptions = {
       dateDisabled: false,
@@ -42,7 +39,7 @@ export class SHYnetController {
       startingDay: 1
     };
     this.submitted = false;
-    this.attendees = [{ name: 'Koontz, Leta'}, { name: 'Stuyvesant, Nate'}];
+    this.attendees = [];
   }
 
   showCalendar() {
@@ -60,6 +57,18 @@ export class SHYnetController {
           return null;
         });
     }
+  }
+
+  attendeeDelete(attendee) {
+    this.$http.delete(`/api/history/${attendee._id}?type=A`)
+      .then(() => {
+        this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
+        return null;
+      })
+      .catch(response => {
+        console.log('Error', response);
+        return null;
+      });
   }
 }
 

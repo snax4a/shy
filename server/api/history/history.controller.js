@@ -44,10 +44,6 @@ export function attendees(req, res) {
         res.status(424).json({ message: 'Not able to retrieve attendees from database (but connected successfully).' });
         return;
       }
-      if(rows.length === 0) {
-        res.status(404).json({ message: 'No attendees for that date/class/location/teacher combination.' });
-        return;
-      }
       res.status(200).json(rows);
     });
   });
