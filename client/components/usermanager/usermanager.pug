@@ -1,15 +1,15 @@
-.row.tab-spacer
+.row
   form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
-    .col-xs-9(style='max-width:415px;')
+    .col-lg-9(style='max-width:415px;') 
       .form-group
         label.sr-only Find User
         .input-group
           input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="First or last name")
           span.input-group-btn
             button.btn.btn-primary(id='submitButton', type='submit')
-              span.fas.fa-plus-circle 
+              span.fas.fa-search
               |&nbsp;Search
-    .col-xs-3
+    .col-lg-3
       a.btn.btn-warning(ng-click='$ctrl.createUser()') 
         span.fas.fa-plus-circle 
         |&nbsp;New User
@@ -18,8 +18,7 @@
         
 .row
   .col-md-12
-    p(ng-show='$ctrl.users.length==0') No users found meeting the search criteria.
-    table.table.table-striped(ng-hide='$ctrl.users.length==0')
+    table.table.table-striped.table-hover.table-condensed.last
       thead
         th(ng-click="$ctrl.sortUsers('lastName')") Name (click to edit)
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
@@ -30,6 +29,8 @@
         th Classes
         th(style='text-align:right;') Action
       tbody
+        tr(ng-show='$ctrl.users.length == 0')
+          td(colspan='3') No users found meeting the search criteria.
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8', pagination-id='users')
           td
             a.edit(ng-click="$ctrl.editUser(user)")
@@ -61,7 +62,7 @@
     ul.nav.nav-tabs
       li.active(role='presentation') 
         a History: {{ $ctrl.historyFor }}
-    table.table.table-striped
+    table.table.table-striped.last
       thead
         th(style='text-align: left;') Date
         th(style='text-align: left;') Description
