@@ -1,8 +1,7 @@
 # Product Backlog
+* [High] SHYnet: implement button to add students to class and display warning if they are out of classes
 * [High] SHYnet: update user's balance if attendee is deleted
 * [High] UserManager: update user's balance if history items are deleted
-* [High] SHYnet: Selecting class, date, studio, and teacher in GUI calls method and shows students who attended that session
-* [High] SHYnet: Implement GUI to call API method to remove users from class (including underlying record in database)
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Add method to push newsletters from admin (perhaps use sendinblue's API)
