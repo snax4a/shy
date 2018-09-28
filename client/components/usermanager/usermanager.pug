@@ -28,13 +28,14 @@
         th(ng-hide='$ctrl.mini', ng-click="$ctrl.sortUsers('phone')") Phone 
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th(style='text-align: right;width:85px;') Balance
-        th(style='text-align: center!important; width:95px;') Action
+        th(style='text-align: center!important; width:95px;') Actions&nbsp;&nbsp;&nbsp;
       tbody
         tr(ng-show='$ctrl.users.length == 0')
-          td(colspan='3') No users found meeting the search criteria.
+          td(colspan='3', ng-show='$ctrl.mini') No users found meeting the search criteria.
+          td(colspan='5', ng-hide='$ctrl.mini') No users found meeting the search criteria.
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8', pagination-id='users')
           td
-            a.edit(ng-click="$ctrl.editUser(user)")
+            a(ng-click="$ctrl.editUser(user)")
               span.fas.fa-pencil-alt 
               |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }}
           td(ng-hide='$ctrl.mini')
@@ -49,13 +50,14 @@
             a.edit(ng-click="$ctrl.historyGet(user)")
               |{{ user.balance }}
           td(style='text-align: cemter;')
-            a.edit(ng-click="$ctrl.historyGet(user)")
+            a(ng-click="$ctrl.historyGet(user)")
               span.fas.fa-history
             |&nbsp;&nbsp;&nbsp;
-            a.edit(ng-click="$ctrl.classAdd(user)")
+            a(ng-click="$ctrl.classAdd(user)")
               span.fas.fa-plus-circle
             |&nbsp;&nbsp;&nbsp;
-            span.fas.fa-arrow-circle-right(ng-hide='!$ctrl.mini')
+            a(ng-click="$ctrl.attendanceAdd(user)", ng-hide='!$ctrl.mini')
+              span.fas.fa-arrow-circle-right
             span(ng-hide='!$ctrl.mini') &nbsp;&nbsp;&nbsp;
             a.trash(ng-hide='$ctrl.mini', ng-click='$ctrl.delete(user)')
               span.far.fa-trash-alt

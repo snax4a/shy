@@ -120,6 +120,55 @@ export class UserManagerController {
     this.reverse = !this.reverse;
   }
 
+  attendanceAdd(user) {
+    const { classDate, location, classTitle, teacher } = this.parent;
+
+    // Check to see if required fields have been selected
+    if(!(classDate && classTitle && location && teacher)) {
+      alert('Please make sure the class, date, studio, and teacher are selected first.');
+      return;
+    }
+
+    // Check to see if student is already in this.parent.attendees array
+    const found = this.parent.attendees.findIndex(element => element.UserId === user._id) !== -1;
+    if(found) {
+      alert('That student was already added');
+      return;
+    }
+
+    // The date field is actually a timestamp with time zone so convert to local date
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+    const localISODate = `${(new Date(classDate - tzoffset)).toISOString().substring(0, 10)} 00:00:00-04`;
+    const historyItem = {
+      type: 'A',
+      UserId: user._id,
+      attended: localISODate,
+      location,
+      classTitle,
+      teacher
+    };
+
+    // Post historyItem to API
+    this.$http.post('/api/history', historyItem)
+      .then(() => null) // success
+      .catch(response => {
+        console.log('Error', response);
+        return null;
+      });
+
+    // lower the balance by one
+    user.balance--;
+
+    // display an alert if balance = 0
+    if(user.balance === 0) alert('This student needs to purchase more classes before coming next time.');
+
+    // display an alert if balance < 0
+    if(user.balance < 0) alert('This student has a negative balance; they need to buy at least two cards before coming next time.');
+
+    // Refresh list
+    this.parent.attendeeLookup();
+  }
+
   // Wrapper for modalClassAdder
   classAdd(user) {
     this.modalClassAdder(user);
@@ -373,10 +422,11 @@ class HistoryEditorController {
 
 export default angular.module('shyApp.usermanager', [compareTo, dirPagination, datepickerPopup])
   .component('usermanager', {
+    require: { parent: '?^^shynet' }, // silently ignore if shynet is not parent
     template: require('./usermanager.pug'),
     controller: UserManagerController,
     bindings: {
-      mini: '@'
+      mini: '<'
     }
   })
   .name;

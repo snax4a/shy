@@ -48,11 +48,10 @@ export class SHYnetController {
 
   attendeeLookup() {
     if(!!this.classDate && !!this.location && !!this.classTitle && !!this.teacher) {
-      var tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-      var localISODate = (new Date(this.classDate - tzoffset)).toISOString().substring(0, 10);
+      const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+      const localISODate = (new Date(this.classDate - tzoffset)).toISOString().substring(0, 10);
       this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(this.location)}&teacher=${encodeURI(this.teacher)}&classTitle=${encodeURI(this.classTitle)}`)
         .then(response => {
-          console.log(response.data);
           this.attendees = response.data;
           return null;
         });
@@ -77,6 +76,12 @@ export default angular.module('shyApp.shynet', [ngRoute, datepickerPopup, UserMa
   .config(routes)
   .component('shynet', {
     template: require('./shynet.pug'),
-    controller: SHYnetController
+    controller: SHYnetController//,
+    // bindings: {
+    //   classDate: '@',
+    //   location: '@',
+    //   classTitle: '@',
+    //   teacher: '@'
+    // }
   })
   .name;

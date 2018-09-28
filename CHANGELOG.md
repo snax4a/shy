@@ -1,10 +1,9 @@
 # Product Backlog
-* [High] SHYnet: implement button to add students to class and display warning if they are out of classes
-* [High] SHYnet: update user's balance if attendee is deleted
-* [High] UserManager: update user's balance if history items are deleted
+* [High] shynet: tells usermanager to refresh history and user balance if user is deleted
+* [Medium] usermanager/UserManagerController - replace alerts with modals
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
-* [Low] Add method to push newsletters from admin (perhaps use sendinblue's API)
+* [Low] Admin option to send updated contacts to sendinblue via their API
 
 <a name="1.0.11"></a>
 * [High] Intrapage links didn't work because anchors with ids loaded asynchronously - changed to synchronous
