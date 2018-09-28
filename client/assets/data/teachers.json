@@ -231,12 +231,6 @@
 		"substitute": false
 	},
 	{
-		"_id": 30,
-		"firstName": "Tara",
-		"lastName": "Beretsky",
-		"substitute": true
-	},
-	{
 		"_id": 31,
 		"firstName": "Jonathan",
 		"lastName": "Campbell",
@@ -298,9 +292,9 @@
 	},
 		{
 		"_id": 42,
-		"firstName": "Anne",
-		"lastName": "Jarusinski",
-		"substitute": true
+		"firstName": "Jennifer",
+		"lastName": "Tober",
+		"substitute": false
 	},
 	{
 		"_id": 43,
