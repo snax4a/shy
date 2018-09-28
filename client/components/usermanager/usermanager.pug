@@ -1,3 +1,4 @@
+.tab-spacer(ng-hide='$ctrl.mini')
 .row
   form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
     .col-lg-9(style='max-width:415px;') 
@@ -18,7 +19,7 @@
         
 .row
   .col-md-12
-    table.table.table-striped.table-hover.table-condensed.last
+    table.table.table-striped.table-hover.last
       thead
         th(ng-click="$ctrl.sortUsers('lastName')") Name (click to edit)
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='lastName'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
@@ -26,8 +27,8 @@
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th(ng-hide='$ctrl.mini', ng-click="$ctrl.sortUsers('phone')") Phone 
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
-        th Classes
-        th(style='text-align:right;') Action
+        th(style='text-align: right;width:85px;') Balance
+        th(style='text-align: center!important; width:95px;') Action
       tbody
         tr(ng-show='$ctrl.users.length == 0')
           td(colspan='3') No users found meeting the search criteria.
@@ -44,17 +45,20 @@
             a(href='tel:{{ user.phone }}')
               span.fas.fa-phone
               |&nbsp;&nbsp;{{ user.phone }}
-          td
+          td(style='text-align: right;')
+            a.edit(ng-click="$ctrl.historyGet(user)")
+              |{{ user.balance }}
+          td(style='text-align: cemter;')
             a.edit(ng-click="$ctrl.historyGet(user)")
               span.fas.fa-history
-              | &nbsp;&nbsp;{{ user.balance }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            |&nbsp;&nbsp;&nbsp;
             a.edit(ng-click="$ctrl.classAdd(user)")
               span.fas.fa-plus-circle
-          td
-            span.fas.fa-arrow-circle-right.pull-right(ng-hide='!$ctrl.mini')
-            | &nbsp; 
+            |&nbsp;&nbsp;&nbsp;
+            span.fas.fa-arrow-circle-right(ng-hide='!$ctrl.mini')
+            span(ng-hide='!$ctrl.mini') &nbsp;&nbsp;&nbsp;
             a.trash(ng-hide='$ctrl.mini', ng-click='$ctrl.delete(user)')
-              span.far.fa-trash-alt.pull-right 
+              span.far.fa-trash-alt
     dir-pagination-controls(pagination-id='users', max-size='5', direction-links='true', boundary-links='true')
 
 .row(ng-hide='$ctrl.historyItems.length==0')
