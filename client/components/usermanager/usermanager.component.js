@@ -23,6 +23,22 @@ export class UserManagerController {
     this.submitted = false;
   }
 
+  // Binding was changed by parent
+  $onChanges(changes) {
+    console.log('$onChanges in child');
+    const userId = changes.user.currentValue;
+    if(userId) {
+      this.historyHide();
+      const index = this.users.findIndex(element => element._id === userId);
+      console.log('this.users', this.users);
+      console.log('index', index);
+      if(index !== -1) {
+        console.log('Balance before change', this.users[index].balance);
+        this.users[index].balance++;
+      }
+    }
+  }
+
   // Get an array of users whose email, first or last name starts with the filter
   search(form) {
     this.submitted = true;
@@ -165,12 +181,16 @@ export class UserManagerController {
     // display an alert if balance < 0
     if(user.balance < 0) alert('This student has a negative balance; they need to buy at least two cards before coming next time.');
 
+    // Hide history (forcing the user to re-request if they want it)
+    this.historyHide();
+
     // Refresh list
     this.parent.attendeeLookup();
   }
 
   // Wrapper for modalClassAdder
   classAdd(user) {
+    this.historyHide();
     this.modalClassAdder(user);
   }
 
@@ -186,6 +206,11 @@ export class UserManagerController {
         console.log('Error', response);
         return null;
       });
+  }
+
+  historyHide() {
+    this.historyFor = '';
+    this.historyItems = [];
   }
 
   historyItemEdit(historyItem) {
@@ -426,7 +451,8 @@ export default angular.module('shyApp.usermanager', [compareTo, dirPagination, d
     template: require('./usermanager.pug'),
     controller: UserManagerController,
     bindings: {
-      mini: '<'
+      mini: '<',
+      user: '<'
     }
   })
   .name;

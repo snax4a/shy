@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] shynet: tells usermanager to refresh history and user balance if user is deleted
+* [High] shynet.component.js:attendeeDelete - setting this.user doesn't always trigger usermanager.component.js:$onChanges().
 * [Medium] usermanager/UserManagerController - replace alerts with modals
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

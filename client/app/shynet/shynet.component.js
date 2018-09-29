@@ -28,7 +28,6 @@ export class SHYnetController {
         this.locations = response.data;
         return null;
       });
-
     this.classDate = new Date();
     this.datePickerOpened = false;
     this.dateOptions = {
@@ -62,7 +61,8 @@ export class SHYnetController {
     this.$http.delete(`/api/history/${attendee._id}?type=A`)
       .then(() => {
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
-        //TODO: Increase the user's balance by one
+        this.user = attendee.UserId; // Trigger $onChanges in child
+        console.log('Parent should have triggered $onChanges in child');
         return null;
       })
       .catch(response => {
@@ -76,12 +76,6 @@ export default angular.module('shyApp.shynet', [ngRoute, datepickerPopup, UserMa
   .config(routes)
   .component('shynet', {
     template: require('./shynet.pug'),
-    controller: SHYnetController//,
-    // bindings: {
-    //   classDate: '@',
-    //   location: '@',
-    //   classTitle: '@',
-    //   teacher: '@'
-    // }
+    controller: SHYnetController
   })
   .name;

@@ -40,7 +40,7 @@ export function index(req, res) {
       phone,
       role,
       provider,
-      COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0) AS balance
+      (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
     FROM "Users" "user" LEFT OUTER JOIN
       (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase
       ON "user"._id = purchase."UserId"
