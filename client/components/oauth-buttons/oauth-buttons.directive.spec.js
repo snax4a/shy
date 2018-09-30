@@ -29,8 +29,8 @@ describe('Directive: oauthButtons', function() {
   it('should contain a Google+ button', function() {
     compileDirective('<oauth-buttons></oauth-buttons>');
     expect($(element[0])
-        .find('button.btn.btn-lg.btn-google')
-        .length)
+      .find('button.btn.btn-lg.btn-google')
+      .length)
       .to.be.at.least(1);
   });
 
