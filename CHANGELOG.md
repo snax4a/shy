@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] shynet.component.js:attendeeDelete - setting this.user doesn't always trigger usermanager.component.js:$onChanges().
+* [Medium] usermanager - deleting historyItem should recalculate balance in this.users
 * [Medium] usermanager/UserManagerController - replace alerts with modals
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
