@@ -25,18 +25,15 @@ export class UserManagerController {
 
   // Binding was changed by parent
   $onChanges(changes) {
-    console.log('$onChanges in child');
-    const userId = changes.user.currentValue;
-    if(userId) {
-      this.historyHide();
-      const index = this.users.findIndex(element => element._id === userId);
-      console.log('this.users', this.users);
-      console.log('index', index);
-      if(index !== -1) {
-        console.log('Balance before change', this.users[index].balance);
-        this.users[index].balance++;
-      }
-    }
+    // Skip if first firing of $onChanges or users array is empty
+    if(!changes.user.currentValue || this.users.length == 0) return;
+    // Get UserId that was deleted (ignoring ts property)
+    const userId = changes.user.currentValue._id;
+    // Find that userId in displayed users (if they are)
+    const index = this.users.findIndex(element => element._id === userId);
+    // Credit the displayed user's balance since they were deleted
+    if(index !== -1) this.users[index].balance++;
+    this.historyHide(); // Hide the history since it's no longer valid
   }
 
   // Get an array of users whose email, first or last name starts with the filter

@@ -60,9 +60,11 @@ export class SHYnetController {
   attendeeDelete(attendee) {
     this.$http.delete(`/api/history/${attendee._id}?type=A`)
       .then(() => {
+        this.user = {
+          _id: attendee.UserId,
+          ts: new Date().getTime() // forces user to be different even if _id is not
+        };
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
-        this.user = attendee.UserId; // Trigger $onChanges in child
-        console.log('Parent should have triggered $onChanges in child');
         return null;
       })
       .catch(response => {
