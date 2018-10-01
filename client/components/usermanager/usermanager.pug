@@ -1,7 +1,7 @@
 .tab-spacer(ng-hide='$ctrl.mini')
 .row
   form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
-    .col-lg-9(style='max-width:415px;') 
+    .col-lg-9(style='max-width:415px;')
       .form-group
         label.sr-only Find User
         .input-group
@@ -10,13 +10,15 @@
             button.btn.btn-primary(id='submitButton', type='submit')
               span.fas.fa-search
               |&nbsp;Search
+      p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
+        | Please enter at least the first three characters of the user's first or last name
     .col-lg-3
       a.btn.btn-warning(ng-click='$ctrl.createUser()') 
         span.fas.fa-plus-circle 
         |&nbsp;New User
-  p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
-        | Please enter at least the first three characters of the user's first or last name
-        
+.row
+  .col-lg-12
+    div(uib-alert='', ng-repeat="alert in $ctrl.alerts", ng-class='alert.type', close='$ctrl.closeAlert($index)') {{ alert.message }}
 .row
   .col-md-12
     table.table.table-striped.table-hover.last

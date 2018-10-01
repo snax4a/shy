@@ -4,6 +4,7 @@ import angular from 'angular';
 import compareTo from '../compareto/compareto.directive';
 import dirPagination from 'angular-utils-pagination';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import alert from 'angular-ui-bootstrap/src/alert';
 
 export class UserManagerController {
   /*@ngInject*/
@@ -15,6 +16,7 @@ export class UserManagerController {
 
   // Initializations
   $onInit() {
+    this.alerts = [];
     this.users = [];
     this.historyItems = [];
     this.historyFor = '';
@@ -34,6 +36,11 @@ export class UserManagerController {
     // Credit the displayed user's balance since they were deleted
     if(index !== -1) this.users[index].balance++;
     this.historyHide(); // Hide the history since it's no longer valid
+  }
+
+  // close the alert by deleting the element in the array
+  closeAlert(index) {
+    this.alerts.splice(index, 1);
   }
 
   // Get an array of users whose email, first or last name starts with the filter
@@ -138,14 +145,20 @@ export class UserManagerController {
 
     // Check to see if required fields have been selected
     if(!(classDate && classTitle && location && teacher)) {
-      alert('Please make sure the class, date, studio, and teacher are selected first.');
+      this.alerts.push({
+        type: 'alert-warning',
+        message: 'Please make sure the class, date, studio, and teacher are selected first.'
+      });
       return;
     }
 
     // Check to see if student is already in this.parent.attendees array
     const found = this.parent.attendees.findIndex(element => element.UserId === user._id) !== -1;
     if(found) {
-      alert('That student was already added');
+      this.alerts.push({
+        type: 'alert-warning',
+        message: 'That student was already added'
+      });
       return;
     }
 
@@ -173,10 +186,20 @@ export class UserManagerController {
     user.balance--;
 
     // display an alert if balance = 0
-    if(user.balance === 0) alert('This student needs to purchase more classes before coming next time.');
+    if(user.balance === 0) {
+      this.alerts.push({
+        type: 'alert-warning',
+        message: 'This student needs to purchase more classes before coming next time.'
+      });
+    }
 
     // display an alert if balance < 0
-    if(user.balance < 0) alert('This student has a negative balance; they need to buy at least two cards before coming next time.');
+    if(user.balance < 0) {
+      this.alerts.push({
+        type: 'alert-danger',
+        message: 'This student already has a negative balance; they need to buy at least two cards before coming next time.'
+      });
+    }
 
     // Hide history (forcing the user to re-request if they want it)
     this.historyHide();
@@ -442,7 +465,7 @@ class HistoryEditorController {
   }
 }
 
-export default angular.module('shyApp.usermanager', [compareTo, dirPagination, datepickerPopup])
+export default angular.module('shyApp.usermanager', [compareTo, dirPagination, datepickerPopup, alert])
   .component('usermanager', {
     require: { parent: '?^^shynet' }, // silently ignore if shynet is not parent
     template: require('./usermanager.pug'),
