@@ -123,7 +123,7 @@
     "style-loader": "^0.23.1",
     "supertest": "^3.3.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.21.0",
+    "webpack": "^4.22.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "^3.4.0"
   },
