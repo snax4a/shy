@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Replace sodium with crypto as former is not being maintained for newer node versions
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

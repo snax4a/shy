@@ -44,6 +44,14 @@ const all = {
     uri: process.env.DATABASE_URL,
     options: {
       dialect: 'postgres',
+      timezone: 'America/New_York',
+      pool: {
+        max: 5, // default
+        min: 0, // default
+        acquire: 10000, // milliseconds will try to get a connection before throwing error
+        idle: 10000, // milliseconds before being released
+        evict: 10000 // milliseconds for evicting stale connections
+      },
       logging: false, // console.log
       operatorsAliases: false // prevents warning
     }
