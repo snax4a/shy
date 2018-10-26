@@ -11,7 +11,10 @@ const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => res.status(statusCode).json(err);
+  return err => {
+    console.log(err);
+    return res.status(statusCode).json(err);
+  }
 }
 
 function handleError(res, statusCode) {
@@ -139,7 +142,7 @@ export function forgotPassword(req, res) {
 
 // Updates attributes for authenticated user (Profile page)
 export function update(req, res) {
-  return User.findById(req.user._id) // users can only update themselves (req.user vs. req.body.user)
+  return User.findByPk(req.user._id) // users can only update themselves (req.user vs. req.body.user)
     .then(userToUpdate => {
       // Only authenticate and handle password or email changes for local accounts
       if(userToUpdate.provider === 'local') {

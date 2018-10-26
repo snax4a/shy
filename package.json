@@ -50,7 +50,6 @@
     "pg-native": "^3.0.0",
     "popper.js": "~1.14.4",
     "sequelize": "^4.41.0",
-    "sodium": "^2.0.3",
     "sprint-js": "~0.1.0"
   },
   "devDependencies": {
@@ -128,7 +127,7 @@
     "webpack-dev-middleware": "^3.4.0"
   },
   "engines": {
-    "node": "~10.11.0",
+    "node": "~10.12.0",
     "npm": "~6.4.1"
   },
   "scripts": {

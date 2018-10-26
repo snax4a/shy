@@ -197,6 +197,7 @@ describe('User API:', () => {
           .then(() => {
             // Add fields normally sent from admin UI
             updatedUser._id = user._id;
+            console.log(updatedUser);
             return request(app)
               .put(`/api/users/${user._id}/admin`) // test user is updating their own profile
               .send(updatedUser)

@@ -265,7 +265,7 @@ export function create(req, res) {
       setTimeout(() => config.mail.transporter.sendMail(message)
         .then(info => console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`))
         .catch(error => console.log(`Email error occurred: ${error.message}`, error))
-        , DELAY);
+      , DELAY);
       return res.status(200).json(braintreeTransaction);
     })
     .catch(error => {
