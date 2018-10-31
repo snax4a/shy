@@ -294,12 +294,6 @@
 		"_id": 42,
 		"firstName": "Jennifer",
 		"lastName": "Tober",
-		"substitute": false
-	},
-	{
-		"_id": 43,
-		"firstName": "Leigh Ann",
-		"lastName": "Cutright",
 		"substitute": true
 	}
 ]
