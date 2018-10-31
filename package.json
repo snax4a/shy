@@ -27,7 +27,7 @@
     "angular-utils-pagination": "^0.11.1",
     "bootstrap-sass": "~3.3.7",
     "braintree": "^2.13.1",
-    "braintree-web": "^3.38.1",
+    "braintree-web": "^3.39.0",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.2",
     "connect-session-sequelize": "^5.2.2",
