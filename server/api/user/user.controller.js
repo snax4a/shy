@@ -50,7 +50,8 @@ export function index(req, res) {
       LEFT OUTER JOIN
         (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance
         ON "user"._id = attendance."UserId"
-    WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString;`;
+    WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString
+    ORDER BY "user"."lastName", "user"."firstName";`;
   return sequelize.query(sql,
     { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT })
     .then(users => res.status(200).json(users))
