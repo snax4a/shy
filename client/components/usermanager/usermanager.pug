@@ -39,7 +39,7 @@
           td
             a(ng-click="$ctrl.editUser(user)")
               span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }}
+              |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }} ({{ user._id }})
           td(ng-hide='$ctrl.mini')
             a(href='mailto:{{ user.email }}')
               span.far.fa-envelope

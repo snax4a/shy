@@ -51,6 +51,7 @@ export class UserManagerController {
         .$promise
         .then(users => {
           this.users = users;
+          this.historyItems = [];
         });
     }
   }
