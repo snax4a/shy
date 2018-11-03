@@ -11,10 +11,7 @@ const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => {
-    console.log(err);
-    return res.status(statusCode).json(err);
-  }
+  return err => res.status(statusCode).json(err);
 }
 
 function handleError(res, statusCode) {
@@ -36,8 +33,8 @@ class UserError extends Error {
 export function index(req, res) {
   const sql = `
     SELECT _id,
-      "lastName",
-      "firstName",
+      INITCAP("lastName") AS "lastName",
+      INITCAP("firstName") AS "firstName",
       email,
       "optOut",
       phone,
@@ -50,7 +47,8 @@ export function index(req, res) {
       LEFT OUTER JOIN
         (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance
         ON "user"._id = attendance."UserId"
-    WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString;`;
+    WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString
+    ORDER BY "user"."lastName", "user"."firstName";`;
   return sequelize.query(sql,
     { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT })
     .then(users => res.status(200).json(users))
