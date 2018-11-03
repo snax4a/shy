@@ -33,8 +33,8 @@ class UserError extends Error {
 export function index(req, res) {
   const sql = `
     SELECT _id,
-      INITCAP("lastName"),
-      INITCAP("firstName"),
+      INITCAP("lastName") AS "lastName",
+      INITCAP("firstName") AS "firstName",
       email,
       "optOut",
       phone,
