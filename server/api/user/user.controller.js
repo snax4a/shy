@@ -11,10 +11,7 @@ const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
 // Passes JSON back so that UI fields can be flagged for validation issues
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return err => {
-    console.log(err);
-    return res.status(statusCode).json(err);
-  }
+  return err => res.status(statusCode).json(err);
 }
 
 function handleError(res, statusCode) {
@@ -36,8 +33,8 @@ class UserError extends Error {
 export function index(req, res) {
   const sql = `
     SELECT _id,
-      "lastName",
-      "firstName",
+      INITCAP("lastName"),
+      INITCAP("firstName"),
       email,
       "optOut",
       phone,
