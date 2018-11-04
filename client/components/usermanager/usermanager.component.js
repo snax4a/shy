@@ -165,7 +165,8 @@ export class UserManagerController {
 
     // The date field is actually a timestamp with time zone so convert to local date
     const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-    const localISODate = `${(new Date(classDate - tzoffset)).toISOString().substring(0, 10)} 00:00:00-04`;
+    const localISODate = `${(new Date(classDate - tzoffset)).toISOString()
+      .substring(0, 10)} 00:00:00-04`;
     const historyItem = {
       type: 'A',
       UserId: user._id,
@@ -241,6 +242,7 @@ export class UserManagerController {
   historyItemDelete(historyItem) {
     this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
       .then(() => {
+        console.log('HTTP DELETE did not send error');
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
         //TODO: update the user's balance
         return null;
