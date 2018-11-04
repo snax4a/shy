@@ -58,8 +58,10 @@ export class UserManagerController {
 
   // Delete the user from the server and in the local array
   delete(selectedUser) {
-    selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
-    this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
+    selectedUser
+      .$remove({ id: selectedUser._id }) // Try to delete the user from the server
+      .then(() => this.users.splice(this.users.indexOf(selectedUser), 1)) // Remove them from the array)
+      .catch(() => this.alerts.push({ type: 'alert-danger', message: 'This user cannot be deleted because they have a history. Please delete their attendances and purchases first.'}));
   }
 
   // Open modal to add classes
@@ -242,7 +244,6 @@ export class UserManagerController {
   historyItemDelete(historyItem) {
     this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
       .then(() => {
-        console.log('HTTP DELETE did not send error');
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
         //TODO: update the user's balance
         return null;
