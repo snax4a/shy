@@ -106,7 +106,7 @@
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.4.4",
     "mocha": "^5.2.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.10.0",
     "nodemon": "^1.18.5",
     "opn": "~5.4.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
