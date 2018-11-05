@@ -44,6 +44,9 @@ export default function(sequelize, DataTypes) {
         args: true,
         msg: 'A user with that email address already exists.'
       },
+      set: function(val) {
+        this.setDataValue('email', val.toLowerCase());
+      },
       validate: {
         isEmail: {
           args: true,
