@@ -52,9 +52,9 @@
     "sprint-js": "~0.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.1.5",
     "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-env": "^7.1.5",
     "@babel/register": "^7.0.0",
     "angular-mocks": "~1.7.5",
     "autoprefixer": "^9.3.1",
@@ -76,7 +76,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^5.0.0",
-    "gulp-imagemin": "^4.1.0",
+    "gulp-imagemin": "^5.0.3",
     "gulp-inject": "^4.3.2",
     "gulp-istanbul": "^1.1.3",
     "gulp-istanbul-enforcer": "^1.0.3",
