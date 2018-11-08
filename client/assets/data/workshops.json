@@ -15,7 +15,6 @@
 			}
 		]
 	},
-
 	{
 		"expires": "2018-09-05T15:00:00.000-05:00",
 		"title": "Teaching Relaxation and Restorative Yoga with Joni Sturgill",
@@ -32,8 +31,6 @@
 			}
 		]
 	},
-
-
 	{
 		"expires": "2018-12-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
@@ -83,9 +80,6 @@
 			}
 		]
 	},
-
-
-
 	{
 		"expires": "2018-12-25T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Chant with Kendell Romanelli",
@@ -109,7 +103,6 @@
 			}
 		]
 	},
-
 	{
 		"expires": "2018-12-18T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Qiong Wang",
@@ -141,8 +134,6 @@
 			}
 		]
 	},
-
-
 	{
 		"expires": "2018-09-25T20:00:00.000-05:00",
 		"title": "Feet with Stefanie Zito",
@@ -159,7 +150,6 @@
 			}
 		]
 	},
-
 	{
 		"expires": "2018-10-25T20:00:00.000-05:00",
 		"title": "Mindfulness and Poetry Workshop with Joni Sturgill",
@@ -176,9 +166,6 @@
 			}
 		]
 	},
-
-
-
 	{
 		"expires": "2018-10-23T20:00:00.000-05:00",
 		"title": "Sitting is Killing Me with Jill Clary",
@@ -195,10 +182,6 @@
 			}
 		]
 	},
-
-
-
-
 	{
 		"expires": "2018-10-29T15:30:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
@@ -215,7 +198,6 @@
 			}
 		]
 	},
-
 	{
 		"expires": "2018-10-05T15:00:00.000-05:00",
 		"title": "The Basics of Yoga Nidra and Other Forms of Relaxation with Joni Sturgill",
@@ -231,25 +213,5 @@
 				"location": "East Liberty"
 			}
 		]
-	},
-
-
-
-	{
-		"expires": "2018-11-12T15:00:00.000-05:00",
-		"title": "A Practice in Acceptance: Vertigo with Lizzie Hanulak",
-		"photo": "/assets/images/workshops/vertigo.jpg",
-		"description": "If you have ever been struck with a case of vertigo  - transient or permanent - it can be hard to believe that a yoga practice is possible.  With certain strategies, and a handful of poses to fall back on, developing a practice is possible. It is often about developing deeper skills, slowing down, and being willing to accept this new “normal”.",
-		"sections":
-		[
-			{
-				"start": "2018-11-11T14:00:00.000-05:00",
-				"expires": "2018-11-12T15:30:00.000-05:00",
-				"productID": 64,
-				"cost": 20,
-				"location": "Squirrel Hill"
-			}
-		]
 	}
-
 ]
