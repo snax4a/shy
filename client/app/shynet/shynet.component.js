@@ -28,7 +28,8 @@ export class SHYnetController {
         this.locations = response.data;
         return null;
       });
-    this.classDate = new Date();
+    const now = new Date();
+    this.classDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     this.datePickerOpened = false;
     this.dateOptions = {
       dateDisabled: false,
@@ -41,14 +42,19 @@ export class SHYnetController {
     this.attendees = [];
   }
 
+  localISODate(date) {
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+    return (new Date(date - tzoffset)).toISOString()
+      .substring(0, 10);
+  }
+
   showCalendar() {
     this.datePickerOpened = true;
   }
 
   attendeeLookup() {
     if(!!this.classDate && !!this.location && !!this.classTitle && !!this.teacher) {
-      const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-      const localISODate = (new Date(this.classDate - tzoffset)).toISOString().substring(0, 10);
+      const localISODate = this.localISODate(this.classDate);
       this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(this.location)}&teacher=${encodeURI(this.teacher)}&classTitle=${encodeURI(this.classTitle)}`)
         .then(response => {
           this.attendees = response.data;

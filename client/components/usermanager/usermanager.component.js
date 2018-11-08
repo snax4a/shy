@@ -165,14 +165,10 @@ export class UserManagerController {
       return;
     }
 
-    // The date field is actually a timestamp with time zone so convert to local date
-    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-    const localISODate = `${(new Date(classDate - tzoffset)).toISOString()
-      .substring(0, 10)} 00:00:00-04`;
     const historyItem = {
       type: 'A',
       UserId: user._id,
-      attended: localISODate,
+      attended: classDate,
       location,
       classTitle,
       teacher
