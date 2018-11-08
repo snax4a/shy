@@ -58,8 +58,10 @@ export class UserManagerController {
 
   // Delete the user from the server and in the local array
   delete(selectedUser) {
-    selectedUser.$remove({ id: selectedUser._id }); // Delete the user from the server
-    this.users.splice(this.users.indexOf(selectedUser), 1); // Remove them from the array
+    selectedUser
+      .$remove({ id: selectedUser._id }) // Try to delete the user from the server
+      .then(() => this.users.splice(this.users.indexOf(selectedUser), 1)) // Remove them from the array)
+      .catch(() => this.alerts.push({ type: 'alert-danger', message: 'This user cannot be deleted because they have a history. Please delete their attendances and purchases first.'}));
   }
 
   // Open modal to add classes
@@ -163,13 +165,10 @@ export class UserManagerController {
       return;
     }
 
-    // The date field is actually a timestamp with time zone so convert to local date
-    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-    const localISODate = `${(new Date(classDate - tzoffset)).toISOString().substring(0, 10)} 00:00:00-04`;
     const historyItem = {
       type: 'A',
       UserId: user._id,
-      attended: localISODate,
+      attended: classDate,
       location,
       classTitle,
       teacher

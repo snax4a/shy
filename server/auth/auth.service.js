@@ -29,7 +29,7 @@ export function isAuthenticated() {
     })
     // Attach user to request
     .use((req, res, next) =>
-      User.find({
+      User.findOne({
         where: {
           _id: req.user._id
         }
