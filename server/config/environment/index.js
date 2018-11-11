@@ -45,6 +45,7 @@ const all = {
     options: {
       dialect: 'postgres',
       timezone: 'America/New_York',
+      native: true,
       pool: {
         max: 5, // default
         min: 0, // default
