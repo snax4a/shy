@@ -68,7 +68,7 @@
     "chai-things": "^0.2.0",
     "css-loader": "^1.0.1",
     "del": "^3.0.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "file-loader": "^2.0.0",
     "grunt": "^1.0.3",
     "grunt-build-control": "^0.7.1",
