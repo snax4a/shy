@@ -35,7 +35,7 @@ export class SHYnetController {
       dateDisabled: false,
       formatYear: 'yyyy',
       maxDate: new Date(2020, 5, 22),
-      minDate: new Date(2018, 1, 1),
+      minDate: new Date(2013, 1, 1),
       startingDay: 1
     };
     this.submitted = false;
