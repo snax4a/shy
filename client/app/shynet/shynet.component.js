@@ -42,10 +42,9 @@ export class SHYnetController {
     this.attendees = [];
   }
 
+  // Assumes date only - midnight in local time zone
   localISODate(date) {
-    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
-    return (new Date(date - tzoffset)).toISOString()
-      .substring(0, 10);
+    return date.toISOString().substring(0,10);
   }
 
   showCalendar() {
