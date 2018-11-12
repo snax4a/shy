@@ -8,7 +8,7 @@ export function setup(User, config) {
     callbackURL: config.google.callbackURL
   },
   (accessToken, refreshToken, profile, done) =>
-    User.find({where: {'google.id': profile.id}})
+    User.findOne({where: {'google.id': profile.id}})
       .then(user => {
         // If the user is already setup...
         if(user) {
