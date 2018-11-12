@@ -79,7 +79,7 @@ export function index(req, res, next) {
     SELECT history._id,
       history."UserId",
       history.type,
-      history."when",
+      history."when"::date,
       history.location,
       history."classTitle",
       history.teacher,
