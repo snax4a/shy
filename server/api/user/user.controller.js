@@ -59,7 +59,7 @@ export function index(req, res) {
 export function me(req, res, next) {
   let userId = req.user._id;
 
-  return User.find({
+  return User.findOne({
     where: {
       _id: userId
     },
