@@ -32,7 +32,7 @@
 		]
 	},
 	{
-		"expires": "2018-12-10T20:00:00.000-05:00",
+		"expires": "2019-12-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
 		"photo": "/assets/images/workshops/moonsalutations.jpg",
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed-level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. A perfect way to end your work week!",
@@ -40,46 +40,64 @@
 		 [
 			{
 				"title": "Full Moon",
-				"start": "2018-09-21T18:30:00.000-04:00",
-				"expires": "2018-09-22T20:00:00.000-04:00",
-				"productID": 17,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "New Moon",
-				"start": "2018-10-12T18:30:00.000-04:00",
-				"expires": "2018-10-13T20:00:00.000-04:00",
-				"productID": 18,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "Full Moon",
-				"start": "2018-10-26T18:30:00.000-04:00",
-				"expires": "2018-10-27T20:00:00.000-04:00",
-				"productID": 19,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "New Moon",
-				"start": "2018-11-09T18:30:00.000-05:00",
-				"expires": "2018-11-10T20:00:00.000-05:00",
-				"productID": 20,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "Full Moon",
 				"start": "2018-11-23T18:30:00.000-05:00",
 				"expires": "2018-11-24T20:00:00.000-05:00",
 				"productID": 21,
 				"cost": 20,
 				"location": "North Hills"
+			},
+			{
+				"title": "New Moon",
+				"start": "2018-12-07T18:30:00.000-04:00",
+				"expires": "2018-12-08T20:00:00.000-04:00",
+				"productID": 17,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "Winter Solstice Moon",
+				"start": "2018-12-21T18:30:00.000-04:00",
+				"expires": "2018-12-22T20:00:00.000-04:00",
+				"productID": 18,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "New Moon",
+				"start": "2019-01-04T18:30:00.000-04:00",
+				"expires": "2019-01-05T20:00:00.000-04:00",
+				"productID": 19,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "Full Moon",
+				"start": "2019-01-18T18:30:00.000-05:00",
+				"expires": "2019-01-18T20:00:00.000-05:00",
+				"productID": 20,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "New Moon",
+				"start": "2019-02-08T18:30:00.000-04:00",
+				"expires": "2019-02-09T20:00:00.000-04:00",
+				"productID": 19,
+				"cost": 20,
+				"location": "North Hills"
+			},
+			{
+				"title": "Full Moon",
+				"start": "2019-02-22T18:30:00.000-05:00",
+				"expires": "2019-02-23T20:00:00.000-05:00",
+				"productID": 20,
+				"cost": 20,
+				"location": "North Hills"
 			}
 		]
 	},
+
+
 	{
 		"expires": "2019-12-25T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Chant with Kendell Romanelli",
