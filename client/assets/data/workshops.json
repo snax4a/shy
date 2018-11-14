@@ -48,24 +48,24 @@
 			},
 			{
 				"title": "New Moon",
-				"start": "2018-12-07T18:30:00.000-04:00",
-				"expires": "2018-12-08T20:00:00.000-04:00",
+				"start": "2018-12-07T18:30:00.000-05:00",
+				"expires": "2018-12-08T20:00:00.000-05:00",
 				"productID": 17,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
 				"title": "Winter Solstice Moon",
-				"start": "2018-12-21T18:30:00.000-04:00",
-				"expires": "2018-12-22T20:00:00.000-04:00",
+				"start": "2018-12-21T18:30:00.000-05:00",
+				"expires": "2018-12-22T20:00:00.000-05:00",
 				"productID": 18,
 				"cost": 20,
 				"location": "North Hills"
 			},
 			{
 				"title": "New Moon",
-				"start": "2019-01-04T18:30:00.000-04:00",
-				"expires": "2019-01-05T20:00:00.000-04:00",
+				"start": "2019-01-04T18:30:00.000-05:00",
+				"expires": "2019-01-05T20:00:00.000-05:00",
 				"productID": 19,
 				"cost": 20,
 				"location": "North Hills"
@@ -80,9 +80,9 @@
 			},
 			{
 				"title": "New Moon",
-				"start": "2019-02-08T18:30:00.000-04:00",
-				"expires": "2019-02-09T20:00:00.000-04:00",
-				"productID": 19,
+				"start": "2019-02-08T18:30:00.000-05:00",
+				"expires": "2019-02-09T20:00:00.000-05:00",
+				"productID": 22,
 				"cost": 20,
 				"location": "North Hills"
 			},
@@ -90,7 +90,7 @@
 				"title": "Full Moon",
 				"start": "2019-02-22T18:30:00.000-05:00",
 				"expires": "2019-02-23T20:00:00.000-05:00",
-				"productID": 20,
+				"productID": 23,
 				"cost": 20,
 				"location": "North Hills"
 			}
