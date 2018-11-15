@@ -179,18 +179,17 @@
 		]
 	},
 	{
-		"expires": "2018-10-23T20:00:00.000-05:00",
-		"title": "Sitting is Killing Me with Jill Clary",
-		"photo": "/assets/images/workshops/sitting.jpg",
-		"description": "Do you sit at a keyboard for hours? Do you have tight hips and legs, neck, shoulder and back pain? Camping out all day at a desk can also create an unhealthy posture that you take with you when you leave for the day - the back and shoulders hunch down and the neck protrudes forward. Join Jill Clary, E-RYT, for a practice designed to relieve tension and lesson the chronic ache of office work. We'll start with a chair practice we can do while at our desk or on our commute, move to our mat for a floor practice concentrated on these key areas, and finish with restorative/yin poses to leave us feeling renewed and recharged.",
-		"sections":		
+		"expires": "2019-01-26T20:00:00.000-05:00",
+		"title": "Sound Healing",
+		"photo": "/assets/images/workshops/soundhealing.jpg",
+		"description": "This healing workshop hosted by Kendell Romanelli & Rita Lampe, LCSW, is meant to calm the senses using movement, sound and scent. Class will begin with some breath work and a gentle yoga sequence to release the energy of the week and prepare the body & mind for meditation. We will then work with sound by chanting a mantra and close with a 30 minute relaxation supported by live guitar music, soft drumming & an optional essential oil blend."
 		[
 			{
-				"start": "2018-10-21T13:30:00.000-04:00",
-				"expires": "2018-10-23T15:30:00.000-04:00",
+				"start": "2019-01-25T13:30:00.000-05:00",
+				"expires": "2019-01-26T15:30:00.000-05:00",
 				"productID": 63,
-				"cost": 25,
-				"location": "Squirrel Hill"
+				"cost": 30,
+				"location": "North Hills"
 			}
 		]
 	},
@@ -204,7 +203,7 @@
 			{
 				"start": "2019-02-17T14:00:00.000-05:00",
 				"expires": "2019-02-18T15:30:00.000-05:00",
-				"productID": 63,
+				"productID": 14,
 				"cost": 25,
 				"location": "East Liberty"
 			}
@@ -220,7 +219,7 @@
 			{
 				"start": "2018-09-30T13:00:00.000-04:00",
 				"expires": "2018-10-01T15:30:00.000-04:00",
-				"productID": 53,
+				"productID": 56,
 				"cost": 40,
 				"location": "East Liberty"
 			}
