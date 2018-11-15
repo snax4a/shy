@@ -170,11 +170,11 @@
 		"sections":		
 		[
 			{
-				"start": "2019-01-20T15:00:00.000-04:00",
-				"expires": "2019-01-23T17:00:00.000-04:00",
+				"start": "2019-01-25T18:30:00.000-04:00",
+				"expires": "2019-01-26T20:00:00.000-04:00",
 				"productID": 63,
 				"cost": 30,
-				"location": "Nprth Hills"
+				"location": "North Hills"
 			}
 		]
 	},
