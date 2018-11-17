@@ -248,5 +248,21 @@
         "location": "Squirrel Hill"
       }
     ]
+	},
+	{
+    "expires": "2019-02-24T20:00:00.000-05:00",
+    "title": "Yoga for Lower Back Pain",
+    "photo": "/assets/images/workshops/backpain.jpg",
+    "description": "It is estimated that 80% of Americans will experience an episode of low back pain in their lifetime.  In this workshop you can expect to learn about sources of pain, how to manage pain through yoga, and at home techniques to independently address fascial and other soft tissue restrictions.  Jamie DeMarco and Lori Wynn, both Doctors of Physical Therapy and yoga instructors, combined bring over 30 years of experience to offer in this course for compassion for the spine.  This workshop is appropriate for rehab professionals, yoga instructors and students.",
+    "sections":		
+    [
+      {
+        "start": "2019-02-23T14:00:00.000-05:00",
+        "expires": "2019-02-24T16:00:00.000-05:00",
+        "productID": 24,
+        "cost": 50,
+        "location": "East Liberty"
+      }
+    ]
   }
 ]
