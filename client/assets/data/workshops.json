@@ -16,22 +16,6 @@
 		]
 	},
 	{
-		"expires": "2018-09-05T15:00:00.000-05:00",
-		"title": "Teaching Relaxation and Restorative Yoga with Joni Sturgill",
-		"photo": "/assets/images/workshops/restorative.jpg",
-		"description": "Approximately 40 million adults suffer from anxiety in the United States. And these are just the ones who seek treatment. Learn how to calm and soothe your students' nervous systems gently through simple relaxation practices and restorative yoga postures. You will learn how to teach gentle yoga movements appropriate for all populations, and how to set up and adapt a handful of restorative yoga postures, effectively using a multitude of props, and what to do when props aren't available. Joni is an ERYT 500 and a YACEP; her workshop qualifies for continuing education credits with Yoga Alliance.",
-		"sections":
-		[
-			{
-				"start": "2018-08-26T12:00:00.000-04:00",
-				"expires": "2018-08-27T16:00:00.000-04:00",
-				"productID": 51,
-				"cost": 75,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
 		"expires": "2019-12-10T20:00:00.000-05:00",
 		"title": "Moon Salutations with Kendell Romanelli",
 		"photo": "/assets/images/workshops/moonsalutations.jpg",
@@ -154,8 +138,8 @@
 		"sections":		
 		[
 			{
-				"start": "2019-01-20T15:00:00.000-04:00",
-				"expires": "2019-01-23T17:00:00.000-04:00",
+				"start": "2019-01-20T14:00:00.000-05:00",
+				"expires": "2019-01-23T16:00:00.000-05:00",
 				"productID": 62,
 				"cost": 30,
 				"location": "East Liberty"
