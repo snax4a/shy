@@ -1,5 +1,21 @@
 [
 	{
+		"expires": "2018-12-10T20:00:00.000-05:00",
+		"title": "Holiday Presence with Stefanie Zito",
+		"photo": "/assets/images/workshops/holiday.jpg",
+		"description": "You're invited...to slow down. The holidays can be a wild whirlwind of activity for many of us. The endless lists, the giving of gifts, the gatherings of friends, family, colleagues...Taking time for self-care is imperative in every season, but perhaps most especially during such flurry of holiday activity. Elevate your holiday beyond the bustle and join Stefanie Zito for a soothing practice of self care and mindfulness, incorporating self massage, gentle yoga, restorative poses, and breath work. Through thoughtful use of props and massage balls, we will release unhelpful tension and create spaciousness for quiet reflection and joy in this special season.",
+		"sections":		
+		[
+			{
+				"start": "2018-12-09T14:00:00.000-05:00",
+				"expires": "2018-12-10T16:00:00.000-05:00",
+				"productID": 31,
+				"cost": 25,
+				"location": "East Liberty"
+			}
+		]
+	},
+	{
 		"expires": "2019-01-01T20:00:00.000-05:00",
 		"title": "NYD celebration with Linda Meacci",
 		"photo": "/assets/images/workshops/newyears.jpg",
