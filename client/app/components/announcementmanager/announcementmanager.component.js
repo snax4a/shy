@@ -1,8 +1,7 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
-import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
-
+import UibDatepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 export class AnnouncementManagerController {
   /*@ngInject*/
   constructor($http, $uibModal) {
@@ -119,7 +118,7 @@ class AnnouncementEditorController {
   }
 }
 
-export default angular.module('shyApp.announcementmanager', [datepickerPopup])
+export default angular.module('shyApp.announcementmanager', [UibDatepickerPopup])
   .component('announcementmanager', {
     template: require('./announcementmanager.pug'),
     controller: AnnouncementManagerController
