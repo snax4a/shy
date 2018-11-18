@@ -1,5 +1,21 @@
 [
 	{
+		"expires": "2018-12-09T20:00:00.000-05:00",
+		"title": "Teacher Training Open House",
+		"photo": "/assets/images/workshops/openhouse.jpg",
+		"description": "Are you interested in becoming a yoga teacher or are you interested in deepening your practice and knowledge of yoga?  Join us at our Teacher Training and Yoga Intensive open house to learn about the upcoming 2019 program. Bring questions!",
+		"sections":		
+		[
+			{
+				"start": "2018-12-09T15:00:00.000-05:00",
+				"expires": "2018-12-10T16:00:00.000-05:00",
+				"productID": 13,
+				"cost": 0,
+				"location": "East Liberty"
+			}
+		]
+	},
+	{
 		"expires": "2018-12-10T20:00:00.000-05:00",
 		"title": "Holiday Presence with Stefanie Zito",
 		"photo": "/assets/images/workshops/holiday.jpg",
