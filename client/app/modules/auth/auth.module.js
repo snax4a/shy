@@ -1,9 +1,10 @@
 'use strict';
 
 import angular from 'angular';
-import constants from '../../app.constants';
-import util from '../util/util.module';
 import ngCookies from 'angular-cookies';
+import constants from '../../app.constants';
+import UtilModule from '../util/util.module';
+
 import { authInterceptor } from './interceptor.service';
 import { routerDecorator } from './router.decorator';
 import { AuthService } from './auth.service';
@@ -15,7 +16,7 @@ function addInterceptor($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 }
 
-export default angular.module('shyApp.auth', [constants, util, ngCookies, ngRoute])
+export default angular.module('shyApp.auth', [ngRoute, ngCookies, constants, UtilModule])
   .factory('authInterceptor', authInterceptor)
   .run(routerDecorator)
   .factory('Auth', AuthService)
