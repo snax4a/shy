@@ -124,23 +124,23 @@ h2 {
 
 // Component styles are injected through gulp inject:scss task
 /* inject:scss */
-@import 'admin/admin';
-@import 'cart/checkout';
-@import 'cart/confirmation';
-@import 'classes/classes';
-@import 'locations/locations';
-@import 'login/login';
-@import 'main/main';
-@import 'privacy/privacy';
-@import 'profile/profile';
-@import 'register/register';
-@import 'shynet/shynet';
-@import 'signup/signup';
-@import 'teachers/teachers';
-@import 'terms/terms';
-@import 'workshops/workshops';
-@import '../components/banner/banner';
-@import '../components/footer/footer';
-@import '../components/navbar/navbar';
-@import '../components/oauth-buttons/oauth-buttons';
+@import 'components/admin/admin';
+@import 'components/banner/banner';
+@import 'components/checkout/checkout';
+@import 'components/classes/classes';
+@import 'components/confirmation/confirmation';
+@import 'components/footer/footer';
+@import 'components/locations/locations';
+@import 'components/login/login';
+@import 'components/main/main';
+@import 'components/navbar/navbar';
+@import 'components/privacy/privacy';
+@import 'components/profile/profile';
+@import 'components/register/register';
+@import 'components/shynet/shynet';
+@import 'components/signup/signup';
+@import 'components/teachers/teachers';
+@import 'components/terms/terms';
+@import 'components/workshops/workshops';
+@import 'directives/oauth-buttons/oauth-buttons';
 /* endinject */

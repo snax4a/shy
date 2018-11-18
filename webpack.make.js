@@ -25,7 +25,7 @@ module.exports = function makeWebpackConfig(options) {
     devtool: 'source-map',
 
     entry: {
-      app: './client/app/app.js'
+      app: './client/app/app.module.js'
     },
 
     mode: BUILD ? 'production' : 'development',
