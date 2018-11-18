@@ -3,16 +3,16 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './admin.routes';
-import tabs from 'angular-ui-bootstrap/src/tabs';
-import UserManager from '../usermanager/usermanager.component';
-import ScheduleManager from '../schedulemanager/schedulemanager.component';
-import AnnouncementManager from '../announcementmanager/announcementmanager.component';
+import UibTabsDirective from 'angular-ui-bootstrap/src/tabs';
+import AnnouncementManagerComponent from '../announcementmanager/announcementmanager.component';
+import ScheduleManagerComponent from '../schedulemanager/schedulemanager.component';
+import UserManagerComponent from '../usermanager/usermanager.component';
 
 export class AdminController {
   /*@ngInject*/
 }
 
-export default angular.module('shyApp.admin', [ngRoute, tabs, UserManager, ScheduleManager, AnnouncementManager])
+export default angular.module('shyApp.admin', [ngRoute, AnnouncementManagerComponent, UibTabsDirective, ScheduleManagerComponent, UserManagerComponent])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),
