@@ -162,6 +162,23 @@
 			}
 		]
 	},
+
+	{
+		"expires": "2019-01-14T20:00:00.000-05:00",
+		"title": "How to Home Practice with Leigh Ann Cutright",
+		"photo": "/assets/images/workshops/homepractice.jpg",
+		"description": "Yoga works best...when we do it. If you’ve ever wished for a more consistent practice, this workshop is for you. Build the foundation for a solid self practice, and yoga will be available to you at all times for the rest of your life. We will discuss specific techniques for: motivation, safety, utilizing resources for practice, creating a practice space (no home is too small), developing personalized sequences. This workshop is for yogis of all levels and styles. Bonus points if you’ve already tried to practice at home and failed spectacularly. Bring your mat, your phone, a pen, and a sense of adventure.",
+		"sections":		
+		[
+			{
+				"start": "2019-01-13T13:00:00.000-05:00",
+				"expires": "2019-01-14T15:30:00.000-05:00",
+				"productID": 27,
+				"cost": 35,
+				"location": "East Liberty"
+			}
+		]
+	},
 	{
 		"expires": "2019-01-23T20:00:00.000-05:00",
 		"title": "Feet with Stefanie Zito",

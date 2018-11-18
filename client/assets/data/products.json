@@ -110,6 +110,11 @@
     "price": 30
   },
   {
+    "id": 27,
+    "name": "Workshop: Home Practice (Jan 13)",
+    "price": 35
+  },
+  {
     "id": 31,
     "name": "Workshop: NYD (Jan 1)",
     "price": 40
