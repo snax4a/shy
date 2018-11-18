@@ -4,6 +4,7 @@ import ngRoute from 'angular-route';
 import routes from './shynet.routes';
 import UibDatepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import UserManagerComponent from '../usermanager/usermanager.component';
+
 export class SHYnetController {
   /*@ngInject*/
   constructor($http, $uibModal) {
