@@ -2,11 +2,11 @@
 import angular from 'angular';
 import routes from './workshops.routes';
 import ngRoute from 'angular-route';
-import alert from 'angular-ui-bootstrap/src/alert';
-import htmlid from '../../filters/htmlid/htmlid.filter';
-import tweet from '../tweet/tweet.component';
-import jsonLd from '../jsonld/jsonld.component';
-import upcoming from '../../filters/upcoming/upcoming.filter';
+import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
+import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
+import TweetComponent from '../tweet/tweet.component';
+import JsonLdComponent from '../jsonld/jsonld.component';
+import UpcomingFilter from '../../filters/upcoming/upcoming.filter';
 
 export class WorkshopsController {
   /*@ngInject*/
@@ -115,7 +115,7 @@ export class WorkshopsController {
   }
 }
 
-export default angular.module('shyApp.workshops', [ngRoute, alert, htmlid, tweet, jsonLd, upcoming])
+export default angular.module('shyApp.workshops', [ngRoute, UibAlertDirective, HtmlIdFilter, TweetComponent, JsonLdComponent, UpcomingFilter])
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),
