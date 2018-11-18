@@ -2,8 +2,8 @@
 import angular from 'angular';
 import routes from './teachers.routes';
 import ngRoute from 'angular-route';
-import htmlid from '../../filters/htmlid/htmlid.filter';
-import nosubs from '../../filters/nosubs/nosubs.filter';
+import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
+import NoSubsFilter from '../../filters/nosubs/nosubs.filter';
 
 export class TeachersController {
   /*@ngInject*/
@@ -21,7 +21,7 @@ export class TeachersController {
   }
 }
 
-export default angular.module('shyApp.teachers', [ngRoute, htmlid, nosubs])
+export default angular.module('shyApp.teachers', [ngRoute, HtmlIdFilter, NoSubsFilter])
   .config(routes)
   .component('teachers', {
     template: require('./teachers.pug'),
