@@ -9,43 +9,66 @@ import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize'; // clean faqs on main
 import ngAria from 'angular-aria';
 
-// Bootstrap UI elements used widely
-import modal from 'angular-ui-bootstrap/src/modal/index-nocss.js';
-
 // Config for module
 import { routeConfig } from './app.config';
 
 // Modules
 import CartModule from './modules/cart/cart.module';
-import _Auth from './modules/auth/auth.module';
-import util from './modules/util/util.module';
+import AuthModule from './modules/auth/auth.module';
+import UtilModule from './modules/util/util.module';
 
 import constants from './app.constants';
-import loadingBar from 'angular-loading-bar';
+import ngLoadingBar from 'angular-loading-bar';
+
+// Directives
+import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
+import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
+import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse';
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
+import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
+import UibTabsDirective from 'angular-ui-bootstrap/src/tabs';
+import PaginationDirective from 'angular-utils-pagination';
+import CompareToDirective from './directives/compareto/compareto.directive';
+
+// Filters
+import AmPmFilter from './filters/ampm/ampm.filter';
+import DayToDateFilter from './filters/daytodate/daytodate.filter';
+import HtmlIdFilter from './filters/htmlid/htmlid.filter';
+import NoSubsFilter from './filters/nosubs/nosubs.filter';
+import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter';
+import UpcomingFilter from './filters/upcoming/upcoming.filter';
+import WeekdayFilter from './filters/weekday/weekday.filter';
 
 // Sub-page components
-import banner from './components/banner/banner.component';
-import footer from './components/footer/footer.component';
-import navbar from './components/navbar/navbar.component';
+import AnnouncementManagerComponent from './components/announcementmanager/announcementmanager.component';
+import BannerComponent from './components/banner/banner.component';
+import FooterComponent from './components/footer/footer.component';
+import GoogleButtonComponent from './components/google-button/google-button.component';
+import NavbarComponent from './components/navbar/navbar.component';
+import JsonLdComponent from './components/jsonld/jsonld.component';
+import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component';
+import TweetComponent from './components/tweet/tweet.component';
+import UserManagerComponent from './components/usermanager/usermanager.component';
 
 // Page components
-import mainPage from './components/main/main.component';
-import classesPage from './components/classes/classes.component';
-import workshopsPage from './components/workshops/workshops.component';
-import locationsPage from './components/locations/locations.component';
-import teachersPage from './components/teachers/teachers.component';
-import cartPage from './components/checkout/checkout.component';
-import confirmationPage from './components/confirmation/confirmation.component';
-import registerPage from './components/register/register.component';
-import privacyPage from './components/privacy/privacy.component';
-import termsPage from './components/terms/terms.component';
-import loginPage from './components/login/login.component';
-import adminPage from './components/admin/admin.component';
-import signupPage from './components/signup/signup.component';
-import profilePage from './components/profile/profile.component';
-import shyNetPage from './components/shynet/shynet.component';
+import MainComponent from './components/main/main.component';
+import ClassesComponent from './components/classes/classes.component';
+import WorkshopsComponent from './components/workshops/workshops.component';
+import LocationsComponent from './components/locations/locations.component';
+import TeachersComponent from './components/teachers/teachers.component';
+import CheckoutComponent from './components/checkout/checkout.component';
+import ConfirmationComponent from './components/confirmation/confirmation.component';
+import TeacherTrainingComponent from './components/register/register.component';
+import PrivacyComponent from './components/privacy/privacy.component';
+import TermsComponent from './components/terms/terms.component';
+import LoginComponent from './components/login/login.component';
+import AdminComponent from './components/admin/admin.component';
+import SignupComponent from './components/signup/signup.component';
+import ProfileComponent from './components/profile/profile.component';
+import ShynetComponent from './components/shynet/shynet.component';
 
-// SASS styling
+// App-level SASS styling
 import './app.scss';
 
 angular.module('shyApp', [
@@ -55,30 +78,51 @@ angular.module('shyApp', [
   ngRoute,
   ngMessages,
   ngSanitize,
-  modal,
-  _Auth,
-  loginPage,
-  adminPage,
-  navbar,
-  banner,
-  footer,
-  mainPage,
-  classesPage,
-  workshopsPage,
-  locationsPage,
-  teachersPage,
-  cartPage,
-  confirmationPage,
-  registerPage,
-  privacyPage,
-  termsPage,
-  signupPage,
-  profilePage,
-  shyNetPage,
+  AmPmFilter,
+  DayToDateFilter,
+  HtmlIdFilter,
+  NoSubsFilter,
+  TrustedUrlFilter,
+  UpcomingFilter,
+  WeekdayFilter,
+  UibAlertDirective,
+  UibCarouselDirective,
+  UibCollapseDirective,
+  UibDatepickerPopupDirective,
+  UibDropDownDirective,
+  UibModalDirective,
+  UibTabsDirective,
+  ngLoadingBar,
   constants,
-  util,
+  PaginationDirective,
+  CompareToDirective,
+  AuthModule,
+  UtilModule,
   CartModule,
-  loadingBar
+  AnnouncementManagerComponent,
+  BannerComponent,
+  FooterComponent,
+  GoogleButtonComponent,
+  JsonLdComponent,
+  NavbarComponent,
+  ScheduleManagerComponent,
+  TweetComponent,
+  UserManagerComponent,
+  LoginComponent,
+  AdminComponent,
+  MainComponent,
+  ClassesComponent,
+  WorkshopsComponent,
+  LocationsComponent,
+  TeachersComponent,
+  CheckoutComponent,
+  ConfirmationComponent,
+  TeacherTrainingComponent,
+  PrivacyComponent,
+  TermsComponent,
+  SignupComponent,
+  ProfileComponent,
+  ShynetComponent
 ])
   .config(routeConfig)
   .run(($rootScope, $location, $route, $anchorScroll, Auth) => {
