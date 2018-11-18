@@ -115,6 +115,11 @@
     "price": 35
   },
   {
+    "id": 28,
+    "name": "Teacher Training Open House (Dec 9)",
+    "price": 0
+  },
+  {
     "id": 31,
     "name": "Workshop: NYD (Jan 1)",
     "price": 40
