@@ -150,7 +150,7 @@
 		"expires": "2018-12-01T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Qiong Wang",
 		"photo": "/assets/images/workshops/kundalini.jpg",
-		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that can benefit our modern lifestyle. In this workshop, Kendell will guide you through powerful Kundalini Yoga Kriyas (yogic exercise sets to cleanse and balance the body and mind) then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation. ",
+		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that can benefit our modern lifestyle. In this workshop, Kendell will guide you through powerful Kundalini Yoga Kriyas (yogic exercise sets to cleanse and balance the body and mind) then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation.",
 		"sections":		
 		[
 			{
@@ -191,6 +191,22 @@
 				"productID": 63,
 				"cost": 30,
 				"location": "North Hills"
+			}
+		]
+	},
+	{
+		"expires": "2019-02-11T20:00:00.000-05:00",
+		"title": "PROP-pel Your Practice with Stefanie Zito",
+		"photo": "/assets/images/workshops/props.jpg",
+		"description": "Props are a real gift to the yoga practice, often used for support and proprioceptive feedback, and rightly so. They can also, however, encourage a unique increase of challenge when introduced in certain approaches to asana, which is what this workshop will explore. While many standard props will be utilized, our focus will primarily be using blankets to discover fun and creative ways to move, stabilize, and strengthen the whole body.",
+		"sections":		
+		[
+			{
+				"start": "2019-02-10T14:00:00.000-05:00",
+				"expires": "2019-02-11T16:00:00.000-05:00",
+				"productID": 26,
+				"cost": 30,
+				"location": "East Liberty"
 			}
 		]
 	},
