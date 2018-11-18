@@ -1,10 +1,10 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
-import compareTo from '../../directives/compareto/compareto.directive';
-import dirPagination from 'angular-utils-pagination';
-import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
-import alert from 'angular-ui-bootstrap/src/alert';
+import CompareToDirective from '../../directives/compareto/compareto.directive';
+import PaginationDirective from 'angular-utils-pagination';
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
 
 export class UserManagerController {
   /*@ngInject*/
@@ -465,7 +465,7 @@ class HistoryEditorController {
   }
 }
 
-export default angular.module('shyApp.usermanager', [compareTo, dirPagination, datepickerPopup, alert])
+export default angular.module('shyApp.usermanager', [CompareToDirective, PaginationDirective, UibAlertDirective, UibDatepickerPopupDirective])
   .component('usermanager', {
     require: { parent: '?^^shynet' }, // silently ignore if shynet is not parent
     template: require('./usermanager.pug'),
