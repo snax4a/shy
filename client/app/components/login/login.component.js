@@ -4,7 +4,7 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './login.routes';
-import oauthButtons from '../../directives/oauth-buttons/oauth-buttons.directive';
+import GoogleButtonComponent from '../google-button/google-button.component';
 
 export class LoginController {
   /*@ngInject*/
@@ -100,7 +100,7 @@ export class ForgotPasswordController {
   }
 }
 
-export default angular.module('shyApp.login', [ngRoute, oauthButtons])
+export default angular.module('shyApp.login', [ngRoute, GoogleButtonComponent])
   .config(routes)
   .component('login', {
     template: require('./login.pug'),
