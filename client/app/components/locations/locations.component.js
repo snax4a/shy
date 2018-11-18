@@ -2,8 +2,8 @@
 import angular from 'angular';
 import routes from './locations.routes';
 import ngRoute from 'angular-route';
-import htmlid from '../../filters/htmlid/htmlid.filter';
-import trustedurl from '../../filters/trustedurl/trustedurl.filter';
+import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
+import TrustedUrlFilter from '../../filters/trustedurl/trustedurl.filter';
 import locations from '../../../assets/data/locations.json';
 
 export class LocationsController {
@@ -22,7 +22,7 @@ export class LocationsController {
   }
 }
 
-export default angular.module('shyApp.locations', [ngRoute, htmlid, trustedurl])
+export default angular.module('shyApp.locations', [ngRoute, HtmlIdFilter, TrustedUrlFilter])
   .config(routes)
   .component('locations', {
     template: require('./locations.pug'),
