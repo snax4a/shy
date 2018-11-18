@@ -5,7 +5,7 @@ import ngRoute from 'angular-route';
 import routes from './signup.routes';
 import AuthModule from '../../modules/auth/auth.module';
 import GoogleButtonComponent from '../google-button/google-button.component';
-import compareTo from '../../directives/compareto/compareto.directive';
+import CompareToDirective from '../../directives/compareto/compareto.directive';
 
 export class SignupController {
   /*@ngInject*/
@@ -58,7 +58,7 @@ export class SignupController {
   }
 }
 
-export default angular.module('shyApp.signup', [ngResource, ngRoute, AuthModule, GoogleButtonComponent, compareTo])
+export default angular.module('shyApp.signup', [ngRoute, ngResource, AuthModule, GoogleButtonComponent, CompareToDirective])
   .config(routes)
   .component('signup', {
     template: require('./signup.pug'),
