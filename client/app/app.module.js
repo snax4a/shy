@@ -16,7 +16,6 @@ import { routeConfig } from './app.config';
 // Modules
 import CartModule from './modules/cart/cart.module'; // global-scope
 import AuthModule from './modules/auth/auth.module'; // global-scope
-import UtilModule from './modules/util/util.module'; // auth.module.js
 
 // Interceptors
 import ngLoadingBar from 'angular-loading-bar';
@@ -99,7 +98,6 @@ angular.module('shyApp', [
   PaginationDirective,
   CompareToDirective,
   AuthModule,
-  UtilModule, // loaded by AuthModule
   CartModule,
   AnnouncementManagerComponent,
   BannerComponent,
