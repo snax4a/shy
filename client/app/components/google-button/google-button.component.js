@@ -1,7 +1,7 @@
 'use strict';
 import angular from 'angular';
 
-export class googleButtonComponent {
+export class GoogleButtonComponent {
   /*@ngInject*/
   constructor($window) {
     this.$window = $window;
@@ -15,6 +15,6 @@ export class googleButtonComponent {
 export default angular.module('shyApp.googleButton', [])
   .component('googleButton', {
     template: require('./google-button.pug'),
-    controller: googleButtonComponent
+    controller: GoogleButtonComponent
   })
   .name;

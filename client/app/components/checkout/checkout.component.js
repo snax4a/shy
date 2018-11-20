@@ -3,7 +3,7 @@ import angular from 'angular';
 import routes from './checkout.routes';
 import ngRoute from 'angular-route';
 
-export class CheckOutController {
+export class CheckOutComponent {
   /*@ngInject*/
   constructor($log, $http, $window, $timeout, $location, ProductList, Cart) {
     // Dependencies
@@ -101,6 +101,6 @@ export default angular.module('shyApp.checkout', [ngRoute])
   .config(routes)
   .component('checkout', {
     template: require('./checkout.pug'),
-    controller: CheckOutController
+    controller: CheckOutComponent
   })
   .name;

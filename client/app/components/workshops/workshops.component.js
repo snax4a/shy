@@ -8,7 +8,7 @@ import TweetComponent from '../tweet/tweet.component';
 import JsonLdComponent from '../jsonld/jsonld.component';
 import UpcomingFilter from '../../filters/upcoming/upcoming.filter';
 
-export class WorkshopsController {
+export class WorkshopsComponent {
   /*@ngInject*/
   constructor($window, $http, $timeout) {
     this.$window = $window;
@@ -119,6 +119,6 @@ export default angular.module('shyApp.workshops', [ngRoute, UibAlertDirective, H
   .config(routes)
   .component('workshops', {
     template: require('./workshops.pug'),
-    controller: WorkshopsController
+    controller: WorkshopsComponent
   })
   .name;

@@ -5,7 +5,8 @@ import routes from './classes.routes';
 import AmPmFilter from '../../filters/ampm/ampm.filter';
 import DayToDateFilter from '../../filters/daytodate/daytodate.filter';
 import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
-export class ClassesController {
+
+export class ClassesComponent {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
@@ -29,6 +30,6 @@ export default angular.module('shyApp.classes', [ngRoute, AmPmFilter, DayToDateF
   .config(routes)
   .component('classes', {
     template: require('./classes.pug'),
-    controller: ClassesController
+    controller: ClassesComponent
   })
   .name;

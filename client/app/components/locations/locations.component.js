@@ -6,7 +6,7 @@ import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
 import TrustedUrlFilter from '../../filters/trustedurl/trustedurl.filter';
 import locations from '../../../assets/data/locations.json';
 
-export class LocationsController {
+export class LocationsComponent {
   /*@ngInject*/
   // constructor($http) {
   //   this.$http = $http;
@@ -26,6 +26,6 @@ export default angular.module('shyApp.locations', [ngRoute, HtmlIdFilter, Truste
   .config(routes)
   .component('locations', {
     template: require('./locations.pug'),
-    controller: LocationsController
+    controller: LocationsComponent
   })
   .name;

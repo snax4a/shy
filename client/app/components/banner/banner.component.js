@@ -3,7 +3,7 @@
 
 import angular from 'angular';
 
-export class BannerController {
+export class BannerComponent {
   constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
@@ -17,6 +17,6 @@ export class BannerController {
 export default angular.module('shyApp.banner', [])
   .component('banner', {
     template: require('./banner.pug'),
-    controller: BannerController
+    controller: BannerComponent
   })
   .name;

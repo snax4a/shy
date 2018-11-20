@@ -3,7 +3,7 @@ import angular from 'angular';
 import routes from './register.routes';
 import ngRoute from 'angular-route';
 
-export class RegisterController {
+export class RegisterComponent {
   constructor(Cart) {
     'ngInject';
     this.Cart = Cart;
@@ -24,6 +24,6 @@ export default angular.module('shyApp.register', [ngRoute])
   .config(routes)
   .component('register', {
     template: require('./register.pug'),
-    controller: RegisterController
+    controller: RegisterComponent
   })
   .name;

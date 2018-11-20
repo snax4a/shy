@@ -4,7 +4,7 @@ import angular from 'angular';
 import UibCollapse from 'angular-ui-bootstrap/src/collapse';
 import UibDropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
 
-export class NavbarController {
+export class NavbarComponent {
   /*@ngInject*/
   constructor($location, $uibModal, Cart, Auth) {
     this.$location = $location;
@@ -105,6 +105,6 @@ export class ContactModalController {
 export default angular.module('shyApp.navbar', [UibCollapse, UibDropdown])
   .component('navbar', {
     template: require('./navbar.pug'),
-    controller: NavbarController
+    controller: NavbarComponent
   })
   .name;

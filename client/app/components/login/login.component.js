@@ -6,7 +6,7 @@ import ngRoute from 'angular-route';
 import routes from './login.routes';
 import GoogleButtonComponent from '../google-button/google-button.component';
 
-export class LoginController {
+export class LoginComponent {
   /*@ngInject*/
   constructor(Auth, $location, $uibModal) {
     this.Auth = Auth;
@@ -104,6 +104,6 @@ export default angular.module('shyApp.login', [ngRoute, GoogleButtonComponent])
   .config(routes)
   .component('login', {
     template: require('./login.pug'),
-    controller: LoginController
+    controller: LoginComponent
   })
   .name;

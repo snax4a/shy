@@ -8,7 +8,7 @@ import AuthModule from '../../modules/auth/auth.module';
 import GoogleButtonComponent from '../google-button/google-button.component';
 import CompareToDirective from '../../directives/compareto/compareto.directive';
 
-export class ProfileController {
+export class ProfileComponent {
   /*@ngInject*/
   constructor(User, Auth) {
     this.User = User;
@@ -60,6 +60,6 @@ export default angular.module('shyApp.profile', [ngRoute, ngResource, AuthModule
   .config(routes)
   .component('profile', {
     template: require('./profile.pug'),
-    controller: ProfileController
+    controller: ProfileComponent
   })
   .name;

@@ -5,7 +5,7 @@ import ngRoute from 'angular-route';
 import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
 import NoSubsFilter from '../../filters/nosubs/nosubs.filter';
 
-export class TeachersController {
+export class TeachersComponent {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
@@ -25,6 +25,6 @@ export default angular.module('shyApp.teachers', [ngRoute, HtmlIdFilter, NoSubsF
   .config(routes)
   .component('teachers', {
     template: require('./teachers.pug'),
-    controller: TeachersController
+    controller: TeachersComponent
   })
   .name;

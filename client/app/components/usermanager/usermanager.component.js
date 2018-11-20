@@ -6,7 +6,7 @@ import PaginationDirective from 'angular-utils-pagination';
 import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
 
-export class UserManagerController {
+export class UserManagerComponent {
   /*@ngInject*/
   constructor($http, User, $uibModal) {
     this.$http = $http;
@@ -469,7 +469,7 @@ export default angular.module('shyApp.usermanager', [CompareToDirective, Paginat
   .component('usermanager', {
     require: { parent: '?^^shynet' }, // silently ignore if shynet is not parent
     template: require('./usermanager.pug'),
-    controller: UserManagerController,
+    controller: UserManagerComponent,
     bindings: {
       mini: '<',
       user: '<'

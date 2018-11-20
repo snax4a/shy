@@ -8,7 +8,7 @@ import AnnouncementManagerComponent from '../announcementmanager/announcementman
 import ScheduleManagerComponent from '../schedulemanager/schedulemanager.component';
 import UserManagerComponent from '../usermanager/usermanager.component';
 
-export class AdminController {
+export class AdminComponent {
   /*@ngInject*/
 }
 
@@ -16,6 +16,6 @@ export default angular.module('shyApp.admin', [ngRoute, AnnouncementManagerCompo
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),
-    controller: AdminController
+    controller: AdminComponent
   })
   .name;

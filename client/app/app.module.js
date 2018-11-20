@@ -6,18 +6,19 @@ import ngCookies from 'angular-cookies';
 import ngMessages from 'angular-messages';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
-import ngSanitize from 'angular-sanitize'; // clean faqs on main
+import ngSanitize from 'angular-sanitize'; // read URLs from JSON
 import ngAria from 'angular-aria';
 
-// Config for module
+// Configuration-related
+import constants from './app.constants';
 import { routeConfig } from './app.config';
 
 // Modules
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
-import UtilModule from './modules/util/util.module';
+// import UtilModule from './modules/util/util.module'; // Loaded by CartModule
 
-import constants from './app.constants';
+// Interceptors
 import ngLoadingBar from 'angular-loading-bar';
 
 // Directives
@@ -97,7 +98,7 @@ angular.module('shyApp', [
   PaginationDirective,
   CompareToDirective,
   AuthModule,
-  UtilModule,
+  // UtilModule, // loaded by AuthModule
   CartModule,
   AnnouncementManagerComponent,
   BannerComponent,
