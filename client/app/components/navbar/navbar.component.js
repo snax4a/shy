@@ -1,8 +1,10 @@
 /* eslint no-sync:0 */
 'use strict';
 import angular from 'angular';
-import UibCollapse from 'angular-ui-bootstrap/src/collapse';
-import UibDropdown from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
+import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse';
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibDropdownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
+import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 
 export class NavbarComponent {
   /*@ngInject*/
@@ -102,7 +104,7 @@ export class ContactModalController {
   }
 }
 
-export default angular.module('shyApp.navbar', [UibCollapse, UibDropdown])
+export default angular.module('shyApp.navbar', [UibCollapseDirective, UibDatepickerPopupDirective, UibDropdownDirective, UibModalDirective])
   .component('navbar', {
     template: require('./navbar.pug'),
     controller: NavbarComponent

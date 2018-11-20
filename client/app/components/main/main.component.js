@@ -2,7 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './main.routes';
 import faqs from '../../../assets/data/faqs.json';
-import UibCarousel from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
+import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
 
 export class MainComponent {
   /*@ngInject*/
@@ -27,7 +27,7 @@ export class MainComponent {
   }
 }
 
-export default angular.module('shyApp.main', [ngRoute, UibCarousel])
+export default angular.module('shyApp.main', [ngRoute, UibCarouselDirective])
   .config(routes)
   .component('main', {
     template: require('./main.pug'),

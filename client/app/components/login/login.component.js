@@ -4,6 +4,8 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './login.routes';
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import GoogleButtonComponent from '../google-button/google-button.component';
 
 export class LoginComponent {
@@ -100,7 +102,7 @@ export class ForgotPasswordController {
   }
 }
 
-export default angular.module('shyApp.login', [ngRoute, GoogleButtonComponent])
+export default angular.module('shyApp.login', [ngRoute, UibDatepickerPopupDirective, UibModalDirective, GoogleButtonComponent])
   .config(routes)
   .component('login', {
     template: require('./login.pug'),

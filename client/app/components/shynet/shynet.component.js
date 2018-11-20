@@ -2,7 +2,8 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './shynet.routes';
-import UibDatepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
+import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import UserManagerComponent from '../usermanager/usermanager.component';
 
 export class SHYnetComponent {
@@ -79,7 +80,7 @@ export class SHYnetComponent {
   }
 }
 
-export default angular.module('shyApp.shynet', [ngRoute, UibDatepickerPopup, UserManagerComponent])
+export default angular.module('shyApp.shynet', [ngRoute, UibDatepickerPopupDirective, UibModalDirective, UserManagerComponent])
   .config(routes)
   .component('shynet', {
     template: require('./shynet.pug'),
