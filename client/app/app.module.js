@@ -7,16 +7,16 @@ import ngMessages from 'angular-messages'; // announcementeditor.pug, checkout.p
 import ngResource from 'angular-resource'; // user.service.js
 import ngRoute from 'angular-route'; // _index.html, *.routes.js
 import ngSanitize from 'angular-sanitize'; // read URLs from JSON
-import ngAria from 'angular-aria'; // not directly used
+import ngAria from 'angular-aria'; // aria-hidden, aria-labeledby, aria-label, etc.
 
 // Configuration-related
 import constants from './app.constants';
 import { routeConfig } from './app.config';
 
 // Modules
-import CartModule from './modules/cart/cart.module';
-import AuthModule from './modules/auth/auth.module';
-// import UtilModule from './modules/util/util.module'; // Loaded by CartModule
+import CartModule from './modules/cart/cart.module'; // global-scope
+import AuthModule from './modules/auth/auth.module'; // global-scope
+import UtilModule from './modules/util/util.module'; // auth.module.js
 
 // Interceptors
 import ngLoadingBar from 'angular-loading-bar';
@@ -99,7 +99,7 @@ angular.module('shyApp', [
   PaginationDirective,
   CompareToDirective,
   AuthModule,
-  // UtilModule, // loaded by AuthModule
+  UtilModule, // loaded by AuthModule
   CartModule,
   AnnouncementManagerComponent,
   BannerComponent,
@@ -127,7 +127,7 @@ angular.module('shyApp', [
   ShynetComponent
 ])
   .config(routeConfig)
-  .run(($rootScope, $location, $route, $anchorScroll, Auth) => {
+  .run(($rootScope, $location, $route, Auth /*, $anchorScroll*/) => {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', (event, next, current) => {
@@ -143,6 +143,7 @@ angular.module('shyApp', [
     // Change the page title based on the route
     $rootScope.$on('$routeChangeSuccess', () => {
       document.title = $route.current.title;
+      // Don't do anchor scrolling this way as most anchors are dynamically loaded
       // if($location.hash()) {
       //   $anchorScroll();
       //   console.log('$anchorScroll() to ', $location.hash());

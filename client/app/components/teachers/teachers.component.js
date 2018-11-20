@@ -7,8 +7,10 @@ import NoSubsFilter from '../../filters/nosubs/nosubs.filter';
 
 export class TeachersComponent {
   /*@ngInject*/
-  constructor($http) {
+  constructor($http, $anchorScroll, $timeout) {
     this.$http = $http;
+    this.$anchorScroll = $anchorScroll;
+    this.$timeout = $timeout;
   }
 
   $onInit() {
@@ -16,6 +18,7 @@ export class TeachersComponent {
     this.$http.get('/assets/data/teachers.json')
       .then(response => {
         this.faculty = response.data;
+        this.$timeout(this.$anchorScroll, 50);
         return null;
       });
   }
