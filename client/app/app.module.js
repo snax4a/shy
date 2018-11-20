@@ -1,13 +1,13 @@
 'use strict';
 
-// angularJS core
+// AngularJS core
 import angular from 'angular';
-import ngCookies from 'angular-cookies';
-import ngMessages from 'angular-messages';
-import ngResource from 'angular-resource';
-import ngRoute from 'angular-route';
+import ngCookies from 'angular-cookies'; // auth.service.js, interceptor.service.js
+import ngMessages from 'angular-messages'; // announcementeditor.pug, checkout.pug, forgotpassword.pug, contactmodal.pug, profile.pug, scheduleditor.pug, shynet.pug, classadder.pug, historyeditor.pug, usereditor.pug, workshops.pug
+import ngResource from 'angular-resource'; // user.service.js
+import ngRoute from 'angular-route'; // _index.html, *.routes.js
 import ngSanitize from 'angular-sanitize'; // read URLs from JSON
-import ngAria from 'angular-aria';
+import ngAria from 'angular-aria'; // not directly used
 
 // Configuration-related
 import constants from './app.constants';
@@ -22,37 +22,38 @@ import AuthModule from './modules/auth/auth.module';
 import ngLoadingBar from 'angular-loading-bar';
 
 // Directives
-import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
-import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
-import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse';
-import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
-import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
-import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
-import UibTabsDirective from 'angular-ui-bootstrap/src/tabs';
-import PaginationDirective from 'angular-utils-pagination';
-import CompareToDirective from './directives/compareto/compareto.directive';
+// UI-Bootstrap optional dependencies: ngAnimate (for animations), ngTouch (for swipe)
+import UibAlertDirective from 'angular-ui-bootstrap/src/alert'; // usermanager.component.js, workshops.component.js
+import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js'; // main.component.js
+import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse'; // navbar.component.js
+import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js'; // announcementmanager.component.js, shynet.component.js, usermanager.component.js
+import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js'; // navbar.component.js
+import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js'; // announcementmanager.component.js, login.component.js, navbar.component.js, schedulemanager.component.js, shynet.component.js, usermanager.component.js
+import UibTabsDirective from 'angular-ui-bootstrap/src/tabs'; // admin.component.js
+import PaginationDirective from 'angular-utils-pagination'; // usermanager.component.js
+import CompareToDirective from './directives/compareto/compareto.directive'; // profile.component.js, signup.component.js, usermanager.component.js
 
 // Filters
-import AmPmFilter from './filters/ampm/ampm.filter';
-import DayToDateFilter from './filters/daytodate/daytodate.filter';
-import HtmlIdFilter from './filters/htmlid/htmlid.filter';
-import NoSubsFilter from './filters/nosubs/nosubs.filter';
-import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter';
-import UpcomingFilter from './filters/upcoming/upcoming.filter';
-import WeekdayFilter from './filters/weekday/weekday.filter';
+import AmPmFilter from './filters/ampm/ampm.filter'; // classes.component.js, schedulemanager.component.js
+import DayToDateFilter from './filters/daytodate/daytodate.filter'; // classes.component.js
+import HtmlIdFilter from './filters/htmlid/htmlid.filter'; // classes.component.js, locations.component.js, teachers.component.js, workshops.component.js
+import NoSubsFilter from './filters/nosubs/nosubs.filter'; // teachers.component.js
+import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter'; // locations.component.js
+import UpcomingFilter from './filters/upcoming/upcoming.filter'; // workshops.component.js
+import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager.component.js
 
 // Sub-page components
-import AnnouncementManagerComponent from './components/announcementmanager/announcementmanager.component';
-import BannerComponent from './components/banner/banner.component';
-import FooterComponent from './components/footer/footer.component';
+import AnnouncementManagerComponent from './components/announcementmanager/announcementmanager.component'; // admin.component.js
+import BannerComponent from './components/banner/banner.component'; // _index.html
+import FooterComponent from './components/footer/footer.component'; // _index.html
 import GoogleButtonComponent from './components/google-button/google-button.component';
-import NavbarComponent from './components/navbar/navbar.component';
-import JsonLdComponent from './components/jsonld/jsonld.component';
-import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component';
-import TweetComponent from './components/tweet/tweet.component';
-import UserManagerComponent from './components/usermanager/usermanager.component';
+import NavbarComponent from './components/navbar/navbar.component'; // _index.html
+import JsonLdComponent from './components/jsonld/jsonld.component'; // workshops.component.js
+import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component'; // admin.component.js
+import TweetComponent from './components/tweet/tweet.component'; // workshops.component.js
+import UserManagerComponent from './components/usermanager/usermanager.component'; // admin.component.js, shynet.component.js
 
-// Page components
+// Page components - lazy-loaded via ngRoute
 import MainComponent from './components/main/main.component';
 import ClassesComponent from './components/classes/classes.component';
 import WorkshopsComponent from './components/workshops/workshops.component';
