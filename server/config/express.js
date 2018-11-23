@@ -61,7 +61,7 @@ export default function(app) {
   app.use(compression());
 
   // Support JSON in req.body
-  app.use(express.urlencoded({ extended: false }))
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
   // Initialize the passport
