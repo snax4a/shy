@@ -1,4 +1,4 @@
-/* global sinon, describe, it, expect */
+/* global sinon, describe, it */
 'use strict';
 
 const proxyquire = require('proxyquire').noPreserveCache();
