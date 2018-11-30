@@ -18,7 +18,7 @@ import CartModule from './modules/cart/cart.module'; // global-scope
 import AuthModule from './modules/auth/auth.module'; // global-scope
 
 // Interceptors
-import ngLoadingBar from 'angular-loading-bar';
+//import ngLoadingBar from 'angular-loading-bar';
 
 // Directives
 // UI-Bootstrap optional dependencies: ngAnimate (for animations), ngTouch (for swipe)
@@ -93,7 +93,7 @@ angular.module('shyApp', [
   UibDropDownDirective,
   UibModalDirective,
   UibTabsDirective,
-  ngLoadingBar,
+  // ngLoadingBar,
   constants,
   PaginationDirective,
   CompareToDirective,
@@ -125,6 +125,11 @@ angular.module('shyApp', [
   ShynetComponent
 ])
   .config(routeConfig)
+  /*
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.latencyThreshold = 500;
+  }])
+  */
   .run(($rootScope, $location, $route, Auth /*, $anchorScroll*/) => {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
