@@ -35,7 +35,7 @@
             input.btn.btn-default(ng-click='$ctrl.keepShopping()', type='button', name='keepShopping', value='Keep Shopping')
             input.btn.btn-warning.pull-right(ng-click='$ctrl.focusOnCardNumber()', type='button', name='checkOut', value='Check Out »', ng-disabled='$ctrl.Cart.isEmpty()')
     .col-md-6
-      form(name='checkout', ng-submit='$ctrl.placeOrder(checkout)', novalidate='')
+      form(name='checkout', ng-submit='$ctrl.placeOrder(checkout)', novalidate='', autocomplete='on')
         .panel.panel-default(aria-labelledby='paymentPanelTitle')
           .panel-heading
             #paymentPanelTitle.panel-title Payment Info
@@ -100,7 +100,7 @@
                   ng-message(when='email') Please supply a valid email address for the student (used to credit student&apos;s account).
               .form-group.col-xs-12.col-sm-5
                 label(for='phone') Phone
-                input.form-control(id='phone', name='phone', ng-model='$ctrl.purchaser.phone', required='', autocomplete='tel', type='tel', maxlength='23', placeholder='Phone')
+                input.form-control(id='phone', name='phone', ng-model='$ctrl.purchaser.phone', required='', autocomplete='tel-national', type='tel', maxlength='23', placeholder='Phone')
                 ng-messages.help-block.has-error(for='checkout.phone.$error', ng-show='checkout.phone.$dirty || checkout.$submitted', role='alert')
                   ng-message(when='required') Please provide the student&apos;s phone number.
             .form-group
@@ -115,29 +115,29 @@
               .row
                 .form-group.col-xs-12.col-sm-6
                   label(for='recipientFirstName') Student&apos;s first name
-                  input.form-control(id='recipientFirstName', name='recipientFirstName', ng-model='$ctrl.recipient.firstName', ng-required='$ctrl.Cart.gift', type='text', maxlength='14', placeholder="Recipient's first name")
+                  input.form-control(id='recipientFirstName', name='recipientFirstName', ng-model='$ctrl.recipient.firstName', ng-required='$ctrl.Cart.gift', type='text', maxlength='14', placeholder="Recipient's first name", autocomplete='given-name')
                   ng-messages.help-block.has-error(for='checkout.recipientFirstName.$error', ng-show='checkout.recipientFirstName.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the student&apos;s first name.
                 .form-group.col-xs-12.col-sm-6
                   label(for='recipientLastName') Last name
-                  input.form-control(id='recipientLastName', name='recipientLastName', ng-model='$ctrl.recipient.lastName', ng-required='$ctrl.Cart.gift', type='text', maxlength='20', placeholder="Recipient's last name")
+                  input.form-control(id='recipientLastName', name='recipientLastName', ng-model='$ctrl.recipient.lastName', ng-required='$ctrl.Cart.gift', type='text', maxlength='20', placeholder="Recipient's last name", autocomplete='family-name')
                   ng-messages.help-block.has-error(for='checkout.recipientLastName.$error', ng-show='checkout.recipientLastName.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the student&apos;s last name.
               .row
                 .form-group.col-xs-12.col-sm-7
                   label(for='recipientEmail') Email
-                  input.form-control(id='recipientEmail', name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Email"', type='email', maxlength='80', placeholder="Recipient's email address")
+                  input.form-control(id='recipientEmail', name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Email"', type='email', maxlength='80', placeholder="Recipient's email address", autocomplete='email')
                   ng-messages.help-block.has-error(for='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the student&apos;s email address.
                     ng-message(when='email') Please supply a valid email address for the recipient.
                 .form-group.col-xs-12.col-sm-5
                   label(for='recipientPhone') Phone
-                  input.form-control(id='recipientPhone', name='recipientPhone', ng-model='$ctrl.recipient.phone', ng-required='$ctrl.Cart.gift', type='tel', maxlength='14', placeholder="Recipient's phone")
+                  input.form-control(id='recipientPhone', name='recipientPhone', ng-model='$ctrl.recipient.phone', ng-required='$ctrl.Cart.gift', type='tel', maxlength='14', placeholder="Recipient's phone", autocomplete='tel-national')
                   ng-messages.help-block.has-error(for='checkout.recipientPhone.$error', ng-show='checkout.recipientPhone.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the student&apos;s phone number.
               .form-group
                   label(for='recipientAddress') Address
-                  input.form-control(id='recipientAddress', name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', type='text', maxlength='255', placeholder="Recipient's address")
+                  input.form-control(id='recipientAddress', name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', type='text', maxlength='255', placeholder="Recipient's address", autocomplete='street-address')
                   ng-messages.help-block.has-error(for='checkout.recipientAddress.$error', ng-show='checkout.recipientAddress.$dirty || checkout.$submitted', role='alert')
                     ng-message(when='required') Please provide the student&apos;s street address.
               .row
