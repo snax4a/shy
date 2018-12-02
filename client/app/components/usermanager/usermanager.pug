@@ -1,7 +1,7 @@
 .tab-spacer(ng-hide='$ctrl.mini')
 .row
   form.form(name='findUserForm', ng-submit='$ctrl.search(findUserForm)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
-    .col-lg-9(style='max-width:415px;')
+    .col-lg-9
       .form-group
         label.sr-only Find User
         .input-group
@@ -29,8 +29,8 @@
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='email'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
         th(ng-hide='$ctrl.mini', ng-click="$ctrl.sortUsers('phone')") Phone 
           span.fas.sort-icon(ng-show="$ctrl.sortKey=='phone'", ng-class="{'fa-angle-up':$ctrl.reverse,'fa-angle-down':!$ctrl.reverse}")
-        th(style='text-align: right;width:85px;') Balance
-        th(style='text-align: center!important; width:95px;') Actions&nbsp;&nbsp;&nbsp;
+        th.col-balance Balance
+        th.col-actions Actions&nbsp;&nbsp;&nbsp;
       tbody
         tr(ng-show='$ctrl.users.length == 0')
           td(colspan='3', ng-show='$ctrl.mini') No users found meeting the search criteria.
@@ -48,10 +48,10 @@
             a(href='tel:{{ user.phone }}')
               span.fas.fa-phone
               |&nbsp;&nbsp;{{ user.phone }}
-          td(style='text-align: right;')
+          td.balance
             a.edit(ng-click="$ctrl.historyGet(user)")
               |{{ user.balance }}
-          td(style='text-align: cemter;')
+          td.actions
             a(ng-click="$ctrl.historyGet(user)")
               span.fas.fa-history
             |&nbsp;&nbsp;&nbsp;
@@ -72,22 +72,22 @@
         a History: {{ $ctrl.historyFor }}
     table.table.table-striped.last
       thead
-        th(style='text-align: left;') Date
-        th(style='text-align: left;') Description
-        th(style='text-align: right;') Qty
-        th(style='text-align: right;') Balance
-        th(ng-hide='$ctrl.mini', style='text-align:right;') Action
+        th.col-left Date
+        th.col-left Description
+        th.col-right Qty
+        th.col-right Balance
+        th.col-right(ng-hide='$ctrl.mini') Action
       tbody
         tr(dir-paginate='historyItem in $ctrl.historyItems|itemsPerPage:8', pagination-id='history')
-          td(style='text-align: left;')
+          td.col-left
             span(ng-hide='$ctrl.mini')
               a.edit(ng-click="$ctrl.historyItemEdit(historyItem)")
                 span.fas.fa-pencil-alt
             |&nbsp;&nbsp;
             nobr {{ historyItem.when | date: 'd-MMM-yy' }}
-          td {{ historyItem.what }}
-          td(style='text-align: right;') {{ historyItem.quantity }}
-          td(style='text-align: right;') {{ historyItem.balance }}
+          td(ng-class='historyItem.type=="P" ? "purchase" : "attendance"') {{ historyItem.what }}
+          td.col-right {{ historyItem.quantity }}
+          td.col-right {{ historyItem.balance }}
           td(ng-hide='$ctrl.mini')
             a.trash(ng-click='$ctrl.historyItemDelete(historyItem)')
               span.far.fa-trash-alt.pull-right
