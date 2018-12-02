@@ -2,18 +2,13 @@
 'use strict';
 import braintree from 'braintree';
 
-// Production specific configuration
-// =================================
+// Production-specific configuration
 module.exports = {
   // Server IP
-  ip: process.env.OPENSHIFT_NODEJS_IP
-    || process.env.IP
-    || undefined,
+  ip: process.env.IP || undefined,
 
   // Server port
-  port: process.env.OPENSHIFT_NODEJS_PORT
-    || process.env.PORT
-    || 8080,
+  port: process.env.PORT || 8080,
 
   // Braintree
   gateway: {
@@ -23,6 +18,6 @@ module.exports = {
     privateKey: process.env.BRAINTREE_PRIVATE_KEY
   },
 
-  // Seed database on startup
+  // Never seed production database!
   seedDB: false
 };

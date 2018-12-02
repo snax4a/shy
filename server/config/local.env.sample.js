@@ -25,8 +25,6 @@ module.exports = {
   SMTP_USER: 'someuser@somedomain.com',
   SMTP_PASSWORD: 'Password',
   SMTP_HOST: 'smtp.office365.com',
-  SMTP_PORT: 587, //secure
-  SMTP_TLS_CIPHERS: 'SSLv3',
   SMTP_ADMINS: 'nul@bitbucket.com, foo@bitbucket.com',
 
   // PostgreSQL

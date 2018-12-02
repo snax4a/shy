@@ -5,6 +5,16 @@ import braintree from 'braintree';
 // Test specific configuration
 // ===========================
 module.exports = {
+  teacher: {
+    email: process.env.TEACHER_EMAIL,
+    password: process.env.TEACHER_PASSWORD
+  },
+
+  admin: {
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD
+  },
+
   // Braintree
   gateway: {
     environment: braintree.Environment.Sandbox,

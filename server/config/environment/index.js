@@ -4,9 +4,14 @@ import path from 'path';
 import nodemailer from 'nodemailer';
 
 // All configurations will extend these options
-// ============================================
 const all = {
   env: process.env.NODE_ENV,
+
+  // Server IP
+  ip: process.env.IP || '0.0.0.0',
+
+  // Server port
+  port: process.env.PORT || 9000,
 
   // Website URL
   domain: process.env.DOMAIN,
@@ -14,32 +19,15 @@ const all = {
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),
 
-  // Browser-sync port
-  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
-
-  // Server port
-  port: process.env.PORT || 9000,
-
-  // Server IP
-  ip: process.env.IP || '0.0.0.0',
-
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: process.env.SESSION_SECRET
   },
 
-  // For login to SHYnet
-  teacher: {
-    email: process.env.TEACHER_EMAIL,
-    password: process.env.TEACHER_PASSWORD
-  },
+  // Browser-sync port for development
+  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 
-  admin: {
-    email: process.env.ADMIN_EMAIL,
-    password: process.env.ADMIN_PASSWORD
-  },
-
-  // Sequelize connection options
+  // Sequelize options
   sequelize: {
     uri: process.env.DATABASE_URL,
     options: {
@@ -47,13 +35,13 @@ const all = {
       timezone: 'America/New_York',
       native: true,
       pool: {
-        max: 5, // default
+        max: 10, // default is 5
         min: 0, // default
         acquire: 10000, // milliseconds will try to get a connection before throwing error
         idle: 10000, // milliseconds before being released
         evict: 10000 // milliseconds for evicting stale connections
       },
-      logging: false, // console.log
+      logging: false, // use console.log when debugging
       operatorsAliases: false // prevents warning
     }
   },
@@ -70,30 +58,28 @@ const all = {
         pass: process.env.SMTP_PASSWORD
       }
     }, { from: process.env.SMTP_USER }),
-    admins: process.env.SMTP_ADMINS
+    admins: process.env.SMTP_ADMINS // notification go to this group
   },
 
   // Integrated authentication
   google: {
-    clientID: process.env.GOOGLE_ID || 'id',
-    clientSecret: process.env.GOOGLE_SECRET || 'secret',
+    clientID: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
   }
 
   // facebook: {
-  //   clientID: process.env.FACEBOOK_ID || 'id',
-  //   clientSecret: process.env.FACEBOOK_SECRET || 'secret',
+  //   clientID: process.env.FACEBOOK_ID,
+  //   clientSecret: process.env.FACEBOOK_SECRET,
   //   callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
   // },
 
   // twitter: {
-  //   clientID: process.env.TWITTER_ID || 'id',
-  //   clientSecret: process.env.TWITTER_SECRET || 'secret',
+  //   clientID: process.env.TWITTER_ID,
+  //   clientSecret: process.env.TWITTER_SECRET',
   //   callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
   // }
 };
 
-// Export the config object based on the NODE_ENV
-// ==============================================
+// Export merged config object based on NODE_ENV (development || test || production)
 module.exports = Object.assign({}, all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
-//module.exports = _.merge(all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
