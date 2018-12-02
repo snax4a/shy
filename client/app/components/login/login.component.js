@@ -41,6 +41,9 @@ export class LoginComponent {
           if(this.Auth.isAdminSync()) {
             return this.$location.path('/admin');
           }
+          if(this.Auth.hasRole('teacher')) {
+            return this.$location.path('/shynet');
+          }
           return this.$location.path('/');
         })
         .catch(err => {
