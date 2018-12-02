@@ -6,8 +6,8 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
-  DOMAIN: 'localhost',
-  SESSION_SECRET: 'Super-intelligent shade of blue',
+  DOMAIN: 'http://localhost:3000',
+  SESSION_SECRET: 'Something unique and kind of long',
 
   // Authentication
   TEACHER_EMAIL: 'teacher@example.com',

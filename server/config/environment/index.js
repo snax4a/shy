@@ -7,14 +7,11 @@ import nodemailer from 'nodemailer';
 const all = {
   env: process.env.NODE_ENV,
 
-  // Server IP
-  ip: process.env.IP || '0.0.0.0',
-
   // Server port
   port: process.env.PORT || 9000,
 
   // Website URL
-  domain: process.env.DOMAIN,
+  domain: process.env.DOMAIN || 'http://localhost:3000',
 
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),

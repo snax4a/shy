@@ -15,8 +15,8 @@ require('./routes').default(app);
 
 // Start server
 function startServer() {
-  app.shy = server.listen(config.port, config.ip, () => {
-    console.log(`Express Server listening on ${config.ip}:${config.port}, env = ${app.get('env')}`);
+  app.shy = server.listen(config.port, () => {
+    console.log(`Express Server (${app.get('env')}) - Open your browser to ${config.domain}`);
   });
 }
 

@@ -4,11 +4,8 @@ import braintree from 'braintree';
 
 // Production-specific configuration
 module.exports = {
-  // Server IP
-  ip: process.env.IP || undefined,
-
-  // Server port (Heroku defaults to tcp/80)
-  port: process.env.PORT || 80,
+  // Server port (Heroku uses random ports)
+  port: process.env.PORT || undefined,
 
   // Braintree
   gateway: {
