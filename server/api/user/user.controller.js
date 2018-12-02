@@ -132,7 +132,7 @@ export function forgotPassword(req, res) {
       return res.status(200).send('New password sent.');
     })
     .catch(error => {
-      console.log(error.message, error);
+      // console.log(error.message, error);
       if(!res.headersSent) return res.status(404).json(error);
       return null;
     });

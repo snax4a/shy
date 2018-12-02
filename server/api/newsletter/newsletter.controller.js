@@ -20,7 +20,7 @@ export function subscribe(req, res) {
       setTimeout(() => config.mail.transporter.sendMail(message)
         .then(info => console.log(`Emailed newsletter subscription to admins ${info.messageId}`))
         .catch(error => console.log(`Email error occurred: ${error.message}`, error))
-        , DELAY);
+      , DELAY);
       return res.status(200).send('Thanks for subscribing to our newsletter.');
     });
 }

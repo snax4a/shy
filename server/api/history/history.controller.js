@@ -124,7 +124,6 @@ export function index(req, res, next) {
 
 // Create history item (Attendance or Purhase) for a user
 export function create(req, res) {
-  console.log('Create HISTORY', req.body);
   if(req.body.type == 'P') {
     let purchaseToAdd = Purchase.build(req.body);
     return purchaseToAdd.save()

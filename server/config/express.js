@@ -133,7 +133,7 @@ export default function(app) {
      * or send a fullscreen error message to the browser instead
      */
     compiler.hooks.done.tap('ReloadDevices', stats => {
-      console.log('webpack done hook');
+      // console.log('webpack done hook');
       if(stats.hasErrors() || stats.hasWarnings()) {
         return browserSync.sockets.emit('fullscreen:message', {
           title: 'Webpack Error:',

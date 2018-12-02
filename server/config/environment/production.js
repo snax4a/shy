@@ -7,8 +7,8 @@ module.exports = {
   // Server IP
   ip: process.env.IP || undefined,
 
-  // Server port
-  port: process.env.PORT || 8080,
+  // Server port (Heroku defaults to tcp/80)
+  port: process.env.PORT || 80,
 
   // Braintree
   gateway: {

@@ -35,7 +35,7 @@ const all = {
       timezone: 'America/New_York',
       native: true,
       pool: {
-        max: 10, // default is 5
+        max: 5, // default
         min: 0, // default
         acquire: 10000, // milliseconds will try to get a connection before throwing error
         idle: 10000, // milliseconds before being released

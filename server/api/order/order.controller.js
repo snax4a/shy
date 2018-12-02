@@ -201,12 +201,12 @@ const braintreeGatewayTransactionSale = (req, res) => {
       braintreeTransaction.transaction.createdAt = new Date(braintreeTransaction.transaction.createdAt).toLocaleString();
 
       if(braintreeTransaction.success) { // Did not get an error
-        console.log(`Braintree order ${braintreeTransaction.transaction.id} created`);
+        // console.log(`Braintree order ${braintreeTransaction.transaction.id} created`);
         //res.status(200).json(result); // send response to client so it doesn't wait
         return braintreeTransaction;
       }
       // Communicated with Braintree but declined the transaction
-      console.log('Braintree did not process the sale.');
+      // console.log('Braintree did not process the sale.');
       res.status(200).json(braintreeTransaction); // tell client what was wrong with the payment info
       return null;
     });
@@ -269,7 +269,7 @@ export function create(req, res) {
       return res.status(200).json(braintreeTransaction);
     })
     .catch(error => {
-      console.log('Problem processing the order: ', error.message);
+      // console.log('Problem processing the order: ', error.message);
       if(!res.headersSent) return res.status(500).json(error);
     });
 }

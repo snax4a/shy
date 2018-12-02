@@ -18,7 +18,7 @@ ${req.body.question}
 
 ${(req.body.optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
       };
-      console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
+      // console.log(`User ${wasInserted ? 'Inserted' : 'Updated'}`);
       setTimeout(() => config.mail.transporter.sendMail(message)
         .then(info => console.log(`Emailed question or comment to admins ${info.messageId}`))
         .catch(error => console.log(`Email error occurred: ${error.message}`, error))
