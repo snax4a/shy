@@ -43,10 +43,11 @@
               div
                 table#gvAttendees.table.table-striped.table-hover.last(cellspacing='0', rules='all')
                   tbody
-                    tr(ng-show='$ctrl.attendees.length == 0')
-                      td No students in selected class.
                     tr(ng-repeat='attendee in $ctrl.attendees')
                       td
                         a(ng-click='$ctrl.attendeeDelete(attendee)')
                           span.far.fa-times-circle 
-                          |&nbsp;&nbsp;{{ attendee.name }} 
+                          |&nbsp;&nbsp;{{ attendee.name }}
+                  tfoot
+                    tr
+                      td Students in class: {{ $ctrl.attendees.length }}
