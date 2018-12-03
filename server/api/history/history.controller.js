@@ -42,9 +42,11 @@ export function attendees(req, res) {
     client.query(sql, [attended, location, teacher, classTitle], (err, rows) => {
       if(err) {
         res.status(424).json({ message: 'Not able to retrieve attendees from database (but connected successfully).' });
+        client.end();
         return;
       }
       res.status(200).json(rows);
+      client.end();
     });
   });
 

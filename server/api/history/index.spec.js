@@ -69,7 +69,7 @@ describe('History API Router:', () => {
 
   describe('DELETE /api/history/:id', () => {
     it('should verify admin role and route to history.controller.destroy', done => {
-      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'historyCtrl.destroy')
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.teacher', 'historyCtrl.destroy')
         .should.have.been.calledOnce;
       done();
     });
