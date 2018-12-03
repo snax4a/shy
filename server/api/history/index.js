@@ -7,6 +7,6 @@ router.get('/attendees', auth.hasRole('teacher'), controller.attendees); // teac
 router.get('/:id', auth.hasRole('teacher'), controller.index); // teacher, get student's history
 router.post('/', auth.hasRole('teacher'), controller.create); // teacher, add a purchase or attendance record
 router.put('/:id', auth.hasRole('admin'), controller.update); // admin, update existing history item
-router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete history item
+router.delete('/:id', auth.hasRole('teacher'), controller.destroy); // admin, delete history item
 
 module.exports = router;
