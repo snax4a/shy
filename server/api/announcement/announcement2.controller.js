@@ -83,7 +83,7 @@ export async function upsert(req, res) {
     sql = 'UPDATE "Announcements" SET section = $2, title = $3, description = $4, expires = $5 WHERE _id = $1';
   }
   const { results } = await db.query(sql, [_id, section, title, description, expires]);
-  // TODO: Get new ID value if there was an UPDATE
+  // TODO: Get new ID value if there was an INSERT based on https://github.com/brianc/node-postgres/wiki/FAQ#7-i-just-have-a-question-and-maybe-a-feature-request-that-i-am-not-able-to-think-about-how-to-implement-or-do-it-i-need-to-retrieve-the-inserted-row-or-someway-to-reach-it-after-the-insert-is-done
 
   if(isNew) Reflect.deleteProperty(req.body, '_id');
   let announcementToUpsert = Announcement.build(req.body);
