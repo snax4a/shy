@@ -27,15 +27,8 @@ module.exports = {
   SMTP_HOST: 'smtp.office365.com',
   SMTP_ADMINS: 'nul@bitbucket.com, foo@bitbucket.com',
 
-  // Sequelize PostgreSQL
+  // Sequelize or node-postgres (pg) connection to PostgreSQL
   DATABASE_URL: 'postgres://user:pass@localhost:5432/dbname',
-
-  // node-postgres (pg) uses same environmental variables as libq (and Herok)
-  PGHOST: 'localhost', // default
-  PGPORT: 5432, // default
-  PGUSER: 'user', // default is process.env.USER
-  PGPASSWORD: 'password', // default is null
-  PGDATABASE: 'dbname', // default is process.env.USER
 
   // Braintree Payment Gateway
   BRAINTREE_MERCHANT_ID: 'replace with braintree merchant id',

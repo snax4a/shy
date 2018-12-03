@@ -43,6 +43,11 @@ const all = {
     }
   },
 
+  // node-postgres(pg) options
+  pg: {
+    uri: process.env.DATABASE_URL
+  },
+
   // By default, do not seed the database
   seedDB: false,
 
