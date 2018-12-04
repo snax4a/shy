@@ -29,7 +29,7 @@ export function attendees(req, res) {
       SELECT
         "Attendances"._id,
         "Attendances"."UserId",
-        "Users"."lastName" || ', ' || "Users"."firstName" AS name
+        INITCAP("Users"."lastName" || ', ' || "Users"."firstName") AS name
       FROM
         "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
       WHERE
