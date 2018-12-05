@@ -93,22 +93,6 @@
 		"substitute": false
 	},
 	{
-		"_id": 12,
-		"firstName": "Mita",
-		"lastName": "Ghosal",
-		"photo": "/assets/images/teachers/mita-ghosal.jpg",
-		"bio": "Mita Ghosal completed the 500 Hour Professional Program through Yoga Works in Los Angeles where she was a regular teacher on the schedule for many years. She has been practicing Ashtanga since 2005 and has studied this system under the late Sri K Pattabhi Jois, his grandson Sharat as well as many other gifted Ashtanga teachers including Richard Freeman, Heather Duplex, Joel Bender and Kino McGregor. A former professional dancer, Mita brings her love of movement and knowledge of the body to her teaching. She hopes to inspire her students to find joy, self-awareness and compassion through the practice.",
-		"substitute": false
-	},
-	{
-		"_id": 13,
-		"firstName": "Kristie",
-		"lastName": "Lindblom",
-		"photo": "/assets/images/teachers/kristie-lindblom.jpg",
-		"bio": "Kristie Lindblom, RYT200, RYT500, is a registered instructor with Yoga Alliance and a Certified Yoga Therapist specializing in chronic disease. She began her journey with Yoga in 1994 with Marina Votta and has been honored to receive the teachings of Bob and Cindi Barton, Cheri Clampett, Arturo Peal, Donna Farhi, and Laurel Hodory, among others. After receiving her BFA in Dance from Point Park University in 2003 along with a BA in Education, her dance career ended abruptly when she had a defibrillator/pacemaker placed as a result of a congenital heart condition. She found her daily practice a sustaining constant that carried her through that life altering experience, which led her to her passion of sharing the healing qualities of yoga. Her classes are breath focused, empowering, and healing as she infuses them with a combination of western scientific knowledge and ancient yogic wisdom. In addition to her Hatha and Therapeutic yoga training, Kristie holds a certification in Dynamic Pregnancy Prenatal Yoga™, and is trained in Highmark’s Discover Relaxation With I/II. Kristie is especially honored to work with the Dr. Dean Ornish Program for Reducing Heart Disease as a Stress Management Specialist and instructor at Pittsburgh's branch of the American Heart Association.",
-		"substitute": false
-	},
-	{
 		"_id": 14,
 		"firstName": "Diane",
 		"lastName": "Dice",
@@ -180,14 +164,6 @@
 		"lastName": "Clary",
 		"photo": "/assets/images/teachers/jill-clary.jpg",
 		"bio": "Jill Clary, RYT, began practicing yoga in 2003 when weekly classes were offered through her workplace. She developed a regular yoga practice both at home and in local studios and in 2015 completed the Schoolhouse Yoga Teacher Training program. She is a firm believer that yoga is for everyone and her classes, combining different yoga styles such as Ashtanga, Kundalini, and Yin, along with breath work and meditation, move from slow to a challenging flow. She welcomes you to her classes.",
-		"substitute": false
-	},
-	{
-		"_id": 27,
-		"firstName": "Alyssa",
-		"lastName": "Jurewicz Johns",
-		"photo": "/assets/images/teachers/alyssa-jurewicz-johns.jpg",
-		"bio": "Through her work as a non-profit community organizer, Alyssa Jurewicz-Johns, RYT, has been engaging local, regional, and international residents in the collaborative creation of healthy, vital communities for over 15 years. Now, through sharing the practice of yoga she continues community building in fresh, innovative ways. A practiced and skilled facilitator, Alyssa's expertise rests within her ability to listen to and connect with people. She provides her clients with a roadmap for alleviating stress, reaching goals, and celebrating their wholeness by creating supportive platforms for therapeutic movement and breath work. Alyssa's work harmonizes personal connection with the universal intention for healthier communities. Alyssa’s has been practicing yoga for over 16 years and has been influenced by a wide spectrum of teachings and philosophies. Her classes are curated recipes full of playful asana, introspective silence and sound healing.",
 		"substitute": false
 	},
 	{
