@@ -239,18 +239,6 @@
 		"substitute": false
 	},
 	{
-		"_id": 31,
-		"firstName": "Jonathan",
-		"lastName": "Campbell",
-		"substitute": true
-	},
-	{
-		"_id": 33,
-		"firstName": "Meg",
-		"lastName": "Graham",
-		"substitute": true
-	},
-	{
 		"_id": 34,
 		"firstName": "Sarah",
 		"lastName": "Hall",
