@@ -251,33 +251,15 @@
 		"substitute": true
 	},
 	{
-		"_id": 36,
-		"firstName": "Meghan",
-		"lastName": "Hynson",
-		"substitute": true
-	},
-	{
 		"_id": 37,
 		"firstName": "Sam",
 		"lastName": "McDonough",
 		"substitute": true
 	},
 	{
-		"_id": 38,
-		"firstName": "Ali",
-		"lastName": "Popivchak",
-		"substitute": true
-	},
-	{
 		"_id": 39,
 		"firstName": "Dawn",
 		"lastName": "Posey",
-		"substitute": true
-	},
-	{
-		"_id": 40,
-		"firstName": "Alyssa",
-		"lastName": "Sharp",
 		"substitute": true
 	},
 	{
