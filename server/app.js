@@ -3,11 +3,9 @@
 const express = require('express');
 const sqldb = require('./sqldb');
 const config = require('./config/environment');
-const http = require('http');
 
 // Setup server
 let app = express();
-const server = http.createServer(app);
 
 // Load configuration and routes
 require('./config/express').default(app); // handles HTTP -> HTTPS redirection
@@ -15,7 +13,7 @@ require('./routes').default(app);
 
 // Start server
 function startServer() {
-  app.shy = server.listen(config.port, () => {
+  app.shy = app.listen(config.port, () => {
     console.log(`Express Server (${app.get('env')}) - Open your browser to ${config.domain}`);
   });
 }
