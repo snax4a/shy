@@ -49,6 +49,7 @@ export default function(app) {
   }));
 
   if(env === 'production') {
+    // Send pre-compressed .gz or .br files if they exist
     app.use('/', expressStaticGzip(app.get('appPath')));
   }
 

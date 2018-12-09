@@ -7,7 +7,7 @@ const config = require('./config/environment');
 // Setup server
 let app = express();
 
-// Load configuration and routes
+// Load configuration then routes
 require('./config/express').default(app); // handles HTTP -> HTTPS redirection
 require('./routes').default(app);
 
