@@ -95,7 +95,7 @@ export function upsert(req, res) {
 
 // Deletes announcement (admin-only)
 export function destroy(req, res) {
-  return Announcement.find({
+  return Announcement.findOne({
     where: {
       _id: req.params.id
     }
