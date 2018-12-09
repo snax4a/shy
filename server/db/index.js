@@ -1,12 +1,11 @@
-// Centralize use of pg throughout project
-import { Pool } from 'pg';
-import config from '../../config/environment';
+const { Pool } = require('pg').native;
+const config = require('../config/environment');
 
-const pool = new Pool({ connectionString: config.pg.uri });
-// Read https://node-postgres.com/features/pooling
+const pool = new Pool({
+  max: 10, // default
+  connectionString: config.pg.uri
+});
 
-// TODO: Call pool.end() within the pool.query callback or promise.
-export default {
+module.exports = {
   query: (text, params) => pool.query(text, params)
-  // .then
 };
