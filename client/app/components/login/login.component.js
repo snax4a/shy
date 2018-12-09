@@ -36,16 +36,6 @@ export class LoginComponent {
         email: this.user.email,
         password: this.user.password
       })
-        .then(() => {
-          // Logged in, redirect to home unless admin
-          if(this.Auth.isAdminSync()) {
-            return this.$location.path('/admin');
-          }
-          if(this.Auth.hasRole('teacher')) {
-            return this.$location.path('/shynet');
-          }
-          return this.$location.path('/');
-        })
         .catch(err => {
           this.errors.login = err.message;
         });

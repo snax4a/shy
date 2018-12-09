@@ -58,8 +58,7 @@ export function hasRole(roleRequired) {
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
       if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
-        next();
-        return null;
+        return next();
       } else {
         return res.status(403).send('Forbidden');
       }
@@ -75,15 +74,22 @@ export function signToken(id, role) {
   });
 }
 
-/**
- * Set token cookie directly for oAuth strategies
- */
+
+// Set token cookie directly for oAuth strategies
 export function setTokenCookie(req, res) {
   if(!req.user) {
     return res.status(404).send('It looks like you aren\'t logged in, please try again.');
   }
   let token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
-  if(req.user.role === 'admin') return res.redirect('/admin');
-  return res.redirect('/');
+
+  // Problem: redirect to correct location would be better handled client-side (but Google Oauth does redirect)
+  switch (req.user.role) {
+  case 'admin':
+    return res.redirect('/admin');
+  case 'teacher':
+    return res.redirect('/shynet');
+  default:
+    return res.redirect('/');
+  }
 }
