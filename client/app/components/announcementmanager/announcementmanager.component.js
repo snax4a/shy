@@ -42,13 +42,15 @@ export class AnnouncementManagerComponent {
   }
 
   createAnnouncement() {
-    let d = new Date();
+    const now = new Date();
+    // Expire next month (and omit time)
+    let defaultExpiration = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
     let announcement = {
       _id: 0,
       section: '',
       title: '',
       description: '',
-      expires: d.setMonth(d.getMonth() + 1)
+      expires: defaultExpiration
     };
 
     this.announcements.unshift(announcement);
