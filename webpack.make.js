@@ -83,10 +83,7 @@ module.exports = function makeWebpackConfig(options) {
           use: [
             DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
-              loader: 'css-loader', // https://github.com/webpack-contrib/css-loader
-              options: {
-                minimize: true
-              }
+              loader: 'css-loader' // https://github.com/webpack-contrib/css-loader
             },
             { // Shrinks CSS file by 12K
               loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
