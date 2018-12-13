@@ -239,7 +239,7 @@ const saveToDB = braintreeTransaction => {
       recipientPhone: confirmation.customFields.recipientphone,
       itemsOrdered: confirmation.customFields.items
     }),
-    User.upsert({
+    User.upsert({ // this might not be working properly
       email: confirmation.customFields.recipientemail,
       firstName: confirmation.shipping.firstName,
       lastName: confirmation.shipping.lastName,
