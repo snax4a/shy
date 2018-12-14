@@ -2,7 +2,6 @@
 'use strict';
 
 const proxyquire = require('proxyquire').noPreserveCache();
-const asyncMiddleware = require('../../middleware/async-middleware'); // only wrap async functions
 
 const routerStub = {
   get: sinon.spy(),
@@ -19,21 +18,23 @@ const authServiceStub = {
   }
 };
 
+const asyncMiddlewareStub = method => `asyncMiddleware.${method}`;
+
 const announcementCtrlStub = {
   index: 'announcementCtrl.index',
   upsert: 'announcementCtrl.upsert',
   destroy: 'announcementCtrl.destroy'
 };
 
-// require the index with our stubbed out modules
 const announcementIndex = proxyquire('./index.js', {
   express: {
     Router() {
       return routerStub;
     }
   },
-  './announcement.controller': announcementCtrlStub,
-  '../../auth/auth.service': authServiceStub
+  '../../auth/auth.service': authServiceStub,
+  '../../middleware/async-middleware': asyncMiddlewareStub,
+  './announcement.controller': announcementCtrlStub
 });
 
 describe('Announcement API Router:', function() {
@@ -44,7 +45,7 @@ describe('Announcement API Router:', function() {
 
   describe('GET /api/announcement', function() {
     it('should route to announcement.controller.index', function(done) {
-      routerStub.get.withArgs('/', 'announcementCtrl.index')
+      routerStub.get.withArgs('/', 'asyncMiddleware.announcementCtrl.index')
         .should.have.been.calledOnce;
       done();
     });
@@ -52,7 +53,7 @@ describe('Announcement API Router:', function() {
 
   describe('PUT /api/announcement/:id', function() {
     it('should be authenticated and route to announcement.controller.upsert', function(done) {
-      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.upsert')
+      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncMiddleware.announcementCtrl.upsert')
         .should.have.been.calledOnce;
       done();
     });
@@ -60,7 +61,7 @@ describe('Announcement API Router:', function() {
 
   describe('DELETE /api/announcement/:id', function() {
     it('should verify admin role and route to announcement.controller.destroy', function(done) {
-      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'announcementCtrl.destroy')
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncMiddleware.announcementCtrl.destroy')
         .should.have.been.calledOnce;
       done();
     });

@@ -91,7 +91,7 @@ describe('Announcement API:', () => {
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
-        .expect(204)
+        .expect(200)
     );
   });
 });
