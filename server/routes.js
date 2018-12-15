@@ -1,6 +1,5 @@
-/**
- * Main application routes
- */
+// Main application routes
+
 'use strict';
 
 import errors from './middleware/errors';

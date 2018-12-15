@@ -1,6 +1,4 @@
-/**
- * Error responses
- */
+// Error middleware
 
 'use strict';
 
