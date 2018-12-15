@@ -5,8 +5,8 @@ import app from '../..';
 import { User } from '../../sqldb';
 import request from 'supertest';
 
-describe('Newsletter API:', () => {
-  describe('POST /api/newsletter', () => {
+describe('Newsletter API:', function() {
+  describe('POST /api/newsletter', function() {
     let newSubscriber = {
       email: 'nul@bitbucket.com'
     };
