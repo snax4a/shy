@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
 function localAuthenticate(User, email, password, done) {
-  return User.find({
+  return User.findOne({
     where: {
       email: email.toLowerCase()
     }

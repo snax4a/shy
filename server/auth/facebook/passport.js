@@ -12,7 +12,7 @@ export function setup(User, config) {
     ]
   },
   function(accessToken, refreshToken, profile, done) {
-    User.find({where: {'facebook.id': profile.id}})
+    User.findOne({where: {'facebook.id': profile.id}})
       .then(user => {
         if(user) {
           return done(null, user);

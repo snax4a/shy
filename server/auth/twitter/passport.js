@@ -11,7 +11,7 @@ export function setup(User, config) {
     profile._json.id = `${profile._json.id}`;
     profile.id = `${profile.id}`;
 
-    return User.find({where: {'twitter.id': profile.id}})
+    return User.findOne({where: {'twitter.id': profile.id}})
       .then(user => {
         if(user) {
           return done(null, user);

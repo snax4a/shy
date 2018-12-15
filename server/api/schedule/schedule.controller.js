@@ -103,7 +103,7 @@ export function upsert(req, res) {
 
 // Deletes schedule item (admin-only)
 export function destroy(req, res) {
-  return Schedule.find({
+  return Schedule.findOne({
     where: {
       _id: req.params.id
     }
