@@ -1,15 +1,17 @@
-/* global sinon, describe, it, expect */
+/* global sinon, describe, it */
 'use strict';
 
 const proxyquire = require('proxyquire').noPreserveCache();
+
+const routerStub = {
+  post: sinon.spy()
+};
 
 const orderCtrlStub = {
   create: 'orderCtrl.create'
 };
 
-const routerStub = {
-  post: sinon.spy()
-};
+const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
 // require the index with our stubbed out modules
 const orderIndex = proxyquire('./index.js', {
@@ -18,18 +20,19 @@ const orderIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
+  '../../middleware/async-wrapper': asyncWrapperStub,
   './order.controller': orderCtrlStub
 });
 
-describe('Order API Router:', () => {
+describe('Order API Router:', function() {
   it('should return an express router instance', done => {
     orderIndex.should.equal(routerStub);
     done();
   });
 
-  describe('POST /api/order', () => {
+  describe('POST /api/order', function() {
     it('should route to order.controller.create', done => {
-      routerStub.post.withArgs('/', 'orderCtrl.create').should.have.been.calledOnce;
+      routerStub.post.withArgs('/', 'asyncWrapper.orderCtrl.create').should.have.been.calledOnce;
       done();
     });
   });

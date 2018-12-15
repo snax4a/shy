@@ -1,9 +1,5 @@
-/*
- POST    /api/order ->  placeOrder
-*/
 'use strict';
 import braintree from 'braintree';
-import Sequelize from 'sequelize';
 import config from '../../config/environment';
 import { User, Order } from '../../sqldb';
 const products = require('../../../client/assets/data/products.json');
@@ -22,6 +18,7 @@ const getGrandTotal = cartItems => {
   return parseFloat(total).toFixed(0);
 };
 
+// Abbreviate what was ordered so it'll fit in Braintree (qty x productId @ unitPrice)
 const abbreviateCartItems = cartItems => {
   let abbreviation = '';
   for(let cartItem of cartItems) {
@@ -188,88 +185,72 @@ const buildConfirmationEmail = confirmation => {
 };
 
 // Return a promise to the Braintree result object containing transaction details (if successful)
-const braintreeGatewayTransactionSale = (req, res) => {
+const braintreeGatewayTransactionSale = async orderInfo => {
   // Grab Braintree gateway settings from config
-  let gateway = braintree.connect(config.gateway);
+  let gateway = braintree.connect(config.gateway); // synchronous
 
   // Submit orderInfo to Braintree
-  return gateway.transaction.sale(buildOrder(req.body))
-    .then(braintreeTransaction => {
-      // Reformat some of the response
-      braintreeTransaction.transaction.id = braintreeTransaction.transaction.id.toUpperCase();
-      braintreeTransaction.transaction.customFields.gift = braintreeTransaction.transaction.customFields.gift === 'true';
-      braintreeTransaction.transaction.createdAt = new Date(braintreeTransaction.transaction.createdAt).toLocaleString();
+  const braintreeTransaction = await gateway.transaction.sale(buildOrder(orderInfo));
 
-      if(braintreeTransaction.success) { // Did not get an error
-        // console.log(`Braintree order ${braintreeTransaction.transaction.id} created`);
-        //res.status(200).json(result); // send response to client so it doesn't wait
-        return braintreeTransaction;
-      }
-      // Communicated with Braintree but declined the transaction
-      // console.log('Braintree did not process the sale.');
-      res.status(200).json(braintreeTransaction); // tell client what was wrong with the payment info
-      return null;
-    });
+  // Reformat some of the response
+  braintreeTransaction.transaction.id = braintreeTransaction.transaction.id.toUpperCase();
+  braintreeTransaction.transaction.customFields.gift = braintreeTransaction.transaction.customFields.gift === 'true';
+  braintreeTransaction.transaction.createdAt = new Date(braintreeTransaction.transaction.createdAt).toLocaleString();
+
+  return braintreeTransaction;
 };
 
 // Return promise to upserted Order and User
-const saveToDB = braintreeTransaction => {
-  if(!braintreeTransaction) return null; // Not an error in chain but don't save to database
-
-  let confirmation = braintreeTransaction.transaction;
-  return Sequelize.Promise.all([
-    Order.upsert({
-      orderNumber: confirmation.id,
-      amount: confirmation.amount,
-      instructions: confirmation.customFields.instructions,
-      gift: confirmation.customFields.gift,
-      sendVia: confirmation.customFields.sendvia,
-      purchaserFirstName: confirmation.customer.firstName,
-      purchaserLastName: confirmation.customer.lastName,
-      purchaserEmail: confirmation.customer.email,
-      purchaserPhone: confirmation.customer.phone,
-      last4: confirmation.creditCard.last4,
-      recipientFirstName: confirmation.shipping.firstName,
-      recipientLastName: confirmation.shipping.lastName,
-      recipientAddress: confirmation.shipping.streetAddress,
-      recipientCity: confirmation.shipping.locality,
-      recipientState: confirmation.shipping.region,
-      recipientZipCode: confirmation.shipping.postalCode,
-      recipientEmail: confirmation.customFields.recipientemail,
-      recipientPhone: confirmation.customFields.recipientphone,
-      itemsOrdered: confirmation.customFields.items
-    }),
-    User.upsert({ // this might not be working properly
-      email: confirmation.customFields.recipientemail,
-      firstName: confirmation.shipping.firstName,
-      lastName: confirmation.shipping.lastName,
-      phone: confirmation.customFields.recipientphone,
-      optOut: false
-    })
-  ])
-    .then(() => braintreeTransaction);
+const saveToDB = async confirmation => {
+  await Order.upsert({
+    orderNumber: confirmation.id,
+    amount: confirmation.amount,
+    instructions: confirmation.customFields.instructions,
+    gift: confirmation.customFields.gift,
+    sendVia: confirmation.customFields.sendvia,
+    purchaserFirstName: confirmation.customer.firstName,
+    purchaserLastName: confirmation.customer.lastName,
+    purchaserEmail: confirmation.customer.email,
+    purchaserPhone: confirmation.customer.phone,
+    last4: confirmation.creditCard.last4,
+    recipientFirstName: confirmation.shipping.firstName,
+    recipientLastName: confirmation.shipping.lastName,
+    recipientAddress: confirmation.shipping.streetAddress,
+    recipientCity: confirmation.shipping.locality,
+    recipientState: confirmation.shipping.region,
+    recipientZipCode: confirmation.shipping.postalCode,
+    recipientEmail: confirmation.customFields.recipientemail,
+    recipientPhone: confirmation.customFields.recipientphone,
+    itemsOrdered: confirmation.customFields.items
+  });
+  await User.upsert({
+    email: confirmation.customFields.recipientemail,
+    firstName: confirmation.shipping.firstName,
+    lastName: confirmation.shipping.lastName,
+    phone: confirmation.customFields.recipientphone,
+    optOut: false
+  });
 };
 
-// Create order -> save to db -> send 200 response -> email confirmation
-export function create(req, res) {
-  // Here, req.body.cartItems is fine
-  return braintreeGatewayTransactionSale(req, res)
-    .then(saveToDB)
-    .then(braintreeTransaction => { //send HTTP 200 response and order confirmation via email
-      if(!braintreeTransaction) return null; // Payment declined but not an error
-      const DELAY = 0; // milliseconds
-      const confirmation = braintreeTransaction.transaction;
-      confirmation.customFields.items = req.body.cartItems; // Add back in for confirmation
-      const message = buildConfirmationEmail(confirmation);
+// Process Braintree order -> send response -> save to DB -> send email confirmation
+export async function create(req, res) {
+  const orderInfo = req.body;
 
-      setTimeout(() => config.mail.transporter.sendMail(message)
-        .then(info => console.log(`Emailed order confirmation to ${info.envelope.to} ${info.messageId}`))
-        .catch(error => console.log(`Email error occurred: ${error.message}`, error))
-      , DELAY);
-      return res.status(200).json(braintreeTransaction);
-    })
-    .catch(error => {
-      // console.log('Problem processing the order: ', error.message);
-      if(!res.headersSent) return res.status(500).json(error);
-    });
+  // Attempt to run the braintree transaction
+  const braintreeTransaction = await braintreeGatewayTransactionSale(orderInfo);
+
+  // Send result without waiting for database or email (client will handle declines)
+  res.status(200).json(braintreeTransaction);
+
+  if(braintreeTransaction.success) {
+    let confirmation = braintreeTransaction.transaction;
+    await saveToDB(confirmation);
+
+    // Add back in for confirmation email
+    confirmation.customFields.items = req.body.cartItems;
+
+    // Send the confirmation email
+    const message = buildConfirmationEmail(confirmation);
+    await config.mail.transporter.sendMail(message);
+  }
 }

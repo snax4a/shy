@@ -5,8 +5,8 @@ import app from '../..';
 import { User } from '../../sqldb';
 import request from 'supertest';
 
-describe('Order API:', () => {
-  describe('POST /api/order', () => {
+describe('Order API:', function() {
+  describe('POST /api/order', function() {
     let confirmation;
 
     before(() =>
