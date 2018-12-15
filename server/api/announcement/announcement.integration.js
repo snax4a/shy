@@ -5,7 +5,7 @@ import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('Announcement API:', () => {
+describe('Announcement API:', function() {
   let newAnnouncementID;
   let tokenAdmin;
 
@@ -24,13 +24,13 @@ describe('Announcement API:', () => {
       })
   );
 
-  describe('POST /auth/local', () => {
+  describe('POST /auth/local', function() {
     it('should authenticate the administrator and get token with length of 164', () =>
       tokenAdmin.should.have.length(164));
   });
 
   // announcement.controller.js:upsert
-  describe('PUT /api/announcement/:id', () => {
+  describe('PUT /api/announcement/:id', function() {
     let newAnnouncement = {
       _id: 0,
       section: 'Section 1',
@@ -62,7 +62,7 @@ describe('Announcement API:', () => {
   });
 
   // announcement.controller.js:index
-  describe('GET /api/announcement', () => {
+  describe('GET /api/announcement', function() {
     let announcements;
 
     // Retrieve list of announcements each time before testing
@@ -80,7 +80,7 @@ describe('Announcement API:', () => {
   });
 
   // announcement.controller.js:destroy
-  describe('DELETE /api/announcement/:id', () => {
+  describe('DELETE /api/announcement/:id', function() {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
@@ -91,7 +91,7 @@ describe('Announcement API:', () => {
       request(app)
         .delete(`/api/announcement/${newAnnouncementID}`)
         .set('authorization', `Bearer ${tokenAdmin}`)
-        .expect(200)
+        .expect(204)
     );
   });
 });

@@ -60,7 +60,7 @@ export async function destroy(req, res) {
   const _id = req.params.id;
   const sql = 'DELETE FROM "Announcements" WHERE _id = $1;';
   await db.query(sql, [_id]);
-  res.status(200).json({ message: `Announcement ${_id} deleted.`});
+  res.status(204).json({ message: `Announcement ${_id} deleted.`});
 }
 
 // Authentication callback

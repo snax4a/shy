@@ -18,7 +18,7 @@ const authServiceStub = {
   }
 };
 
-const asyncMiddlewareStub = method => `asyncMiddleware.${method}`;
+const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
 const announcementCtrlStub = {
   index: 'announcementCtrl.index',
@@ -33,7 +33,7 @@ const announcementIndex = proxyquire('./index.js', {
     }
   },
   '../../auth/auth.service': authServiceStub,
-  '../../middleware/async-middleware': asyncMiddlewareStub,
+  '../../middleware/async-wrapper': asyncWrapperStub,
   './announcement.controller': announcementCtrlStub
 });
 
@@ -45,7 +45,7 @@ describe('Announcement API Router:', function() {
 
   describe('GET /api/announcement', function() {
     it('should route to announcement.controller.index', function(done) {
-      routerStub.get.withArgs('/', 'asyncMiddleware.announcementCtrl.index')
+      routerStub.get.withArgs('/', 'asyncWrapper.announcementCtrl.index')
         .should.have.been.calledOnce;
       done();
     });
@@ -53,7 +53,7 @@ describe('Announcement API Router:', function() {
 
   describe('PUT /api/announcement/:id', function() {
     it('should be authenticated and route to announcement.controller.upsert', function(done) {
-      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncMiddleware.announcementCtrl.upsert')
+      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.announcementCtrl.upsert')
         .should.have.been.calledOnce;
       done();
     });
@@ -61,7 +61,7 @@ describe('Announcement API Router:', function() {
 
   describe('DELETE /api/announcement/:id', function() {
     it('should verify admin role and route to announcement.controller.destroy', function(done) {
-      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncMiddleware.announcementCtrl.destroy')
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.announcementCtrl.destroy')
         .should.have.been.calledOnce;
       done();
     });
