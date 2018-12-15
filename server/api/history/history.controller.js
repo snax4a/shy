@@ -137,7 +137,7 @@ export async function destroy(req, res) {
   res.status(204).json({ _id });
 }
 
-// Authentication callback
-export function authCallback(req, res) {
-  return res.redirect('/');
-}
+// Authentication callback - is it needed?
+// export function authCallback(req, res) {
+//   return res.redirect('/');
+// }

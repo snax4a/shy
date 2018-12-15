@@ -63,7 +63,7 @@ export async function destroy(req, res) {
   res.status(204).json({ message: `Announcement ${_id} deleted.`});
 }
 
-// Authentication callback
-export function authCallback(req, res) {
-  res.redirect('/');
-}
+// Authentication callback - is it needed?
+// export function authCallback(req, res) {
+//   res.redirect('/');
+// }

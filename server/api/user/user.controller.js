@@ -209,8 +209,7 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-// Authentication callback
-export function authCallback(req, res) {
-  return res.redirect('/');
-}
-
+// Authentication callback - is it needed?
+// export function authCallback(req, res) {
+//   return res.redirect('/');
+// }
