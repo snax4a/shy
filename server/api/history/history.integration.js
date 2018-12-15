@@ -32,7 +32,7 @@ describe('History API:', function() {
   });
 
   // history.controller.js:update
-  describe('POST /api/history', () => {
+  describe('POST /api/history', function() {
     let newHistoryItem = {
       UserId: 24601, // should dynamically create user
       type: 'P',
@@ -65,7 +65,7 @@ describe('History API:', function() {
   });
 
   // history.controller.js:update
-  describe('PUT /api/history/:id', () => {
+  describe('PUT /api/history/:id', function() {
     let newHistoryItem = {
       _id: 295707,
       UserId: 24601, // should dynamically create user
@@ -94,7 +94,7 @@ describe('History API:', function() {
   });
 
   // history.controller.js:index
-  describe('GET /api/history/attendees', () => {
+  describe('GET /api/history/attendees', function() {
     let attendees;
 
     it('should respond with a 401 when not authenticated', () =>
@@ -118,7 +118,7 @@ describe('History API:', function() {
   });
 
   // history.controller.js:index
-  describe('GET /api/history/:id', () => {
+  describe('GET /api/history/:id', function() {
     let historyItems;
 
     it('should respond with a 401 when not authenticated', () =>
@@ -142,7 +142,7 @@ describe('History API:', function() {
   });
 
   // history.controller.js:destroy
-  describe('DELETE /api/history/:id', () => {
+  describe('DELETE /api/history/:id', function() {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/history/${newID}?type=P`)
