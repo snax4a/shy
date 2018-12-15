@@ -4,8 +4,8 @@
 import app from '../..';
 import request from 'supertest';
 
-describe('Token API:', () => {
-  describe('GET /api/token', () => {
+describe('Token API:', function() {
+  describe('GET /api/token', function() {
     let token;
 
     before(() =>

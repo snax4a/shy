@@ -1,17 +1,13 @@
-/**
- * GET     /api/token              ->  index
- */
 'use strict';
+
 import braintree from 'braintree';
-const config = require('../../config/environment');
+import config from '../../config/environment';
 
 // Gets a token from Braintree
-export function index(req, res) {
-  // Grab Braintree gateway settings from config
-  const gateway = braintree.connect(config.gateway);
+export async function index(req, res) {
+  const gateway = braintree.connect(config.gateway); // synchronous call
+
   // Generate the client token
-  gateway.clientToken.generate({}, (err, response) => {
-    if(err) throw err; // Usually authentication issues
-    return res.status(200).send(response.clientToken);
-  });
+  const { clientToken } = await gateway.clientToken.generate({});
+  res.status(200).send(clientToken);
 }
