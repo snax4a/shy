@@ -5,8 +5,8 @@ import app from '../..';
 import request from 'supertest';
 import { User } from '../../sqldb';
 
-describe('Message API:', () => {
-  describe('POST /api/message', () => {
+describe('Message API:', function() {
+  describe('POST /api/message', function() {
     let response = '';
 
     before(() =>
