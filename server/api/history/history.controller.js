@@ -1,82 +1,29 @@
 'use strict';
-import Sequelize from 'sequelize';
-import { Attendance, Purchase } from '../../sqldb';
-import config from '../../config/environment';
-import PGNativeClient from 'pg-native';
+const db = require('../../db');
 
-const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
-
-// Passes JSON back so that UI fields can be flagged for validation issues
-function validationError(res, statusCode) {
-  statusCode = statusCode || 422;
-  return err => res.status(statusCode).json(err);
-}
-
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return err => res.status(statusCode).send(err);
-}
-
-export function attendees(req, res) {
-  // pg-native way
-  const client = new PGNativeClient();
-  client.connect(config.sequelize.uri, err => {
-    if(err) {
-      res.status(401).json({ message: 'Not able to connect to database to get list of attendees.' });
-      return;
-    }
-    const sql = `
-      SELECT
-        "Attendances"._id,
-        "Attendances"."UserId",
-        INITCAP("Users"."lastName" || ', ' || "Users"."firstName") AS name
-      FROM
-        "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
-      WHERE
-        "Attendances".attended = $1::DATE AND
-        "Attendances".location = $2 AND
-        "Attendances".teacher = $3 AND
-        "Attendances"."classTitle" = $4
-      ORDER BY "Users"."lastName", "Users"."firstName";`;
-    const { attended, location, teacher, classTitle } = req.query;
-    client.query(sql, [attended, location, teacher, classTitle], (err, rows) => {
-      if(err) {
-        res.status(424).json({ message: 'Not able to retrieve attendees from database (but connected successfully).' });
-        client.end();
-        return;
-      }
-      res.status(200).json(rows);
-      client.end();
-    });
-  });
-
-  // Sequelize way...
-  // const sql = `SELECT
-  //     "Attendances"._id,
-  //     "Attendances"."UserId",
-  //     ("Users"."lastName" || ', ' || "Users"."firstName")::text AS name
-  //   FROM
-  //     "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
-  //   WHERE
-  //     "Attendances".attended = :attended AND
-  //     "Attendances".location = :location AND
-  //     "Attendances".teacher = :teacher AND
-  //     "Attendances"."classTitle" = :classTitle
-  //   ORDER BY "Users"."lastName", "Users"."firstName";`;
-  // sequelize.query(sql, {
-  //   replacements: req.query,
-  //   logging: true,
-  //   type: sequelize.QueryTypes.SELECT
-  // })
-  //   .then(results => {
-  //     console.log(results);
-  //     return res.status(200).json(results);
-  //   })
-  //   .catch(err => next(err));
+// Returns array of attendees
+export async function attendees(req, res) {
+  const { attended, location, teacher, classTitle } = req.query;
+  const sql = `
+    SELECT
+      "Attendances"._id,
+      "Attendances"."UserId",
+      INITCAP("Users"."lastName" || ', ' || "Users"."firstName") AS name
+    FROM
+      "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
+    WHERE
+      "Attendances".attended = $1::DATE AND
+      "Attendances".location = $2 AND
+      "Attendances".teacher = $3 AND
+      "Attendances"."classTitle" = $4
+    ORDER BY "Users"."lastName", "Users"."firstName";`;
+  const { rows } = await db.query(sql, [attended, location, teacher, classTitle]);
+  res.status(200).json(rows);
 }
 
 // Get a list of history items for a particular user with a running balance
-export function index(req, res, next) {
+export async function index(req, res) {
+  const { id } = req.params;
   const sql = `
     SELECT history._id,
       history."UserId",
@@ -103,7 +50,7 @@ export function index(req, res, next) {
         ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
         '-1'::integer AS quantity
       FROM "Attendances"
-      WHERE "Attendances"."UserId" = :UserId
+      WHERE "Attendances"."UserId" = $1
       UNION
       SELECT "Purchases"._id,
         "Purchases"."UserId",
@@ -117,44 +64,77 @@ export function index(req, res, next) {
         'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') - '::text || "Purchases".notes::text AS what,
         "Purchases".quantity
       FROM "Purchases"
-      WHERE "Purchases"."UserId" = :UserId) history
+      WHERE "Purchases"."UserId" = $1) history
     ORDER BY history."UserId", history."when" DESC;`;
-  sequelize.query(sql, { replacements: { UserId: `${req.params.id}` }, type: sequelize.QueryTypes.SELECT })
-    .then(historyItems => res.status(200).json(historyItems))
-    .catch(err => next(err));
+
+  const { rows } = await db.query(sql, [id]);
+  res.status(200).json(rows);
 }
 
-// Create history item (Attendance or Purhase) for a user
-export function create(req, res) {
-  if(req.body.type == 'P') {
-    let purchaseToAdd = Purchase.build(req.body);
-    return purchaseToAdd.save()
-      .then(purchase => res.status(200).json({ _id: purchase._id }))
-      .catch(validationError(res));
+// Create history item (Attendance or Purchase) for a user
+export async function create(req, res) {
+  const { UserId, type } = req.body;
+  let arrParams = [UserId];
+  let sql;
+
+  if(type == 'P') {
+    const { quantity, method, notes, createdAt } = req.body;
+    arrParams.push(quantity, method, notes, createdAt);
+    sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, "createdAt", "updatedAt")
+      VALUES ($1, $2, $3, $4, $5::date, CURRENT_DATE) RETURNING _id;`;
   } else {
-    let attendanceToAdd = Attendance.build(req.body);
-    return attendanceToAdd.save()
-      .then(attendance => res.status(200).json({ _id: attendance._id }))
-      .catch(validationError(res));
+    const { attended, location, classTitle, teacher } = req.body;
+    arrParams.push(attended, location, classTitle, teacher);
+    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "classTitle", teacher, "createdAt", "updatedAt")
+      VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE) RETURNING _id;`;
   }
+
+  const { rows } = await db.query(sql, arrParams);
+  res.status(200).json({ _id: rows[0]._id });
 }
 
 // Update history item based on its _id and type
-export function update(req, res) {
-  const model = req.body.type == 'P' ? Purchase : Attendance;
-  let historyItemToUpdate = model.build(req.body);
-  historyItemToUpdate.isNewRecord = false;
-  return historyItemToUpdate.save()
-    .then(() => res.status(200).end())
-    .catch(validationError(res));
+export async function update(req, res) {
+  const { _id, type, UserId } = req.body;
+  let arrParams = [_id, UserId];
+  let sql;
+
+  if(type == 'P') {
+    const { quantity, method, notes, createdAt } = req.body;
+    arrParams.push(quantity, method, notes, createdAt);
+    sql = `UPDATE "Purchases" SET
+      "UserId" = $2, quantity = $3, method = $4,
+      notes = $5, "createdAt" = $6::date, "updatedAt" = CURRENT_DATE
+      WHERE _id = $1
+      RETURNING _id;`;
+  } else {
+    const { attended, location, classTitle, teacher } = req.body;
+    arrParams.push(attended, location, classTitle, teacher);
+    sql = `UPDATE "Attendances" SET
+      "UserId" = $2, attended = $3::date, location = $4,
+      "classTitle" = $5, teacher = $6, "updatedAt" = CURRENT_DATE
+      WHERE _id = $1
+      RETURNING _id;`;
+  }
+
+  const { rows } = await db.query(sql, arrParams);
+  res.status(200).json({ _id: rows[0]._id });
 }
 
 // Delete history item based on its _id and type
-export function destroy(req, res) {
-  const model = req.query.type == 'P' ? Purchase : Attendance;
-  return model.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
-    .catch(handleError(res));
+export async function destroy(req, res) {
+  const type = req.query.type;
+  const _id = req.params.id;
+  let sql;
+
+  if(type == 'P') {
+    sql = 'DELETE FROM "Purchases" WHERE _id = $1;';
+  } else {
+    sql = 'DELETE FROM "Attendances" WHERE _id = $1;';
+  }
+
+  await db.query(sql, [_id]);
+  res.status(204).json({ _id });
 }
 
 // Authentication callback

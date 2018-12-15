@@ -1,11 +1,11 @@
-/* globals describe, it, before, beforeEach */
+/* globals describe, it, before */
 'use strict';
 
 import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('History API:', () => {
+describe('History API:', function() {
   let newID;
   let tokenAdmin;
 
@@ -24,9 +24,11 @@ describe('History API:', () => {
       })
   );
 
-  describe('POST /auth/local', () => {
-    it('should authenticate the administrator and get token with length of 164', () =>
-      tokenAdmin.should.have.length(164));
+  describe('POST /auth/local', function() {
+    it('should authenticate the administrator and get token with length of 164', function(done) {
+      tokenAdmin.should.have.length(164);
+      done();
+    });
   });
 
   // history.controller.js:update
@@ -36,7 +38,8 @@ describe('History API:', () => {
       type: 'P',
       quantity: 3,
       method: 'Cash',
-      notes: 'Integration test'
+      notes: 'Integration test',
+      createdAt: '2018-12-01'
     };
 
     // Gives a 500 error rather than 401 if authorization header is not provided
@@ -47,7 +50,7 @@ describe('History API:', () => {
         .expect(401)
     );
 
-    it('should upsert the history item when admin is authenticated and return a non-zero ID', () =>
+    it('should create the history item when admin is authenticated and return a non-zero ID', () =>
       request(app)
         .post('/api/history')
         .set('authorization', `Bearer ${tokenAdmin}`)
@@ -64,12 +67,13 @@ describe('History API:', () => {
   // history.controller.js:update
   describe('PUT /api/history/:id', () => {
     let newHistoryItem = {
-      _id: 72,
+      _id: 295707,
       UserId: 24601, // should dynamically create user
       type: 'P',
       quantity: 3,
       method: 'Cash',
-      notes: 'Integration test'
+      notes: 'Integration test',
+      createdAt: '2018-12-01'
     };
 
     // Gives a 500 error rather than 401 if authorization header is not provided

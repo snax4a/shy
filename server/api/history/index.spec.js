@@ -3,11 +3,11 @@
 
 const proxyquire = require('proxyquire').noPreserveCache();
 
-const historyCtrlStub = {
-  index: 'historyCtrl.index',
-  create: 'historyCtrl.create',
-  update: 'historyCtrl.update',
-  destroy: 'historyCtrl.destroy'
+const routerStub = {
+  get: sinon.spy(),
+  post: sinon.spy(),
+  put: sinon.spy(),
+  delete: sinon.spy()
 };
 
 const authServiceStub = {
@@ -19,12 +19,14 @@ const authServiceStub = {
   }
 };
 
-const routerStub = {
-  get: sinon.spy(),
-  post: sinon.spy(),
-  put: sinon.spy(),
-  delete: sinon.spy()
+const historyCtrlStub = {
+  index: 'historyCtrl.index',
+  create: 'historyCtrl.create',
+  update: 'historyCtrl.update',
+  destroy: 'historyCtrl.destroy'
 };
+
+const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
 // require the index with our stubbed out modules
 const historyIndex = proxyquire('./index.js', {
@@ -33,43 +35,44 @@ const historyIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
-  './history.controller': historyCtrlStub,
-  '../../auth/auth.service': authServiceStub
+  '../../auth/auth.service': authServiceStub,
+  '../../middleware/async-wrapper': asyncWrapperStub,
+  './history.controller': historyCtrlStub
 });
 
-describe('History API Router:', () => {
-  it('should return an express router instance', done => {
+describe('History API Router:', function() {
+  it('should return an express router instance', function(done) {
     historyIndex.should.equal(routerStub);
     done();
   });
 
-  describe('GET /api/history/:id', () => {
-    it('should route to history.controller.index', done => {
-      routerStub.get.withArgs('/:id', 'authService.hasRole.teacher', 'historyCtrl.index')
+  describe('GET /api/history/:id', function() {
+    it('should route to history.controller.index', function(done) {
+      routerStub.get.withArgs('/:id', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.index')
         .should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('POST /api/history/:id', () => {
-    it('should be authenticated and route to history.controller.create', done => {
-      routerStub.post.withArgs('/', 'authService.hasRole.teacher', 'historyCtrl.create')
+  describe('POST /api/history/:id', function() {
+    it('should be authenticated and route to history.controller.create', function(done) {
+      routerStub.post.withArgs('/', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.create')
         .should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('PUT /api/history/:id', () => {
-    it('should be authenticated and route to history.controller.update', done => {
-      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'historyCtrl.update')
+  describe('PUT /api/history/:id', function() {
+    it('should be authenticated and route to history.controller.update', function(done) {
+      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.historyCtrl.update')
         .should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('DELETE /api/history/:id', () => {
-    it('should verify admin role and route to history.controller.destroy', done => {
-      routerStub.delete.withArgs('/:id', 'authService.hasRole.teacher', 'historyCtrl.destroy')
+  describe('DELETE /api/history/:id', function() {
+    it('should verify admin role and route to history.controller.destroy', function(done) {
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.destroy')
         .should.have.been.calledOnce;
       done();
     });
