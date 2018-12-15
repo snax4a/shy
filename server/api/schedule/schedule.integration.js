@@ -1,12 +1,11 @@
-'use strict';
-
 /* globals before, describe, it, before */
+'use strict';
 
 import app from '../..';
 import request from 'supertest';
 import config from '../../config/environment';
 
-describe('Schedule API:', () => {
+describe('Schedule API:', function() {
   let newScheduleItemID;
   let tokenAdmin;
 
@@ -26,7 +25,7 @@ describe('Schedule API:', () => {
   );
 
   // schedule.controller.js:upsert
-  describe('PUT /api/schedule/:id', () => {
+  describe('PUT /api/schedule/:id', function() {
     let newScheduleItem = {
       _id: 0,
       location: 'Test',
@@ -59,7 +58,7 @@ describe('Schedule API:', () => {
   });
 
   // schedule.controller.js:index
-  describe('GET /api/schedule', () => {
+  describe('GET /api/schedule', function() {
     let schedules;
 
     before(() =>
@@ -78,7 +77,7 @@ describe('Schedule API:', () => {
   });
 
   // schedule.controller.js:destroy
-  describe('DELETE /api/schedule/:id', () => {
+  describe('DELETE /api/schedule/:id', function() {
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .delete(`/api/schedule/${newScheduleItemID}`)

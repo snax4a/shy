@@ -1,8 +1,14 @@
 'use strict';
 
-/* globals sinon, describe, expect, it */
+/* globals sinon, describe, it */
 
 const proxyquire = require('proxyquire').noPreserveCache();
+
+const routerStub = {
+  get: sinon.spy(),
+  put: sinon.spy(),
+  delete: sinon.spy()
+};
 
 const scheduleCtrlStub = {
   index: 'scheduleCtrl.index',
@@ -19,11 +25,7 @@ const authServiceStub = {
   }
 };
 
-const routerStub = {
-  get: sinon.spy(),
-  put: sinon.spy(),
-  delete: sinon.spy()
-};
+const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
 // require the index with our stubbed out modules
 const scheduleIndex = proxyquire('./index.js', {
@@ -32,33 +34,34 @@ const scheduleIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
-  './schedule.controller': scheduleCtrlStub,
-  '../../auth/auth.service': authServiceStub
+  '../../auth/auth.service': authServiceStub,
+  '../../middleware/async-wrapper': asyncWrapperStub,
+  './schedule.controller': scheduleCtrlStub
 });
 
-describe('Schedule API Router:', () => {
+describe('Schedule API Router:', function() {
   it('should return an express router instance', done => {
     scheduleIndex.should.equal(routerStub);
     done();
   });
 
-  describe('GET /api/schedule', () => {
+  describe('GET /api/schedule', function() {
     it('should route to schedule.controller.index', done => {
-      routerStub.get.withArgs('/', 'scheduleCtrl.index').should.have.been.calledOnce;
+      routerStub.get.withArgs('/', 'asyncWrapper.scheduleCtrl.index').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('PUT /api/schedule/:id', () => {
+  describe('PUT /api/schedule/:id', function() {
     it('should be authenticated and route to schedule.controller.upsert', done => {
-      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'scheduleCtrl.upsert').should.have.been.calledOnce;
+      routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.scheduleCtrl.upsert').should.have.been.calledOnce;
       done();
     });
   });
 
-  describe('DELETE /api/schedule/:id', () => {
+  describe('DELETE /api/schedule/:id', function() {
     it('should verify admin role and route to schedule.controller.destroy', done => {
-      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'scheduleCtrl.destroy').should.have.been.calledOnce;
+      routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.scheduleCtrl.destroy').should.have.been.calledOnce;
       done();
     });
   });
