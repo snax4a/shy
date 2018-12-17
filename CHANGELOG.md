@@ -1,6 +1,6 @@
 # Product Backlog
-* [High] Refactor server/api/ user controller for async/await
-* [High] Refactor server/api/ order, user, and schedule controllers to remove Sequelize dependency
+* [High] Refactor server/auth/auth.service.js for async/await
+* [High] Refactor server/api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

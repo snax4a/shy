@@ -14,11 +14,10 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 10.13.0 and npm 6.4.1](nodejs.org) (`brew install node`)
-- [PostgreSQL 10.5.0](http://postgresql.org) (`brew install postgresql`)
+- [Node.js 10.14.2 and npm 6.5.0](nodejs.org) (`brew install node@10`)
+- [PostgreSQL 11.1.0](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin4](https://www.postgresql.org/download/)
 - [Chrome >= 62] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
-- To compile [node-sodium](https://github.com/paixaop/node-sodium), (`brew install libtool autoconf automake`)
 - Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
 
@@ -28,7 +27,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 2. Run `git clone https://github.com/nstuyvesant/shy.git` then connect to the /shy directory.
 
-3. Run `npm install -g gulp@4.0.0` to install gulp 4 globally.
+3. Run `npm install -g gulp` to install Gulp.
 
 4. Run `npm install` to install server dependencies.
 
@@ -56,7 +55,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 [express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.7.5-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-10.13.0-green.svg
+[node]: https://img.shields.io/badge/nodejs-10.14.2-green.svg
 [node-url]: https://nodejs.org
-[postgresql]: https://img.shields.io/badge/postgresql-10.5.0-blue.svg
+[postgresql]: https://img.shields.io/badge/postgresql-11.1.0-blue.svg
 [postgresql-url]: https://www.postgresql.org
