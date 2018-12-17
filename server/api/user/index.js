@@ -1,17 +1,18 @@
 'use strict';
 const router = require('express').Router();
-const controller = require('./user.controller');
 const auth = require('../../auth/auth.service');
+const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
+const controller = require('./user.controller');
 
-router.get('/', auth.hasRole('teacher'), controller.index); // teacher, admin, get users
-router.get('/me', auth.isAuthenticated(), controller.me); // user, retrieve profile
+router.get('/', auth.hasRole('teacher'), asyncWrapper(controller.index)); // teacher, admin, get users
+router.get('/me', auth.isAuthenticated(), asyncWrapper(controller.me)); // user, retrieve profile
 
-router.post('/', controller.create); // sign-up and login
-router.post('/forgotpassword', controller.forgotPassword); // gen new password and email
+router.post('/', asyncWrapper(controller.create)); // sign-up and login
+router.post('/forgotpassword', asyncWrapper(controller.forgotPassword)); // gen new password and email
 
-router.put('/:id', auth.isAuthenticated(), controller.update); // user - update profile
-router.put('/:id/admin', auth.hasRole('teacher'), controller.upsert); // teacher/admin - update existing user
+router.put('/:id', auth.isAuthenticated(), asyncWrapper(controller.update)); // user - update profile
+router.put('/:id/admin', auth.hasRole('teacher'), asyncWrapper(controller.upsert)); // teacher/admin - update existing user
 
-router.delete('/:id', auth.hasRole('admin'), controller.destroy); // admin, delete user
+router.delete('/:id', auth.hasRole('admin'), asyncWrapper(controller.destroy)); // admin, delete user
 
 module.exports = router;
