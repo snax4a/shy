@@ -84,7 +84,7 @@
               a.edit(ng-click="$ctrl.historyItemEdit(historyItem)")
                 span.fas.fa-pencil-alt
             |&nbsp;&nbsp;
-            nobr {{ historyItem.when | date: 'd-MMM-yy' }}
+            nobr {{ historyItem.when | date: 'd-MMM-yy' : 'UTC' }}
           td(ng-class='historyItem.type=="P" ? "purchase" : "attendance"') {{ historyItem.what }}
           td.col-right {{ historyItem.quantity }}
           td.col-right {{ historyItem.balance }}
