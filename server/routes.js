@@ -37,7 +37,7 @@ export default function(app) {
     const status = err.status || err.statusCode || 500;
     const message = err.message || 'Something unexpected happened';
     const errors = err.errors || [];
-    console.error(`\x1b[31mERROR ${status}: ${message}`);
+    console.error(`\x1b[31mERROR ${status}: ${message}`); // display in red
     res.statusMessage = message;
     res.status(status).send({ status, message, errors });
   });
