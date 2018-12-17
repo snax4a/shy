@@ -66,7 +66,7 @@ describe('User API:', () => {
         return foundUser.save();
       });
 
-  describe('Methods for anyone:', () => {
+  describe('Methods for anyone:', function() {
     before(() => recreate());
     after(() => destroy());
 
@@ -78,7 +78,7 @@ describe('User API:', () => {
     });
 
     // Check response from user.controller.js:forgotPassword
-    describe('POST /api/users/forgotpassword', () => {
+    describe('POST /api/users/forgotpassword', function() {
       it('should generate a new password and email it to the user', () =>
         request(app)
           .post('/api/users/forgotpassword')
@@ -92,12 +92,12 @@ describe('User API:', () => {
     });
   });
 
-  describe('Methods for current user:', () => {
+  describe('Methods for current user:', function() {
     before(() => recreate());
     after(() => destroy());
 
     // user.controller.js:me
-    describe('GET /api/users/me', () => {
+    describe('GET /api/users/me', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .get('/api/users/me')
@@ -117,7 +117,7 @@ describe('User API:', () => {
     });
 
     // Check response from user.controller.js:update
-    describe('PUT /api/users/:id', () => {
+    describe('PUT /api/users/:id', function() {
       it('should respond with a 401 when not authenticated', () =>
         getUserProfile()
           .then(() =>
@@ -155,7 +155,7 @@ describe('User API:', () => {
     });
   });
 
-  describe('Methods for teachers or admins:', () => {
+  describe('Methods for teachers or admins:', function() {
     // Recreate user, change role to teacher (think about testing for admin, too)
     before(() =>
       recreate()
@@ -164,7 +164,7 @@ describe('User API:', () => {
     after(() => destroy()); // should be done by DELETE /api/users/:id but here in case of errors
 
     // controller.index (teacher or admin)
-    describe('GET /api/users/', () => {
+    describe('GET /api/users/', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .get('/api/users?filter=SHY')
@@ -185,7 +185,7 @@ describe('User API:', () => {
     });
 
     // controller.upsert (teacher or admin)
-    describe('PUT /api/users/:id/admin', () => {
+    describe('PUT /api/users/:id/admin', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .put(`/api/users/${user._id}/admin`)
@@ -213,7 +213,7 @@ describe('User API:', () => {
     });
 
     // controller.destroy (admin only)
-    describe('DELETE /api/users/:id', () => {
+    describe('DELETE /api/users/:id', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
           .delete(`/api/users/${user._id}`)
