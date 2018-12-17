@@ -1,23 +1,10 @@
 'use strict';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import Sequelize from 'sequelize';
+const db = require('../../db');
 
 import config from '../../config/environment';
 import { User } from '../../sqldb';
-
-const sequelize = new Sequelize(config.sequelize.uri, config.sequelize.options);
-
-// Passes JSON back so that UI fields can be flagged for validation issues
-function validationError(res, statusCode) {
-  statusCode = statusCode || 422;
-  return err => res.status(statusCode).json(err);
-}
-
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return err => res.status(statusCode).send(err);
-}
 
 class UserError extends Error {
   constructor(message, path) {
@@ -29,8 +16,14 @@ class UserError extends Error {
   }
 }
 
+function userMissingError() {
+  let thisError = new UserError('No user with that email address was found.', 'email');
+  thisError.status = 404;
+  throw thisError;
+}
+
 // Gets list of users with balances using filter (teacher or admin-only)
-export function index(req, res) {
+export async function index(req, res) {
   const sql = `
     SELECT _id,
       INITCAP("lastName") AS "lastName",
@@ -47,19 +40,16 @@ export function index(req, res) {
       LEFT OUTER JOIN
         (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance
         ON "user"._id = attendance."UserId"
-    WHERE "user"."firstName" ILIKE :searchString OR "user"."lastName" ILIKE :searchString OR "user"."email" ILIKE :searchString
+    WHERE "user"."firstName" ILIKE $1 || '%' OR "user"."lastName" ILIKE $1 || '%' OR "user"."email" ILIKE $1 || '%'
     ORDER BY "user"."lastName", "user"."firstName";`;
-  return sequelize.query(sql,
-    { replacements: { searchString: `${req.query.filter}%` }, type: sequelize.QueryTypes.SELECT })
-    .then(users => res.status(200).json(users))
-    .catch(handleError(res));
+  const { rows } = await db.query(sql, [req.query.filter]);
+  res.status(200).send(rows);
 }
 
 // Gets attributes for logged-in user
-export function me(req, res, next) {
+export async function me(req, res) {
   let userId = req.user._id;
-
-  return User.findOne({
+  const user = await User.findOne({
     where: {
       _id: userId
     },
@@ -73,112 +63,101 @@ export function me(req, res, next) {
       'optOut',
       'provider'
     ]
-  })
-    .then(user => {
-      if(!user) {
-        return res.status(401).end();
-      }
-      return res.status(200).json(user);
-    })
-    .catch(err => next(err));
+  });
+  if(!user) userMissingError();
+  res.status(200).send(user);
 }
 
 // Creates new user and logs them in
-export function create(req, res) {
+export async function create(req, res) {
   let newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'student');
-  return newUser.save()
-    .then(user => {
-      let token = jwt.sign({ _id: user._id }, config.secrets.session, {
-        expiresIn: 60 * 60 * 5
-      });
-      res.status(200).json({ token });
-      return user;
-    })
-    .catch(validationError(res));
+  const user = await newUser.save();
+  let token = jwt.sign({ _id: user._id }, config.secrets.session, {
+    expiresIn: 60 * 60 * 5
+  });
+  res.status(200).send({ token });
 }
 
 // Resets password for user and emails it to them (add security question in future)
-export function forgotPassword(req, res) {
+export async function forgotPassword(req, res) {
   // If a local user exists, generate and email a new random password
   let html;
-  return User.findOne({
+  const userToUpdate = await User.findOne({
     where: {
       email: req.body.email
     }
-  })
-    .then(userToUpdate => {
-      if(!userToUpdate) throw new UserError('No user with that email address was found.');
-      if(userToUpdate.provider !== 'local') throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
-      const newPassword = crypto.randomBytes(8).toString('base64'); // new password
-      userToUpdate.password = newPassword;
-      html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
-        Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
-      return userToUpdate.save();
-    })
-    .then(() => {
-      const message = {
-        to: req.body.email,
-        subject: 'Schoolhouse Yoga website login',
-        html
-      };
-      const DELAY = 0; // milliseconds
-      // Send the email then let the user know it was sent
-      setTimeout(() => config.mail.transporter.sendMail(message)
-        .then(info => console.log(`New password emailed to ${info.envelope.to} ${info.messageId}`))
-        .catch(error => console.log(`Email error occurred: ${error.message}`, error))
-      , DELAY);
-      return res.status(200).send('New password sent.');
-    })
-    .catch(error => {
-      // console.log(error.message, error);
-      if(!res.headersSent) return res.status(404).json(error);
-      return null;
-    });
+  });
+
+  // Conditions for throwing errors
+
+  // User not found (404)
+  if(!userToUpdate) userMissingError();
+
+  // If a Google-integrated login, user must reset their password on Google - not here.
+  if(userToUpdate.provider !== 'local') {
+    let googleError = new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
+    googleError.status = 403;
+    console.log('googleError', googleError);
+    throw googleError;
+  }
+
+  // Generate a new random password and save it
+  const newPassword = crypto.randomBytes(8).toString('base64'); // new password
+  userToUpdate.password = newPassword;
+  html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
+  Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
+  await userToUpdate.save();
+
+  // Generate email
+  const message = {
+    to: req.body.email,
+    subject: 'Schoolhouse Yoga website login',
+    html
+  };
+  await config.mail.transporter.sendMail(message);
+
+  // Tell the user the new password was sent (if we do this before sendMail, we'll need to check headers in our central error handler)
+  res.status(200).send('New password sent.');
 }
 
 // Updates attributes for authenticated user (Profile page)
-export function update(req, res) {
-  return User.findByPk(req.user._id) // users can only update themselves (req.user vs. req.body.user)
-    .then(userToUpdate => {
-      // Only authenticate and handle password or email changes for local accounts
-      if(userToUpdate.provider === 'local') {
-        // Check password
-        const password = String(req.body.password);
-        if(!userToUpdate.authenticate(password)) throw new UserError('Password is incorrect.', 'password');
+export async function update(req, res) {
+  const userToUpdate = await User.findByPk(req.user._id); // users can only update themselves (req.user vs. req.body.user)
 
-        // Check for a password change
-        const passwordNew = String(req.body.passwordNew);
-        if(passwordNew !== 'undefined') {
-          const passwordConfirm = String(req.body.passwordConfirm);
-          if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
-          userToUpdate.password = passwordNew;
-        }
+  // Only authenticate and handle password or email changes for local accounts
+  if(userToUpdate.provider === 'local') {
+    // Check password
+    const password = String(req.body.password);
+    if(!userToUpdate.authenticate(password)) throw new UserError('Password is incorrect.', 'password');
 
-        // If nothing failed so far, handle email change
-        userToUpdate.email = String(req.body.email);
-      } else Reflect.deleteProperty(userToUpdate.dataValues, 'password'); // no password change
+    // Check for a password change
+    const passwordNew = String(req.body.passwordNew);
+    if(passwordNew !== 'undefined') {
+      const passwordConfirm = String(req.body.passwordConfirm);
+      if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
+      userToUpdate.password = passwordNew;
+    }
 
-      // Set relevant properties
-      userToUpdate.firstName = String(req.body.firstName);
-      userToUpdate.lastName = String(req.body.lastName);
-      userToUpdate.phone = String(req.body.phone);
-      userToUpdate.optOut = req.body.optOut;
+    // If nothing failed so far, handle email change
+    userToUpdate.email = String(req.body.email);
+  } else Reflect.deleteProperty(userToUpdate.dataValues, 'password'); // no password change
 
-      // Prevent hacking the role
-      Reflect.deleteProperty(userToUpdate.dataValues, 'role');
+  // Set relevant properties
+  userToUpdate.firstName = String(req.body.firstName);
+  userToUpdate.lastName = String(req.body.lastName);
+  userToUpdate.phone = String(req.body.phone);
+  userToUpdate.optOut = req.body.optOut;
 
-      // Update the user
-      return userToUpdate.save()
-        .then(user => res.status(200).json({ _id: user._id }))
-        .catch(validationError(res));
-    })
-    .catch(validationError(res));
+  // Prevent hacking the role
+  Reflect.deleteProperty(userToUpdate.dataValues, 'role');
+  const user = await userToUpdate.save();
+  res.status(200).send({ _id: user._id });
 }
 
 // Updates or creates user (teachers or admins)
-export function upsert(req, res) {
+export async function upsert(req, res) {
   // New users are flagged with _id of zero, strip it before User.build
   if(req.body._id === 0) Reflect.deleteProperty(req.body, '_id');
 
@@ -197,16 +176,14 @@ export function upsert(req, res) {
     } else throw new UserError('Passwords must match.', 'passwordConfirm');
   } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
 
-  return userToUpsert.save()
-    .then(user => res.status(200).json({ _id: user._id }))
-    .catch(validationError(res));
+  const user = await userToUpsert.save();
+  res.status(200).send({ _id: user._id });
 }
 
 // Deletes user (admin-only)
-export function destroy(req, res) {
-  return User.destroy({ where: { _id: req.params.id } })
-    .then(() => res.status(204).end())
-    .catch(handleError(res));
+export async function destroy(req, res) {
+  await User.destroy({ where: { _id: req.params.id } });
+  res.status(204).end();
 }
 
 // Authentication callback - is it needed?

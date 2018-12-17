@@ -36,9 +36,9 @@ export default function(app) {
   app.use((err, req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || 'Something unexpected happened';
-    const badField = err.badField;
+    const errors = err.errors || [];
     console.error(`\x1b[31mERROR ${status}: ${message}`);
     res.statusMessage = message;
-    res.status(status).send({ status, message, badField });
+    res.status(status).send({ status, message, errors });
   });
 }

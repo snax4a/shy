@@ -78,20 +78,19 @@ export class ForgotPasswordController {
       })
       .catch(response => {
         let err = response.data;
-        this.errors = {};
+        this.errors = err.errors;
+
         // Update validity of form fields that match the server errors
-        if(err.name) {
-          for(let error of err.errors) {
-            form[error.path].$setValidity('server', false);
-            this.errors[error.path] = error.message;
-          }
+        for(let error of err.errors) {
+          form[error.path].$setValidity('server', false);
+          this.errors[error.path] = error.message;
         }
         return null;
       }); // $http.post
   }
 
   cancel() {
-    this.$uibModalInstance.dismiss('cancel');
+    this.$uibModalInstance.close(false);
   }
 }
 
