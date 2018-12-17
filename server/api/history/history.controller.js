@@ -28,7 +28,7 @@ export async function index(req, res) {
     SELECT history._id,
       history."UserId",
       history.type,
-      history."when"::date,
+      history."when"::DATE,
       history.location,
       history."classTitle",
       history.teacher,
@@ -36,7 +36,7 @@ export async function index(req, res) {
       history.notes,
       history.what,
       history.quantity,
-      (sum(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
+      (SUM(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
     FROM (
       SELECT "Attendances"._id,
         "Attendances"."UserId",
@@ -55,7 +55,7 @@ export async function index(req, res) {
       SELECT "Purchases"._id,
         "Purchases"."UserId",
         'P'::text AS type,
-        "Purchases"."createdAt" AS "when",
+        "Purchases"."createdAt"::DATE AS "when",
         NULL AS location,
         NULL AS "classTitle",
         NULL AS teacher,
