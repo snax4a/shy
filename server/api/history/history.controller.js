@@ -18,7 +18,7 @@ export async function attendees(req, res) {
       "Attendances"."classTitle" = $4
     ORDER BY "Users"."lastName", "Users"."firstName";`;
   const { rows } = await db.query(sql, [attended, location, teacher, classTitle]);
-  res.status(200).json(rows);
+  res.status(200).send(rows);
 }
 
 // Get a list of history items for a particular user with a running balance
@@ -68,7 +68,7 @@ export async function index(req, res) {
     ORDER BY history."UserId", history."when" DESC;`;
 
   const { rows } = await db.query(sql, [id]);
-  res.status(200).json(rows);
+  res.status(200).send(rows);
 }
 
 // Create history item (Attendance or Purchase) for a user
@@ -90,7 +90,7 @@ export async function create(req, res) {
   }
 
   const { rows } = await db.query(sql, arrParams);
-  res.status(200).json({ _id: rows[0]._id });
+  res.status(200).send({ _id: rows[0]._id });
 }
 
 // Update history item based on its _id and type
@@ -118,7 +118,7 @@ export async function update(req, res) {
   }
 
   const { rows } = await db.query(sql, arrParams);
-  res.status(200).json({ _id: rows[0]._id });
+  res.status(200).send({ _id: rows[0]._id });
 }
 
 // Delete history item based on its _id and type
@@ -134,7 +134,7 @@ export async function destroy(req, res) {
   }
 
   await db.query(sql, [_id]);
-  res.status(204).json({ _id });
+  res.status(204).send({ _id });
 }
 
 // Authentication callback - is it needed?

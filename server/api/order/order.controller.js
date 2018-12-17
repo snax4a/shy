@@ -240,7 +240,7 @@ export async function create(req, res) {
   const braintreeTransaction = await braintreeGatewayTransactionSale(orderInfo);
 
   // Send result without waiting for database or email (client will handle declines)
-  res.status(200).json(braintreeTransaction);
+  res.status(200).send(braintreeTransaction);
 
   if(braintreeTransaction.success) {
     let confirmation = braintreeTransaction.transaction;

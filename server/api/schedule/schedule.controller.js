@@ -71,7 +71,7 @@ export async function index(req, res) {
     attributes: ['_id', 'location', 'day', 'title', 'teacher', 'startTime', 'endTime', 'canceled'],
     order: ['location', 'day', 'startTime']
   });
-  return flat ? res.status(200).json(schedule) : res.status(200).json(nest(schedule));
+  return flat ? res.status(200).send(schedule) : res.status(200).send(nest(schedule));
 }
 
 // Updates or creates schedule item (admin-only)
@@ -83,7 +83,7 @@ export async function upsert(req, res) {
   scheduleItemToUpsert.isNewRecord = isNew;
 
   const scheduleItem = await scheduleItemToUpsert.save();
-  res.status(200).json({ _id: scheduleItem._id });
+  res.status(200).send({ _id: scheduleItem._id });
 }
 
 // Deletes schedule item (admin-only)

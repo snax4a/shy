@@ -36,7 +36,7 @@ function nest(flatAnnouncements) {
 // Returns list of Announcements
 export async function index(req, res) {
   const { rows } = await db.query('SELECT _id, section, title, description, expires FROM "Announcements" WHERE expires > CURRENT_DATE ORDER BY section, expires;');
-  return req.query.flat ? res.status(200).json(rows) : res.status(200).json(nest(rows));
+  return req.query.flat ? res.status(200).send(rows) : res.status(200).send(nest(rows));
 }
 
 // Updates or creates announcement (admin-only)
@@ -52,7 +52,7 @@ export async function upsert(req, res) {
     arrParams.unshift(_id);
   }
   const { rows } = await db.query(sql, arrParams);
-  res.status(200).json({ _id: rows[0]._id });
+  res.status(200).send({ _id: rows[0]._id });
 }
 
 // Deletes announcement (admin-only)
@@ -60,7 +60,7 @@ export async function destroy(req, res) {
   const _id = req.params.id;
   const sql = 'DELETE FROM "Announcements" WHERE _id = $1;';
   await db.query(sql, [_id]);
-  res.status(204).json({ message: `Announcement ${_id} deleted.`});
+  res.status(204).send({ message: `Announcement ${_id} deleted.`});
 }
 
 // Authentication callback - is it needed?

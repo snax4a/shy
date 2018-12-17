@@ -11,7 +11,7 @@ module.exports[404] = function pageNotFound(req, res) {
   res.status(result.status);
   res.render(viewFilePath, {}, (err, html) => {
     if(err) {
-      return res.status(result.status).json(result);
+      return res.status(result.status).send(result);
     }
     return res.send(html);
   });
