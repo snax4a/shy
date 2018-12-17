@@ -2,7 +2,6 @@
 
 'use strict';
 
-import errors from './middleware/errors';
 import path from 'path';
 
 export default function(app) {
@@ -23,7 +22,7 @@ export default function(app) {
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|middleware|app|assets)/*')
-    .get(errors[404]);
+    .get((req, res) => res.status(404).send({ message: `${req.url} not found.` }));
 
   // All other routes should redirect to the index.html
   app.route('/*')
@@ -32,4 +31,14 @@ export default function(app) {
       const startingPoint = fqdn.includes('leta.guru') ? 'leta' : 'index';
       res.sendFile(path.resolve(`${app.get('appPath')}/${startingPoint}.html`));
     });
+
+  // 500 - Any server error
+  app.use((err, req, res, next) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || 'Something unexpected happened';
+    const badField = err.badField;
+    console.error(`\x1b[31mERROR ${status}: ${message}`);
+    res.statusMessage = message;
+    res.status(status).send({ status, message, badField });
+  });
 }
