@@ -2,9 +2,9 @@
 
 'use strict';
 
-module.exports = middleware => async(req, res, next) => {
+module.exports = fn => async(req, res, next) => {
   try {
-    await middleware(req, res, next);
+    await fn(req, res, next);
   } catch(err) {
     return next(err);
   }
