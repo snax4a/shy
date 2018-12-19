@@ -225,22 +225,11 @@ export class Cart {
     } else this.addItem(productID); // fallback to regular cart behavior with navigation to cart page
   }
 
-  // Returns a promise for the token
-  braintreeGetToken() {
-    // If we already have one, return that
-    if(this.clientToken) return this.$q(resolve => resolve(this.clientToken));
-
-    // Otherwise, request one from the server
-    return this.$http
-      .get('api/token')
-      .then(tokenResponse => {
-        this.clientToken = tokenResponse.data;
-        return tokenResponse.data;
-      })
-      .catch(tokenResponse => {
-        this.$log.error('Not able to get a token from the web server. Please make sure the server is running and connecting to Braintree.', tokenResponse);
-        return tokenResponse;
-      });
+  async braintreeGetToken() {
+    if(this.clientToken) return this.clientToken; // no need to re-request
+    const response = await this.$http.get('api/token');
+    this.clientToken = response.data;
+    return this.clientToken; // Shouldn't be needed but it is currently
   }
 
   // Returns a promise for the clientInstance
