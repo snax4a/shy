@@ -42,22 +42,11 @@ module.exports = function makeWebpackConfig(options) {
             {
               loader: 'babel-loader',
               options: {
-                babelrc: false, // .babelrc configured for tools and server transpile only
+                babelrc: false, // use .babelrc for tools and server transpile only
                 plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate'],
                 presets: [
                   ['@babel/preset-env', {
-                    targets: {
-                      browsers: [
-                        'chrome >= 59',
-                        'firefox >= 52',
-                        'safari >= 9',
-                        'ie >= 11',
-                        'ios >= 10',
-                        'android >= 5.1'
-                      ]
-                    },
-                    debug: false,
-                    loose: true // fails if false
+                    targets: '> 1%'
                   }]
                 ]
               }
