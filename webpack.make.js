@@ -46,7 +46,9 @@ module.exports = function makeWebpackConfig(options) {
                 plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate'],
                 presets: [
                   ['@babel/preset-env', {
-                    targets: '> 1%'
+                    targets: '> 1%',
+                    // useBuiltIns: 'usage', // adds 22K
+                    loose: false // true reduces size by 2K, false requires @babel-runtime
                   }]
                 ]
               }
