@@ -32,7 +32,7 @@ export default function(app) {
       res.sendFile(path.resolve(`${app.get('appPath')}/${startingPoint}.html`));
     });
 
-  // 500 - Any server error
+  // Global error-handler
   app.use((err, req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || 'Something unexpected happened';

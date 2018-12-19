@@ -60,8 +60,8 @@ describe('Order API:', function() {
     );
 
     it('should return a confirmation with contact info that matches submitted', () => {
-      confirmation.transaction.customer.firstName.should.equal('John');
-      confirmation.transaction.customer.lastName.should.equal('Doe');
+      confirmation.customer.firstName.should.equal('John');
+      confirmation.customer.lastName.should.equal('Doe');
     });
   });
 });

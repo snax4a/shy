@@ -40,9 +40,6 @@
           .panel-heading
             #paymentPanelTitle.panel-title Payment Info
           .panel-body
-            .row(ng-show='$ctrl.braintreeError')
-              .form-group.col-xs-12
-                .help-block.has-error {{ $ctrl.braintreeError }}
             .row(ng-if='$ctrl.Cart.applePayEnabled')
               .col-xs-12
                 a.apple-pay-button(ng-click='$ctrl.applePayCheckout()')
@@ -59,7 +56,7 @@
                     span.far.fa-credit-card
                 ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.number', ng-show='(!$ctrl.Cart.hostedFieldsState.number.isEmpty && $ctrl.Cart.hostedFieldsState.number.isInvalid) || checkout.$submitted', role='alert')
                   ng-message(when='isEmpty') Please provide a card number.
-                  ng-message(when='isInvalid') Please provide a valid card number.
+                  ng-message(when='isInvalid') {{ $ctrl.braintreeError || 'Please provide a valid card number.' }} 
               .form-group.col-xs-7.col-sm-5.col-lg-4
                 label(for='expiration-date') Expires
                 .input-group(style='margin-bottom: 0px!important')

@@ -24,9 +24,8 @@ export class CheckOutComponent {
       .catch(braintreeError => this.$log.error('Error setting up Braintree Hosted Fields', braintreeError));
 
     // Wait a second then set the focus to the credit card number by clicking its label
-    let fieldToClick = this.$window.document.getElementById('labelCardNumber');
     this.$timeout(() => {
-      fieldToClick.click();
+      this.focusOnCardNumber();
     }, 1000);
 
     // Defaults
@@ -55,20 +54,20 @@ export class CheckOutComponent {
     this.$window.history.back();
   }
 
+  focusOnField(id) {
+    this.$window.document.getElementById(id).click();
+  }
+
   // Set the focus to the credit card number field
   focusOnCardNumber() {
-    // Set focus to card-number (hosted field) if we can (in an iframe so maybe not)
-    // If not, remove this method
-    let fieldToGetFocus = this.$window.document.getElementById('labelCardNumber');
-    fieldToGetFocus.click();
+    this.focusOnField('labelCardNumber');
   }
 
   // Handle when the order has a different recipient
   focusOnRecipient() {
     // Set focus to recipientFirstName using $timeout (because fields are disabled now)
-    let fieldToGetFocus = this.$window.document.getElementById('recipientFirstName');
     this.$timeout(() => {
-      fieldToGetFocus.focus();
+      this.focusOnField('recipientFirstName');
     }, 50);
   }
 
@@ -84,13 +83,13 @@ export class CheckOutComponent {
     if(form.$valid) {
       return this.Cart.placeOrder()
         .then(() => { // Don't need the placeOrder return value, braintreeSaleResponse, since it's added to Cart.confirmation
-          this.$location.path('/confirmation');
+          this.$location.path('/confirmation'); // which should get the confirmation and orderItems but doesn't
         })
-        .catch(braintreeError => {
+        .catch(err => { // catch errors from Cart service here
           // form.$submitted = false; // reset submitted state (why would I change this?)
+          this.braintreeError = err.statusText; // for view data-binding
+          this.Cart.hostedFieldsState.number.isInvalid = true;
           this.buttonDisabled = false;
-          this.braintreeError = braintreeError.message; // for view data-binding
-          this.$log.info(`Braintree error: ${this.braintreeError}`, braintreeError);
           if(this.braintreeError.includes('card')) this.focusOnCardNumber();
         });
     } // form.$valid

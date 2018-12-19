@@ -11,7 +11,7 @@ export class ConfirmationComponent {
   }
 
   $onInit() {
-    this.confirmation = this.Cart.confirmation.transaction;
+    this.confirmation = this.Cart.confirmation;
   }
 }
 
@@ -22,4 +22,3 @@ export default angular.module('shyApp.confirmation', [ngRoute])
     controller: ConfirmationComponent
   })
   .name;
-

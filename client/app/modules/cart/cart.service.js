@@ -292,13 +292,11 @@ export class Cart {
   braintreeHostedFieldsEventHandlers(eventNameArray) {
     for(let eventName of eventNameArray) {
       this.hostedFieldsInstance.on(eventName, event => {
-        // const fieldName = event.emittedBy;
-        // const field = event.fields[fieldName];
-        // Make event handlers run digest cycle using $timeout (simulate $scope.apply())
-        // In Angular 2, use zones
         this.$timeout(() => {
-          this.braintreeUpdateHostedFieldsState();
-          return event;
+          if(eventName === 'validityChange') {
+            this.braintreeUpdateHostedFieldsState();
+            return event;
+          }
         });
       });
     }
@@ -378,15 +376,15 @@ export class Cart {
       cartItems: this.cartItems // reference but it's being posted anyway
     };
 
-    // Return promise from POST to /api/order
+    // Return promise from POST /api/order - errors intentionally not handled here so UI component can catch them
     return this.$http
       .post('/api/order', orderInformation)
       .then(orderResponse => {
-        // Connect response data to the cart's confirmation (even if an ErrorResponse)
+        // Connect response data to the cart's confirmation
         this.confirmation = orderResponse.data;
 
-        // If Braintree does not report success, throw error to controller so it can adjust view
-        if(!orderResponse.data.success) throw orderResponse.data;
+        // Make the data readable in local time zone
+        this.confirmation.createdAt = new Date(this.confirmation.createdAt).toLocaleString();
 
         // Clear the cart to avoid duplicate orders (only if successful though)
         this.clearCartItems();
