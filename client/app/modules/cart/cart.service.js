@@ -204,22 +204,19 @@ export class Cart {
     // Then send the request
     const session = new window.ApplePaySession(1, applePaymentRequest);
 
-    // Callback to handle merchant validation from Apple
-    session.onvalidatemerchant = event => {
-      this.applePayInstance.performValidation({
-        validationURL: event.validationURL,
-        displayName: 'Schoolhouse Yoga, Inc.'
-      }, (validationErr, merchantSession) => {
-        if(validationErr) {
-          this.$log.error('Error validating Apple Pay merchant:', validationErr);
-          session.abort();
-          return;
-        }
+    // Callback to handle merchant validation from Apple - https://developers.braintreepayments.com/guides/apple-pay/client-side/javascript/v3#onvalidatemerchant-callback
+    session.onvalidatemerchant = async event => {
+      try {
+        const merchantSession = await this.applePayInstance.performValidation({
+          validationURL: event.validationURL,
+          displayName: 'Schoolhouse Yoga, Inc.'
+        });
         session.completeMerchantValidation(merchantSession);
-      }); // this.applePayInstance.performValidation
+      } catch(err) {
+        this.$log.error('Error validating Apple Pay merchant:', err);
+        session.abort();
+      }
     }; // session.onvalidatemerchant
-
-//TODO: See if event handlers can be promises
 
     // Callback to handle selection of shipping method
     session.onshippingmethodselected = event => {
@@ -234,14 +231,9 @@ export class Cart {
       );
     };
 
-    // Callback to handle payment authorized from Apple
-    session.onpaymentauthorized = event => {
-      this.applePayInstance.tokenize({ token: event.payment.token }, (tokenizeErr, payload) => {
-        if(tokenizeErr) {
-          this.$log.error('Error tokenizing Apple Pay:', tokenizeErr);
-          session.completePayment(session.STATUS_FAILURE);
-          return;
-        }
+    session.onpaymentauthorized = async event => {
+      try {
+        const payload = await this.applePayInstance.tokenize({ token: event.payment.token });
         session.completePayment(session.STATUS_SUCCESS);
 
         // Get this.purchaser and this.recipient from event.payment
@@ -249,7 +241,11 @@ export class Cart {
 
         // Post the order and handle errors
         this.postOrderInformation(payload);
-      });
+      } catch(err) {
+        this.$log.error('Error tokenizing Apple Pay:', err);
+        session.completePayment(session.STATUS_FAILURE);
+        return;
+      }
     }; // session.onpaymentauthorized
 
     // Show the payment sheet on the device
@@ -323,8 +319,8 @@ export class Cart {
     // Clear the cart to avoid duplicate orders (only if successful though)
     this.clearCartItems();
 
-    // Must return something
-    return this.confirmation; // resolve promise (even though calling functions don't use the return value)
+    // Return confirmation to resolve the promise
+    return this.confirmation;
   }
 
   // Clear the cartItems during checkout()
