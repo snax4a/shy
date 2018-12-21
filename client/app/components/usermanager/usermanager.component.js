@@ -432,7 +432,7 @@ class HistoryEditorController {
       // Adjust for differences between server and client
       let updatedHistoryItem = {};
       angular.copy(this.historyItem, updatedHistoryItem);
-      updatedHistoryItem.when = this.historyItem.when.toISOString();
+      updatedHistoryItem.when = new Date(this.historyItem.when).toISOString();
       updatedHistoryItem.createdAt = this.historyItem.when;
       updatedHistoryItem.attended = this.historyItem.when;
       updatedHistoryItem.method = this.historyItem.paymentMethod;
