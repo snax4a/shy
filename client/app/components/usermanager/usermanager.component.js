@@ -433,8 +433,8 @@ class HistoryEditorController {
       let updatedHistoryItem = {};
       angular.copy(this.historyItem, updatedHistoryItem);
       updatedHistoryItem.when = new Date(this.historyItem.when).toISOString();
-      updatedHistoryItem.createdAt = this.historyItem.when;
-      updatedHistoryItem.attended = this.historyItem.when;
+      updatedHistoryItem.createdAt = updatedHistoryItem.when;
+      updatedHistoryItem.attended = updatedHistoryItem.when;
       updatedHistoryItem.method = this.historyItem.paymentMethod;
       // Send update via HTTP PUT
       this.$http.put(`/api/history/${updatedHistoryItem._id}`, updatedHistoryItem)
