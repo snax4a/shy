@@ -17,9 +17,7 @@ export class CheckOutComponent {
   }
 
   $onInit() {
-    // Create Braintree Hosted Fields
-    // NOTE: if checkout is displayed and page is refreshed /api/token will be called 2x (here and from Cart service)
-    // TODO: wait for Cart service to finish constructor()
+    // Create Braintree Hosted Field (dependency: Cart.clientInstance)
     this.Cart.braintreeHostedFieldsCreate()
       .catch(braintreeError => this.$log.error('Error setting up Braintree Hosted Fields', braintreeError));
 

@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] checkout component should wait for Cart service to get clientInstance
 * [High] Create services (factories) for $http interactions
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)

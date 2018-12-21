@@ -34,11 +34,9 @@ export class Cart {
     this.applePayEnabled = false; // default until checked
     this.initializeProperties();
 
-    // This happens once when app is loaded
     // Get token, setup Braintree client instance and Apple Pay instance (if applicable)
-    this.braintreeClientInstanceCreate()
-      .then(this.applePayInstanceCreate.bind(this))
-      .catch(braintreeError => this.$log.info('Error setting up Braintree client instance or checking for Apple Pay support.', braintreeError));
+    // initialized property used to prevent navigation to checkout until we have a client instance
+    this.initialized = this.braintreeInitialize();
   }
 
   initializeProperties() {
@@ -51,54 +49,27 @@ export class Cart {
     this.hostedFieldsState = {};
   }
 
-  async braintreeTokenGet() {
-    if(this.clientToken) return; // Don't request a token if one already exists
-    const response = await this.$http.get('api/token');
-    this.clientToken = response.data;
-    console.log('braintreeTokenGet() - clientToken', this.clientToken);
-    return this.clientToken; // resolve promise (even though calling functions don't use the return value)
-  }
-
-  async braintreeClientInstanceCreate() {
-    if(this.clientInstance) return this.clientInstance; // Don't request a client instance if one already exists
-    if(!this.clientToken) {
-      await this.braintreeTokenGet();
-      // Still no joy?
-      if(!this.clientToken) throw new Error('A token is required in order to create a Braintree client instance.');
-    }
-    this.clientInstance = await braintreeClient.create({ authorization: this.clientToken });
-    console.log('braintreeClientInstanceCreate() - clientInstance', this.clientInstance);
-    return this.clientInstance; // resolve promise (even though calling functions don't use the return value)
-  }
-
-  async applePayInstanceCreate() {
-    if(this.applePayInstance && this.applePayEnabled) return this.applePayInstance; // Don't redo all of this work
-    if(this.applePayPossible()) { // Browser supports Apple Pay generally but we don't know if it's setup by user
-      if(!this.clientInstance) throw new Error('A Braintree client instance is required to create an Apple Pay instance.');
-
-      if(!this.applePayInstance) { // Don't create an Apple Pay instance if it already exists
+  async braintreeInitialize() {
+    try {
+      // Get token
+      const response = await this.$http.get('api/token');
+      const token = response.data;
+      this.clientInstance = await braintreeClient.create({ authorization: token });
+      // Check to see if browser supports Apple Pay
+      if(this.applePayPossible()) {
         this.applePayInstance = await braintreeApplePay.create({ client: this.clientInstance });
+        // Check to see if user has Apple Pay setup with a card
+        this.applePayEnabled = await window.ApplePaySession.canMakePaymentsWithActiveCard(this.applePayInstance.merchantIdentifier);
       }
-      console.log('applePayInstanceCreate() - applePayInstance', this.applePayInstance);
-
-      // braintreeApplePay.create() didn't work
-      if(!this.applePayInstance) throw new Error('An Apple Pay instance is required to check whether there is an active card');
-
-      this.applePayEnabled = await window.ApplePaySession.canMakePaymentsWithActiveCard(this.applePayInstance.merchantIdentifier);
-      console.log('applePayInstanceCreate() - applePayEnabled', this.applePayEnabled);
-      return this.applePayInstance; // resolve promise (even though calling functions don't use the return value)
+      return true; // Successfully resolved all promises
+    } catch(err) {
+      console.log('Error setting up Braintree', err);
+      return false;
     }
   }
 
   // Returns a promise for the hostedFieldsInstance to the checkout component
   async braintreeHostedFieldsCreate() {
-    // Must be called from checkout.component.js:$onInit()
-    if(!this.clientInstance) {
-      await this.braintreeClientInstanceCreate();
-      // Still no joy?
-      if(!this.clientInstance) throw new Error('Braintree client instance is required to create hosted fields.');
-    }
-
     this.hostedFieldsInstance = await braintreeHostedFields.create({
       client: this.clientInstance,
       fields: {
@@ -134,7 +105,6 @@ export class Cart {
     });
 
     this.braintreeHostedFieldsEventHandlers(['blur', 'focus', 'validityChange', 'notEmpty', 'empty']);
-    console.log('braintreeHostedFieldsCreate() - hostedFieldsInstance', this.hostedFieldsInstance);
     return this.hostedFieldsInstance; // resolve promise (even though calling functions don't use the return value)
   }
 
@@ -143,7 +113,6 @@ export class Cart {
     try {
       return window.ApplePaySession && window.ApplePaySession.canMakePayments();
     } catch(err) { // Triggered by attempting Apple Pay on HTTP rather than HTTPS (ie dev)
-      console.log('cart.service.js:applePayPossible() - caught error');
       return false;
     }
   }
@@ -163,7 +132,7 @@ export class Cart {
 
   // Returns applePaymentRequest with our defaults
   applePayCreatePaymentRequest() {
-    const applePaymentRequest = this.applePayInstance.createPaymentRequest({
+    return this.applePayInstance.createPaymentRequest({
       // For now, Apple ignores the last two items
       requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
       // Apple restricts phone and email to shippingContact (hopefully will extend to billingContact someday)
@@ -200,8 +169,6 @@ export class Cart {
         amount: this.getTotalCost()
       }
     });
-    console.log('applePayCreatePaymentRequest() - applePaymentRequest', applePaymentRequest);
-    return applePaymentRequest;
   }
 
   // Map Apple Pay event data to our format so we can provide a confirmation
@@ -227,7 +194,6 @@ export class Cart {
       state: paymentEvent.shippingContact.administrativeArea,
       zipCode: paymentEvent.shippingContact.postalCode
     };
-    console.log('applePayGetPurchaserAndRecipient() - paymentEvent', paymentEvent);
   }
 
   // Take contents of cart and checkout with Apple Pay
@@ -432,7 +398,7 @@ export class Cart {
     this.saveToStorage();
   }
 
-  // Checks whether cart is empty, used on Cart Page to display empty cart message
+  // Used on checkout component to display empty cart message
   isEmpty() {
     return this.cartItems.length == 0;
   }
