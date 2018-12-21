@@ -236,7 +236,6 @@ const saveToDB = async confirmation => {
     "itemsOrdered", "createdAt", "updatedAt") VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,
       $15, $16, $17, $18, $19, CURRENT_DATE, CURRENT_DATE);`;
-  await db.query(orderInsertSQL, arrOrderParams);
 
   const { recipientemail, recipientphone } = confirmation.customFields;
   const { firstName, lastName } = confirmation.shipping;
@@ -245,7 +244,12 @@ const saveToDB = async confirmation => {
     VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE)
     ON CONFLICT (email) DO UPDATE
        SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, "updatedAt" = CURRENT_DATE;`;
-  await db.query(userUpsertSQL, [recipientemail, firstName, lastName, recipientphone, false]);
+
+  // Run the queries in parallel
+  await Promise.all([
+    db.query(orderInsertSQL, arrOrderParams),
+    db.query(userUpsertSQL, [recipientemail, firstName, lastName, recipientphone, false])
+  ]);
 };
 
 // Process Braintree order -> send response -> save to DB -> send email confirmation
@@ -255,7 +259,6 @@ export async function create(req, res) {
 
   // Submit braintree transaction (takes about 1.5s)
   const transaction = await braintreeGatewayTransactionSale(orderInfo);
-
   // Overwrite abbreviated cartItems (for Braintree) with array for rest of the steps
   transaction.customFields.items = req.body.cartItems;
 
@@ -265,12 +268,13 @@ export async function create(req, res) {
   // Suppress errors going to global error-handler in routes.js
   // when saving to database or sending email since order was successfully captured
   try {
-    // Save order to database as a backup to compare against Braintree (takes 1.5s)
-    await saveToDB(transaction);
-
-    // Send the confirmation email (slowest operation)
+    // Build email
     const message = buildConfirmationEmail(transaction);
-    await config.mail.transporter.sendMail(message);
+
+    await Promise.all([
+      saveToDB(transaction),
+      config.mail.transporter.sendMail(message)
+    ]);
   } catch(err) {
     console.warn('\x1b[33m%s\x1b[0mWARNING: Saving or emailing order', err);
   }

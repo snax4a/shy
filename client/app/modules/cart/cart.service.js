@@ -31,13 +31,13 @@ export class Cart {
 
     // Initialize members
     this.key = 'cart'; // name of local storage key
+    this.applePayEnabled = false; // default until checked
     this.initializeProperties();
 
-    // Pre-fetch the clientInstance so the Hosted Fields display faster
-    // and set this.applePayEnabled to display buttons if appropriate
-    this.braintreeGetToken()
-      .then(this.braintreeClientCreate.bind(this))
-      .then(this.applePayCapabilityCheck.bind(this))
+    // This happens once when app is loaded
+    // Get token, setup Braintree client instance and Apple Pay instance (if applicable)
+    this.braintreeClientInstanceCreate()
+      .then(this.applePayInstanceCreate.bind(this))
       .catch(braintreeError => this.$log.info('Error setting up Braintree client instance or checking for Apple Pay support.', braintreeError));
   }
 
@@ -51,25 +51,100 @@ export class Cart {
     this.hostedFieldsState = {};
   }
 
+  async braintreeTokenGet() {
+    if(this.clientToken) return; // Don't request a token if one already exists
+    const response = await this.$http.get('api/token');
+    this.clientToken = response.data;
+    console.log('braintreeTokenGet() - clientToken', this.clientToken);
+    return this.clientToken; // resolve promise (even though calling functions don't use the return value)
+  }
+
+  async braintreeClientInstanceCreate() {
+    if(this.clientInstance) return this.clientInstance; // Don't request a client instance if one already exists
+    if(!this.clientToken) {
+      await this.braintreeTokenGet();
+      // Still no joy?
+      if(!this.clientToken) throw new Error('A token is required in order to create a Braintree client instance.');
+    }
+    this.clientInstance = await braintreeClient.create({ authorization: this.clientToken });
+    console.log('braintreeClientInstanceCreate() - clientInstance', this.clientInstance);
+    return this.clientInstance; // resolve promise (even though calling functions don't use the return value)
+  }
+
+  async applePayInstanceCreate() {
+    if(this.applePayInstance && this.applePayEnabled) return this.applePayInstance; // Don't redo all of this work
+    if(this.applePayPossible()) { // Browser supports Apple Pay generally but we don't know if it's setup by user
+      if(!this.clientInstance) throw new Error('A Braintree client instance is required to create an Apple Pay instance.');
+
+      if(!this.applePayInstance) { // Don't create an Apple Pay instance if it already exists
+        this.applePayInstance = await braintreeApplePay.create({ client: this.clientInstance });
+      }
+      console.log('applePayInstanceCreate() - applePayInstance', this.applePayInstance);
+
+      // braintreeApplePay.create() didn't work
+      if(!this.applePayInstance) throw new Error('An Apple Pay instance is required to check whether there is an active card');
+
+      this.applePayEnabled = await window.ApplePaySession.canMakePaymentsWithActiveCard(this.applePayInstance.merchantIdentifier);
+      console.log('applePayInstanceCreate() - applePayEnabled', this.applePayEnabled);
+      return this.applePayInstance; // resolve promise (even though calling functions don't use the return value)
+    }
+  }
+
+  // Returns a promise for the hostedFieldsInstance to the checkout component
+  async braintreeHostedFieldsCreate() {
+    // Must be called from checkout.component.js:$onInit()
+    if(!this.clientInstance) {
+      await this.braintreeClientInstanceCreate();
+      // Still no joy?
+      if(!this.clientInstance) throw new Error('Braintree client instance is required to create hosted fields.');
+    }
+
+    this.hostedFieldsInstance = await braintreeHostedFields.create({
+      client: this.clientInstance,
+      fields: {
+        number: {
+          selector: '#card-number',
+          placeholder: '4111 1111 1111 1111'
+        },
+        cvv: {
+          selector: '#cvv',
+          placeholder: '123'
+        },
+        expirationDate: {
+          selector: '#expiration-date',
+          placeholder: '10/2020'
+        }
+      },
+      styles: {
+        input: {
+          'font-size': '14px',
+          'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
+          color: '#555'
+        },
+        ':focus': {
+          'border-color': '#66afe9'
+        },
+        'input.invalid': {
+          color: '#a94442'
+        },
+        'input.valid': {
+          color: 'green'
+        }
+      }
+    });
+
+    this.braintreeHostedFieldsEventHandlers(['blur', 'focus', 'validityChange', 'notEmpty', 'empty']);
+    console.log('braintreeHostedFieldsCreate() - hostedFieldsInstance', this.hostedFieldsInstance);
+    return this.hostedFieldsInstance; // resolve promise (even though calling functions don't use the return value)
+  }
+
   // Check to see whether Apple Pay is supported on the device so we know whether to display buttons
   applePayPossible() {
     try {
       return window.ApplePaySession && window.ApplePaySession.canMakePayments();
     } catch(err) { // Triggered by attempting Apple Pay on HTTP rather than HTTPS (ie dev)
+      console.log('cart.service.js:applePayPossible() - caught error');
       return false;
-    }
-  }
-
-  applePayCapabilityCheck(clientInstance) {
-    if(this.applePayPossible()) {
-      return this.braintreeApplePayInstanceCreate(clientInstance)
-        .then(applePayInstance => applePayInstance.merchantIdentifier)
-        .then(window.ApplePaySession.canMakePaymentsWithActiveCard)
-        .then(canMakePaymentsWithActiveCard => {
-          // Set property that enables buttons because there's at least one credit card tied to Apple Pay
-          this.applePayEnabled = canMakePaymentsWithActiveCard;
-        })
-        .catch();
     }
   }
 
@@ -88,7 +163,7 @@ export class Cart {
 
   // Returns applePaymentRequest with our defaults
   applePayCreatePaymentRequest() {
-    return this.applePayInstance.createPaymentRequest({
+    const applePaymentRequest = this.applePayInstance.createPaymentRequest({
       // For now, Apple ignores the last two items
       requiredBillingContactFields: ['name', 'postalAddress', 'phone', 'email'],
       // Apple restricts phone and email to shippingContact (hopefully will extend to billingContact someday)
@@ -125,8 +200,11 @@ export class Cart {
         amount: this.getTotalCost()
       }
     });
+    console.log('applePayCreatePaymentRequest() - applePaymentRequest', applePaymentRequest);
+    return applePaymentRequest;
   }
 
+  // Map Apple Pay event data to our format so we can provide a confirmation
   applePayGetPurchaserAndRecipient(paymentEvent) {
     // Until Apple supports billingContact.phoneNumber and emailAddress, use values from shippingContact
     this.purchaser = {
@@ -149,6 +227,7 @@ export class Cart {
       state: paymentEvent.shippingContact.administrativeArea,
       zipCode: paymentEvent.shippingContact.postalCode
     };
+    console.log('applePayGetPurchaserAndRecipient() - paymentEvent', paymentEvent);
   }
 
   // Take contents of cart and checkout with Apple Pay
@@ -173,6 +252,8 @@ export class Cart {
         session.completeMerchantValidation(merchantSession);
       }); // this.applePayInstance.performValidation
     }; // session.onvalidatemerchant
+
+//TODO: See if event handlers can be promises
 
     // Callback to handle selection of shipping method
     session.onshippingmethodselected = event => {
@@ -225,49 +306,6 @@ export class Cart {
     } else this.addItem(productID); // fallback to regular cart behavior with navigation to cart page
   }
 
-  async braintreeGetToken() {
-    if(this.clientToken) return this.clientToken; // no need to re-request
-    const response = await this.$http.get('api/token');
-    this.clientToken = response.data;
-    return this.clientToken; // Shouldn't be needed but it is currently
-  }
-
-  // Returns a promise for the clientInstance
-  braintreeClientCreate(token) {
-    // If we already have one, return that
-    if(this.clientInstance) return this.$q(resolve => resolve(this.clientInstance));
-
-    // Otherwise, get the promise to a clientInstance
-    return this.$q((resolve, reject) => {
-      braintreeClient.create({authorization: token}, (clientErr, clientInstance) => { // ESLint can't handle the proper ES6 syntax (arrow function and no return statement)
-        if(clientErr) {
-          this.$log.error('Not able to create a client instance with Braintree. Make sure the token is being generated correctly.', clientErr);
-          return reject(clientErr);
-        } else {
-          this.clientInstance = clientInstance; // hold on to it for successive requests
-          return resolve(clientInstance);
-        }
-      });
-    });
-  }
-
-  // Return a promise to an Apple Pay Instance, call braintreeClientCreate in chain prior (just in case)
-  braintreeApplePayInstanceCreate(clientInstance) {
-    if(this.applePayInstance) return this.$q(resolve => resolve(this.applePayInstance));
-
-    // Otherwise, get the promise to an applePayInstance
-    return this.$q((resolve, reject) => {
-      braintreeApplePay.create({ client: clientInstance }, (applePayInstanceErr, applePayInstance) => {
-        if(applePayInstanceErr) {
-          this.$log.error('Not able to create an Apple Pay instance with Braintree. Make sure the client instance was setup correctly.');
-          return reject(applePayInstanceErr);
-        } else {
-          this.applePayInstance = applePayInstance; // hold on to it for successive requests
-          return resolve(applePayInstance);
-        }
-      });
-    });
-  }
 
   braintreeUpdateHostedFieldsState() {
     this.hostedFieldsState = this.hostedFieldsInstance.getState().fields;
@@ -291,69 +329,12 @@ export class Cart {
     }
   }
 
-  // Returns a promise for the hostedFieldsInstance
-  braintreeHostedFieldsCreate(clientInstance) {
-    // hostedFieldsInstance must be created each time cart component is displayed
-    // so can't reuse this.hostedFieldsInstance to cache it for performance reasons.
-    // While you could argue this belongs in cart.component.js's, prefer Braintree code stay together.
-    return this.$q((resolve, reject) => {
-      braintreeHostedFields.create({
-        client: clientInstance,
-        fields: {
-          number: {
-            selector: '#card-number',
-            placeholder: '4111 1111 1111 1111'
-          },
-          cvv: {
-            selector: '#cvv',
-            placeholder: '123'
-          },
-          expirationDate: {
-            selector: '#expiration-date',
-            placeholder: '10/2020'
-          }
-        },
-        styles: {
-          input: {
-            'font-size': '14px',
-            'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            color: '#555'
-          },
-          ':focus': {
-            'border-color': '#66afe9'
-          },
-          'input.invalid': {
-            color: '#a94442'
-          },
-          'input.valid': {
-            color: 'green'
-          }
-        }
-      }, (hostedFieldsErr, hostedFieldsInstance) => {
-        // Handle disposition of promise
-        if(hostedFieldsErr) {
-          this.$log.error('Not able to create the hosted fields with Braintree.', hostedFieldsErr);
-          return reject(hostedFieldsErr);
-        } else {
-          this.hostedFieldsInstance = hostedFieldsInstance;
-          this.braintreeHostedFieldsEventHandlers(['blur', 'focus', 'validityChange', 'notEmpty', 'empty']);
-          return resolve(hostedFieldsInstance);
-        }
-      });
-    });
-  }
+  // Return a promise to the orderConfirmation
+  async placeOrder() {
+    if(!this.hostedFieldsInstance) throw new Error('Hosted fields instance required to tokenize.');
+    // Tokenize hosted fields to get nonce then post the order
+    const payload = await this.hostedFieldsInstance.tokenize();
 
-  // Return a promise to the payload (containing the nonce)
-  braintreeHostedFieldsTokenize(hostedFieldsInstance) {
-    return this.$q((resolve, reject) => {
-      hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
-        return tokenizeErr ? reject(tokenizeErr) : resolve(payload);
-      });
-    });
-  }
-
-  // Return a promise to the confirmation
-  postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
     const orderInformation = {
       nonceFromClient: payload.nonce,
@@ -365,30 +346,19 @@ export class Cart {
       cartItems: this.cartItems // reference but it's being posted anyway
     };
 
-    // Return promise from POST /api/order - errors intentionally not handled here so UI component can catch them
-    return this.$http
-      .post('/api/order', orderInformation)
-      .then(orderResponse => {
-        // Connect response data to the cart's confirmation
-        this.confirmation = orderResponse.data;
+    // Post order information and get response
+    const { data } = await this.$http.post('/api/order', orderInformation);
+    this.confirmation = data;
 
-        // Make the data readable in local time zone
-        this.confirmation.createdAt = new Date(this.confirmation.createdAt).toLocaleString();
+    // Make the data readable in local time zone
+    const localTime = new Date(this.confirmation.createdAt);
+    this.confirmation.createdAt = localTime.toLocaleString();
 
-        // Clear the cart to avoid duplicate orders (only if successful though)
-        this.clearCartItems();
+    // Clear the cart to avoid duplicate orders (only if successful though)
+    this.clearCartItems();
 
-        // Display confirmation
-        return this.confirmation;
-      });
-  }
-
-  // Return a promise to the orderConfirmation
-  placeOrder() {
-    // Tokenize hosted fields to get nonce then post the order
-    return this.braintreeHostedFieldsTokenize(this.hostedFieldsInstance) // returns payload containing nonce
-      .then(this.postOrderInformation.bind(this));
-    //.catch(); // Catch errors in cart.component.js since they affect the view
+    // Must return something
+    return this.confirmation; // resolve promise (even though calling functions don't use the return value)
   }
 
   // Clear the cartItems during checkout()

@@ -18,9 +18,9 @@ export class CheckOutComponent {
 
   $onInit() {
     // Create Braintree Hosted Fields
-    this.Cart.braintreeGetToken()
-      .then(this.Cart.braintreeClientCreate.bind(this.Cart))
-      .then(this.Cart.braintreeHostedFieldsCreate.bind(this.Cart))
+    // NOTE: if checkout is displayed and page is refreshed /api/token will be called 2x (here and from Cart service)
+    // TODO: wait for Cart service to finish constructor()
+    this.Cart.braintreeHostedFieldsCreate()
       .catch(braintreeError => this.$log.error('Error setting up Braintree Hosted Fields', braintreeError));
 
     // Wait a second then set the focus to the credit card number by clicking its label
@@ -77,21 +77,21 @@ export class CheckOutComponent {
     this.$location.path('/checkout'); // Move to the checkout page to provide other options
   }
 
-  // Initiate the order process
-  placeOrder(form) {
+  // Handle component form submit - call service to place order (cannot be an async function)
+  async placeOrder(form) {
     this.buttonDisabled = true;
     if(form.$valid) {
-      return this.Cart.placeOrder()
-        .then(() => { // Don't need the placeOrder return value, braintreeSaleResponse, since it's added to Cart.confirmation
-          this.$location.path('/confirmation'); // which should get the confirmation and orderItems but doesn't
-        })
-        .catch(err => { // catch errors from Cart service here
-          // form.$submitted = false; // reset submitted state (why would I change this?)
-          this.braintreeError = err.statusText; // for view data-binding
-          this.Cart.hostedFieldsState.number.isInvalid = true;
-          this.buttonDisabled = false;
-          if(this.braintreeError.includes('card')) this.focusOnCardNumber();
-        });
+      try {
+        await this.Cart.placeOrder();
+        // Use $timeout so it's within the digest cycle
+        this.$timeout(() => this.$location.path('/confirmation'));
+      } catch(err) {
+        console.log('Error in checkout.component.js:placeOrder()', err);
+        this.braintreeError = err.statusText; // for view data-binding
+        this.Cart.hostedFieldsState.number.isInvalid = true;
+        this.buttonDisabled = false;
+        if(this.braintreeError.includes('card')) this.focusOnCardNumber();
+      }
     } // form.$valid
   } // placeOrder
 } // class CheckOutController
