@@ -16,8 +16,9 @@ import { routeConfig } from './app.config';
 // Modules
 import HomeModule from './modules/home/home.module';
 import ClassesModule from './modules/classes/classes.module';
-import CartModule from './modules/cart/cart.module'; // global-scope
-import AuthModule from './modules/auth/auth.module'; // global-scope
+import WorkshopsModule from './modules/workshops/workshops.module';
+import CartModule from './modules/cart/cart.module';
+import AuthModule from './modules/auth/auth.module';
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -55,7 +56,6 @@ import TweetComponent from './components/tweet/tweet.component'; // workshops.co
 import UserManagerComponent from './components/usermanager/usermanager.component'; // admin.component.js, shynet.component.js
 
 // Page components - lazy-loaded via ngRoute
-import WorkshopsComponent from './components/workshops/workshops.component';
 import LocationsComponent from './components/locations/locations.component';
 import TeachersComponent from './components/teachers/teachers.component';
 import CheckoutComponent from './components/checkout/checkout.component';
@@ -112,7 +112,7 @@ angular.module('shyApp', [
   AdminComponent,
   HomeModule,
   ClassesModule,
-  WorkshopsComponent,
+  WorkshopsModule,
   LocationsComponent,
   TeachersComponent,
   CheckoutComponent,

@@ -1,32 +1,18 @@
 'use strict';
-import angular from 'angular';
-import routes from './workshops.routes';
-import ngRoute from 'angular-route';
-import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
-import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
-import TweetComponent from '../tweet/tweet.component';
-import JsonLdComponent from '../jsonld/jsonld.component';
-import UpcomingFilter from '../../filters/upcoming/upcoming.filter';
 
 export class WorkshopsComponent {
   /*@ngInject*/
-  constructor($window, $http, $timeout) {
+  constructor($timeout, $window, WorkshopsService, NewsletterService) {
     this.$window = $window;
-    this.$http = $http;
+    this.WorkshopsService = WorkshopsService;
     this.$timeout = $timeout;
+    this.NewsletterService = NewsletterService;
   }
 
   $onInit() {
     this.subscriber = {};
-
-    // Load the workshops from the JSON file
-    this.$http.get('/assets/data/workshops.json')
-      .then(response => {
-        this.workshops = response.data;
-        // Load Twitter script and widgets
-        this.twitterLoad();
-        return null;
-      });
+    this.workshops = this.WorkshopsService.workshops;
+    this.twitterLoad();
   }
 
   twitterLoad() {
@@ -94,31 +80,22 @@ export class WorkshopsComponent {
     }, 50);
   }
 
-  subscribe(form) {
+  async subscribe(form) {
     if(form.$valid) {
-      // Post to the server then create an alerts array (undefined, zero or one item) to give user feedback
-      this.$http
-        .post('/api/newsletter', this.subscriber)
-        .then(response => { // Could use destructuring here {data} instead but it doesn't read as well
+      try {
+        const message = await this.NewsletterService.subscribe(this.subscriber);
+        this.$timeout(() => { // using async/await runs outside of digest cycle
           this.alerts = [{
             type: 'alert-success',
-            message: response.data
-          }];
-        })
-        .catch(response => {
-          this.alerts = [{
-            type: 'alert-danger',
-            message: response.data
+            message
           }];
         });
+      } catch(err) {
+        this.alerts = [{
+          type: 'alert-danger',
+          message: err.data
+        }];
+      }
     } else this.setFocus('email');
   }
 }
-
-export default angular.module('shyApp.workshops', [ngRoute, UibAlertDirective, HtmlIdFilter, TweetComponent, JsonLdComponent, UpcomingFilter])
-  .config(routes)
-  .component('workshops', {
-    template: require('./workshops.pug'),
-    controller: WorkshopsComponent
-  })
-  .name;

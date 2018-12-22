@@ -6,7 +6,7 @@ export default function($routeProvider) {
     template: '<workshops></workshops>',
     title: 'Schoolhouse Yoga Workshops',
     resolve: {
-      '': Cart => Cart.initialized
+      '': (Cart, WorkshopsService) => Promise.all([Cart.initialized, WorkshopsService.initialized])
     }
   });
 }
