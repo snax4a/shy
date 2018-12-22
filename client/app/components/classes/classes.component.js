@@ -8,25 +8,13 @@ import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
 
 export class ClassesComponent {
   /*@ngInject*/
-  constructor($http, $anchorScroll, $timeout) {
-    this.$http = $http;
-    this.$anchorScroll = $anchorScroll;
-    this.$timeout = $timeout;
+  constructor(ScheduleService) {
+    this.ScheduleService = ScheduleService;
   }
 
   $onInit() {
-    const getClasses = this.$http.get('/assets/data/classes.json')
-      .then(response => {
-        this.classes = response.data;
-        return null;
-      });
-    const getSchedule = this.$http.get('/api/schedule')
-      .then(response => {
-        this.classSchedule = response.data;
-        return null;
-      });
-    Promise.all([getClasses, getSchedule])
-      .then(() => this.$timeout(this.$anchorScroll, 50));
+    this.classes = this.ScheduleService.classes;
+    this.classSchedule = this.ScheduleService.classSchedule;
   }
 }
 

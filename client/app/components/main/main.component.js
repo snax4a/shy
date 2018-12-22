@@ -1,29 +1,18 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './main.routes';
-import faqs from '../../../assets/data/faqs.json';
 import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js';
 
 export class MainComponent {
   /*@ngInject*/
-  constructor($http) {
-    this.$http = $http;
+  constructor(HomeService) {
+    this.HomeService = HomeService;
   }
 
   $onInit() {
-    this.$http.get('/api/announcement')
-      .then(response => {
-        this.announcementList = response.data;
-        return null;
-      });
-    this.faqs = [];
-    this.slides = [
-      { src: '/assets/images/home/closeup1.jpg' },
-      { src: '/assets/images/home/closeup2.jpg' },
-      { src: '/assets/images/home/closeup3.jpg' },
-      { src: '/assets/images/home/closeup4.jpg' }
-    ];
-    this.faqs = faqs;
+    this.announcementList = this.HomeService.announcementList;
+    this.faqs = this.HomeService.faqs;
+    this.slides = this.HomeService.slides;
   }
 }
 

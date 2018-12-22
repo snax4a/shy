@@ -17,6 +17,10 @@ import { routeConfig } from './app.config';
 import CartModule from './modules/cart/cart.module'; // global-scope
 import AuthModule from './modules/auth/auth.module'; // global-scope
 
+// Services
+import HomeServiceModule from './services/home/home.module';
+import ScheduleServiceModule from './services/schedule/schedule.module';
+
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
 
@@ -79,6 +83,8 @@ angular.module('shyApp', [
   ngRoute,
   ngMessages,
   ngSanitize,
+  HomeServiceModule,
+  ScheduleServiceModule,
   AmPmFilter,
   DayToDateFilter,
   HtmlIdFilter,

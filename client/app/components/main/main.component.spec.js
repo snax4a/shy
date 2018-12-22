@@ -2,9 +2,11 @@
 'use strict';
 import angular from 'angular';
 import main from './main.component';
+import HomeServiceModule from '../../services/home/home.module';
 
 describe('Component: MainComponent', function() {
   beforeEach(angular.mock.module(main));
+  beforeEach(angular.mock.module(HomeServiceModule));
 
   var mainComponent;
 

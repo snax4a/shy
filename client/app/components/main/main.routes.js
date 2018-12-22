@@ -5,6 +5,9 @@ export default function routes($routeProvider) {
 
   $routeProvider.when('/', {
     template: '<main></main>',
-    title: 'Schoolhouse Yoga'
+    title: 'Schoolhouse Yoga',
+    resolve: {
+      '': HomeService => HomeService.initialized
+    }
   });
 }
