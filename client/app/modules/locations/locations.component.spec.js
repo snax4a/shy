@@ -1,11 +1,11 @@
 /* global describe, beforeEach, it, inject, expect */
 'use strict';
 import angular from 'angular';
-import locationsPage from './locations.component';
+import LocationsModule from './locations.module';
 
-describe('Component: LocationsComponent', function() {
+describe('Component: LocationsModule', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(locationsPage));
+  beforeEach(angular.mock.module(LocationsModule));
 
   let LocationsComponent;
 

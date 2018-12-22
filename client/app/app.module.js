@@ -17,6 +17,7 @@ import { routeConfig } from './app.config';
 import HomeModule from './modules/home/home.module';
 import ClassesModule from './modules/classes/classes.module';
 import WorkshopsModule from './modules/workshops/workshops.module';
+import LocationsModule from './modules/locations/locations.module';
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
 
@@ -56,7 +57,6 @@ import TweetComponent from './components/tweet/tweet.component'; // workshops.co
 import UserManagerComponent from './components/usermanager/usermanager.component'; // admin.component.js, shynet.component.js
 
 // Page components - lazy-loaded via ngRoute
-import LocationsComponent from './components/locations/locations.component';
 import TeachersComponent from './components/teachers/teachers.component';
 import CheckoutComponent from './components/checkout/checkout.component';
 import ConfirmationComponent from './components/confirmation/confirmation.component';
@@ -113,7 +113,7 @@ angular.module('shyApp', [
   HomeModule,
   ClassesModule,
   WorkshopsModule,
-  LocationsComponent,
+  LocationsModule,
   TeachersComponent,
   CheckoutComponent,
   ConfirmationComponent,
