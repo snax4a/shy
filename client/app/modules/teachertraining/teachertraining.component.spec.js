@@ -1,19 +1,19 @@
 /* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import registerPage from './register.component';
-import CartModule from '../../modules/cart/cart.module';
+import TeacherTrainingModule from './teachertraining.module';
+import CartModule from '../cart/cart.module';
 
-describe('Component: RegisterComponent', function() {
+describe('Component: TeacherTrainingModule', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(registerPage));
+  beforeEach(angular.mock.module(TeacherTrainingModule));
   beforeEach(angular.mock.module(CartModule));
 
-  var RegisterComponent;
+  var TeacherTrainingComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    RegisterComponent = $componentController('register', {});
+    TeacherTrainingComponent = $componentController('teachertraining', {});
   }));
 
   it('should display Teacher Training information with payment options', function() {

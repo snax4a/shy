@@ -19,6 +19,7 @@ import ClassesModule from './modules/classes/classes.module';
 import WorkshopsModule from './modules/workshops/workshops.module';
 import LocationsModule from './modules/locations/locations.module';
 import TeachersModule from './modules/teachers/teachers.module';
+import TeacherTrainingModule from './modules/teachertraining/teachertraining.module';
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
 
@@ -60,7 +61,6 @@ import UserManagerComponent from './components/usermanager/usermanager.component
 // Page components - lazy-loaded via ngRoute
 import CheckoutComponent from './components/checkout/checkout.component';
 import ConfirmationComponent from './components/confirmation/confirmation.component';
-import TeacherTrainingComponent from './components/register/register.component';
 import PrivacyComponent from './components/privacy/privacy.component';
 import TermsComponent from './components/terms/terms.component';
 import LoginComponent from './components/login/login.component';
@@ -117,7 +117,7 @@ angular.module('shyApp', [
   TeachersModule,
   CheckoutComponent,
   ConfirmationComponent,
-  TeacherTrainingComponent,
+  TeacherTrainingModule,
   PrivacyComponent,
   TermsComponent,
   SignupComponent,

@@ -1,5 +1,6 @@
 # Product Backlog
-* [High] Create service modules for /locations, /workshops, /register, /navbar and /teachers
+* [High] Fix $anchorScroll on /locations and /teachers
+* [High] Create service modules for /navbar, /admin, /shynet
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
 * [Low] Embed images in order confirmations using nodemailer
