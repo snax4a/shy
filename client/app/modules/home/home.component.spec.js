@@ -1,18 +1,16 @@
 /* global describe, beforeEach, inject, expect, it */
 'use strict';
 import angular from 'angular';
-import main from './main.component';
-import HomeServiceModule from '../../services/home/home.module';
+import HomeModule from './home.module';
 
-describe('Component: MainComponent', function() {
-  beforeEach(angular.mock.module(main));
-  beforeEach(angular.mock.module(HomeServiceModule));
+describe('Module: HomeComponent', function() {
+  beforeEach(angular.mock.module(HomeModule));
 
-  var mainComponent;
+  var homeComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    mainComponent = $componentController('main', {});
+    homeComponent = $componentController('home', {});
   }));
 
   it('should display the home page with announcements that have not expired', function() {

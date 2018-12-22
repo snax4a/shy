@@ -1,13 +1,11 @@
 /* global describe, beforeEach, it, inject, expect */
 'use strict';
 import angular from 'angular';
-import classesPage from './classes.component';
-import ScheduleServiceModule from '../../services/schedule/schedule.module';
+import ClassesModule from './classes.module';
 
 describe('Component: ClassesComponent', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(classesPage));
-  beforeEach(angular.mock.module(ScheduleServiceModule));
+  beforeEach(angular.mock.module(ClassesModule));
 
   let ClassesComponent;
 

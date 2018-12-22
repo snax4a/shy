@@ -127,13 +127,11 @@ h2 {
 @import 'components/admin/admin';
 @import 'components/banner/banner';
 @import 'components/checkout/checkout';
-@import 'components/classes/classes';
 @import 'components/confirmation/confirmation';
 @import 'components/footer/footer';
 @import 'components/google-button/google-button';
 @import 'components/locations/locations';
 @import 'components/login/login';
-@import 'components/main/main';
 @import 'components/navbar/navbar';
 @import 'components/privacy/privacy';
 @import 'components/profile/profile';
@@ -144,4 +142,6 @@ h2 {
 @import 'components/terms/terms';
 @import 'components/usermanager/usermanager';
 @import 'components/workshops/workshops';
+@import 'modules/classes/classes';
+@import 'modules/home/home';
 /* endinject */

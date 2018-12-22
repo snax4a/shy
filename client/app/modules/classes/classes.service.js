@@ -1,6 +1,6 @@
 'use strict';
 
-export class ScheduleService {
+export class ClassesService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
