@@ -267,15 +267,19 @@ export async function create(req, res) {
 
   // Suppress errors going to global error-handler in routes.js
   // when saving to database or sending email since order was successfully captured
-  try {
-    // Build email
-    const message = buildConfirmationEmail(transaction);
 
-    await Promise.all([
-      saveToDB(transaction),
-      config.mail.transporter.sendMail(message)
-    ]);
+  // First, save everything to the database (do not use Promise.all() with email sending)
+  try {
+    await saveToDB(transaction);
   } catch(err) {
-    console.warn('\x1b[33m%s\x1b[0mWARNING: Saving or emailing order', err);
+    console.warn('\x1b[33m%s\x1b[0mWARNING: Order and/or User not saved to database', err);
+  }
+
+  // Build and send email
+  try {
+    const message = buildConfirmationEmail(transaction);
+    await config.mail.transporter.sendMail(message);
+  } catch(err) {
+    console.warn('\x1b[33m%s\x1b[0mWARNING: Error sending confirmation email (probably a bad email address)', err);
   }
 }
