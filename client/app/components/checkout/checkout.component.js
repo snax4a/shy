@@ -5,10 +5,9 @@ import ngRoute from 'angular-route';
 
 export class CheckOutComponent {
   /*@ngInject*/
-  constructor($log, $http, $window, $timeout, $location, ProductList, Cart) {
+  constructor($log, $window, $timeout, $location, ProductList, Cart) {
     // Dependencies
     this.$log = $log;
-    this.$http = $http;
     this.$window = $window;
     this.$timeout = $timeout;
     this.$location = $location;
@@ -72,7 +71,7 @@ export class CheckOutComponent {
   // Attempt to checkout with Apple Pay. Pass or fail - send the user to the home page since we won't show the confirmation for them.
   applePayCheckout() {
     this.Cart.applePayCheckout();
-    this.$location.path('/checkout'); // Move to the checkout page to provide other options
+    this.$timeout(() => this.$location.path('/checkout')); // Move to the checkout page to provide other options, align w/digest cycle
   }
 
   // Handle component form submit - call service to place order (cannot be an async function)
@@ -88,7 +87,7 @@ export class CheckOutComponent {
         this.braintreeError = err.statusText; // for view data-binding
         this.Cart.hostedFieldsState.number.isInvalid = true;
         this.buttonDisabled = false;
-        if(this.braintreeError.includes('card')) this.focusOnCardNumber();
+        if(this.braintreeError.includes('card')) this.$timeout(() => this.focusOnCardNumber());
       }
     } // form.$valid
   } // placeOrder
