@@ -13,6 +13,7 @@ export class WorkshopsComponent {
     this.subscriber = {};
     this.workshops = this.WorkshopsService.workshops;
     this.twitterLoad();
+    this.$timeout(this.$anchorScroll, 50);
   }
 
   twitterLoad() {

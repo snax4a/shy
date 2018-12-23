@@ -22,6 +22,7 @@ import TeachersModule from './modules/teachers/teachers.module';
 import TeacherTrainingModule from './modules/teachertraining/teachertraining.module';
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
+import ShynetModule from './modules/shynet/shynet.module';
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -67,7 +68,6 @@ import LoginComponent from './components/login/login.component';
 import AdminComponent from './components/admin/admin.component';
 import SignupComponent from './components/signup/signup.component';
 import ProfileComponent from './components/profile/profile.component';
-import ShynetComponent from './components/shynet/shynet.component';
 
 // App-level SASS styling
 import './app.scss';
@@ -122,7 +122,7 @@ angular.module('shyApp', [
   TermsComponent,
   SignupComponent,
   ProfileComponent,
-  ShynetComponent
+  ShynetModule
 ])
   .config(routeConfig)
   /*
