@@ -8,27 +8,18 @@ import UserManagerComponent from '../usermanager/usermanager.component';
 
 export class SHYnetComponent {
   /*@ngInject*/
-  constructor($http, $uibModal) {
+  constructor($http, $uibModal, TeachersService, ClassesService, LocationsService) {
     this.$http = $http;
     this.$uibModal = $uibModal;
+    this.TeachersService = TeachersService;
+    this.ClassesService = ClassesService;
+    this.LocationsService = LocationsService;
   }
 
   $onInit() {
-    this.$http.get('/assets/data/teachers.json')
-      .then(response => {
-        this.teachers = response.data;
-        return null;
-      });
-    this.$http.get('/assets/data/classes.json')
-      .then(response => {
-        this.classes = response.data;
-        return null;
-      });
-    this.$http.get('/assets/data/locations.json')
-      .then(response => {
-        this.locations = response.data;
-        return null;
-      });
+    this.teachers = this.TeachersService.teachers;
+    this.classes = this.ClassesService.classes;
+    this.locations = this.LocationsService.locations;
     const now = new Date();
     this.classDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     this.datePickerOpened = false;

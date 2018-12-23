@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Create AttendeeService with methods getAttendees() and deleteAttendee() for shynet.component.js and remove $http use
 * [High] Create service modules for /navbar, /admin, /shynet
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
