@@ -71,7 +71,7 @@ export class CheckOutComponent {
   // Attempt to checkout with Apple Pay. Pass or fail - send the user to the home page since we won't show the confirmation for them.
   applePayCheckout() {
     this.Cart.applePayCheckout();
-    this.$timeout(() => this.$location.path('/checkout')); // Move to the checkout page to provide other options, align w/digest cycle
+    this.$timeout(() => this.$location.path('/confirmation')); // Move to the checkout page to provide other options, align w/digest cycle
   }
 
   // Handle component form submit - call service to place order (cannot be an async function)

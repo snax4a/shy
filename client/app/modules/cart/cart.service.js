@@ -293,12 +293,7 @@ export class Cart {
     }
   }
 
-  // Return a promise to the orderConfirmation
-  async placeOrder() {
-    if(!this.hostedFieldsInstance) throw new Error('Hosted fields instance required to tokenize.');
-    // Tokenize hosted fields to get nonce then post the order
-    const payload = await this.hostedFieldsInstance.tokenize();
-
+  async postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
     const orderInformation = {
       nonceFromClient: payload.nonce,
@@ -323,6 +318,14 @@ export class Cart {
 
     // Return confirmation to resolve the promise
     return this.confirmation;
+  }
+
+  // Return a promise to the orderConfirmation
+  async placeOrder() {
+    if(!this.hostedFieldsInstance) throw new Error('Hosted fields instance required to tokenize.');
+    // Tokenize hosted fields to get nonce then post the order
+    const payload = await this.hostedFieldsInstance.tokenize();
+    this.confirmation = await this.postOrderInformation(payload);
   }
 
   // Clear the cartItems during checkout()
