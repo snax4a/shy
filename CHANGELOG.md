@@ -1,5 +1,11 @@
 # Product Backlog
-* [High] Create service modules for /navbar, /admin
+* [High] Consider whether to bundle checkout and confirmation into cart module
+* [High] Consider whether to bundle admin, announcementmanager, schedulemanager, and usermanager into admin module
+* [High] Create ContactService.sendMessage() for navbar.component.js
+* [High] Create ScheduleService for schedulemanager.component.js (and add LocationService, TeachersService, ClassesService)
+* [High] Extend AnnouncementService (create, delete) for announcementmanager.component.js
+* [High] Extend User service, forgotPassword() for login.component.js
+* [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService)
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
 * [Low] Embed images in order confirmations using nodemailer
