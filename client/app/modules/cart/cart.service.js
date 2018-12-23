@@ -17,6 +17,7 @@ class Item {
   }
 }
 
+// Note: results of async functions are not part of the digest cycle so the component must use $timeout whenever an update is needed
 export class Cart {
   /*@ngInject*/
   constructor($log, $window, $location, $http, $timeout, $q, ProductList) {
