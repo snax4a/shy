@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] Fix $anchorScroll on /locations and /teachers
 * [High] Create service modules for /navbar, /admin, /shynet
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)

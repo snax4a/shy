@@ -8,8 +8,8 @@ export class TeachersComponent {
     this.TeachersService = TeachersService;
   }
 
-  async $onInit() {
-    this.faculty = await this.TeachersService.teachers;
+  $onInit() {
+    this.faculty = this.TeachersService.teachers;
     this.$timeout(this.$anchorScroll, 50);
   }
 }
