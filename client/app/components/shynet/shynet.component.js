@@ -45,7 +45,7 @@ export class SHYnetComponent {
 
   // Assumes date only - midnight in local time zone
   localISODate(date) {
-    return date.toISOString().substring(0,10);
+    return date.toISOString().substring(0, 10);
   }
 
   showCalendar() {
