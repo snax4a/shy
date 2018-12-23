@@ -206,17 +206,18 @@ export class Cart {
     const session = new window.ApplePaySession(1, applePaymentRequest);
 
     // Callback to handle merchant validation from Apple - https://developers.braintreepayments.com/guides/apple-pay/client-side/javascript/v3#onvalidatemerchant-callback
-    session.onvalidatemerchant = async event => {
-      try {
-        const merchantSession = await this.applePayInstance.performValidation({
-          validationURL: event.validationURL,
-          displayName: 'Schoolhouse Yoga, Inc.'
+    session.onvalidatemerchant = event => {
+      this.applePayInstance.performValidation({
+        validationURL: event.validationURL,
+        displayName: 'Schoolhouse Yoga, Inc.'
+      })
+        .then(merchantSession => {
+          session.completeMerchantValidation(merchantSession);
+        })
+        .catch(err => {
+          this.$log.error('Error validating Apple Pay merchant:', err);
+          session.abort();
         });
-        session.completeMerchantValidation(merchantSession);
-      } catch(err) {
-        this.$log.error('Error validating Apple Pay merchant:', err);
-        session.abort();
-      }
     }; // session.onvalidatemerchant
 
     // Callback to handle selection of shipping method
@@ -232,9 +233,9 @@ export class Cart {
       );
     };
 
-    session.onpaymentauthorized = async event => {
-      try {
-        const payload = await this.applePayInstance.tokenize({ token: event.payment.token });
+    session.onpaymentauthorized = event => {
+     this.applePayInstance.tokenize({ token: event.payment.token })
+      .then(payload => {
         session.completePayment(session.STATUS_SUCCESS);
 
         // Get this.purchaser and this.recipient from event.payment
@@ -242,11 +243,11 @@ export class Cart {
 
         // Post the order and handle errors
         this.postOrderInformation(payload);
-      } catch(err) {
+      })
+      .catch(err => {
         this.$log.error('Error tokenizing Apple Pay:', err);
         session.completePayment(session.STATUS_FAILURE);
-        return;
-      }
+      });
     }; // session.onpaymentauthorized
 
     // Show the payment sheet on the device
