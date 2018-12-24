@@ -294,6 +294,7 @@ export class Cart {
     }
   }
 
+  // Called by placeOrder() from checkout and applePayCheckout()
   async postOrderInformation(payload) {
     // Order info to be submitted (subset of Cart properties)
     const orderInformation = {
