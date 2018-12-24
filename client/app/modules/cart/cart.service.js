@@ -233,21 +233,22 @@ export class Cart {
       );
     };
 
-    session.onpaymentauthorized = event => {
-     this.applePayInstance.tokenize({ token: event.payment.token })
-      .then(payload => {
+    session.onpaymentauthorized = async event => {
+      try {
+        const payload = await this.applePayInstance.tokenize({ token: event.payment.token });
         session.completePayment(session.STATUS_SUCCESS);
-
+  
         // Get this.purchaser and this.recipient from event.payment
         this.applePayGetPurchaserAndRecipient(event.payment);
-
-        // Post the order and handle errors
-        this.postOrderInformation(payload);
-      })
-      .catch(err => {
+  
+        await this.postOrderInformation(payload);
+  
+        // To confirmation page (notify digest cycle)
+        this.$timeout(() => this.$location.path('/confirmation'));
+      } catch(err) {
         this.$log.error('Error tokenizing Apple Pay:', err);
         session.completePayment(session.STATUS_FAILURE);
-      });
+      }
     }; // session.onpaymentauthorized
 
     // Show the payment sheet on the device
