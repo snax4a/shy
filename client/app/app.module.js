@@ -23,6 +23,7 @@ import TeacherTrainingModule from './modules/teachertraining/teachertraining.mod
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
 import ShynetModule from './modules/shynet/shynet.module';
+import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -57,7 +58,6 @@ import NavbarComponent from './components/navbar/navbar.component'; // _index.ht
 import JsonLdComponent from './components/jsonld/jsonld.component'; // workshops.component.js
 import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component'; // admin.component.js
 import TweetComponent from './components/tweet/tweet.component'; // workshops.component.js
-import UserManagerComponent from './components/usermanager/usermanager.component'; // admin.component.js, shynet.component.js
 
 // Page components - lazy-loaded via ngRoute
 import CheckoutComponent from './components/checkout/checkout.component';
@@ -99,6 +99,14 @@ angular.module('shyApp', [
   CompareToDirective,
   AuthModule,
   CartModule,
+  HomeModule,
+  ClassesModule,
+  WorkshopsModule,
+  LocationsModule,
+  TeachersModule,
+  TeacherTrainingModule,
+  UserManagerModule,
+  ShynetModule,
   AnnouncementManagerComponent,
   BannerComponent,
   FooterComponent,
@@ -107,22 +115,14 @@ angular.module('shyApp', [
   NavbarComponent,
   ScheduleManagerComponent,
   TweetComponent,
-  UserManagerComponent,
   LoginComponent,
   AdminComponent,
-  HomeModule,
-  ClassesModule,
-  WorkshopsModule,
-  LocationsModule,
-  TeachersModule,
   CheckoutComponent,
   ConfirmationComponent,
-  TeacherTrainingModule,
   PrivacyComponent,
   TermsComponent,
   SignupComponent,
-  ProfileComponent,
-  ShynetModule
+  ProfileComponent
 ])
   .config(routeConfig)
   /*

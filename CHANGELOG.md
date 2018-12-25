@@ -6,7 +6,7 @@
 * [High] Create ScheduleService for schedulemanager.component.js (and add LocationService, TeachersService, ClassesService)
 * [High] Extend AnnouncementService (create, delete) for announcementmanager.component.js
 * [High] Extend User service, forgotPassword() for login.component.js
-* [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService)
+* [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
 * [Low] Embed images in order confirmations using nodemailer

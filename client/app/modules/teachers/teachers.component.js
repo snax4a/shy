@@ -5,11 +5,11 @@ export class TeachersComponent {
   constructor($anchorScroll, $timeout, TeachersService) {
     this.$anchorScroll = $anchorScroll;
     this.$timeout = $timeout;
-    this.TeachersService = TeachersService;
+    this.teachersService = TeachersService;
   }
 
   $onInit() {
-    this.faculty = this.TeachersService.teachers;
+    this.faculty = this.teachersService.teachers;
     this.$timeout(this.$anchorScroll, 50);
   }
 }
