@@ -1,17 +1,17 @@
 /* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import teachersPage from './teachers.component';
+import TeachersModule from './teachers.module';
 
-describe('Component: TeachersComponent', function() {
+describe('Module: TeachersComponent', function() {
   // load the controller's module
-  beforeEach(angular.mock.module(teachersPage));
+  beforeEach(angular.mock.module(TeachersModule));
 
-  var TeachersComponent;
+  var teachersComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    TeachersComponent = $componentController('teachers', {});
+    teachersComponent = $componentController('teachers', {});
   }));
 
   it('should display the list of teachers with their photos and bios from the JSON file', function() {

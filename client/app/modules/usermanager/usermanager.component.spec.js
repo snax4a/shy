@@ -3,7 +3,7 @@
 import angular from 'angular';
 import ngResource from 'angular-resource';
 import uiBootstrap from 'angular-ui-bootstrap';
-import UserManager from './usermanager.component';
+import UserManagerModule from './usermanager.module';
 import AuthModule from '../../modules/auth/auth.module';
 
 describe('Component: UserManagerComponent', function() {
@@ -11,7 +11,7 @@ describe('Component: UserManagerComponent', function() {
   beforeEach(angular.mock.module(uiBootstrap));
   beforeEach(angular.mock.module(ngResource));
   beforeEach(angular.mock.module(AuthModule));
-  beforeEach(angular.mock.module(UserManager));
+  beforeEach(angular.mock.module(UserManagerModule));
 
   let UserManagerComponent;
 
