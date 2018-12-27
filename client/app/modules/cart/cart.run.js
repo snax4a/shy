@@ -1,8 +1,7 @@
 'use strict';
 
-export function CartRun(Cart, ProductList) {
+export function CartRun(Cart) {
   'ngInject';
 
   Cart.loadFromStorage();
-  ProductList.loadProductsFromJson();
 }

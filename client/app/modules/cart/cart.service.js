@@ -20,7 +20,7 @@ class Item {
 // Note: results of async functions are not part of the digest cycle so the component must use $timeout whenever an update is needed
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, $timeout, $q, ProductList) {
+  constructor($log, $window, $location, $http, $timeout, $q) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
@@ -28,7 +28,6 @@ export class Cart {
     this.$http = $http;
     this.$timeout = $timeout;
     this.$q = $q;
-    this.ProductList = ProductList;
 
     // Initialize members
     this.key = 'cart'; // name of local storage key
@@ -52,17 +51,24 @@ export class Cart {
 
   async braintreeInitialize() {
     try {
+      // Load product list
+      const { data } = await this.$http.get('/assets/data/products.json');
+      this.products = data;
+
       // Get token
       const response = await this.$http.get('api/token');
       const token = response.data;
       this.clientInstance = await braintreeClient.create({ authorization: token });
+
       // Check to see if browser supports Apple Pay
       if(this.applePayPossible()) {
         this.applePayInstance = await braintreeApplePay.create({ client: this.clientInstance });
         // Check to see if user has Apple Pay setup with a card
         this.applePayEnabled = await window.ApplePaySession.canMakePaymentsWithActiveCard(this.applePayInstance.merchantIdentifier);
       }
-      return true; // Successfully resolved all promises
+
+      // Successfully resolved all promises
+      return true;
     } catch(err) {
       console.log('Error setting up Braintree', err);
       return false;
@@ -237,12 +243,12 @@ export class Cart {
       try {
         const payload = await this.applePayInstance.tokenize({ token: event.payment.token });
         session.completePayment(session.STATUS_SUCCESS);
-  
+
         // Get this.purchaser and this.recipient from event.payment
         this.applePayGetPurchaserAndRecipient(event.payment);
-  
+
         await this.postOrderInformation(payload);
-  
+
         // To confirmation page (notify digest cycle)
         this.$timeout(() => this.$location.path('/confirmation'));
       } catch(err) {
@@ -330,6 +336,11 @@ export class Cart {
     this.confirmation = await this.postOrderInformation(payload);
   }
 
+  // Iterates through array of products to retrieve one with matching id
+  productLookupById(id) {
+    return this.products.find(product => product.id === parseInt(id, 10));
+  }
+
   // Clear the cartItems during checkout()
   clearCartItems() {
     this.initializeProperties();
@@ -344,7 +355,7 @@ export class Cart {
       // Increment the quantity instead of starting at 1
       inCart.quantity += 1;
     } else {
-      let product = this.ProductList.lookup(id);
+      let product = this.productLookupById(id);
       this.cartItems.push(new Item(id, product.name, product.price, 1));
     }
     this.saveToStorage();
