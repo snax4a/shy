@@ -5,13 +5,12 @@ import ngRoute from 'angular-route';
 
 export class CheckOutComponent {
   /*@ngInject*/
-  constructor($log, $window, $timeout, $location, ProductList, Cart) {
+  constructor($log, $window, $timeout, $location, Cart) {
     // Dependencies
     this.$log = $log;
     this.$window = $window;
     this.$timeout = $timeout;
     this.$location = $location;
-    this.products = ProductList.products;
     this.Cart = Cart;
   }
 
