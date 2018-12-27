@@ -1,7 +1,5 @@
 # Product Backlog
-* [High] SELECT FROM old_zero_old_passes;
-* [High] Consider whether to bundle checkout and confirmation into cart module
-* [High] Consider whether to bundle admin, announcementmanager, schedulemanager, and usermanager into admin module
+* [High] Convert announcementmanager, schedulemanager, and navbar to modules (split out modal controllers and services)
 * [High] Create ContactService.sendMessage() for navbar.component.js
 * [High] Create ScheduleService for schedulemanager.component.js (and add LocationService, TeachersService, ClassesService)
 * [High] Extend AnnouncementService (create, delete) for announcementmanager.component.js
