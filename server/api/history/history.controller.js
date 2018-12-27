@@ -105,20 +105,18 @@ export async function update(req, res) {
     sql = `UPDATE "Purchases" SET
       "UserId" = $2, quantity = $3, method = $4,
       notes = $5, "createdAt" = $6::date, "updatedAt" = CURRENT_DATE
-      WHERE _id = $1
-      RETURNING _id;`;
+      WHERE _id = $1;`;
   } else {
     const { attended, location, classTitle, teacher } = req.body;
     arrParams.push(attended, location, classTitle, teacher);
     sql = `UPDATE "Attendances" SET
       "UserId" = $2, attended = $3::date, location = $4,
       "classTitle" = $5, teacher = $6, "updatedAt" = CURRENT_DATE
-      WHERE _id = $1
-      RETURNING _id;`;
+      WHERE _id = $1;`;
   }
 
-  const { rows } = await db.query(sql, arrParams);
-  res.status(200).send({ _id: rows[0]._id });
+  await db.query(sql, arrParams);
+  res.status(200).send({ _id });
 }
 
 // Delete history item based on its _id and type
