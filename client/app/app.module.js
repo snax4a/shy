@@ -24,6 +24,7 @@ import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
 import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
+import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -50,7 +51,6 @@ import UpcomingFilter from './filters/upcoming/upcoming.filter'; // workshops.co
 import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager.component.js
 
 // Sub-page components
-import AnnouncementManagerComponent from './components/announcementmanager/announcementmanager.component'; // admin.component.js
 import BannerComponent from './components/banner/banner.component'; // _index.html
 import FooterComponent from './components/footer/footer.component'; // _index.html
 import GoogleButtonComponent from './components/google-button/google-button.component';
@@ -107,7 +107,7 @@ angular.module('shyApp', [
   TeacherTrainingModule,
   UserManagerModule,
   ShynetModule,
-  AnnouncementManagerComponent,
+  AnnouncementManagerModule,
   BannerComponent,
   FooterComponent,
   GoogleButtonComponent,

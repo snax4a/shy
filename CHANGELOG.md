@@ -1,8 +1,7 @@
 # Product Backlog
-* [High] Convert announcementmanager, schedulemanager, and navbar to modules (split out modal controllers and services)
+* [High] Convert schedulemanager, and navbar to modules (split out modal controllers and services)
 * [High] Create ContactService.sendMessage() for navbar.component.js
 * [High] Create ScheduleService for schedulemanager.component.js (and add LocationService, TeachersService, ClassesService)
-* [High] Extend AnnouncementService (create, delete) for announcementmanager.component.js
 * [High] Extend User service, forgotPassword() for login.component.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies

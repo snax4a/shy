@@ -17,6 +17,7 @@ export class HomeService {
     }
   }
 
+  // Intentionally redundant with AnnouncementService
   async getAnnouncements() {
     const { data } = await this.$http.get('/api/announcement');
     this.announcementList = data;
