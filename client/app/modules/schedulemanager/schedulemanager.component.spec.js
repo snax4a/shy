@@ -3,7 +3,7 @@
 import angular from 'angular';
 import ngResource from 'angular-resource';
 import uiBootstrap from 'angular-ui-bootstrap';
-import ScheduleManager from './schedulemanager.component';
+import ScheduleManagerModule from './schedulemanager.module';
 import AuthModule from '../../modules/auth/auth.module';
 
 describe('Component: ScheduleManagerComponent', function() {
@@ -11,7 +11,7 @@ describe('Component: ScheduleManagerComponent', function() {
   beforeEach(angular.mock.module(uiBootstrap));
   beforeEach(angular.mock.module(ngResource));
   beforeEach(angular.mock.module(AuthModule));
-  beforeEach(angular.mock.module(ScheduleManager));
+  beforeEach(angular.mock.module(ScheduleManagerModule));
 
   let ScheduleManagerComponent;
 

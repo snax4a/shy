@@ -26,6 +26,7 @@ import AuthModule from './modules/auth/auth.module';
 import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
+import ScheduleManagerModule from './modules/schedulemanager/schedulemanager.module'; // admin.component.js
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -56,7 +57,6 @@ import BannerComponent from './components/banner/banner.component'; // _index.ht
 import FooterComponent from './components/footer/footer.component'; // _index.html
 import GoogleButtonComponent from './components/google-button/google-button.component';
 import JsonLdComponent from './components/jsonld/jsonld.component'; // workshops.component.js
-import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component'; // admin.component.js
 import TweetComponent from './components/tweet/tweet.component'; // workshops.component.js
 
 // Page components - lazy-loaded via ngRoute
@@ -107,13 +107,13 @@ angular.module('shyApp', [
   TeachersModule,
   TeacherTrainingModule,
   UserManagerModule,
-  ShynetModule,
   AnnouncementManagerModule,
+  ScheduleManagerModule,
+  ShynetModule,
   BannerComponent,
   FooterComponent,
   GoogleButtonComponent,
   JsonLdComponent,
-  ScheduleManagerComponent,
   TweetComponent,
   LoginComponent,
   AdminComponent,

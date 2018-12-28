@@ -1,0 +1,37 @@
+.row.tab-spacer
+  .col-md-12
+    a.btn.btn-warning(ng-click='$ctrl.scheduleItemCreate()')
+      span.fas.fa-plus-circle
+      |&nbsp;New Schedule Item
+    p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
+    table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
+      thead
+        th Location (click to edit)
+        th Day
+        th Title
+        th Teacher
+        th Starts
+        th Ends
+        th Canceled
+        th 
+      tbody
+        tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)')
+              span.fas.fa-pencil-alt 
+              |&nbsp;&nbsp;{{ scheduleItem.location }}
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.day | weekday }}
+          td 
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.title }}
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.teacher }}
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.startTime | ampm }}
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.endTime  | ampm }}
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.canceled ? 'Yes' : 'No'}}
+          td
+            a.trash(ng-click='$ctrl.scheduleItemDelete(scheduleItem)')
+              span.far.fa-trash-alt.pull-right
