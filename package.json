@@ -41,7 +41,7 @@
     "lusca": "^1.6.1",
     "mime-types": "^2.1.21",
     "morgan": "~1.9.1",
-    "nodemailer": "^4.7.0",
+    "nodemailer": "^5.0.0",
     "passport": "~0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
@@ -122,13 +122,13 @@
     "strip-ansi": "^5.0.0",
     "style-loader": "^0.23.1",
     "supertest": "^3.3.0",
-    "uglifyjs-webpack-plugin": "^2.1.0",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.2",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "^3.4.0"
   },
   "engines": {
-    "node": "~10.14.2",
+    "node": "~10.15.0",
     "npm": "~6.5.0"
   },
   "scripts": {
