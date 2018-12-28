@@ -14,7 +14,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 ### Prerequisites
 
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
-- [Node.js 10.14.2 and npm 6.5.0](nodejs.org) (`brew install node@10`)
+- [Node.js 10.15.0 and npm 6.5.0](nodejs.org) (`brew install node@10`)
 - [PostgreSQL 11.1.0](http://postgresql.org) (`brew install postgresql`)
 - [pgAdmin4](https://www.postgresql.org/download/)
 - [Chrome >= 62] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
@@ -55,7 +55,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 [express-url]: http://expressjs.com
 [angularjs]: https://img.shields.io/badge/angularjs-1.7.5-red.svg
 [angularjs-url]: https://angularjs.org
-[node]: https://img.shields.io/badge/nodejs-10.14.2-green.svg
+[node]: https://img.shields.io/badge/nodejs-10.15.0-green.svg
 [node-url]: https://nodejs.org
 [postgresql]: https://img.shields.io/badge/postgresql-11.1.0-blue.svg
 [postgresql-url]: https://www.postgresql.org
