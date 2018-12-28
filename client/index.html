@@ -29,6 +29,15 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-9430810-1');
+
+        function detectIE() {
+          var ua = window.navigator.userAgent;
+          if(ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0) {
+            window.location.href = 'http://outdatedbrowser.com/en';
+          }
+        }
+
+        detectIE();
     </script>
     <script type="application/ld+json">
       {
@@ -187,9 +196,6 @@
     </script>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage">
-    <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
     <navbar></navbar>
     <banner></banner>
     <div ng-view=""></div>

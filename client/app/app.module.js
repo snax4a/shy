@@ -73,6 +73,7 @@ import ProfileComponent from './components/profile/profile.component';
 import './app.scss';
 
 angular.module('shyApp', [
+  // ngLoadingBar,
   ngAria,
   ngCookies,
   ngResource,
@@ -93,7 +94,6 @@ angular.module('shyApp', [
   UibDropDownDirective,
   UibModalDirective,
   UibTabsDirective,
-  // ngLoadingBar,
   constants,
   PaginationDirective,
   CompareToDirective,
@@ -130,9 +130,9 @@ angular.module('shyApp', [
     cfpLoadingBarProvider.latencyThreshold = 500;
   }])
   */
-  .run(($rootScope, $location, $route, Auth /*, $anchorScroll*/) => {
+  .run(($rootScope, $location, $route, Auth) => {
     'ngInject';
-    // Redirect to login if route requires auth and you're not logged in
+    // Redirect to login if route requires auth and not logged in
     $rootScope.$on('$routeChangeStart', (event, next, current) => {
       Auth.isLoggedIn(loggedIn => {
         if(next.authenticate && !loggedIn) {
@@ -146,11 +146,6 @@ angular.module('shyApp', [
     // Change the page title based on the route
     $rootScope.$on('$routeChangeSuccess', () => {
       document.title = $route.current.title;
-      // Don't do anchor scrolling this way as most anchors are dynamically loaded
-      // if($location.hash()) {
-      //   $anchorScroll();
-      //   console.log('$anchorScroll() to ', $location.hash());
-      // }
     });
   });
 
