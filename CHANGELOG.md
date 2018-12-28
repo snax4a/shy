@@ -1,4 +1,5 @@
 # Product Backlog
+* [Bug] If admin uses Contact -> Send a message online or place an order, their permissions are reset to student
 * [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
