@@ -23,6 +23,7 @@ import TeachersModule from './modules/teachers/teachers.module';
 import TeacherTrainingModule from './modules/teachertraining/teachertraining.module';
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
+import LoginModule from './modules/login/login.module';
 import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
@@ -64,7 +65,6 @@ import CheckoutComponent from './components/checkout/checkout.component';
 import ConfirmationComponent from './components/confirmation/confirmation.component';
 import PrivacyComponent from './components/privacy/privacy.component';
 import TermsComponent from './components/terms/terms.component';
-import LoginComponent from './components/login/login.component';
 import AdminComponent from './components/admin/admin.component';
 import SignupComponent from './components/signup/signup.component';
 import ProfileComponent from './components/profile/profile.component';
@@ -98,6 +98,7 @@ angular.module('shyApp', [
   PaginationDirective,
   CompareToDirective,
   AuthModule,
+  LoginModule,
   CartModule,
   NavbarModule,
   HomeModule,
@@ -115,7 +116,6 @@ angular.module('shyApp', [
   GoogleButtonComponent,
   JsonLdComponent,
   TweetComponent,
-  LoginComponent,
   AdminComponent,
   CheckoutComponent,
   ConfirmationComponent,

@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] Extend User service, forgotPassword() for login.component.js
+* [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
 * [High] Refactor auth, /api/ order, user, and schedule controllers to remove Sequelize dependencies
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
