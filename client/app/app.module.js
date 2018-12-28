@@ -14,6 +14,7 @@ import constants from './app.constants';
 import { routeConfig } from './app.config';
 
 // Modules
+import NavbarModule from './modules/navbar/navbar.module'; // _index.html
 import HomeModule from './modules/home/home.module';
 import ClassesModule from './modules/classes/classes.module';
 import WorkshopsModule from './modules/workshops/workshops.module';
@@ -54,7 +55,6 @@ import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager
 import BannerComponent from './components/banner/banner.component'; // _index.html
 import FooterComponent from './components/footer/footer.component'; // _index.html
 import GoogleButtonComponent from './components/google-button/google-button.component';
-import NavbarComponent from './components/navbar/navbar.component'; // _index.html
 import JsonLdComponent from './components/jsonld/jsonld.component'; // workshops.component.js
 import ScheduleManagerComponent from './components/schedulemanager/schedulemanager.component'; // admin.component.js
 import TweetComponent from './components/tweet/tweet.component'; // workshops.component.js
@@ -99,6 +99,7 @@ angular.module('shyApp', [
   CompareToDirective,
   AuthModule,
   CartModule,
+  NavbarModule,
   HomeModule,
   ClassesModule,
   WorkshopsModule,
@@ -112,7 +113,6 @@ angular.module('shyApp', [
   FooterComponent,
   GoogleButtonComponent,
   JsonLdComponent,
-  NavbarComponent,
   ScheduleManagerComponent,
   TweetComponent,
   LoginComponent,

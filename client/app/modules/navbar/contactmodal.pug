@@ -1,4 +1,4 @@
-form(name='form', ng-submit='$ctrl.submitContact(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}", autocomplete='on')
+form(name='form', ng-submit='$ctrl.messageSend(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}", autocomplete='on')
   .modal-header
     button.close(type='button', ng-click='$ctrl.cancel()', tabindex='8') &times;
     h2#modal-label.modal-title Contact us
