@@ -1,8 +1,8 @@
 'use strict';
 import braintree from 'braintree';
 import config from '../../config/environment';
+import db from '../../db';
 
-const db = require('../../db');
 const products = require('../../../client/assets/data/products.json');
 
 class BraintreeError extends Error {

@@ -1,5 +1,5 @@
 'use strict';
-const db = require('../../db');
+import db from '../../db';
 
 // Returns array of attendees
 export async function attendees(req, res) {

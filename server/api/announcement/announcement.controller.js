@@ -1,5 +1,5 @@
 'use strict';
-const db = require('../../db');
+import db from '../../db';
 
 // Utility function to return nested JSON from flat list
 function nest(flatAnnouncements) {
