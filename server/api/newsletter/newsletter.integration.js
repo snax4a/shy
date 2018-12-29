@@ -27,7 +27,7 @@ describe('Newsletter API:', function() {
     after(() =>
       User.destroy({
         where: {
-          email: 'jdoe@gmail.com'
+          email: 'nul@bitbucket.com'
         }
       })
     );

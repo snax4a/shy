@@ -1,17 +1,17 @@
 'use strict';
 import config from '../../config/environment';
-import { User } from '../../sqldb';
+import db from '../../db';
 
 // Upserts user to newsletter list then emails admins
 export async function subscribe(req, res) {
-  await User.upsert({
-    email: req.body.email,
-    firstName: 'Student',
-    optOut: false
-  });
-
-  // Send response before the email goes out
+  // Send response before database and email operations
   res.status(200).send('Thanks for subscribing to our newsletter.');
+
+  const userUpsertSQL = `INSERT INTO "Users"
+  (email, "firstName", "optOut", "createdAt", "updatedAt")
+  VALUES ($1, 'Student', false, CURRENT_DATE, CURRENT_DATE)
+  ON CONFLICT (email) DO UPDATE
+     SET "optOut" = false, "updatedAt" = CURRENT_DATE;`;
 
   const message = {
     to: config.mail.admins,
@@ -19,15 +19,14 @@ export async function subscribe(req, res) {
     text: `Email: ${req.body.email}`
   };
 
-  await config.mail.transporter.sendMail(message);
+  await Promise.all([db.query(userUpsertSQL, [req.body.email]), config.mail.transporter.sendMail(message)]);
 }
 
 // Upsert subscriber to opt out (unsubscribe)
 export async function unsubscribe(req, res) {
-  await User.upsert({
-    email: req.params.email,
-    optOut: true
-  });
-
+  // Send response before database and email operations
   res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
+
+  const unsubscribeSQL = `UPDATE "Users" SET "optOut" = true WHERE email = $1;`
+  await db.query(unsubscribeSQL, [req.params.email]);
 }
