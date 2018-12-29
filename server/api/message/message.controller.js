@@ -1,25 +1,30 @@
 'use strict';
 import config from '../../config/environment';
-import { User } from '../../sqldb';
+import db from '../../db';
 
 // Upsert user (including optOut attribute) to newsletter list then emails admins
 export async function send(req, res) {
-  await User.upsert(req.body);
-
   // Send response before the email goes out
   res.status(200).send('Thanks for submitting your question or comment. We will respond shortly.');
+
+  const { email, firstName, lastName, phone, optOut, question } = req.body;
+  const userUpsertSQL = `INSERT INTO "Users"
+  (email, "firstName", "lastName", phone, "optOut", "createdAt", "updatedAt")
+  VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE)
+  ON CONFLICT (email) DO UPDATE
+     SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, "updatedAt" = CURRENT_DATE;`;
 
   const message = {
     to: config.mail.admins,
     subject: 'Question/comment from website',
-    text: `Name: ${req.body.firstName} ${req.body.lastName}
-Email: ${req.body.email}
+    text: `Name: ${firstName} ${lastName}
+Email: ${email}
 
 Question/comment:
-${req.body.question}
+${question}
 
-${(req.body.optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
+${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
   };
 
-  await config.mail.transporter.sendMail(message);
+  await Promise.all([db.query(userUpsertSQL, [email, firstName, lastName, phone, optOut]), config.mail.transporter.sendMail(message)]);
 }
