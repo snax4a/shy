@@ -26,7 +26,7 @@ export class ClassesService {
 
   async scheduleItemUpsert(scheduleItem) {
     const { data } = await this.$http.put(`/api/schedule/${scheduleItem._id}`, scheduleItem);
-    return scheduleIem._id === 0 ? data._id : scheduleIem._id;
+    return scheduleItem._id === 0 ? data._id : scheduleItem._id;
   }
 
   async initialize() {
