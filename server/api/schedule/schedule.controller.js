@@ -3,7 +3,6 @@
 import db from '../../db';
 
 // Nest the schedule items for easy display with AngularJS
-// TODO: Write query in PostgreSQL to return JSON instead
 function nest(flatScheduleItems) {
   let nestedScheduleItems = [];
   let currentLocation;

@@ -2,8 +2,9 @@
 
 export class ForgotPasswordController {
   /*@ngInject*/
-  constructor($http, $uibModalInstance) {
+  constructor($http, User, $uibModalInstance) {
     this.$http = $http;
+    this.User = User;
     this.$uibModalInstance = $uibModalInstance;
     this.errors = {};
     this.email = '';
@@ -11,6 +12,12 @@ export class ForgotPasswordController {
 
   clearServerError(form, fieldName) {
     form[fieldName].$setValidity('server', true);
+  }
+
+  // Or should I use Auth Service?
+  async forgotPassword(email) {
+    await this.User.forgotPassword(email);
+    return true;
   }
 
   submit(form) {
