@@ -1,8 +1,9 @@
 'use strict';
 
-import { Schedule } from '../../sqldb';
+import db from '../../db';
 
 // Nest the schedule items for easy display with AngularJS
+// TODO: Write query in PostgreSQL to return JSON instead
 function nest(flatScheduleItems) {
   let nestedScheduleItems = [];
   let currentLocation;
@@ -66,34 +67,43 @@ function nest(flatScheduleItems) {
 
 // Gets a list of Schedule items
 export async function index(req, res) {
-  let flat = req.query.flat;
-  const schedule = await Schedule.findAll({
-    attributes: ['_id', 'location', 'day', 'title', 'teacher', 'startTime', 'endTime', 'canceled'],
-    order: ['location', 'day', 'startTime']
-  });
-  return flat ? res.status(200).send(schedule) : res.status(200).send(nest(schedule));
+  const { flat } = req.query;
+  const sql = `
+    SELECT
+      _id, location, day, title, teacher,
+      "startTime", "endTime", canceled
+    FROM "Schedules"
+    ORDER BY location, day, "startTime";`;
+  const { rows } = await db.query(sql, []);
+  return flat ? res.status(200).send(rows) : res.status(200).send(nest(rows));
 }
 
 // Updates or creates schedule item (admin-only)
 export async function upsert(req, res) {
-  // New schedule items are flagged with _id of zero, strip it before Schedule.save()
-  const isNew = req.body._id === 0;
-  if(isNew) Reflect.deleteProperty(req.body, '_id');
-  let scheduleItemToUpsert = Schedule.build(req.body);
-  scheduleItemToUpsert.isNewRecord = isNew;
-
-  const scheduleItem = await scheduleItemToUpsert.save();
-  res.status(200).send({ _id: scheduleItem._id });
+  const { _id, location, day, title, teacher, startTime, endTime, canceled } = req.body;
+  let arrParams = [location, day, title, teacher, startTime, endTime, canceled];
+  let sql;
+  const isNew = _id === 0;
+  if(isNew) {
+    sql = `INSERT INTO "Schedules"
+      (location, day, title, teacher, "startTime", "endTime", canceled, "createdAt", "updatedAt")
+      VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE, CURRENT_DATE) RETURNING _id;`;
+  } else {
+    arrParams.push(_id);
+    sql = `
+      UPDATE "Schedules"
+        SET location = $1, day = $2, title = $3, teacher = $4, "startTime" = $5, "endTime" = $6, canceled = $7, "updatedAt" = CURRENT_DATE
+        WHERE _id = $8 RETURNING _id;`;
+  }
+  const { rows } = await db.query(sql, arrParams);
+  res.status(200).send({ _id: isNew ? rows[0]._id : _id })
 }
 
-// Deletes schedule item (admin-only)
 export async function destroy(req, res) {
-  await Schedule.destroy({
-    where: {
-      _id: req.params.id
-    }
-  });
-  res.status(204).end();
+  const _id = req.params.id;
+  const sql = 'DELETE FROM "Schedules" WHERE _id = $1;';
+  await db.query(sql, [_id]);
+  res.status(204).send({ message: `Schedule Item ${_id} deleted.`});
 }
 
 // Authentication callback - is it needed?
