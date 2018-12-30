@@ -1,53 +1,5 @@
 [
 	{
-		"expires": "2018-12-09T20:00:00.000-05:00",
-		"title": "Teacher Training Open House",
-		"photo": "/assets/images/workshops/openhouse.jpg",
-		"description": "Are you interested in becoming a yoga teacher? Are you interested in deepening your practice and knowledge of yoga?  Join us at our Teacher Training and Yoga Intensive open house to learn about the upcoming 2019 program. Bring questions!",
-		"sections":		
-		[
-			{
-				"start": "2018-12-09T16:00:00.000-05:00",
-				"expires": "2018-12-10T17:00:00.000-05:00",
-				"productID": 28,
-				"cost": 0,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
-		"expires": "2018-12-10T20:00:00.000-05:00",
-		"title": "Holiday Presence with Stefanie Zito",
-		"photo": "/assets/images/workshops/holiday.jpg",
-		"description": "You're invited...to slow down. The holidays can be a wild whirlwind of activity for many of us. The endless lists, the giving of gifts, the gatherings of friends, family, colleagues...Taking time for self-care is imperative in every season, but perhaps most especially during such flurry of holiday activity. Elevate your holiday beyond the bustle and join Stefanie Zito for a soothing practice of self care and mindfulness, incorporating self massage, gentle yoga, restorative poses, and breath work. Through thoughtful use of props and massage balls, we will release unhelpful tension and create spaciousness for quiet reflection and joy in this special season.",
-		"sections":		
-		[
-			{
-				"start": "2018-12-09T14:00:00.000-05:00",
-				"expires": "2018-12-10T16:00:00.000-05:00",
-				"productID": 13,
-				"cost": 25,
-				"location": "East Liberty"
-			}
-		]
-	},
-	{
-		"expires": "2018-12-30T20:00:00.000-05:00",
-		"title": "Mindful Women’s Empowerment Workshop with Joni Sturgill",
-		"photo": "/assets/images/workshops/meditation.jpg",
-		"description": "Are you living the life you want, with purpose and meaning? Do you long for support around your personal goals? Want to work toward becoming your healthiest self - mentally, emotionally, and physically? CEUs are available for yoga instructors.",
-		"sections":		
-		[
-			{
-				"start": "2018-12-29T12:00:00.000-05:00",
-				"expires": "2018-12-30T13:45:00.000-05:00",
-				"productID": 25,
-				"cost": 30,
-				"location": "North Hills"
-			}
-		]
-	},
-	{
 		"expires": "2019-01-01T20:00:00.000-05:00",
 		"title": "SOLD OUT! NYD Gathering with Linda Meacci",
 		"photo": "/assets/images/workshops/newyears.jpg",
@@ -70,30 +22,6 @@
 		"description": "Moon Salutations were developed in the early 1980s by four women at Kripalu Institute to balance the energy of traditional Sun Salutations. Moon Salutes tune into the reflective, intuitive energy of the moon focusing on hip and heart opening postures. Each posture is held for several seconds in order to allow the body to accept the energy of the practice. It is a mixed-level practice that builds stamina of the body and mind. This 90-minute workshop combines the beautiful flow of Moon Salutations with healing yoga exercises, chanting meditations, candle gazing and deep relaxation. The entire workshop is supported with live guitar music by Rick Romanelli. A perfect way to end your work week!",
 		"sections":
 		 [
-			{
-				"title": "Full Moon",
-				"start": "2018-11-23T18:30:00.000-05:00",
-				"expires": "2018-11-24T20:00:00.000-05:00",
-				"productID": 21,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "New Moon",
-				"start": "2018-12-07T18:30:00.000-05:00",
-				"expires": "2018-12-08T20:00:00.000-05:00",
-				"productID": 17,
-				"cost": 20,
-				"location": "North Hills"
-			},
-			{
-				"title": "Winter Solstice Moon",
-				"start": "2018-12-21T18:30:00.000-05:00",
-				"expires": "2018-12-22T20:00:00.000-05:00",
-				"productID": 18,
-				"cost": 20,
-				"location": "North Hills"
-			},
 			{
 				"title": "New Moon",
 				"start": "2019-01-04T18:30:00.000-05:00",
@@ -145,7 +73,7 @@
 				"location": "North Hills"
 			},
 			{
-				"title": "New Year's Day: Happy Healthy You!",
+				"title": "SOLD OUT: New Year's Day",
 				"start": "2019-01-01T14:00:00.000-05:00",
 				"expires": "2019-01-02T15:30:00.000-05:00",
 				"productID": 55,
