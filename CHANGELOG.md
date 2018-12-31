@@ -1,6 +1,5 @@
 # Product Backlog
 * [Bug] If admin uses place an order, their permissions are reset to student
-* [Bug] If on second tab of students then do new search, puts me on 2nd tab of results instead of resetting
 * [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
 * [High] Refactor sever/auth to remove Sequelize dependencies

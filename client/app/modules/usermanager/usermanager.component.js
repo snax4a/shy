@@ -6,10 +6,11 @@ import { HistoryEditorController } from './historyeditor.controller';
 
 export class UserManagerComponent {
   /*@ngInject*/
-  constructor($http, $uibModal, User) {
+  constructor($http, $uibModal, User, paginationService) {
     this.$http = $http;
     this.User = User; // used by search()
     this.$uibModal = $uibModal;
+    this.paginationService = paginationService; // dirPagination
   }
 
   // Initializations
@@ -48,6 +49,7 @@ export class UserManagerComponent {
       this.User.query({ filter: this.filterField})
         .$promise
         .then(users => {
+          this.paginationService.setCurrentPage('users', 1);
           this.users = users;
           this.historyItems = [];
         });
