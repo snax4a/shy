@@ -17,7 +17,7 @@ export class ClassAdderController {
       quantity: 1,
       method: 'Cash',
       notes: '',
-      createdAt: new Date()
+      purchased: new Date()
     };
 
     this.datePickerOpened = false;

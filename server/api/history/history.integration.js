@@ -39,7 +39,7 @@ describe('History API:', function() {
       quantity: 3,
       method: 'Cash',
       notes: 'Integration test',
-      createdAt: '2018-12-01'
+      purchased: '2018-12-01'
     };
 
     // Gives a 500 error rather than 401 if authorization header is not provided
@@ -73,7 +73,7 @@ describe('History API:', function() {
       quantity: 3,
       method: 'Cash',
       notes: 'Integration test',
-      createdAt: '2018-12-01'
+      purchased: '2018-12-01'
     };
 
     // Gives a 500 error rather than 401 if authorization header is not provided

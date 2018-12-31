@@ -55,7 +55,7 @@ export async function index(req, res) {
       SELECT "Purchases"._id,
         "Purchases"."UserId",
         'P'::text AS type,
-        "Purchases"."createdAt"::DATE AS "when",
+        "Purchases".purchased AS "when",
         NULL AS location,
         NULL AS "classTitle",
         NULL AS teacher,
@@ -78,15 +78,15 @@ export async function create(req, res) {
   let sql;
 
   if(type == 'P') {
-    const { quantity, method, notes, createdAt } = req.body;
-    arrParams.push(quantity, method, notes, createdAt);
-    sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, "createdAt", "updatedAt")
+    const { quantity, method, notes, purchased } = req.body;
+    arrParams.push(quantity, method, notes, purchased);
+    sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, purchased)
       VALUES ($1, $2, $3, $4, $5::date, CURRENT_DATE) RETURNING _id;`;
   } else {
     const { attended, location, classTitle, teacher } = req.body;
     arrParams.push(attended, location, classTitle, teacher);
-    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "classTitle", teacher, "createdAt", "updatedAt")
-      VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE) RETURNING _id;`;
+    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "classTitle", teacher)
+      VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   }
 
   const { rows } = await db.query(sql, arrParams);
@@ -100,18 +100,18 @@ export async function update(req, res) {
   let sql;
 
   if(type == 'P') {
-    const { quantity, method, notes, createdAt } = req.body;
-    arrParams.push(quantity, method, notes, createdAt);
+    const { quantity, method, notes, purchased } = req.body;
+    arrParams.push(quantity, method, notes, purchased);
     sql = `UPDATE "Purchases" SET
       "UserId" = $2, quantity = $3, method = $4,
-      notes = $5, "createdAt" = $6::date, "updatedAt" = CURRENT_DATE
+      notes = $5, purchased = $6::date
       WHERE _id = $1;`;
   } else {
     const { attended, location, classTitle, teacher } = req.body;
     arrParams.push(attended, location, classTitle, teacher);
     sql = `UPDATE "Attendances" SET
       "UserId" = $2, attended = $3::date, location = $4,
-      "classTitle" = $5, teacher = $6, "updatedAt" = CURRENT_DATE
+      "classTitle" = $5, teacher = $6
       WHERE _id = $1;`;
   }
 
@@ -134,8 +134,3 @@ export async function destroy(req, res) {
   await db.query(sql, [_id]);
   res.status(204).send({ _id });
 }
-
-// Authentication callback - is it needed?
-// export function authCallback(req, res) {
-//   return res.redirect('/');
-// }

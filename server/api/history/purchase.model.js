@@ -19,6 +19,11 @@ export default function(sequelize, DataTypes) {
       }
     },
 
+    purchased: {
+      type: DataTypes.DATE
+    },
+  
+
     // Intentionally not normalized as a separate table
     // Payment methods change from time to time - too much of an admin hassle
     method: {
@@ -35,7 +40,7 @@ export default function(sequelize, DataTypes) {
 
   const options = {
     indexes: [
-      { fields: ['createdAt'] },
+      { fields: ['purchased'] },
       { fields: ['UserId']}
     ]
   };

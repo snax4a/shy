@@ -22,13 +22,13 @@ form(name='form', ng-submit='$ctrl.submit(form)', novalidate='', ng-model-option
       label(for='notes') Notes
       textarea.form-control(name='notes', id='notes', ng-model='$ctrl.purchase.notes', rows='5', cols='20', placeholder='Notes', tabindex='3')
     .form-group
-      label(for='createdAt') Purchased on
+      label(for='purchased') Purchased on
       .input-group
-        input.form-control(id='createdAt', name='createdAt', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.purchase.createdAt', placeholder='Purchased on')
+        input.form-control(id='purchased', name='purchased', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.purchase.purchased', placeholder='Purchased on')
         span.input-group-btn
           button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
             i.far.fa-calendar-alt
-      ng-messages.help-block.has-error(for='form.createdAt.$error', ng-show='form.createdAt.$dirty || form.$submitted', role='alert')
+      ng-messages.help-block.has-error(for='form.purchased.$error', ng-show='form.purchased.$dirty || form.$submitted', role='alert')
         ng-message(when='required') Please enter a purchase date.
   .modal-footer
     button.btn.btn-default(type='button', id='cancelButton' ng-click='$ctrl.cancel()', tabindex='6') Cancel
