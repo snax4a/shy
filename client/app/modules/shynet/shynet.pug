@@ -12,32 +12,33 @@
         .panel-heading
           h4 Class Attendees
         .panel-body
-          .row
-            .col-xs-12
-              .form-group
-                label.sr-only(for='title') Class
-                select.form-control(name='title', id='title', ng-model='$ctrl.classTitle', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'", ng-change='$ctrl.attendeeLookup()')
-                  option(value='', disabled='', selected='') Select Class
-          .row
-            .col-xs-6
-              label.sr-only(for='classDate') Class Date
-              .input-group
-                input.form-control(id='classDate', name='classDate', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.classDate', placeholder='Class date', ng-change='$ctrl.attendeeLookup()')
-                span.input-group-btn
-                  button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
-                    i.far.fa-calendar-alt
-              ng-messages.help-block.has-error(for='form.classDate.$error', ng-show='form.classDate.$dirty || form.$submitted', role='alert')
-                ng-message(when='required') Please enter a class date.
-          .row
-            .col-xs-12
-              .input-group
-                label.sr-only(for='location') Studio
-                select.form-control(name='location', id='location', ng-model='$ctrl.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'", ng-change='$ctrl.attendeeLookup()')
-                  option(value='', disabled='', selected='') Select Studio
-                span.input-group-addon &nbsp;
-                label.sr-only(for='teacher') Instructor
-                select.form-control(name='teacher', id='teacher', ng-model='$ctrl.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'", ng-change='$ctrl.attendeeLookup()')
-                  option(value='', disabled='', selected='') Select Teacher
+          form(ng-model-options="{'timezone':'UTC','updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+            .row
+              .col-xs-12
+                .form-group
+                  label.sr-only(for='title') Class
+                  select.form-control(name='title', id='title', ng-model='$ctrl.classTitle', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'", ng-change='$ctrl.attendeeLookup()')
+                    option(value='', disabled='', selected='') Select Class
+            .row
+              .col-xs-6
+                label.sr-only(for='classDate') Class Date
+                .input-group
+                  input.form-control(id='classDate', name='classDate', type='text', uib-datepicker-popup='d-MMM-yy', alt-input-formats='MM/dd/yyyy', datepicker-options='$ctrl.dateOptions', is-open='$ctrl.datePickerOpened', ng-model='$ctrl.classDate', placeholder='Class date', ng-change='$ctrl.attendeeLookup()')
+                  span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='$ctrl.showCalendar()')
+                      i.far.fa-calendar-alt
+                ng-messages.help-block.has-error(for='form.classDate.$error', ng-show='form.classDate.$dirty || form.$submitted', role='alert')
+                  ng-message(when='required') Please enter a class date.
+            .row
+              .col-xs-12
+                .input-group
+                  label.sr-only(for='location') Studio
+                  select.form-control(name='location', id='location', ng-model='$ctrl.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'", ng-change='$ctrl.attendeeLookup()')
+                    option(value='', disabled='', selected='') Select Studio
+                  span.input-group-addon &nbsp;
+                  label.sr-only(for='teacher') Instructor
+                  select.form-control(name='teacher', id='teacher', ng-model='$ctrl.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'", ng-change='$ctrl.attendeeLookup()')
+                    option(value='', disabled='', selected='') Select Teacher
           .row
             .col-xs-12
               div

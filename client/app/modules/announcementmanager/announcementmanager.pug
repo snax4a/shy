@@ -22,7 +22,7 @@
           td
             a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.description }}
           td
-            a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.expires | date: 'd-MMM-yy' }}
+            a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.expires | date: 'd-MMM-yy' : 'UTC' }}
           td
             a.trash(ng-click='$ctrl.announcementDelete(announcement)')
               span.far.fa-trash-alt.pull-right

@@ -1,4 +1,4 @@
-form(name='form', ng-submit="$ctrl.submit(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+form(name='form', ng-submit="$ctrl.submit(form)", novalidate='', ng-model-options="{'timezone':'UTC','updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
       span(aria-hidden='true') &times;

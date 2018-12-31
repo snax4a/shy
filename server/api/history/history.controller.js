@@ -28,7 +28,7 @@ export async function index(req, res) {
     SELECT history._id,
       history."UserId",
       history.type,
-      history."when"::DATE,
+      history."when",
       history.location,
       history."classTitle",
       history.teacher,
