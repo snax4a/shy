@@ -11,13 +11,14 @@ export class ClassAdderController {
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
+    const now = new Date();
     this.purchase = {
       type: 'P',
       UserId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
       notes: '',
-      purchased: new Date()
+      purchased: new Date(now.getFullYear(), now.getMonth(), now.getDate())
     };
 
     this.datePickerOpened = false;

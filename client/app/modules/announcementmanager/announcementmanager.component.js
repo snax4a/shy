@@ -19,9 +19,9 @@ export class AnnouncementManagerComponent {
   }
 
   announcementCreate() {
-    const now = new Date();
-    // Expire next month (and omit time)
-    let defaultExpiration = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    // Expire next month
+    let defaultExpiration = new Date();
+    defaultExpiration.setDate(defaultExpiration.getDate() + 30);
     let announcement = {
       _id: 0,
       section: '',
