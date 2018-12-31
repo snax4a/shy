@@ -81,7 +81,7 @@ export async function create(req, res) {
     const { quantity, method, notes, purchased } = req.body;
     arrParams.push(quantity, method, notes, purchased);
     sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, purchased)
-      VALUES ($1, $2, $3, $4, $5::date, CURRENT_DATE) RETURNING _id;`;
+      VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   } else {
     const { attended, location, classTitle, teacher } = req.body;
     arrParams.push(attended, location, classTitle, teacher);
