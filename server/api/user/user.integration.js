@@ -8,6 +8,8 @@ import request from 'supertest';
 describe('User API:', () => {
   const email = 'nul@bitbucket.com';
   const password = 'password';
+  const passwordNew = 'password';
+  const passwordConfirm = 'password';
   let token;
   let user; // Set by getUserProfile()
 
@@ -18,8 +20,12 @@ describe('User API:', () => {
       lastName: 'McBoatface',
       email,
       password,
+      passwordNew,
+      passwordConfirm,
       optOut: false,
-      phone: '412-555-1212'
+      phone: '412-555-1212',
+      provider: 'local',
+      role: 'admin'
     };
   };
 

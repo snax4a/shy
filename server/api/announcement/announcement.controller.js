@@ -46,9 +46,9 @@ export async function upsert(req, res) {
   let arrParams = [section, title, description, new Date(expires).toISOString()];
   let sql;
   if(isNew) {
-    sql = 'INSERT INTO "Announcements" (section, title, description, expires, "createdAt", "updatedAt") VALUES ($1, $2, $3, $4::date, CURRENT_DATE, CURRENT_DATE) RETURNING _id;';
+    sql = 'INSERT INTO "Announcements" (section, title, description, expires) VALUES ($1, $2, $3, $4::date) RETURNING _id;';
   } else {
-    sql = 'UPDATE "Announcements" SET section = $2, title = $3, description = $4, expires = $5::date, "updatedAt" = CURRENT_DATE WHERE _id = $1 RETURNING _id;';
+    sql = 'UPDATE "Announcements" SET section = $2, title = $3, description = $4, expires = $5::date WHERE _id = $1 RETURNING _id;';
     arrParams.unshift(_id);
   }
   const { rows } = await db.query(sql, arrParams);

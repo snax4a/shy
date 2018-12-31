@@ -1,15 +1,15 @@
 'use strict';
+
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-const db = require('../../db');
-
-import config from '../../config/environment';
-import { User } from '../../sqldb';
+import db from '../../db';
+import config from '../../config/environment'; // secrets and email
 
 class UserError extends Error {
-  constructor(message, path) {
+  constructor(message, path, status) {
     super(message);
     this.message = message;
+    this.status = status;
     this.name = 'UserError';
     this.errors = [{message, path}];
     Error.captureStackTrace(this, this.constructor);
@@ -17,9 +17,50 @@ class UserError extends Error {
 }
 
 function userMissingError() {
-  let thisError = new UserError('No user with that email address was found.', 'email');
-  thisError.status = 404;
-  throw thisError;
+  throw new UserError('No user with that email address was found.', 'email', 404);
+}
+
+// Only use for update and upsert - logins must fire a 401
+function userUnauthorizedError() {
+  throw new UserError('Not the correct password.', 'password', 403);
+}
+
+function userPasswordMismatchError() {
+  throw new UserError('Passwords must match.', 'passwordNew', 403);
+}
+
+function userEmailTakenError() {
+  throw new UserError('Email address already in use', 'email', 403);
+}
+
+function userGoogleChangeError() {
+  throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email', 403);
+}
+
+// Promisify crypto.randomBytes()
+function generateRandomBytes(bytes) {
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(bytes, (err, result) => {
+      if(err) {
+        reject('Error generating random bytes');
+      }
+      resolve(result.toString('base64'));
+    });
+  });
+}
+
+// Promisify password encryption
+function encryptPassword(password, salt) {
+  return new Promise((resolve, reject) => {
+    const defaultIterations = 10000, defaultKeyLength = 64, defaultDigest = 'sha256';
+    // TODO: remove Buffer.from(salt, 'base64') then reset all passwords
+    crypto.pbkdf2(password, Buffer.from(salt, 'base64'), defaultIterations, defaultKeyLength, defaultDigest, (err, key) => {
+      if(err) {
+        reject('Error encrypting password');
+      }
+      resolve(key.toString('base64'));
+    });
+  });
 }
 
 // Gets list of users with balances using filter (teacher or admin-only)
@@ -43,74 +84,69 @@ export async function index(req, res) {
     WHERE "user"."firstName" ILIKE $1 || '%' OR "user"."lastName" ILIKE $1 || '%' OR "user"."email" ILIKE $1 || '%'
     ORDER BY "user"."lastName", "user"."firstName";`;
   const { rows } = await db.query(sql, [req.query.filter]);
-  res.status(200).send(rows);
+  return res.status(200).send(rows);
 }
 
 // Gets attributes for logged-in user
 export async function me(req, res) {
-  let userId = req.user._id;
-  const user = await User.findOne({
-    where: {
-      _id: userId
-    },
-    attributes: [
-      '_id',
-      'firstName',
-      'lastName',
-      'email',
-      'role',
-      'phone',
-      'optOut',
-      'provider'
-    ]
-  });
-  if(!user) userMissingError();
-  res.status(200).send(user);
+  const { _id } = req.user;
+  const sql = `
+    SELECT _id, "firstName", "lastName", email, role, phone,
+      "optOut", provider
+    FROM "Users"
+    WHERE _id = $1;`;
+  const { rows } = await db.query(sql, [_id]);
+  if(rows.length === 0) userMissingError();
+  return res.status(200).send(rows[0]);
 }
 
-// Creates new user and logs them in
+// Creates new user and logs them in (using Google provider takes different path)
 export async function create(req, res) {
-  let newUser = User.build(req.body);
-  newUser.setDataValue('provider', 'local');
-  newUser.setDataValue('role', 'student');
-  const user = await newUser.save();
-  let token = jwt.sign({ _id: user._id }, config.secrets.session, {
+  const { firstName, lastName, email, phone, optOut, passwordNew, passwordConfirm } = req.body;
+
+  // Should work even if both are undefined
+  if(passwordNew !== passwordConfirm) userPasswordMismatchError();
+
+  // Generate salt and encrypt supplied password
+  const salt = await generateRandomBytes(16);
+  const encryptedPassword = await encryptPassword(passwordNew, salt);
+
+  // If someone with the same email exists, global error handler will take it
+  const sql = `
+    INSERT INTO "Users"
+      ("firstName", "lastName", email, phone, "optOut", salt, password, provider, role)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, 'local', 'student') RETURNING _id;`;
+  const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword]);
+  const _id = rows[0]._id;
+  const token = jwt.sign({ _id }, config.secrets.session, {
     expiresIn: 60 * 60 * 5
   });
-  res.status(200).send({ token });
+
+  // send the authentication token
+  return res.status(200).send({ token });
 }
 
 // Resets password for user and emails it to them (add security question in future)
 export async function forgotPassword(req, res) {
-  // If a local user exists, generate and email a new random password
-  let html;
-  const userToUpdate = await User.findOne({
-    where: {
-      email: req.body.email
-    }
-  });
+  const { email } = req.body;
 
-  // Conditions for throwing errors
+  // Check whether user exists and what provider (as we can only do forgot password for local)
+  let sql = `SELECT provider FROM "Users" WHERE email = $1;`;
+  const { rows } = await db.query(sql, [email]);
+  if(rows.length === 0) userMissingError();
+  if(rows[0].provider !== 'local') userGoogleChangeError();
 
-  // User not found (404)
-  if(!userToUpdate) userMissingError();
+  // Generate a new random password and salt (could do these in parallel to speed it up)
+  const newPassword = await generateRandomBytes(8), salt = await generateRandomBytes(16);
+  const encryptedPassword = await encryptPassword(newPassword, salt);
 
-  // If a Google-integrated login, user must reset their password on Google - not here.
-  if(userToUpdate.provider !== 'local') {
-    let googleError = new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email');
-    googleError.status = 403;
-    console.log('googleError', googleError);
-    throw googleError;
-  }
+  // Update the user record
+  sql = `UPDATE "Users" SET password = $1, salt = $2 WHERE email = $3;`;
+  await db.query(sql, [encryptedPassword, salt, email]);
 
-  // Generate a new random password and save it
-  const newPassword = crypto.randomBytes(8).toString('base64'); // new password
-  userToUpdate.password = newPassword;
-  html = `Your new Schoolhouse Yoga website temporary password for ${userToUpdate.email} is <b>${newPassword}</b>.
+  // Build and send email
+  let html = `Your new Schoolhouse Yoga website temporary password for ${email} is <b>${newPassword}</b>.
   Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
-  await userToUpdate.save();
-
-  // Generate email
   const message = {
     to: req.body.email,
     subject: 'Schoolhouse Yoga website login',
@@ -118,75 +154,117 @@ export async function forgotPassword(req, res) {
   };
   await config.mail.transporter.sendMail(message);
 
-  // Tell the user the new password was sent (if we do this before sendMail, we'll need to check headers in our central error handler)
-  res.status(200).send('New password sent.');
+  // Tell the user new password was sent
+  return res.status(200).send('New password sent.');
 }
 
 // Updates attributes for authenticated user (Profile page)
 export async function update(req, res) {
-  const userToUpdate = await User.findByPk(req.user._id); // users can only update themselves (req.user vs. req.body.user)
+  const { _id } = req.user;
+  const { email, firstName, lastName, phone, optOut, password, passwordNew, passwordConfirm } = req.body;
 
-  // Only authenticate and handle password or email changes for local accounts
-  if(userToUpdate.provider === 'local') {
-    // Check password
-    const password = String(req.body.password);
-    if(!userToUpdate.authenticate(password)) throw new UserError('Password is incorrect.', 'password');
+  // Check for match when changing passwords (ignore when both are undefined)
+  if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
 
-    // Check for a password change
-    const passwordNew = String(req.body.passwordNew);
-    if(passwordNew !== 'undefined') {
-      const passwordConfirm = String(req.body.passwordConfirm);
-      if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
-      userToUpdate.password = passwordNew;
+  // Check if user exists
+  let sql = `SELECT password, salt, provider FROM "Users" WHERE _id = $1;`;
+  const { rows } = await db.query(sql, [_id]);
+
+  // Check to see if user exists
+  if(rows.length === 0) userMissingError();
+
+  // Get salt and provider
+  const { salt, provider } = rows[0];
+  const encryptedStoredPassword = rows[0].password;
+
+  // Start with a limited set of parameters for the update (add as needed)
+  let arrParams = [_id, firstName, lastName, phone, optOut];
+  let sqlEmailUpdate = '', sqlPasswordUpdate = '';
+
+  // Users with local providers can change email and password
+  if(provider === 'local') {
+    // Password provided matches the stored one?
+    const encryptedProvidedPassword = await encryptPassword(password, salt);
+    if(encryptedProvidedPassword !== encryptedStoredPassword) userUnauthorizedError();
+
+    // Enable change to email address
+    arrParams.push(email);
+    sqlEmailUpdate = ', email = $6';
+
+    // New password was provided (already checked against passwordConfirm above)
+    if(passwordNew) {
+      const newSalt = await generateRandomBytes(16); // regenerate - never reuse
+      const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
+      arrParams.push(newEncryptedPassword);
+      arrParams.push(newSalt);
+      sqlPasswordUpdate = ', password = $7, salt = $8';
     }
+  }
 
-    // If nothing failed so far, handle email change
-    userToUpdate.email = String(req.body.email);
-  } else Reflect.deleteProperty(userToUpdate.dataValues, 'password'); // no password change
+  sql = `UPDATE "Users" SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5${sqlEmailUpdate}${sqlPasswordUpdate} WHERE _id = $1;`;
 
-  // Set relevant properties
-  userToUpdate.firstName = String(req.body.firstName);
-  userToUpdate.lastName = String(req.body.lastName);
-  userToUpdate.phone = String(req.body.phone);
-  userToUpdate.optOut = req.body.optOut;
-
-  // Prevent hacking the role
-  Reflect.deleteProperty(userToUpdate.dataValues, 'role');
-  const user = await userToUpdate.save();
-  res.status(200).send({ _id: user._id });
+  try {
+    await db.query(sql, arrParams);
+    return res.status(200).send({ _id });
+  } catch(err) {
+    if(err.constraint === 'Users_email_key') userEmailTakenError();
+    console.error('Unanticipated error', err);
+    throw err;
+  }
 }
 
 // Updates or creates user (teachers or admins)
 export async function upsert(req, res) {
-  // New users are flagged with _id of zero, strip it before User.build
-  if(req.body._id === 0) Reflect.deleteProperty(req.body, '_id');
+  const { _id, email, firstName, lastName, phone, optOut, provider, role, passwordNew, passwordConfirm } = req.body;
 
-  let userToUpsert = User.build(req.body);
+  // Check for match when changing passwords (ignore when both are undefined)
+  if(passwordNew !== passwordConfirm) userPasswordMismatchError();
 
-  // Detect new users and set defaults appropriately
-  if(!req.body._id) {
-    userToUpsert.setDataValue('provider', req.body.provider || 'local');
-    userToUpsert.setDataValue('role', req.body.role || 'student');
-  } else userToUpsert.isNewRecord = false;
+  let arrParams = [email, firstName, lastName, phone, optOut, provider, role];
+  let sql;
+  let sqlPasswordUpdate = ' WHERE _id = $8'; // default when NOT changing password
+  const isNew = _id === 0;
 
-  // Determine whether password is to be updated or not
-  if(req.body.password && req.body.passwordConfirm) {
-    if(req.body.password === req.body.passwordConfirm) {
-      userToUpsert.setDataValue('password', req.body.password);
-    } else throw new UserError('Passwords must match.', 'passwordConfirm');
-  } else Reflect.deleteProperty(userToUpsert.dataValues, 'password');
+  // If new password, generate salt and encrypted password and add params to array
+  if(passwordNew) {
+    const newSalt = await generateRandomBytes(16); // regenerate - never reuse
+    const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
+    arrParams.push(newSalt);
+    arrParams.push(newEncryptedPassword);
+    sqlPasswordUpdate = ', salt = $8, password = $9 WHERE _id = $10';
+  }
 
-  const user = await userToUpsert.save();
-  res.status(200).send({ _id: user._id });
+  if(isNew) {
+    sql = `INSERT INTO "Users"
+      (email, "firstName", "lastName", phone, "optOut", provider, role, salt, password)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING _id;`;
+  } else {
+    arrParams.push(_id);
+
+    // TODO: Enable change to email address
+    // arrParams.push(email);
+    // sqlEmailUpdate = ', email = $6';
+
+    sql = `
+      UPDATE "Users"
+      SET email = $1, "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, provider = $6, role = $7${sqlPasswordUpdate}
+      RETURNING _id;`;
+  }
+
+  try {
+    await db.query(sql, arrParams);
+    return res.status(200).send({ _id: rows[0]._id });
+  } catch(err) {
+    if(err.constraint === 'Users_email_key') userEmailTakenError();
+    console.error('Unanticipated error', err);
+    throw err;
+  }
 }
 
 // Deletes user (admin-only)
 export async function destroy(req, res) {
-  await User.destroy({ where: { _id: req.params.id } });
-  res.status(204).end();
+  const _id = req.params.id;
+  const sql = 'DELETE FROM "Users" WHERE _id = $1;';
+  await db.query(sql, [_id]);
+  return res.status(204).send({ message: `User ${_id} deleted.`});
 }
-
-// Authentication callback - is it needed?
-// export function authCallback(req, res) {
-//   return res.redirect('/');
-// }

@@ -3,7 +3,8 @@
 * [Bug] If on second tab of students then do new search, puts me on 2nd tab of results instead of resetting
 * [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
-* [High] Refactor sever/auth, server/api/user controller to remove Sequelize dependencies
+* [High] Refactor sever/auth to remove Sequelize dependencies
+* [Medium] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
 * [Medium] usermanager - deleting historyItem should recalculate balance in this.users (have to search to refresh it)
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal

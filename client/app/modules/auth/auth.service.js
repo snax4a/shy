@@ -1,8 +1,6 @@
 /* eslint no-sync:0 */
 'use strict';
 
-// import get from 'lodash/get';
-
 class _User {
   constructor() {
     this._id = '';
@@ -100,7 +98,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      */
     update(user, callback) {
       return User.update({id: currentUser._id}, user, () => safeCb(callback)(null), err => safeCb(callback)(err))
-        .$promise;
+        .$promise
+        .then(() => { // force update
+          currentUser = User.get();
+        })
     },
 
     /**

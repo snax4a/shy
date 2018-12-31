@@ -20,7 +20,7 @@ export class SignupComponent {
       lastName: '',
       email: '',
       phone: '',
-      password: '',
+      passwordNew: '',
       optOut: false
     };
     this.errors = {};
@@ -30,14 +30,7 @@ export class SignupComponent {
   register(form) {
     this.submitted = true;
     if(form.$valid) {
-      return this.Auth.createUser({
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
-        email: this.user.email,
-        phone: this.user.phone,
-        password: this.user.password,
-        optOut: this.user.optOut
-      })
+      return this.Auth.createUser(this.user)
         .then(() => {
           // Account created, redirect to home
           this.$location.path('/');

@@ -35,6 +35,7 @@ export class UserEditorController {
         .then(user => { // only contains user._id
           // Do not add the password and passwordConfirm to the array
           Reflect.deleteProperty(upsertedUser, 'password'); // clear this out for security reasons
+          Reflect.deleteProperty(upsertedUser, 'passwordNew'); // clear this out for security reasons
           Reflect.deleteProperty(upsertedUser, 'passwordConfirm'); // ditto
 
           // If a new user...

@@ -85,27 +85,22 @@ export async function upsert(req, res) {
   const isNew = _id === 0;
   if(isNew) {
     sql = `INSERT INTO "Schedules"
-      (location, day, title, teacher, "startTime", "endTime", canceled, "createdAt", "updatedAt")
-      VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE, CURRENT_DATE) RETURNING _id;`;
+      (location, day, title, teacher, "startTime", "endTime", canceled)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE "Schedules"
-        SET location = $1, day = $2, title = $3, teacher = $4, "startTime" = $5, "endTime" = $6, canceled = $7, "updatedAt" = CURRENT_DATE
+        SET location = $1, day = $2, title = $3, teacher = $4, "startTime" = $5, "endTime" = $6, canceled = $7
         WHERE _id = $8 RETURNING _id;`;
   }
   const { rows } = await db.query(sql, arrParams);
-  res.status(200).send({ _id: isNew ? rows[0]._id : _id })
+  return res.status(200).send({ _id: isNew ? rows[0]._id : _id });
 }
 
 export async function destroy(req, res) {
   const _id = req.params.id;
   const sql = 'DELETE FROM "Schedules" WHERE _id = $1;';
   await db.query(sql, [_id]);
-  res.status(204).send({ message: `Schedule Item ${_id} deleted.`});
+  return res.status(204).send({ message: `Schedule Item ${_id} deleted.`});
 }
-
-// Authentication callback - is it needed?
-// export function authCallback(req, res) {
-//   return res.redirect('/');
-// }

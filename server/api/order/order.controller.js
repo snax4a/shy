@@ -1,4 +1,5 @@
 'use strict';
+
 import braintree from 'braintree';
 import config from '../../config/environment';
 import db from '../../db';
@@ -233,17 +234,17 @@ const saveToDB = async confirmation => {
     "purchaserPhone", last4, "recipientFirstName", "recipientLastName",
     "recipientAddress", "recipientCity", "recipientState",
     "recipientZipCode", "recipientEmail", "recipientPhone",
-    "itemsOrdered", "createdAt", "updatedAt") VALUES
+    "itemsOrdered") VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,
-      $15, $16, $17, $18, $19, CURRENT_DATE, CURRENT_DATE);`;
+      $15, $16, $17, $18, $19);`;
 
   const { recipientemail, recipientphone } = confirmation.customFields;
   const { firstName, lastName } = confirmation.shipping;
   const userUpsertSQL = `INSERT INTO "Users"
-    (email, "firstName", "lastName", phone, "optOut", "createdAt", "updatedAt")
-    VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE)
+    (email, "firstName", "lastName", phone, "optOut")
+    VALUES ($1, $2, $3, $4, $5)
     ON CONFLICT (email) DO UPDATE
-       SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, "updatedAt" = CURRENT_DATE;`;
+       SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5;`;
 
   // Run the queries in parallel
   await Promise.all([

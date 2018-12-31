@@ -1,4 +1,5 @@
 'use strict';
+
 import config from '../../config/environment';
 import db from '../../db';
 
@@ -9,10 +10,10 @@ export async function send(req, res) {
 
   const { email, firstName, lastName, phone, optOut, question } = req.body;
   const userUpsertSQL = `INSERT INTO "Users"
-  (email, "firstName", "lastName", phone, "optOut", "createdAt", "updatedAt")
-  VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, CURRENT_DATE)
+  (email, "firstName", "lastName", phone, "optOut")
+  VALUES ($1, $2, $3, $4, $5)
   ON CONFLICT (email) DO UPDATE
-     SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, "updatedAt" = CURRENT_DATE;`;
+     SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5;`;
 
   const message = {
     to: config.mail.admins,

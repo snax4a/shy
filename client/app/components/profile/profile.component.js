@@ -10,21 +10,19 @@ import CompareToDirective from '../../directives/compareto/compareto.directive';
 
 export class ProfileComponent {
   /*@ngInject*/
-  constructor(User, Auth) {
-    this.User = User;
-    this.Auth = Auth;
+  constructor($window, Auth) {
+    this.$window = $window;
+    this.authService = Auth;
   }
 
   $onInit() {
-    this.user = {};
-    this.Auth.getCurrentUser()
-      .then(user => {
-        angular.copy(user, this.user);
-        return;
-      });
-    this.message = '';
     this.submitted = false;
     this.errors = {};
+    this.user = {}; // clear it
+    this.authService.getCurrentUser()
+    .then(user => {
+      return angular.copy(user, this.user); // Don't modify authService.currentUser
+    });
   }
 
   clearServerError(form, fieldName) {
@@ -34,22 +32,17 @@ export class ProfileComponent {
   update(form) {
     this.submitted = true;
     if(form.$valid) {
-      this.User.update(this.user)
-        .$promise
+      this.authService.update(this.user)
         .then(() => {
-          this.message = 'Profile successfully updated.';
-          return;
-        })
+          this.$window.history.back();
+        }) // go back to where you were
         .catch(response => {
-          let err = response.data;
+          const { errors } = response.data;
           // Update validity of form fields that match the server errors
-          if(err.name) {
-            for(let error of err.errors) {
-              form[error.path].$setValidity('server', false);
-              this.errors[error.path] = error.message;
-            }
+          for(let error of errors) {
+            form[error.path].$setValidity('server', false);
+            this.errors[error.path] = error.message;
           }
-          this.message = '';
           return;
         });
     }

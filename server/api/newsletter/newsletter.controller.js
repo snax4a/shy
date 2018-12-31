@@ -1,4 +1,5 @@
 'use strict';
+
 import config from '../../config/environment';
 import db from '../../db';
 
@@ -8,10 +9,10 @@ export async function subscribe(req, res) {
   res.status(200).send('Thanks for subscribing to our newsletter.');
 
   const userUpsertSQL = `INSERT INTO "Users"
-  (email, "firstName", "optOut", "createdAt", "updatedAt")
-  VALUES ($1, 'Student', false, CURRENT_DATE, CURRENT_DATE)
+  (email, "firstName", "optOut")
+  VALUES ($1, 'Student', false)
   ON CONFLICT (email) DO UPDATE
-     SET "optOut" = false, "updatedAt" = CURRENT_DATE;`;
+     SET "optOut" = false;`;
 
   const message = {
     to: config.mail.admins,
