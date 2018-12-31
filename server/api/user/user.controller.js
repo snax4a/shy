@@ -52,7 +52,9 @@ function generateRandomBytes(bytes) {
 // Promisify password encryption
 function encryptPassword(password, salt) {
   return new Promise((resolve, reject) => {
-    const defaultIterations = 10000, defaultKeyLength = 64, defaultDigest = 'sha256';
+    const defaultIterations = 10000;
+    const defaultKeyLength = 64;
+    const defaultDigest = 'sha256';
     // TODO: remove Buffer.from(salt, 'base64') then reset all passwords
     crypto.pbkdf2(password, Buffer.from(salt, 'base64'), defaultIterations, defaultKeyLength, defaultDigest, (err, key) => {
       if(err) {
@@ -131,17 +133,18 @@ export async function forgotPassword(req, res) {
   const { email } = req.body;
 
   // Check whether user exists and what provider (as we can only do forgot password for local)
-  let sql = `SELECT provider FROM "Users" WHERE email = $1;`;
+  let sql = 'SELECT provider FROM "Users" WHERE email = $1;';
   const { rows } = await db.query(sql, [email]);
   if(rows.length === 0) userMissingError();
   if(rows[0].provider !== 'local') userGoogleChangeError();
 
   // Generate a new random password and salt (could do these in parallel to speed it up)
-  const newPassword = await generateRandomBytes(8), salt = await generateRandomBytes(16);
+  const newPassword = await generateRandomBytes(8);
+  const salt = await generateRandomBytes(16);
   const encryptedPassword = await encryptPassword(newPassword, salt);
 
   // Update the user record
-  sql = `UPDATE "Users" SET password = $1, salt = $2 WHERE email = $3;`;
+  sql = 'UPDATE "Users" SET password = $1, salt = $2 WHERE email = $3;';
   await db.query(sql, [encryptedPassword, salt, email]);
 
   // Build and send email
@@ -167,7 +170,7 @@ export async function update(req, res) {
   if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
 
   // Check if user exists
-  let sql = `SELECT password, salt, provider FROM "Users" WHERE _id = $1;`;
+  let sql = 'SELECT password, salt, provider FROM "Users" WHERE _id = $1;';
   const { rows } = await db.query(sql, [_id]);
 
   // Check to see if user exists
@@ -179,7 +182,8 @@ export async function update(req, res) {
 
   // Start with a limited set of parameters for the update (add as needed)
   let arrParams = [_id, firstName, lastName, phone, optOut];
-  let sqlEmailUpdate = '', sqlPasswordUpdate = '';
+  let sqlEmailUpdate = '';
+  let sqlPasswordUpdate = '';
 
   // Users with local providers can change email and password
   if(provider === 'local') {
@@ -252,7 +256,7 @@ export async function upsert(req, res) {
   }
 
   try {
-    await db.query(sql, arrParams);
+    const { rows } = await db.query(sql, arrParams);
     return res.status(200).send({ _id: rows[0]._id });
   } catch(err) {
     if(err.constraint === 'Users_email_key') userEmailTakenError();
