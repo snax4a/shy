@@ -163,7 +163,7 @@ export async function forgotPassword(req, res) {
 
 // Updates attributes for authenticated user (Profile page)
 export async function update(req, res) {
-  const { _id } = req.user;
+  const { _id } = req.user; // limit the update to this _id as current user may not be an admin
   const { email, firstName, lastName, phone, optOut, password, passwordNew, passwordConfirm } = req.body;
 
   // Check for match when changing passwords (ignore when both are undefined)
@@ -244,11 +244,6 @@ export async function upsert(req, res) {
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING _id;`;
   } else {
     arrParams.push(_id);
-
-    // TODO: Enable change to email address
-    // arrParams.push(email);
-    // sqlEmailUpdate = ', email = $6';
-
     sql = `
       UPDATE "Users"
       SET email = $1, "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, provider = $6, role = $7${sqlPasswordUpdate}
