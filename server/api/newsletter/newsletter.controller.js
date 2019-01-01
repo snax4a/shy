@@ -28,6 +28,6 @@ export async function unsubscribe(req, res) {
   // Send response before database and email operations
   res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
 
-  const unsubscribeSQL = `UPDATE "Users" SET "optOut" = true WHERE email = $1;`
+  const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1;';
   await db.query(unsubscribeSQL, [req.params.email]);
 }
