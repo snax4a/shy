@@ -3,7 +3,7 @@
 //
 // You will need to set these on the server you deploy to.
 
-module.exports = {
+export default {
   DOMAIN: 'http://localhost:3000',
   SESSION_SECRET: 'Something unique and kind of long',
 
