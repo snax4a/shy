@@ -45,7 +45,7 @@ const userIndex = proxyquire('./index', {
 
 describe('User API Router:', function() {
   it('should return an express router instance', done => {
-    userIndex.should.equal(routerStub);
+    userIndex.default.should.equal(routerStub);
     done();
   });
 

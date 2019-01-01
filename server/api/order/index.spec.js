@@ -25,7 +25,7 @@ const orderIndex = proxyquire('./index.js', {
 
 describe('Order API Router:', function() {
   it('should return an express router instance', done => {
-    orderIndex.should.equal(routerStub);
+    orderIndex.default.should.equal(routerStub);
     done();
   });
 

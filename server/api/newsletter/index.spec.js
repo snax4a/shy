@@ -27,7 +27,7 @@ const newsletterIndex = proxyquire('./index.js', {
 
 describe('Newsletter API Router:', function() {
   it('should return an express router instance', done => {
-    newsletterIndex.should.equal(routerStub);
+    newsletterIndex.default.should.equal(routerStub);
     done();
   });
 

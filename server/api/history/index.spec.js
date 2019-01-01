@@ -41,7 +41,7 @@ const historyIndex = proxyquire('./index.js', {
 
 describe('History API Router:', function() {
   it('should return an express router instance', function(done) {
-    historyIndex.should.equal(routerStub);
+    historyIndex.default.should.equal(routerStub);
     done();
   });
 

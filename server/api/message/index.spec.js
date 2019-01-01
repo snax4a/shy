@@ -25,7 +25,7 @@ const messageIndex = proxyquire('./index.js', {
 
 describe('Message API Router:', function() {
   it('should return an express router instance', done => {
-    messageIndex.should.equal(routerStub);
+    messageIndex.default.should.equal(routerStub);
     done();
   });
 

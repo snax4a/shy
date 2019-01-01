@@ -1,8 +1,9 @@
+import { Router } from 'express';
 import * as controller from './token.controller';
 import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
 
-const router = require('express').Router();
+const router = Router();
 
 router.get('/', asyncWrapper(controller.index));
 
-module.exports = router;
+export default router;

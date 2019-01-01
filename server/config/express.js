@@ -145,4 +145,4 @@ export default app => {
   if(env === 'development' || env === 'test') {
     app.use(errorHandler()); // Error handler - has to be last
   }
-}
+};

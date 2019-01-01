@@ -39,7 +39,7 @@ const scheduleIndex = proxyquire('./index.js', {
 
 describe('Schedule API Router:', function() {
   it('should return an express router instance', done => {
-    scheduleIndex.should.equal(routerStub);
+    scheduleIndex.default.should.equal(routerStub);
     done();
   });
 

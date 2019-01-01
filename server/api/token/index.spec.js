@@ -25,7 +25,7 @@ const tokenIndex = proxyquire('./index.js', {
 
 describe('Token API Router:', function() {
   it('should return an express router instance', done => {
-    tokenIndex.should.equal(routerStub);
+    tokenIndex.default.should.equal(routerStub);
     done();
   });
 

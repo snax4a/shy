@@ -1,7 +1,8 @@
+import { Router } from 'express';
 import passport from 'passport';
 import { signToken } from '../auth.service';
 
-const router = require('express').Router();
+const router = Router();
 
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
