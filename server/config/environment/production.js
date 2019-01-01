@@ -3,7 +3,7 @@
 import braintree from 'braintree';
 
 // Production-specific configuration
-module.exports = {
+export default {
   // Server port (Heroku uses random ports)
   port: process.env.PORT || undefined,
 

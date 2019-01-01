@@ -4,7 +4,7 @@ import braintree from 'braintree';
 
 // Development specific configuration
 // ==================================
-module.exports = {
+export default {
   // Braintree
   gateway: {
     environment: braintree.Environment.Sandbox,

@@ -2,7 +2,10 @@
 
 import path from 'path';
 import nodemailer from 'nodemailer';
-import configShared from './shared';
+import shared from './shared';
+import development from './development';
+import test from './test';
+import production from './production';
 
 // All configurations will extend these options
 const all = {
@@ -74,5 +77,7 @@ const all = {
   }
 };
 
-// Export merged config object based on NODE_ENV (development || test || production)
-export default Object.assign({}, all, configShared, require(`./${process.env.NODE_ENV}.js`) || {});
+const environmentConfig = { development, test, production };
+
+// Export merged config object
+export default Object.assign({}, all, shared, environmentConfig[process.env.NODE_ENV] || {});

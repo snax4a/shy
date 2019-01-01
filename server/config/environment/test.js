@@ -4,7 +4,7 @@ import braintree from 'braintree';
 
 // Test specific configuration
 // ===========================
-module.exports = {
+export default {
   teacher: {
     email: process.env.TEACHER_EMAIL,
     password: process.env.TEACHER_PASSWORD
