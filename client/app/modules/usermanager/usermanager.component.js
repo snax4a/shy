@@ -243,12 +243,11 @@ export class UserManagerComponent {
     this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
-        //TODO: update the user's balance
-        return null;
+        let elementPos = this.users.map(x => x._id).indexOf(historyItem.UserId);
+        let userFound = this.users[elementPos];
+        userFound.balance -= historyItem.quantity;
+        return userFound.balance;
       })
-      .catch(response => {
-        console.log('Error', response);
-        return null;
-      });
+      .catch(response => console.log('Error', response));
   }
 }
