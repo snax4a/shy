@@ -1,6 +1,3 @@
-/* eslint-env node */
-'use strict';
-
 import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
@@ -99,7 +96,7 @@ module.exports = function makeWebpackConfig(options) {
         new UglifyJsPlugin({
           cache: true,
           parallel: true,
-          sourceMap: true // set to true if you want JS source maps
+          sourceMap: true
         }),
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: { /*safe: true,*/ discardComments: { removeAll: true } }
