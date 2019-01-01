@@ -18,3 +18,5 @@ db.User.hasMany(db.Purchase, { onDelete: 'cascade', hooks: true });
 db.User.hasMany(db.Attendance, { onDelete: 'cascade', hooks: true });
 
 module.exports = db;
+// export default db; // This doesn't work because it's used this way:
+// import { User } from './sqldb';
