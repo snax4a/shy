@@ -32,7 +32,9 @@ const announcementIndex = proxyquire('./index.js', {
     }
   },
   '../../auth/auth.service': authServiceStub,
-  '../../middleware/async-wrapper': asyncWrapperStub,
+  '../../middleware/async-wrapper': {
+    default: asyncWrapperStub
+  },
   './announcement.controller': announcementCtrlStub
 });
 

@@ -8,7 +8,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-module.exports = function makeWebpackConfig(options) {
+export default function makeWebpackConfig(options) {
   // Passed by gulpfile.babel.js or karma.conf.js
   const DEV = !!options.DEV;
   const TEST = !!options.TEST;

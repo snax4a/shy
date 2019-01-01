@@ -77,7 +77,8 @@ const all = {
   }
 };
 
-const environmentConfig = { development, test, production };
+const environmentConfigurations = { development, test, production };
+const activeConfig = Object.assign({}, all, shared, environmentConfigurations[process.env.NODE_ENV] || {});
 
 // Export merged config object
-export default Object.assign({}, all, shared, environmentConfig[process.env.NODE_ENV] || {});
+export default activeConfig;

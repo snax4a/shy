@@ -153,7 +153,7 @@ const istanbul = lazypipe()
 gulp.task('env:all', done => {
   let vars;
   try {
-    vars = require(`./${serverPath}/config/local.env`);
+    vars = require(`./${serverPath}/config/local.env`).default;
   } catch(e) {
     vars = {}
   }
@@ -282,21 +282,21 @@ gulp.task('start:client', done => {
 
 gulp.task('start:server', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-  config = require(`./${serverPath}/config/environment`)
+  config = require(`./${serverPath}/config/environment`).default
   nodemon(`--trace-deprecation --trace-warnings -w ${serverPath} ${serverPath}`)
     .on('log', onServerLog)
 })
 
 gulp.task('start:server:prod', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'production'
-  config = require(`./${paths.dist}/${serverPath}/config/environment`)
+  config = require(`./${paths.dist}/${serverPath}/config/environment`).default
   nodemon(`-w ${paths.dist}/${serverPath} ${paths.dist}/${serverPath}`)
     .on('log', onServerLog)
 })
 
 gulp.task('start:server:debug', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-  config = require(`./${serverPath}/config/environment`)
+  config = require(`./${serverPath}/config/environment`).default
   nodemon(`-w ${serverPath} --inspect --debug-brk ${serverPath}`)
     .on('log', onServerLog)
 })

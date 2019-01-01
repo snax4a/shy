@@ -15,7 +15,7 @@
 
 import makeWebpackConfig from './webpack.make';
 
-module.exports = function(config) {
+export default config => {
   config.set({
     // Disable watching files
     autoWatch: false,

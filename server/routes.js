@@ -30,6 +30,22 @@ export default app => {
   app.route('/:url(api|auth|middleware|app|assets)/*')
     .get((req, res) => res.status(404).send({ message: `${req.url} not found.` }));
 
+  // Alternate 404 handler - seems overblown
+  // function pageNotFound(req, res) {
+  //   const viewFilePath = '404';
+  //   const statusCode = 404;
+  //   const result = {
+  //     status: statusCode
+  //   };
+  //   res.status(result.status);
+  //   res.render(viewFilePath, {}, (err, html) => {
+  //     if(err) {
+  //       return res.status(result.status).send(result);
+  //     }
+  //     return res.send(html);
+  //   });
+  // }
+
   // All other routes should redirect to the index.html
   app.route('/*')
     .get((req, res) => {

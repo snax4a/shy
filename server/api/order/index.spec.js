@@ -19,7 +19,9 @@ const orderIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
-  '../../middleware/async-wrapper': asyncWrapperStub,
+  '../../middleware/async-wrapper': {
+    default: asyncWrapperStub
+  },
   './order.controller': orderCtrlStub
 });
 

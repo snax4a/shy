@@ -38,7 +38,9 @@ const userIndex = proxyquire('./index', {
     }
   },
   '../../auth/auth.service': authServiceStub,
-  '../../middleware/async-wrapper': asyncWrapperStub,
+  '../../middleware/async-wrapper': {
+    default: asyncWrapperStub
+  },
   './user.controller': userCtrlStub
 });
 

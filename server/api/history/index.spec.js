@@ -35,7 +35,9 @@ const historyIndex = proxyquire('./index.js', {
     }
   },
   '../../auth/auth.service': authServiceStub,
-  '../../middleware/async-wrapper': asyncWrapperStub,
+  '../../middleware/async-wrapper': {
+    default: asyncWrapperStub
+  },
   './history.controller': historyCtrlStub
 });
 

@@ -4,7 +4,7 @@ import express from 'express';
 import expressStaticGzip from 'express-static-gzip';
 import morgan from 'morgan';
 import compression from 'compression';
-import errorHandler from 'errorhandler';
+import errorHandler from 'errorhandler'; // only used in dev/test
 import path from 'path';
 import lusca from 'lusca';
 import config from './environment';
@@ -98,7 +98,7 @@ export default app => {
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const stripAnsi = require('strip-ansi');
     const webpack = require('webpack');
-    const makeWebpackConfig = require('../../webpack.make');
+    const makeWebpackConfig = require('../../webpack.make').default;
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
     const browserSync = require('browser-sync').create();
