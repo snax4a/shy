@@ -13,7 +13,7 @@ import session from 'express-session';
 import sqldb from '../sqldb';
 import mime from 'mime-types';
 
-export default function(app) {
+export default app => {
   let env = app.get('env');
   let Store = require('connect-session-sequelize')(session.Store);
 

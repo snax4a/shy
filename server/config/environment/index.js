@@ -2,6 +2,7 @@
 
 import path from 'path';
 import nodemailer from 'nodemailer';
+import configShared from './shared';
 
 // All configurations will extend these options
 const all = {
@@ -24,6 +25,7 @@ const all = {
   // Browser-sync port for development
   browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 
+  // TODO: remove sequelize property
   // Sequelize options
   sequelize: {
     uri: process.env.DATABASE_URL,
@@ -48,6 +50,7 @@ const all = {
     uri: process.env.DATABASE_URL
   },
 
+  // TODO: remove seedDB property
   // By default, do not seed the database
   seedDB: false,
 
@@ -69,19 +72,7 @@ const all = {
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
   }
-
-  // facebook: {
-  //   clientID: process.env.FACEBOOK_ID,
-  //   clientSecret: process.env.FACEBOOK_SECRET,
-  //   callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
-  // },
-
-  // twitter: {
-  //   clientID: process.env.TWITTER_ID,
-  //   clientSecret: process.env.TWITTER_SECRET',
-  //   callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
-  // }
 };
 
 // Export merged config object based on NODE_ENV (development || test || production)
-module.exports = Object.assign({}, all, require('./shared'), require(`./${process.env.NODE_ENV}.js`) || {});
+export default Object.assign({}, all, configShared, require(`./${process.env.NODE_ENV}.js`) || {});

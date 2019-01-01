@@ -39,8 +39,9 @@ const paths = {
   server: {
     scripts: [
       `${serverPath}/**/!(*.spec|*.integration).js`,
-      `!${serverPath}/config/local.env.sample.js`
+      `!${serverPath}/config/local.env.sample.js` // Exclude sample file
     ],
+    esm: `${serverPath}/**/!(*.spec|*.integration).mjs`, // not to be transpiled
     json: [`${serverPath}/**/*.json`],
     test: {
       integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
@@ -351,6 +352,11 @@ gulp.task('copy:server', () =>
     .pipe(gulp.dest(paths.dist))
 )
 
+gulp.task('copy:server:esm', () =>
+  gulp.src([paths.server.esm], { cwdbase: true })
+    .pipe(gulp.dest(paths.dist))
+)
+
 gulp.task('build:images', () =>
   gulp.src(paths.client.images)
     .pipe(plugins.imagemin([
@@ -390,7 +396,7 @@ gulp.task('build',
     'transpile:server',
     'build:images',
     'copy:fonts',
-    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:server', 'webpack:dist'),
+    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:server', 'copy:server:esm', 'webpack:dist'),
     'revReplaceWebpack',
     'revReplaceJson'
   )
