@@ -20,9 +20,7 @@ export class ProfileComponent {
     this.errors = {};
     this.user = {}; // clear it
     this.authService.getCurrentUser()
-    .then(user => {
-      return angular.copy(user, this.user); // Don't modify authService.currentUser
-    });
+      .then(user => angular.copy(user, this.user)); // Don't modify authService.currentUser
   }
 
   clearServerError(form, fieldName) {

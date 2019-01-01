@@ -8,9 +8,9 @@ import { NavbarComponent } from './navbar.component';
 import { ContactService } from './contact.service';
 
 export default angular.module('shyApp.navbar', [UibCollapseDirective, UibDatepickerPopupDirective, UibDropdownDirective, UibModalDirective])
-.service('ContactService', ContactService)
-.component('navbar', {
-  template: require('./navbar.pug'),
-  controller: NavbarComponent
-})
-.name;
+  .service('ContactService', ContactService)
+  .component('navbar', {
+    template: require('./navbar.pug'),
+    controller: NavbarComponent
+  })
+  .name;

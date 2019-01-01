@@ -1,4 +1,7 @@
+/*eslint no-sync:0 */
 'use strict';
+
+import angular from 'angular'; // for angular copy
 
 // Controller for modal dialog for editing users
 export class UserEditorController {

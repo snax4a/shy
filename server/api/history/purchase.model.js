@@ -22,7 +22,6 @@ export default function(sequelize, DataTypes) {
     purchased: {
       type: DataTypes.DATE
     },
-  
 
     // Intentionally not normalized as a separate table
     // Payment methods change from time to time - too much of an admin hassle
