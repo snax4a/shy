@@ -18,7 +18,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
 
   let safeCb = Util.safeCb;
   let currentUser = new _User();
-  let userRoles = appConfig.userRoles || [];
+  let userRoles = appConfig.default.userRoles || [];
   /**
    * Check if userRole is >= role
    * @param {String} userRole - role of current user
