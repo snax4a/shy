@@ -1,5 +1,3 @@
-'use strict';
-
 import config from '../../config/environment';
 import db from '../../db';
 

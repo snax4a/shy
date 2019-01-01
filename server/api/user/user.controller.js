@@ -1,5 +1,3 @@
-'use strict';
-
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import db from '../../db';

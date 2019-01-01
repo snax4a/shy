@@ -1,4 +1,3 @@
-'use strict';
 import db from '../../db';
 
 // Utility function to return nested JSON from flat list
@@ -62,8 +61,3 @@ export async function destroy(req, res) {
   await db.query(sql, [_id]);
   res.status(204).send({ message: `Announcement ${_id} deleted.`});
 }
-
-// Authentication callback - is it needed?
-// export function authCallback(req, res) {
-//   res.redirect('/');
-// }

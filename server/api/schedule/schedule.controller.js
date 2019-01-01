@@ -1,5 +1,3 @@
-'use strict';
-
 import db from '../../db';
 
 // Nest the schedule items for easy display with AngularJS

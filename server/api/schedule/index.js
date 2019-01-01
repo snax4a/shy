@@ -1,8 +1,8 @@
-'use strict';
+import * as auth from '../../auth/auth.service';
+import * as controller from './schedule.controller';
+import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
+
 const router = require('express').Router();
-const auth = require('../../auth/auth.service');
-const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
-const controller = require('./schedule.controller');
 
 router.get('/', asyncWrapper(controller.index));
 router.put('/:id', auth.hasRole('admin'), asyncWrapper(controller.upsert)); // admin, update existing schedule item

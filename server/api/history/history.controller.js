@@ -1,4 +1,3 @@
-'use strict';
 import db from '../../db';
 
 // Returns array of attendees

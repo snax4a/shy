@@ -1,5 +1,3 @@
-'use strict';
-
 import braintree from 'braintree';
 import config from '../../config/environment';
 import db from '../../db';

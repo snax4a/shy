@@ -1,5 +1,3 @@
-'use strict';
-
 export default function(sequelize, DataTypes) {
   const attributes = {
     _id: {

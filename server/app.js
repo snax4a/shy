@@ -1,8 +1,6 @@
-'use strict';
-
-const express = require('express');
-const sqldb = require('./sqldb');
-const config = require('./config/environment');
+import express from 'express';
+import sqldb from './sqldb';
+import config from './config/environment';
 
 // Setup server
 let app = express();

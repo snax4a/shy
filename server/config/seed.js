@@ -2,7 +2,7 @@
  * Populate DB with sample data on server start
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
-'use strict';
+
 import config from './environment/';
 import { User } from '../sqldb';
 import Sequelize from 'sequelize';

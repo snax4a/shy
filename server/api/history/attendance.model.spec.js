@@ -1,5 +1,5 @@
 /* global describe, before, beforeEach, afterEach, it */
-'use strict';
+
 import { Attendance } from '../../sqldb';
 
 let attendance;

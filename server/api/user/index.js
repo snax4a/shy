@@ -1,8 +1,8 @@
-'use strict';
+import * as controller from './user.controller';
+import * as auth from '../../auth/auth.service';
+import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
+
 const router = require('express').Router();
-const auth = require('../../auth/auth.service');
-const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
-const controller = require('./user.controller');
 
 router.get('/', auth.hasRole('teacher'), asyncWrapper(controller.index)); // teacher, admin, get users
 router.get('/me', auth.isAuthenticated(), asyncWrapper(controller.me)); // user, retrieve profile

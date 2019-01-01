@@ -1,4 +1,3 @@
-'use strict';
 import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
@@ -9,10 +8,7 @@ let validateJwt = expressJwt({
   secret: config.secrets.session
 });
 
-/**
- * Attaches the user object to the request if authenticated
- * Otherwise returns 403
- */
+// Attaches user object to request if authenticated; otherwise, returns 403
 export function isAuthenticated() {
   return compose()
     // Validate jwt

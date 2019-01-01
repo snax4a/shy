@@ -1,5 +1,5 @@
 /*eslint no-process-env:0*/
-'use strict';
+
 import braintree from 'braintree';
 
 // Test specific configuration

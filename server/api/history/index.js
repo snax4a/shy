@@ -1,9 +1,8 @@
-'use strict';
+import * as controller from './history.controller';
+import * as auth from '../../auth/auth.service';
+import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
 
 const router = require('express').Router();
-const controller = require('./history.controller');
-const auth = require('../../auth/auth.service');
-const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
 
 router.get('/attendees', auth.hasRole('teacher'), asyncWrapper(controller.attendees)); // teacher, get attendees
 router.get('/:id', auth.hasRole('teacher'), asyncWrapper(controller.index)); // teacher, get student's history

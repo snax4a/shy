@@ -1,5 +1,5 @@
 /* global describe, before, beforeEach, afterEach, it */
-'use strict';
+
 import { Purchase } from '../../sqldb';
 
 let purchase;

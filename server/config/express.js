@@ -1,8 +1,4 @@
-/**
- * Express configuration
- */
-
-'use strict';
+// Express configuration
 
 import express from 'express';
 import expressStaticGzip from 'express-static-gzip';

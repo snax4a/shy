@@ -1,5 +1,5 @@
-/* global describe, before, beforeEach, afterEach, expect, it */
-'use strict';
+/* global describe, before, beforeEach, afterEach, it */
+
 import { Schedule } from '../../sqldb';
 
 let schedule;

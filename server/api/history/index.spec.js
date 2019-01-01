@@ -1,5 +1,4 @@
 /* globals sinon, describe, it */
-'use strict';
 
 const proxyquire = require('proxyquire').noPreserveCache();
 

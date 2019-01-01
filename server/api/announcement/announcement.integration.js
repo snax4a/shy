@@ -1,5 +1,4 @@
 /* globals describe, it, before, beforeEach */
-'use strict';
 
 import app from '../..';
 import request from 'supertest';

@@ -1,4 +1,5 @@
 /*eslint no-sync:0 object-shorthand:0 */
+
 import crypto from 'crypto';
 import configShared from '../../config/environment/shared';
 

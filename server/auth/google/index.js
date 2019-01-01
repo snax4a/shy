@@ -1,7 +1,7 @@
-'use strict';
-const router = require('express').Router();
 import passport from 'passport';
 import { setTokenCookie } from '../auth.service';
+
+const router = require('express').Router();
 
 router
   .get('/', passport.authenticate('google', {

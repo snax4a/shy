@@ -1,7 +1,7 @@
-'use strict';
+import * as controller from './token.controller';
+import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
+
 const router = require('express').Router();
-const controller = require('./token.controller');
-const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
 
 router.get('/', asyncWrapper(controller.index));
 

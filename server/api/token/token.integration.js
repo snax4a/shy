@@ -1,5 +1,4 @@
 /* global describe, before, it */
-'use strict';
 
 import app from '../..';
 import request from 'supertest';

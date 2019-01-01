@@ -1,7 +1,7 @@
-'use strict';
+import * as controller from './order.controller';
+import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
+
 const router = require('express').Router();
-const controller = require('./order.controller');
-const asyncWrapper = require('../../middleware/async-wrapper'); // only wrap async functions
 
 router.post('/', asyncWrapper(controller.create));
 

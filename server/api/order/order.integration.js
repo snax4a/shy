@@ -1,5 +1,4 @@
 /* global describe, before, it, after */
-'use strict';
 
 import app from '../..';
 import { User } from '../../sqldb';

@@ -1,5 +1,6 @@
+import config from '../config/environment';
+
 const { Pool } = require('pg').native;
-const config = require('../config/environment');
 
 const pool = new Pool({
   max: 10, // default
