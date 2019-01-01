@@ -38,7 +38,7 @@ const announcementIndex = proxyquire('./index.js', {
 
 describe('Announcement API Router:', function() {
   it('should return an express router instance', function(done) {
-    announcementIndex.should.equal(routerStub);
+    announcementIndex.default.should.equal(routerStub);
     done();
   });
 
