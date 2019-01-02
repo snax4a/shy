@@ -11,12 +11,12 @@ export class UserEditorController {
     this.$uibModalInstance = $uibModalInstance;
     this.Auth = Auth;
     this.User = User;
-    this.userSelectedForEditing = userSelectedForEditing;
+    this.userSelectedForEditing = userSelectedForEditing; // should always be $resource
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.user = {};
+    this.user = new User();
     this.isAdmin = this.Auth.isAdminSync;
     if(this.userSelectedForEditing) angular.copy(this.userSelectedForEditing, this.user);
   }
@@ -31,36 +31,22 @@ export class UserEditorController {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user in case upsert fails
-      let upsertedUser = {};
+      let upsertedUser = new this.User();
       angular.copy(this.user, upsertedUser);
       this.User.upsert(upsertedUser)
         .$promise
-        .then(user => { // only contains user._id
-          // Do not add the password and passwordConfirm to the array
-          Reflect.deleteProperty(upsertedUser, 'password'); // clear this out for security reasons
-          Reflect.deleteProperty(upsertedUser, 'passwordNew'); // clear this out for security reasons
-          Reflect.deleteProperty(upsertedUser, 'passwordConfirm'); // ditto
-
-          // If a new user...
-          if(upsertedUser._id === 0) {
-            upsertedUser._id = user._id;
-          }
-
+        .then(user => { // Resource object with all the user fields except password and salt
           // Graft the edited user back the original
-          angular.extend(this.userSelectedForEditing, upsertedUser);
-          this.$uibModalInstance.close();
-          return null;
+          angular.extend(this.userSelectedForEditing, user);
+          return this.$uibModalInstance.close();
         })
         .catch(response => {
-          let err = response.data;
-          this.errors = {}; // reset to only the latest errors
+          const { errors } = response.data;
 
           // Update validity of form fields that match the server errors
-          if(err.name) {
-            for(let error of err.errors) {
-              form[error.path].$setValidity('server', false);
-              this.errors[error.path] = error.message;
-            }
+          for(let error of errors) {
+            form[error.path].$setValidity('server', false);
+            this.errors[error.path] = error.message;
           }
           return null;
         });

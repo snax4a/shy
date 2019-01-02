@@ -239,18 +239,18 @@ export async function upsert(req, res) {
   if(isNew) {
     sql = `INSERT INTO "Users"
       (email, "firstName", "lastName", phone, "optOut", provider, role, salt, password)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING _id;`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING _id, email, "firstName", "lastName", phone, "optOut", provider, role;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE "Users"
       SET email = $1, "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, provider = $6, role = $7${sqlPasswordUpdate}
-      RETURNING _id;`;
+      RETURNING _id, email, "firstName", "lastName", phone, "optOut", provider, role;`;
   }
 
   try {
     const { rows } = await db.query(sql, arrParams);
-    return res.status(200).send({ _id: rows[0]._id });
+    return res.status(200).send(rows[0]);
   } catch(err) {
     if(err.constraint === 'Users_email_key') userEmailTakenError();
     console.error('Unanticipated error', err);

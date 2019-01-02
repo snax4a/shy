@@ -7,6 +7,7 @@ class _User {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
+    this.phone = '';
     this.role = '';
     this.optOut = false;
     this.$promise = undefined;

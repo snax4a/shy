@@ -8,7 +8,7 @@ export class UserManagerComponent {
   /*@ngInject*/
   constructor($http, $uibModal, User, paginationService) {
     this.$http = $http;
-    this.User = User; // used by search()
+    this.User = User; // used by search() and createUser()
     this.$uibModal = $uibModal;
     this.paginationService = paginationService; // dirPagination
   }
@@ -76,6 +76,7 @@ export class UserManagerComponent {
         userGettingClasses: () => user
       }
     });
+
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       // if we add any classes, update the count in the grid
@@ -94,6 +95,7 @@ export class UserManagerComponent {
         historyItemToEdit: () => historyItem
       }
     });
+
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       // If we added a history record, update the count in the grid
@@ -112,6 +114,7 @@ export class UserManagerComponent {
         userSelectedForEditing: () => user
       }
     });
+
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       if(user.shouldBeDeleted) this.users.splice(this.users.indexOf(user), 1); // Remove them from the array
@@ -120,13 +123,13 @@ export class UserManagerComponent {
 
   // Create a user with the appropriate defaults (enforce role setting server-side)
   createUser() {
-    let user = {
+    let user = new this.User({
       _id: 0,
       provider: 'local',
       role: 'student',
       balance: 0,
       optOut: false
-    };
+    });
 
     this.users.unshift(user);
     this.modalUserEditor(user);
