@@ -7,8 +7,10 @@ const router = Router();
 
 router.get('/', auth.hasRole('teacher'), asyncWrapper(controller.index)); // teacher, admin, get users
 router.get('/me', auth.isAuthenticated(), asyncWrapper(controller.me)); // user, retrieve profile
+router.get('/unsubscribe/:email', asyncWrapper(controller.unsubscribe));
 
 router.post('/', asyncWrapper(controller.create)); // sign-up and login
+router.post('/subscribe', asyncWrapper(controller.subscribe));
 router.post('/forgotpassword', asyncWrapper(controller.forgotPassword)); // gen new password and email
 
 router.put('/:id', auth.isAuthenticated(), asyncWrapper(controller.update)); // user - update profile

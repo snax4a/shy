@@ -265,3 +265,48 @@ export async function destroy(req, res) {
   await db.query(sql, [_id]);
   return res.status(204).send({ message: `User ${_id} deleted.`});
 }
+
+// Called by order.controller.js and message.controller.js
+export async function contactUpsert(user, overrideName) {
+  // OverrideName == true replaces existing first and last name
+  const overrideNameSql = overrideName ? '"firstName" = $2, "lastName" = $3, ' : '';
+  const overridePhoneSql = user.phone ? 'phone = $4, ' : '';
+  const sql = `INSERT INTO "Users"
+  (email, "firstName", "lastName", phone, "optOut")
+  VALUES ($1, $2, $3, $4, $5)
+  ON CONFLICT (email) DO UPDATE
+     SET ${overrideNameSql}${overridePhoneSql}"optOut" = $5;`;
+  return db.query(sql, [user.email, user.firstName, user.lastName, user.phone, user.optOut]);
+}
+
+// Upserts user to newsletter list then emails admins
+export async function subscribe(req, res) {
+  // Send response before database and email operations
+  res.status(200).send('Thanks for subscribing to our newsletter.');
+
+  const message = {
+    to: config.mail.admins,
+    subject: 'Subscriber from Workshops page',
+    text: `Email: ${req.body.email}`
+  };
+
+  await Promise.all([
+    contactUpsert({
+      email: req.body.email,
+      firstName: 'Student',
+      lastName: null,
+      phone: null,
+      optOut: false
+    }, false),
+    config.mail.transporter.sendMail(message)
+  ]);
+}
+
+// Upsert subscriber to opt out (unsubscribe)
+export async function unsubscribe(req, res) {
+  // Send response before database and email operations
+  res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
+
+  const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1;';
+  await db.query(unsubscribeSQL, [req.params.email]);
+}

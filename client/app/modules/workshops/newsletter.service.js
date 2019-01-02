@@ -7,7 +7,7 @@ export class NewsletterService {
   }
 
   async subscribe(subscriber) {
-    const { data } = await this.$http.post('/api/newsletter', subscriber);
+    const { data } = await this.$http.post('/api/users/subscribe', subscriber);
     return data;
   }
 }

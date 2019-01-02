@@ -16,7 +16,9 @@ const userCtrlStub = {
   update: 'userCtrl.update',
   create: 'userCtrl.create',
   forgotPassword: 'userCtrl.forgotPassword',
-  upsert: 'userCtrl.upsert'
+  upsert: 'userCtrl.upsert',
+  subscribe: 'userCtrl.subscribe',
+  unsubscribe: 'userCtrl.unsubscribe'
 };
 
 const authServiceStub = {
@@ -96,6 +98,20 @@ describe('User API Router:', function() {
   describe('DELETE /api/users/:id', function() {
     it('should verify admin role and route to user.controller.destroy', done => {
       routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.userCtrl.destroy').should.have.been.calledOnce;
+      done();
+    });
+  });
+
+  describe('POST /api/users/subscribe', function() {
+    it('should route to user.controller.subscribe', done => {
+      routerStub.post.withArgs('/subscribe', 'asyncWrapper.userCtrl.subscribe').should.have.been.calledOnce;
+      done();
+    });
+  });
+
+  describe('GET /api/users/unsubscribe/:email', function() {
+    it('should route to user.controller.unsubscribe', done => {
+      routerStub.get.withArgs('/unsubscribe/:email', 'asyncWrapper.userCtrl.unsubscribe').should.have.been.calledOnce;
       done();
     });
   });

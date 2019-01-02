@@ -7,11 +7,12 @@ import compression from 'compression';
 import errorHandler from 'errorhandler'; // only used in dev/test
 import path from 'path';
 import lusca from 'lusca';
-import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
-import sqldb from '../sqldb';
 import mime from 'mime-types';
+
+import config from './environment';
+import sqldb from '../sqldb';
 
 export default app => {
   let env = app.get('env');

@@ -1,6 +1,7 @@
 import braintree from 'braintree';
 import config from '../../config/environment';
 import db from '../../db';
+import { contactUpsert } from '../user/user.controller';
 
 const products = require('../../../client/assets/data/products.json');
 
@@ -9,7 +10,7 @@ class BraintreeError extends Error {
     super(message);
     this.message = message;
     this.name = 'BraintreeError';
-    this.errors = [{message, path}];
+    this.errors = [{ message, path }];
     Error.captureStackTrace(this, this.constructor);
   }
 }
@@ -236,18 +237,16 @@ const saveToDB = async confirmation => {
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,
       $15, $16, $17, $18, $19);`;
 
-  const { recipientemail, recipientphone } = confirmation.customFields;
-  const { firstName, lastName } = confirmation.shipping;
-  const userUpsertSQL = `INSERT INTO "Users"
-    (email, "firstName", "lastName", phone, "optOut")
-    VALUES ($1, $2, $3, $4, $5)
-    ON CONFLICT (email) DO UPDATE
-       SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5;`;
-
   // Run the queries in parallel
   await Promise.all([
     db.query(orderInsertSQL, arrOrderParams),
-    db.query(userUpsertSQL, [recipientemail, firstName, lastName, recipientphone, false])
+    contactUpsert({
+      email: confirmation.customFields.recipientemail,
+      firstName: confirmation.shipping.firstName,
+      lastName: confirmation.shipping.lastName,
+      phone: confirmation.customFields.recipientphone,
+      optOut: false
+    }, false)
   ]);
 };
 

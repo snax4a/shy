@@ -233,5 +233,59 @@ describe('User API:', () => {
           .expect(204)
       );
     });
+
+    describe('POST /api/user/subscribe', function() {
+      let newSubscriber = {
+        email: 'nul@bitbucket.com'
+      };
+
+      it('should send response thanking the user for subscribing to the newsletter', () =>
+        request(app)
+          .post('/api/users/subscribe')
+          .send(newSubscriber)
+          .expect(200)
+          .expect('Content-Type', /html/)
+          .expect(res => {
+            let response = res.text.toString();
+            response.should.equal('Thanks for subscribing to our newsletter.');
+          })
+      );
+
+      // Delete test user
+      // after(() =>
+      //   User.destroy({
+      //     where: {
+      //       email: 'nul@bitbucket.com'
+      //     }
+      //   })
+      // );
+    });
+
+    describe('POST /api/user/unsubscribe/:email', function() {
+      let newSubscriber = {
+        email: 'nul@bitbucket.com'
+      };
+
+      it('should send response confirming the user was unsubscribed', () =>
+        request(app)
+          .get(`/api/users/unsubscribe/${newSubscriber.email}`)
+          .send(newSubscriber)
+          .expect(200)
+          .expect('Content-Type', /html/)
+          .expect(res => {
+            let response = res.text.toString();
+            response.should.equal(`Unsubscribed ${newSubscriber.email} from the newsletter.`);
+          })
+      );
+
+      // Delete test user
+      after(() =>
+        User.destroy({
+          where: {
+            email: 'nul@bitbucket.com'
+          }
+        })
+      );
+    });
   });
 });

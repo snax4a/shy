@@ -1,12 +1,11 @@
 import config from '../config/environment';
+import { native as pg } from 'pg';
 
-const { Pool } = require('pg').native;
-
-const pool = new Pool({
+const pool = new pg.Pool({
   max: 10, // default
   connectionString: config.pg.uri
 });
 
-module.exports = {
+export default {
   query: (text, params) => pool.query(text, params)
 };

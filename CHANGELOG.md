@@ -1,8 +1,11 @@
 # Product Backlog
+* [High] Eliminate /api/message - move to /api/users
 * [High] Extend User service, forgotPassword() for forgotpassword.controller.js
-* [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it
+* [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it (remove $http from the component)
 * [High] Refactor sever/auth to remove Sequelize dependencies
 * [Medium] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
+* [Medium] Hook up sendinblue's API to /api/(message|newsletter|order|user)
+* [Low] server/config/express.js - replace require() with imports
 * [Low] Embed images in order confirmations using nodemailer
 * [Low] Add toast if there's an error sending email from contact modal
 * [Low] Admin option to send updated contacts to sendinblue via their API

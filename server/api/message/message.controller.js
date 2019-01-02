@@ -1,17 +1,12 @@
 import config from '../../config/environment';
-import db from '../../db';
+import { contactUpsert } from '../user/user.controller';
 
 // Upsert user (including optOut attribute) to newsletter list then emails admins
 export async function send(req, res) {
   // Send response before the email goes out
   res.status(200).send('Thanks for submitting your question or comment. We will respond shortly.');
 
-  const { email, firstName, lastName, phone, optOut, question } = req.body;
-  const userUpsertSQL = `INSERT INTO "Users"
-  (email, "firstName", "lastName", phone, "optOut")
-  VALUES ($1, $2, $3, $4, $5)
-  ON CONFLICT (email) DO UPDATE
-     SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5;`;
+  const { email, firstName, lastName, optOut, question } = req.body;
 
   const message = {
     to: config.mail.admins,
@@ -25,5 +20,8 @@ ${question}
 ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
   };
 
-  await Promise.all([db.query(userUpsertSQL, [email, firstName, lastName, phone, optOut]), config.mail.transporter.sendMail(message)]);
+  await Promise.all([
+    contactUpsert(req.body, true),
+    config.mail.transporter.sendMail(message)
+  ]);
 }

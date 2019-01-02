@@ -5,7 +5,6 @@ import AnnouncementApi from './api/announcement';
 import ScheduleApi from './api/schedule';
 import MessageApi from './api/message';
 import OrderApi from './api/order';
-import NewsletterApi from './api/newsletter';
 import UserApi from './api/user';
 import HistoryApi from './api/history';
 import Auth from './auth';
@@ -16,7 +15,6 @@ export default app => {
   app.use('/api/schedule', ScheduleApi);
   app.use('/api/message', MessageApi);
   app.use('/api/order', OrderApi);
-  app.use('/api/newsletter', NewsletterApi);
   app.use('/api/users', UserApi);
   app.use('/api/history', HistoryApi);
   app.use('/auth', Auth);
