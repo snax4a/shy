@@ -5,9 +5,9 @@
 
 export default {
   DOMAIN: 'http://localhost:3000',
-  SESSION_SECRET: 'Something unique and kind of long',
 
   // Authentication
+  SESSION_SECRET: 'Something unique and kind of long',
   TEACHER_EMAIL: 'teacher@example.com',
   TEACHER_PASSWORD: 'secret',
   ADMIN_EMAIL: 'admin@example.com',
@@ -15,10 +15,13 @@ export default {
   GOOGLE_ID: 'app-id',
   GOOGLE_SECRET: 'secret',
 
-  // Nodemailer
+  // Email
+  SMTP_API_KEY: 'secret',
+  SMTP_SENDER: { email: 'info@example.com', name: 'Company Name' },
   SMTP_USER: 'someuser@somedomain.com',
   SMTP_PASSWORD: 'Password',
   SMTP_HOST: 'smtp.office365.com',
+  SMTP_PORT: 587,
   SMTP_ADMINS: 'nul@bitbucket.com, foo@bitbucket.com',
 
   // Sequelize or node-postgres (pg) connection to PostgreSQL

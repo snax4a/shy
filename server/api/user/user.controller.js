@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import db from '../../db';
+import mail from '../../mail';
 import config from '../../config/environment'; // secrets and email
 
 class UserError extends Error {
@@ -146,14 +147,15 @@ export async function forgotPassword(req, res) {
   await db.query(sql, [encryptedPassword, salt, email]);
 
   // Build and send email
-  let html = `Your new Schoolhouse Yoga website temporary password for ${email} is <b>${newPassword}</b>.
+  const htmlContent = `Your new Schoolhouse Yoga website temporary password for ${email} is <b>${newPassword}</b>.
   Please login and change it at <a href="https://www.schoolhouseyoga.com/profile">https://www.schoolhouseyoga.com/profile</a>.`;
   const message = {
-    to: req.body.email,
+    sender: config.mail.sender,
+    to: [{ email: req.body.email }],
     subject: 'Schoolhouse Yoga website login',
-    html
+    htmlContent
   };
-  await config.mail.transporter.sendMail(message);
+  await mail.send(message);
 
   // Tell the user new password was sent
   return res.status(200).send('New password sent.');
@@ -230,7 +232,7 @@ export async function upsert(req, res) {
 
   // If teacher/admin did not create a password, generate a random one automatically
   if(isNew && !passwordNew) passwordNew = await generateRandomBytes(16);
- 
+
   // If new password, generate salt and encrypted password and add params to array
   if(passwordNew) {
     const newSalt = await generateRandomBytes(16); // regenerate - never reuse
@@ -280,7 +282,8 @@ export async function contactUpsert(user, overrideName) {
   VALUES ($1, $2, $3, $4, $5)
   ON CONFLICT (email) DO UPDATE
      SET ${overrideNameSql}${overridePhoneSql}"optOut" = $5;`;
-  return db.query(sql, [user.email, user.firstName, user.lastName, user.phone, user.optOut]);
+  const { rows } = await db.query(sql, [user.email, user.firstName, user.lastName, user.phone, user.optOut]);
+  return rows[0];
 }
 
 // Upserts user to newsletter list then emails admins
@@ -289,9 +292,11 @@ export async function subscribe(req, res) {
   res.status(200).send('Thanks for subscribing to our newsletter.');
 
   const message = {
-    to: config.mail.admins,
+    sender: config.mail.sender,
+    to: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Subscriber from Workshops page',
-    text: `Email: ${req.body.email}`
+    htmlContent: `Email: ${req.body.email}`,
+    tags: ['subscription']
   };
 
   await Promise.all([
@@ -302,7 +307,7 @@ export async function subscribe(req, res) {
       phone: null,
       optOut: false
     }, false),
-    config.mail.transporter.sendMail(message)
+    mail.send(message)
   ]);
 }
 
@@ -311,8 +316,9 @@ export async function unsubscribe(req, res) {
   // Send response before database and email operations
   res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
 
-  const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1;';
-  await db.query(unsubscribeSQL, [req.params.email]);
+  const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1 RETURNING _id, email, "optOut";';
+  const { rows } = await db.query(unsubscribeSQL, [req.params.email]);
+  return rows[0];
 }
 
 // Upsert user (including optOut attribute) to newsletter list then emails admins
@@ -323,19 +329,21 @@ export async function messageSend(req, res) {
   const { email, firstName, lastName, optOut, question } = req.body;
 
   const message = {
-    to: config.mail.admins,
+    sender: [{ email, name: `${firstName} ${lastName}` }], // config.mail.sender,
+    to: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Question/comment from website',
-    text: `Name: ${firstName} ${lastName}
+    tags: ['question'],
+    textContent: `Name: ${firstName} ${lastName}
 Email: ${email}
-
+    
 Question/comment:
 ${question}
-
+    
 ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
   };
 
   await Promise.all([
     contactUpsert(req.body, true),
-    config.mail.transporter.sendMail(message)
+    mail.send(message)
   ]);
 }

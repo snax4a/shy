@@ -1,7 +1,6 @@
 /* eslint no-process-env:0 */
 
 import path from 'path';
-import nodemailer from 'nodemailer';
 import shared from './shared';
 import development from './development';
 import test from './test';
@@ -57,16 +56,11 @@ const all = {
   // By default, do not seed the database
   seedDB: false,
 
-  // Nodemailer settings
+  // Email settings
   mail: {
-    transporter: nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.office365.com',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD
-      }
-    }, { from: process.env.SMTP_USER }),
-    admins: process.env.SMTP_ADMINS // notification go to this group
+    apiKey: process.env.SMTP_API_KEY,
+    sender: JSON.parse(process.env.SMTP_SENDER),
+    admins: process.env.SMTP_ADMINS // notification go to this group email
   },
 
   // Integrated authentication

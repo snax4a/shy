@@ -1,6 +1,7 @@
 import braintree from 'braintree';
 import config from '../../config/environment';
 import db from '../../db';
+import mail from '../../mail';
 import { contactUpsert } from '../user/user.controller';
 
 const products = require('../../../client/assets/data/products.json');
@@ -90,10 +91,11 @@ const buildConfirmationEmail = confirmation => {
       <td class="right">$${cartItem.price}</td><td class="right">$${getLineItemTotal(cartItem)}</td></tr>`;
   });
   return {
-    to: confirmation.customer.email,
-    bcc: config.mail.admins,
+    sender: config.mail.sender,
+    to: [{ email: confirmation.customer.email, name: `${confirmation.customer.firstName} ${confirmation.customer.lastName}` }],
+    bcc: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Schoolhouse Yoga Order Confirmation',
-    html: `
+    htmlContent: `
       <style>
         body, td, th, p {
           font-family: HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue',Helvetica,sans-serif;
@@ -276,7 +278,7 @@ export async function create(req, res) {
   // Build and send email
   try {
     const message = buildConfirmationEmail(transaction);
-    await config.mail.transporter.sendMail(message);
+    await mail.send(message);
   } catch(err) {
     console.warn('\x1b[33m%s\x1b[0mWARNING: Error sending confirmation email (probably a bad email address)', err);
   }
