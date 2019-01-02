@@ -38,7 +38,7 @@ describe('User API:', () => {
   // Retrieve the current user
   const getUserProfile = () =>
     request(app)
-      .get('/api/users/me')
+      .get('/api/user/me')
       .set('authorization', `Bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -51,7 +51,7 @@ describe('User API:', () => {
     User.destroy({ where: { email } })
       .then(() =>
         request(app)
-          .post('/api/users')
+          .post('/api/user')
           .send(createUser())
           .expect(200)
           .expect('Content-Type', /json/)
@@ -76,17 +76,52 @@ describe('User API:', () => {
     after(() => destroy());
 
     // Check token from user.controller.js:create (sign-up)
-    describe('POST /api/users/', () => {
+    describe('POST /api/user/', () => {
       it('should return 144 character token to indicate successful sign-up', () =>
         token.should.have.length(144)
       );
     });
 
+    describe('POST /api/user/message', function() {
+      let response = '';
+
+      before(() =>
+        request(app)
+          .post('/api/user/message')
+          .send({
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'nul@bitbucket.com',
+            question: 'This is a question',
+            optOut: false,
+            role: 'student',
+            provider: 'local'
+          })
+          .expect(200)
+          .expect('Content-Type', /html/)
+          .expect(res => {
+            response = res.text;
+          })
+      );
+
+      // Delete test user
+      after(() =>
+        User.destroy({
+          where: {
+            email: 'jdoe@gmail.com'
+          }
+        })
+      );
+
+      it('should send response thanking the user for submitting a question or comment', () =>
+        response.should.equal('Thanks for submitting your question or comment. We will respond shortly.'));
+    });
+
     // Check response from user.controller.js:forgotPassword
-    describe('POST /api/users/forgotpassword', function() {
+    describe('POST /api/user/forgotpassword', function() {
       it('should generate a new password and email it to the user', () =>
         request(app)
-          .post('/api/users/forgotpassword')
+          .post('/api/user/forgotpassword')
           .send({ email })
           .expect(200)
           .expect('Content-Type', /html/)
@@ -102,10 +137,10 @@ describe('User API:', () => {
     after(() => destroy());
 
     // user.controller.js:me
-    describe('GET /api/users/me', function() {
+    describe('GET /api/user/me', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
-          .get('/api/users/me')
+          .get('/api/user/me')
           .expect(401)
       );
 
@@ -122,12 +157,12 @@ describe('User API:', () => {
     });
 
     // Check response from user.controller.js:update
-    describe('PUT /api/users/:id', function() {
+    describe('PUT /api/user/:id', function() {
       it('should respond with a 401 when not authenticated', () =>
         getUserProfile()
           .then(() =>
             request(app)
-              .put(`/api/users/${user._id}`)
+              .put(`/api/user/${user._id}`)
               .send(updatedUser)
               .expect(401)
           )
@@ -138,7 +173,7 @@ describe('User API:', () => {
         getUserProfile()
           .then(() =>
             request(app)
-              .put(`/api/users/${user._id}`)
+              .put(`/api/user/${user._id}`)
               .set('authorization', `Bearer ${token}`)
               .send(updatedUser)
               .expect(200)
@@ -166,19 +201,19 @@ describe('User API:', () => {
       recreate()
         .then(() => setRole('admin')) // teacher role seems to be broken right now (address later)
     );
-    after(() => destroy()); // should be done by DELETE /api/users/:id but here in case of errors
+    after(() => destroy()); // should be done by DELETE /api/user/:id but here in case of errors
 
     // controller.index (teacher or admin)
-    describe('GET /api/users/', function() {
+    describe('GET /api/user/', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
-          .get('/api/users?filter=SHY')
+          .get('/api/user?filter=SHY')
           .expect(401)
       );
 
       it('should respond with a JSON array of users when authenticated', () =>
         request(app)
-          .get('/api/users?filter=SHY')
+          .get('/api/user?filter=SHY')
           .set('authorization', `Bearer ${token}`)
           .expect(200)
           .expect('Content-Type', /json/)
@@ -190,10 +225,10 @@ describe('User API:', () => {
     });
 
     // controller.upsert (teacher or admin)
-    describe('PUT /api/users/:id/admin', function() {
+    describe('PUT /api/user/:id/admin', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
-          .put(`/api/users/${user._id}/admin`)
+          .put(`/api/user/${user._id}/admin`)
           .expect(401)
       );
 
@@ -204,7 +239,7 @@ describe('User API:', () => {
             updatedUser._id = user._id;
             // console.log(updatedUser);
             return request(app)
-              .put(`/api/users/${user._id}/admin`) // test user is updating their own profile
+              .put(`/api/user/${user._id}/admin`) // test user is updating their own profile
               .send(updatedUser)
               .set('authorization', `Bearer ${token}`)
               .expect(200)
@@ -218,17 +253,17 @@ describe('User API:', () => {
     });
 
     // controller.destroy (admin only)
-    describe('DELETE /api/users/:id', function() {
+    describe('DELETE /api/user/:id', function() {
       it('should respond with a 401 when not authenticated', () =>
         request(app)
-          .delete(`/api/users/${user._id}`)
+          .delete(`/api/user/${user._id}`)
           .expect(401)
       );
 
       // Depends on current user having admin role
       it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
         request(app)
-          .delete(`/api/users/${user._id}`)
+          .delete(`/api/user/${user._id}`)
           .set('authorization', `Bearer ${token}`)
           .expect(204)
       );
@@ -241,7 +276,7 @@ describe('User API:', () => {
 
       it('should send response thanking the user for subscribing to the newsletter', () =>
         request(app)
-          .post('/api/users/subscribe')
+          .post('/api/user/subscribe')
           .send(newSubscriber)
           .expect(200)
           .expect('Content-Type', /html/)
@@ -268,7 +303,7 @@ describe('User API:', () => {
 
       it('should send response confirming the user was unsubscribed', () =>
         request(app)
-          .get(`/api/users/unsubscribe/${newSubscriber.email}`)
+          .get(`/api/user/unsubscribe/${newSubscriber.email}`)
           .send(newSubscriber)
           .expect(200)
           .expect('Content-Type', /html/)

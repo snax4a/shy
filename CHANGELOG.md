@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] Eliminate /api/message - move to /api/users
 * [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it (remove $http from the component)
 * [High] Refactor sever/auth to remove Sequelize dependencies
@@ -42,7 +41,7 @@
 # [1.0.4] (https://github.com/nstuyvesant/shy/commit/43fe7c1879ae493dc9e50a7c72a9e2b98a0cf523) (2017-03-19)
 * Add routes for add to cart buttons in newsletter
 * Resolved issues with administratively creating new users
-* Removed dead code in User Model (virtual attributes) and GET /api/users/:id
+* Removed dead code in User Model (virtual attributes) and GET /api/user/:id
 
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/nstuyvesant/shy/commit/7a08eda14c4b45400f5a2eb712d09737b4b0f187) (2017-03-05)

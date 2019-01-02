@@ -3,7 +3,6 @@ import path from 'path';
 import TokenApi from './api/token';
 import AnnouncementApi from './api/announcement';
 import ScheduleApi from './api/schedule';
-import MessageApi from './api/message';
 import OrderApi from './api/order';
 import UserApi from './api/user';
 import HistoryApi from './api/history';
@@ -13,9 +12,8 @@ export default app => {
   app.use('/api/token', TokenApi);
   app.use('/api/announcement', AnnouncementApi);
   app.use('/api/schedule', ScheduleApi);
-  app.use('/api/message', MessageApi);
   app.use('/api/order', OrderApi);
-  app.use('/api/users', UserApi);
+  app.use('/api/user', UserApi);
   app.use('/api/history', HistoryApi);
   app.use('/auth', Auth);
 

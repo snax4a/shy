@@ -21,7 +21,7 @@ export class ForgotPasswordController {
   }
 
   submit(form) {
-    return this.$http.post('/api/users/forgotpassword', { email: this.email })
+    return this.$http.post('/api/user/forgotpassword', { email: this.email })
       .then(() => {
         this.$uibModalInstance.close();
         return null;

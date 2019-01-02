@@ -11,6 +11,7 @@ router.get('/unsubscribe/:email', asyncWrapper(controller.unsubscribe));
 
 router.post('/', asyncWrapper(controller.create)); // sign-up and login
 router.post('/subscribe', asyncWrapper(controller.subscribe));
+router.post('/message', asyncWrapper(controller.messageSend));
 router.post('/forgotpassword', asyncWrapper(controller.forgotPassword)); // gen new password and email
 
 router.put('/:id', auth.isAuthenticated(), asyncWrapper(controller.update)); // user - update profile
