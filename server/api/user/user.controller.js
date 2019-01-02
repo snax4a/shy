@@ -217,7 +217,8 @@ export async function update(req, res) {
 
 // Updates or creates user (teachers or admins)
 export async function upsert(req, res) {
-  const { _id, email, firstName, lastName, phone, optOut, provider, role, passwordNew, passwordConfirm } = req.body;
+  const { _id, email, firstName, lastName, phone, optOut, provider, role, passwordConfirm } = req.body;
+  let passwordNew = req.body.passwordNew; // variable as we may have to override
 
   // Check for match when changing passwords (ignore when both are undefined)
   if(passwordNew !== passwordConfirm) userPasswordMismatchError();
