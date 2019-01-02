@@ -227,6 +227,9 @@ export async function upsert(req, res) {
   let sqlPasswordUpdate = ' WHERE _id = $8'; // default when NOT changing password
   const isNew = _id === 0;
 
+  // If teacher/admin did not create a password, generate a random one automatically
+  if(isNew && !passwordNew) passwordNew = await generateRandomBytes(16);
+ 
   // If new password, generate salt and encrypted password and add params to array
   if(passwordNew) {
     const newSalt = await generateRandomBytes(16); // regenerate - never reuse
