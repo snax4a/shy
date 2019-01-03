@@ -21,7 +21,6 @@ export default {
     // Compose email (no constructor available in v3)
     let messageToSend = new SibApiV3Sdk.SendSmtpEmail();
     messageToSend = { ...message };
-    console.log('*** MESSAGE *** ', messageToSend);
     try {
       let apiInstance = new SibApiV3Sdk.SMTPApi();
       const data = await apiInstance.sendTransacEmail(messageToSend);
