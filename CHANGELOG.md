@@ -4,7 +4,7 @@
 * [Medium] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
 * [Medium] Hook up sendinblue's API send contacts
 * [Low] server/config/express.js - replace require() with imports
-* [Low] Add toast if there's an error sending email from contact modal
+* [Low] Add toast after forgotpassword
 
 <a name="1.0.11"></a>
 * [High] Intrapage links didn't work because anchors with ids loaded asynchronously - changed to synchronous
