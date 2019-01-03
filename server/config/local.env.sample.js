@@ -18,11 +18,7 @@ export default {
   // Email
   SMTP_API_KEY: 'secret',
   SMTP_SENDER: { email: 'info@example.com', name: 'Company Name' },
-  SMTP_USER: 'someuser@somedomain.com',
-  SMTP_PASSWORD: 'Password',
-  SMTP_HOST: 'smtp.office365.com',
-  SMTP_PORT: 587,
-  SMTP_ADMINS: 'nul@bitbucket.com, foo@bitbucket.com',
+  SMTP_ADMINS: 'example@example.com',
 
   // Sequelize or node-postgres (pg) connection to PostgreSQL
   DATABASE_URL: 'postgres://user:pass@localhost:5432/dbname',
