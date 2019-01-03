@@ -329,7 +329,7 @@ export async function messageSend(req, res) {
   const { email, firstName, lastName, optOut, question } = req.body;
 
   const message = {
-    sender: [{ email, name: `${firstName} ${lastName}` }], // config.mail.sender,
+    sender: config.mail.sender,
     to: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Question/comment from website',
     tags: ['question'],
