@@ -27,8 +27,11 @@ export class LoginComponent {
     if(form.$valid) {
       const { email, password } = this.user;
       this.authService.login({ email, password })
-        .then(() => {
-          this.$window.history.back(); // usually login opens due to redirect
+        .then(user => {
+          let nextPath = '/';
+          if(user.role === 'teacher') nextPath = '/shynet';
+          if(user.role === 'admin') nextPath = '/admin';
+          this.$location.path(nextPath);
         })
         .catch(err => {
           this.errors.login = err.message;
