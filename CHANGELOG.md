@@ -1,6 +1,5 @@
 # Product Backlog
 * [High] Create HistoryService for usermanager.component.js (and add LocationService, TeacherService, ClassesService) and merge AttendanceService into it (remove $http from the component)
-* [High] Extend User service, forgotPassword() for forgotpassword.controller.js
 * [High] Refactor sever/auth to remove Sequelize dependencies
 * [Medium] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
 * [Medium] Hook up sendinblue's API send contacts

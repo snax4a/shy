@@ -2,8 +2,7 @@
 
 export class ForgotPasswordController {
   /*@ngInject*/
-  constructor($http, User, $uibModalInstance) {
-    this.$http = $http;
+  constructor(User, $uibModalInstance) {
     this.User = User;
     this.$uibModalInstance = $uibModalInstance;
     this.errors = {};
@@ -15,17 +14,10 @@ export class ForgotPasswordController {
   }
 
   // Or should I use Auth Service?
-  async forgotPassword(email) {
-    await this.User.forgotPassword(email);
-    return true;
-  }
-
-  submit(form) {
-    return this.$http.post('/api/user/forgotpassword', { email: this.email })
-      .then(() => {
-        this.$uibModalInstance.close();
-        return null;
-      })
+  forgotPassword(email) {
+    this.User.forgotPassword(email)
+      .$promise
+      .then(() => this.$uibModalInstance.close())
       .catch(response => {
         let err = response.data;
         this.errors = err.errors;
@@ -36,7 +28,12 @@ export class ForgotPasswordController {
           this.errors[error.path] = error.message;
         }
         return null;
-      }); // $http.post
+      });
+  }
+
+  submit(form) {
+    this.forgotPassword({ email: this.email });
+    // TODO: Put a toast here.
   }
 
   cancel() {
