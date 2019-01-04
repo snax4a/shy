@@ -1,4 +1,4 @@
-import db from '../../db';
+import db from '../../utils/db';
 
 // Nest the schedule items for easy display with AngularJS
 function nest(flatScheduleItems) {

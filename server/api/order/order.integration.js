@@ -1,7 +1,7 @@
 /* global describe, before, it, after */
 
 import app from '../..';
-import { User } from '../../sqldb';
+import { User } from '../../utils/sqldb';
 import request from 'supertest';
 
 describe('Order API:', function() {

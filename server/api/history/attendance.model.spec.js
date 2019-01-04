@@ -1,6 +1,6 @@
 /* global describe, before, beforeEach, afterEach, it */
 
-import { Attendance } from '../../sqldb';
+import { Attendance } from '../../utils/sqldb';
 
 let attendance;
 let buildAttendance = () => {

@@ -1,4 +1,4 @@
-import db from '../../db';
+import db from '../../utils/db';
 
 // Utility function to return nested JSON from flat list
 function nest(flatAnnouncements) {

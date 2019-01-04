@@ -1,6 +1,6 @@
 /* global describe, before, beforeEach, afterEach, it */
 
-import { Schedule } from '../../sqldb';
+import { Schedule } from '../../utils/sqldb';
 
 let schedule;
 let buildSchedule = () => {

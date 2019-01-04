@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import db from '../../db';
-import mail from '../../mail';
+import db from '../../utils/db';
+import mail from '../../utils/mail';
 import config from '../../config/environment'; // secrets and email
 
 class UserError extends Error {

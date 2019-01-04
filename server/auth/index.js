@@ -5,7 +5,7 @@ import local from './local';
 import { setup as googleSetup } from './google/passport';
 import google from './google';
 
-import { User } from '../sqldb';
+import { User } from '../utils/sqldb';
 //import asyncWrapper from '../middleware/async-wrapper'; // only wrap async functions
 
 const router = Router();

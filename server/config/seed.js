@@ -4,7 +4,7 @@
  */
 
 import config from './environment/';
-import { User } from '../sqldb';
+import { User } from '../utils/sqldb';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 

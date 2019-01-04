@@ -1,7 +1,7 @@
 import braintree from 'braintree';
 import config from '../../config/environment';
-import db from '../../db';
-import mail from '../../mail';
+import db from '../../utils/db';
+import mail from '../../utils/mail';
 import { contactUpsert } from '../user/user.controller';
 
 const products = require('../../../client/assets/data/products.json');

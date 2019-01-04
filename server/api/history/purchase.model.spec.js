@@ -1,6 +1,6 @@
 /* global describe, before, beforeEach, afterEach, it */
 
-import { Purchase } from '../../sqldb';
+import { Purchase } from '../../utils/sqldb';
 
 let purchase;
 let buildPurchase = () => {

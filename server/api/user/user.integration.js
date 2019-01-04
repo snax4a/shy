@@ -1,7 +1,7 @@
 /* globals describe, it, before, after */
 
 import app from '../..';
-import { User } from '../../sqldb';
+import { User } from '../../utils/sqldb';
 import request from 'supertest';
 
 describe('User API:', () => {

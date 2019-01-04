@@ -1,6 +1,6 @@
 /* global describe, before, beforeEach, afterEach, it */
 
-import { User } from '../../sqldb';
+import { User } from '../../utils/sqldb';
 
 let user;
 let buildUser = () => {

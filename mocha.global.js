@@ -1,7 +1,7 @@
 /* eslint no-process-exit:0 */
 /* global after */
 import app from './';
-import db from './server/sqldb';
+import db from './server/utils/sqldb';
 
 after(done => {
   app.shy.on('close', () => {

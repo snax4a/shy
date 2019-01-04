@@ -1,6 +1,6 @@
 /* global describe, before, beforeEach, afterEach, it */
 
-import { Order } from '../../sqldb';
+import { Order } from '../../utils/sqldb';
 
 let order;
 let buildOrder = () => {

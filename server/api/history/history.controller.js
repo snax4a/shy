@@ -1,4 +1,4 @@
-import db from '../../db';
+import db from '../../utils/db';
 
 // Returns array of attendees
 export async function attendees(req, res) {

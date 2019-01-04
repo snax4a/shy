@@ -12,7 +12,7 @@ import session from 'express-session';
 import mime from 'mime-types';
 
 import config from './environment';
-import sqldb from '../sqldb';
+import sqldb from '../utils/sqldb';
 
 export default app => {
   let env = app.get('env');
