@@ -329,10 +329,17 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
-    `${clientPath}/.htaccess`,
-    `${clientPath}/apple-developer-merchantid-domain-association`,
+    `${clientPath}/.htaccess`
   ], { dot: true })
     .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
+)
+
+// Mainly Apple Pay certificate
+gulp.task('copy:well-known', () =>
+  gulp.src([
+    `${clientPath}/.well-known/*`
+  ], { dot: true })
+  .pipe(gulp.dest(`${paths.dist}/${clientPath}/.well-known`))
 )
 
 // Copy woff2 and woff fonts to /assets/fonts
@@ -396,7 +403,7 @@ gulp.task('build',
     'transpile:server',
     'build:images',
     'copy:fonts',
-    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:server', 'copy:server:esm', 'webpack:dist'),
+    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:well-known', 'copy:server', 'copy:server:esm', 'webpack:dist'),
     'revReplaceWebpack',
     'revReplaceJson'
   )
