@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import db from '../../utils/db';
 import mail from '../../utils/mail';
+import { sibContactUpsert, sibOptOut } from '../../utils/sendinblue';
 import config from '../../config/environment'; // secrets and email
 
 class UserError extends Error {
@@ -282,8 +283,20 @@ export async function contactUpsert(user, overrideName) {
   VALUES ($1, $2, $3, $4, $5)
   ON CONFLICT (email) DO UPDATE
      SET ${overrideNameSql}${overridePhoneSql}"optOut" = $5;`;
-  const { rows } = await db.query(sql, [user.email, user.firstName, user.lastName, user.phone, user.optOut]);
-  return rows[0];
+  const sibContact = {
+    email: user.email,
+    updateEnabled: true,
+    emailBlacklisted: user.optOut,
+    attributes: {
+      NAME: user.firstName,
+      SURNAME: user.lastName
+    }
+  };
+  await Promise.all([
+    db.query(sql, [user.email, user.firstName, user.lastName, user.phone, user.optOut]),
+    sibContactUpsert(sibContact)
+  ]);
+  return true;
 }
 
 // Upserts user to newsletter list then emails admins
@@ -309,6 +322,7 @@ export async function subscribe(req, res) {
     }, false),
     mail.send(message)
   ]);
+  return true;
 }
 
 // Upsert subscriber to opt out (unsubscribe)
@@ -317,8 +331,11 @@ export async function unsubscribe(req, res) {
   res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
 
   const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1 RETURNING _id, email, "optOut";';
-  const { rows } = await db.query(unsubscribeSQL, [req.params.email]);
-  return rows[0];
+  await Promise.all([
+    db.query(unsubscribeSQL, [req.params.email]),
+    sibOptOut(req.params.email)
+  ]);
+  return true;
 }
 
 // Upsert user (including optOut attribute) to newsletter list then emails admins
@@ -346,4 +363,5 @@ ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
     contactUpsert(req.body, true),
     mail.send(message)
   ]);
+  return true;
 }
