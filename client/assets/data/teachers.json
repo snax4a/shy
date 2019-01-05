@@ -190,7 +190,7 @@
 		"substitute": false
 	},
 	{
-		"_id": 43,
+		"_id": 45,
 		"firstName": "Leigh Ann",
 		"lastName": "Cutright",
 		"photo": "/assets/images/teachers/leighann-cutright.jpg",
@@ -198,11 +198,19 @@
 		"substitute": false
 	},
 	{
-		"_id": 42,
+		"_id": 46,
 		"firstName": "Jennifer",
 		"lastName": "Tober",
 		"photo": "/assets/images/teachers/jennifer-tober.jpg",
 		"bio": "Jennifer Tober received her training through Joanne Vandenhengel/3rd Street Yoga/Schoolhouse Yoga. Jennifer has practiced yoga since 1999, and teaches many forms including Vinyasa Flow, Hatha, Pre-Natal, Mommy and Me, and Meditation. She infuses her teaching with creativity, a quest for beautiful movement, and and inspiration for each student to explore and develop her/his own spiritual and physical practice.  Off the mat, Jennifer is a professional actress and the artistic director of Pittsburgh Shakespeare in the Parks. She is a mom of two amazing children, with whom she enjoys many creative and academic endeavors.",
+		"substitute": false
+	},
+	{
+		"_id": 47,
+		"firstName": "Becca",
+		"lastName": "Cutright",
+		"photo": "/assets/images/teachers/becca-cutright.jpg",
+		"bio": "Becca started practicing Yoga in 2012 and knew within a year she was interested in teaching it.  She did her 200HR teacher training with Tias Little in 2013 and a second 200HR training with Ana Forrest in 2016.  She fell in love with the blend of philosophy, life skills, self awareness, and physicality of Forrest Yoga and left the world of teaching Mathematics to pursue Yoga full time.  Becca found that with a practice of Yoga you get to work on the whole you - your physical body, yes, but also your mental, emotional, and spiritual.  Forrest Yoga, in particular, became a way of life for her... a practice or study of how to live a fuller, more attentive life.  Expect classes with Becca to be physically challenging and exciting, with modifications to accommodate all bodies.  Expect to be asked to breathe deeper, feel deeper, and go deeper into your own internal wilderness.",
 		"substitute": false
 	},
 	{
@@ -251,12 +259,6 @@
 		"_id": 41,
 		"firstName": "Katherine",
 		"lastName": "Wren",
-		"substitute": true
-	},
-	{
-		"_id": 42,
-		"firstName": "Becca",
-		"lastName": "Cutright",
 		"substitute": true
 	},
 	{
