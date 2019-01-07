@@ -154,6 +154,7 @@ export async function forgotPassword(req, res) {
     sender: config.mail.sender,
     to: [{ email: req.body.email }],
     subject: 'Schoolhouse Yoga website login',
+    tags: ['password'],
     htmlContent
   };
   await mail.send(message);

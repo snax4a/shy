@@ -95,6 +95,7 @@ const buildConfirmationEmail = confirmation => {
     to: [{ email: confirmation.customer.email, name: `${confirmation.customer.firstName} ${confirmation.customer.lastName}` }],
     bcc: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Schoolhouse Yoga Order Confirmation',
+    tags: ['order'],
     htmlContent: `
       <style>
         body, td, th, p {
@@ -278,8 +279,8 @@ export async function create(req, res) {
   // Build and send email
   try {
     const message = buildConfirmationEmail(transaction);
-    await mail.send(message);
+    return await mail.send(message);
   } catch(err) {
-    console.warn('\x1b[33m%s\x1b[0mWARNING: Error sending confirmation email (probably a bad email address)', err);
+    return console.warn('\x1b[33m%s\x1b[0mWARNING: Error sending confirmation email (probably a bad email address)', err);
   }
 }
