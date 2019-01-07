@@ -4,11 +4,11 @@ import { HistoryEditorController } from './historyeditor.controller';
 
 export class UserManagerComponent {
   /*@ngInject*/
-  constructor($http, $uibModal, User, paginationService) {
-    this.$http = $http;
-    this.User = User; // used by search() and createUser()
+  constructor($uibModal, paginationService, User, HistoryService) {
     this.$uibModal = $uibModal;
     this.paginationService = paginationService; // dirPagination
+    this.User = User; // used by search() and createUser()
+    this.historyService = HistoryService;
   }
 
   // Initializations
@@ -175,8 +175,7 @@ export class UserManagerComponent {
       teacher
     };
 
-    // Post historyItem to API
-    this.$http.post('/api/history', historyItem)
+    this.historyService.historyItemAdd(historyItem)
       .then(() => {
         // lower the balance by one
         user.balance--;
@@ -205,10 +204,7 @@ export class UserManagerComponent {
 
         return true;
       }) // success
-      .catch(response => {
-        console.log('Error', response);
-        return false;
-      });
+      .catch(response => console.error('Error', response));
   }
 
   // Wrapper for modalClassAdder
@@ -219,16 +215,13 @@ export class UserManagerComponent {
 
   // Get an array of purchases & attendances with a running balance
   historyGet(selectedUser) {
-    this.$http.get(`/api/history/${selectedUser._id}`)
-      .then(response => {
+    this.historyService.historyItemsForUserGet(selectedUser._id)
+      .then(historyItems => {
         this.historyFor = `${selectedUser.lastName}, ${selectedUser.firstName}`;
-        this.historyItems = response.data;
-        return null;
+        this.historyItems = historyItems;
+        return null; // since we set component properties instead
       })
-      .catch(response => {
-        console.log('Error', response);
-        return null;
-      });
+      .catch(response => console.error('Error', response));
   }
 
   historyHide() {
@@ -241,7 +234,7 @@ export class UserManagerComponent {
   }
 
   historyItemDelete(historyItem) {
-    this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`)
+    this.historyService.historyItemDelete(historyItem)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
         let elementPos = this.users.map(x => x._id).indexOf(historyItem.UserId);
@@ -249,6 +242,6 @@ export class UserManagerComponent {
         userFound.balance -= historyItem.quantity;
         return userFound.balance;
       })
-      .catch(response => console.log('Error', response));
+      .catch(response => console.error('Error', response));
   }
 }

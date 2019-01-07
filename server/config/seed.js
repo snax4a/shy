@@ -129,6 +129,6 @@ export default function seedDatabaseIfNeeded() {
       .then(() => console.log('Seeded announcements')) */
     ])
       .then(() => console.log('Seeded database.'))
-      .catch(err => console.log('Seeding error: ', err));
+      .catch(err => console.error('Seeding error: ', err));
   }
 }

@@ -47,6 +47,7 @@ export class SHYnetComponent {
         };
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
         return true;
-      });
+      })
+      .catch(response => console.error('Error deleting attendee', response));
   }
 }

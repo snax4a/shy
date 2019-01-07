@@ -10,7 +10,7 @@ export class HistoryService {
   }
 
   attendeesGet(classDate, location, classTitle, teacher) {
-    // If parameters are incomplete, ignore
+    // If parameters are incomplete, ignore (but resolve the promise)
     if(!!classDate && !!location && !!classTitle && !!teacher) {
       const localISODate = this.localISODate(classDate);
       return this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(location)}&teacher=${encodeURI(teacher)}&classTitle=${encodeURI(classTitle)}`)
@@ -21,9 +21,25 @@ export class HistoryService {
   }
 
   // Separate the UI elements
-  attendeeDelete(attendee) {
-    return this.$http.delete(`/api/history/${attendee._id}?type=A`)
-      //.then(() => true)
-      .catch(response => console.error('Error deleting attendee', response));
+  attendeeDelete(attendance) {
+    attendance.type = 'A';
+    return this.historyItemDelete(attendance);
+  }
+
+  historyItemAdd(historyItem) {
+    return this.$http.post('/api/history', historyItem);
+  }
+
+  historyItemDelete(historyItem) {
+    return this.$http.delete(`/api/history/${historyItem._id}?type=${historyItem.type}`);
+  }
+
+  historyItemUpdate(historyItem) {
+    return this.$http.put(`/api/history/${historyItem._id}`, historyItem);
+  }
+
+  historyItemsForUserGet(userId) {
+    return this.$http.get(`/api/history/${userId}`)
+      .then(response => response.data);
   }
 }

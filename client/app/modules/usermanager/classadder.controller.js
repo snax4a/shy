@@ -1,10 +1,10 @@
 // Controller for modal dialog to add classes
 export class ClassAdderController {
   /*@ngInject*/
-  constructor($uibModalInstance, $http, userGettingClasses) {
+  constructor($uibModalInstance, HistoryService, userGettingClasses) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
-    this.$http = $http;
+    this.historyService = HistoryService;
     this.userGettingClasses = userGettingClasses;
 
     // Initializations - not in $onInit since not it's own component
@@ -37,18 +37,14 @@ export class ClassAdderController {
   submit(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Got a 401 error here!
-      this.$http.post('/api/history', this.purchase)
+      this.historyService.historyItemAdd(this.purchase)
         .then(() => {
           // Increment the balance for the user so we don't have to re-query
           this.userGettingClasses.balance = parseInt(this.userGettingClasses.balance, 10) + parseInt(this.purchase.quantity, 10);
           this.$uibModalInstance.close();
           return null;
         })
-        .catch(response => {
-          console.log('Error', response);
-          return null;
-        });
+        .catch(response => console.error('Error', response));
     }
   }
 

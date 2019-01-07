@@ -3,10 +3,10 @@ import angular from 'angular'; // for angular.copy
 // Controller for modal dialog - History Editor
 export class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, $http, historyItemToEdit, TeachersService, ClassesService, LocationsService) {
+  constructor($uibModalInstance, HistoryService, TeachersService, ClassesService, LocationsService, historyItemToEdit) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
-    this.$http = $http; // For HTTP PUT in submit()
+    this.historyService = HistoryService;
     this.teachersService = TeachersService;
     this.classesService = ClassesService;
     this.locationsService = LocationsService;
@@ -46,7 +46,7 @@ export class HistoryEditorController {
       updatedHistoryItem.attended = updatedHistoryItem.when;
       updatedHistoryItem.method = this.historyItem.paymentMethod;
       // Send update via HTTP PUT
-      this.$http.put(`/api/history/${updatedHistoryItem._id}`, updatedHistoryItem)
+      this.historyService.historyItemUpdate(updatedHistoryItem)
         .then(() => {
           // Recalculate balance based on change to quantity
           updatedHistoryItem.balance = parseInt(this.historyItemToEdit.balance, 10) + parseInt(updatedHistoryItem.quantity, 10) - parseInt(this.historyItem.quantity, 10);
@@ -63,10 +63,7 @@ export class HistoryEditorController {
           this.$uibModalInstance.close();
           return null;
         })
-        .catch(response => {
-          console.log('Error', response);
-          return null;
-        });
+        .catch(response => console.error('Error', response));
     }
   }
 
