@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular';
 import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';

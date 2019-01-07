@@ -1,5 +1,3 @@
-'use strict';
-
 export class WorkshopsComponent {
   /*@ngInject*/
   constructor($timeout, $window, WorkshopsService, NewsletterService) {

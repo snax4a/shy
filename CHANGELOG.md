@@ -5,6 +5,8 @@
 * [Low] server/config/express.js - replace require() with imports
 * [Low] Add toast after forgotpassword
 
+<a name="1.0.13"></a>
+
 <a name="1.0.12"></a>
 * [Medium] Hook up sendinblue's API send contacts
 

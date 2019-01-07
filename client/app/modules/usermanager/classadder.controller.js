@@ -1,5 +1,3 @@
-'use strict';
-
 // Controller for modal dialog to add classes
 export class ClassAdderController {
   /*@ngInject*/

@@ -1,5 +1,3 @@
-'use strict';
-
 export class ContactModalController {
   /*@ngInject*/
   constructor($uibModalInstance, Auth, $log, ContactService) {

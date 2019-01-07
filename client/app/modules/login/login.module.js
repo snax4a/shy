@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './login.routes';

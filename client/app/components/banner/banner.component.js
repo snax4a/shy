@@ -1,6 +1,3 @@
-/* eslint no-sync: 0 */
-'use strict';
-
 import angular from 'angular';
 
 export class BannerComponent {

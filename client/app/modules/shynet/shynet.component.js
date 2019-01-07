@@ -1,13 +1,11 @@
-'use strict';
-
 export class SHYnetComponent {
   /*@ngInject*/
-  constructor($uibModal, TeachersService, ClassesService, LocationsService, AttendanceService) {
+  constructor($uibModal, TeachersService, ClassesService, LocationsService, HistoryService) {
     this.$uibModal = $uibModal;
     this.teachersService = TeachersService;
     this.classesService = ClassesService;
     this.locationsService = LocationsService;
-    this.attendanceService = AttendanceService;
+    this.historyService = HistoryService;
   }
 
   $onInit() {
@@ -33,14 +31,14 @@ export class SHYnetComponent {
   }
 
   attendeeLookup() {
-    this.attendanceService.attendeesGet(this.classDate, this.location, this.classTitle, this.teacher)
+    this.historyService.attendeesGet(this.classDate, this.location, this.classTitle, this.teacher)
       .then(attendees => {
         this.attendees = attendees;
       });
   }
 
   attendeeDelete(attendee) {
-    this.attendanceService.attendeeDelete(attendee)
+    this.historyService.attendeeDelete(attendee)
       .then(() => {
         // For usermanager to update balance
         this.user = {

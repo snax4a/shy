@@ -1,5 +1,3 @@
-'use strict';
-
 export class TeachersComponent {
   /*@ngInject*/
   constructor($anchorScroll, $timeout, TeachersService) {

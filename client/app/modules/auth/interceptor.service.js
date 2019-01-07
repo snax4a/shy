@@ -1,5 +1,3 @@
-'use strict';
-
 export function authInterceptor($q, $cookies, $location, Util) {
   'ngInject';
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import { ClassAdderController } from './classadder.controller';
 import { UserEditorController } from './usereditor.controller';
 import { HistoryEditorController } from './historyeditor.controller';

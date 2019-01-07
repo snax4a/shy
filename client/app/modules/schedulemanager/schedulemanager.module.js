@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular';
 import AmPmFilter from '../../filters/ampm/ampm.filter';
 import WeekdayFilter from '../../filters/weekday/weekday.filter';

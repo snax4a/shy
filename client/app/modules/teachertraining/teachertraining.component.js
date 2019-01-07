@@ -1,5 +1,3 @@
-'use strict';
-
 export class TeacherTrainingComponent {
   constructor(Cart) {
     'ngInject';

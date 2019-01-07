@@ -1,5 +1,4 @@
 /* eslint no-sync:0 */
-'use strict';
 import { ContactModalController } from './contactmodal.controller';
 
 export class NavbarComponent {

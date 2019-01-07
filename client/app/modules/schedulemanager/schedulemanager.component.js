@@ -1,5 +1,3 @@
-'use strict';
-
 import { ScheduleEditorController } from './scheduleeditor.controller';
 
 export class ScheduleManagerComponent {

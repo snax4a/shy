@@ -1,5 +1,3 @@
-/* eslint no-sync:0 */
-'use strict';
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import routes from './admin.routes';

@@ -1,5 +1,3 @@
-'use strict';
-
 export class PayNowController {
   constructor(Cart) {
     'ngInject';

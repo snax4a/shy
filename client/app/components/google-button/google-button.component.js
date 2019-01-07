@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular';
 
 export class GoogleButtonComponent {

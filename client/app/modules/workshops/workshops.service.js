@@ -1,5 +1,3 @@
-'use strict';
-
 export class WorkshopsService {
   /*@ngInject*/
   constructor($http) {

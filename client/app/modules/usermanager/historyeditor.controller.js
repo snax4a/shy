@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular'; // for angular.copy
 
 // Controller for modal dialog - History Editor

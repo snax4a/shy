@@ -1,6 +1,4 @@
-'use strict';
-
-export class AttendanceService {
+export class HistoryService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
@@ -25,10 +23,7 @@ export class AttendanceService {
   // Separate the UI elements
   attendeeDelete(attendee) {
     return this.$http.delete(`/api/history/${attendee._id}?type=A`)
-      .then(() => true)
-      .catch(response => {
-        console.log('Error deleting attendee', response);
-        return false;
-      });
+      //.then(() => true)
+      .catch(response => console.error('Error deleting attendee', response));
   }
 }

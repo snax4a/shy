@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular';
 
 // Assumes Twitter's load script is in _index.html

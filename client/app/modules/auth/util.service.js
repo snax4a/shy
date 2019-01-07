@@ -1,6 +1,4 @@
-'use strict';
-
-import angular from 'angular';
+import angular from 'angular'; // for isFunction()
 
 /**
  * The Util service is for thin, globally reusable, utility functions

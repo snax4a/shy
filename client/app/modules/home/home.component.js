@@ -1,5 +1,3 @@
-'use strict';
-
 export class HomeComponent {
   /*@ngInject*/
   constructor(HomeService) {

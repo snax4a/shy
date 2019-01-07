@@ -1,5 +1,3 @@
-'use strict';
-
 import { ForgotPasswordController } from './forgotpassword.controller';
 
 export class LoginComponent {

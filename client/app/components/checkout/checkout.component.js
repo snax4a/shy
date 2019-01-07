@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular';
 import routes from './checkout.routes';
 import ngRoute from 'angular-route';

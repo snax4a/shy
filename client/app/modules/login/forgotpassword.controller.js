@@ -1,5 +1,3 @@
-'use strict';
-
 export class ForgotPasswordController {
   /*@ngInject*/
   constructor(User, $uibModalInstance) {

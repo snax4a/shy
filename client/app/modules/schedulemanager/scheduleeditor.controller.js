@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular'; // angular copy
 
 // Note: if any picklists ever fail to load, may need to have admin component wait for Classes, Teachers, and Location service to initialize

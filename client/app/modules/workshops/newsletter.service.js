@@ -1,5 +1,3 @@
-'use strict';
-
 export class NewsletterService {
   /*@ngInject*/
   constructor($http) {

@@ -1,5 +1,3 @@
-'use strict';
-
 export function routeConfig($routeProvider, $locationProvider) {
   'ngInject';
 

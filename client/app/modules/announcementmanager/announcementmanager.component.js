@@ -1,4 +1,3 @@
-'use strict';
 import { AnnouncementEditorController } from './announcementeditor.controller';
 
 export class AnnouncementManagerComponent {

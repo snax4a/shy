@@ -1,4 +1,3 @@
-'use strict';
 import angular from 'angular';
 import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse';
 import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';

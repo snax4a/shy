@@ -1,5 +1,3 @@
-'use strict';
-
 export class ClassesComponent {
   /*@ngInject*/
   constructor(ClassesService) {

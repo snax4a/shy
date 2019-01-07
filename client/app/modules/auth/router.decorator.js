@@ -1,5 +1,3 @@
-'use strict';
-
 export function routerDecorator($rootScope, $location, Auth) {
   'ngInject';
   // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role

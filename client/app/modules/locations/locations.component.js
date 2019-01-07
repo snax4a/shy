@@ -1,5 +1,3 @@
-'use strict';
-
 export class LocationsComponent {
   /*@ngInject*/
   constructor($anchorScroll, $timeout, LocationsService) {
