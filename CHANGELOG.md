@@ -1,8 +1,14 @@
 # Product Backlog
-* [High] Refactor server/auth to remove Sequelize dependencies
+* [High] Remove Sequelize dependency from server/auth/local/passport.js and google/passport.js
+* [High] Remove connect-session-sequelize dependency from /server/config/express.js (might not need since no Twitter Oauth 1.0)
+* [High] Create DDL and remove seed.js from project
 * [Low] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
 * [Low] server/config/express.js - replace require() with imports
 * [Low] Add toast after forgotpassword
+
+<a name="1.0.14"></a>
+* [Low] Added SendInBlue tags to order emails
+* [High] Remove Sequelize from /server/auth/auth.service.js
 
 <a name="1.0.13"></a>
 * [High] Extend HistoryService for usermanager.component.js (remove $http from the component)

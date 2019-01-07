@@ -2,7 +2,9 @@ import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import compose from 'composable-middleware';
-import { User } from '../utils/sqldb';
+//import { User } from '../utils/sqldb';
+import db from '../utils/db';
+import asyncWrapper from '../middleware/async-wrapper';
 
 let validateJwt = expressJwt({
   secret: config.secrets.session
@@ -23,23 +25,29 @@ export function isAuthenticated() {
       }
       validateJwt(req, res, next);
     })
-    // Attach user to request
-    .use((req, res, next) =>
-      User.findOne({
-        where: {
-          _id: req.user._id
-        }
-      })
-        .then(user => {
-          if(!user) {
-            return res.status(401).end();
-          }
-          req.user = user;
-          next();
-          return null;
-        })
-        .catch(err => next(err))
-    );
+    // Find user
+    .use(asyncWrapper(async(req, res, next) => {
+      const sql = 'SELECT _id, role, provider, google FROM "Users" WHERE _id = $1;';
+      const { rows } = await db.query(sql, [req.user._id]);
+      if(rows.length === 0) return res.status(401).end(); // No user found
+      req.user = rows[0]; // Attach user to request
+      return next();
+      // User.findOne({
+      //   where: {
+      //     _id: req.user._id
+      //   }
+      // })
+      // .then(user => {
+      //   console.log('AUTH FOUND USER: ', user);
+      //   if(!user) {
+      //     return res.status(401).end();
+      //   }
+      //   req.user = user; // Attach user to request
+      //   next();
+      //   return null;
+      // })
+      // .catch(err => next(err));
+    }));
 }
 
 /**
