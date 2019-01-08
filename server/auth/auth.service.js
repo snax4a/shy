@@ -2,7 +2,6 @@ import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import compose from 'composable-middleware';
-//import { User } from '../utils/sqldb';
 import db from '../utils/db';
 import asyncWrapper from '../middleware/async-wrapper';
 
@@ -32,27 +31,10 @@ export function isAuthenticated() {
       if(rows.length === 0) return res.status(401).end(); // No user found
       req.user = rows[0]; // Attach user to request
       return next();
-      // User.findOne({
-      //   where: {
-      //     _id: req.user._id
-      //   }
-      // })
-      // .then(user => {
-      //   console.log('AUTH FOUND USER: ', user);
-      //   if(!user) {
-      //     return res.status(401).end();
-      //   }
-      //   req.user = user; // Attach user to request
-      //   next();
-      //   return null;
-      // })
-      // .catch(err => next(err));
     }));
 }
 
-/**
- * Checks if the user role meets the minimum requirements of the route
- */
+// Checks if the user role meets the minimum requirements of the route
 export function hasRole(roleRequired) {
   if(!roleRequired) {
     throw new Error('Required role needs to be set');
@@ -69,9 +51,7 @@ export function hasRole(roleRequired) {
     });
 }
 
-/**
- * Returns a jwt token signed by the app secret
- */
+// Returns a jwt token signed by the app secret
 export function signToken(id, role) {
   return jwt.sign({ _id: id, role }, config.secrets.session, {
     expiresIn: 60 * 60 * 5

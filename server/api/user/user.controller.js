@@ -65,6 +65,31 @@ function encryptPassword(password, salt) {
   });
 }
 
+// Used by passport (could be used elsewhere in this controller) - returns false or an authenticated user
+export async function authenticateLocal(email, unencryptedPassword) {
+  if(!unencryptedPassword || !email) return false; // Missing parameter
+  const sql = 'SELECT _id, email, role, provider, password, salt FROM "Users" WHERE LOWER(email) = LOWER($1);';
+  const { rows } = await db.query(sql, [email]);
+  if(rows.length === 0) return false; // User not found
+  const user = rows[0];
+  const { password, salt } = user;
+  const encryptedPassword = await encryptPassword(unencryptedPassword, salt);
+  if(encryptedPassword !== password) return false; // Bad password
+  Reflect.deleteProperty(user, 'password'); // Strip out encrypted password
+  Reflect.deleteProperty(user, 'salt'); // Strip out salt
+  return user; // Provider probably not needed but include anyway
+}
+
+export async function googleUserFind(googleId) {
+  if(!googleId) return false; // Missing parameter
+  const sql = `
+    SELECT _id, email, role, provider, google ->> 'id' AS "googleId" FROM "Users" WHERE provider = 'google' AND google ->> 'id' = $1;`;
+  const { rows } = await db.query(sql, [googleId]);
+  if(rows.length === 0) return false; // User not found
+  const user = rows[0];
+  return user;
+}
+
 // Gets list of users with balances using filter (teacher or admin-only)
 export async function index(req, res) {
   const sql = `
@@ -102,24 +127,45 @@ export async function me(req, res) {
   return res.status(200).send(rows[0]);
 }
 
-// Creates new user and logs them in (using Google provider takes different path)
-export async function create(req, res) {
-  const { firstName, lastName, email, phone, optOut, passwordNew, passwordConfirm } = req.body;
+// Used by user.controller.js:create() and /server/auth/index.js
+export async function createUser(user) {
+  // Anything undefined gets treated as a NULL in parameterized query below (which is great)
+  const { firstName, lastName, email, phone, optOut, passwordNew, passwordConfirm, role, provider, google } = user;
 
-  // Should work even if both are undefined
+  // Check to make sure passwordNew and Confirm match (or are both undefined)
   if(passwordNew !== passwordConfirm) userPasswordMismatchError();
+
+  // Use passwordNew or, if undefined, generate a random 16-character password
+  let unencryptedPassword = passwordNew || await generateRandomBytes(16);
+
+  // Only convert to JSON if provider is Google and value was supplied; otherwise null
+  let googleParam = google && provider == 'google' ? JSON.stringify(google) : null;
 
   // Generate salt and encrypt supplied password
   const salt = await generateRandomBytes(16);
-  const encryptedPassword = await encryptPassword(passwordNew, salt);
+  const encryptedPassword = await encryptPassword(unencryptedPassword, salt);
 
   // If someone with the same email exists, global error handler will take it
   const sql = `
     INSERT INTO "Users"
-      ("firstName", "lastName", email, phone, "optOut", salt, password, provider, role)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, 'local', 'student') RETURNING _id;`;
-  const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword]);
-  const _id = rows[0]._id;
+      ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING _id, email, role, provider, google;`;
+
+  try {
+    const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword, role || 'student', provider || 'local', googleParam]);
+    const createdUser = rows[0];
+    return createdUser;
+  } catch(err) {
+    if(err.constraint === 'Users_email_key') userEmailTakenError();
+    console.error('Unanticipated error', err);
+    throw err;
+  }
+}
+
+// Creates new user and logs them in (using Google provider takes different path)
+export async function create(req, res) {
+  const user = await createUser(req.body);
+  const _id = user._id;
   const token = jwt.sign({ _id }, config.secrets.session, {
     expiresIn: 60 * 60 * 5
   });
@@ -174,11 +220,9 @@ export async function update(req, res) {
   // Check if user exists
   let sql = 'SELECT password, salt, provider FROM "Users" WHERE _id = $1;';
   const { rows } = await db.query(sql, [_id]);
-
-  // Check to see if user exists
   if(rows.length === 0) userMissingError();
 
-  // Get salt and provider
+  // Authentication constants
   const { salt, provider } = rows[0];
   const encryptedStoredPassword = rows[0].password;
 
