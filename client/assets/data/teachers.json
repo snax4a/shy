@@ -118,14 +118,6 @@
 		"substitute": false
 	},
 	{
-		"_id": 21,
-		"firstName": "Bailey",
-		"lastName": "Zembower-Borrow",
-		"photo": "/assets/images/teachers/bailey-zembower.jpg",
-		"bio": "Bailey Zembower-Borrow began her yoga practice at age 13 and is eager to share with others the balance, peace, and confidence that yoga has provided for her from a young age. Bailey completed the 200 hour teacher training at Schoolhouse Yoga while finishing her Master&apos;s in Counseling Psychology. Bailey believes in the power of practicing non-judgment and seeks to share self-acceptance and the joy of yoga with her students. She has completed and presented research related to the effects of yoga and mindfulness meditation on the positive psychological characteristics of college females as well as yoga as a therapeutic intervention for clinicians who work with trauma. As a therapist, Bailey specializes in working with children and adolescents and often uses yoga as a therapeutic tool. From energetic preschoolers to troubled teenagers and everywhere beyond and in between, it is Bailey&apos;s mission as a yoga instructor to create playful, upbeat classes with pace and postures accessible for everyone!",
-		"substitute": false
-	},
-	{
 		"_id": 22,
 		"firstName": "Jamie",
 		"lastName": "DeMarco",
@@ -214,6 +206,12 @@
 		"substitute": false
 	},
 	{
+		"_id": 21,
+		"firstName": "Bailey",
+		"lastName": "Zembower-Borrow",
+		"substitute": true
+	},
+	{
 		"_id": 34,
 		"firstName": "Sarah",
 		"lastName": "Hall",
@@ -271,12 +269,6 @@
 		"_id": 44,
 		"firstName": "Leigh Ann",
 		"lastName": "Letta",
-		"substitute": true
-	},
-	{
-		"_id": 48,
-		"firstName": "Lizzie",
-		"lastName": "Hanulak",
 		"substitute": true
 	}
 ]
