@@ -11,10 +11,10 @@ router.post('/', (req, res, next) => {
       return res.status(401).send(error);
     }
     if(!user) {
-      return res.status(404).send({message: 'Something went wrong, please try again.'});
+      return res.status(404).send({ message: 'Something went wrong, please try again.' });
     }
-    let token = signToken(user._id, user.role);
-    return res.send({ token });
+    const token = signToken(user._id, user.role);
+    res.send({ token });
   })(req, res, next);
 });
 

@@ -149,7 +149,7 @@ describe('User API:', () => {
           .then(() => {
             user._id.should.be.above(0);
             user.email.should.equal(email);
-            user.role.should.equal('student');
+            user.role.should.equal('admin');
             user.provider.should.equal('local');
             user.optOut.should.be.false;
           })
