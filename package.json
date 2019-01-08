@@ -1,6 +1,6 @@
 {
   "name": "shy",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Schoolhouse Yoga's Website",
   "author": "nstuyvesant",
   "license": "https://www.schoolhouseyoga.com/terms",
@@ -121,7 +121,7 @@
     "style-loader": "^0.23.1",
     "supertest": "^3.3.0",
     "uglifyjs-webpack-plugin": "^2.1.1",
-    "webpack": "^4.28.3",
+    "webpack": "^4.28.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "^3.5.0"
   },
