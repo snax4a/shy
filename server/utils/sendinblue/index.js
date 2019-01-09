@@ -1,32 +1,19 @@
-import https from 'https';
+import axios from 'axios';
 import config from '../../config/environment';
 
 // POST or PUT submission to SendInBlue
-const sibSubmit = (method, path, content) => new Promise((resolve, reject) => {
-  const data = JSON.stringify(content);
-  const options = {
-    hostname: 'api.sendinblue.com',
-    path,
-    method,
-    headers: {
-      'api-key': config.mail.apiKey,
-      'Content-Type': 'application/json',
-      'Content-Length': data.length
-    }
-  };
-  const req = https.request(options, res => {
-    res.on('data', buffer => {
-      if(res.statusCode === 201) return resolve(buffer.toString('utf8'));
-      reject(`Unexpected response (${res.statusCode}) from SendInBlue`);
-    });
-    req.on('error', err => {
-      console.error('Error communicating with SendInBlue', err);
-      reject('Error communicating with SendInBlue');
-    });
+async function sibSubmit(method, url, data) {
+  let instance = axios.create({
+    baseURL: 'https://api.sendinblue.com',
+    headers: { 'api-key': config.mail.apiKey }
   });
-  req.write(data);
-  req.end();
-});
+  const response = await instance({
+    method,
+    url, // relative
+    data
+  });
+  return response;
+}
 
 /*
   Sample contactInfo format
@@ -36,7 +23,7 @@ const sibSubmit = (method, path, content) => new Promise((resolve, reject) => {
     emailBlacklisted: false
     attributes: {
       NAME: 'First',
-      SURNAME: 'Last',
+      SURNAME: 'Last'
     }
   }
 */
