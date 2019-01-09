@@ -1,5 +1,4 @@
 # Product Backlog
-
 * [High] Change user.controller.js:upsert to use createUser()
 * [High] Setup nightly run of zero_old_passes() in PostgreSQL
 * [High] Remove connect-session-sequelize dependency from /server/config/express.js (might not need since no Twitter Oauth 1.0)
@@ -8,6 +7,9 @@
 * [Low] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
 * [Low] server/config/express.js - replace require() with imports
 * [Low] Add toast after forgotpassword
+
+<a name="1.0.16"></a>
+* [Bug] SendInBlue not sending email
 
 <a name="1.0.15"></a>
 * [High] Remove Sequelize dependency from server/auth/local/passport.js and google/passport.js

@@ -279,8 +279,10 @@ export async function create(req, res) {
   // Build and send email
   try {
     const message = buildConfirmationEmail(transaction);
-    return await mail.send(message);
+    await mail.send(message);
   } catch(err) {
     return console.warn('\x1b[33m%s\x1b[0mWARNING: Error sending confirmation email (probably a bad email address)', err);
   }
+
+  return null;
 }
