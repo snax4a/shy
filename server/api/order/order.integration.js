@@ -1,7 +1,8 @@
 /* global describe, before, it, after */
 
 import app from '../..';
-import { User } from '../../utils/sqldb';
+import { destroyUser } from '../user/user.controller';
+
 import request from 'supertest';
 
 describe('Order API:', function() {
@@ -24,7 +25,6 @@ describe('Order API:', function() {
           instructions: 'One for John and one for Jane.',
           gift: true,
           sendVia: 'Mail',
-          // Implement: get a dummy nonce to use
           purchaser: {
             firstName: 'John',
             lastName: 'Doe',
@@ -44,19 +44,13 @@ describe('Order API:', function() {
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           confirmation = res.body;
         })
     );
 
     // Delete test users
-    after(() =>
-      User.destroy({
-        where: {
-          email: 'john.doe@bitbucket.com'
-        }
-      })
-    );
+    after(() => destroyUser('email', 'john.doe@bitbucket.com'));
 
     it('should return a confirmation with contact info that matches submitted', () => {
       confirmation.customer.firstName.should.equal('John');

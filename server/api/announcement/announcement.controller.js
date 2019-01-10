@@ -38,9 +38,8 @@ export async function index(req, res) {
   return req.query.flat ? res.status(200).send(rows) : res.status(200).send(nest(rows));
 }
 
-// Updates or creates announcement (admin-only)
-export async function upsert(req, res) {
-  const { _id, section, title, description, expires } = req.body;
+export async function upsertAnnouncement(announcement) {
+  const { _id, section, title, description, expires } = announcement;
   const isNew = _id === 0; // zero means INSERT
   let arrParams = [section, title, description, new Date(expires).toISOString()];
   let sql;
@@ -51,7 +50,13 @@ export async function upsert(req, res) {
     arrParams.unshift(_id);
   }
   const { rows } = await db.query(sql, arrParams);
-  res.status(200).send({ _id: rows[0]._id });
+  return rows[0]._id;
+}
+
+// Updates or creates announcement (admin-only)
+export async function upsert(req, res) {
+  const _id = await upsertAnnouncement(req.body);
+  return res.status(200).send({ _id });
 }
 
 // Deletes announcement (admin-only)
