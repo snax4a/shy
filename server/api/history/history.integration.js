@@ -18,7 +18,7 @@ describe('History API:', function() {
       })
       .expect(200)
       .expect('Content-Type', /json/)
-      .expect(res => {
+      .then(res => {
         tokenAdmin = res.body.token;
       })
   );
@@ -56,7 +56,7 @@ describe('History API:', function() {
         .send(newHistoryItem)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           newID = res.body._id;
           newID.should.be.above(0);
         })
@@ -108,7 +108,7 @@ describe('History API:', function() {
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           attendees = res.body;
         })
     );
@@ -132,7 +132,7 @@ describe('History API:', function() {
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           historyItems = res.body;
         })
     );

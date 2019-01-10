@@ -18,7 +18,7 @@ describe('Schedule API:', function() {
       })
       .expect(200)
       .expect('Content-Type', /json/)
-      .expect(res => {
+      .then(res => {
         tokenAdmin = res.body.token;
       })
   );
@@ -49,7 +49,7 @@ describe('Schedule API:', function() {
         .send(newScheduleItem)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           newScheduleItemID = res.body._id;
           newScheduleItemID.should.be.above(0);
         })
@@ -65,7 +65,7 @@ describe('Schedule API:', function() {
         .get('/api/schedule')
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           schedules = res.body;
         })
     );

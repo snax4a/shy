@@ -12,7 +12,7 @@ describe('Token API:', function() {
         .get('/api/token')
         .expect(200)
         .expect('Content-Type', /text/)
-        .expect(res => {
+        .then(res => {
           token = res.text;
         })
     );

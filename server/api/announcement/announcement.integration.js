@@ -18,7 +18,7 @@ describe('Announcement API:', function() {
       })
       .expect(200)
       .expect('Content-Type', /json/)
-      .expect(res => {
+      .then(res => {
         tokenAdmin = res.body.token;
       })
   );
@@ -53,7 +53,7 @@ describe('Announcement API:', function() {
         .send(newAnnouncement)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           newAnnouncementID = res.body._id;
           newAnnouncementID.should.be.above(0);
         })
@@ -70,7 +70,7 @@ describe('Announcement API:', function() {
         .get('/api/announcement')
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect(res => {
+        .then(res => {
           announcements = res.body;
         })
     );
