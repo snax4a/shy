@@ -1,4 +1,5 @@
 # Product Backlog
+* [Bug] Prevent teachers from upserting passwords or roles
 * [High] Setup nightly run of zero_old_passes() in PostgreSQL
 * [High] Remove all sequelize dependencies 
 * [High] Create DDL
@@ -7,7 +8,6 @@
 * [Low] Add toast after forgotpassword
 
 <a name="1.0.16"></a>
-* [Bug] Prevent teachers from upserting passwords or roles
 * [High] Change user.controller.js:upsert to use createUser()
 * [Bug] SendInBlue not sending email - switch to axios
 * [High] Remove connect-session-sequelize dependency from /server/config/express.js -> connect-pg-simple
