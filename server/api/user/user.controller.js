@@ -37,6 +37,10 @@ function userGoogleChangeError() {
   throw new UserError('Please visit https://myaccount.google.com/security if you forgot your password.', 'email', 403);
 }
 
+function userBadParameterError() {
+  throw new UserError('Unrecognized parameter for deletion', 'email', 500);
+}
+
 // Promisify crypto.randomBytes()
 function generateRandomBytes(bytes) {
   return new Promise((resolve, reject) => {
@@ -114,17 +118,22 @@ export async function index(req, res) {
   return res.status(200).send(rows);
 }
 
+export async function getUser(field, fieldValue) {
+  const sqlStatements = {
+    _id: 'SELECT _id, "firstName", "lastName", email, role, phone, "optOut", provider, google FROM "Users" WHERE _id = $1;',
+    email: 'SELECT _id, "firstName", "lastName", email, role, phone, "optOut", provider, google FROM "Users" WHERE email = $1;'
+  };
+  const sql = sqlStatements[field];
+  if(!sql) userBadParameterError();
+  const { rows } = await db.query(sql, [fieldValue]);
+  return rows[0];
+}
+
 // Gets attributes for logged-in user
 export async function me(req, res) {
   const { _id } = req.user;
-  const sql = `
-    SELECT _id, "firstName", "lastName", email, role, phone,
-      "optOut", provider
-    FROM "Users"
-    WHERE _id = $1;`;
-  const { rows } = await db.query(sql, [_id]);
-  if(rows.length === 0) userMissingError();
-  return res.status(200).send(rows[0]);
+  const user = await getUser('_id', _id);
+  return res.status(200).send(user);
 }
 
 // Used by user.controller.js:create() and /server/auth/index.js
@@ -164,6 +173,7 @@ export async function createUser(user) {
 
 // Creates new user and logs them in (using Google provider takes different path)
 export async function create(req, res) {
+  req.body.role = 'student'; // override for security
   const user = await createUser(req.body);
   const _id = user._id;
   const token = jwt.sign({ _id }, config.secrets.session, {
@@ -265,8 +275,11 @@ export async function update(req, res) {
 
 // Updates or creates user (teachers or admins)
 export async function upsert(req, res) {
-  const { _id, email, firstName, lastName, phone, optOut, provider, role, passwordConfirm } = req.body;
-  let passwordNew = req.body.passwordNew; // variable as we may have to override
+  const modifierRole = req.user.role; // only allow admins to change password and role
+
+  const { email, firstName, lastName, phone, optOut, provider, passwordConfirm } = req.body;
+  const _id = parseInt(req.params.id, 10);
+  let { role, passwordNew } = req.body; // variables we may have to override
 
   // Check for match when changing passwords (ignore when both are undefined)
   if(passwordNew !== passwordConfirm) userPasswordMismatchError();
@@ -288,6 +301,12 @@ export async function upsert(req, res) {
     sqlPasswordUpdate = ', salt = $8, password = $9 WHERE _id = $10';
   }
 
+  // Teachers can only set role to student for new users (cannot modify role on existing)
+  if(isNew && modifierRole === 'teacher') role = 'student';
+
+  // Only admins can modify role
+  let sqlRoleUpdate = modifierRole === 'admin' ? ', role = $7' : '';
+
   if(isNew) {
     sql = `INSERT INTO "Users"
       (email, "firstName", "lastName", phone, "optOut", provider, role, salt, password)
@@ -299,7 +318,6 @@ export async function upsert(req, res) {
       SET email = $1, "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, provider = $6, role = $7${sqlPasswordUpdate}
       RETURNING _id, email, "firstName", "lastName", phone, "optOut", provider, role;`;
   }
-
   try {
     const { rows } = await db.query(sql, arrParams);
     return res.status(200).send(rows[0]);
@@ -310,11 +328,23 @@ export async function upsert(req, res) {
   }
 }
 
+// Called by destroy and integration tests
+export async function destroyUser(field, fieldValue) {
+  // Do it the long way to prevent SQL injection
+  const sqlStatements = {
+    _id: 'DELETE FROM "Users" WHERE _id = $1;',
+    email: 'DELETE FROM "Users" WHERE email = $1;'
+  };
+  const sql = sqlStatements[field];
+  if(!sql) userBadParameterError();
+  await db.query(sql, [fieldValue]);
+  return true;
+}
+
 // Deletes user (admin-only)
 export async function destroy(req, res) {
   const _id = req.params.id;
-  const sql = 'DELETE FROM "Users" WHERE _id = $1;';
-  await db.query(sql, [_id]);
+  await destroyUser('_id', _id);
   return res.status(204).send({ message: `User ${_id} deleted.`});
 }
 
@@ -409,4 +439,12 @@ ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
     mail.send(message)
   ]);
   return true;
+}
+
+// Called by integration test
+export async function roleSet(email, role) {
+  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider;';
+  const { rows } = await db.query(sql, [email, role]);
+  if(rows.length === 0) userMissingError();
+  return rows[0];
 }

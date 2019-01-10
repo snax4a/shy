@@ -1,326 +1,362 @@
-/* globals describe, it, before, after */
+/* globals describe, it, before, expect, after */
 
-import app from '../..';
-import { User } from '../../utils/sqldb';
 import request from 'supertest';
+import app from '../..';
+import { authenticateLocal, destroyUser, roleSet, getUser } from './user.controller';
 
-describe('User API:', () => {
-  const email = 'nul@bitbucket.com';
-  const password = 'password';
-  const passwordNew = 'password';
-  const passwordConfirm = 'password';
+describe('User API Integration Tests:', function() {
+  let user;
   let token;
-  let user; // Set by getUserProfile()
 
-  // Factory function to create user
-  const createUser = function() {
-    return {
-      firstName: 'Boaty',
-      lastName: 'McBoatface',
-      email,
-      password,
-      passwordNew,
-      passwordConfirm,
-      optOut: false,
-      phone: '412-555-1212',
-      provider: 'local',
-      role: 'admin'
-    };
-  };
+  // Cleanup test user in case test didn't finish last time
+  before(async function() {
+    try {
+      return await Promise.all([
+        destroyUser('email', 'nul@bitbucket.com'),
+        destroyUser('email', 'justin.case@bitbucket.com')
+      ]);
+    } catch(err) {
+      console.error(err);
+    }
+  });
 
-  // For API calls that make changes
-  let updatedUser = createUser();
-  updatedUser.firstName = 'Something';
-  updatedUser.lastName = 'Changed';
-  updatedUser.optOut = true;
-  updatedUser.phone = '000-000-0000';
+  // Cleanup test user in case test didn't finish last time
+  after(async function() {
+    try {
+      return await Promise.all([
+        destroyUser('email', 'nul@bitbucket.com'),
+        destroyUser('email', 'justin.case@bitbucket.com')
+      ]);
+    } catch(err) {
+      console.error(err);
+    }
+  });
 
-  // Retrieve the current user
-  const getUserProfile = () =>
-    request(app)
-      .get('/api/user/me')
-      .set('authorization', `Bearer ${token}`)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .expect(res => {
-        user = res.body;
-      });
-
-  // Delete student test account (if it exists) then sign-up and get token
-  const recreate = () =>
-    User.destroy({ where: { email } })
-      .then(() =>
-        request(app)
-          .post('/api/user')
-          .send(createUser())
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .expect(res => {
-            token = res.body.token;
-          })
-      );
-
-  // Only delete the student test account
-  const destroy = () => User.destroy({ where: { email } });
-
-  // Change user's role
-  const setRole = role =>
-    User.findOne({ where: { email } })
-      .then(foundUser => {
-        foundUser.role = role;
-        return foundUser.save();
-      });
-
-  describe('Methods for anyone:', function() {
-    before(() => recreate());
-    after(() => destroy());
-
-    // Check token from user.controller.js:create (sign-up)
-    describe('POST /api/user/', () => {
-      it('should return 144 character token to indicate successful sign-up', () =>
-        token.should.have.length(144)
-      );
-    });
-
-    describe('POST /api/user/message', function() {
-      let response = '';
-
-      before(() =>
-        request(app)
-          .post('/api/user/message')
-          .send({
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'nul@bitbucket.com',
-            question: 'This is a question',
-            optOut: false,
-            role: 'student',
-            provider: 'local'
-          })
-          .expect(200)
-          .expect('Content-Type', /html/)
-          .expect(res => {
-            response = res.text;
-          })
-      );
-
-      // Delete test user
-      after(() =>
-        User.destroy({
-          where: {
-            email: 'jdoe@gmail.com'
-          }
+  describe('1. POST /api/user - controller.create() - create student user', function() {
+    it('should create a user', async() =>
+      request(app)
+        .post('/api/user')
+        .send({
+          firstName: 'Boaty',
+          lastName: 'McBoatface',
+          email: 'nul@bitbucket.com',
+          passwordNew: 'password',
+          passwordConfirm: 'password',
+          optOut: false,
+          phone: '000-000-0000',
+          provider: 'local',
+          google: null,
+          role: 'admin' // try to hack permissions
         })
-      );
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(async res => {
+          // Get the token
+          token = res.body.token;
 
-      it('should send response thanking the user for submitting a question or comment', () =>
-        response.should.equal('Thanks for submitting your question or comment. We will respond shortly.'));
-    });
-
-    // Check response from user.controller.js:forgotPassword
-    describe('POST /api/user/forgotpassword', function() {
-      it('should generate a new password and email it to the user', () =>
-        request(app)
-          .post('/api/user/forgotpassword')
-          .send({ email })
-          .expect(200)
-          .expect('Content-Type', /html/)
-          .expect(res => {
-            res.text.should.equal('New password sent.');
-          })
-      );
-    });
+          // Check database to ensure proper save
+          user = await getUser('email', 'nul@bitbucket.com');
+          user._id.should.be.above(0);
+          user.email.should.equal('nul@bitbucket.com');
+          user.role.should.equal('student'); // verify hack didn't work
+          user.provider.should.equal('local');
+          user.optOut.should.be.false;
+          user.phone.should.equal('000-000-0000');
+          user.firstName.should.equal('Boaty');
+          user.lastName.should.equal('McBoatface');
+          expect(user.google).to.be.null;
+        }));
   });
 
-  describe('Methods for current user:', function() {
-    before(() => recreate());
-    after(() => destroy());
+  describe('2. GET /api/user/unsubscribe/:email - controller.unsubscribe() - opt out', function() {
+    it('should unsubscribe the user from the newsletter', () =>
+      request(app)
+        .get('/api/user/unsubscribe/nul@bitbucket.com')
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .then(async res => {
+          // Check the response
+          res.text.should.equal('Unsubscribed nul@bitbucket.com from the newsletter.');
 
-    // user.controller.js:me
-    describe('GET /api/user/me', function() {
-      it('should respond with a 401 when not authenticated', () =>
-        request(app)
-          .get('/api/user/me')
-          .expect(401)
-      );
-
-      it('should respond with student profile with proper defaults when authenticated', () =>
-        getUserProfile()
-          .then(() => {
-            user._id.should.be.above(0);
-            user.email.should.equal(email);
-            user.role.should.equal('admin');
-            user.provider.should.equal('local');
-            user.optOut.should.be.false;
-          })
-      );
-    });
-
-    // Check response from user.controller.js:update
-    describe('PUT /api/user/:id', function() {
-      it('should respond with a 401 when not authenticated', () =>
-        getUserProfile()
-          .then(() =>
-            request(app)
-              .put(`/api/user/${user._id}`)
-              .send(updatedUser)
-              .expect(401)
-          )
-      );
-
-      // 422 error from user.controller.js:update - bad password!
-      it('should update the user\'s profile when authenticated', () =>
-        getUserProfile()
-          .then(() =>
-            request(app)
-              .put(`/api/user/${user._id}`)
-              .set('authorization', `Bearer ${token}`)
-              .send(updatedUser)
-              .expect(200)
-              .expect('Content-Type', /json/)
-              .expect(res => {
-                let userId = res.body._id.toString();
-                userId.should.equal(user._id.toString()); // verify API
-                return User.findOne({ where: { email } })
-                  .then(foundUser => {
-                    // Now verify updates made it to database
-                    foundUser.firstName.should.equal(updatedUser.firstName);
-                    foundUser.lastName.should.equal(updatedUser.lastName);
-                    foundUser.phone.should.equal(updatedUser.phone);
-                    foundUser.optOut.should.be.true;
-                  });
-              })
-          )
-      );
-    });
+          // Refresh user from database and verify they opted out
+          user = await getUser('email', 'nul@bitbucket.com');
+          user.optOut.should.be.true;
+        }));
   });
 
-  describe('Methods for teachers or admins:', function() {
-    // Recreate user, change role to teacher (think about testing for admin, too)
-    before(() =>
-      recreate()
-        .then(() => setRole('admin')) // teacher role seems to be broken right now (address later)
+  describe('3. GET /api/user/me - controller.me() - retrieve profile', function() {
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .get('/api/user/me')
+        .expect(401)
     );
-    after(() => destroy()); // should be done by DELETE /api/user/:id but here in case of errors
 
-    // controller.index (teacher or admin)
-    describe('GET /api/user/', function() {
-      it('should respond with a 401 when not authenticated', () =>
-        request(app)
-          .get('/api/user?filter=SHY')
-          .expect(401)
-      );
+    it('should unsubscribe the user from newsletters', () =>
+      request(app)
+        .get('/api/user/me')
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(async res => {
+          // Check the response
+          let userSent = res.body;
+          userSent._id.should.be.above(0);
+          userSent.email.should.equal('nul@bitbucket.com');
+          userSent.role.should.equal('student'); // verify hack didn't work
+          userSent.provider.should.equal('local');
+          userSent.optOut.should.be.true;
+          userSent.phone.should.equal('000-000-0000');
+          userSent.firstName.should.equal('Boaty');
+          userSent.lastName.should.equal('McBoatface');
+          expect(userSent.google).to.be.null;
+        }));
+  });
 
-      it('should respond with a JSON array of users when authenticated', () =>
-        request(app)
-          .get('/api/user?filter=SHY')
-          .set('authorization', `Bearer ${token}`)
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .expect(res => {
-            let users = res.body;
-            users.should.be.instanceof(Array);
-          })
-      );
-    });
-
-    // controller.upsert (teacher or admin)
-    describe('PUT /api/user/:id/admin', function() {
-      it('should respond with a 401 when not authenticated', () =>
-        request(app)
-          .put(`/api/user/${user._id}/admin`)
-          .expect(401)
-      );
-
-      it('should upsert the user\'s profile when admin is authenticated', () =>
-        getUserProfile() // We are upserting the user that is authenticated
-          .then(() => {
-            // Add fields normally sent from admin UI
-            updatedUser._id = user._id;
-            // console.log(updatedUser);
-            return request(app)
-              .put(`/api/user/${user._id}/admin`) // test user is updating their own profile
-              .send(updatedUser)
-              .set('authorization', `Bearer ${token}`)
-              .expect(200)
-              .expect('Content-Type', /json/)
-              .expect(res => {
-                let userId = res.body._id.toString();
-                userId.should.equal(user._id.toString());
-              });
-          })
-      );
-    });
-
-    // controller.destroy (admin only)
-    describe('DELETE /api/user/:id', function() {
-      it('should respond with a 401 when not authenticated', () =>
-        request(app)
-          .delete(`/api/user/${user._id}`)
-          .expect(401)
-      );
-
-      // Depends on current user having admin role
-      it('should respond with a result code of 204 to confirm deletion when authenticated', () =>
-        request(app)
-          .delete(`/api/user/${user._id}`)
-          .set('authorization', `Bearer ${token}`)
-          .expect(204)
-      );
-    });
-
-    describe('POST /api/user/subscribe', function() {
-      let newSubscriber = {
-        email: 'nul@bitbucket.com'
-      };
-
-      it('should send response thanking the user for subscribing to the newsletter', () =>
-        request(app)
-          .post('/api/user/subscribe')
-          .send(newSubscriber)
-          .expect(200)
-          .expect('Content-Type', /html/)
-          .expect(res => {
-            let response = res.text.toString();
-            response.should.equal('Thanks for subscribing to our newsletter.');
-          })
-      );
-
-      // Delete test user
-      // after(() =>
-      //   User.destroy({
-      //     where: {
-      //       email: 'nul@bitbucket.com'
-      //     }
-      //   })
-      // );
-    });
-
-    describe('POST /api/user/unsubscribe/:email', function() {
-      let newSubscriber = {
-        email: 'nul@bitbucket.com'
-      };
-
-      it('should send response confirming the user was unsubscribed', () =>
-        request(app)
-          .get(`/api/user/unsubscribe/${newSubscriber.email}`)
-          .send(newSubscriber)
-          .expect(200)
-          .expect('Content-Type', /html/)
-          .expect(res => {
-            let response = res.text.toString();
-            response.should.equal(`Unsubscribed ${newSubscriber.email} from the newsletter.`);
-          })
-      );
-
-      // Delete test user
-      after(() =>
-        User.destroy({
-          where: {
-            email: 'nul@bitbucket.com'
-          }
+  describe('4. PUT /api/user/:id - controller.update() - update profile', function() {
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .put(`/api/user/${user._id}`)
+        .send({
+          firstName: 'Boaty',
+          lastName: 'McBoatface',
+          email: 'nul@bitbucket.com',
+          password: 'password',
+          passwordNew: 'password1',
+          passwordConfirm: 'password1',
+          optOut: false,
+          phone: '111-111-1111',
+          // Send values that should be ignored
+          provider: 'google',
+          google: { id: '000000000000000'},
+          role: 'admin' // try to hack permissions
         })
-      );
+        .expect(401)
+    );
+
+    it('should update user profile and change password', () =>
+      request(app)
+        .put(`/api/user/${user._id}`)
+        .send({
+          firstName: 'Justin',
+          lastName: 'Case',
+          email: 'justin.case@bitbucket.com',
+          password: 'password',
+          passwordNew: 'password1',
+          passwordConfirm: 'password1',
+          optOut: false,
+          phone: '111-111-1111',
+          // Send values that should be ignored
+          provider: 'google',
+          google: { id: '000000000000000'},
+          role: 'admin' // try to hack permissions
+        })
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(async res => {
+          // Check response
+          const _id = res.body._id;
+          _id.should.equal(user._id);
+
+          // Refresh user from database and verify each field was updated
+          user = await getUser('_id', _id);
+          user.firstName.should.equal('Justin');
+          user.lastName.should.equal('Case');
+          user.phone.should.equal('111-111-1111');
+          user.email.should.equal('justin.case@bitbucket.com');
+          user.optOut.should.be.false;
+          user.provider.should.equal('local');
+          user.role.should.equal('student');
+          expect(user.google).to.be.null;
+
+          // Test new password
+          const authenticatedUser = await authenticateLocal('justin.case@bitbucket.com', 'password1');
+          authenticatedUser.should.not.be.false;
+        }));
+  });
+
+  describe('5. POST /api/user/forgotpassword - controller.forgotPassword() - email new password', function() {
+    it('should email user a new password (old one should not work)', () =>
+      request(app)
+        .post('/api/user/forgotpassword')
+        .send({
+          email: 'justin.case@bitbucket.com'
+        })
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .then(async res => {
+          // Check response
+          res.text.should.equal('New password sent.');
+
+          // Old password should not work
+          const authenticatedUser = await authenticateLocal('justin.case@bitbucket.com', 'password1');
+          authenticatedUser.should.be.false;
+        }));
+  });
+
+  describe('6. POST /api/user/message - controller.messageSend() - email admins', function() {
+    it('should email admins a message', () =>
+      request(app)
+        .post('/api/user/message')
+        .send({
+          email: 'justin.case@bitbucket.com',
+          firstName: 'Justin',
+          lastName: 'Case',
+          optOut: true,
+          question: 'This is a test question.'
+        })
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .then(async res => {
+          // Check response
+          res.text.should.equal('Thanks for submitting your question or comment. We will respond shortly.');
+
+          // Refresh user from database and verify they opted out
+          user = await getUser('email', 'justin.case@bitbucket.com');
+          user.optOut.should.be.true;
+        }));
+  });
+
+  describe('7. POST /api/user/subscribe - controller.subscribe() - opt user in to newsletter list', function() {
+    it('should email admins a message', () =>
+      request(app)
+        .post('/api/user/subscribe')
+        .send({
+          email: 'justin.case@bitbucket.com'
+        })
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .then(async res => {
+          // Check response
+          res.text.should.equal('Thanks for subscribing to our newsletter.');
+
+          // Refresh user from database and verify they opted out
+          user = await getUser('email', 'justin.case@bitbucket.com');
+          user.optOut.should.be.false;
+        }));
+  });
+
+  describe('8. GET /api/user - controller.index() - get users', function() {
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .get('/api/user?filter=justin')
+        .expect(401)
+    );
+
+    it('should respond with an array when authenticated as a student', async() => {
+      user = await roleSet('justin.case@bitbucket.com', 'teacher');
+      return request(app)
+        .get('/api/user?filter=justin')
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          let users = res.body;
+          users.should.be.instanceof(Array);
+        });
+    });
+
+    it('should respond with a JSON array of users when authenticated as a teacher or admin', async() => {
+      user = await roleSet('justin.case@bitbucket.com', 'teacher');
+      return request(app)
+        .get('/api/user?filter=justin')
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          let users = res.body;
+          users.should.be.instanceof(Array);
+        });
+    });
+  });
+
+  describe('9. PUT /api/user/:id/admin - controller.upsert() - user upsert', function() {
+    // Might be giving teachers too many privs here
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .put(`/api/user/${user._id}/admin`)
+        .send({
+          firstName: 'Boaty',
+          lastName: 'McBoatface',
+          email: 'nul@bitbucket.com',
+          passwordNew: 'password',
+          passwordConfirm: 'password',
+          optOut: true,
+          phone: '000-000-0000',
+          provider: 'local',
+          google: null,
+          role: 'admin'
+        })
+        .expect(401)
+    );
+
+    it('should upsert the user\'s profile when admin is authenticated', () =>
+      request(app)
+        .put(`/api/user/${user._id}/admin`) // test user is updating their own profile
+        .send({
+          firstName: 'Boaty',
+          lastName: 'McBoatface',
+          email: 'nul@bitbucket.com', // changes email back from justin.case@bitbucket.com
+          passwordNew: 'password', // changes password
+          passwordConfirm: 'password',
+          optOut: true,
+          phone: '000-000-0000',
+          provider: 'local',
+          google: null,
+          role: 'admin' // leave them as an admin for the final delete
+        })
+        .set('authorization', `Bearer ${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(async res => {
+          // Check response
+          res.body.should.have.property('_id');
+          res.body.should.have.property('email');
+          res.body.should.have.property('firstName');
+          res.body.should.have.property('lastName');
+          res.body.should.have.property('phone');
+          res.body.should.have.property('optOut');
+          res.body.should.have.property('provider');
+          res.body.should.have.property('role');
+
+          // Verify the database
+          // Check database to ensure proper save
+          user = await getUser('email', 'nul@bitbucket.com');
+          user._id.should.be.above(0);
+          user.email.should.equal('nul@bitbucket.com');
+          user.role.should.equal('admin'); // verify hack didn't work
+          user.provider.should.equal('local');
+          user.optOut.should.be.true;
+          user.phone.should.equal('000-000-0000');
+          user.firstName.should.equal('Boaty');
+          user.lastName.should.equal('McBoatface');
+          expect(user.google).to.be.null;
+
+          // Verify password change
+          const authenticatedUser = await authenticateLocal('nul@bitbucket.com', 'password');
+          authenticatedUser.should.not.be.false;
+        }));
+  });
+
+  describe('10. DELETE /api/user/:id - controller.destroy() - delete user', function() {
+    it('should respond with a 401 when not authenticated', () =>
+      request(app)
+        .delete(`/api/user/${user._id}`)
+        .expect(401)
+    );
+
+    // Depends on current user having admin role
+    it('should respond with a result code of 204 to confirm deletion when authenticated', async() => {
+      try {
+        user = await roleSet('nul@bitbucket.com', 'admin');
+      } catch(err) {
+        throw new Error('Could not find the user to elevate their role.');
+      }
+
+      return request(app)
+        .delete(`/api/user/${user._id}`)
+        .set('authorization', `Bearer ${token}`)
+        .expect(204);
     });
   });
 });
