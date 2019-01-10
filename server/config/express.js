@@ -10,13 +10,12 @@ import lusca from 'lusca';
 import passport from 'passport';
 import session from 'express-session';
 import mime from 'mime-types';
-
 import config from './environment';
-import sqldb from '../utils/sqldb';
+import db from '../utils/db';
 
 export default app => {
   let env = app.get('env');
-  let Store = require('connect-session-sequelize')(session.Store);
+  let secureCookie = false; // whether to secure session cookies (requires HTTPS)
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
@@ -24,6 +23,7 @@ export default app => {
 
   if(env === 'production') {
     // Force HTTPS for production only (though would be good for dev too)
+    secureCookie = true; // secure session cookies
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect(`${config.domain}${req.url}`);
@@ -58,6 +58,18 @@ export default app => {
 
   app.use(compression());
 
+  // Persist sessions in database
+  app.use(session({
+    secret: config.secrets.session,
+    cookie: {
+      secure: secureCookie // Recommended but requires HTTPS
+      // maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    },
+    saveUninitialized: true,
+    resave: false,
+    store: db.store
+  }));
+
   // Support JSON in req.body
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
@@ -65,15 +77,8 @@ export default app => {
   // Initialize the passport
   app.use(passport.initialize());
 
-  // Persist sessions with sequelizeStore
-  // We need to enable sessions for passport-twitter because it's an
-  // oauth 1.0 strategy, and Lusca depends on sessions
-  app.use(session({
-    secret: config.secrets.session,
-    saveUninitialized: true,
-    resave: false,
-    store: new Store({db: sqldb.sequelize})
-  }));
+  // Setup passport sessions
+  app.use(passport.session()); // ADDED (is it needed?)
 
   /**
    * Lusca - express server security
