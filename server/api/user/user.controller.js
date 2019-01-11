@@ -376,9 +376,6 @@ export async function contactUpsert(user, overrideName) {
 
 // Upserts user to newsletter list then emails admins
 export async function subscribe(req, res) {
-  // Send response before database and email operations
-  res.status(200).send('Thanks for subscribing to our newsletter.');
-
   const message = {
     sender: config.mail.sender,
     to: [{ email: config.mail.admins, name: 'SHY Admins' }],
@@ -397,20 +394,19 @@ export async function subscribe(req, res) {
     }, false),
     mail.send(message)
   ]);
-  return true;
+
+  // Can speed up the operation by moving the next line to the top
+  return res.status(200).send('Thanks for subscribing to our newsletter.');
 }
 
 // Upsert subscriber to opt out (unsubscribe)
 export async function unsubscribe(req, res) {
-  // Send response before database and email operations
-  res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
-
-  const unsubscribeSQL = 'UPDATE "Users" SET "optOut" = true WHERE email = $1 RETURNING _id, email, "optOut";';
+  const sql = 'UPDATE "Users" SET "optOut" = true WHERE email = $1;';
   await Promise.all([
-    db.query(unsubscribeSQL, [req.params.email]),
+    db.query(sql, [req.params.email]),
     sibOptOut(req.params.email)
   ]);
-  return true;
+  return res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
 }
 
 // Upsert user (including optOut attribute) to newsletter list then emails admins
