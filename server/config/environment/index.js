@@ -27,26 +27,6 @@ const all = {
   // Browser-sync port for development
   browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 
-  // TODO: remove sequelize property
-  // Sequelize options
-  sequelize: {
-    uri: process.env.DATABASE_URL,
-    options: {
-      dialect: 'postgres',
-      timezone: 'America/New_York',
-      native: true,
-      pool: {
-        max: 5, // default
-        min: 0, // default
-        acquire: 10000, // milliseconds will try to get a connection before throwing error
-        idle: 10000, // milliseconds before being released
-        evict: 10000 // milliseconds for evicting stale connections
-      },
-      logging: false, // use console.log when debugging
-      operatorsAliases: false // prevents warning
-    }
-  },
-
   // node-postgres(pg) options
   pg: {
     uri: process.env.DATABASE_URL

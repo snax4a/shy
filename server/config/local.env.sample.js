@@ -20,7 +20,7 @@ export default {
   SMTP_SENDER: { email: 'info@example.com', name: 'Company Name' },
   SMTP_ADMINS: 'example@example.com',
 
-  // Sequelize or node-postgres (pg) connection to PostgreSQL
+  // PostgreSQL connection URL
   DATABASE_URL: 'postgres://user:pass@localhost:5432/dbname',
 
   // Braintree Payment Gateway
