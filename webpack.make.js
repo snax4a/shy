@@ -16,6 +16,8 @@ export default function makeWebpackConfig(options) {
 
   const ANALYZE = false;
 
+  //process.traceDeprecation = true;
+
   // Establish the base configuration
   let config = {
 
@@ -166,4 +168,4 @@ export default function makeWebpackConfig(options) {
   // }
 
   return config;
-};
+}
