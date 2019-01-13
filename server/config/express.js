@@ -14,27 +14,29 @@ import config from './environment';
 import db from '../utils/db';
 
 export default app => {
-  let env = app.get('env');
-  let secureCookie = false; // whether to secure session cookies (requires HTTPS)
+  let env = app.get('env'); // process.env.NODE_ENV or config.env
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(require('cors')());
   }
 
   if(env === 'production') {
     // Force HTTPS for production only (though would be good for dev too)
-    secureCookie = true; // secure session cookies
     app.use((req, res, next) => {
       if(req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect(`${config.domain}${req.url}`);
       } else { // request was via http, so redirect to https
-        next();
-        return null;
+        return next();
       }
     });
   }
 
   app.set('appPath', path.join(config.root, 'client'));
+  if(env === 'production') {
+    // Send pre-compressed .gz or .br files if they exist
+    app.use('/', expressStaticGzip(app.get('appPath')));
+  }
 
   // Set Cache-Control to 1d unless it's an HTML file
   app.use(express.static(app.get('appPath'), {
@@ -45,14 +47,9 @@ export default app => {
     }
   }));
 
-  if(env === 'production') {
-    // Send pre-compressed .gz or .br files if they exist
-    app.use('/', expressStaticGzip(app.get('appPath')));
-  }
-
   app.use(morgan('dev')); // middleware logger
 
-  // Server-side views only
+  // Server-side views only (and we don't currently have any)
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
 
@@ -61,10 +58,6 @@ export default app => {
   // Persist sessions in database
   app.use(session({
     secret: config.secrets.session,
-    cookie: {
-      secure: secureCookie // Recommended but requires HTTPS
-      // maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-    },
     saveUninitialized: true,
     resave: false,
     store: db.store
@@ -84,14 +77,15 @@ export default app => {
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if(env !== 'test' /*&& !process.env.PERFECTO_USERNAME*/) {
+  if(env !== 'development' && env !== 'test') {
     app.use(lusca({
       csrf: {
-        angular: true
+        angular: true // only applies to AngularJS
+        // header: 'x-xsrf-token' // new angular fullstack
       },
       xframe: 'SAMEORIGIN',
       hsts: {
-        maxAge: 31536000, //1 year, in seconds
+        maxAge: 365 * 24 * 60 * 60, // 1 year in seconds
         includeSubDomains: true,
         preload: true
       },
@@ -136,12 +130,11 @@ export default app => {
      * or send a fullscreen error message to the browser instead
      */
     compiler.hooks.done.tap('ReloadDevices', stats => {
-      // console.log('webpack done hook');
       if(stats.hasErrors() || stats.hasWarnings()) {
         return browserSync.sockets.emit('fullscreen:message', {
           title: 'Webpack Error:',
           body: stripAnsi(stats.toString()),
-          timeout: 100000
+          timeout: 100000 // 100 seconds
         });
       }
       browserSync.reload();
