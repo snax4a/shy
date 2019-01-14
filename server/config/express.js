@@ -16,6 +16,9 @@ import db from '../utils/db';
 export default app => {
   let env = app.get('env'); // process.env.NODE_ENV or config.env
 
+  // Only enable the logger for development since it's too messy during testing and heroku has its own
+  if(env === 'development') app.use(morgan('dev')); // middleware logger
+
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(require('cors')());
@@ -46,8 +49,6 @@ export default app => {
       if(mimeType === 'text/html' || mimeType == 'application/json') res.setHeader('Cache-Control', 'public, max-age=0');
     }
   }));
-
-  app.use(morgan('dev')); // middleware logger
 
   // Server-side views only (and we don't currently have any)
   app.set('views', `${config.root}/server/views`);
