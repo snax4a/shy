@@ -7,12 +7,17 @@ async function sibSubmit(method, url, data) {
     baseURL: 'https://api.sendinblue.com',
     headers: { 'api-key': config.mail.apiKey }
   });
-  const response = await instance({
-    method,
-    url, // relative
-    data
-  });
-  return response;
+  try {
+    const response = await instance({
+      method,
+      url, // relative
+      data
+    });
+    return response;
+  } catch(err) {
+    console.error('Error communicating with SendInBlue', instance, err);
+    // Don't rethrow errors since we don't want to interrupt other operations
+  }
 }
 
 /*
