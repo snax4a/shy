@@ -15,7 +15,12 @@ passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password' // this is the virtual field on the model
 }, async(email, password, done) => {
-  const authenticatedUser = await authenticateLocal(email, password);
+  let authenticatedUser;
+  try {
+    authenticatedUser = await authenticateLocal(email, password);
+  } catch(err) {
+    return done(null, false, { message: `Unable to authenticate: ${err}` });
+  }
   if(!authenticatedUser) {
     return done(null, false, { message: 'Unrecognized username/password combination.' });
   } else {
