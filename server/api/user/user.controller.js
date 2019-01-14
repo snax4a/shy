@@ -22,11 +22,11 @@ function userMissingError() {
 
 // Only use for update and upsert - logins must fire a 401
 function userUnauthorizedError() {
-  throw new UserError('Not the correct password.', 'password', 403);
+  throw new UserError('Incorrect password', 'password', 403);
 }
 
 function userPasswordMismatchError() {
-  throw new UserError('Passwords must match.', 'passwordNew', 403);
+  throw new UserError('Passwords must match', 'passwordNew', 403);
 }
 
 function userEmailTakenError() {
@@ -56,6 +56,7 @@ function generateRandomBytes(bytes) {
 // Promisify password encryption
 function encryptPassword(password, salt) {
   return new Promise((resolve, reject) => {
+    if(!password || !salt) return reject('User has a null password. Use "Forgot Password" or ask an admin to fix it.');
     const defaultIterations = 10000;
     const defaultKeyLength = 64;
     const defaultDigest = 'sha256';
@@ -72,22 +73,22 @@ function encryptPassword(password, salt) {
 // Used by passport (could be used elsewhere in this controller) - returns false or an authenticated user
 export async function authenticateLocal(email, unencryptedPassword) {
   if(!unencryptedPassword || !email) return false; // Missing parameter
-  const sql = 'SELECT _id, email, role, provider, password, salt FROM "Users" WHERE LOWER(email) = LOWER($1);';
+  const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google, password, salt FROM "Users" WHERE LOWER(email) = LOWER($1);';
   const { rows } = await db.query(sql, [email]);
   if(rows.length === 0) return false; // User not found
   const user = rows[0];
   const { password, salt } = user;
   const encryptedPassword = await encryptPassword(unencryptedPassword, salt);
   if(encryptedPassword !== password) return false; // Bad password
-  Reflect.deleteProperty(user, 'password'); // Strip out encrypted password
-  Reflect.deleteProperty(user, 'salt'); // Strip out salt
-  return user; // Provider probably not needed but include anyway
+  Reflect.deleteProperty(user, 'password'); // Strip encrypted password
+  Reflect.deleteProperty(user, 'salt'); // Strip salt
+  return user;
 }
 
 export async function googleUserFind(googleId) {
   if(!googleId) return false; // Missing parameter
   const sql = `
-    SELECT _id, email, role, provider, google ->> 'id' AS "googleId" FROM "Users" WHERE provider = 'google' AND google ->> 'id' = $1;`;
+    SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google ->> 'id' AS "googleId" FROM "Users" WHERE provider = 'google' AND google ->> 'id' = $1;`;
   const { rows } = await db.query(sql, [googleId]);
   if(rows.length === 0) return false; // User not found
   const user = rows[0];
@@ -98,13 +99,14 @@ export async function googleUserFind(googleId) {
 export async function index(req, res) {
   const sql = `
     SELECT _id,
+      role,
+      email,
       INITCAP("lastName") AS "lastName",
       INITCAP("firstName") AS "firstName",
-      email,
-      "optOut",
       phone,
-      role,
+      "optOut",
       provider,
+      google,
       (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
     FROM "Users" "user" LEFT OUTER JOIN
       (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase
@@ -120,8 +122,8 @@ export async function index(req, res) {
 
 export async function getUser(field, fieldValue) {
   const sqlStatements = {
-    _id: 'SELECT _id, "firstName", "lastName", email, role, phone, "optOut", provider, google FROM "Users" WHERE _id = $1;',
-    email: 'SELECT _id, "firstName", "lastName", email, role, phone, "optOut", provider, google FROM "Users" WHERE email = $1;'
+    _id: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM "Users" WHERE _id = $1;',
+    email: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM "Users" WHERE email = $1;'
   };
   const sql = sqlStatements[field];
   if(!sql) userBadParameterError();
@@ -158,7 +160,7 @@ export async function createUser(user) {
   const sql = `
     INSERT INTO "Users"
       ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING _id, email, role, provider, google;`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING _id, role, email, "firstName", "lastName", phone, "optOut", provider, google;`;
 
   try {
     const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword, role || 'student', provider || 'local', googleParam]);
@@ -219,113 +221,99 @@ export async function forgotPassword(req, res) {
   return res.status(200).send('New password sent.');
 }
 
-// Updates attributes for authenticated user (Profile page)
-export async function update(req, res) {
-  const { _id } = req.user; // limit the update to this _id as current user may not be an admin
-  const { email, firstName, lastName, phone, optOut, password, passwordNew, passwordConfirm } = req.body;
-
-  // Check for match when changing passwords (ignore when both are undefined)
-  if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
-
-  // Check if user exists
-  let sql = 'SELECT password, salt, provider FROM "Users" WHERE _id = $1;';
-  const { rows } = await db.query(sql, [_id]);
-  if(rows.length === 0) userMissingError();
-
-  // Authentication constants
-  const { salt, provider } = rows[0];
-  const encryptedStoredPassword = rows[0].password;
+async function updateUser(user) {
+  const { _id, role, email, firstName, lastName, phone, optOut, provider, google, passwordNew, passwordConfirm } = user;
 
   // Start with a limited set of parameters for the update (add as needed)
-  let arrParams = [_id, firstName, lastName, phone, optOut];
-  let sqlEmailUpdate = '';
+  let arrParams = [_id, role, email, firstName, lastName, phone, optOut, provider, google];
   let sqlPasswordUpdate = '';
 
-  // Users with local providers can change email and password
-  if(provider === 'local') {
-    // Password provided matches the stored one?
-    const encryptedProvidedPassword = await encryptPassword(password, salt);
-    if(encryptedProvidedPassword !== encryptedStoredPassword) userUnauthorizedError();
-
-    // Enable change to email address
-    arrParams.push(email);
-    sqlEmailUpdate = ', email = $6';
-
-    // New password was provided (already checked against passwordConfirm above)
-    if(passwordNew) {
-      const newSalt = await generateRandomBytes(16); // regenerate - never reuse
-      const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
-      arrParams.push(newEncryptedPassword);
-      arrParams.push(newSalt);
-      sqlPasswordUpdate = ', password = $7, salt = $8';
-    }
+  // Password can be changed if local
+  if(provider === 'local' && passwordNew) {
+    // Check for match when changing passwords (ignore when both are undefined)
+    if(passwordNew !== passwordConfirm) throw new UserError('Passwords must match.', 'passwordNew');
+    const newSalt = await generateRandomBytes(16); // regenerate - never reuse
+    const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
+    arrParams.push(newEncryptedPassword);
+    arrParams.push(newSalt);
+    sqlPasswordUpdate = ', password = $10, salt = $11';
   }
 
-  sql = `UPDATE "Users" SET "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5${sqlEmailUpdate}${sqlPasswordUpdate} WHERE _id = $1;`;
+  const sql = `UPDATE "Users" SET role = $2, email = $3, "firstName" = $4, "lastName" = $5, phone = $6, "optOut" = $7, provider = $8, google = $9${sqlPasswordUpdate}
+    WHERE _id = $1
+    RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google;`;
 
+  let result;
   try {
-    await db.query(sql, arrParams);
-    return res.status(200).send({ _id });
+    result = await db.query(sql, arrParams);
   } catch(err) {
     if(err.constraint === 'Users_email_key') userEmailTakenError();
     console.error('Unanticipated error', err);
     throw err;
   }
+
+  if(result.rows.length === 0) userMissingError(); // Only happens if there's a hack attempt
+  return result.rows[0];
+}
+
+// Updates attributes for authenticated user (Profile page)
+export async function update(req, res) {
+  // Get attributes of authenticated user
+  const { _id, email, role, provider, google } = req.user;
+
+  // If provider is 'local', authenticate or call userUnauthorizedError()
+  if(provider === 'local') {
+    const { password } = req.body; // Get password from profile form
+    const authenticatedUser = await authenticateLocal(email, password);
+    if(!authenticatedUser) userUnauthorizedError();
+    Reflect.deleteProperty(req.body, 'password'); // No longer needed
+  }
+
+  // These are the attributes an authenticated user may not override
+  req.body._id = _id;
+  req.body.provider = provider;
+  req.body.role = role;
+  req.body.google = google;
+
+  const userUpdated = await updateUser(req.body);
+  return res.status(200).send(userUpdated);
 }
 
 // Updates or creates user (teachers or admins)
 export async function upsert(req, res) {
-  const modifierRole = req.user.role; // only allow admins to change password and role
-
-  const { email, firstName, lastName, phone, optOut, provider, passwordConfirm } = req.body;
   const _id = parseInt(req.params.id, 10);
-  let { role, passwordNew } = req.body; // variables we may have to override
-
-  // Check for match when changing passwords (ignore when both are undefined)
-  if(passwordNew !== passwordConfirm) userPasswordMismatchError();
-
-  let arrParams = [email, firstName, lastName, phone, optOut, provider, role];
-  let sql;
-  let sqlPasswordUpdate = ' WHERE _id = $8'; // default when NOT changing password
   const isNew = _id === 0;
 
-  // If teacher/admin did not create a password, generate a random one automatically
-  if(isNew && !passwordNew) passwordNew = await generateRandomBytes(16);
-
-  // If new password, generate salt and encrypted password and add params to array
-  if(passwordNew) {
-    const newSalt = await generateRandomBytes(16); // regenerate - never reuse
-    const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
-    arrParams.push(newSalt);
-    arrParams.push(newEncryptedPassword);
-    sqlPasswordUpdate = ', salt = $8, password = $9 WHERE _id = $10';
+  if(req.user.role === 'teacher') {
+    // Remove properties teachers cannot modify
+    Reflect.deleteProperty(req.body, 'passwordNew');
+    Reflect.deleteProperty(req.body, 'passwordConfirm');
+    Reflect.deleteProperty(req.body, 'role');
+    Reflect.deleteProperty(req.body, 'provider');
+    Reflect.deleteProperty(req.body, 'google');
   }
-
-  // Teachers can only set role to student for new users (cannot modify role on existing)
-  if(isNew && modifierRole === 'teacher') role = 'student';
-
-  // Only admins can modify role
-  let sqlRoleUpdate = modifierRole === 'admin' ? ', role = $7' : '';
 
   if(isNew) {
-    sql = `INSERT INTO "Users"
-      (email, "firstName", "lastName", phone, "optOut", provider, role, salt, password)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING _id, email, "firstName", "lastName", phone, "optOut", provider, role;`;
-  } else {
-    arrParams.push(_id);
-    sql = `
-      UPDATE "Users"
-      SET email = $1, "firstName" = $2, "lastName" = $3, phone = $4, "optOut" = $5, provider = $6, role = $7${sqlPasswordUpdate}
-      RETURNING _id, email, "firstName", "lastName", phone, "optOut", provider, role;`;
+    const createdUser = await createUser(req.body);
+    return res.status(200).send(createdUser);
   }
-  try {
-    const { rows } = await db.query(sql, arrParams);
-    return res.status(200).send(rows[0]);
-  } catch(err) {
-    if(err.constraint === 'Users_email_key') userEmailTakenError();
-    console.error('Unanticipated error', err);
-    throw err;
+
+  // From this point, it's an existing user to be updated
+
+  // Attach the _id
+  req.body._id = _id;
+
+  if(req.user.role === 'teacher') {
+    // Override teacher attempts to change restricted fields (makes updateUser() simpler)
+    const existingUser = await getUser('_id', _id);
+    req.body.role = existingUser.role;
+    req.body.provider = existingUser.provider;
+    req.body.google = existingUser.google;
   }
+
+  // Update and return the modified user
+  const userUpdated = await updateUser(req.body);
+  return res.status(200).send(userUpdated);
 }
 
 // Called by destroy and integration tests
@@ -406,6 +394,7 @@ export async function unsubscribe(req, res) {
     db.query(sql, [req.params.email]),
     sibOptOut(req.params.email)
   ]);
+
   return res.status(200).send(`Unsubscribed ${req.params.email} from the newsletter.`);
 }
 

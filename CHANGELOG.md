@@ -1,11 +1,14 @@
 # Product Backlog
-* [Bug] Prevent teachers from upserting passwords or roles
-* [High] Setup nightly run of zero_old_passes() in PostgreSQL
+* [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
+* [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm
+* [Low] Create Google_id column in "Users" instead
 * [Low] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
-* [Low] server/config/express.js - replace require() with imports
 * [Low] Add toast after forgotpassword
 
 <a name="1.0.16"></a>
+* [High] Refactor user.controller.js updateUser, update, upsert for DRY and prevent teachers from updating restricted fields (password, role, provider, google)
+* [Bug] Connection fails if trying to login as user with a null password (no error message)
+* [High] Setup nightly run of zero_old_passes() in PostgreSQL on mac-mini
 * [High] Remove all sequelize dependencies 
 * [High] Create DDL
 * [High] Change user.controller.js:upsert to use createUser()

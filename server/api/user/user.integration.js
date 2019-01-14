@@ -33,21 +33,22 @@ describe('User API Integration Tests:', function() {
   });
 
   describe('1. POST /api/user - controller.create() - create student user', function() {
+    const userToPost = {
+      firstName: 'Boaty',
+      lastName: 'McBoatface',
+      email: 'nul@bitbucket.com',
+      passwordNew: 'password',
+      passwordConfirm: 'password',
+      optOut: false,
+      phone: '000-000-0000',
+      provider: 'local',
+      google: null,
+      role: 'admin' // try to hack permissions
+    };
     it('should create a user', async() =>
       request(app)
         .post('/api/user')
-        .send({
-          firstName: 'Boaty',
-          lastName: 'McBoatface',
-          email: 'nul@bitbucket.com',
-          passwordNew: 'password',
-          passwordConfirm: 'password',
-          optOut: false,
-          phone: '000-000-0000',
-          provider: 'local',
-          google: null,
-          role: 'admin' // try to hack permissions
-        })
+        .send(userToPost)
         .expect(200)
         .expect('Content-Type', /json/)
         .then(async res => {
@@ -55,21 +56,21 @@ describe('User API Integration Tests:', function() {
           token = res.body.token;
 
           // Check database to ensure proper save
-          user = await getUser('email', 'nul@bitbucket.com');
+          user = await getUser('email', userToPost.email);
           user._id.should.be.above(0);
-          user.email.should.equal('nul@bitbucket.com');
-          user.role.should.equal('student'); // verify hack didn't work
-          user.provider.should.equal('local');
+          user.email.should.equal(userToPost.email);
+          user.provider.should.equal(userToPost.provider);
           user.optOut.should.be.false;
-          user.phone.should.equal('000-000-0000');
-          user.firstName.should.equal('Boaty');
-          user.lastName.should.equal('McBoatface');
+          user.phone.should.equal(userToPost.phone);
+          user.firstName.should.equal(userToPost.firstName);
+          user.lastName.should.equal(userToPost.lastName);
           expect(user.google).to.be.null;
+          user.role.should.equal('student'); // verify hack didn't work
         }));
   });
 
   describe('2. GET /api/user/unsubscribe/:email - controller.unsubscribe() - opt out', function() {
-    it('should unsubscribe the user from the newsletter', () =>
+    it('should unsubscribe the user from the newsletter updating the database and SendInBlue', () =>
       request(app)
         .get('/api/user/unsubscribe/nul@bitbucket.com')
         .expect(200)
@@ -113,43 +114,32 @@ describe('User API Integration Tests:', function() {
   });
 
   describe('4. PUT /api/user/:id - controller.update() - update profile', function() {
+    const userForPut = {
+      firstName: 'Justin',
+      lastName: 'Case',
+      email: 'justin.case@bitbucket.com',
+      password: 'password',
+      passwordNew: 'password1',
+      passwordConfirm: 'password1',
+      optOut: false,
+      phone: '111-111-1111',
+      // Send values that should be ignored
+      role: 'admin', // try to hack permissions
+      provider: 'google',
+      google: { id: '000000000000000'}
+    };
+
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .put(`/api/user/${user._id}`)
-        .send({
-          firstName: 'Boaty',
-          lastName: 'McBoatface',
-          email: 'nul@bitbucket.com',
-          password: 'password',
-          passwordNew: 'password1',
-          passwordConfirm: 'password1',
-          optOut: false,
-          phone: '111-111-1111',
-          // Send values that should be ignored
-          provider: 'google',
-          google: { id: '000000000000000'},
-          role: 'admin' // try to hack permissions
-        })
+        .send(userForPut)
         .expect(401)
     );
 
-    it('should update user profile and change password', () =>
+    it('should update user profile (without allowing restricted field changes) and change password', () =>
       request(app)
         .put(`/api/user/${user._id}`)
-        .send({
-          firstName: 'Justin',
-          lastName: 'Case',
-          email: 'justin.case@bitbucket.com',
-          password: 'password',
-          passwordNew: 'password1',
-          passwordConfirm: 'password1',
-          optOut: false,
-          phone: '111-111-1111',
-          // Send values that should be ignored
-          provider: 'google',
-          google: { id: '000000000000000'},
-          role: 'admin' // try to hack permissions
-        })
+        .send(userForPut)
         .set('authorization', `Bearer ${token}`)
         .expect(200)
         .expect('Content-Type', /json/)
@@ -160,17 +150,17 @@ describe('User API Integration Tests:', function() {
 
           // Refresh user from database and verify each field was updated
           user = await getUser('_id', _id);
-          user.firstName.should.equal('Justin');
-          user.lastName.should.equal('Case');
-          user.phone.should.equal('111-111-1111');
-          user.email.should.equal('justin.case@bitbucket.com');
+          user.firstName.should.equal(userForPut.firstName);
+          user.lastName.should.equal(userForPut.lastName);
+          user.phone.should.equal(userForPut.phone);
+          user.email.should.equal(userForPut.email);
           user.optOut.should.be.false;
-          user.provider.should.equal('local');
           user.role.should.equal('student');
+          user.provider.should.equal('local');
           expect(user.google).to.be.null;
 
           // Test new password
-          const authenticatedUser = await authenticateLocal('justin.case@bitbucket.com', 'password1');
+          const authenticatedUser = await authenticateLocal(userForPut.email, userForPut.passwordNew);
           authenticatedUser.should.not.be.false;
         }));
   });
@@ -218,7 +208,7 @@ describe('User API Integration Tests:', function() {
   });
 
   describe('7. POST /api/user/subscribe - controller.subscribe() - opt user in to newsletter list', function() {
-    it('should email admins a message', () =>
+    it('should email admins a message via SendInBlue', () =>
       request(app)
         .post('/api/user/subscribe')
         .send({
@@ -243,8 +233,7 @@ describe('User API Integration Tests:', function() {
         .expect(401)
     );
 
-    it('should respond with an array when authenticated as a student', async() => {
-      user = await roleSet('justin.case@bitbucket.com', 'teacher');
+    function getApiUserWithFilter() {
       return request(app)
         .get('/api/user?filter=justin')
         .set('authorization', `Bearer ${token}`)
@@ -254,57 +243,44 @@ describe('User API Integration Tests:', function() {
           let users = res.body;
           users.should.be.instanceof(Array);
         });
+    }
+
+    it('should respond with a JSON array when authenticated as a teacher', async() => {
+      user = await roleSet('justin.case@bitbucket.com', 'admin');
+      return getApiUserWithFilter();
     });
 
-    it('should respond with a JSON array of users when authenticated as a teacher or admin', async() => {
+    it('should respond with a JSON array of users when authenticated as an admin', async() => {
       user = await roleSet('justin.case@bitbucket.com', 'teacher');
-      return request(app)
-        .get('/api/user?filter=justin')
-        .set('authorization', `Bearer ${token}`)
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-          let users = res.body;
-          users.should.be.instanceof(Array);
-        });
+      return getApiUserWithFilter();
     });
   });
 
   describe('9. PUT /api/user/:id/admin - controller.upsert() - user upsert', function() {
-    // Might be giving teachers too many privs here
+    const userToPut = {
+      firstName: 'Boaty',
+      lastName: 'McBoatface',
+      email: 'nul@bitbucket.com',
+      passwordNew: 'password',
+      passwordConfirm: 'password',
+      optOut: true,
+      phone: '000-000-0000',
+      provider: 'local',
+      google: null,
+      role: 'admin'
+    };
+
     it('should respond with a 401 when not authenticated', () =>
       request(app)
         .put(`/api/user/${user._id}/admin`)
-        .send({
-          firstName: 'Boaty',
-          lastName: 'McBoatface',
-          email: 'nul@bitbucket.com',
-          passwordNew: 'password',
-          passwordConfirm: 'password',
-          optOut: true,
-          phone: '000-000-0000',
-          provider: 'local',
-          google: null,
-          role: 'admin'
-        })
+        .send(userToPut)
         .expect(401)
     );
 
-    it('should upsert the user\'s profile when admin is authenticated', () =>
+    it('should upsert the user\'s profile (without changes to sensitive fields) when teacher is authenticated', () =>
       request(app)
         .put(`/api/user/${user._id}/admin`) // test user is updating their own profile
-        .send({
-          firstName: 'Boaty',
-          lastName: 'McBoatface',
-          email: 'nul@bitbucket.com', // changes email back from justin.case@bitbucket.com
-          passwordNew: 'password', // changes password
-          passwordConfirm: 'password',
-          optOut: true,
-          phone: '000-000-0000',
-          provider: 'local',
-          google: null,
-          role: 'admin' // leave them as an admin for the final delete
-        })
+        .send(userToPut)
         .set('authorization', `Bearer ${token}`)
         .expect(200)
         .expect('Content-Type', /json/)
@@ -321,20 +297,20 @@ describe('User API Integration Tests:', function() {
 
           // Verify the database
           // Check database to ensure proper save
-          user = await getUser('email', 'nul@bitbucket.com');
+          user = await getUser('email', userToPut.email);
           user._id.should.be.above(0);
-          user.email.should.equal('nul@bitbucket.com');
-          user.role.should.equal('admin'); // verify hack didn't work
-          user.provider.should.equal('local');
+          user.email.should.equal(userToPut.email);
+          user.role.should.equal('teacher'); // verify hack didn't work
+          user.provider.should.equal(userToPut.provider);
           user.optOut.should.be.true;
-          user.phone.should.equal('000-000-0000');
-          user.firstName.should.equal('Boaty');
-          user.lastName.should.equal('McBoatface');
+          user.phone.should.equal(userToPut.phone);
+          user.firstName.should.equal(userToPut.firstName);
+          user.lastName.should.equal(userToPut.lastName);
           expect(user.google).to.be.null;
 
-          // Verify password change
-          const authenticatedUser = await authenticateLocal('nul@bitbucket.com', 'password');
-          authenticatedUser.should.not.be.false;
+          // Verify password change failed because a teacher attempted it
+          const authenticatedUser = await authenticateLocal(userToPut.email, userToPut.passwordNew);
+          authenticatedUser.should.be.false;
         }));
   });
 
