@@ -26,7 +26,7 @@ export function isAuthenticated() {
     })
     // Find user
     .use(asyncWrapper(async(req, res, next) => {
-      const sql = 'SELECT _id, role, provider, google FROM "Users" WHERE _id = $1;';
+      const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM "Users" WHERE _id = $1;';
       const { rows } = await db.query(sql, [req.user._id]);
       if(rows.length === 0) return res.status(401).end(); // No user found
       req.user = rows[0]; // Attach user to request
