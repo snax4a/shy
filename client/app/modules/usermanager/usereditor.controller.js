@@ -31,6 +31,14 @@ export class UserEditorController {
       // Make a copy of this.user in case upsert fails
       let upsertedUser = new this.User();
       angular.copy(this.user, upsertedUser);
+      Reflect.deleteProperty(upsertedUser, 'balance'); // Isn't processed by API anyway
+      if(!this.isAdmin()) { // Only admins can update these fields
+        Reflect.deleteProperty(upsertedUser, 'role');
+        Reflect.deleteProperty(upsertedUser, 'provider');
+        Reflect.deleteProperty(upsertedUser, 'google');
+        Reflect.deleteProperty(upsertedUser, 'passwordNew');
+        Reflect.deleteProperty(upsertedUser, 'passwordConfirm');
+      }
       this.User.upsert(upsertedUser)
         .$promise
         .then(user => { // Resource object with all the user fields except password and salt

@@ -40,6 +40,11 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
         select.form-control(name='provider', id='provider', ng-model='$ctrl.user.provider')
           option(value='local') Local
           option(value='google') Google
+      .form-group.col-md-6(ng-show="$ctrl.user.provider=='google' && $ctrl.isAdmin()")
+        label(for='google') Google ID
+        textarea.form-control(id='google', name='google', json-text='', ng-model='$ctrl.user.google', ng-required="$ctrl.user.provider=='google'" rows='3', placeholder='Google JSON')
+        ng-messages.help-block.has-error(for='form.google.$error', ng-show='form.google.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the Google JSON.
       .form-group.col-md-6
         label(for='phone') Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')

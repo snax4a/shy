@@ -1,9 +1,10 @@
 # Product Backlog
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
-* [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm
-* [Low] Create Google_id column in "Users" instead
-* [Low] Add Google ID field to usereditor.pug and usereditor.controller.js
 * [Low] Add toast after forgotpassword
+
+<a name="1.0.17"></a>
+* Add google field to usereditor.pug and usereditor.controller.js
+* [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm
 
 <a name="1.0.16"></a>
 * [Bug] login.pug needs to check or required fields
