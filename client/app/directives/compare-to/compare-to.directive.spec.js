@@ -1,7 +1,7 @@
 /* global describe, beforeEach, inject, it, expect */
 'use strict';
 import angular from 'angular';
-import compareTo from './compareto.directive';
+import compareTo from './compare-to.directive';
 
 describe('Directive: compareTo', function() {
   // load the directive's module
