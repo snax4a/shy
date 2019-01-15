@@ -42,7 +42,8 @@ import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js'; // announcementmanager.component.js, login.component.js, navbar.component.js, schedulemanager.component.js, shynet.component.js, usermanager.component.js
 import UibTabsDirective from 'angular-ui-bootstrap/src/tabs'; // admin.component.js
 import PaginationDirective from 'angular-utils-pagination'; // usermanager.component.js
-import CompareToDirective from './directives/compareto/compareto.directive'; // profile.component.js, signup.component.js, usermanager.component.js
+import CompareToDirective from './directives/compare-to/compare-to.directive'; // profile.component.js, signup.component.js, usermanager.component.js
+import JsonTextDirective from './directives/json-text/json-text.directive'; // usereditor.pug
 
 // Filters
 import AmPmFilter from './filters/ampm/ampm.filter'; // classes.component.js, schedulemanager.component.js
@@ -97,6 +98,7 @@ angular.module('shyApp', [
   constants,
   PaginationDirective,
   CompareToDirective,
+  JsonTextDirective,
   AuthModule,
   LoginModule,
   CartModule,
