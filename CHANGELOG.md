@@ -2,18 +2,20 @@
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
 * [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm
 * [Low] Create Google_id column in "Users" instead
-* [Low] Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
+* [Low] Add Google ID field to usereditor.pug and usereditor.controller.js
 * [Low] Add toast after forgotpassword
 
 <a name="1.0.16"></a>
-* [High] Refactor user.controller.js updateUser, update, upsert for DRY and prevent teachers from updating restricted fields (password, role, provider, google)
+* [Bug] login.pug needs to check or required fields
+* Remove Buffer.from() in user.controller.js:encryptPassword and reset passwords for local accounts
+* Refactor user.controller.js updateUser, update, upsert for DRY and prevent teachers from updating restricted fields (password, role, provider, google)
 * [Bug] Connection fails if trying to login as user with a null password (no error message)
-* [High] Setup nightly run of zero_old_passes() in PostgreSQL on mac-mini
-* [High] Remove all sequelize dependencies 
-* [High] Create DDL
-* [High] Change user.controller.js:upsert to use createUser()
+* Setup nightly run of zero_old_passes() in PostgreSQL on mac-mini
+* Remove all sequelize dependencies 
+* Create DDL
+* Change user.controller.js:upsert to use createUser()
 * [Bug] SendInBlue not sending email - switch to axios
-* [High] Remove connect-session-sequelize dependency from /server/config/express.js -> connect-pg-simple
+* Remove connect-session-sequelize dependency from /server/config/express.js -> connect-pg-simple
 
 <a name="1.0.15"></a>
 * [High] Remove Sequelize dependency from server/auth/local/passport.js and google/passport.js

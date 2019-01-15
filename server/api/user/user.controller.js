@@ -60,8 +60,7 @@ function encryptPassword(password, salt) {
     const defaultIterations = 10000;
     const defaultKeyLength = 64;
     const defaultDigest = 'sha256';
-    // TODO: remove Buffer.from(salt, 'base64') then reset all passwords
-    crypto.pbkdf2(password, Buffer.from(salt, 'base64'), defaultIterations, defaultKeyLength, defaultDigest, (err, key) => {
+    crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, defaultDigest, (err, key) => {
       if(err) {
         reject('Error encrypting password');
       }
