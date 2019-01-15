@@ -4,7 +4,7 @@ import ngRoute from 'angular-route';
 import routes from './profile.routes';
 import AuthModule from '../../modules/auth/auth.module';
 import GoogleButtonComponent from '../google-button/google-button.component';
-import CompareToDirective from '../../directives/compareto/compareto.directive';
+import CompareToDirective from '../../directives/compare-to/compare-to.directive';
 
 export class ProfileComponent {
   /*@ngInject*/
