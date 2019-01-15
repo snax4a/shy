@@ -28,7 +28,7 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
           ng-messages.help-block.has-error(for='form.passwordConfirm.$error', ng-show='form.passwordConfirm.$dirty || form.$submitted', role='alert')
             ng-message(when='compareTo') Passwords must match.
             ng-message(when='required') Please confirm your new password.
-      .form-group.col-md-6(ng-if="$ctrl.user.provider=='local' || $ctrl.isAdmin()")
+      .form-group.col-md-6(ng-if="$ctrl.user.provider=='local' && $ctrl.isAdmin()")
         label(for='email') Email
         input.form-control(type='email', name='email', id='email', ng-model='$ctrl.user.email', ng-change='$ctrl.clearServerError(form,"email")', server-error='', maxlength='80', required='true', placeholder='Email', autocomplete='off')
         ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
@@ -45,7 +45,7 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
         textarea.form-control(id='google', name='google', json-text='', ng-model='$ctrl.user.google', ng-required="$ctrl.user.provider=='google'" rows='3', placeholder='Google JSON')
         ng-messages.help-block.has-error(for='form.google.$error', ng-show='form.google.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the Google JSON.
-      .form-group.col-md-6
+      .form-group.col-md-6(ng-show="$ctrl.isAdmin()")
         label(for='phone') Phone
         input.form-control(type='tel', name='phone', id='phone', ng-model='$ctrl.user.phone', maxlength='20', placeholder='Phone')
       .form-group.col-md-6(ng-show='$ctrl.isAdmin()')

@@ -3,6 +3,7 @@
 * [Low] Add toast after forgotpassword
 
 <a name="1.0.17"></a>
+* [Bug] usereditor.pug - Teachers should not see phone field.
 * Add google field to usereditor.pug and usereditor.controller.js
 * [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm
 
