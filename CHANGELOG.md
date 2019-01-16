@@ -2,6 +2,7 @@
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
 
 <a name="1.0.17"></a>
+* Improve login page - validation, separate Google and SHY logins
 * Add toast after forgotpassword and message (angularjs-toaster)
 * [Bug] usereditor.pug - Teachers should not see phone field.
 * Add google field to usereditor.pug and usereditor.controller.js

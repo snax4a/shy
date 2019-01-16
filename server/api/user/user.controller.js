@@ -96,6 +96,7 @@ export async function googleUserFind(googleId) {
 
 // Gets list of users with balances using filter (teacher or admin-only)
 export async function index(req, res) {
+  // TODO: if req.user.role is 'teacher', don't allow email, phone,
   const sql = `
     SELECT _id,
       role,
