@@ -4,12 +4,13 @@ import ngRoute from 'angular-route';
 
 export class CheckOutComponent {
   /*@ngInject*/
-  constructor($log, $window, $timeout, $location, Cart) {
+  constructor($log, $window, $timeout, $location, toast, Cart) {
     // Dependencies
     this.$log = $log;
     this.$window = $window;
     this.$timeout = $timeout;
     this.$location = $location;
+    this.toast = toast;
     this.Cart = Cart;
   }
 
@@ -78,7 +79,14 @@ export class CheckOutComponent {
       try {
         await this.Cart.placeOrder();
         // Use $timeout so it's within the digest cycle
-        this.$timeout(() => this.$location.path('/confirmation'));
+        this.$timeout(() => {
+          this.toast({
+            duration  : 5000,
+            message   : 'Thank you for your order.',
+            className : 'alert-success'
+          });
+          this.$location.path('/confirmation');
+        });
       } catch(err) {
         console.log('Error in checkout.component.js:placeOrder()', err);
         this.braintreeError = err.statusText; // for view data-binding

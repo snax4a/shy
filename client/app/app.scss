@@ -17,9 +17,11 @@ $enable-gradients: true;
 
 $fa-font-path: '/assets/fonts/';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome'; // FontAwesome 5.x
-@import '~@fortawesome/fontawesome-free/scss/regular.scss';
-@import '~@fortawesome/fontawesome-free/scss/solid.scss';
-@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+@import '~angularjs-toast/angularjs-toast.min';
 
 /**
  * App-wide Styles

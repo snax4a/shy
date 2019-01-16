@@ -1,8 +1,8 @@
 # Product Backlog
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
-* [Low] Add toast after forgotpassword
 
 <a name="1.0.17"></a>
+* Add toast after forgotpassword and message (angularjs-toaster)
 * [Bug] usereditor.pug - Teachers should not see phone field.
 * Add google field to usereditor.pug and usereditor.controller.js
 * [Bug] Prevent usereditor.controller.js from including balance in PUT (upset). Teachers should not sent role, provider, passwordNew, or passwordConfirm

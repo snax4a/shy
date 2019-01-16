@@ -12,7 +12,6 @@
           ng-messages.help-block.has-error(for='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
             ng-message(when='required') Please provide an email address.
             ng-message(when='email') Please provide a valid email address.
-      div(uib-alert='', ng-repeat="alert in $ctrl.alerts", ng-class='alert.type', close='$ctrl.closeAlert($index)') {{ alert.message }}
   hr(ng-repeat-start='workshop in $ctrl.workshops | upcoming')
   .row
     .col-md-5

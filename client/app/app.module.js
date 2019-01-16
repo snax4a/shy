@@ -2,6 +2,7 @@
 
 // AngularJS core
 import angular from 'angular';
+import ngAnimate from 'angular-animate'; // for angularjs-toaster
 import ngCookies from 'angular-cookies'; // auth.service.js, interceptor.service.js
 import ngMessages from 'angular-messages'; // announcementeditor.pug, checkout.pug, forgotpassword.pug, contactmodal.pug, profile.pug, scheduleditor.pug, shynet.pug, classadder.pug, historyeditor.pug, usereditor.pug, workshops.pug
 import ngResource from 'angular-resource'; // user.service.js
@@ -28,6 +29,7 @@ import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
 import ScheduleManagerModule from './modules/schedulemanager/schedulemanager.module'; // admin.component.js
+import 'angularjs-toast';
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -75,6 +77,8 @@ import './app.scss';
 
 angular.module('shyApp', [
   // ngLoadingBar,
+  'angularjsToast',
+  ngAnimate,
   ngAria,
   ngCookies,
   ngResource,

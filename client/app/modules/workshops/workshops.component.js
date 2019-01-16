@@ -1,9 +1,10 @@
 export class WorkshopsComponent {
   /*@ngInject*/
-  constructor($timeout, $window, WorkshopsService, NewsletterService) {
-    this.$window = $window;
-    this.WorkshopsService = WorkshopsService;
+  constructor($timeout, $window, toast, WorkshopsService, NewsletterService) {
     this.$timeout = $timeout;
+    this.$window = $window;
+    this.toast = toast;
+    this.WorkshopsService = WorkshopsService;
     this.NewsletterService = NewsletterService;
   }
 
@@ -67,11 +68,6 @@ export class WorkshopsComponent {
     return t;
   }
 
-  // close the alert by deleting the element in the array
-  closeAlert(index) {
-    this.alerts.splice(index, 1);
-  }
-
   setFocus(fieldID) {
     let fieldToGetFocus = this.$window.document.getElementById(fieldID);
     this.$timeout(() => {
@@ -84,16 +80,18 @@ export class WorkshopsComponent {
       try {
         const message = await this.NewsletterService.subscribe(this.subscriber);
         this.$timeout(() => { // using async/await runs outside of digest cycle
-          this.alerts = [{
-            type: 'alert-success',
-            message
-          }];
+          this.toast({
+            duration: 5000,
+            message,
+            className: 'alert-success'
+          })
         });
       } catch(err) {
-        this.alerts = [{
-          type: 'alert-danger',
-          message: err.data
-        }];
+        this.toast({
+          duration: 5000,
+          message: err.data,
+          className: 'alert-danger'
+        });
       }
     } else this.setFocus('email');
   }
