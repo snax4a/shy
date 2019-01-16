@@ -28,7 +28,7 @@
     "axios": "^0.18.0",
     "bootstrap-sass": "~3.4.0",
     "braintree": "^2.14.0",
-    "braintree-web": "^3.41.0",
+    "braintree-web": "^3.42.0",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.2",
     "connect-pg-simple": "^5.0.0",
