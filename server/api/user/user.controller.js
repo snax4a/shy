@@ -96,17 +96,14 @@ export async function googleUserFind(googleId) {
 
 // Gets list of users with balances using filter (teacher or admin-only)
 export async function index(req, res) {
-  // TODO: if req.user.role is 'teacher', don't allow email, phone,
+  const sqlForAdmins = req.user.role == 'admin' ? 'email, phone, provider, google,' : '';
   const sql = `
     SELECT _id,
       role,
-      email,
       INITCAP("lastName") AS "lastName",
       INITCAP("firstName") AS "firstName",
-      phone,
       "optOut",
-      provider,
-      google,
+      ${sqlForAdmins}
       (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
     FROM "Users" "user" LEFT OUTER JOIN
       (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase
