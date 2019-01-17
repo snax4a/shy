@@ -18,8 +18,12 @@
         li(ng-show='$ctrl.isAdminOrTeacher()', ng-class='{active: $ctrl.isActive("/shynet")}')
           a(href='/shynet', itemprop='url') SHYnet
       ul.nav.navbar-nav.navbar-right
+        li(ng-show='!$ctrl.isLoggedIn()')
+          a(href='/login', itemprop='url') Login
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
-          a(href='#', uib-dropdown-toggle='') Logged in as {{ $ctrl.getCurrentUser().firstName }}
+          a(href='#', uib-dropdown-toggle='') 
+            span.fas.fa-user 
+            | &nbsp;{{ $ctrl.getCurrentUser().firstName }} 
             span.caret
           ul.dropdown-menu(uib-dropdown-menu='')
             li(ng-class='{active: $ctrl.isActive("/profile")}')
@@ -28,7 +32,7 @@
               a(href='/logout') Logout
         li(uib-dropdown='')
           a(href='#', uib-dropdown-toggle='')
-            | Contact
+            | Contact 
             span.caret
           ul.dropdown-menu(uib-dropdown-menu='')
             li
