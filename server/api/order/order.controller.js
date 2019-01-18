@@ -192,6 +192,9 @@ const buildConfirmationEmail = confirmation => {
               Thanks for your order. Visit us again at <a href="https://www.schoolhouseyoga.com">https://www.schoolhouseyoga.com</a>.<br/>
               Please note: class passes expire 6 months after date purchased.
             </p>
+            <p style="margin-top:20px;">
+              Please select your favorite studio: <a href="https://goo.gl/cZRfMb">Squirrel Hill</a> | <a href="https://goo.gl/s2bPXW">East Liberty</a> | <a href="https://goo.gl/NDiQ8x">North Hills</a>
+            </p>
           </td>
         </tr>
       </table>`
