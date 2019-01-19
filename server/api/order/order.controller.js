@@ -193,7 +193,7 @@ const buildConfirmationEmail = confirmation => {
               Please note: class passes expire 6 months after date purchased.
             </p>
             <p style="margin-top:20px;">
-              Please select your favorite studio: <a href="https://goo.gl/cZRfMb">Squirrel Hill</a> | <a href="https://goo.gl/s2bPXW">East Liberty</a> | <a href="https://goo.gl/NDiQ8x">North Hills</a>
+              It would mean a lot to us if you'd review your favorite studio: <a href="https://goo.gl/cZRfMb">Squirrel Hill</a> | <a href="https://goo.gl/s2bPXW">East Liberty</a> | <a href="https://goo.gl/NDiQ8x">North Hills</a>
             </p>
           </td>
         </tr>
