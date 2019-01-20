@@ -34,7 +34,7 @@ function nest(flatAnnouncements) {
 
 // Returns list of Announcements
 export async function index(req, res) {
-  const { rows } = await db.query('SELECT _id, section, title, description, expires FROM "Announcements" WHERE expires > CURRENT_DATE ORDER BY section, expires;');
+  const { rows } = await db.query('SELECT _id, section, title, description, expires FROM "Announcements" WHERE expires > CURRENT_DATE ORDER BY section, expires;', []);
   return req.query.flat ? res.status(200).send(rows) : res.status(200).send(nest(rows));
 }
 
