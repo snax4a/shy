@@ -157,7 +157,7 @@ export async function createUser(user) {
   const sql = `
     INSERT INTO "Users"
       ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING _id, role, email, "firstName", "lastName", phone, "optOut", provider, google;`;
+      VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10) RETURNING _id, role, email, "firstName", "lastName", phone, "optOut", provider, google;`;
 
   try {
     const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword, role || 'student', provider || 'local', googleParam]);
@@ -236,7 +236,7 @@ async function updateUser(user) {
     sqlPasswordUpdate = ', password = $10, salt = $11';
   }
 
-  const sql = `UPDATE "Users" SET role = $2, email = $3, "firstName" = $4, "lastName" = $5, phone = $6, "optOut" = $7, provider = $8, google = $9${sqlPasswordUpdate}
+  const sql = `UPDATE "Users" SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6, "optOut" = $7, provider = $8, google = $9${sqlPasswordUpdate}
     WHERE _id = $1
     RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google;`;
 
@@ -340,7 +340,7 @@ export async function contactUpsert(user, overrideName) {
   const overridePhoneSql = user.phone ? 'phone = $4, ' : '';
   const sql = `INSERT INTO "Users"
   (email, "firstName", "lastName", phone, "optOut")
-  VALUES ($1, $2, $3, $4, $5)
+  VALUES (LOWER($1), $2, $3, $4, $5)
   ON CONFLICT (email) DO UPDATE
      SET ${overrideNameSql}${overridePhoneSql}"optOut" = $5;`;
   const sibContact = {
