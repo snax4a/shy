@@ -1,6 +1,7 @@
 # Product Backlog
 
 <a name="1.0.17"></a>
+* Ported angularjs-toast to project (ES6 conversion) so it's easier to test
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
 * Improve login page - validation, separate Google and SHY logins
 * Add toast after forgotpassword and message (angularjs-toaster)
