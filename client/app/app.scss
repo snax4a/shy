@@ -21,8 +21,6 @@ $fa-font-path: '/assets/fonts/';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-@import '~angularjs-toast/angularjs-toast.min';
-
 /**
  * App-wide Styles
  */
@@ -144,6 +142,7 @@ h2 {
 @import 'modules/shynet/shynet';
 @import 'modules/teachers/teachers';
 @import 'modules/teachertraining/teachertraining';
+@import 'modules/toast/toast';
 @import 'modules/usermanager/usermanager';
 @import 'modules/workshops/workshops';
 /* endinject */

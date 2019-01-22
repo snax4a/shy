@@ -2,12 +2,14 @@
 'use strict';
 import angular from 'angular';
 import WorkshopsModule from './workshops.module';
+import ToastModule from '../toast/toast.module';
 
 describe('Component: WorkshopsComponent', function() {
   // load the controller's module
   beforeEach(angular.mock.module(WorkshopsModule));
+  beforeEach(angular.mock.module(ToastModule));
 
-  var WorkshopsComponent;
+  let WorkshopsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {

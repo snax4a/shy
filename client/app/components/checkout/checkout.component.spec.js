@@ -3,11 +3,13 @@
 import angular from 'angular';
 import checkoutPage from './checkout.component';
 import CartModule from '../../modules/cart/cart.module';
+import ToastModule from '../../modules/toast/toast.module';
 
 describe('Component: CheckOutComponent', function() {
   // load the cart module
   beforeEach(angular.mock.module(checkoutPage));
   beforeEach(angular.mock.module(CartModule));
+  beforeEach(angular.mock.module(ToastModule));
 
   let CheckOutComponent;
   // Initialize the controller and a mock scope

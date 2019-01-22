@@ -15,6 +15,7 @@ import constants from './app.constants';
 import { routeConfig } from './app.config';
 
 // Modules
+import ToastModule from './modules/toast/toast.module';
 import NavbarModule from './modules/navbar/navbar.module'; // _index.html
 import HomeModule from './modules/home/home.module';
 import ClassesModule from './modules/classes/classes.module';
@@ -29,7 +30,6 @@ import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
 import ScheduleManagerModule from './modules/schedulemanager/schedulemanager.module'; // admin.component.js
-import 'angularjs-toast';
 
 // Interceptors
 //import ngLoadingBar from 'angular-loading-bar';
@@ -77,7 +77,7 @@ import './app.scss';
 
 angular.module('shyApp', [
   // ngLoadingBar,
-  'angularjsToast',
+  ToastModule,
   ngAnimate,
   ngAria,
   ngCookies,
