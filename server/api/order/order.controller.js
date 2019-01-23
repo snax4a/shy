@@ -96,6 +96,7 @@ const buildConfirmationEmail = confirmation => {
     bcc: [{ email: config.mail.admins, name: 'SHY Admins' }],
     subject: 'Schoolhouse Yoga Order Confirmation',
     tags: ['order'],
+    /* eslint max-len:0 */
     htmlContent: `
       <style>
         body, td, th, p {

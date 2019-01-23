@@ -51,6 +51,7 @@ export default app => {
     });
 
   // Global error-handler
+  /* eslint no-unused-vars: 0 */
   app.use((err, req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || 'Something unexpected happened';

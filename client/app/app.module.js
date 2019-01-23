@@ -1,3 +1,4 @@
+/* eslint max-len:0 */
 'use strict';
 
 // AngularJS core

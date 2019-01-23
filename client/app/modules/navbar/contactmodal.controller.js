@@ -23,13 +23,13 @@ export class ContactModalController {
     if(form.$valid) {
       this.contactService.messageSend(this.contact)
         .then(() => this.toast({
-          duration  : 5000,
-          message   : 'Message sent.',
-          className : 'alert-success'
+          duration: 5000,
+          message: 'Message sent.',
+          className: 'alert-success'
         }));
 
       // Don't wait for the promise to be fulfilled because email sending is slow
-      this.$uibModalInstance.close(); 
+      this.$uibModalInstance.close();
     }
   }
 

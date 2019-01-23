@@ -84,7 +84,7 @@ export class WorkshopsComponent {
             duration: 5000,
             message,
             className: 'alert-success'
-          })
+          });
         });
       } catch(err) {
         this.toast({

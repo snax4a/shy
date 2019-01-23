@@ -32,7 +32,6 @@ const all = {
     uri: process.env.DATABASE_URL
   },
 
-  // TODO: remove seedDB property
   // By default, do not seed the database
   seedDB: false,
 

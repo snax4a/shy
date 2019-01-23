@@ -29,6 +29,7 @@ export function UtilService($window) {
 
       // Special treatment for IE, see http://stackoverflow.com/a/13405933 for details
       if(a.host === '') {
+        /* eslint no-self-assign:0 */
         a.href = a.href;
       }
 

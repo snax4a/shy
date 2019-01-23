@@ -1,8 +1,9 @@
 export class ForgotPasswordController {
   /*@ngInject*/
-  constructor(User, $uibModalInstance) {
+  constructor(User, $uibModalInstance, toast) {
     this.User = User;
     this.$uibModalInstance = $uibModalInstance;
+    this.toast = toast;
     this.errors = {};
     this.email = '';
   }
@@ -11,11 +12,18 @@ export class ForgotPasswordController {
     form[fieldName].$setValidity('server', true);
   }
 
-  // Or should I use Auth Service?
-  forgotPassword(email) {
-    this.User.forgotPassword(email)
+  forgotPassword(form) {
+    this.User.forgotPassword({ email: this.email })
       .$promise
-      .then(() => this.$uibModalInstance.close())
+      .then(() => {
+        this.$uibModalInstance.close();
+        this.toast({
+          duration: 5000,
+          message: 'A new password was emailed to you. Please check your Junk folder if you don\'t see it.',
+          className: 'alert-success'
+        });
+        return null;
+      })
       .catch(response => {
         let err = response.data;
         this.errors = err.errors;
@@ -27,11 +35,6 @@ export class ForgotPasswordController {
         }
         return null;
       });
-  }
-
-  submit(form) {
-    this.forgotPassword({ email: this.email });
-    // TODO: Put a toast here.
   }
 
   cancel() {

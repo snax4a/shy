@@ -81,9 +81,9 @@ export class CheckOutComponent {
         // Use $timeout so it's within the digest cycle
         this.$timeout(() => {
           this.toast({
-            duration  : 5000,
-            message   : 'Thank you for your order.',
-            className : 'alert-success'
+            duration: 5000,
+            message: 'Thank you for your order.',
+            className: 'alert-success'
           });
           this.$location.path('/confirmation');
         });
