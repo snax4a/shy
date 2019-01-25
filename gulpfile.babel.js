@@ -11,6 +11,7 @@ import lazypipe from 'lazypipe';
 import nodemon from 'nodemon';
 import opn from 'opn';
 import path from 'path';
+import dotenv from 'dotenv';
 import { Server as KarmaServer } from 'karma';
 import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
@@ -29,20 +30,16 @@ const paths = {
     images: `${clientPath}/assets/images/**/*`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
     scripts: [`${clientPath}/**/!(*.spec|*.mock).js`],
-    styles: [`${clientPath}/{app,components}/**/*.scss`],
+    styles: [`${clientPath}/app/**/*.scss`],
     mainStyle: `${clientPath}/app/app.scss`,
-    views: `${clientPath}/{app,components}/**/*.pug`,
+    views: `${clientPath}/app/**/*.pug`,
     mainView: `${clientPath}/index.html`,
-    test: [`${clientPath}/{app,components}/**/*.{spec,mock}.js`],
+    test: [`${clientPath}/app/**/*.{spec,mock}.js`],
     e2e: ['e2e/**/*.spec.js']
   },
   server: {
-    scripts: [
-      `${serverPath}/**/!(*.spec|*.integration).js`,
-      `!${serverPath}/config/local.env.sample.js` // Exclude sample file
-    ],
+    scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
     esm: `${serverPath}/**/!(*.spec|*.integration).mjs`, // not to be transpiled
-    json: [`${serverPath}/**/*.json`],
     test: {
       integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
       unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
@@ -151,29 +148,17 @@ const istanbul = lazypipe()
 // Environmental Tasks
 
 gulp.task('env:all', done => {
-  let vars;
-  try {
-    vars = require(`./${serverPath}/config/local.env`).default;
-  } catch(e) {
-    vars = {};
-  }
-  plugins.env({
-    vars
-  });
+  dotenv.config(); // Read the .env file at the project root
   done();
 });
 
 gulp.task('env:test', done => {
-  plugins.env({
-    vars: { NODE_ENV: 'test' }
-  });
+  process.env.NODE_ENV = 'test';
   done();
 });
 
 gulp.task('env:prod', done => {
-  plugins.env({
-    vars: { NODE_ENV: 'production' }
-  });
+  process.env.NODE_ENV = 'production';
   done();
 });
 
@@ -188,7 +173,6 @@ gulp.task('inject:scss', () =>
         transform: filepath => {
           let newPath = filepath
             .replace(`/${clientPath}/app/`, '')
-            .replace(`/${clientPath}/components/`, '../components/')
             .replace(/_(.*).scss/, (match, p1/*, offset, string*/) => p1)
             .replace('.scss', '');
           return `@import '${newPath}';`;
@@ -233,7 +217,7 @@ gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
 
 // Minimal transpiliation since we're using nodeJS > 7 (mainly imports)
 gulp.task('transpile:server', () =>
-  gulp.src(union(paths.server.scripts, paths.server.json))
+  gulp.src(paths.server.scripts)
     .pipe(transpileServer())
     .pipe(gulp.dest(`${paths.dist}/${serverPath}`))
 );
@@ -241,6 +225,7 @@ gulp.task('transpile:server', () =>
 gulp.task('lint:scripts:client', done => {
   gulp.src(union(
     paths.client.scripts,
+    // Exclude linting of tests
     paths.client.test.map(blob => `!${blob}`)
   ))
     .pipe(lintClientScripts());
@@ -250,6 +235,7 @@ gulp.task('lint:scripts:client', done => {
 gulp.task('lint:scripts:server', done => {
   gulp.src(union(
     paths.server.scripts,
+    // Exclude linting of tests
     paths.server.test.integration.map(blob => `!${blob}`),
     paths.server.test.unit.map(blob => `!${blob}`)
   ))
@@ -262,16 +248,20 @@ gulp.task('lint:scripts', done => {
   done();
 });
 
-// In case we ever need to lint our tests...
-// gulp.task('lint:scripts:clientTest', () =>
-//   gulp.src(paths.client.test)
-//     .pipe(lintClientTestScripts())
-// )
+gulp.task('lint:scripts:clientTest', () =>
+  gulp.src(paths.client.test)
+    .pipe(lintClientTestScripts())
+);
 
-// gulp.task('lint:scripts:serverTest', () =>
-//   gulp.src(paths.server.test)
-//     .pipe(lintServerTestScripts())
-// )
+gulp.task('lint:scripts:serverTest', () =>
+  gulp.src(paths.server.test)
+    .pipe(lintServerTestScripts())
+);
+
+gulp.task('lint:scripts:test', done => {
+  gulp.parallel('lint:scripts:clientTest', 'lint:scripts:serverTest');
+  done();
+});
 
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], { dot: true }));
 
@@ -285,7 +275,7 @@ gulp.task('start:client', done => {
 gulp.task('start:server', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require(`./${serverPath}/config/environment`).default;
-  nodemon(`--trace-deprecation --trace-warnings -w ${serverPath} ${serverPath}`)
+  nodemon(`--inspect --trace-deprecation --trace-warnings -w ${serverPath} ${serverPath}`)
     .on('log', onServerLog);
 });
 
@@ -299,7 +289,7 @@ gulp.task('start:server:prod', () => {
 gulp.task('start:server:debug', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require(`./${serverPath}/config/environment`).default;
-  nodemon(`-w ${serverPath} --inspect --debug-brk ${serverPath}`)
+  nodemon(`-w ${serverPath} --inspect --trace-deprecation --trace-warnings --debug-brk ${serverPath}`)
     .on('log', onServerLog);
 });
 
@@ -413,7 +403,7 @@ gulp.task('build',
 
 gulp.task('serve',
   gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts', 'env:all'),
+    gulp.parallel('clean:tmp', 'lint:scripts', 'lint:scripts:test', 'inject:scss', 'copy:fonts', 'env:all'),
     // 'webpack:dev', // why is this needed?
     gulp.parallel('start:server', 'start:client'),
     'watch'
@@ -422,7 +412,7 @@ gulp.task('serve',
 
 gulp.task('serve:debug',
   gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'inject:scss', 'copy:fonts', 'env:all'),
+    gulp.parallel('clean:tmp', 'lint:scripts', 'lint:scripts:test', 'inject:scss', 'copy:fonts', 'env:all'),
     'webpack:dev',
     gulp.parallel('start:server:debug', 'start:client'),
     'watch'
@@ -459,7 +449,7 @@ gulp.task('test:client', done => {
   }).start();
 });
 
-gulp.task('test', gulp.series('test:server', 'test:client'));
+gulp.task('test', gulp.series('lint:scripts:test', 'test:server', 'test:client'));
 
 // Run all unit tests in debug mode
 gulp.task('test-debug', () => {

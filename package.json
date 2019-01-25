@@ -70,13 +70,13 @@
     "chai-things": "^0.2.0",
     "css-loader": "^2.1.0",
     "del": "^3.0.0",
+    "dotenv": "^6.2.0",
     "eslint": "^5.12.1",
     "file-loader": "^3.0.1",
     "grunt": "^1.0.3",
     "grunt-build-control": "^0.7.1",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
-    "gulp-env": "^0.4.0",
     "gulp-eslint": "^5.0.0",
     "gulp-imagemin": "^5.0.3",
     "gulp-inject": "^5.0.2",
@@ -134,9 +134,7 @@
   "scripts": {
     "test": "gulp test",
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
-    "start": "node server",
-    "build": "gulp build",
-    "deploy": "gulp build && gulp deploy"
+    "start": "node server"
   },
   "private": true
 }
