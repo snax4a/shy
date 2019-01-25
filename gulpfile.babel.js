@@ -3,7 +3,6 @@
 'use strict';
 
 import del from 'del';
-import grunt from 'grunt';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
@@ -12,6 +11,7 @@ import nodemon from 'nodemon';
 import opn from 'opn';
 import path from 'path';
 import dotenv from 'dotenv';
+import shelljs from 'shelljs';
 import { Server as KarmaServer } from 'karma';
 import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
@@ -514,45 +514,16 @@ gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:all', 'env:test', 'star
     });
 });
 
-// Equivalent of grunt file. Replace with Gulp tasks or npm in future.
-grunt.initConfig({
-  buildcontrol: {
-    options: {
-      dir: paths.dist,
-      commit: true,
-      push: true,
-      connectCommits: false,
-      message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-    },
-    heroku: {
-      options: {
-        remote: 'heroku',
-        branch: 'master'
-      }
-    }
-  }
-});
-
-// Using to deploy builds to Heroku
-grunt.loadNpmTasks('grunt-build-control');
-
 gulp.task('deploy', done => {
-  grunt.tasks(
-    ['buildcontrol:heroku'], // grunt task(s) to perform
-    { gruntfile: false }, // use grunt.initConfig instead of Gruntfile
-    () => {
-      done();
-    }
-  );
-});
+  shelljs.cd(paths.dist); // Set our working directory
 
-// Commands being executed by node_modules/grunt-build-control/tasks/build_control.js
-// cd paths.dist
-// git fetch --update-head-ok --progress --verbose heroku master
-// git symbolic-ref HEAD refs/heads/master
-// git reset
-// IF there are changes...
-//  git add -A .
-//  git commit --file=commitFile-fecc28
-//  git push heroku master
-// Why not turn these into an npm script? Not even platform-specific.
+  // If there are no changes, skip commit
+  if(shelljs.exec('git status --porcelain', {silent: true}).output === '') {
+    console.log('No differences detected. Skipping commit.');
+    return;
+  }
+  // There were changes, go ahead...
+  console.log('Deploying changes to Heroku...');
+  shelljs.exec('git add -A . && git commit -m deploy && git push --force heroku master');
+  done();
+});
