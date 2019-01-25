@@ -15,7 +15,6 @@ import dotenv from 'dotenv';
 import { Server as KarmaServer } from 'karma';
 import { protractor, webdriver_update } from 'gulp-protractor';
 import { Instrumenter } from 'isparta';
-import union from 'lodash/union';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
 
@@ -168,7 +167,10 @@ gulp.task('env:prod', done => {
 gulp.task('inject:scss', () =>
   gulp.src(paths.client.mainStyle)
     .pipe(plugins.inject(
-      gulp.src(union(paths.client.styles, [`!${paths.client.mainStyle}`]), { read: false })
+      gulp.src(
+        [...paths.client.styles, `!${paths.client.mainStyle}`],
+        { read: false }
+      )
         .pipe(plugins.sort()), {
         transform: filepath => {
           let newPath = filepath
@@ -223,22 +225,24 @@ gulp.task('transpile:server', () =>
 );
 
 gulp.task('lint:scripts:client', done => {
-  gulp.src(union(
-    paths.client.scripts,
-    // Exclude linting of tests
-    paths.client.test.map(blob => `!${blob}`)
-  ))
+  gulp.src(
+    [
+      ...paths.client.scripts,
+      ...paths.client.test.map(blob => `!${blob}`)
+    ]
+  )
     .pipe(lintClientScripts());
   done();
 });
 
 gulp.task('lint:scripts:server', done => {
-  gulp.src(union(
-    paths.server.scripts,
-    // Exclude linting of tests
-    paths.server.test.integration.map(blob => `!${blob}`),
-    paths.server.test.unit.map(blob => `!${blob}`)
-  ))
+  gulp.src(
+    [
+      ...paths.server.scripts,
+      ...paths.server.test.integration.map(blob => `!${blob}`),
+      ...paths.server.test.unit.map(blob => `!${blob}`)
+    ]
+  )
     .pipe(lintServerScripts());
   done();
 });
@@ -294,13 +298,20 @@ gulp.task('start:server:debug', () => {
 });
 
 gulp.task('watch', () => {
-  const testFiles = union(paths.client.test, paths.server.test.unit, paths.server.test.integration);
-
-  plugins.watch(union(paths.server.scripts, testFiles))
+  plugins.watch(
+    [
+      ...paths.server.scripts,
+      ...paths.client.test,
+      ...paths.server.test.unit,
+      ...paths.server.test.integration
+    ]
+  )
     .pipe(plugins.plumber())
     .pipe(lintServerScripts());
 
-  plugins.watch(union(paths.server.test.unit, paths.server.test.integration))
+  plugins.watch(
+    [...paths.server.test.unit, ...paths.server.test.integration]
+  )
     .pipe(plugins.plumber())
     .pipe(lintServerTestScripts());
 });
