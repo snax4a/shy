@@ -331,8 +331,7 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/leta.html`,
-    `${clientPath}/robots.txt`,
-    `${clientPath}/.htaccess`
+    `${clientPath}/robots.txt`
   ], { dot: true })
     .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );

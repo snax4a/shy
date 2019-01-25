@@ -2,7 +2,7 @@
   "name": "shy",
   "version": "1.0.17",
   "description": "Schoolhouse Yoga's Website",
-  "author": "nstuyvesant",
+  "author": "Nate Stuyvesant",
   "license": "https://www.schoolhouseyoga.com/terms",
   "repository": {
     "type": "git",
@@ -129,9 +129,9 @@
     "npm": "~6.7.0"
   },
   "scripts": {
+    "start": "node server",
     "test": "gulp test",
-    "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
-    "start": "node server"
+    "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update"
   },
   "private": true
 }

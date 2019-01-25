@@ -1,2 +1,2 @@
-User-agent: *
-Sitemap: https://www.schoolhouseyoga.com/sitemap.xml
+user-agent: *
+sitemap: https://www.schoolhouseyoga.com/sitemap.xml
