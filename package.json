@@ -31,7 +31,7 @@
     "braintree": "^2.15.0",
     "braintree-web": "^3.42.0",
     "composable-middleware": "^0.3.0",
-    "compression": "^1.7.2",
+    "compression": "^1.7.3",
     "connect-pg-simple": "^5.0.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
@@ -39,7 +39,6 @@
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
     "express-static-gzip": "^1.1.3",
-    "jquery": "~3.3.1",
     "jsonwebtoken": "^8.4.0",
     "lusca": "^1.6.1",
     "mime-types": "^2.1.21",
@@ -49,8 +48,7 @@
     "passport-local": "^1.0.0",
     "pg": "^7.8.0",
     "pg-native": "^3.0.0",
-    "popper.js": "~1.14.6",
-    "sequelize": "^4.42.0"
+    "popper.js": "~1.14.6"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
