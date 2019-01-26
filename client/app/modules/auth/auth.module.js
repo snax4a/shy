@@ -1,22 +1,18 @@
-'use strict';
-
 import angular from 'angular';
+import ngRoute from 'angular-route';
 import ngCookies from 'angular-cookies';
-import constants from '../../app.constants';
 import { UtilService } from './util.service';
-
 import { authInterceptor } from './interceptor.service';
 import { routerDecorator } from './router.decorator';
 import { AuthService } from './auth.service';
 import { UserResource } from './user.service';
-import ngRoute from 'angular-route';
 
 function addInterceptor($httpProvider) {
   'ngInject';
   $httpProvider.interceptors.push('authInterceptor');
 }
 
-export default angular.module('shyApp.auth', [ngRoute, ngCookies, constants])
+export default angular.module('shyApp.auth', [ngRoute, ngCookies])
   .factory('Util', UtilService)
   .factory('authInterceptor', authInterceptor)
   .run(routerDecorator)

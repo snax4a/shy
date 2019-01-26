@@ -1,4 +1,3 @@
-'use strict';
 import braintreeClient from 'braintree-web/client';
 import braintreeHostedFields from 'braintree-web/hosted-fields';
 import braintreeApplePay from 'braintree-web/apple-pay';
