@@ -41,7 +41,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 ## Running tests, creating builds & deploying to Heroku
 
-1. Run `gulp coverage:unit` or `gulp coverage:integration` to evaluate testing coverage.
+1. Run `gulp test:server:coverage` to evaluate testing coverage.
 
 2. Run `gulp test` to execute unit, integration and UI tests. The UI tests still need to be built and there are data dependencies in the integration tests that need to be uncoupled.
 
