@@ -51,6 +51,19 @@ const paths = {
 
 // Helper functions
 
+// Run Gulp task in a process with debugging, warning and deprecation tracing
+const gulpDebug = task => {
+  console.log('TASK', task);
+  let spawn = require('child_process').spawn;
+  spawn('node', [
+    '--inspect',
+    '--trace-deprecation',
+    '--trace-warnings',
+    path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
+    task
+  ], { stdio: 'inherit' });
+};
+
 // Log to console
 function onServerLog(log) {
   console.log(plugins.util.colors.white('[')
@@ -435,14 +448,16 @@ gulp.task('test:client', done => {
 // Run all tests
 gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client'));
 
-// Run all tests in debug mode
-gulp.task('test-debug', () => {
-  let spawn = require('child_process').spawn;
-  spawn('node', [
-    '--inspect',
-    path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
-    'test'
-  ], { stdio: 'inherit' });
+// Run tests in debug mode
+gulp.task('debug:test', done => {
+  gulpDebug('test');
+  done();
+});
+
+// Run build in debug mode
+gulp.task('debug:build', done => {
+  gulpDebug('build');
+  done();
 });
 
 // Baseline scripts to examine for coverage
