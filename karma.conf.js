@@ -78,7 +78,27 @@ export default config => {
     webpack: makeWebpackConfig({ TEST: true }),
 
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
+      stats: {
+        assets: true,
+        cached: false,
+        cachedAssets: false,
+        children: false,
+        colors: true,
+        chunks: false,
+        chunkModules: false,
+        chunkOrigins: false,
+        depth: false,
+        env: false,
+        errors: true,
+        errorDetails: true,
+        hash: false,
+        modules: false,
+        performance: true,
+        reasons: false,
+        timings: false, // Redundant since gulp provides timing
+        warnings: false
+      }
     }
   });
 };
