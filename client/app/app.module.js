@@ -1,5 +1,4 @@
 /* eslint max-len:0 */
-'use strict';
 
 // AngularJS core
 import angular from 'angular';
@@ -11,9 +10,8 @@ import ngRoute from 'angular-route'; // _index.html, *.routes.js
 import ngSanitize from 'angular-sanitize'; // read URLs from JSON
 import ngAria from 'angular-aria'; // aria-hidden, aria-labeledby, aria-label, etc.
 
-// Configuration-related
-import constants from './app.constants';
-import { routeConfig } from './app.config';
+// Configuration-related (mostly for routing)
+import { appConfig } from './app.config';
 
 // Modules
 import ToastModule from './modules/toast/toast.module';
@@ -31,9 +29,6 @@ import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
 import ScheduleManagerModule from './modules/schedulemanager/schedulemanager.module'; // admin.component.js
-
-// Interceptors
-//import ngLoadingBar from 'angular-loading-bar';
 
 // Directives
 // UI-Bootstrap optional dependencies: ngAnimate (for animations), ngTouch (for swipe)
@@ -77,7 +72,6 @@ import ProfileComponent from './components/profile/profile.component';
 import './app.scss';
 
 angular.module('shyApp', [
-  // ngLoadingBar,
   ToastModule,
   ngAnimate,
   ngAria,
@@ -100,7 +94,6 @@ angular.module('shyApp', [
   UibDropDownDirective,
   UibModalDirective,
   UibTabsDirective,
-  constants,
   PaginationDirective,
   CompareToDirective,
   JsonTextDirective,
@@ -131,12 +124,7 @@ angular.module('shyApp', [
   SignupComponent,
   ProfileComponent
 ])
-  .config(routeConfig)
-  /*
-  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.latencyThreshold = 500;
-  }])
-  */
+  .config(appConfig)
   .run(($rootScope, $location, $route, Auth) => {
     'ngInject';
     // Redirect to login if route requires auth and not logged in
@@ -150,7 +138,7 @@ angular.module('shyApp', [
         }
       });
     });
-    // Change the page title based on the route
+    // Set page title based on route
     $rootScope.$on('$routeChangeSuccess', () => {
       document.title = $route.current.title;
     });
