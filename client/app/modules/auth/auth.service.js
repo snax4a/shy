@@ -13,12 +13,12 @@ class _User {
   }
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+export function AuthService($location, $http, $cookies, $q, Util, User) {
   'ngInject';
 
   let safeCb = Util.safeCb;
   let currentUser = new _User();
-  let userRoles = appConfig.default.userRoles || [];
+  let userRoles = ['student', 'teacher', 'admin']; // In order of privilege (important)
   /**
    * Check if userRole is >= role
    * @param {String} userRole - role of current user
