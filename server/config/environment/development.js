@@ -13,6 +13,6 @@ export default {
     privateKey: process.env.BRAINTREE_PRIVATE_KEY_SANDBOX
   },
 
-  // Seed database on startup
-  seedDB: false
+  // Browser-sync port for development
+  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000
 };

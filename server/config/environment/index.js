@@ -1,13 +1,12 @@
 /* eslint no-process-env:0 */
 
 import path from 'path';
-import shared from './shared';
 import development from './development';
 import test from './test';
 import production from './production';
 
 // All configurations will extend these options
-const all = {
+const common = {
   env: process.env.NODE_ENV,
 
   // Server port
@@ -24,8 +23,7 @@ const all = {
     session: process.env.SESSION_SECRET
   },
 
-  // Browser-sync port for development
-  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
+  userRoles: ['student', 'teacher', 'admin'],
 
   // node-postgres(pg) options
   pg: {
@@ -51,7 +49,7 @@ const all = {
 };
 
 const environmentConfigurations = { development, test, production };
-const activeConfig = Object.assign({}, all, shared, environmentConfigurations[process.env.NODE_ENV] || {});
+const activeConfig = Object.assign(common, environmentConfigurations[process.env.NODE_ENV] || {});
 
 // Export merged config object
 export default activeConfig;
