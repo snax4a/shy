@@ -1,4 +1,4 @@
-export function routeConfig($routeProvider, $locationProvider) {
+export function appConfig($routeProvider, $locationProvider) {
   'ngInject';
 
   $routeProvider.otherwise({
