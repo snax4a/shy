@@ -21,6 +21,7 @@ import makeWebpackConfig from './webpack.make';
 let plugins = gulpLoadPlugins();
 let config;
 
+// Defined paths
 const clientPath = 'client';
 const serverPath = 'server';
 const paths = {
@@ -68,7 +69,7 @@ function checkAppReady(cb) {
     .on('error', () => cb(false));
 }
 
-// Check every 100ms until app server is ready
+// Check every 250ms until app server is ready
 function whenServerReady(cb) {
   let serverReady = false;
   let appReadyInterval = setInterval(() =>
@@ -80,16 +81,16 @@ function whenServerReady(cb) {
       serverReady = true;
       cb();
     }),
-  100);
+  250);
 }
 
 // Reusable pipelines
 
-const lintClientScripts = lazypipe()
+const eslintClient = lazypipe()
   .pipe(plugins.eslint, `${clientPath}/.eslintrc`)
   .pipe(plugins.eslint.format);
 
-const lintClientTestScripts = lazypipe()
+const eslintClientTests = lazypipe()
   .pipe(plugins.eslint, {
     configFile: `${clientPath}/.eslintrc`,
     envs: [
@@ -100,11 +101,11 @@ const lintClientTestScripts = lazypipe()
   })
   .pipe(plugins.eslint.format);
 
-const lintServerScripts = lazypipe()
+const eslintServer = lazypipe()
   .pipe(plugins.eslint, `${serverPath}/.eslintrc`)
   .pipe(plugins.eslint.format);
 
-const lintServerTestScripts = lazypipe()
+const eslintServerTests = lazypipe()
   .pipe(plugins.eslint, {
     configFile: `${serverPath}/.eslintrc`,
     envs: [
@@ -121,6 +122,7 @@ const transpileServer = lazypipe()
   .pipe(plugins.babel)
   .pipe(plugins.sourcemaps.write, '.');
 
+// Execute mocha tests
 const mocha = lazypipe()
   .pipe(plugins.mocha, {
     reporter: 'spec',
@@ -144,24 +146,17 @@ const istanbul = lazypipe()
     rootDirectory: ''
   });
 
-// Environmental Tasks
-
-gulp.task('env:all', done => {
-  dotenv.config(); // Read the .env file at the project root
+// Read the .env file at the project root to set process.env
+gulp.task('env:common', done => {
+  dotenv.config();
   done();
 });
 
+// Change NODE_ENV to 'test'
 gulp.task('env:test', done => {
   process.env.NODE_ENV = 'test';
   done();
 });
-
-gulp.task('env:prod', done => {
-  process.env.NODE_ENV = 'production';
-  done();
-});
-
-// Primary Tasks
 
 // Add imports of all SCSS files to bottom of client/app/app.scss and return stream
 gulp.task('inject:scss', () =>
@@ -183,12 +178,11 @@ gulp.task('inject:scss', () =>
     .pipe(gulp.dest(`${clientPath}/app`))
 );
 
-// Generate webpack config based on environment
-function webpackCompile(options, cb) {
-  let compiler = webpack(makeWebpackConfig(options));
-
+// Use Webpack to build and output to dist
+gulp.task('webpack:dist', done => {
+  let compiler = webpack(makeWebpackConfig({ BUILD: true }));
   compiler.run((err, stats) => {
-    if(err) return cb(err);
+    if(err) return done(err);
     plugins.util.log(stats.toString({
       assets: true,
       cached: false,
@@ -209,13 +203,9 @@ function webpackCompile(options, cb) {
       timings: false, // Redundant since gulp provides timing
       warnings: false
     }));
-    cb();
+    done();
   });
-}
-
-gulp.task('webpack:dev', cb => webpackCompile({ DEV: true }, cb));
-gulp.task('webpack:dist', cb => webpackCompile({ BUILD: true }, cb));
-gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
+});
 
 // Minimal transpiliation since we're using nodeJS > 7 (mainly imports)
 gulp.task('transpile:server', () =>
@@ -224,18 +214,20 @@ gulp.task('transpile:server', () =>
     .pipe(gulp.dest(`${paths.dist}/${serverPath}`))
 );
 
-gulp.task('lint:scripts:client', done => {
+// eslint client scripts (but not tests)
+gulp.task('eslint:client', done => {
   gulp.src(
     [
       ...paths.client.scripts,
       ...paths.client.test.map(blob => `!${blob}`)
     ]
   )
-    .pipe(lintClientScripts());
+    .pipe(eslintClient());
   done();
 });
 
-gulp.task('lint:scripts:server', done => {
+// eslint server scripts (but not tests)
+gulp.task('eslint:server', done => {
   gulp.src(
     [
       ...paths.server.scripts,
@@ -243,32 +235,38 @@ gulp.task('lint:scripts:server', done => {
       ...paths.server.test.unit.map(blob => `!${blob}`)
     ]
   )
-    .pipe(lintServerScripts());
+    .pipe(eslintServer());
   done();
 });
 
-gulp.task('lint:scripts', done => {
-  gulp.parallel('lint:scripts:client', 'lint:scripts:server');
+// eslint server and client scripts (but not tests)
+gulp.task('eslint', done => {
+  gulp.parallel('eslint:client', 'eslint:server');
   done();
 });
 
-gulp.task('lint:scripts:clientTest', () =>
+// eslint client tests
+gulp.task('eslint:client:tests', () =>
   gulp.src(paths.client.test)
-    .pipe(lintClientTestScripts())
+    .pipe(eslintClientTests())
 );
 
-gulp.task('lint:scripts:serverTest', () =>
+// eslint server tests
+gulp.task('eslint:server:tests', () =>
   gulp.src(paths.server.test)
-    .pipe(lintServerTestScripts())
+    .pipe(eslintServerTests())
 );
 
-gulp.task('lint:scripts:test', done => {
-  gulp.parallel('lint:scripts:clientTest', 'lint:scripts:serverTest');
+// eslint client and server tests
+gulp.task('eslint:tests', done => {
+  gulp.parallel('eslint:client:tests', 'eslint:server:tests');
   done();
 });
 
+// Delete files in .tmp
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], { dot: true }));
 
+// Wait until server is responding then open browser on client to our starting page
 gulp.task('start:client', done => {
   whenServerReady(() => {
     opn(`http://localhost:${config.browserSyncPort}`);
@@ -276,6 +274,7 @@ gulp.task('start:client', done => {
   });
 });
 
+// Start server in development or test mode
 gulp.task('start:server', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require(`./${serverPath}/config/environment`).default;
@@ -283,6 +282,7 @@ gulp.task('start:server', () => {
     .on('log', onServerLog);
 });
 
+// Aside from watching for server changes, closest thing to production
 gulp.task('start:server:prod', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'production';
   config = require(`./${paths.dist}/${serverPath}/config/environment`).default;
@@ -290,40 +290,27 @@ gulp.task('start:server:prod', () => {
     .on('log', onServerLog);
 });
 
-gulp.task('start:server:debug', () => {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  config = require(`./${serverPath}/config/environment`).default;
-  nodemon(`-w ${serverPath} --inspect --trace-deprecation --trace-warnings --debug-brk ${serverPath}`)
-    .on('log', onServerLog);
-});
-
+// Watch for changes on server and eslint files
 gulp.task('watch', () => {
-  plugins.watch(
-    [
-      ...paths.server.scripts,
-      ...paths.client.test,
-      ...paths.server.test.unit,
-      ...paths.server.test.integration
-    ]
-  )
+  plugins.watch([
+    ...paths.server.scripts
+  ])
     .pipe(plugins.plumber())
-    .pipe(lintServerScripts());
+    .pipe(eslintServer());
 
-  plugins.watch(
-    [...paths.server.test.unit, ...paths.server.test.integration]
-  )
+  plugins.watch([
+    ...paths.server.test.unit,
+    ...paths.server.test.integration
+  ])
     .pipe(plugins.plumber())
-    .pipe(lintServerTestScripts());
+    .pipe(eslintServerTests());
 });
 
-gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
+// Delete everything from dist folder
+gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: true }));
 
-gulp.task('copy:npm-lock', () =>
-  gulp.src(['package-lock.json'], { dot: true })
-    .pipe(gulp.dest(`${paths.dist}`))
-);
-
-gulp.task('copy:extras', () =>
+// Filtes to copy to dist/client without processing
+gulp.task('copy:dist:client', () =>
   gulp.src([
     `${clientPath}/favicon.png`,
     `${clientPath}/favicon.ico`,
@@ -331,41 +318,39 @@ gulp.task('copy:extras', () =>
     `${clientPath}/apple-touch-icon.png`,
     `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/leta.html`,
-    `${clientPath}/robots.txt`
-  ], { dot: true })
+    `${clientPath}/robots.txt`,
+    `${clientPath}/.well-known/*`,
+    paths.client.assets,
+    `!${paths.client.images}`
+  ], { dot: true, base: `${clientPath}/` })
     .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
-// Mainly Apple Pay certificate
-gulp.task('copy:well-known', () =>
-  gulp.src([
-    `${clientPath}/.well-known/*`
-  ], { dot: true })
-    .pipe(gulp.dest(`${paths.dist}/${clientPath}/.well-known`))
-);
-
-// Copy woff2 and woff fonts to /assets/fonts
+// Copy FontAwesome woff2 and woff fonts to dist/assets/fonts
 gulp.task('copy:fonts', () =>
-  gulp.src(['node_modules/bootstrap-sass/assets/fonts/bootstrap/*.woff*', 'node_modules/@fortawesome/fontawesome-free/webfonts/*.woff*'])
+  gulp.src([
+    'node_modules/@fortawesome/fontawesome-free/webfonts/*.woff*'
+  ])
     .pipe(gulp.dest(`${clientPath}/assets/fonts`))
 );
 
-// Copy everything except images (leave that to Webpack)
-gulp.task('copy:assets', () =>
-  gulp.src([paths.client.assets, `!${paths.client.images}`])
-    .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
-);
-
-gulp.task('copy:server', () =>
-  gulp.src(['package.json'], { cwdbase: true })
+// Files to copy to dist without processing
+gulp.task('copy:dist', () =>
+  gulp.src([
+    'package*.json', // package.json and package-lock.json
+  ], { cwdbase: true })
     .pipe(gulp.dest(paths.dist))
 );
 
-gulp.task('copy:server:esm', () =>
-  gulp.src([paths.server.esm], { cwdbase: true })
+// Files to copy to dist/server without processing
+gulp.task('copy:dist:server', () =>
+  gulp.src([
+    paths.server.esm
+  ], { cwdbase: true })
     .pipe(gulp.dest(paths.dist))
 );
 
+// Shrink images and output cache-busted names
 gulp.task('build:images', () =>
   gulp.src(paths.client.images)
     .pipe(plugins.imagemin([
@@ -384,20 +369,21 @@ gulp.task('build:images', () =>
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`))
 );
 
-gulp.task('revReplaceWebpack', () =>
-  // Use cache-busting URLs for images in JS code
-  gulp.src(['dist/client/app.*.js', 'dist/client/leta.html'])
-    .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
-    .pipe(gulp.dest('dist/client'))
+// Update references to images with cache-busted names
+gulp.task('image:cache-busting', () =>
+  gulp.src([
+    `${paths.dist}/${clientPath}/app.*.js`,
+    `${paths.dist}/${clientPath}/leta.html`,
+    `${paths.dist}/${clientPath}/assets/data/*.json`
+  ], { base: `${paths.dist}/${clientPath}` })
+    .pipe(plugins.revReplace({
+      replaceInExtensions: ['.html', '.js', '.json'],
+      manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)
+    }))
+    .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
 
-gulp.task('revReplaceJson', () =>
-  // Use cache-busting URLs for images in JSON assets
-  gulp.src(['dist/client/assets/data/*.json'])
-    .pipe(plugins.revReplace({replaceInExtensions: ['.json'], manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
-    .pipe(gulp.dest('dist/client/assets/data'))
-);
-
+// Create the build in dist
 gulp.task('build',
   gulp.series(
     gulp.parallel('clean:dist', 'clean:tmp'),
@@ -405,49 +391,36 @@ gulp.task('build',
     'transpile:server',
     'build:images',
     'copy:fonts',
-    gulp.parallel('copy:npm-lock', 'copy:extras', 'copy:assets', 'copy:well-known', 'copy:server', 'copy:server:esm', 'webpack:dist'),
-    'revReplaceWebpack',
-    'revReplaceJson'
+    gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
+    'image:cache-busting'
   )
 );
 
+// Run nodemon with debugging (server/config/express.js runs webpack.make.js)
 gulp.task('serve',
   gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'lint:scripts:test', 'inject:scss', 'copy:fonts', 'env:all'),
-    // 'webpack:dev', // why is this needed?
+    gulp.parallel('clean:tmp', 'eslint', 'eslint:tests', 'inject:scss', 'copy:fonts', 'env:common'),
     gulp.parallel('start:server', 'start:client'),
     'watch'
   )
 );
 
-gulp.task('serve:debug',
-  gulp.series(
-    gulp.parallel('clean:tmp', 'lint:scripts', 'lint:scripts:test', 'inject:scss', 'copy:fonts', 'env:all'),
-    'webpack:dev',
-    gulp.parallel('start:server:debug', 'start:client'),
-    'watch'
-  )
-);
-
-gulp.task('serve:dist',
-  gulp.series(
-    'build', 'env:all', 'env:prod',
-    gulp.parallel('start:server:prod', 'start:client')
-  )
-);
-
-gulp.task('mocha:unit', () =>
+// Run server unit tests using MochaJS
+gulp.task('test:server:unit', () =>
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
 );
 
-gulp.task('mocha:integration', () =>
+// Run server integration tests using MochaJS and supertest
+gulp.task('test:server:integration', () =>
   gulp.src(paths.server.test.integration)
     .pipe(mocha())
 );
 
-gulp.task('test:server', gulp.series('env:all', 'env:test', 'mocha:unit', 'mocha:integration'));
+// Run server unit and integration tests
+gulp.task('test:server', gulp.series('env:common', 'env:test', 'test:server:unit', 'test:server:integration'));
 
+// Run client tests using Karma and Protractor
 gulp.task('test:client', done => {
   new KarmaServer({
     configFile: `${__dirname}/${paths.karma}`,
@@ -459,18 +432,20 @@ gulp.task('test:client', done => {
   }).start();
 });
 
-gulp.task('test', gulp.series('lint:scripts:test', 'test:server', 'test:client'));
+// Run all tests
+gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client'));
 
-// Run all unit tests in debug mode
+// Run all tests in debug mode
 gulp.task('test-debug', () => {
   let spawn = require('child_process').spawn;
   spawn('node', [
-    '--debug-brk',
+    '--inspect',
     path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
     'test'
   ], { stdio: 'inherit' });
 });
 
+// Baseline scripts to examine for coverage
 gulp.task('coverage:pre', () =>
   gulp.src(paths.server.scripts)
     // Covering files
@@ -482,6 +457,7 @@ gulp.task('coverage:pre', () =>
     .pipe(plugins.istanbul.hookRequire())
 );
 
+// Look at unit test coverage
 gulp.task('coverage:unit', done => {
   gulp.src(paths.server.test.unit)
     .pipe(mocha())
@@ -489,6 +465,7 @@ gulp.task('coverage:unit', done => {
   done();
 });
 
+// Look at integration test coverage
 gulp.task('coverage:integration', done => {
   gulp.src(paths.server.test.integration)
     .pipe(mocha())
@@ -496,12 +473,14 @@ gulp.task('coverage:integration', done => {
   done();
 });
 
-gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:all', 'env:test', 'coverage:unit', 'coverage:integration'));
+// Run coverage analysis on server tests
+gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:common', 'env:test', 'coverage:unit', 'coverage:integration'));
 
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:all', 'env:test', 'start:server', 'webdriver_update'), () => {
+// Run end-to-end testing
+gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:common', 'env:test', 'start:server', 'webdriver_update'), () => {
   gulp.src(paths.client.e2e)
     .pipe(protractor({
       configFile: 'protractor.conf.js',
@@ -514,6 +493,7 @@ gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:all', 'env:test', 'star
     });
 });
 
+// Push build to Heroku via git
 gulp.task('deploy', done => {
   shelljs.cd(paths.dist); // Set our working directory
 
