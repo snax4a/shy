@@ -95,7 +95,7 @@ export default app => {
   }
 
   if(env === 'development') {
-    // Conditional imports
+    // Use require in development so production doesn't get unused components
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const stripAnsi = require('strip-ansi');
     const webpack = require('webpack');
@@ -104,9 +104,7 @@ export default app => {
     const compiler = webpack(webpackConfig);
     const browserSync = require('browser-sync').create();
 
-    /**
-     * Run Browsersync and use middleware for Hot Module Replacement
-     */
+    // Run Browsersync and use middleware for Hot Module Replacement
     browserSync.init({
       open: false,
       logFileChanges: false,
@@ -116,9 +114,24 @@ export default app => {
         webpackDevMiddleware(compiler, {
           noInfo: false,
           stats: {
+            assets: true,
+            cached: false,
+            cachedAssets: false,
+            children: false,
             colors: true,
-            timings: true,
-            chunks: false
+            chunks: false,
+            chunkModules: false,
+            chunkOrigins: false,
+            depth: false,
+            env: false,
+            errors: true,
+            errorDetails: true,
+            hash: false,
+            modules: false,
+            performance: true,
+            reasons: false,
+            timings: false, // Redundant since gulp provides timing
+            warnings: false
           }
         })
       ],
@@ -143,6 +156,7 @@ export default app => {
   }
 
   if(env === 'development' || env === 'test') {
+    // Sends full server stack trace to client (never use in production)
     app.use(errorHandler()); // Error handler - has to be last
   }
 };
