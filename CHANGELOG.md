@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Replace mocha, chai, karma, isparta, istanbul with jest
 
 <a name="1.0.17"></a>
 * Ported angularjs-toast to project (ES6 conversion) so it's easier to test
