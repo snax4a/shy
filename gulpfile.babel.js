@@ -460,36 +460,37 @@ gulp.task('debug:build', done => {
   done();
 });
 
-// Baseline scripts to examine for coverage
-gulp.task('coverage:pre', () =>
-  gulp.src(paths.server.scripts)
-    // Covering files
-    .pipe(plugins.istanbul({
-      instrumenter: Instrumenter, // Use the isparta instrumenter for ES6 code coverage
-      includeUntested: true
-    }))
-    // Force `require` to return covered files
-    .pipe(plugins.istanbul.hookRequire())
-);
+// Broken
+// // Baseline scripts to examine for coverage
+// gulp.task('coverage:pre', () =>
+//   gulp.src(paths.server.scripts)
+//     // Covering files
+//     .pipe(plugins.istanbul({
+//       instrumenter: Instrumenter, // Use the isparta instrumenter for ES6 code coverage
+//       includeUntested: true
+//     }))
+//     // Force `require` to return covered files
+//     .pipe(plugins.istanbul.hookRequire())
+// );
 
-// Look at unit test coverage
-gulp.task('coverage:unit', done => {
-  gulp.src(paths.server.test.unit)
-    .pipe(mocha())
-    .pipe(istanbul());
-  done();
-});
+// // Look at unit test coverage
+// gulp.task('coverage:unit', done => {
+//   gulp.src(paths.server.test.unit)
+//     .pipe(mocha())
+//     .pipe(istanbul());
+//   done();
+// });
 
-// Look at integration test coverage
-gulp.task('coverage:integration', done => {
-  gulp.src(paths.server.test.integration)
-    .pipe(mocha())
-    .pipe(istanbul());
-  done();
-});
+// // Look at integration test coverage
+// gulp.task('coverage:integration', done => {
+//   gulp.src(paths.server.test.integration)
+//     .pipe(mocha())
+//     .pipe(istanbul());
+//   done();
+// });
 
-// Run coverage analysis on server tests
-gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:common', 'env:test', 'coverage:unit', 'coverage:integration'));
+// // Run coverage analysis on server tests
+// gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:common', 'env:test', 'coverage:unit', 'coverage:integration'));
 
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);

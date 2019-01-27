@@ -41,15 +41,13 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 ## Running tests, creating builds & deploying to Heroku
 
-1. Run `gulp test:server:coverage` to evaluate testing coverage.
+1. Run `gulp test` to execute unit, integration and UI tests. The UI tests still need to be built and there are data dependencies in the integration tests that need to be uncoupled.
 
-2. Run `gulp test` to execute unit, integration and UI tests. The UI tests still need to be built and there are data dependencies in the integration tests that need to be uncoupled.
+2. Run `gulp build` to create a build in the /dist directory. Connect to the /dist directory then type `git init` then define Heroku as the remote repo with `heroku git:remote -a APPNAME` where APPNAME is the name of your app as defined on Heroku.
 
-3. Run `gulp build` to create a build in the /dist directory. Connect to the /dist directory then type `git init` then define Heroku as the remote repo with `heroku git:remote -a APPNAME` where APPNAME is the name of your app as defined on Heroku.
+3. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
-4. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
-
-5. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
+4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
 
 [express]: https://img.shields.io/badge/expressjs-4.16.4-blue.svg
 [express-url]: http://expressjs.com
