@@ -1,34 +1,75 @@
-/* global describe, test, jest, beforeEach, expect */
-import * as controller from './announcement.controller';
-import * as auth from '../../auth/auth.service';
-import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async functions
-import router from './index';
+/* globals describe, jest, test, expect */
+import express from 'express';
+const routerStub = {
+  get: jest.fn(),
+  put: jest.fn(),
+  delete: jest.fn()
+};
 
-jest.mock('./index');
-// const mockPlaySoundFile = jest.fn();
-// jest.mock('./sound-player', () => {
-//   return jest.fn().mockImplementation(() => {
-//     return {playSoundFile: mockPlaySoundFile};
-//   });
-// });
-jest.mock('../../auth/auth.service');
-jest.mock('../../middleware/async-wrapper');
-jest.mock('./announcement.controller');
-// Now all method calls to router return undefined
-// Method calls are saved to
-// theAutomaticMock.mock.instances[index].methodName.mock.calls
+const authStub = {
+  hasRole(role) {
+    return `auth.hasRole.${role}`;
+  }
+};
 
-beforeEach(() => {
-  // Clear all instances and calls to constructor and all methods:
-  router.mockClear();
-});
+const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
-describe('Announcement API Router:', () =>
-  test('GET / calls controller.index in asyncWrapper', done => {
-    router.get('/', asyncWrapper(controller.index));
-    const mockRouterInstance = router.mock.instances[0];
-    console.log(mockRouterInstance);
-    expect(router.get).toHaveBeenCalledTimes(1);
+const controllerStub = {
+  index: 'controller.index',
+  upsert: 'controller.upsert',
+  destroy: 'controller.destroy'
+};
+
+jest.mock(express, () => ({
+  Router() {
+    return routerStub;
+  }
+}));
+
+jest.mock('../../auth/auth.service', () => authStub);
+
+jest.mock('../../middleware/async-wrapper', () => ({
+  default: asyncWrapperStub
+}));
+
+jest.mock('./announcement.controller', () => controllerStub);
+
+const announcementIndex = require('./index.js');
+
+describe('Announcement API Router:', () => {
+  test('should return an express router instance', done => {
+    expect(announcementIndex.default).toBe(routerStub);
     done();
-  })
-);
+  });
+
+  describe('GET /api/announcement', () => {
+    test('should route to announcement.controller.index', done => {
+      expect(routerStub.get.withArgs('/', 'asyncWrapper.controller.index')).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
+  describe('PUT /api/announcement/:id', () => {
+    test(
+      'should be authenticated and route to announcement.controller.upsert',
+      done => {
+        expect(
+          routerStub.put.withArgs('/:id', 'auth.hasRole.admin', 'asyncWrapper.controller.upsert')
+        ).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
+  });
+
+  describe('DELETE /api/announcement/:id', () => {
+    test(
+      'should verify admin role and route to announcement.controller.destroy',
+      done => {
+        expect(
+          routerStub.delete.withArgs('/:id', 'auth.hasRole.admin', 'asyncWrapper.controller.destroy')
+        ).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
+  });
+});
