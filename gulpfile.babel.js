@@ -403,8 +403,9 @@ gulp.task('test:server:unit', () =>
 
 // Run integration tests using Jest
 gulp.task('test:server:integration', done => {
-  // Helpful options: --coverage --runInBand (run test sequentially for debugging)
-  shelljs.exec('jest --colors --verbose --detectOpenHandles');
+  // Helpful options: --coverage  --detectOpenHandles --runInBand (run test sequentially for debugging)
+  // TODO: add --env=./server/config/environment/index.js (doesn't load Babel though)
+  shelljs.exec('jest --colors --verbose');
   done();
 });
 
