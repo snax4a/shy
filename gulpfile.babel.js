@@ -29,20 +29,20 @@ const paths = {
     assets: `${clientPath}/assets/**/*`,
     images: `${clientPath}/assets/images/**/*`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
-    scripts: [`${clientPath}/**/!(*.spec|*.mock).js`],
+    scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
     styles: [`${clientPath}/app/**/*.scss`],
     mainStyle: `${clientPath}/app/app.scss`,
     views: `${clientPath}/app/**/*.pug`,
     mainView: `${clientPath}/index.html`,
-    test: [`${clientPath}/app/**/*.{spec,mock}.js`],
+    test: [`${clientPath}/app/**/*.{spec,mock,test}.js`],
     e2e: ['e2e/**/*.spec.js']
   },
   server: {
-    scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
-    esm: `${serverPath}/**/!(*.spec|*.integration).mjs`, // not to be transpiled
+    scripts: [`${serverPath}/**/!(*.spec|*.integration|*.test).js`],
+    esm: `${serverPath}/**/!(*.spec|*.integration|*.test).mjs`, // not to be transpiled
     test: {
-      integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
-      unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
+      integration: [`${serverPath}/**/*.int.test.js`],
+      unit: [`${serverPath}/**/*.spec.js`]
     }
   },
   karma: 'karma.conf.js',
@@ -424,11 +424,11 @@ gulp.task('test:server:unit', () =>
     .pipe(mocha())
 );
 
-// Run server integration tests using MochaJS and supertest
-gulp.task('test:server:integration', () =>
-  gulp.src(paths.server.test.integration)
-    .pipe(mocha())
-);
+// Run integration tests using Jest
+gulp.task('test:server:integration', done => {
+  shelljs.exec('jest --runInBand --colors --verbose --detectOpenHandles');
+  done();
+});
 
 // Run server unit and integration tests
 gulp.task('test:server', gulp.series('env:common', 'env:test', 'test:server:unit', 'test:server:integration'));
@@ -447,6 +447,10 @@ gulp.task('test:client', done => {
 
 // Run all tests
 gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client'));
+
+
+// Run tests created in Jest
+gulp.task('jest', gulp.series('env:common', 'test:server:integration'));
 
 // Run tests in debug mode
 gulp.task('debug:test', done => {

@@ -1,15 +1,15 @@
-/* global describe, before, it, after */
+/* global describe, beforeAll, test, expect, afterAll */
 
-import app from '../..';
+import app from '../../app';
 import { destroyUser } from '../user/user.controller';
 
 import request from 'supertest';
 
-describe('Order API:', function() {
-  describe('POST /api/order', function() {
+describe('Order API:', () => {
+  describe('POST /api/order', () => {
     let confirmation;
 
-    before(() =>
+    beforeAll(done =>
       request(app)
         .post('/api/order')
         .send({
@@ -44,17 +44,20 @@ describe('Order API:', function() {
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .end((err, res) => {
+          if(err) return done(err);
           confirmation = res.body;
+          done();
         })
     );
 
     // Delete test users
-    after(() => destroyUser('email', 'john.doe@bitbucket.com'));
+    afterAll(() => destroyUser('email', 'john.doe@bitbucket.com'));
 
-    it('should return a confirmation with contact info that matches submitted', () => {
-      confirmation.customer.firstName.should.equal('John');
-      confirmation.customer.lastName.should.equal('Doe');
+    test('should return a confirmation with contact info that matches submitted', () => {
+      const { firstName, lastName } = confirmation.customer;
+      expect(firstName).toBe('John');
+      expect(lastName).toBe('Doe');
     });
   });
 });

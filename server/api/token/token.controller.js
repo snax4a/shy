@@ -8,4 +8,5 @@ export async function index(req, res) {
   // Generate the client token
   const { clientToken } = await gateway.clientToken.generate({});
   res.status(200).send(clientToken);
+  return clientToken;
 }
