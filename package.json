@@ -105,7 +105,6 @@
     "opn": "~5.4.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
-    "proxyquire": "^2.1.0",
     "pug-html-loader": "^1.1.5",
     "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
