@@ -1,7 +1,4 @@
 /* eslint no-process-env:0 no-process-exit:0 */
-/* global console, setInterval, clearInterval, require, process, __dirname */
-'use strict';
-
 import del from 'del';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
@@ -14,7 +11,6 @@ import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import { Server as KarmaServer } from 'karma';
 import { protractor, webdriver_update } from 'gulp-protractor';
-import { Instrumenter } from 'isparta';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
 
@@ -141,22 +137,6 @@ const mocha = lazypipe()
     reporter: 'spec',
     timeout: 15000,
     require: ['./mocha.conf']
-  });
-
-// Generate coverage information
-const istanbul = lazypipe()
-  .pipe(plugins.istanbul.writeReports)
-  .pipe(plugins.istanbulEnforcer, {
-    thresholds: {
-      global: {
-        lines: 80,
-        statements: 80,
-        branches: 80,
-        functions: 80
-      }
-    },
-    coverageDirectory: './coverage',
-    rootDirectory: ''
   });
 
 // Read the .env file at the project root to set process.env
@@ -426,7 +406,8 @@ gulp.task('test:server:unit', () =>
 
 // Run integration tests using Jest
 gulp.task('test:server:integration', done => {
-  shelljs.exec('jest --runInBand --colors --verbose --detectOpenHandles');
+  // Helpful options: --coverage --runInBand (run test sequentially for debugging)
+  shelljs.exec('jest --colors --verbose --detectOpenHandles');
   done();
 });
 
@@ -446,8 +427,7 @@ gulp.task('test:client', done => {
 });
 
 // Run all tests
-gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client'));
-
+gulp.task('test', gulp.series('eslint:tests', 'test:server'/*, 'test:client'*/)); // temporarily skip client tests
 
 // Run tests created in Jest
 gulp.task('jest', gulp.series('env:common', 'test:server:integration'));
@@ -463,38 +443,6 @@ gulp.task('debug:build', done => {
   gulpDebug('build');
   done();
 });
-
-// Broken
-// // Baseline scripts to examine for coverage
-// gulp.task('coverage:pre', () =>
-//   gulp.src(paths.server.scripts)
-//     // Covering files
-//     .pipe(plugins.istanbul({
-//       instrumenter: Instrumenter, // Use the isparta instrumenter for ES6 code coverage
-//       includeUntested: true
-//     }))
-//     // Force `require` to return covered files
-//     .pipe(plugins.istanbul.hookRequire())
-// );
-
-// // Look at unit test coverage
-// gulp.task('coverage:unit', done => {
-//   gulp.src(paths.server.test.unit)
-//     .pipe(mocha())
-//     .pipe(istanbul());
-//   done();
-// });
-
-// // Look at integration test coverage
-// gulp.task('coverage:integration', done => {
-//   gulp.src(paths.server.test.integration)
-//     .pipe(mocha())
-//     .pipe(istanbul());
-//   done();
-// });
-
-// // Run coverage analysis on server tests
-// gulp.task('test:server:coverage', gulp.series('coverage:pre', 'env:common', 'env:test', 'coverage:unit', 'coverage:integration'));
 
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
@@ -518,9 +466,9 @@ gulp.task('deploy', done => {
   shelljs.cd(paths.dist); // Set our working directory
 
   // If there are no changes, skip commit
-  if(shelljs.exec('git status --porcelain', {silent: true}).output === '') {
+  if(shelljs.exec('git status --porcelain', { silent: true }).output === '') {
     console.log('No differences detected. Skipping commit.');
-    return;
+    return done();
   }
   // There were changes, go ahead...
   console.log('Deploying changes to Heroku...');
