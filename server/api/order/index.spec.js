@@ -27,13 +27,13 @@ const orderIndex = require('./index.js');
 
 describe('Order API Router:', function() {
   it('should return an express router instance', done => {
-    orderIndex.default.should.equal(routerStub);
+    expect(orderIndex.default).toBe(routerStub);
     done();
   });
 
   describe('POST /api/order', function() {
     it('should route to order.controller.create', done => {
-      routerStub.post.withArgs('/', 'asyncWrapper.orderCtrl.create').should.have.been.calledOnce;
+      expect(routerStub.post.withArgs('/', 'asyncWrapper.orderCtrl.create')).have.been.calledOnce;
       done();
     });
   });

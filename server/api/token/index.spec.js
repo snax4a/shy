@@ -27,13 +27,13 @@ const tokenIndex = require('./index.js');
 
 describe('Token API Router:', function() {
   it('should return an express router instance', done => {
-    tokenIndex.default.should.equal(routerStub);
+    expect(tokenIndex.default).toBe(routerStub);
     done();
   });
 
   describe('GET /api/token', function() {
     it('should route to token.controller.index', done => {
-      routerStub.get.withArgs('/', 'asyncWrapper.tokenCtrl.index').should.have.been.calledOnce;
+      expect(routerStub.get.withArgs('/', 'asyncWrapper.tokenCtrl.index')).have.been.calledOnce;
       done();
     });
   });
