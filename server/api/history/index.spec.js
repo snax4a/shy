@@ -1,7 +1,5 @@
-/* globals sinon, describe, it */
-
-const proxyquire = require('proxyquire').noPreserveCache();
-
+/* globals sinon, jest, describe, test, it, expect */
+import express from 'express';
 const routerStub = {
   get: sinon.spy(),
   post: sinon.spy(),
@@ -27,19 +25,22 @@ const historyCtrlStub = {
 
 const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
+jest.mock(express, () => ({
+  Router() {
+    return routerStub;
+  }
+}));
+
+jest.mock('../../auth/auth.service', () => authServiceStub);
+
+jest.mock('../../middleware/async-wrapper', () => ({
+  default: asyncWrapperStub
+}));
+
+jest.mock('./history.controller', () => historyCtrlStub);
+
 // require the index with our stubbed out modules
-const historyIndex = proxyquire('./index.js', {
-  express: {
-    Router() {
-      return routerStub;
-    }
-  },
-  '../../auth/auth.service': authServiceStub,
-  '../../middleware/async-wrapper': {
-    default: asyncWrapperStub
-  },
-  './history.controller': historyCtrlStub
-});
+const historyIndex = require('./index.js');
 
 describe('History API Router:', function() {
   it('should return an express router instance', function(done) {

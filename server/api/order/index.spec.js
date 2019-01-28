@@ -1,7 +1,5 @@
-/* global sinon, describe, it */
-
-const proxyquire = require('proxyquire').noPreserveCache();
-
+/* global sinon, jest, describe, it, test, expect */
+import express from 'express';
 const routerStub = {
   post: sinon.spy()
 };
@@ -12,18 +10,20 @@ const orderCtrlStub = {
 
 const asyncWrapperStub = method => `asyncWrapper.${method}`;
 
+jest.mock(express, () => ({
+  Router() {
+    return routerStub;
+  }
+}));
+
+jest.mock('../../middleware/async-wrapper', () => ({
+  default: asyncWrapperStub
+}));
+
+jest.mock('./order.controller', () => orderCtrlStub);
+
 // require the index with our stubbed out modules
-const orderIndex = proxyquire('./index.js', {
-  express: {
-    Router() {
-      return routerStub;
-    }
-  },
-  '../../middleware/async-wrapper': {
-    default: asyncWrapperStub
-  },
-  './order.controller': orderCtrlStub
-});
+const orderIndex = require('./index.js');
 
 describe('Order API Router:', function() {
   it('should return an express router instance', done => {

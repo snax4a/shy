@@ -1,7 +1,5 @@
-/* globals sinon, describe, it, test, expect */
-
-const proxyquire = require('proxyquire').noPreserveCache();
-
+/* globals sinon, describe, it, jest, test, expect */
+import express from 'express';
 const routerStub = {
   get: sinon.spy(),
   put: sinon.spy(),
@@ -22,18 +20,21 @@ const controllerStub = {
   destroy: 'controller.destroy'
 };
 
-const announcementIndex = proxyquire('./index.js', {
-  express: {
-    Router() {
-      return routerStub;
-    }
-  },
-  '../../auth/auth.service': authStub,
-  '../../middleware/async-wrapper': {
-    default: asyncWrapperStub
-  },
-  './announcement.controller': controllerStub
-});
+jest.mock(express, () => ({
+  Router() {
+    return routerStub;
+  }
+}));
+
+jest.mock('../../auth/auth.service', () => authStub);
+
+jest.mock('../../middleware/async-wrapper', () => ({
+  default: asyncWrapperStub
+}));
+
+jest.mock('./announcement.controller', () => controllerStub);
+
+const announcementIndex = require('./index.js');
 
 describe('Announcement API Router:', () => {
   it('should return an express router instance', done => {
