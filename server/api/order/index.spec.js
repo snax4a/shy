@@ -33,7 +33,7 @@ describe('Order API Router:', () => {
 
   describe('POST /api/order', () => {
     test('should route to order.controller.create', done => {
-      expect(routerStub.post.withArgs('/', 'asyncWrapper.orderCtrl.create')).have.been.calledOnce;
+      expect(routerStub.post.withArgs('/', 'asyncWrapper.orderCtrl.create')).toHaveBeenCalledTimes(1);
       done();
     });
   });

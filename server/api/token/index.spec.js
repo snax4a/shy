@@ -33,7 +33,7 @@ describe('Token API Router:', () => {
 
   describe('GET /api/token', () => {
     test('should route to token.controller.index', done => {
-      expect(routerStub.get.withArgs('/', 'asyncWrapper.tokenCtrl.index')).have.been.calledOnce;
+      expect(routerStub.get.withArgs('/', 'asyncWrapper.tokenCtrl.index')).toHaveBeenCalledTimes(1);
       done();
     });
   });

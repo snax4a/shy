@@ -44,7 +44,7 @@ describe('Announcement API Router:', () => {
 
   describe('GET /api/announcement', () => {
     test('should route to announcement.controller.index', done => {
-      expect(routerStub.get.withArgs('/', 'asyncWrapper.controller.index')).have.been.calledOnce;
+      expect(routerStub.get.withArgs('/', 'asyncWrapper.controller.index')).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -55,7 +55,7 @@ describe('Announcement API Router:', () => {
       done => {
         expect(
           routerStub.put.withArgs('/:id', 'auth.hasRole.admin', 'asyncWrapper.controller.upsert')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );
@@ -67,7 +67,7 @@ describe('Announcement API Router:', () => {
       done => {
         expect(
           routerStub.delete.withArgs('/:id', 'auth.hasRole.admin', 'asyncWrapper.controller.destroy')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );

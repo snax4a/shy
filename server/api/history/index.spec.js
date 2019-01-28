@@ -52,7 +52,7 @@ describe('History API Router:', () => {
     test('should route to history.controller.index', done => {
       expect(
         routerStub.get.withArgs('/:id', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.index')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -63,7 +63,7 @@ describe('History API Router:', () => {
       done => {
         expect(
           routerStub.post.withArgs('/', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.create')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );
@@ -75,7 +75,7 @@ describe('History API Router:', () => {
       done => {
         expect(
           routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.historyCtrl.update')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );
@@ -87,7 +87,7 @@ describe('History API Router:', () => {
       done => {
         expect(
           routerStub.delete.withArgs('/:id', 'authService.hasRole.teacher', 'asyncWrapper.historyCtrl.destroy')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );

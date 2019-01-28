@@ -48,7 +48,7 @@ describe('Schedule API Router:', () => {
 
   describe('GET /api/schedule', () => {
     test('should route to schedule.controller.index', done => {
-      expect(routerStub.get.withArgs('/', 'asyncWrapper.scheduleCtrl.index')).have.been.calledOnce;
+      expect(routerStub.get.withArgs('/', 'asyncWrapper.scheduleCtrl.index')).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -59,7 +59,7 @@ describe('Schedule API Router:', () => {
       done => {
         expect(
           routerStub.put.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.scheduleCtrl.upsert')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );
@@ -71,7 +71,7 @@ describe('Schedule API Router:', () => {
       done => {
         expect(
           routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.scheduleCtrl.destroy')
-        ).have.been.calledOnce;
+        ).toHaveBeenCalledTimes(1);
         done();
       }
     );

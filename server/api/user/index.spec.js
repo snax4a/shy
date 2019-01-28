@@ -58,7 +58,7 @@ describe('User API Router:', () => {
     test('should verify admin role and route to user.controller.index', done => {
       expect(
         routerStub.get.withArgs('/', 'authService.hasRole.teacher', 'asyncWrapper.userCtrl.index')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -67,21 +67,21 @@ describe('User API Router:', () => {
     test('should be authenticated and route to user.controller.me', done => {
       expect(
         routerStub.get.withArgs('/me', 'authService.isAuthenticated', 'asyncWrapper.userCtrl.me')
-      ).to.have.been.calledOnce;
+      ).to.toHaveBeenCalledTimes(1);
       done();
     });
   });
 
   describe('POST /api/user', () => {
     test('should route to user.controller.create', done => {
-      expect(routerStub.post.withArgs('/', 'asyncWrapper.userCtrl.create')).have.been.calledOnce;
+      expect(routerStub.post.withArgs('/', 'asyncWrapper.userCtrl.create')).toHaveBeenCalledTimes(1);
       done();
     });
   });
 
   describe('POST /api/user/message', () => {
     test('should route to user.controller.messageSend', done => {
-      expect(routerStub.post.withArgs('/message', 'asyncWrapper.userCtrl.messageSend')).have.been.calledOnce;
+      expect(routerStub.post.withArgs('/message', 'asyncWrapper.userCtrl.messageSend')).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -90,7 +90,7 @@ describe('User API Router:', () => {
     test('should route to user.controller.forgotPassword', done => {
       expect(
         routerStub.post.withArgs('/forgotpassword', 'asyncWrapper.userCtrl.forgotPassword')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -99,7 +99,7 @@ describe('User API Router:', () => {
     test('should be authenticated and route to user.controller.update', done => {
       expect(
         routerStub.put.withArgs('/:id', 'authService.isAuthenticated', 'asyncWrapper.userCtrl.update')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -108,7 +108,7 @@ describe('User API Router:', () => {
     test('should be authenticated and route to user.controller.upsert', done => {
       expect(
         routerStub.put.withArgs('/:id/admin', 'authService.hasRole.teacher', 'asyncWrapper.userCtrl.upsert')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -117,14 +117,14 @@ describe('User API Router:', () => {
     test('should verify admin role and route to user.controller.destroy', done => {
       expect(
         routerStub.delete.withArgs('/:id', 'authService.hasRole.admin', 'asyncWrapper.userCtrl.destroy')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
 
   describe('POST /api/user/subscribe', () => {
     test('should route to user.controller.subscribe', done => {
-      expect(routerStub.post.withArgs('/subscribe', 'asyncWrapper.userCtrl.subscribe')).have.been.calledOnce;
+      expect(routerStub.post.withArgs('/subscribe', 'asyncWrapper.userCtrl.subscribe')).toHaveBeenCalledTimes(1);
       done();
     });
   });
@@ -133,7 +133,7 @@ describe('User API Router:', () => {
     test('should route to user.controller.unsubscribe', done => {
       expect(
         routerStub.get.withArgs('/unsubscribe/:email', 'asyncWrapper.userCtrl.unsubscribe')
-      ).have.been.calledOnce;
+      ).toHaveBeenCalledTimes(1);
       done();
     });
   });
