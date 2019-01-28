@@ -1,9 +1,9 @@
-/* globals sinon, describe, jest, test, expect */
+/* globals describe, jest, test, expect */
 import express from 'express';
 const routerStub = {
-  get: sinon.spy(),
-  put: sinon.spy(),
-  delete: sinon.spy()
+  get: jest.fn(),
+  put: jest.fn(),
+  delete: jest.fn()
 };
 
 const authStub = {

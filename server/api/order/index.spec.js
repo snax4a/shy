@@ -1,7 +1,7 @@
-/* global sinon, jest, describe, test, expect */
+/* global jest, describe, test, expect */
 import express from 'express';
 const routerStub = {
-  post: sinon.spy()
+  post: jest.fn()
 };
 
 const orderCtrlStub = {
