@@ -256,9 +256,6 @@ gulp.task('eslint:tests', done => {
   done();
 });
 
-// Delete files in .tmp
-gulp.task('clean:tmp', () => del(['.tmp/**/*'], { dot: true }));
-
 // Wait until server is responding then open browser on client to our starting page
 gulp.task('start:client', done => {
   whenServerReady(() => {
@@ -379,7 +376,7 @@ gulp.task('image:cache-busting', () =>
 // Create the build in dist
 gulp.task('build',
   gulp.series(
-    gulp.parallel('clean:dist', 'clean:tmp'),
+    'clean:dist',
     'inject:scss',
     'transpile:server',
     'build:images',
@@ -392,7 +389,7 @@ gulp.task('build',
 // Run nodemon with debugging (server/config/express.js runs webpack.make.js)
 gulp.task('serve',
   gulp.series(
-    gulp.parallel('clean:tmp', 'eslint', 'eslint:tests', 'inject:scss', 'copy:fonts', 'env:common'),
+    gulp.parallel('eslint', 'eslint:tests', 'inject:scss', 'copy:fonts', 'env:common'),
     gulp.parallel('start:server', 'start:client'),
     'watch'
   )

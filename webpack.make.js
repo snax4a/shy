@@ -132,7 +132,7 @@ export default function makeWebpackConfig(options) {
   if(!TEST) {
     config.output = {
       // Absolute output directory
-      path: BUILD ? path.join(__dirname, '/dist/client/') : path.join(__dirname, '/.tmp/'),
+      path: BUILD ? path.join(__dirname, '/dist/client/') : __dirname,
 
       // Output path from the view of the page
       publicPath: '/',

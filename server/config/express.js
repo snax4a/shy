@@ -20,7 +20,7 @@ export default app => {
   if(env === 'development') app.use(morgan('dev')); // middleware logger
 
   if(env === 'development' || env === 'test') {
-    app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(express.static(config.root));
     app.use(require('cors')());
   }
 

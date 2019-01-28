@@ -1,4 +1,3 @@
-.tmp
 /.vscode/*.sql
 .DS_Store
 /coverage
