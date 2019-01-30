@@ -26,7 +26,7 @@ export async function sibSubmit(method, url, data) {
   {
     updateEnabled: true,
     email: 'foo@example.com',
-    emailBlacklisted: false
+    emailBlacklisted: false,
     attributes: {
       NAME: 'First',
       SURNAME: 'Last'
