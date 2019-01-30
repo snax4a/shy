@@ -1,15 +1,17 @@
-/* global describe, beforeAll, test, expect, afterAll */
-
+/* global describe, beforeAll, jest, test, expect, afterAll */
+import request from 'supertest';
 import app from '../../app';
 import { destroyUser } from '../user/user.controller';
 
-import request from 'supertest';
+import * as sib from '../sendinblue'; // for mocking
 
-describe('Order API:', () => {
+describe('Order API:', () =>
   describe('POST /api/order', () => {
     let confirmation;
+    const sibMock = jest.spyOn(sib, 'sibSubmit');
+    sibMock.mockImplementation(() => 'Calling sibSubmit()');
 
-    beforeAll(done =>
+    beforeAll(done => {
       request(app)
         .post('/api/order')
         .send({
@@ -48,8 +50,8 @@ describe('Order API:', () => {
           if(err) return done(err);
           confirmation = res.body;
           done();
-        })
-    );
+        });
+    });
 
     // Delete test users
     afterAll(() => destroyUser('email', 'john.doe@bitbucket.com'));
@@ -59,5 +61,5 @@ describe('Order API:', () => {
       expect(firstName).toBe('John');
       expect(lastName).toBe('Doe');
     });
-  });
-});
+  })
+);

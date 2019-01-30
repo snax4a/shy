@@ -1,12 +1,16 @@
-/* globals describe, test, beforeAll, expect, afterAll */
+/* globals describe, test, jest, beforeAll, expect, afterAll */
 
 import request from 'supertest';
 import app from '../../app';
 import { authenticateLocal, destroyUser, roleSet, getUser } from './user.controller';
 
+import * as sib from '../sendinblue'; // for mocking
+
 describe('User API Integration Tests:', () => {
   let user;
   let token;
+  const sibMock = jest.spyOn(sib, 'sibSubmit');
+  sibMock.mockImplementation(() => 'Calling sibSubmit()');
 
   // Cleanup test user in case test didn't finish last time
   beforeAll(async() => {
