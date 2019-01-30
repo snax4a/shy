@@ -35,7 +35,18 @@ export class WorkshopsComponent {
       '@type': 'Event',
       name: workshop.title,
       disambiguatingDescription: section.title,
-      location: `Schoolhouse Yoga, ${section.location} Studio`,
+      location: {
+        '@type': 'Place',
+        name: `Schoolhouse Yoga, ${section.location} Studio`,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: section.address.streetAddress,
+          addressLocality: section.address.addressLocality,
+          postalCode: section.address.postalCode,
+          addressRegion: section.address.addressRegion,
+          addressCountry: section.address.addressCountry
+        }
+      },
       image: `https://www.schoolhouseyoga.com${workshop.photo}`,
       description: workshop.description,
       url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`,

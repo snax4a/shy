@@ -11,7 +11,14 @@
 				"expires": "2019-01-02T12:30:00.000-05:00",
 				"productID": 31,
 				"cost": 40,
-				"location": "East Liberty"
+        "location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -28,7 +35,14 @@
 				"expires": "2019-01-05T20:00:00.000-05:00",
 				"productID": 19,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"title": "Full Moon",
@@ -36,7 +50,14 @@
 				"expires": "2019-01-18T20:00:00.000-05:00",
 				"productID": 20,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"title": "New Moon",
@@ -44,7 +65,14 @@
 				"expires": "2019-02-09T20:00:00.000-05:00",
 				"productID": 22,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"title": "Full Moon",
@@ -52,12 +80,17 @@
 				"expires": "2019-02-23T20:00:00.000-05:00",
 				"productID": 23,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
-
-
 	{
 		"expires": "2019-12-25T20:00:00.000-05:00",
 		"title": "Kundalini Yoga and Chant with Kendell Romanelli",
@@ -70,7 +103,14 @@
 				"expires": "2018-11-17T20:00:00.000-05:00",
 				"productID": 54,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"title": "SOLD OUT: New Year's Day",
@@ -78,7 +118,14 @@
 				"expires": "2019-01-02T15:30:00.000-05:00",
 				"productID": 55,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"title": "Awakening the Heart",
@@ -86,7 +133,14 @@
 				"expires": "2019-02-02T20:00:00.000-05:00",
 				"productID": 56,
 				"cost": 20,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -102,7 +156,14 @@
 				"expires": "2018-12-01T20:00:00.000-05:00",
 				"productID": 34,
 				"cost": 30,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -119,7 +180,14 @@
 				"expires": "2019-01-14T15:30:00.000-05:00",
 				"productID": 27,
 				"cost": 35,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -135,7 +203,14 @@
 				"expires": "2019-01-23T16:00:00.000-05:00",
 				"productID": 62,
 				"cost": 30,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -151,7 +226,14 @@
 				"expires": "2019-01-26T20:00:00.000-05:00",
 				"productID": 63,
 				"cost": 30,
-				"location": "North Hills"
+				"location": "North Hills",
+        "address": {
+          "streetAddress": "7210 McKnight Road",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15237",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -167,7 +249,14 @@
 				"expires": "2019-02-11T16:00:00.000-05:00",
 				"productID": 26,
 				"cost": 30,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -183,7 +272,14 @@
 				"expires": "2019-02-18T15:30:00.000-05:00",
 				"productID": 14,
 				"cost": 35,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -199,14 +295,28 @@
 				"expires": "2019-01-07T16:15:00.000-05:00",
 				"productID": 64,
 				"cost": 20,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			},
 			{
 				"start": "2019-02-03T15:00:00.000-05:00",
 				"expires": "2019-02-04T16:15:00.000-05:00",
 				"productID": 65,
 				"cost": 20,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
 	},
@@ -222,7 +332,14 @@
 				"expires": "2019-01-27T16:00:00.000-05:00",
 				"productID": 16,
 				"cost": 30,
-				"location": "East Liberty"
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
 			}
 		]
   },
@@ -238,7 +355,14 @@
         "expires": "2019-02-17T16:30:00.000-05:00",
         "productID": 15,
         "cost": 40,
-        "location": "Squirrel Hill"
+        "location": "Squirrel Hill",
+        "address": {
+          "streetAddress": "2215 Murray Avenue",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15217",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
       }
     ]
 	},
@@ -254,7 +378,14 @@
         "expires": "2019-02-24T16:00:00.000-05:00",
         "productID": 24,
         "cost": 50,
-        "location": "East Liberty"
+        "location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
       }
     ]
   }

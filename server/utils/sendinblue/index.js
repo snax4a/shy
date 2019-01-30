@@ -1,8 +1,9 @@
 import axios from 'axios';
 import config from '../../config/environment';
+import * as sib from './'; // use cyclic dependency for jest unit testing
 
 // POST or PUT submission to SendInBlue
-async function sibSubmit(method, url, data) {
+export async function sibSubmit(method, url, data) {
   let instance = axios.create({
     baseURL: 'https://api.sendinblue.com',
     headers: { 'api-key': config.mail.apiKey }
@@ -32,18 +33,18 @@ async function sibSubmit(method, url, data) {
     }
   }
 */
-export const sibContactUpsert = contactInfo => sibSubmit('POST', '/v3/contacts', contactInfo);
+export const sibContactUpsert = contactInfo => sib.sibSubmit('POST', '/v3/contacts', contactInfo);
 
-export const sibOptOut = email => sibSubmit('PUT', `/v3/contacts/${email}`, { emailBlacklisted: true });
+export const sibOptOut = email => sib.sibSubmit('PUT', `/v3/contacts/${email}`, { emailBlacklisted: true });
 
 /*
   Sample message format
   {
-    sender: [{ email: 'foo@example.com', name: 'Something' }], //sender: config.mail.sender,
+    sender: [{ email: 'foo@example.com', name: 'Something' }],
     to: [{ email: 'foo@example.com', name: 'Something' }],
     subject: 'My Subject',
     htmlContent: 'This is test content',
     tags: ['myTag1', 'myTag2']
   }
 */
-export const sibSendTransactionalEmail = message => sibSubmit('POST', '/v3/smtp/email', message);
+export const sibSendTransactionalEmail = message => sib.sibSubmit('POST', '/v3/smtp/email', message);
