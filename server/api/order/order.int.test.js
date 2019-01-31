@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from '../../app';
 import { destroyUser } from '../user/user.controller';
 
-import * as sib from '../sendinblue'; // for mocking
+import * as sib from '../../utils/sendinblue'; // for mocking
 
 describe('Order API:', () =>
   describe('POST /api/order', () => {

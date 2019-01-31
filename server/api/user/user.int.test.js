@@ -4,7 +4,7 @@ import request from 'supertest';
 import app from '../../app';
 import { authenticateLocal, destroyUser, roleSet, getUser } from './user.controller';
 
-import * as sib from '../sendinblue'; // for mocking
+import * as sib from '../../utils/sendinblue'; // for mocking
 
 describe('User API Integration Tests:', () => {
   let user;
