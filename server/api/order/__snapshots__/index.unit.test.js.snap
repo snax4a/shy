@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`History API Route Handlers: should have unchanged route handlers 1`] = `
+Array [
+  Layer {
+    "handle": [Function],
+    "keys": Array [],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "post": true,
+      },
+      "path": "/",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "post",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+]
+`;

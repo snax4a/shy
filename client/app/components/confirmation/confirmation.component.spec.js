@@ -1,5 +1,4 @@
 /* global describe, beforeEach, test, expect, inject */
-'use strict';
 import angular from 'angular';
 import confirmationPage from './confirmation.component';
 import CartModule from '../../modules/cart/cart.module';
