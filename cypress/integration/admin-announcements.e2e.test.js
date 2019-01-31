@@ -1,0 +1,1 @@
+/* globals context, beforeEach, cy, expect, assert, it, describe */
