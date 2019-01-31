@@ -1,5 +1,4 @@
-/* global describe, beforeEach, inject, it, expect */
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import ampmFilter from './ampm.filter';
 
@@ -13,7 +12,7 @@ describe('Filter: ampm', () => {
     ampm = $filter('ampm');
   }));
 
-  it('should return a date for the day of the week', () => {
-    expect(ampm('13:00')).to.equal('1:00pm');
+  test('should return a date for the day of the week', () => {
+    expect(ampm('13:00')).toBe('1:00pm');
   });
 });

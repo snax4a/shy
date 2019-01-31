@@ -1,4 +1,4 @@
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import htmlId from './htmlid.filter';
 
@@ -8,13 +8,13 @@ describe('Filter: htmlid', () => {
   beforeEach(angular.mock.module(htmlId));
 
   // initialize a new instance of the filter before each test
-  var htmlid;
+  let htmlid;
   beforeEach(inject($filter => {
     htmlid = $filter('htmlid');
   }));
 
-  it('should return the input without spaces in lowercase', () => {
-    var text = 'Big Test';
-    expect(htmlid(text)).to.equal('bigtest');
+  test('should return the input without spaces in lowercase', () => {
+    let text = 'Big Test';
+    expect(htmlid(text)).toBe('bigtest');
   });
 });

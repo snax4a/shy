@@ -49,7 +49,7 @@ export default config => {
     // list of files / patterns to load in the browser
     files: ['spec.js'],
 
-    frameworks: ['chai', 'chai-as-promised', 'chai-things', 'mocha', 'sinon-chai'],
+    frameworks: ['jest'],
 
     //logLevel: config.LOG_INFO, // LOG_INFO || LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG // Default commented out
 

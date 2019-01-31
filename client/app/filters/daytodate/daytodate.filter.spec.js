@@ -1,5 +1,4 @@
-/* global describe, beforeEach, inject, it, expect */
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import dayToDateFilter from './daytodate.filter';
 
@@ -13,8 +12,8 @@ describe('Filter: daytodate', () => {
     daytodate = $filter('daytodate');
   }));
 
-  it('should return a date for the day of the week', () => {
+  test('should return a date for the day of the week', () => {
     let dayNumber = 4;
-    expect(daytodate(dayNumber)).to.be.an.instanceof(Date);
+    expect(daytodate(dayNumber)).toBe.an.instanceof(Date);
   });
 });

@@ -105,7 +105,7 @@ const eslintClientTests = lazypipe()
     envs: [
       'browser',
       'es6',
-      'mocha'
+      'jest'
     ]
   })
   .pipe(plugins.eslint.format);
@@ -120,7 +120,7 @@ const eslintServerTests = lazypipe()
     envs: [
       'node',
       'es6',
-      'mocha'
+      'jest'
     ]
   })
   .pipe(plugins.eslint.format);
@@ -130,14 +130,6 @@ const transpileServer = lazypipe()
   .pipe(plugins.sourcemaps.init)
   .pipe(plugins.babel)
   .pipe(plugins.sourcemaps.write, '.');
-
-// Execute mocha tests
-const mocha = lazypipe()
-  .pipe(plugins.mocha, {
-    reporter: 'spec',
-    timeout: 15000,
-    require: ['./mocha.conf']
-  });
 
 // Read the .env file at the project root to set process.env
 gulp.task('env:common', done => {
@@ -419,7 +411,7 @@ gulp.task('test:client', done => {
 });
 
 // Run all tests
-gulp.task('test', gulp.series('eslint:tests', 'test:server'/*, 'test:client'*/)); // temporarily skip client tests
+gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client')); // temporarily skip client tests
 
 // Run tests created in Jest
 gulp.task('jest', gulp.series('env:common', 'test:server:jest'));

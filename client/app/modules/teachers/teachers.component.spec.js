@@ -1,20 +1,20 @@
-/* global describe, beforeEach, inject, it, expect */
+/* global describe, beforeEach, inject, test, expect */
 'use strict';
 import angular from 'angular';
 import TeachersModule from './teachers.module';
 
-describe('Module: TeachersComponent', function() {
+describe('Module: TeachersComponent', () => {
   // load the controller's module
   beforeEach(angular.mock.module(TeachersModule));
 
   var teachersComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($componentController) {
+  beforeEach(inject($componentController => {
     teachersComponent = $componentController('teachers', {});
   }));
 
-  it('should display the list of teachers with their photos and bios from the JSON file', function() {
-    expect(1).to.equal(1);
+  test('should display the list of teachers with their photos and bios from the JSON file', () => {
+    expect(1).toBe(1);
   });
 });

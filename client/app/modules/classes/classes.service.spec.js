@@ -1,5 +1,4 @@
-/* global describe, it, beforeEach, inject, expect */
-'use strict';
+/* global describe, test, beforeEach, inject, expect */
 
 // describe('Service: ClassesServices', function() {
 //   // load the service's module

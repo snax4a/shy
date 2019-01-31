@@ -1,9 +1,8 @@
-/* global describe, beforeEach, it, inject, expect */
-'use strict';
+/* global describe, beforeEach, test, inject, expect */
 import angular from 'angular';
 import LocationsModule from './locations.module';
 
-describe('Component: LocationsModule', function() {
+describe('Component: LocationsModule', () => {
   // load the controller's module
   beforeEach(angular.mock.module(LocationsModule));
 
@@ -14,7 +13,7 @@ describe('Component: LocationsModule', function() {
     LocationsComponent = $componentController('locations', {});
   }));
 
-  it('should display three locations with an address, map and street view for each', function() {
-    expect(1).to.equal(1);
+  test('should display three locations with an address, map and street view for each', () => {
+    expect(1).toBe(1);
   });
 });

@@ -1,20 +1,19 @@
-/* global describe, beforeEach, inject, it, expect */
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import termsPage from './terms.component';
 
-describe('Component: TermsComponent', function() {
+describe('Component: TermsComponent', () => {
   // load the controller's module
   beforeEach(angular.mock.module(termsPage));
 
-  var TermsComponent;
+  let TermsComponent;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($componentController) {
+  beforeEach(inject($componentController => {
     TermsComponent = $componentController('terms', {});
   }));
 
-  it('should display the terms of use for the website', function() {
+  test('should display the terms of use for the website', () => {
     expect(1).to.equal(1);
   });
 });

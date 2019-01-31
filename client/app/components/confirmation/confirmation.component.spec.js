@@ -1,10 +1,10 @@
-/* global describe, beforeEach, it, expect, inject */
+/* global describe, beforeEach, test, expect, inject */
 'use strict';
 import angular from 'angular';
 import confirmationPage from './confirmation.component';
 import CartModule from '../../modules/cart/cart.module';
 
-describe('Component: ConfirmationComponent', function() {
+describe('Component: ConfirmationComponent', () => {
   // load the component's module
   beforeEach(angular.mock.module(CartModule));
   beforeEach(angular.mock.module(confirmationPage));
@@ -16,8 +16,8 @@ describe('Component: ConfirmationComponent', function() {
     ConfirmationComponent = $componentController('confirmation', {});
   }));
 
-  it('should display an order confirmation if successful', function() {
-    expect(1).to.equal(1);
+  test('should display an order confirmation if successful', () => {
+    expect(1).toBe(1);
   });
 });
 

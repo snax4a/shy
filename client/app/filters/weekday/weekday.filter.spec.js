@@ -1,5 +1,4 @@
-/* global describe, beforeEach, inject, it, expect */
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import weekdayFilter from './weekday.filter';
 
@@ -13,8 +12,8 @@ describe('Filter: weekday', () => {
     weekday = $filter('weekday');
   }));
 
-  it('should return a day of the week given an integer', () => {
+  test('should return a day of the week given an integer', () => {
     let dayNumber = 4;
-    expect(weekday(dayNumber)).to.equal('Wednesday');
+    expect(weekday(dayNumber)).toBe('Wednesday');
   });
 });

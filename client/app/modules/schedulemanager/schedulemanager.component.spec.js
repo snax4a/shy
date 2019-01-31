@@ -1,5 +1,4 @@
-/* global describe, beforeEach, it, expect, inject */
-'use strict';
+/* global describe, beforeEach, test, expect, inject */
 import angular from 'angular';
 import ngResource from 'angular-resource';
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -7,7 +6,7 @@ import ScheduleManagerModule from './schedulemanager.module';
 import AuthModule from '../../modules/auth/auth.module';
 import ClassesModule from '../../modules/classes/classes.module';
 
-describe('Component: ScheduleManagerComponent', function() {
+describe('Component: ScheduleManagerComponent', () => {
   // load the component's module
   beforeEach(angular.mock.module(uiBootstrap));
   beforeEach(angular.mock.module(ngResource));
@@ -18,11 +17,11 @@ describe('Component: ScheduleManagerComponent', function() {
   let ScheduleManagerComponent;
 
   // Initialize the component and a mock scope
-  beforeEach(inject(function($componentController) {
+  beforeEach(inject($componentController => {
     ScheduleManagerComponent = $componentController('schedulemanager', {});
   }));
 
-  it('should display a New Schedule Item button and table of results', function() {
-    expect(1).to.equal(1);
+  test('should display a New Schedule Item button and table of results', () => {
+    expect(1).toBe(1);
   });
 });

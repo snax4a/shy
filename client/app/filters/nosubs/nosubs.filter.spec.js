@@ -1,5 +1,4 @@
-/* global describe, beforeEach, inject, it, expect */
-'use strict';
+/* global describe, beforeEach, inject, test, expect */
 import angular from 'angular';
 import nosubsFilter from './nosubs.filter';
 
@@ -13,7 +12,7 @@ describe('Filter: nosubs', () => {
     nosubs = $filter('nosubs');
   }));
 
-  it('should return empty array when substitute is true', () => {
-    expect(nosubs([{ firstName: 'Eva', lastName: 'Houser', substitute: true}])).to.be.empty;
+  test('should return empty array when substitute is true', () => {
+    expect(nosubs([{ firstName: 'Eva', lastName: 'Houser', substitute: true}])).toBe(null);
   });
 });

@@ -1,4 +1,4 @@
-/* global describe, beforeEach, inject, it, expect */
+/* global describe, beforeEach, inject, test, expect */
 'use strict';
 import angular from 'angular';
 import trustedurlFilter from './trustedurl.filter';
@@ -13,8 +13,8 @@ describe('Filter: trustedurl', () => {
     trustedurl = $filter('trustedurl');
   }));
 
-  it('should return a TrustedValueHolderType', () => {
+  test('should return a TrustedValueHolderType', () => {
     let url = 'https://www.google.com';
-    expect(trustedurl(url)).to.be.an('object');
+    expect(trustedurl(url)).toBe.an('object');
   });
 });
