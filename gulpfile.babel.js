@@ -9,8 +9,6 @@ import opn from 'opn';
 import path from 'path';
 import dotenv from 'dotenv';
 import shelljs from 'shelljs';
-import { Server as KarmaServer } from 'karma';
-import { protractor, webdriver_update } from 'gulp-protractor';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
 
@@ -31,7 +29,7 @@ const paths = {
     views: `${clientPath}/app/**/*.pug`,
     mainView: `${clientPath}/index.html`,
     test: [`${clientPath}/app/**/*.{spec,mock,test}.js`],
-    e2e: ['e2e/**/*.spec.js']
+    e2e: ['cypress/**/*.spec.js']
   },
   server: {
     scripts: [`${serverPath}/**/!(*.spec|*.integration|*.test).js`],
@@ -41,7 +39,6 @@ const paths = {
       unit: [`${serverPath}/**/*.spec.js`]
     }
   },
-  karma: 'karma.conf.js',
   dist: 'dist'
 };
 
@@ -52,7 +49,7 @@ const gulpDebug = task => {
   console.log('TASK', task);
   let spawn = require('child_process').spawn;
   spawn('node', [
-    '--inspect',
+    '--inspect-brk',
     '--trace-deprecation',
     '--trace-warnings',
     path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
@@ -398,20 +395,12 @@ gulp.task('test:server:jest', done => {
 // Run server unit and integration tests
 gulp.task('test:server', gulp.series('env:common', 'env:test', 'test:server:jest'));
 
-// Run client tests using Karma and Protractor
-gulp.task('test:client', done => {
-  new KarmaServer({
-    configFile: `${__dirname}/${paths.karma}`,
-    singleRun: true
-  }, exitCode => {
-    console.log(`Karma Server exited with code: ${exitCode}`);
-    done(exitCode);
-    process.exit(exitCode);
-  }).start();
-});
+// Run client unit tests - could build in Jest or skip and use Cypress
+// gulp.task('test:client', done => {
+// });
 
 // Run all tests
-gulp.task('test', gulp.series('eslint:tests', 'test:server', 'test:client')); // temporarily skip client tests
+gulp.task('test', gulp.series('eslint:tests', 'test:server'/*, 'test:client'*/)); // temporarily skip client tests
 
 // Run tests created in Jest
 gulp.task('jest', gulp.series('env:common', 'test:server:jest'));
@@ -428,22 +417,9 @@ gulp.task('debug:build', done => {
   done();
 });
 
-// Downloads the selenium webdriver
-gulp.task('webdriver_update', webdriver_update);
-
-// Run end-to-end testing
-gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:common', 'env:test', 'start:server', 'webdriver_update'), () => {
-  gulp.src(paths.client.e2e)
-    .pipe(protractor({
-      configFile: 'protractor.conf.js',
-    }))
-    .on('error', e => {
-      throw e;
-    })
-    .on('end', () => {
-      process.exit();
-    });
-});
+// Run end-to-end testing using Cypress
+// gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:common', 'env:test', 'start:server', 'webdriver_update'), () => {
+// });
 
 // Push build to Heroku via git
 gulp.task('deploy', done => {

@@ -1,7 +1,8 @@
 # Product Backlog
-* [High] Replace mocha, chai, karma with jest
+* [High] Implement Cypress to replace Protractor and Karma
 
 <a name="1.0.17"></a>
+* Replaced mocha/chai/karma/sinon with jest
 * Ported angularjs-toast to project (ES6 conversion) so it's easier to test
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
 * Improve login page - validation, separate Google and SHY logins
