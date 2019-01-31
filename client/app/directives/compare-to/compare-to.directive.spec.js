@@ -10,7 +10,7 @@ describe('Directive: compareTo', () => {
   let element;
   let scope;
 
-  beforeEach(inject(function($rootScope) {
+  beforeEach(inject($rootScope => {
     scope = $rootScope.$new();
   }));
 
