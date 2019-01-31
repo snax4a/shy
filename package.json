@@ -66,6 +66,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-things": "^0.2.0",
     "css-loader": "^2.1.0",
+    "cypress": "^3.1.5",
     "del": "^3.0.0",
     "dotenv": "^6.2.0",
     "eslint": "^5.12.1",
@@ -120,6 +121,7 @@
   "scripts": {
     "start": "node server",
     "test": "gulp test",
+    "cypress:open": "cypress open",
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update"
   },
   "private": true
