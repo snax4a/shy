@@ -395,14 +395,8 @@ gulp.task('serve',
   )
 );
 
-// Run server unit tests using MochaJS
-gulp.task('test:server:unit', () =>
-  gulp.src(paths.server.test.unit)
-    .pipe(mocha())
-);
-
 // Run integration tests using Jest
-gulp.task('test:server:integration', done => {
+gulp.task('test:server:jest', done => {
   // Helpful options: --coverage  --detectOpenHandles --runInBand (run test sequentially for debugging)
   // TODO: add --env=./server/config/environment/index.js (doesn't load Babel though)
   shelljs.exec('jest --colors --verbose');
@@ -410,7 +404,7 @@ gulp.task('test:server:integration', done => {
 });
 
 // Run server unit and integration tests
-gulp.task('test:server', gulp.series('env:common', 'env:test', 'test:server:unit', 'test:server:integration'));
+gulp.task('test:server', gulp.series('env:common', 'env:test', 'test:server:jest'));
 
 // Run client tests using Karma and Protractor
 gulp.task('test:client', done => {
@@ -428,7 +422,7 @@ gulp.task('test:client', done => {
 gulp.task('test', gulp.series('eslint:tests', 'test:server'/*, 'test:client'*/)); // temporarily skip client tests
 
 // Run tests created in Jest
-gulp.task('jest', gulp.series('env:common', 'test:server:integration'));
+gulp.task('jest', gulp.series('env:common', 'test:server:jest'));
 
 // Run tests in debug mode
 gulp.task('debug:test', done => {
