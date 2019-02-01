@@ -21,25 +21,25 @@
         li(ng-show='!$ctrl.isLoggedIn()')
           a(href='/login', itemprop='url') Login
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
-          a(href='#', uib-dropdown-toggle='') 
+          a(id='username', href='#', uib-dropdown-toggle='') 
             span.fas.fa-user 
             | &nbsp;{{ $ctrl.getCurrentUser().firstName }} 
             span.caret
           ul.dropdown-menu(uib-dropdown-menu='')
             li(ng-class='{active: $ctrl.isActive("/profile")}')
-              a(href='/profile') Profile
+              a(id='profile', href='/profile') Profile
             li
               a(id='logout', href='/logout') Logout
         li(uib-dropdown='')
-          a(href='#', uib-dropdown-toggle='')
+          a(id='contact', href='#', uib-dropdown-toggle='')
             | Contact 
             span.caret
           ul.dropdown-menu(uib-dropdown-menu='')
             li
-              a(ng-click='$ctrl.contactModalOpen()')
+              a(id='message', ng-click='$ctrl.contactModalOpen()')
                 span.far.fa-envelope(aria-hidden='true')
                 | &nbsp;&nbsp;Send a message online
             li
-              a(href='tel:+1-412-401-4444')
+              a(id='call', href='tel:+1-412-401-4444')
                 span.fas.fa-phone(aria-hidden='true')
                 | &nbsp;&nbsp;Call +1 (412) 401-4444
