@@ -23,6 +23,10 @@ describe('Module: LoginComponent', () => {
     expect(1).toBe(1);
   });
 
+  test('should reject a user with incorrect credentials', () => {
+    expect(1).toBe(1);
+  });
+
   test('should login a user with a local account', () => {
     expect(1).toBe(1);
   });

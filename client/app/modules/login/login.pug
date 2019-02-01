@@ -31,6 +31,6 @@
                 ng-message(when='required') Please enter your password.
             .form-group.has-error
               p.help-block {{ $ctrl.errors.login }}
-            button.btn.btn-lg.btn-warning(type='submit') Login 
+            button.btn.btn-lg.btn-warning(id='login', type='submit') Login 
           br
           a(ng-click='$ctrl.forgotPassword()') Forgot password?
