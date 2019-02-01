@@ -7,13 +7,13 @@
         .input-group
           input.form-control(name='filterField', id='filterField', type='search', ng-model='$ctrl.filterField', ng-minlength='3', required='', autofocus='', placeholder="First or last name")
           span.input-group-btn
-            button.btn.btn-primary(id='submitButton', type='submit')
+            button.btn.btn-primary(id='search', type='submit')
               span.fas.fa-search
               |&nbsp;Search
       p.help-block.has-error(ng-show='findUserForm.filterField.$invalid && $ctrl.submitted')
         | Please enter at least the first three characters of the user's first or last name
     .col-lg-3
-      a.btn.btn-warning(ng-click='$ctrl.createUser()') 
+      a.btn.btn-warning(id='newUser', ng-click='$ctrl.createUser()') 
         span.fas.fa-plus-circle 
         |&nbsp;New User
 .row
@@ -37,7 +37,7 @@
           td(colspan='5', ng-hide='$ctrl.mini') No users found meeting the search criteria.
         tr(dir-paginate='user in $ctrl.users|orderBy:$ctrl.sortKey:$ctrl.reverse|itemsPerPage:8', pagination-id='users')
           td
-            a(ng-click="$ctrl.editUser(user)")
+            a(id='edit', ng-click="$ctrl.editUser(user)")
               span.fas.fa-pencil-alt 
               |&nbsp;&nbsp;{{ user.lastName }}, {{ user.firstName }} ({{ user._id }})
           td(ng-hide='$ctrl.mini')
