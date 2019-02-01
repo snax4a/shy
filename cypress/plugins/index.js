@@ -15,7 +15,8 @@ const dotenv = require('dotenv');
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  config.env = dotenv.config();
+  config.env = dotenv.config().parsed;
   config.baseUrl = config.env.DOMAIN;
+  config.env.NODE_ENV = 'test';
   return config;
 };
