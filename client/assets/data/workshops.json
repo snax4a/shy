@@ -111,7 +111,9 @@
           "addressRegion": "PA",
           "addressCountry": "US"
         }
-			},
+			}
+		]
+	},
 	{
 		"expires": "2019-03-30T20:00:00.000-05:00",
 		"title": "Sound Healing",
@@ -200,7 +202,7 @@
           "postalCode": "15206",
           "addressRegion": "PA",
           "addressCountry": "US"
-        }
+				}
 			},
 			{
 				"start": "2019-02-03T15:00:00.000-05:00",
