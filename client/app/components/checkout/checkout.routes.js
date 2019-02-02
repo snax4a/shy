@@ -12,6 +12,7 @@ export default function($routeProvider) {
       template: '',
       controller($location, $routeParams, Cart) {
         'ngInject';
+        console.log('BUY');
         Cart.addItem($routeParams.product, false);
         $location.path('/checkout');
       }
