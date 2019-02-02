@@ -1,6 +1,6 @@
 .row.tab-spacer
   .col-md-12
-    a.btn.btn-warning(ng-click='$ctrl.scheduleItemCreate()')
+    a.btn.btn-warning(id='new', ng-click='$ctrl.scheduleItemCreate()')
       span.fas.fa-plus-circle
       |&nbsp;New Schedule Item
     p(ng-show='$ctrl.scheduleItems.length==0') No schedule items

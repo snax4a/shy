@@ -2,20 +2,9 @@
 
 /* globals describe, it, cy, Cypress, expect, beforeEach  */
 
-const loginLocal = (username, password, expectedUrl) => {
-  cy.visit('/login');
-  cy.get('#email').type(username);
-  cy.get('#password').type(password);
-  cy.get('#login').click();
-  cy.url().should('include', expectedUrl);
-};
+import * as shy from './reusable-flows';
 
-const logout = () => {
-  cy.get('#username').click();
-  cy.get('#logout').click();
-};
-
-describe('Login/Logout as Student, Teacher, Admin', () => {
+describe('Login/Logout Feature as Student, Teacher, Admin', () => {
   // Not working due to CORS issue with Google redirect
   // it('should login an admin via Google+', () => {
   //   cy.visit('/login');
@@ -23,23 +12,23 @@ describe('Login/Logout as Student, Teacher, Admin', () => {
   // });
 
   it('should reject a user with incorrect credentials', () => {
-    loginLocal('bogususer@bitbucket.com', 'knownbadpassword', '/login');
+    shy.loginLocal('bogususer@bitbucket.com', 'knownbadpassword', '/login');
     cy.contains('Unrecognized username/password combination.');
   });
 
   it('should login a student with a local account', () => {
-    loginLocal(Cypress.env('STUDENT_EMAIL'), Cypress.env('STUDENT_PASSWORD'), '/');
-    logout();
+    shy.loginLocal(Cypress.env('STUDENT_EMAIL'), Cypress.env('STUDENT_PASSWORD'), '/');
+    shy.logout();
   });
 
   it('should login a teacher with a local account', () => {
-    loginLocal(Cypress.env('TEACHER_EMAIL'), Cypress.env('TEACHER_PASSWORD'), '/shynet');
-    logout();
+    shy.loginLocal(Cypress.env('TEACHER_EMAIL'), Cypress.env('TEACHER_PASSWORD'), '/shynet');
+    shy.logout();
   });
 
   it('should login an admin with a local account', () => {
-    loginLocal(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
-    logout();
+    shy.loginLocal(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
+    shy.logout();
   });
 
   it('should error if a Google user tries to reset their password', () => {
@@ -57,13 +46,13 @@ describe('Login/Logout as Student, Teacher, Admin', () => {
     cy.get('#email').type(Cypress.env('STUDENT_EMAIL'));
     cy.get('#sendPassword').click();
     cy.contains('A new password was emailed to you. Please check your Junk folder if you don\'t see it.');
-    loginLocal(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
+    shy.loginLocal(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
     cy.get('#filterField').type(Cypress.env('STUDENT_EMAIL'));
     cy.get('#search').click();
     cy.get('#edit').click();
     cy.get('#passwordNew').type(Cypress.env('STUDENT_PASSWORD'));
     cy.get('#passwordConfirm').type(Cypress.env('STUDENT_PASSWORD'));
     cy.get('#save').click();
-    logout();
+    shy.logout();
   });
 });

@@ -1,6 +1,6 @@
 .row.tab-spacer
   .col-md-12
-    a.btn.btn-warning(ng-click='$ctrl.announcementCreate()')
+    a.btn.btn-warning(id='new', ng-click='$ctrl.announcementCreate()')
       span.fas.fa-plus-circle
       |&nbsp;New Announcement
     p(ng-show='$ctrl.announcements.length==0') No announcements
