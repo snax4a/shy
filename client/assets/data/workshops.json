@@ -112,118 +112,16 @@
           "addressCountry": "US"
         }
 			},
-			{
-				"title": "SOLD OUT: New Year's Day",
-				"start": "2019-01-01T14:00:00.000-05:00",
-				"expires": "2019-01-02T15:30:00.000-05:00",
-				"productID": 55,
-				"cost": 20,
-				"location": "North Hills",
-        "address": {
-          "streetAddress": "7210 McKnight Road",
-          "addressLocality": "Pittsburgh",
-          "postalCode": "15237",
-          "addressRegion": "PA",
-          "addressCountry": "US"
-        }
-			},
-			{
-				"title": "Awakening the Heart",
-				"start": "2019-02-01T18:30:00.000-05:00",
-				"expires": "2019-02-02T20:00:00.000-05:00",
-				"productID": 56,
-				"cost": 20,
-				"location": "North Hills",
-        "address": {
-          "streetAddress": "7210 McKnight Road",
-          "addressLocality": "Pittsburgh",
-          "postalCode": "15237",
-          "addressRegion": "PA",
-          "addressCountry": "US"
-        }
-			}
-		]
-	},
 	{
-		"expires": "2018-12-01T20:00:00.000-05:00",
-		"title": "Kundalini Yoga and Acupuncture with Kendell Romanelli and Qiong Wang",
-		"photo": "/assets/images/workshops/kundalini.jpg",
-		"description": "Kundalini Yoga and Acupuncture are two ancient healing practices that can benefit our modern lifestyle. In this workshop, Kendell will guide you through powerful Kundalini Yoga Kriyas (yogic exercise sets to cleanse and balance the body and mind) then acupuncturist Qiong Wang will apply needles to corresponding meridians during a 20 minute relaxation to heal and balance the body and mind. Please bring a pillow for your head during relaxation.",
-		"sections":		
-		[
-			{
-				"start": "2018-11-30T18:30:00.000-05:00",
-				"expires": "2018-12-01T20:00:00.000-05:00",
-				"productID": 34,
-				"cost": 30,
-				"location": "North Hills",
-        "address": {
-          "streetAddress": "7210 McKnight Road",
-          "addressLocality": "Pittsburgh",
-          "postalCode": "15237",
-          "addressRegion": "PA",
-          "addressCountry": "US"
-        }
-			}
-		]
-	},
-
-	{
-		"expires": "2019-01-14T20:00:00.000-05:00",
-		"title": "How to Home Practice with Leigh Ann Cutright",
-		"photo": "/assets/images/workshops/homepractice.jpg",
-		"description": "Yoga works best...when we do it. If you’ve ever wished for a more consistent practice, this workshop is for you. Build the foundation for a solid self practice, and yoga will be available to you at all times for the rest of your life. We will discuss specific techniques for: motivation, safety, utilizing resources for practice, creating a practice space (no home is too small), and developing personalized sequences. This workshop is for yogis of all levels and styles. Bonus points if you’ve already tried to practice at home and failed spectacularly. Bring your mat, your phone, a pen, and a sense of adventure.",
-		"sections":		
-		[
-			{
-				"start": "2019-01-13T13:00:00.000-05:00",
-				"expires": "2019-01-14T15:30:00.000-05:00",
-				"productID": 27,
-				"cost": 35,
-				"location": "East Liberty",
-        "address": {
-          "streetAddress": "5923 Baum Boulevard",
-          "addressLocality": "Pittsburgh",
-          "postalCode": "15206",
-          "addressRegion": "PA",
-          "addressCountry": "US"
-        }
-			}
-		]
-	},
-	{
-		"expires": "2019-01-23T20:00:00.000-05:00",
-		"title": "Feet with Stefanie Zito",
-		"photo": "/assets/images/workshops/feet.jpg",
-		"description": "As the integrity of any structure is contingent on its foundation, so it is with the function of our feet in relation to the rest of our bodies. Yet most of our society spends considerable time in footwear, and our minimal time barefoot results in disconnection from our crucial foundation. Our feet are one of the most nerve-dense parts of our bodies, and its 33 joints and 26 bones suggest that we have a great capacity for mobility, which is often unexplored, and for which a toll is taken on the rest of the body. Get grounded and explore the function of your foundation with this exciting and fascinating workshop all about the function of your feet, and enjoy the direct benefits up the chain.",
-		"sections":		
-		[
-			{
-				"start": "2019-01-20T14:00:00.000-05:00",
-				"expires": "2019-01-23T16:00:00.000-05:00",
-				"productID": 62,
-				"cost": 30,
-				"location": "East Liberty",
-        "address": {
-          "streetAddress": "5923 Baum Boulevard",
-          "addressLocality": "Pittsburgh",
-          "postalCode": "15206",
-          "addressRegion": "PA",
-          "addressCountry": "US"
-        }
-			}
-		]
-	},
-	{
-		"expires": "2019-01-26T20:00:00.000-05:00",
+		"expires": "2019-03-30T20:00:00.000-05:00",
 		"title": "Sound Healing",
 		"photo": "/assets/images/workshops/soundhealing.jpg",
 		"description": "This healing workshop hosted by Kendell Romanelli & Rita Lampe, LCSW, is meant to calm the senses using movement, sound and scent. Class will begin with some breath work and a gentle yoga sequence to release the energy of the week and prepare the body & mind for meditation. We will then work with sound by chanting a mantra and close with a 30 minute relaxation supported by live guitar music, soft drumming & an optional essential oil blend.",
 		"sections":		
 		[
 			{
-				"start": "2019-01-25T18:30:00.000-05:00",
-				"expires": "2019-01-26T20:00:00.000-05:00",
+				"start": "2019-03-29T18:30:00.000-05:00",
+				"expires": "2019-03-30T20:00:00.000-05:00",
 				"productID": 63,
 				"cost": 30,
 				"location": "North Hills",
