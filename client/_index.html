@@ -13,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="description" content="Discover the best yoga in Pittsburgh. Pittsburgh's most-respected teacher training. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga." />
     <meta name="revisit-after" content="1 day" />
-    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Schoolhouse Yoga" />
     <meta property="og:image" content="https://www.schoolhouseyoga.com/apple-touch-icon.png" />
     <meta property="og:url" content="https://www.schoolhouseyoga.com/" />
     <meta property="og:title" content="Schoolhouse Yoga" />
+    <meta property="og:type" content="website" />
     <meta property="og:description" content="Discover the best yoga in Pittsburgh. Pittsburgh's most-respected teacher training. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga." /> 
     <meta name="twitter:title" content="About"/>
     <meta name="twitter:image" content="https://www.schoolhouseyoga.com/apple-touch-icon.png"/>
@@ -83,13 +83,126 @@
             },
             "subOrganization": [
               {
-                "@id": "https://www.schoolhouseyoga.com/locations#squirrelhill"
+                "@type": "HealthClub",
+                "@id": "https://www.schoolhouseyoga.com/locations#squirrelhill",
+                "name": "Schoolhouse Yoga, Squirrel Hill Studio",
+                "parentOrganization": {
+                  "@type": "Corporation",
+                  "@id": "https:/www.schoolhouseyoga.com/#organization"
+                },
+                "description": "On Murray Avenue at Phillips on other side of the street from Mineo's Pizza",
+                "url": "https://www.schoolhouseyoga.com/",
+                "email": "info@schoolhouseyoga.com",
+                "telephone": "+1-412-401-4444",
+                "image": "https://lh6.googleusercontent.com/-RPcvJpivLTk/VsoD54z86NI/AAAAAAABBpM/MDrRDu4k8GsFoMEPDZap2Q_2-m6zRGHegCJkC/s544-k-no/",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "2215 Murray Avenue",
+                  "addressLocality": "Pittsburgh",
+                  "addressRegion": "PA",
+                  "postalCode": "15217",
+                  "addressCountry": "USA"
+                },
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "40.432209",
+                  "longitude": "-79.9222949"
+                },
+                "areaServed": { 
+                  "@type": "GeoCircle", 
+                  "geoMidpoint": { 
+                    "@type": "GeoCoordinates", 
+                    "latitude": "40.432209", 
+                    "longitude": "-79.9222949" 
+                  }, 
+                  "geoRadius": "5000" 
+                },
+                "paymentAccepted": "Credit Card, Apple Pay",
+                "priceRange": "$",
+                "hasMap": "https://goo.gl/maps/YRkLw47EC8M2",
+                "openingHours": "Su-Sa 09:00-21:00"
               },
               {
-                "@id": "https://www.schoolhouseyoga.com/locations#eastliberty"
+                "@type": "HealthClub",
+                "@id": "https://www.schoolhouseyoga.com/locations#eastliberty",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "5923 Baum Boulevard",
+                  "addressLocality": "Pittsburgh",
+                  "addressRegion": "PA",
+                  "postalCode": "15206",
+                  "addressCountry": "USA"
+                },
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "40.460459",
+                  "longitude": "-79.926999"
+                },
+                "areaServed": { 
+                  "@type": "GeoCircle", 
+                  "geoMidpoint": { 
+                    "@type": "GeoCoordinates", 
+                    "latitude": "40.460459", 
+                    "longitude": "-79.926999" 
+                  }, 
+                  "geoRadius": "5000" 
+                },
+                "description": "Located across the street from Motor Square Garden about a block from Whole Foods.",
+                "name": "Schoolhouse Yoga, East Liberty Studio",
+                "parentOrganization": {
+                  "@type": "Corporation",
+                  "@id": "https:/www.schoolhouseyoga.com/#organization"
+                },
+                "url": "https://www.schoolhouseyoga.com/",
+                "email": "info@schoolhouseyoga.com",
+                "telephone": "+1-412-401-4444",
+                "image": "https://geo1.ggpht.com/cbk?panoid=wkgxCjvm1whJGT0vJV3QoQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=353.10275&pitch=0&thumbfov=100",
+                "paymentAccepted": "Credit Card, Apple Pay",
+                "priceRange": "$",
+                "hasMap": "https://goo.gl/maps/yte7NhG68p72",
+                "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
+                "openingHours": "Su-Sa 09:00-21:00"
               },
               {
-                "@id": "https://www.schoolhouseyoga.com/locations#northhills"
+                "@type": "HealthClub",
+                "@id": "https://www.schoolhouseyoga.com/locations#northhills",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "7210 McKnight Road",
+                  "addressLocality": "Pittsburgh",
+                  "addressRegion": "PA",
+                  "postalCode": "15237",
+                  "addressCountry": "USA"
+                },
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "40.535603",
+                  "longitude": "-80.010400"
+                },
+                "areaServed": { 
+                  "@type": "GeoCircle", 
+                  "geoMidpoint": { 
+                    "@type": "GeoCoordinates", 
+                    "latitude": "40.535603", 
+                    "longitude": "-80.010400" 
+                  }, 
+                  "geoRadius": "17000" 
+                },
+                "description": "Located on the drive up to Ross Park Mall, free parking.",
+                "name": "Schoolhouse Yoga, North Hills Studio",
+                "parentOrganization": {
+                  "@type": "Corporation",
+                  "@id": "https:/www.schoolhouseyoga.com/#organization"
+                },
+                "url": "https://www.schoolhouseyoga.com/",
+                "email": "info@schoolhouseyoga.com",
+                "telephone": "+1-412-401-4444",
+                "image": "https://geo1.ggpht.com/cbk?panoid=erqOWr4QOMBBZvVoltISTQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=81.56163&pitch=0&thumbfov=100",
+                "paymentAccepted": "Credit Card, Apple Pay",
+                "priceRange": "$",
+                "hasMap": "https://goo.gl/maps/9QAV8cLDAh12",
+                "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
+                "openingHours": "Su-Sa 09:00-21:00"
               }
             ],
             "hasOfferCatalog": {
@@ -141,131 +254,6 @@
               "@type": "Corporation",
               "@id": "https:/www.schoolhouseyoga.com/#organization"
             }
-          },
-          {
-            "@type": "HealthClub",
-            "@id": "https://www.schoolhouseyoga.com/locations#squirrelhill",
-            "name": "Schoolhouse Yoga, Squirrel Hill Studio",
-            "parentOrganization": {
-              "@type": "Corporation",
-              "@id": "https:/www.schoolhouseyoga.com/#organization"
-            },
-            "description": "On Murray Avenue at Phillips on other side of the street from Mineo's Pizza",
-            "url": "https://www.schoolhouseyoga.com/",
-            "email": "info@schoolhouseyoga.com",
-            "telephone": "+1-412-401-4444",
-            "image": "https://lh6.googleusercontent.com/-RPcvJpivLTk/VsoD54z86NI/AAAAAAABBpM/MDrRDu4k8GsFoMEPDZap2Q_2-m6zRGHegCJkC/s544-k-no/",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "2215 Murray Avenue",
-              "addressLocality": "Pittsburgh",
-              "addressRegion": "PA",
-              "postalCode": "15217",
-              "addressCountry": "USA"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "40.432209",
-              "longitude": "-79.9222949"
-            },
-            "areaServed": { 
-              "@type": "GeoCircle", 
-              "geoMidpoint": { 
-                "@type": "GeoCoordinates", 
-                "latitude": "40.432209", 
-                "longitude": "-79.9222949" 
-              }, 
-              "geoRadius": "5000" 
-            },
-            "paymentAccepted": "Credit Card, Apple Pay",
-            "priceRange": "$",
-            "hasMap": "https://goo.gl/maps/YRkLw47EC8M2",
-            "openingHours": "Su-Sa 09:00-21:00"
-          },
-          {
-            "@type": "HealthClub",
-            "@id": "https://www.schoolhouseyoga.com/locations#eastliberty",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "5923 Baum Boulevard",
-              "addressLocality": "Pittsburgh",
-              "addressRegion": "PA",
-              "postalCode": "15206",
-              "addressCountry": "USA"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "40.460459",
-              "longitude": "-79.926999"
-            },
-            "areaServed": { 
-              "@type": "GeoCircle", 
-              "geoMidpoint": { 
-                "@type": "GeoCoordinates", 
-                "latitude": "40.460459", 
-                "longitude": "-79.926999" 
-              }, 
-              "geoRadius": "5000" 
-            },
-            "description": "Located across the street from Motor Square Garden about a block from Whole Foods.",
-            "name": "Schoolhouse Yoga, East Liberty Studio",
-            "parentOrganization": {
-              "@type": "Corporation",
-              "@id": "https:/www.schoolhouseyoga.com/#organization"
-            },
-            "url": "https://www.schoolhouseyoga.com/",
-            "email": "info@schoolhouseyoga.com",
-            "telephone": "+1-412-401-4444",
-            "image": "https://geo1.ggpht.com/cbk?panoid=wkgxCjvm1whJGT0vJV3QoQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=353.10275&pitch=0&thumbfov=100",
-            "paymentAccepted": "Credit Card, Apple Pay",
-            "priceRange": "$",
-            "hasMap": "https://goo.gl/maps/yte7NhG68p72",
-            "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
-            "openingHours": "Su-Sa 09:00-21:00"
-          },
-          {
-            "@type": "HealthClub",
-            "@id": "https://www.schoolhouseyoga.com/locations#northhills",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "7210 McKnight Road",
-              "addressLocality": "Pittsburgh",
-              "addressRegion": "PA",
-              "postalCode": "15237",
-              "addressCountry": "USA"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "40.535603",
-              "longitude": "-80.010400"
-            },
-            "areaServed": { 
-              "@type": "GeoCircle", 
-              "geoMidpoint": { 
-                "@type": "GeoCoordinates", 
-                "latitude": "40.535603", 
-                "longitude": "-80.010400" 
-              }, 
-              "geoRadius": "17000" 
-            },
-            "description": "Located on the drive up to Ross Park Mall, free parking.",
-            "name": "Schoolhouse Yoga, North Hills Studio",
-            "parentOrganization": {
-              "@type": "Corporation",
-              "@id": "https:/www.schoolhouseyoga.com/#organization"
-            },
-            "url": "https://www.schoolhouseyoga.com/",
-            "email": "info@schoolhouseyoga.com",
-            "telephone": "+1-412-401-4444",
-            "image": "https://geo1.ggpht.com/cbk?panoid=erqOWr4QOMBBZvVoltISTQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=200&yaw=81.56163&pitch=0&thumbfov=100",
-            "paymentAccepted": "Credit Card, Apple Pay",
-            "priceRange": "$",
-            "hasMap": "https://goo.gl/maps/9QAV8cLDAh12",
-            "logo": "https://www.schoolhouseyoga.com/apple-touch-icon.png",
-            "openingHours": "Su-Sa 09:00-21:00"
-          },
-          {
-            "@type": "WebPage",
           }
         ]
       }
