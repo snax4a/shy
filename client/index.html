@@ -46,14 +46,7 @@
         "@context": "http://schema.org/",
         "@graph": [
           {
-            "@type": "WebSite",
-            "name": "Schoolhouse Yoga Pittsburgh",
-            "alternateName": ["Schoolhouse Yoga", "Schoolhouse", "SHY"],
-            "url": "https://www.schoolhouseyoga.com",
-            "description": "Discover the best yoga in Pittsburgh. Pittsburgh's most-respected teacher training. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga."
-          },
-          {
-            "@id": "https://www.schoolhouseyoga.com/",
+            "@id": "https://www.schoolhouseyoga.com/#organization",
             "@type": "Corporation",
             "name": "Schoolhouse Yoga",
             "legalName": "Schoolhouse Yoga, Inc.",
@@ -88,68 +81,74 @@
               }, 
               "geoRadius": "20000" 
             },
+            "subOrganization": [
+              {
+                "@id": "https://www.schoolhouseyoga.com/locations#squirrelhill"
+              },
+              {
+                "@id": "https://www.schoolhouseyoga.com/locations#eastliberty"
+              },
+              {
+                "@id": "https://www.schoolhouseyoga.com/locations#northhills"
+              }
+            ],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Yoga Class Passes",
               "itemListElement": [
                 {
                   "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "Twelve class pass",
-                    "price": "100.00",
-                    "priceCurrency": "USD",
-                    "priceValidUntil": "2019-03-01",
-                    "availability": "http://schema.org/InStock",
-                    "url": "https://www.schoolhouseyoga.com/buy/4",
-                    "brand": {
-                      "name": "Schoolhouse Yoga"
-                    },
-                    "termsOfService": "Good for six months from date of purchase."      
-                  }
+                  "name": "Twelve class pass",
+                  "price": "100.00",
+                  "priceCurrency": "USD",
+                  "priceValidUntil": "2019-03-01",
+                  "availability": "http://schema.org/InStock",
+                  "url": "https://www.schoolhouseyoga.com/buy/4"
                 },
                 {
                   "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "Eight class pass",
-                    "price": "80.00",
-                    "priceCurrency": "USD",
-                    "priceValidUntil": "2019-03-01",
-                    "availability": "http://schema.org/InStock",
-                    "url": "https://www.schoolhouseyoga.com/buy/3",
-                    "brand": {
-                      "@type": "Brand",
-                      "name": "Schoolhouse Yoga"
-                    }               
-                  },
-                  "termsOfService": "Good for six months from date of purchase."
+                  "name": "Eight class pass",
+                  "price": "80.00",
+                  "priceCurrency": "USD",
+                  "priceValidUntil": "2019-03-01",
+                  "availability": "http://schema.org/InStock",
+                  "url": "https://www.schoolhouseyoga.com/buy/3"
                 },
                 {
                   "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "Four class pass",
-                    "price": "50.00",
-                    "priceCurrency": "USD",
-                    "priceValidUntil": "2019-03-01",
-                    "availability": "http://schema.org/InStock",
-                    "url": "https://www.schoolhouseyoga.com/buy/2",
-                    "brand": {
-                      "@type": "Brand",
-                      "name": "Schoolhouse Yoga"
-                    }           
-                  },
-                  "termsOfService": "Good for six months from date of purchase."
+                  "name": "Four class pass",
+                  "price": "50.00",
+                  "priceCurrency": "USD",
+                  "priceValidUntil": "2019-03-01",
+                  "availability": "http://schema.org/InStock",
+                  "url": "https://www.schoolhouseyoga.com/buy/2"
                 }
               ]
             }
           },
           {
+            "@type": "WebSite",
+            "@id": "https://www.parentorg.com/#website",
+            "name": "Schoolhouse Yoga Pittsburgh",
+            "alternateName": ["Schoolhouse Yoga", "Schoolhouse", "SHY"],
+            "url": "https://www.schoolhouseyoga.com",
+            "description": "Discover the best yoga in Pittsburgh. Pittsburgh's most-respected teacher training. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga.",
+            "author": {
+              "@type": "Person",
+              "name": "Nate Stuyvesant"
+            },
+            "copyrightHolder": {
+              "@type": "Corporation",
+              "@id": "https:/www.schoolhouseyoga.com/#organization"
+            }
+          },
+          {
             "@type": "HealthClub",
+            "@id": "https://www.schoolhouseyoga.com/locations#squirrelhill",
             "name": "Schoolhouse Yoga, Squirrel Hill Studio",
-            "brand": {
-              "name": "Schoolhouse Yoga"
+            "parentOrganization": {
+              "@type": "Corporation",
+              "@id": "https:/www.schoolhouseyoga.com/#organization"
             },
             "description": "On Murray Avenue at Phillips on other side of the street from Mineo's Pizza",
             "url": "https://www.schoolhouseyoga.com/",
@@ -185,6 +184,7 @@
           },
           {
             "@type": "HealthClub",
+            "@id": "https://www.schoolhouseyoga.com/locations#eastliberty",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "5923 Baum Boulevard",
@@ -209,8 +209,9 @@
             },
             "description": "Located across the street from Motor Square Garden about a block from Whole Foods.",
             "name": "Schoolhouse Yoga, East Liberty Studio",
-            "brand": {
-              "name": "Schoolhouse Yoga"
+            "parentOrganization": {
+              "@type": "Corporation",
+              "@id": "https:/www.schoolhouseyoga.com/#organization"
             },
             "url": "https://www.schoolhouseyoga.com/",
             "email": "info@schoolhouseyoga.com",
@@ -224,6 +225,7 @@
           },
           {
             "@type": "HealthClub",
+            "@id": "https://www.schoolhouseyoga.com/locations#northhills",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "7210 McKnight Road",
@@ -248,8 +250,9 @@
             },
             "description": "Located on the drive up to Ross Park Mall, free parking.",
             "name": "Schoolhouse Yoga, North Hills Studio",
-            "brand": {
-              "name": "Schoolhouse Yoga"
+            "parentOrganization": {
+              "@type": "Corporation",
+              "@id": "https:/www.schoolhouseyoga.com/#organization"
             },
             "url": "https://www.schoolhouseyoga.com/",
             "email": "info@schoolhouseyoga.com",
