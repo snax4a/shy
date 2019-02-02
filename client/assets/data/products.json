@@ -110,26 +110,6 @@
     "price": 30
   },
   {
-    "id": 27,
-    "name": "Workshop: Home Practice (Jan 13)",
-    "price": 35
-  },
-  {
-    "id": 28,
-    "name": "Teacher Training Open House (Dec 9)",
-    "price": 0
-  },
-  {
-    "id": 29,
-    "name": "Workshop : NYD with Linda (Jan 1)",
-    "price": 40
-  },
-  {
-    "id": 34,
-    "name": "Workshop: Kundalini and Acupuncture (Nov 30)",
-    "price": 30
-  },
-  {
     "id": 54,
     "name": "Workshop: Kundalini and Chant (Nov 16)",
     "price": 30
@@ -140,13 +120,8 @@
     "price": 20
   },
   {
-    "id": 62,
-    "name": "Workshop: Feet (Jan 20)",
-    "price": 30
-  },
-  {
     "id": 63,
-    "name": "Workshop: Sound Healing (Jan 25)",
+    "name": "Workshop: Sound Healing (March 29)",
     "price": 30
   },
   {
