@@ -1,11 +1,11 @@
 [
   {
     "question": "Why Schoolhouse Yoga?",
-    "answer": "Schoolhouse Yoga <a href='/teachers'>Teachers</a> have been sharing their love of yoga in Pittsburgh for over 15 years. Our instructors have completed certified teacher training programs and are dedicated, experienced and compassionate. Schoolhouse Yoga has three Pittsburgh locations: East Liberty, Squirrel Hill, North Hills. Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels; improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in weight loss and detoxification."
+    "answer": "Schoolhouse Yoga <a href='/teachers'>Teachers</a> have been sharing their love of yoga in Pittsburgh for over 15 years. Our instructors have completed certified teacher training programs and are dedicated, experienced and compassionate. Schoolhouse Yoga has three Pittsburgh schools: <a href='/locations#eastliberty'>East Liberty</a>, <a href='/locations#squirrelhill'>Squirrel Hill</a>, <a href='/locations#northhills'>North Hills</a>. Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels; improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in weight loss and detoxification."
   },
   {
     "question": "Which class is best for me?",
-    "answer": "<b>Yoga 1</b> <a href='/classes'>Classes</a> include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance. These classes are ideal for the student who is new to yoga and is in good health.<br/><br/><b>Ashtanga yoga</b> classes (sometimes referred to as Power Yoga) include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.<br/><br/><b>Gentle yoga</b> classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who would like a slower-paced class that emphasizes stretching, breathing and relaxation."
+    "answer": "<a href='/classes#yoga1'><b>Yoga 1</b></a> <a href='/classes'>Classes</a> include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance. These classes are ideal for the student who is new to yoga and is in good health.<br/><br/><b><a href='/classes#ashtangayoga'>Ashtanga yoga</a></b> classes (sometimes referred to as Power Yoga) include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.<br/><br/><b><a href='/classes#gentleyoga'>Gentle yoga</a></b> classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who would like a slower-paced class that emphasizes stretching, breathing and relaxation."
   },
   {
     "question": "What should I bring?",
@@ -33,7 +33,7 @@
   },
   {
     "question": "What&apos;s the best time to begin <a href='/classes#prenatalyoga'>prenatal yoga</a> classes?",
-    "answer": "You may begin attending the  <a href='/classes#prenatalyoga'>prenatal yoga</a> classes at any point in your pregnancy. If you have any special health concerns, talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial. They are a low-impact way to stay in shape and prepare mentally and physically for labor."
+    "answer": "You may begin attending the  <a href='/classes#prenatalyoga'>Prenatal Yoga</a> classes at any point in your pregnancy. If you have any special health concerns, talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial. They are a low-impact way to stay in shape and prepare mentally and physically for labor."
   },
   {
     "question": "How old should my baby be before s/he attends the  <a href='/classes#mommyandme'>Mommy &amp; Me</a> class?",
