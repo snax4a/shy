@@ -10,9 +10,11 @@ export default function($routeProvider) {
     })
     .when('/buy/:product', { // Used by newsletters with links to add products
       template: '',
+      resolve: {
+        '': Cart => Cart.initialized
+      },
       controller($location, $routeParams, Cart) {
         'ngInject';
-        console.log('BUY');
         Cart.addItem($routeParams.product, false);
         $location.path('/checkout');
       }
