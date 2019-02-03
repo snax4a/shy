@@ -8,6 +8,6 @@ export class LocationsComponent {
 
   $onInit() {
     this.locations = this.LocationsService.locations;
-    this.$timeout(this.$anchorScroll, 50);
+    this.$timeout(this.$anchorScroll, 100);
   }
 }

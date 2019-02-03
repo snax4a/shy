@@ -1,8 +1,9 @@
 export class WorkshopsComponent {
   /*@ngInject*/
-  constructor($timeout, $window, toast, WorkshopsService, NewsletterService) {
+  constructor($timeout, $window, $anchorScroll, toast, WorkshopsService, NewsletterService) {
     this.$timeout = $timeout;
     this.$window = $window;
+    this.$anchorScroll = $anchorScroll;
     this.toast = toast;
     this.WorkshopsService = WorkshopsService;
     this.NewsletterService = NewsletterService;
@@ -12,7 +13,7 @@ export class WorkshopsComponent {
     this.subscriber = {};
     this.workshops = this.WorkshopsService.workshops;
     this.twitterLoad();
-    this.$timeout(this.$anchorScroll, 50);
+    this.$timeout(this.$anchorScroll, 100);
   }
 
   twitterLoad() {

@@ -8,6 +8,6 @@ export class TeachersComponent {
 
   $onInit() {
     this.faculty = this.teachersService.teachers;
-    this.$timeout(this.$anchorScroll, 50);
+    this.$timeout(this.$anchorScroll, 100);
   }
 }
