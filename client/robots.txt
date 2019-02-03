@@ -1,2 +1,6 @@
 user-agent: *
+disallow: /login
+disallow: /admin
+disallow: /shynet
+disallow: /profile
 sitemap: https://www.schoolhouseyoga.com/sitemap.xml
