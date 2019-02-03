@@ -30,6 +30,8 @@ export class WorkshopsComponent {
   }
 
   getEvent(workshop, section) {
+    const now = new Date();
+
     return {
       '@context': 'http://schema.org/',
       '@type': 'Event',
@@ -54,8 +56,10 @@ export class WorkshopsComponent {
       endDate: section.expires,
       offers: {
         '@type': 'Offer',
+        name: workshop.title,
         price: `${section.cost}.00`,
         priceCurrency: 'USD',
+        priceValidFrom: now.toISOString(),
         priceValidUntil: section.expires,
         availability: 'http://schema.org/InStock',
         url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`
