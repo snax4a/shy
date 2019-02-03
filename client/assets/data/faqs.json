@@ -1,11 +1,11 @@
 [
   {
     "question": "Why Schoolhouse Yoga?",
-    "answer": "Schoolhouse Yoga teachers have been sharing their love of yoga in Pittsburgh for over 15 years. Our instructors have completed certified teacher training programs and are dedicated, experienced and compassionate. Schoolhouse Yoga has three Pittsburgh locations: East Liberty, Squirrel Hill, North Hills. Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels; improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in weight loss and detoxification."
+    "answer": "Schoolhouse Yoga <a href='/teachers'>Teachers</a> have been sharing their love of yoga in Pittsburgh for over 15 years. Our instructors have completed certified teacher training programs and are dedicated, experienced and compassionate. Schoolhouse Yoga has three Pittsburgh locations: East Liberty, Squirrel Hill, North Hills. Yoga has been shown to: increase strength, flexibility, and balance; lower stress and anxiety levels; improve digestion and sleep; promote healing; reduce back and joint pain; improve mental focus; aid in weight loss and detoxification."
   },
   {
     "question": "Which class is best for me?",
-    "answer": "<b>Yoga 1</b> classes include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance. These classes are ideal for the student who is new to yoga and is in good health.<br/><br/><b>Ashtanga yoga</b> classes include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.<br/><br/><b>Gentle yoga</b> classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who would like a slower-paced class that emphasizes stretching, breathing and relaxation."
+    "answer": "<b>Yoga 1</b> <a href='/classes'>Classes</a> include sun salutations and a mixture of standing and seated postures that increase strength, flexibility, and balance. These classes are ideal for the student who is new to yoga and is in good health.<br/><br/><b>Ashtanga yoga</b> classes (sometimes referred to as Power Yoga) include many of these same standing and seated postures and their benefits, but these fast-paced classes also provide an effective cardiovascular workout. Athletes gravitate to this vigorous yoga tradition.<br/><br/><b>Gentle yoga</b> classes are recommended for students who are recovering from injury or illness. They are also perfect for the new student who would like a slower-paced class that emphasizes stretching, breathing and relaxation."
   },
   {
     "question": "What should I bring?",
@@ -21,7 +21,7 @@
   },
   {
     "question": "Do you offer teacher training and certification?",
-    "answer": "We do! Our program is certified by Yoga Alliance and has a five star rating. More info <a href='/teachertraining'>here</a>."
+    "answer": "Yes, our <a href='/teachertraining'>Teacher Training</a> program is certified by <a href='https://www.yogaalliance.org/SchoolPublicProfile?sid=1558&lid=1558' target='_blank'>Yoga Alliance</a> with a <a href='https://www.yogaalliance.org/SchoolPublicProfile?sid=1558&lid=1558' target='_blank'>5-star rating</a>."
   },
   {
     "question": "Will yoga help me to lose weight?",
@@ -32,12 +32,12 @@
     "answer": "We keep our classrooms at a comfortable temperature. If you like to sweat, we recommend attending the Ashtanga Yoga classes. We don&apos;t need to heat the room to a high temperature to make you sweat!"
   },
   {
-    "question": "What&apos;s the best time to begin prenatal yoga classes?",
-    "answer": "You may begin attending the prenatal yoga classes at any point in your pregnancy. If you have any special health concerns, talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial. They are a low-impact way to stay in shape and prepare mentally and physically for labor."
+    "question": "What&apos;s the best time to begin <a href='/classes#prenatalyoga'>prenatal yoga</a> classes?",
+    "answer": "You may begin attending the  <a href='/classes#prenatalyoga'>prenatal yoga</a> classes at any point in your pregnancy. If you have any special health concerns, talk with you doctor prior to attending class. Our prenatal yoga classes are designed to be safe, gentle and beneficial. They are a low-impact way to stay in shape and prepare mentally and physically for labor."
   },
   {
-    "question": "How old should my baby be before s/he attends the Mommy &amp; me class?",
-    "answer": "Your baby is welcome to attend the Mommy &amp; me class at any age. Newborns are welcome too! As long as you, the mom, feel ready to stretch and get back in shape, then you and your child will both be fine in the class."
+    "question": "How old should my baby be before s/he attends the  <a href='/classes#mommyandme'>Mommy &amp; Me</a> class?",
+    "answer": "Your baby is welcome to attend the <a href='/classes#mommyandme'>Mommy &amp; Me</a> class at any age. Newborns are welcome too! As long as you, the mom, feel ready to stretch and get back in shape, then you and your child will both be fine in the class."
   },
   {
     "question": "How much are classes?",
@@ -45,15 +45,15 @@
   },
   {
     "question": "What kinds of payment are accepted?",
-    "answer": "We accept cash, checks and all major credit cards including Apple Pay at the door. Classes and workshops may also be ordered securely on our website using Visa, Discover, MasterCard and American Express."
+    "answer": "Apple Pay, Visa, MasterCard, Amex, and Discover are accepted on our website. Cash and checks are accepted at the schools."
   },  
   {
     "question": "What is your refund policy?",
-    "answer": "Classes and workshops are non-refundable."
+    "answer": "<a href='/classes'>Classes</a> and <a href='/workshops'>Workshops</a> are non-refundable."
   },
   {
     "question": "Can I drop in on any class?",
-    "answer": "Absolutely! Our classes are ongoing. You do not need to register in advance and can begin attending classes at any time. Just arrive 10-15 minutes prior to the beginning of class to sign-in, pay and grab a mat if you need one. If you buy a class pass one day in advance, you won&apos;t have to worry about bringing a method of payment."
+    "answer": "Absolutely! Our <a href='/classes'>classes</a> are ongoing. You do not need to register in advance and can begin attending classes at any time. Arrive 10-15 minutes prior to the beginning of class to sign-in, pay and grab a mat if you need one. If you buy a class pass one day in advance, you won&apos;t have to worry about bringing a method of payment."
   },
   {
     "question": "How often should I attend classes?",
@@ -61,10 +61,10 @@
   },
   {
     "question": "Where are you located?",
-    "answer": "The locations are listed on the <a href='/locations'>locations page</a> and include links to Google Maps for directions via car, bus, walking or cycling."
+    "answer": "The locations are listed on the <a href='/locations'>Locations</a> page and include links to Google Maps for directions via car, bus, walking or cycling."
   },
   {
     "question": "Where can I park?",
-    "answer": "We have a free parking lot at our North Hills school. There is metered parking available near our Squirrel Hill and East Liberty schools."
+    "answer": "We have a free parking lot at our <a href='/locations#northhills'>North Hills</a> school. There is metered parking available near our <a href='/locations#squirrelhill'>Squirrel Hill</a> and <a href='/locations#eastliberty'>East Liberty</a> schools."
   }
 ]
