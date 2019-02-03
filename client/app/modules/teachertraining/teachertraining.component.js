@@ -1,11 +1,14 @@
 export class TeacherTrainingComponent {
-  constructor(Cart) {
+  constructor($anchorScroll, $timeout, Cart) {
     'ngInject';
+    this.$anchorScroll = $anchorScroll;
+    this.$timeout = $timeout;
     this.Cart = Cart;
   }
 
   $onInit() {
     this.paymentTerms = '98'; // product ID for teacher training (one-time fee)
+    this.$timeout(this.$anchorScroll, 100);
   }
 
   register() {
