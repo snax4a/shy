@@ -59,7 +59,7 @@ export class WorkshopsComponent {
         name: workshop.title,
         price: `${section.cost}.00`,
         priceCurrency: 'USD',
-        priceValidFrom: now.toISOString(),
+        validFrom: now.toISOString(),
         priceValidUntil: section.expires,
         availability: 'http://schema.org/InStock',
         url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`
