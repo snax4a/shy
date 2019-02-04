@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-/* globals describe, it, cy, Cypress  */
+/* globals describe, beforeEach, it, cy, Cypress  */
 
 describe('Login/Logout Feature as Student, Teacher, Admin', () => {
   // Not working due to CORS issue with Google redirect
@@ -8,6 +8,9 @@ describe('Login/Logout Feature as Student, Teacher, Admin', () => {
   //   cy.visit('/login');
   //   cy.get('#google').click();
   // });
+  beforeEach(() => {
+    cy.visit('/login');
+  });
 
   it('should reject a user with incorrect credentials', () => {
     cy.login('bogususer@bitbucket.com', 'knownbadpassword', '/login');
@@ -30,7 +33,6 @@ describe('Login/Logout Feature as Student, Teacher, Admin', () => {
   });
 
   it('should error if a Google user tries to reset their password', () => {
-    cy.visit('/login');
     cy.get('#forgotPassword').click();
     cy.get('#email').type(Cypress.env('GOOGLE_EMAIL'));
     cy.get('#sendPassword').click();
@@ -39,7 +41,6 @@ describe('Login/Logout Feature as Student, Teacher, Admin', () => {
   });
 
   it('should allow a user to reset their password', () => {
-    cy.visit('/login');
     cy.get('#forgotPassword').click();
     cy.get('#email').type(Cypress.env('STUDENT_EMAIL'));
     cy.get('#sendPassword').click();
