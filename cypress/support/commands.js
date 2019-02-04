@@ -16,7 +16,7 @@ Cypress.Commands.add('login', (email, password, expectedUrl) => {
   cy.get('#email').type(email);
   cy.get('#password').type(password);
   cy.get('#login').click();
-  cy.hash().should('eq', expectedUrl);
+  cy.location('pathname').should('eq', expectedUrl);
 });
 
 Cypress.Commands.add('logout', () => {
