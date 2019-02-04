@@ -1,16 +1,14 @@
 /// <reference types="Cypress" />
 
-/* globals describe, it, cy, Cypress, expect, beforeEach  */
-
-import * as shy from './reusable-flows';
+/* globals describe, it, cy, Cypress  */
 
 describe('Admin -> Announcements Feature', () => {
   it('should login admin and navigate to Announcements tab', () => {
-    shy.loginLocal(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
+    cy.login(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
     cy.get('#announcements').click();
-  });
+  // });
 
-  it('should create a new announcement', () => {
+  // it('should create a new announcement', () => {
     cy.contains('New Announcement').click();
     cy.get('#section').type('Section Test');
     cy.get('#title').type('Title Test');
@@ -27,6 +25,6 @@ describe('Admin -> Announcements Feature', () => {
   // });
 
   // it('should delete an announcement', () => {
-  //   //shy.logout();
+  //   //cy.logout();
   // });
 });
