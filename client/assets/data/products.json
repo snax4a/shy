@@ -61,27 +61,27 @@
   },
   {
     "id": 17,
-    "name": "Workshop: Moon Salutations (Dec 7)",
+    "name": "Workshop: Moon Salutations (March 8)",
     "price": 20
   },
   {
     "id": 18,
-    "name": "Workshop: Moon Salutations (Dec 21)",
+    "name": "Workshop: Moon Salutations (March 22)",
     "price": 20
   },
   {
     "id": 19,
-    "name": "Workshop: Moon Salutations (Jan 4)",
+    "name": "Workshop: Moon Salutations (April 5)",
     "price": 20
   },
   {
     "id": 20,
-    "name": "Workshop: Moon Salutations (Jan 18)",
+    "name": "Workshop: Moon Salutations (April 19)",
     "price": 20
   },
   {
     "id": 21,
-    "name": "Workshop: Moon Salutations (Nov 23)",
+    "name": "Workshop: Moon Salutations (May 3)",
     "price": 20
   },
   {
@@ -108,6 +108,11 @@
     "id": 26,
     "name": "Workshop: Props (Feb 10)",
     "price": 30
+  },
+  {
+    "id": 27,
+    "name": "Workshop: Moon Salutations (May 17)",
+    "price": 20
   },
   {
     "id": 54,
