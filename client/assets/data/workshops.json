@@ -235,7 +235,7 @@
 		]
 	},
 	{
-		"expires": "2019-02-18T15:30:00.000-05:00",
+		"expires": "2019-04-30T15:30:00.000-05:00",
 		"title": "Prenatal Partner Yoga Workshop with Brenda Maser",
 		"photo": "/assets/images/workshops/prenatalpartner.jpg",
 		"description": "Moms-to-be bring your partner, a family member or a friend to this fun workshop where you will learn supportive partner poses, breath work, massage and relaxation techniques designed to help you connect with one another and prepare for the arrival of your little one! All stages of pregnancy and levels of experience are welcome. Price is per couple.",
@@ -245,6 +245,20 @@
 				"start": "2019-02-17T14:00:00.000-05:00",
 				"expires": "2019-02-18T15:30:00.000-05:00",
 				"productID": 14,
+				"cost": 35,
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
+			},
+			{
+				"start": "2019-04-28T14:00:00.000-04:00",
+				"expires": "2019-04-29T15:30:00.000-04:00",
+				"productID": 13,
 				"cost": 35,
 				"location": "East Liberty",
         "address": {
