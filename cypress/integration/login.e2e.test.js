@@ -1,15 +1,38 @@
 /// <reference types="Cypress" />
 
-/* globals describe, beforeEach, it, cy, Cypress  */
+/* globals describe, beforeEach, after, it, cy, Cypress  */
 
-describe('Login/Logout Feature as Student, Teacher, Admin', () => {
-  // Not working due to CORS issue with Google redirect
-  // it('should login an admin via Google+', () => {
-  //   cy.visit('/login');
-  //   cy.get('#google').click();
-  // });
+describe('Login Feature as Student, Teacher, Admin', () => {
   beforeEach(() => {
     cy.visit('/login');
+  });
+
+  after(() => {
+    cy.visit('/login');
+    // Reset the student email's password so re-running the test works
+    cy.login(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
+    cy.get('#filterField').type(Cypress.env('STUDENT_EMAIL'));
+    cy.get('#search').click();
+    cy.get('#edit').click();
+    cy.get('#passwordNew').type(Cypress.env('STUDENT_PASSWORD'));
+    cy.get('#passwordConfirm').type(Cypress.env('STUDENT_PASSWORD'));
+    cy.get('#save').click();
+    cy.logout();
+  });
+
+  it('should have link to create a new account', () => {
+    cy.contains('Create one').should('have.attr', 'href', '/signup');
+  });
+
+  // CORS issue prevents following the click
+  it('should have a button to login via Google', () => {
+    cy.get('#google').should('have.attr', 'ng-click', '$ctrl.loginOauth("google")');
+  });
+
+  it('should show an error if no credentials are entered', () => {
+    cy.get('#login').click();
+    cy.contains('Please provide an email address.');
+    cy.contains('Please enter your password.');
   });
 
   it('should reject a user with incorrect credentials', () => {
@@ -45,13 +68,5 @@ describe('Login/Logout Feature as Student, Teacher, Admin', () => {
     cy.get('#email').type(Cypress.env('STUDENT_EMAIL'));
     cy.get('#sendPassword').click();
     cy.contains('A new password was emailed to you. Please check your Junk folder if you don\'t see it.');
-    cy.login(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
-    cy.get('#filterField').type(Cypress.env('STUDENT_EMAIL'));
-    cy.get('#search').click();
-    cy.get('#edit').click();
-    cy.get('#passwordNew').type(Cypress.env('STUDENT_PASSWORD'));
-    cy.get('#passwordConfirm').type(Cypress.env('STUDENT_PASSWORD'));
-    cy.get('#save').click();
-    cy.logout();
   });
 });

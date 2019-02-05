@@ -3,12 +3,13 @@
 /* globals describe, it, cy, Cypress  */
 
 describe('Admin -> Announcements Feature', () => {
-  it('should login admin and navigate to Announcements tab', () => {
-    cy.login(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'), '/admin');
+  beforeEach(() => {
+    cy.loginApi(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'));
+    cy.visit('/admin');
     cy.get('#announcements').click();
-  // });
+  });
 
-  // it('should create a new announcement', () => {
+  it('should create a new announcement', () => {
     cy.contains('New Announcement').click();
     cy.get('#section').type('Section Test');
     cy.get('#title').type('Title Test');
@@ -16,15 +17,20 @@ describe('Admin -> Announcements Feature', () => {
     cy.get('#save').click();
   });
 
-  // it('should save changes to an existing announcement', () => {
-  //   cy.contains('Section Test').click();
-  //   cy.get('#section').type('Section Test Changed');
-  //   cy.get('#title').type('Title Test Changed');
-  //   cy.get('#description').type('Description Test Changed');
-  //   cy.get('#save').click();
-  // });
+  it('should save changes to an existing announcement', () => {
+    cy.contains('Section Test').click();
+    cy.get('#section').clear()
+      .type('Section Test Changed');
+    cy.get('#title').clear()
+      .type('Title Test Changed');
+    cy.get('#description').clear()
+      .type('Description Test Changed');
+    cy.get('#save').click();
+  });
 
-  // it('should delete an announcement', () => {
-  //   //cy.logout();
-  // });
+  it('should delete an announcement', () => {
+    cy.contains('tr', 'Section Test Changed')
+      .find('.trash')
+      .click();
+  });
 });

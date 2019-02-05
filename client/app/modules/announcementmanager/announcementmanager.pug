@@ -3,6 +3,8 @@
     a.btn.btn-warning(id='new', ng-click='$ctrl.announcementCreate()')
       span.fas.fa-plus-circle
       |&nbsp;New Announcement
+    br
+    br
     p(ng-show='$ctrl.announcements.length==0') No announcements
     table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
       thead
@@ -25,4 +27,4 @@
             a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.expires | date: 'd-MMM-yy' : 'UTC' }}
           td
             a.trash(ng-click='$ctrl.announcementDelete(announcement)')
-              span.far.fa-trash-alt.pull-right
+              span.far.fa-trash-alt
