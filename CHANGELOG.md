@@ -1,5 +1,6 @@
 # Product Backlog
 * [High] Implement Cypress to replace Protractor and Karma
+* [Bug] Admin/Announcements - invalid times causes 500 error
 
 <a name="1.0.17"></a>
 * Replaced mocha/chai/karma/sinon with jest
