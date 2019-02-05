@@ -5,8 +5,8 @@ import braintree from 'braintree';
 // Test specific configuration
 // ===========================
 export default {
-  google: {
-    email: 'nstuyvesant@gmail.com'
+  googleUser: {
+    email: process.env.GOOGLE_EMAIL
   },
 
   student: {
