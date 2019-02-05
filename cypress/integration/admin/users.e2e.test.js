@@ -6,30 +6,39 @@ describe('Admin -> Users Feature', () => {
   beforeEach(() => {
     cy.loginApi(Cypress.env('ADMIN_EMAIL'), Cypress.env('ADMIN_PASSWORD'));
     cy.visit('/admin');
-    cy.get('#users').click();
   });
 
-  it('should create a new user', () => {
+  it('should create a new student', () => {
     cy.contains('New User').click();
-    cy.get('#section').type('Section Test');
-    cy.get('#title').type('Title Test');
-    cy.get('#description').type('Description Test');
+    cy.get('#firstName')
+      .clear()
+      .type('Testy');
+    cy.get('#lastName')
+      .clear()
+      .type('McTestface');
+    cy.get('#email')
+      .clear()
+      .type('testy.mctestface@bitbucket.com');
+    cy.get('#phone')
+      .clear()
+      .type('412-555-1212');
     cy.get('#save').click();
   });
 
-  it('should save changes to an existing announcement', () => {
-    cy.contains('Section Test').click();
-    cy.get('#section').clear()
-      .type('Section Test Changed');
-    cy.get('#title').clear()
-      .type('Title Test Changed');
-    cy.get('#description').clear()
-      .type('Description Test Changed');
+  it('should save changes to an existing student', () => {
+    cy.get('#filterField')
+      .clear()
+      .type('testy.mctestface@bitbucket.com');
+    cy.get('#search').click();
+    cy.contains('McTestface, Testy').click();
+    cy.get('#email').clear()
+      .type('testy.mctestface@bitbucket.com');
+    cy.get('#role').select('Administrator');
     cy.get('#save').click();
   });
 
-  it('should delete an announcement', () => {
-    cy.contains('tr', 'Section Test Changed')
+  it('should delete a user', () => {
+    cy.contains('tr', 'McTestface, Testy')
       .find('.trash')
       .click();
   });
