@@ -11,9 +11,12 @@ describe('Admin -> Announcements Feature', () => {
 
   it('should create a new announcement', () => {
     cy.contains('New Announcement').click();
-    cy.get('#section').type('Section Test');
-    cy.get('#title').type('Title Test');
-    cy.get('#description').type('Description Test');
+    cy.get('#section').clear()
+      .type('Section Test');
+    cy.get('#title').clear()
+      .type('Title Test');
+    cy.get('#description').clear()
+      .type('Description Test');
     cy.get('#save').click();
   });
 
