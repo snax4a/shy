@@ -50,6 +50,11 @@
     "price": 55
   },
   {
+    "id":11,
+    "name": "Mother's Day (May 10)",
+    "price": 30
+  },
+  {
     "id": 13,
     "name": "Workshop: Prenatal Partner Yoga (April 28)",
     "price": 35

@@ -424,7 +424,7 @@
       {
         "start": "2019-05-10T18:30:00.000-04:00",
         "expires": "2019-05-11T20:00:00.000-04:00",
-        "productID": 24,
+        "productID": 11,
         "cost": 30,
         "location": "East Liberty",
         "address": {
