@@ -40,6 +40,16 @@
     "price": 100
   },
   {
+    "id": 9,
+    "name": "Lori Brungard (Apriil 26, 2-4pm)",
+    "price": 55
+  },
+  {
+    "id":10,
+    "name": "Lori Brungard (April 26, 6-8pm)",
+    "price": 55
+  },
+  {
     "id": 13,
     "name": "Workshop: Prenatal Partner Yoga (April 28)",
     "price": 35

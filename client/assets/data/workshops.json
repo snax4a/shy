@@ -376,5 +376,42 @@
         }
       }
     ]
-  }
+	},
+	{
+		"expires": "2019-04-07T15:00:00.000-05:00",
+		"title": "Ashtanga Yoga Workshops with Lori Brungard",
+		"photo": "/assets/images/workshops/loribrungard.jpg", 
+		"description": "Lori Brungard has been practicing yoga for over 20 years. Since 1996, she has travelled to India more than ten times, spending over 14 months studying Ashtanga Yoga with her teacher Sri K. Pattabhi Jois. She is one of only 80 people in the world who have received Level Two Authorization to teach Intermediate Series from the KPJ Ashtanga Yoga Institute. She also completed a yearlong teacher training under the guidance of Sharon Gannon and David Life at the Jivamukti Yoga School in 1999. She has taught numerous workshops, including adjustments for the Yoga to the People teacher training program. In addition to teaching daily Mysore Ashtanga classes at Ashtanga Sadhana in the East Village, she is an Adjunct Lecturer in Yoga at Hunter College of the City University of New York.",
+		"sections":
+		[
+			{
+				"start": "2019-04-26T14:00:00.000-04:00",
+				"expires": "2019-03-27T16:00:00.000-04:00",
+				"productID": 9,
+				"cost": 55,
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+				}
+			},
+			{
+				"start": "2019-04-26T18:00:00.000-04:00",
+				"expires": "2019-04-27T20:00:00.000-04:00",
+				"productID": 10,
+				"cost": 55,
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
+			}
+		]
+	}
 ]
