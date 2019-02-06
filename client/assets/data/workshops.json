@@ -381,7 +381,7 @@
 		"expires": "2019-04-07T15:00:00.000-05:00",
 		"title": "Ashtanga Yoga Workshops with Lori Brungard",
 		"photo": "/assets/images/workshops/loribrungard.jpg", 
-		"description": "Lori Brungard has been practicing yoga for over 20 years. Since 1996, she has travelled to India more than ten times, spending over 14 months studying Ashtanga Yoga with her teacher Sri K. Pattabhi Jois. She is one of only 80 people in the world who have received Level Two Authorization to teach Intermediate Series from the KPJ Ashtanga Yoga Institute. She also completed a yearlong teacher training under the guidance of Sharon Gannon and David Life at the Jivamukti Yoga School in 1999. She has taught numerous workshops, including adjustments for the Yoga to the People teacher training program. In addition to teaching daily Mysore Ashtanga classes at Ashtanga Sadhana in the East Village, she is an Adjunct Lecturer in Yoga at Hunter College of the City University of New York.",
+		"description": "Lori Brungard has been practicing yoga for more than 20 years. Since 1996, she has travelled to India more than ten times, spending over 14 months studying Ashtanga Yoga with her teacher Sri K. Pattabhi Jois. She is one of only 80 people in the world who have received Level Two Authorization to teach Intermediate Series from the KPJ Ashtanga Yoga Institute. She also completed a yearlong teacher training under the guidance of Sharon Gannon and David Life at the Jivamukti Yoga School in 1999. She has taught numerous workshops, including adjustments for the Yoga to the People teacher training program. In addition to teaching daily Mysore Ashtanga classes at Ashtanga Sadhana in the East Village, she is an Adjunct Lecturer in Yoga at Hunter College of the City University of New York.",
 		"sections":
 		[
 			{
@@ -413,5 +413,28 @@
         }
 			}
 		]
+	},
+	{
+    "expires": "2019-02-24T20:00:00.000-05:00",
+    "title": "Mother's Day Workshop with Stefanie Zito",
+    "photo": "/assets/images/workshops/mothering.jpg",
+    "description": "Motherhood is a journey unlike any other. Each of our collective journeys take on a rich variety of forms, though similarly all require resilience, strength, adaptability, and courage. Gather and Nourish is a practice for moms on any part of their journey, including moms-to-be, moms whose children are grown, and moms whose kids require their constant attention. This rejuvenating and gentle practice will seek to collectively honor, celebrate, and restore as we connect to self and with one another.",
+    "sections":		
+    [
+      {
+        "start": "2019-05-10T18:30:00.000-04:00",
+        "expires": "2019-05-11T20:00:00.000-04:00",
+        "productID": 24,
+        "cost": 30,
+        "location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
+      }
+    ]
 	}
 ]
