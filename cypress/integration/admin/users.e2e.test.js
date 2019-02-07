@@ -38,7 +38,11 @@ describe('Admin -> Users Feature', () => {
   });
 
   it('should delete a user', () => {
-    cy.contains('tr', 'McTestface, Testy')
+    cy.get('#filterField')
+      .clear()
+      .type('testy.mctestface@bitbucket.com');
+    cy.get('#search').click();
+    cy.contains('tr', 'Mctestface, Testy')
       .find('.trash')
       .click();
   });
