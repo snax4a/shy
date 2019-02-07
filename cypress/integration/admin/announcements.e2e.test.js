@@ -9,6 +9,14 @@ describe('Admin -> Announcements Feature', () => {
     cy.get('#announcements').click();
   });
 
+  it('should display errors if fields are empty or invalid', () => {
+    cy.contains('New Announcement').click();
+    cy.get('#save').click();
+    cy.contains('Please enter the announcement section name.');
+    cy.contains('Please enter the announcement title.');
+    cy.contains('Please enter the announcement description.');
+  });
+
   it('should create a new announcement', () => {
     cy.contains('New Announcement').click();
     cy.get('#section').clear()
