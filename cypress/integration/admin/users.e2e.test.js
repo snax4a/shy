@@ -16,7 +16,6 @@ describe('Admin -> Users Feature', () => {
     cy.visit('/admin');
   });
 
-
   it('should find existing user', () => {
     find(Cypress.env('ADMIN_EMAIL'));
   });
