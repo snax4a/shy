@@ -30,7 +30,7 @@ describe('Admin -> Users Feature', () => {
       .clear()
       .type('testy.mctestface@bitbucket.com');
     cy.get('#search').click();
-    cy.contains('McTestface, Testy').click();
+    cy.contains('Mctestface, Testy').click();
     cy.get('#email').clear()
       .type('testy.mctestface@bitbucket.com');
     cy.get('#role').select('Administrator');
