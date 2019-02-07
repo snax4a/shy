@@ -9,6 +9,15 @@ describe('Admin -> Classes Feature', () => {
     cy.get('#schedule').click();
   });
 
+  it('should get errors for empty or invalid fields when saving', () => {
+    cy.contains('New Schedule Item').click();
+    cy.get('#startTime').clear();
+    cy.get('#endTime').clear();
+    cy.get('#save').click();
+    cy.contains('Please enter the start time.');
+    cy.contains('Please enter the end time.');
+  });
+
   it('should create a new class', () => {
     cy.contains('New Schedule Item').click();
     cy.get('#location').select('Squirrel Hill');
