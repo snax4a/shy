@@ -1,0 +1,27 @@
+.row.tab-spacer
+  .col-md-12
+    a.btn.btn-warning(id='new', ng-click='$ctrl.classCreate()')
+      span.fas.fa-plus-circle
+      |&nbsp;New Class
+    br
+    br
+    p(ng-show='$ctrl.classes.length==0') No classes
+    table.table.table-striped(ng-hide='$ctrl.classes.length==0')
+      thead
+        th Name (click to edit)
+        th Description
+        th Active
+        th 
+      tbody
+        tr(ng-repeat='thisClass in $ctrl.classes')
+          td(style='width:230px;')
+            a.edit(ng-click='$ctrl.classEdit(thisClass)')
+              span.fas.fa-pencil-alt 
+              |&nbsp;&nbsp;{{ thisClass.name }}
+          td
+            a.edit(ng-click='$ctrl.classEdit(thisClass)') {{ thisClass.description }}
+          td
+            a.edit(ng-click='$ctrl.classEdit(thisClass)') {{ thisClass.active }}
+          td
+            a.trash(ng-click='$ctrl.classDelete(thisClass)')
+              span.far.fa-trash-alt

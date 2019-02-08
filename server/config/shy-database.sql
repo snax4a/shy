@@ -109,8 +109,31 @@ CREATE TABLE IF NOT EXISTS public.products (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
+-- DROP INDEX public.products_active;
+CREATE INDEX products_active ON public.products USING btree ("active");
+
 -- DROP TRIGGER updated_at ON public.products;
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.products
+  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
+-- DROP SEQUENCE public.classes_seq;
+CREATE SEQUENCE IF NOT EXISTS public.classes_seq;
+
+-- DROP TABLE public.classes;
+CREATE TABLE IF NOT EXISTS public.classes (
+  _id integer PRIMARY KEY DEFAULT nextval('classes_seq'),
+  name character varying(256) NOT NULL UNIQUE,
+  description character varying(1024) NOT NULL,
+  active boolean NOT NULL DEFAULT true,
+  "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
+  "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
+);
+
+-- DROP INDEX public.classes_active;
+CREATE INDEX classes_active ON public.classes USING btree ("active");
+
+-- DROP TRIGGER updated_at ON public.classes;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.classes
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
 CREATE SEQUENCE IF NOT EXISTS public."Announcements__id_seq";

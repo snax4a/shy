@@ -6,7 +6,7 @@ form(name='form', ng-submit="$ctrl.submitProduct(form)", novalidate='', ng-model
   .modal-body
     .row
       .form-group.col-md-12
-        label(for='name') Name
+        label(for='productName') Name
         input.form-control(type='text', name='productName', id='productName', ng-model='$ctrl.product.name', maxlength='100', autofocus='', required='true', placeholder='Product name')
         ng-messages.help-block.has-error(for='form.productName.$error', ng-show='form.productName.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the product name.

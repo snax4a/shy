@@ -1,0 +1,25 @@
+form(name='form', ng-submit="$ctrl.submitClass(form)", novalidate='', ng-model-options="{'timezone':'UTC', 'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title {{ $ctrl.class._id === 0 ? 'New':'Edit'}} Class
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='className') Name
+        input.form-control(type='text', name='className', id='className', ng-model='$ctrl.class.name', maxlength='100', autofocus='', required='true', placeholder='Class name')
+        ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the class name.
+      .form-group.col-md-12
+        label(for='description') Price
+        textarea.form-control(name='description', id='description', ng-model='$ctrl.class.description', rows='5', required='true', placeholder='Class description')
+        ng-messages.help-block.has-error(for='form.description.$error', ng-show='form.description.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a class description.
+      .form-group.col-md-12 
+        .checkbox
+          label
+            input(type='checkbox', name='active', ng-model='$ctrl.class.active')
+            | Active
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

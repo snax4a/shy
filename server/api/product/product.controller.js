@@ -38,7 +38,7 @@ export async function upsert(req, res) {
   return res.status(200).send({ _id });
 }
 
-// Deletes announcement (admin-only)
+// Deletes product (admin-only)
 export async function destroy(req, res) {
   const _id = req.params.id;
   const sql = 'DELETE FROM products WHERE _id = $1;';
