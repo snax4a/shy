@@ -33,8 +33,8 @@ describe('Schedule API:', () => {
       day: 1,
       title: 'Yoga 1',
       teacher: 'Jane Doe',
-      startTime: '09:00:00.000000',
-      endTime: '10:30:00.000000',
+      startTime: '2019-01-01T09:00', // date is ignored
+      endTime: '2019-01-01T10:30', // date is ignored
       canceled: false
     };
 

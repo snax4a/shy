@@ -6,10 +6,15 @@ export async function index(req, res) {
   return res.status(200).send(rows);
 }
 
+export async function activeProductsGet() {
+  const { rows } = await db.query('SELECT _id, name, price FROM products WHERE active = true ORDER BY _id;', []);
+  return rows;
+}
+
 // Returns list of active Products
 export async function activeProducts(req, res) {
-  const { rows } = await db.query('SELECT _id, name, price FROM products WHERE active = true ORDER BY _id;', []);
-  return res.status(200).send(rows);
+  const products = await activeProductsGet();
+  return res.status(200).send(products);
 }
 
 export async function upsertProduct(product) {

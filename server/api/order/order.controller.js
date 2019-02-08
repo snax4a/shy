@@ -3,8 +3,7 @@ import config from '../../config/environment';
 import db from '../../utils/db';
 import mail from '../../utils/mail';
 import { contactUpsert } from '../user/user.controller';
-
-const products = require('../../../client/assets/data/products.json');
+import { activeProductsGet } from '../product/product.controller';
 
 class BraintreeError extends Error {
   constructor(message, path) {
@@ -20,11 +19,12 @@ class BraintreeError extends Error {
 const getLineItemTotal = cartItem => parseFloat(cartItem.quantity * cartItem.price.toFixed(0));
 
 // Calculate the total cost of all items
-const getGrandTotal = cartItems => {
+const getGrandTotal = async cartItems => {
+  const products = await activeProductsGet(); // prices are strings to preserve precision (node-postgres)
   let total = 0;
   for(let cartItem of cartItems) {
     // Get the corrected price from the master product list and override in case of tampering
-    cartItem.price = products.find(product => product.id === parseInt(cartItem.id, 10)).price;
+    cartItem.price = 1 * products.find(product => product._id === parseInt(cartItem.id, 10)).price;
     total += getLineItemTotal(cartItem);
   }
   return parseFloat(total).toFixed(0);
@@ -40,11 +40,12 @@ const abbreviateCartItems = cartItems => {
 };
 
 // Generate order object Braintree can digest from HTTP request
-const buildOrder = body => {
+const buildOrder = async body => {
   let cartItems = body.cartItems;
+  const amount = await getGrandTotal(cartItems);
   return {
     paymentMethodNonce: body.nonceFromClient,
-    amount: getGrandTotal(cartItems),
+    amount,
     descriptor: {
       name: 'SH Yoga*Class Workshop',
       phone: '412-401-4444',
@@ -260,7 +261,7 @@ const saveToDB = async confirmation => {
 // Process Braintree order -> send response -> save to DB -> send email confirmation
 export async function create(req, res) {
   // Convert req.body into Braintree's expected format
-  const orderInfo = buildOrder(req.body);
+  const orderInfo = await buildOrder(req.body);
 
   // Submit braintree transaction (takes about 1.5s)
   const transaction = await braintreeGatewayTransactionSale(orderInfo);

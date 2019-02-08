@@ -19,7 +19,7 @@ class Item {
 // Note: results of async functions are not part of the digest cycle so the component must use $timeout whenever an update is needed
 export class Cart {
   /*@ngInject*/
-  constructor($log, $window, $location, $http, $timeout, $q) {
+  constructor($log, $window, $location, $http, $timeout, $q, ProductService) {
     // Setup dependency injections
     this.$log = $log;
     this.$window = $window;
@@ -27,6 +27,7 @@ export class Cart {
     this.$http = $http;
     this.$timeout = $timeout;
     this.$q = $q;
+    this.productService = ProductService;
 
     // Initialize members
     this.key = 'cart'; // name of local storage key
@@ -50,9 +51,8 @@ export class Cart {
 
   async braintreeInitialize() {
     try {
-      // Load product list
-      const { data } = await this.$http.get('/assets/data/products.json');
-      this.products = data;
+      // Load active product list
+      this.products = await this.productService.productsGet(true);
 
       // Get token
       const response = await this.$http.get('api/token');
