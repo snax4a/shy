@@ -14,7 +14,7 @@ export class ClassManagerComponent {
   }
 
   classRemoveFromList(thisClass) {
-    this.classes.splice(this.class.indexOf(thisClass), 1);
+    this.classes.splice(this.classes.indexOf(thisClass), 1);
   }
 
   classCreate() {

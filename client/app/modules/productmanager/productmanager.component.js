@@ -14,7 +14,7 @@ export class ProductManagerComponent {
   }
 
   productRemoveFromList(product) {
-    this.products.splice(this.product.indexOf(product), 1);
+    this.products.splice(this.products.indexOf(product), 1);
   }
 
   productCreate() {

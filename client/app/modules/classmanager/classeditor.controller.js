@@ -15,16 +15,16 @@ export class ClassEditorController {
     angular.copy(this.classSelectedForEditing, this.class);
   }
 
-  async submitProduct(form) {
+  async submitClass(form) {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
       let upsertedClass = {};
       angular.copy(this.class, upsertedClass);
 
-      upsertedClass._id = await this.productService.productUpsert(upsertedClass);
+      upsertedClass._id = await this.classService.classUpsert(upsertedClass);
 
-      // Graft the edited product back the original
+      // Graft the edited class back the original
       angular.extend(this.classSelectedForEditing, upsertedClass);
       this.$uibModalInstance.close();
 
