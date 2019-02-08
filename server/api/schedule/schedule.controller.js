@@ -87,16 +87,16 @@ export async function upsert(req, res) {
     sql = `INSERT INTO "Schedules"
       (location, day, title, teacher, "startTime", "endTime", canceled)
       VALUES ($1, $2, $3, $4,
-        timezone('US/Eastern', $5),
-        timezone('US/Eastern', $6),
+        timezone('UTC', $5),
+        timezone('UTC', $6),
         $7) RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE "Schedules"
         SET location = $1, day = $2, title = $3, teacher = $4,
-        "startTime" = timezone('US/Eastern', $5),
-        "endTime" = timezone('US/Eastern', $6),
+        "startTime" = timezone('UTC', $5),
+        "endTime" = timezone('UTC', $6),
         canceled = $7
       WHERE _id = $8 RETURNING _id;`;
   }

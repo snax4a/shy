@@ -16,7 +16,11 @@ export class ScheduleEditorController {
     this.submitted = false;
     this.errors = {};
     this.scheduleItem = {};
-    this.timex = '\\d+:\\d+';
+    this.options = {
+      timeSecondsFormat: 'ss',
+      timeStripZeroSeconds: true,
+      timezone: 'UTC'
+    };
 
     angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);
   }
