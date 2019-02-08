@@ -6,7 +6,7 @@ export default function routes($routeProvider) {
     authenticate: 'admin',
     title: 'Schoolhouse Yoga Admin',
     resolve: {
-      '': (TeachersService, ClassesService, LocationsService) => Promise.all([TeachersService.initialized, ClassesService.initialized, LocationsService.initialized])
+      '': (TeachersService, ClassesService, LocationsService, ProductService) => Promise.all([TeachersService.initialized, ClassesService.initialized, LocationsService.initialized, ProductService.initialized])
     }
   });
 }

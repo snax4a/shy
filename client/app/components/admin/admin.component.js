@@ -5,12 +5,13 @@ import UibTabsDirective from 'angular-ui-bootstrap/src/tabs';
 import AnnouncementManagerModule from '../../modules/announcementmanager/announcementmanager.module';
 import ScheduleManagerModule from '../../modules/schedulemanager/schedulemanager.module';
 import UserManagerModule from '../../modules/usermanager/usermanager.module';
+import ProductManagerModule from '../../modules/productmanager/productmanager.module';
 
 export class AdminComponent {
   /*@ngInject*/
 }
 
-export default angular.module('shyApp.admin', [ngRoute, AnnouncementManagerModule, UibTabsDirective, ScheduleManagerModule, UserManagerModule])
+export default angular.module('shyApp.admin', [ngRoute, AnnouncementManagerModule, UibTabsDirective, ScheduleManagerModule, UserManagerModule, ProductManagerModule])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),

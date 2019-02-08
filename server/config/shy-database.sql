@@ -96,6 +96,23 @@ CREATE INDEX users_last_name ON public."Users" USING btree ("lastName");
 CREATE TRIGGER updated_at BEFORE UPDATE ON public."Users"
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
+-- DROP SEQUENCE public.products_seq;
+CREATE SEQUENCE IF NOT EXISTS public.products_seq;
+
+-- DROP TABLE public.products;
+CREATE TABLE IF NOT EXISTS public.products (
+  _id integer PRIMARY KEY DEFAULT nextval('products_seq'),
+  name character varying(256) NOT NULL UNIQUE,
+  price numeric(10,2) NOT NULL DEFAULT 0,
+  active boolean NOT NULL DEFAULT true,
+  "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
+  "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
+);
+
+-- DROP TRIGGER updated_at ON public.products;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.products
+  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
 CREATE SEQUENCE IF NOT EXISTS public."Announcements__id_seq";
 
 -- DROP TABLE public."Announcements";

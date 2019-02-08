@@ -6,6 +6,7 @@ import ScheduleApi from './api/schedule';
 import OrderApi from './api/order';
 import UserApi from './api/user';
 import HistoryApi from './api/history';
+import ProductApi from './api/product';
 import Auth from './auth';
 
 export default app => {
@@ -15,6 +16,7 @@ export default app => {
   app.use('/api/order', OrderApi);
   app.use('/api/user', UserApi);
   app.use('/api/history', HistoryApi);
+  app.use('/api/product', ProductApi);
   app.use('/auth', Auth);
 
   // Return Apple's merchant ID domain association file

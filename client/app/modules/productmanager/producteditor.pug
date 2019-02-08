@@ -1,0 +1,26 @@
+form(name='form', ng-submit="$ctrl.submitProduct(form)", novalidate='', ng-model-options="{'timezone':'UTC', 'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title {{ $ctrl.product._id === 0 ? 'New':'Edit'}} Product
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='name') Name
+        input.form-control(type='text', name='productName', id='productName', ng-model='$ctrl.product.name', maxlength='100', autofocus='', required='true', placeholder='Product name')
+        ng-messages.help-block.has-error(for='form.productName.$error', ng-show='form.productName.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the product name.
+      .form-group.col-md-12
+        label(for='price') Price
+        input.form-control(type='number', name='price', id='price', ng-model='$ctrl.product.price', maxlength='10', required='true', placeholder='Price')
+        ng-messages.help-block.has-error(for='form.price.$error', ng-show='form.price.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter product price.
+          ng-message(when='number') Please enter a valid price.
+      .form-group.col-md-12 
+        .checkbox
+          label
+            input(type='checkbox', name='active', ng-model='$ctrl.product.active')
+            | Active
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save
