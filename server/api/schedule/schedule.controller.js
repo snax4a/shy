@@ -68,7 +68,9 @@ export async function index(req, res) {
   const sql = `
     SELECT
       _id, location, day, title, teacher,
-      "startTime", "endTime", canceled
+      CURRENT_DATE + "startTime" AS "startTime",
+      CURRENT_DATE + "endTime" AS "endTime",
+      canceled
     FROM "Schedules"
     ORDER BY location, day, "startTime";`;
   const { rows } = await db.query(sql, []);
@@ -84,13 +86,19 @@ export async function upsert(req, res) {
   if(isNew) {
     sql = `INSERT INTO "Schedules"
       (location, day, title, teacher, "startTime", "endTime", canceled)
-      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING _id;`;
+      VALUES ($1, $2, $3, $4,
+        timezone('US/Eastern', $5),
+        timezone('US/Eastern', $6),
+        $7) RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE "Schedules"
-        SET location = $1, day = $2, title = $3, teacher = $4, "startTime" = $5, "endTime" = $6, canceled = $7
-        WHERE _id = $8 RETURNING _id;`;
+        SET location = $1, day = $2, title = $3, teacher = $4,
+        "startTime" = timezone('US/Eastern', $5),
+        "endTime" = timezone('US/Eastern', $6),
+        canceled = $7
+      WHERE _id = $8 RETURNING _id;`;
   }
   const { rows } = await db.query(sql, arrParams);
   return res.status(200).send({ _id: isNew ? rows[0]._id : _id });

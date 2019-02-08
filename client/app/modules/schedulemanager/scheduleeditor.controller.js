@@ -16,6 +16,7 @@ export class ScheduleEditorController {
     this.submitted = false;
     this.errors = {};
     this.scheduleItem = {};
+    this.timex = '\\d+:\\d+';
 
     angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);
   }

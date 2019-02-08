@@ -16,16 +16,15 @@ form(name='form', ng-submit="$ctrl.submitScheduleItem(form)", novalidate='', ng-
         select.form-control(name='day', id='day', ng-model='$ctrl.scheduleItem.day', ng-options="dayNumber*1+1 as dayName for (dayNumber, dayName) in $ctrl.weekdays")
         ng-messages.help-block.has-error(for='form.day.$error', ng-show='form.day.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the day of the week.
+    .row
       .form-group.col-md-4
-        label(for='startTime') Start Time (24-hour)
-        input.form-control(type='text', name='startTime', id='startTime', ng-model='$ctrl.scheduleItem.startTime', required='true', placeholder='Start time')
-        ng-messages.help-block.has-error(for='form.startTime.$error', ng-show='form.startTime.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter the start time.
+        label(for='startTimePicker') Starts
+        div(id='startTimePicker', uib-timepicker='', ng-model='$ctrl.scheduleItem.startTime')
+        input.form-control(type='hidden', name='startTime', id='startTime', ng-model='$ctrl.scheduleItem.startTime', required='true')
       .form-group.col-md-4
-        label(for='endTime') End Time (24-hour)
-        input.form-control(type='text', name='endTime', id='endTime', ng-model='$ctrl.scheduleItem.endTime', required='true', placeholder='End time')
-        ng-messages.help-block.has-error(for='form.endTime.$error', ng-show='form.endTime.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter the end time.
+        label(for='endTimePicker') Ends
+        div(id='endTimePicker', uib-timepicker='', ng-model='$ctrl.scheduleItem.endTime')
+        input.form-control(type='hidden', name='endTime', id='endTime', ng-model='$ctrl.scheduleItem.endTime', required='true')
     .row
       .form-group.col-md-6
         label(for='title') Class Title

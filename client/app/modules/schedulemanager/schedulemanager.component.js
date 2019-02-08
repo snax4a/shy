@@ -45,9 +45,9 @@ export class ScheduleManagerComponent {
       location: 'Squirrel Hill',
       day: 1,
       teacher: 'Leta Koontz',
-      title: 'Yoga 1',
-      startTime: '18:00',
-      endTime: '19:30',
+      title: 'Ashtanga Yoga',
+      startTime: new Date(),
+      endTime: new Date(),
       canceled: false
     };
 

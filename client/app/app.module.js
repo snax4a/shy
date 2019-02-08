@@ -39,6 +39,7 @@ import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopu
 import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js'; // navbar.component.js
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js'; // announcementmanager.component.js, login.component.js, navbar.component.js, schedulemanager.component.js, shynet.component.js, usermanager.component.js
 import UibTabsDirective from 'angular-ui-bootstrap/src/tabs'; // admin.component.js
+import UibTimepickerDirective from 'angular-ui-bootstrap/src/timepicker/index-nocss'; // scheduleeditor.pug
 import PaginationDirective from 'angular-utils-pagination'; // usermanager.component.js
 import CompareToDirective from './directives/compare-to/compare-to.directive'; // profile.component.js, signup.component.js, usermanager.component.js
 import JsonTextDirective from './directives/json-text/json-text.directive'; // usereditor.pug
@@ -94,6 +95,7 @@ angular.module('shyApp', [
   UibDropDownDirective,
   UibModalDirective,
   UibTabsDirective,
+  UibTimepickerDirective,
   PaginationDirective,
   CompareToDirective,
   JsonTextDirective,
