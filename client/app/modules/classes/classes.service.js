@@ -5,8 +5,10 @@ export class ClassesService {
     this.initialized = this.initialize(); // promise used by route
   }
 
-  async classesGet() {
-    const { data } = await this.$http.get('/assets/data/classes.json');
+  async classesGet(activeOnly) {
+    let suffix = '';
+    if(activeOnly) suffix = '/active';
+    const { data } = await this.$http.get(`/api/class${suffix}`);
     this.classes = data;
     return this.classes;
   }

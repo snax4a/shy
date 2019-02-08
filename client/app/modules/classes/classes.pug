@@ -29,9 +29,9 @@
               a(href='/teachers#{{ class.teacher | htmlid }}') {{class.teacher}}
 
     .col-sm-6
-      div(ng-repeat="class in $ctrl.classes | orderBy:'title'")
+      div(ng-repeat="class in $ctrl.classes | orderBy:'name'")
         a(id='{{ class.title.split(" ").join("") | lowercase }}')
-        h2 {{ class.title }} 
+        h2 {{ class.name }} 
         p {{ class.description }}
 
 script(src='dates.js')
