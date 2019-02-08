@@ -7,8 +7,8 @@ export class ClassesComponent {
   }
 
   $onInit() {
-    this.classes = this.ClassesService.classes;
     this.classSchedule = this.ClassesService.classSchedule;
+    this.classes = this.ClassesService.classes;
     this.$timeout(this.$anchorScroll, 100);
   }
 }
