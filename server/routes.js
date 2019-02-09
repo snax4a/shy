@@ -8,6 +8,7 @@ import UserApi from './api/user';
 import HistoryApi from './api/history';
 import ProductApi from './api/product';
 import ClassApi from './api/class';
+import LocationApi from './api/location';
 import Auth from './auth';
 
 export default app => {
@@ -19,6 +20,7 @@ export default app => {
   app.use('/api/history', HistoryApi);
   app.use('/api/product', ProductApi);
   app.use('/api/class', ClassApi);
+  app.use('/api/location', LocationApi);
   app.use('/auth', Auth);
 
   // Return Apple's merchant ID domain association file
