@@ -136,6 +136,35 @@ CREATE INDEX classes_active ON public.classes USING btree ("active");
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.classes
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
+-- DROP SEQUENCE public.locations_seq;
+CREATE SEQUENCE IF NOT EXISTS public.locations_seq;
+
+-- DROP TABLE public.locations;
+CREATE TABLE IF NOT EXISTS public.locations (
+  _id integer PRIMARY KEY DEFAULT nextval('locations_seq'),
+  name character varying(256) NOT NULL UNIQUE,
+  address character varying(256) NOT NULL,
+  city character varying(120) NOT NULL DEFAULT 'Pittsburgh',
+  state char(2) NOT NULL DEFAULT 'PA',
+  "zipCode" character varying(10) NOT NULL DEFAULT '15217',
+  map character varying(1024) NOT NULL,
+  street character varying(1024) NOT NULL,
+  directions character varying(1024) NOT NULL,
+  review character varying(1024),
+  note1 character varying(256),
+  note2 character varying(256),
+  active boolean NOT NULL DEFAULT true,
+  "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
+  "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
+);
+
+-- DROP INDEX public.classes_active;
+CREATE INDEX locations_active ON public.locations USING btree ("active");
+
+-- DROP TRIGGER updated_at ON public.locations;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.locations
+  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
 CREATE SEQUENCE IF NOT EXISTS public."Announcements__id_seq";
 
 -- DROP TABLE public."Announcements";

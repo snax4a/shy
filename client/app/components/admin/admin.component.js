@@ -7,12 +7,17 @@ import ScheduleManagerModule from '../../modules/schedulemanager/schedulemanager
 import UserManagerModule from '../../modules/usermanager/usermanager.module';
 import ProductManagerModule from '../../modules/productmanager/productmanager.module';
 import ClassManagerModule from '../../modules/classmanager/classmanager.module';
+import LocationManagerModule from '../../modules/locationmanager/locationmanager.module';
 
 export class AdminComponent {
   /*@ngInject*/
 }
 
-export default angular.module('shyApp.admin', [ngRoute, AnnouncementManagerModule, UibTabsDirective, ScheduleManagerModule, UserManagerModule, ProductManagerModule, ClassManagerModule])
+export default angular.module('shyApp.admin', [
+  ngRoute, AnnouncementManagerModule, UibTabsDirective,
+  ScheduleManagerModule, UserManagerModule, ProductManagerModule,
+  ClassManagerModule, LocationManagerModule
+])
   .config(routes)
   .component('admin', {
     template: require('./admin.pug'),

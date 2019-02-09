@@ -17,7 +17,7 @@
           td
             a.edit(ng-click='$ctrl.productEdit(product)')
               span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ product.name }}
+              |&nbsp;&nbsp;{{ product.name }} ({{ product._id }})
           td
             a.edit(ng-click='$ctrl.productEdit(product)') {{ product.price | currency:"$":0 }}
           td
