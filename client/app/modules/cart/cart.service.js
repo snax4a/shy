@@ -388,7 +388,6 @@ export class Cart {
   // Calculate the total cost of all items
   getTotalCost() {
     let total = 0;
-    console.log(this.cartItems);
     for(let cartItem of this.cartItems) {
       total += cartItem.getTotal();
     }
