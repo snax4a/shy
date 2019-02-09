@@ -105,7 +105,7 @@ describe('History API:', () => {
 
     test('should respond with a result code of 200 to confirm when authenticated', done =>
       request(app)
-        .get('/api/history/attendees?attended=2018-09-01&location=Squirrel+Hill&teacher=Koontz,+Leta&classTitle=Yoga+1')
+        .get('/api/history/attendees?attended=2018-09-01&location=Squirrel+Hill&teacher=Koontz,+Leta&className=Yoga+1')
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)

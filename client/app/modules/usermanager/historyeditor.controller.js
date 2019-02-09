@@ -54,7 +54,7 @@ export class HistoryEditorController {
           if(updatedHistoryItem.type == 'P') {
             updatedHistoryItem.what = `Purchased ${updatedHistoryItem.quantity} class pass (${updatedHistoryItem.paymentMethod}) - ${updatedHistoryItem.notes}`;
           } else {
-            updatedHistoryItem.what = `Attended ${updatedHistoryItem.classTitle} in ${updatedHistoryItem.location} (${updatedHistoryItem.teacher})`;
+            updatedHistoryItem.what = `Attended ${updatedHistoryItem.className} in ${updatedHistoryItem.location} (${updatedHistoryItem.teacher})`;
           }
 
           // Graft historyItem back

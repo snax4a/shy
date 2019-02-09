@@ -145,10 +145,11 @@ export class UserManagerComponent {
   }
 
   attendanceAdd(user) {
-    const { classDate, location, classTitle, teacher } = this.parent;
+    console.log(this.parent);
+    const { classDate, location, className, teacher } = this.parent;
 
     // Check to see if required fields have been selected
-    if(!(classDate && classTitle && location && teacher)) {
+    if(!(classDate && className && location && teacher)) {
       this.alerts.push({
         type: 'alert-warning',
         message: 'Please make sure the class, date, studio, and teacher are selected first.'
@@ -171,7 +172,7 @@ export class UserManagerComponent {
       UserId: user._id,
       attended: classDate,
       location,
-      classTitle,
+      className,
       teacher
     };
 

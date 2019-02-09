@@ -9,11 +9,11 @@ export class HistoryService {
     return date.toISOString().substring(0, 10);
   }
 
-  attendeesGet(classDate, location, classTitle, teacher) {
+  attendeesGet(classDate, location, className, teacher) {
     // If parameters are incomplete, ignore (but resolve the promise)
-    if(!!classDate && !!location && !!classTitle && !!teacher) {
+    if(!!classDate && !!location && !!className && !!teacher) {
       const localISODate = this.localISODate(classDate);
-      return this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(location)}&teacher=${encodeURI(teacher)}&classTitle=${encodeURI(classTitle)}`)
+      return this.$http.get(`/api/history/attendees/?attended=${localISODate}&location=${encodeURI(location)}&teacher=${encodeURI(teacher)}&className=${encodeURI(className)}`)
         .then(response => response.data);
     } else {
       return Promise.resolve([]);

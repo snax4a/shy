@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS public."Attendances" (
   "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
   location character varying(20) NOT NULL,
-  "classTitle" character varying(80) NOT NULL,
+  "className" character varying(80) NOT NULL,
   teacher character varying(40) NOT NULL,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
@@ -184,7 +184,7 @@ CREATE INDEX attendances_user_id
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_class
-  ON public."Attendances" USING btree (location, teacher, "classTitle", attended);
+  ON public."Attendances" USING btree (location, teacher, "className", attended);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_student_history
@@ -299,7 +299,7 @@ CREATE TABLE sessions (
 -- DROP VIEW public.attendances_full_info;
 CREATE OR REPLACE VIEW public.attendances_full_info AS
   SELECT "Attendances".teacher,
-    "Attendances"."classTitle",
+    "Attendances"."className",
     "Attendances".location,
     "Attendances".attended,
     ("Users"."lastName"::text || ', '::text) || "Users"."firstName"::text AS student
@@ -315,12 +315,12 @@ CREATE OR REPLACE VIEW public.attendees_nh_pq AS
 -- DROP VIEW public.attendees_per_class;
 CREATE OR REPLACE VIEW public.attendees_per_class AS
   SELECT "Attendances".location,
-    "Attendances"."classTitle",
+    "Attendances"."className",
     "Attendances".teacher,
     "Attendances".attended,
     count("Attendances"."UserId") AS students
   FROM "Attendances"
-  GROUP BY "Attendances".location, "Attendances"."classTitle", "Attendances".teacher, "Attendances".attended
+  GROUP BY "Attendances".location, "Attendances"."className", "Attendances".teacher, "Attendances".attended
   ORDER BY "Attendances".location, "Attendances".attended;
 
 -- DROP VIEW public.student_balances;

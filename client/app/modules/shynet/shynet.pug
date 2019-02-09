@@ -16,8 +16,8 @@
             .row
               .col-xs-12
                 .form-group
-                  label.sr-only(for='title') Class
-                  select.form-control(name='title', id='title', ng-model='$ctrl.classTitle', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'", ng-change='$ctrl.attendeeLookup()')
+                  label.sr-only(for='className') Class
+                  select.form-control(name='className', id='className', ng-model='$ctrl.className', ng-options="course.name as course.name for course in $ctrl.classes | orderBy: 'name'", ng-change='$ctrl.attendeeLookup()')
                     option(value='', disabled='', selected='') Select Class
             .row
               .col-xs-6

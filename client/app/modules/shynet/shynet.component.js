@@ -31,7 +31,7 @@ export class SHYnetComponent {
   }
 
   attendeeLookup() {
-    this.historyService.attendeesGet(this.classDate, this.location, this.classTitle, this.teacher)
+    this.historyService.attendeesGet(this.classDate, this.location, this.className, this.teacher)
       .then(attendees => {
         this.attendees = attendees;
       });

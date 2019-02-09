@@ -2,7 +2,7 @@ import db from '../../utils/db';
 
 // Returns array of attendees
 export async function attendees(req, res) {
-  const { attended, location, teacher, classTitle } = req.query;
+  const { attended, location, teacher, className } = req.query;
   const sql = `
     SELECT
       "Attendances"._id,
@@ -14,9 +14,9 @@ export async function attendees(req, res) {
       "Attendances".attended = $1::DATE AND
       "Attendances".location = $2 AND
       "Attendances".teacher = $3 AND
-      "Attendances"."classTitle" = $4
+      "Attendances"."className" = $4
     ORDER BY "Users"."lastName", "Users"."firstName";`;
-  const { rows } = await db.query(sql, [attended, location, teacher, classTitle]);
+  const { rows } = await db.query(sql, [attended, location, teacher, className]);
   res.status(200).send(rows);
 }
 
@@ -29,7 +29,7 @@ export async function index(req, res) {
       history.type,
       history."when",
       history.location,
-      history."classTitle",
+      history."className",
       history.teacher,
       history."paymentMethod",
       history.notes,
@@ -42,11 +42,11 @@ export async function index(req, res) {
         'A'::text AS type,
         "Attendances".attended AS when,
         "Attendances".location,
-        "Attendances"."classTitle",
+        "Attendances"."className",
         "Attendances".teacher,
         NULL AS "paymentMethod",
         NULL AS notes,
-        ((((('Attended '::text || "Attendances"."classTitle"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
+        ((((('Attended '::text || "Attendances"."className"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
         '-1'::integer AS quantity
       FROM "Attendances"
       WHERE "Attendances"."UserId" = $1
@@ -56,7 +56,7 @@ export async function index(req, res) {
         'P'::text AS type,
         "Purchases".purchased AS "when",
         NULL AS location,
-        NULL AS "classTitle",
+        NULL AS "className",
         NULL AS teacher,
         "Purchases".method AS "paymentMethod",
         "Purchases".notes,
@@ -82,9 +82,9 @@ export async function create(req, res) {
     sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, purchased)
       VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   } else {
-    const { attended, location, classTitle, teacher } = req.body;
-    arrParams.push(attended, location, classTitle, teacher);
-    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "classTitle", teacher)
+    const { attended, location, className, teacher } = req.body;
+    arrParams.push(attended, location, className, teacher);
+    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "className", teacher)
       VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   }
 
@@ -106,11 +106,11 @@ export async function update(req, res) {
       notes = $5, purchased = $6::date
       WHERE _id = $1;`;
   } else {
-    const { attended, location, classTitle, teacher } = req.body;
-    arrParams.push(attended, location, classTitle, teacher);
+    const { attended, location, className, teacher } = req.body;
+    arrParams.push(attended, location, className, teacher);
     sql = `UPDATE "Attendances" SET
       "UserId" = $2, attended = $3::date, location = $4,
-      "classTitle" = $5, teacher = $6
+      "className" = $5, teacher = $6
       WHERE _id = $1;`;
   }
 

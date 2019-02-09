@@ -1,0 +1,35 @@
+form(name='form', ng-submit="$ctrl.submitLocation(form)", novalidate='', ng-model-options="{'timezone':'UTC', 'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title {{ $ctrl.location._id === 0 ? 'New':'Edit'}} Location
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='locationName') Name
+        input.form-control(type='text', name='locationName', id='locationName', ng-model='$ctrl.location.name', maxlength='100', autofocus='', required='true', placeholder='Location name')
+        ng-messages.help-block.has-error(for='form.locationName.$error', ng-show='form.locationName.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter the location name.
+      .form-group.col-md-12
+        label(for='address') Address
+        input.form-control(name='address', id='address', ng-model='$ctrl.location.address', maxlength='128', required='true', placeholder='Street address')
+        ng-messages.help-block.has-error(for='form.address.$error', ng-show='form.address.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a street address.
+      .form-group.col-md-12
+        label(for='city') City
+        input.form-control(name='city', id='city', ng-model='$ctrl.location.city', maxlength='128', required='true', placeholder='City')
+        ng-messages.help-block.has-error(for='form.city.$error', ng-show='form.city.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a city.
+      .form-group.col-md-12
+        label(for='state') state
+        input.form-control(name='state', id='state', ng-model='$ctrl.location.state', maxlength='2', required='true', placeholder='State')
+        ng-messages.help-block.has-error(for='form.state.$error', ng-show='form.state.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a state.
+      .form-group.col-md-12 
+        .checkbox
+          label
+            input(type='checkbox', name='active', ng-model='$ctrl.class.active')
+            | Active
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

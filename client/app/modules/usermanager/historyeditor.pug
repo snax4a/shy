@@ -20,7 +20,7 @@ form(name='form', ng-submit="$ctrl.submit(form)", novalidate='', ng-model-option
           select.form-control(name='teacher', id='teacher', ng-model='$ctrl.historyItem.teacher', ng-options="teacher.lastName + ', ' + teacher.firstName as teacher.lastName + ', ' + teacher.firstName for teacher in $ctrl.teachers | orderBy: 'lastName'")
         .form-group.col-md-12
           label(for='title') Class
-          select.form-control(name='title', id='title', ng-model='$ctrl.historyItem.classTitle', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
+          select.form-control(name='title', id='title', ng-model='$ctrl.historyItem.className', ng-options="course.title as course.title for course in $ctrl.classes | orderBy: 'title'")
         .form-group.col-md-12
           label(for='location') Studio
             select.form-control(name='location', id='location', ng-model='$ctrl.historyItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy: 'name'")
