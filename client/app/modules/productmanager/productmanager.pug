@@ -8,7 +8,9 @@
     p(ng-show='$ctrl.products.length==0') No products
     table.table.table-striped(ng-hide='$ctrl.products.length==0')
       thead
-        th Name (click to edit)
+        th &nbsp;
+        th ID
+        th Name
         th Price
         th Active
         th 
@@ -16,8 +18,11 @@
         tr(ng-repeat='product in $ctrl.products')
           td
             a.edit(ng-click='$ctrl.productEdit(product)')
-              span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ product.name }} ({{ product._id }})
+              span.fas.fa-pencil-alt
+          td
+            a.edit(ng-click='$ctrl.productEdit(product)') {{ product._id }}
+          td
+            a.edit(ng-click='$ctrl.productEdit(product)') {{ product.name }}
           td
             a.edit(ng-click='$ctrl.productEdit(product)') {{ product.price | currency:"$":0 }}
           td

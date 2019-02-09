@@ -5,11 +5,11 @@ import AmPmFilter from '../../filters/ampm/ampm.filter';
 import DayToDateFilter from '../../filters/daytodate/daytodate.filter';
 import HtmlIdFilter from '../../filters/htmlid/htmlid.filter';
 import { ClassesComponent } from './classes.component';
-import { ClassesService } from './classes.service';
+import { ClassService } from '../../services/class.service';
 
 export default angular.module('shyApp.classes', [ngRoute, AmPmFilter, DayToDateFilter, HtmlIdFilter])
   .config(routes)
-  .service('ClassesService', ClassesService)
+  .service('ClassService', ClassService)
   .component('classes', {
     template: require('./classes.pug'),
     controller: ClassesComponent

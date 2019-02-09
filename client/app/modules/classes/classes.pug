@@ -1,16 +1,11 @@
 .container
   h1 Yoga Classes in Pittsburgh
   p
-    b Pittsburgh Yoga Studios
-    | : 
-    a(ng-href='/classes#squirrelhill') Squirrel Hill
-    |  | 
-    a(ng-href='/classes#eastliberty') East Liberty
-    |  | 
-    a(ng-href='/classes#northhills') North Hills
+    b Pittsburgh Yoga Schools
+    .btn-group(role='group', aria-label='locations')
+      a.btn.btn-primary(ng-repeat='location in $ctrl.locations', href='#{{ location.name | htmlid }}') {{ location.name }}
   .row
     .col-sm-6
-
       table.table.table-striped.table-hover
         //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
         tbody(ng-repeat='studio in $ctrl.classSchedule')
@@ -28,7 +23,7 @@
             td(ng-class='{canceled: class.canceled===true}') 
               a(href='/teachers#{{ class.teacher | htmlid }}') {{class.teacher}}
 
-    .col-sm-6
+    .col-sm-6(style='padding-top:24px;')
       div(ng-repeat="class in $ctrl.classes | orderBy:'name'")
         a(id='{{ class.title.split(" ").join("") | lowercase }}')
         h2 {{ class.name }} 

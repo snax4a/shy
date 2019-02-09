@@ -8,16 +8,18 @@
     p(ng-show='$ctrl.classes.length==0') No classes
     table.table.table-striped(ng-hide='$ctrl.classes.length==0')
       thead
-        th Name (click to edit)
+        th &nbsp;
+        th Name
         th Description
         th Active
         th 
       tbody
         tr(ng-repeat='thisClass in $ctrl.classes')
-          td(style='width:230px;')
+          td
             a.edit(ng-click='$ctrl.classEdit(thisClass)')
-              span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ thisClass.name }}
+              span.fas.fa-pencil-alt
+          td(style='width:230px;')
+            a.edit(ng-click='$ctrl.classEdit(thisClass)') {{ thisClass.name }}
           td
             a.edit(ng-click='$ctrl.classEdit(thisClass)') {{ thisClass.description }}
           td

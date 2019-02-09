@@ -1,13 +1,13 @@
 export class TeachersComponent {
   /*@ngInject*/
-  constructor($anchorScroll, $timeout, TeachersService) {
+  constructor($anchorScroll, $timeout, TeacherService) {
     this.$anchorScroll = $anchorScroll;
     this.$timeout = $timeout;
-    this.teachersService = TeachersService;
+    this.teacherService = TeacherService;
   }
 
   $onInit() {
-    this.faculty = this.teachersService.teachers;
+    this.faculty = this.teacherService.teachers;
     this.$timeout(this.$anchorScroll, 100);
   }
 }

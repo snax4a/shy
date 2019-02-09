@@ -11,7 +11,7 @@ form(name='form', ng-submit="$ctrl.submitClass(form)", novalidate='', ng-model-o
         ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the class name.
       .form-group.col-md-12
-        label(for='description') Price
+        label(for='description') Description
         textarea.form-control(name='description', id='description', ng-model='$ctrl.class.description', rows='5', required='true', placeholder='Class description')
         ng-messages.help-block.has-error(for='form.description.$error', ng-show='form.description.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter a class description.

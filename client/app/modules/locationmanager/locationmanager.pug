@@ -8,16 +8,18 @@
     p(ng-show='$ctrl.locations.length==0') No locations
     table.table.table-striped(ng-hide='$ctrl.locations.length==0')
       thead
-        th Name (click to edit)
+        th(style='width: 20px;') &nbsp;
+        th Name
         th Address
         th Active
         th 
       tbody
         tr(ng-repeat='location in $ctrl.locations')
-          td(style='width:230px;')
+          td
             a.edit(ng-click='$ctrl.locationEdit(location)')
-              span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ location.name }}
+              span.fas.fa-pencil-alt          
+          td(style='width:230px;')
+            a.edit(ng-click='$ctrl.locationEdit(location)') {{ location.name }}
           td
             a.edit(ng-click='$ctrl.locationEdit(location)') {{ location.address }}
             br

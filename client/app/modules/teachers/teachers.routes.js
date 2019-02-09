@@ -4,7 +4,7 @@ export default function($routeProvider) {
     template: '<teachers></teachers>',
     title: 'Schoolhouse Yoga Teachers',
     resolve: {
-      '': TeachersService => TeachersService.initialized
+      '': TeacherService => TeacherService.initialized
     }
   });
 }

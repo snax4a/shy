@@ -6,7 +6,7 @@ export default function($routeProvider) {
     authenticate: 'teacher',
     title: 'SHYnet',
     resolve: {
-      '': (TeachersService, ClassesService, LocationsService) => Promise.all([TeachersService.initialized, ClassesService.initialized, LocationsService.initialized])
+      '': (TeacherService, ClassService, LocationService) => Promise.all([TeacherService.initialized, ClassService.initialized, LocationService.initialized])
     }
   });
 }

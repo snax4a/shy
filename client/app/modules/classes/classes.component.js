@@ -1,14 +1,16 @@
 export class ClassesComponent {
   /*@ngInject*/
-  constructor($anchorScroll, $timeout, ClassesService) {
+  constructor($anchorScroll, $timeout, ClassService, LocationService) {
     this.$anchorScroll = $anchorScroll;
     this.$timeout = $timeout;
-    this.ClassesService = ClassesService;
+    this.classService = ClassService;
+    this.locationService = LocationService;
   }
 
   $onInit() {
-    this.classSchedule = this.ClassesService.classSchedule;
-    this.classes = this.ClassesService.classes;
+    this.classSchedule = this.classService.classSchedule;
+    this.classes = this.classService.classes;
+    this.locations = this.locationService.locations;
     this.$timeout(this.$anchorScroll, 100);
   }
 }

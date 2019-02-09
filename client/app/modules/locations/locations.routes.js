@@ -4,7 +4,7 @@ export default function($routeProvider) {
     template: '<locations></locations>',
     title: 'Schoolhouse Yoga Locations',
     resolve: {
-      '': LocationsService => LocationsService.initialized
+      '': LocationService => LocationService.initialized
     }
   });
 }

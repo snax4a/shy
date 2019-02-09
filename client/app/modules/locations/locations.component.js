@@ -1,13 +1,13 @@
 export class LocationsComponent {
   /*@ngInject*/
-  constructor($anchorScroll, $timeout, LocationsService) {
+  constructor($anchorScroll, $timeout, LocationService) {
     this.$anchorScroll = $anchorScroll;
     this.$timeout = $timeout;
-    this.LocationsService = LocationsService;
+    this.locationService = LocationService;
   }
 
   $onInit() {
-    this.locations = this.LocationsService.locations;
+    this.locations = this.locationService.locations;
     this.$timeout(this.$anchorScroll, 100);
   }
 }

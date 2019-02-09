@@ -1,7 +1,7 @@
 import angular from 'angular';
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import { ProductManagerComponent } from './productmanager.component';
-import { ProductService } from './product.service';
+import { ProductService } from '../../services/product.service';
 
 export default angular.module('shyApp.productmanager', [UibModalDirective])
   .service('ProductService', ProductService)

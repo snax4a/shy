@@ -145,7 +145,6 @@ export class UserManagerComponent {
   }
 
   attendanceAdd(user) {
-    console.log(this.parent);
     const { classDate, location, className, teacher } = this.parent;
 
     // Check to see if required fields have been selected

@@ -43,7 +43,7 @@ export class LocationManagerComponent {
     this.$timeout(() => this.locationRemoveFromList(location));
   }
 
-  classEdit(location) {
+  locationEdit(location) {
     this.modalLocationEditor(location);
   }
 

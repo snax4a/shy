@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Class API Route Handlers: should have unchanged route handlers 1`] = `
+Array [
+  Layer {
+    "handle": [Function],
+    "keys": Array [],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "get": true,
+      },
+      "path": "/",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "get",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+  Layer {
+    "handle": [Function],
+    "keys": Array [],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/active\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "get": true,
+      },
+      "path": "/active",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "get",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+  Layer {
+    "handle": [Function],
+    "keys": Array [
+      Object {
+        "name": "id",
+        "offset": 1,
+        "optional": false,
+      },
+    ],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/\\(\\?:\\(\\[\\^\\\\/\\]\\+\\?\\)\\)\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "put": true,
+      },
+      "path": "/:id",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "put",
+          "name": "middleware",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "put",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+  Layer {
+    "handle": [Function],
+    "keys": Array [
+      Object {
+        "name": "id",
+        "offset": 1,
+        "optional": false,
+      },
+    ],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/\\(\\?:\\(\\[\\^\\\\/\\]\\+\\?\\)\\)\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "delete": true,
+      },
+      "path": "/:id",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "delete",
+          "name": "middleware",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "delete",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+]
+`;

@@ -4,7 +4,7 @@ import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopu
 import UibDropdownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js';
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import { NavbarComponent } from './navbar.component';
-import { ContactService } from './contact.service';
+import { ContactService } from '../../services/contact.service';
 
 export default angular.module('shyApp.navbar', [UibCollapseDirective, UibDatepickerPopupDirective, UibDropdownDirective, UibModalDirective])
   .service('ContactService', ContactService)

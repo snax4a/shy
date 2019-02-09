@@ -2,6 +2,17 @@ export class AnnouncementService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
+    this.announcementList = [];
+    this.initialized = this.initialize(); // promise used by routes
+  }
+
+  async initialize() {
+    try {
+      this.announcementList = await this.announcementsGet();
+      return true;
+    } catch(err) {
+      return false;
+    }
   }
 
   async announcementsGet(flat) {

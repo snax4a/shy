@@ -2,14 +2,14 @@ import { ScheduleEditorController } from './scheduleeditor.controller';
 
 export class ScheduleManagerComponent {
   /*@ngInject*/
-  constructor($timeout, $uibModal, ClassesService) {
+  constructor($timeout, $uibModal, ClassService) {
     this.$timeout = $timeout; // Pull async function results into digest cycle
     this.$uibModal = $uibModal;
-    this.classesService = ClassesService;
+    this.classService = ClassService;
   }
 
   async $onInit() {
-    this.scheduleItems = await this.classesService.scheduleGet(true);
+    this.scheduleItems = await this.classService.scheduleGet(true);
     this.submitted = false;
     return true;
   }
@@ -56,7 +56,7 @@ export class ScheduleManagerComponent {
   }
 
   async scheduleItemDelete(selectedScheduleItem) {
-    await this.classesService.scheduleItemDelete(selectedScheduleItem);
+    await this.classService.scheduleItemDelete(selectedScheduleItem);
     this.$timeout(() => this.scheduleItemRemoveFromList(selectedScheduleItem));
   }
 }

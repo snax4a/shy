@@ -1,12 +1,13 @@
 export class HomeComponent {
   /*@ngInject*/
-  constructor(HomeService) {
-    this.HomeService = HomeService;
+  constructor(AnnouncementService, HomeService) {
+    this.announcementService = AnnouncementService;
+    this.homeService = HomeService;
   }
 
   $onInit() {
-    this.announcementList = this.HomeService.announcementList;
-    this.faqs = this.HomeService.faqs;
-    this.slides = this.HomeService.slides;
+    this.announcementList = this.announcementService.announcementList;
+    this.faqs = this.homeService.faqs;
+    this.slides = this.homeService.slides;
   }
 }

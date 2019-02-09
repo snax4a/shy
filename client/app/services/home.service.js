@@ -7,18 +7,12 @@ export class HomeService {
 
   async initialize() {
     try {
-      await Promise.all([this.getAnnouncements(), this.getFaqs()]);
+      await this.getFaqs();
       this.getSlides(); // synchronous
       return true;
     } catch(err) {
       return false;
     }
-  }
-
-  // Intentionally redundant with AnnouncementService
-  async getAnnouncements() {
-    const { data } = await this.$http.get('/api/announcement');
-    this.announcementList = data;
   }
 
   async getFaqs() {

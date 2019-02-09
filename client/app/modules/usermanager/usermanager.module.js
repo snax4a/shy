@@ -6,7 +6,7 @@ import UibAlertDirective from 'angular-ui-bootstrap/src/alert';
 import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js';
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import { UserManagerComponent } from './usermanager.component';
-import { HistoryService } from './history.service';
+import { HistoryService } from '../../services/history.service';
 
 export default angular.module('shyApp.usermanager', [CompareToDirective, JsonTextDirective, PaginationDirective, UibAlertDirective, UibDatepickerPopupDirective, UibModalDirective])
   .service('HistoryService', HistoryService)

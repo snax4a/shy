@@ -8,7 +8,8 @@
     p(ng-show='$ctrl.announcements.length==0') No announcements
     table.table.table-striped(ng-hide='$ctrl.announcements.length==0')
       thead
-        th Section (click to edit)
+        th &nbsp;
+        th Section
         th Title
         th Description
         th Expires
@@ -17,8 +18,9 @@
         tr(ng-repeat='announcement in $ctrl.announcements')
           td
             a.edit(ng-click='$ctrl.announcementEdit(announcement)')
-              span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ announcement.section }}
+              span.fas.fa-pencil-alt           
+          td
+            a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.section }}
           td
             a.edit(ng-click='$ctrl.announcementEdit(announcement)') {{ announcement.title }}
           td

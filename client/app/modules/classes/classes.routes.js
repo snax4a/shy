@@ -4,7 +4,7 @@ export default function($routeProvider) {
     template: '<classes></classes>',
     title: 'Schoolhouse Yoga Classes',
     resolve: {
-      '': ClassesService => ClassesService.initialized
+      '': (LocationService, ClassService) => Promise.all([ClassService.initialized, LocationService.initialized])
     }
   });
 }

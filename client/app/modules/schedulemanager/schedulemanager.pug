@@ -8,7 +8,8 @@
     p(ng-show='$ctrl.scheduleItems.length==0') No schedule items
     table.table.table-striped(ng-hide='$ctrl.scheduleItems.length==0')
       thead
-        th Location (click to edit)
+        th &nbsp;
+        th Location
         th Day
         th Title
         th Teacher
@@ -20,8 +21,9 @@
         tr(ng-repeat='scheduleItem in $ctrl.scheduleItems')
           td
             a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)')
-              span.fas.fa-pencil-alt 
-              |&nbsp;&nbsp;{{ scheduleItem.location }}
+                span.fas.fa-pencil-alt 
+          td
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.location }}
           td
             a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.day | weekday }}
           td 

@@ -2,12 +2,13 @@ export class LocationService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
+    this.locations = [];
     this.initialized = this.initialize(); // promise used by route
   }
 
   async initialize() {
     try {
-      await this.locationsGet();
+      this.locations = await this.locationsGet(true);
       return true;
     } catch(err) {
       return false;

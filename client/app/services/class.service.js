@@ -1,7 +1,9 @@
-export class ClassesService {
+export class ClassService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
+    this.classSchedule = [];
+    this.classes = [];
     this.initialized = this.initialize(); // promise used by route
   }
 
@@ -50,6 +52,17 @@ export class ClassesService {
   async scheduleItemUpsert(scheduleItem) {
     const { data } = await this.$http.put(`/api/schedule/${scheduleItem._id}`, scheduleItem);
     return scheduleItem._id === 0 ? data._id : scheduleItem._id;
+  }
+
+  async classDelete(thisClass) {
+    await this.$http.delete(`/api/class/${thisClass._id}`);
+    return true;
+  }
+
+  async classUpsert(thisClass) {
+    const { data } = await this.$http.put(`/api/class/${thisClass._id}`, thisClass);
+    // Return new or existing _id
+    return thisClass._id === 0 ? data._id : thisClass._id;
   }
 
   async initialize() {

@@ -21,14 +21,49 @@ form(name='form', ng-submit="$ctrl.submitLocation(form)", novalidate='', ng-mode
         ng-messages.help-block.has-error(for='form.city.$error', ng-show='form.city.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter a city.
       .form-group.col-md-12
-        label(for='state') state
+        label(for='state') State
         input.form-control(name='state', id='state', ng-model='$ctrl.location.state', maxlength='2', required='true', placeholder='State')
         ng-messages.help-block.has-error(for='form.state.$error', ng-show='form.state.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter a state.
+      .form-group.col-md-12
+        label(for='zipCode') ZIP code
+        input.form-control(name='zipCode', id='zipCode', ng-model='$ctrl.location.zipCode', maxlength='10', required='true', placeholder='ZIP code')
+        ng-messages.help-block.has-error(for='form.zipCode.$error', ng-show='form.zipCode.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a ZIP code.
+      .form-group.col-md-12
+        label(for='map') Google Maps URL
+        input.form-control(name='map', id='map', ng-model='$ctrl.location.map',maxlength='1024', required='true', placeholder='Google Maps URL')
+        ng-messages.help-block.has-error(for='form.map.$error', ng-show='form.map.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a Google Maps URL.
+      .form-group.col-md-12
+        label(for='street') Google Maps Street View URL
+        input.form-control(name='street', id='street', ng-model='$ctrl.location.street',maxlength='1024', required='true', placeholder='Google Maps Street View URL')
+        ng-messages.help-block.has-error(for='form.street.$error', ng-show='form.street.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a Google Maps Street View URL.
+      .form-group.col-md-12
+        label(for='directions') Google Maps Directions URL
+        input.form-control(name='directions', id='directions', ng-model='$ctrl.location.directions',maxlength='1024', required='true', placeholder='Google Maps Directions URL')
+        ng-messages.help-block.has-error(for='form.directions.$error', ng-show='form.directions.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a Google Maps Directions URL.
+      .form-group.col-md-12
+        label(for='review') Google Review URL
+        input.form-control(name='review', id='review', ng-model='$ctrl.location.review',maxlength='1024', required='true', placeholder='Google Review URL')
+        ng-messages.help-block.has-error(for='form.review.$error', ng-show='form.review.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a Google Review URL.
+      .form-group.col-md-12
+        label(for='note1') Short description of location
+        input.form-control(name='note1', id='note1', ng-model='$ctrl.location.note1',maxlength='1024', required='true', placeholder='Description')
+        ng-messages.help-block.has-error(for='form.note1.$error', ng-show='form.note1.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a sentence about the location.
+      .form-group.col-md-12
+        label(for='note2') Location amenities
+        input.form-control(name='note2', id='note2', ng-model='$ctrl.location.note2',maxlength='1024', required='true', placeholder='Amenities')
+        ng-messages.help-block.has-error(for='form.note2.$error', ng-show='form.note2.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a sentence about the amenities.
       .form-group.col-md-12 
         .checkbox
           label
-            input(type='checkbox', name='active', ng-model='$ctrl.class.active')
+            input(type='checkbox', name='active', ng-model='$ctrl.location.active')
             | Active
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel

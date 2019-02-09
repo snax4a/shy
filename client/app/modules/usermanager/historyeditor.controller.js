@@ -3,13 +3,13 @@ import angular from 'angular'; // for angular.copy
 // Controller for modal dialog - History Editor
 export class HistoryEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, HistoryService, TeachersService, ClassesService, LocationsService, historyItemToEdit) {
+  constructor($uibModalInstance, HistoryService, TeacherService, ClassService, LocationService, historyItemToEdit) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.historyService = HistoryService;
-    this.teachersService = TeachersService;
-    this.classesService = ClassesService;
-    this.locationsService = LocationsService;
+    this.teacherService = TeacherService;
+    this.classService = ClassService;
+    this.locationService = LocationService;
     this.historyItemToEdit = historyItemToEdit;
     this.historyItem = {};
     angular.copy(this.historyItemToEdit, this.historyItem);
@@ -25,9 +25,9 @@ export class HistoryEditorController {
       minDate: new Date(2013, 1, 1),
       startingDay: 1
     };
-    this.teachers = this.teachersService.teachers;
-    this.classes = this.classesService.classes;
-    this.locations = this.locationsService.locations;
+    this.teachers = this.teacherService.teachers;
+    this.classes = this.classService.classes;
+    this.locations = this.locationService.locations;
   }
 
   showCalendar() {

@@ -1,17 +1,17 @@
 export class SHYnetComponent {
   /*@ngInject*/
-  constructor($uibModal, TeachersService, ClassesService, LocationsService, HistoryService) {
+  constructor($uibModal, TeacherService, ClassService, LocationService, HistoryService) {
     this.$uibModal = $uibModal;
-    this.teachersService = TeachersService;
-    this.classesService = ClassesService;
-    this.locationsService = LocationsService;
+    this.teacherService = TeacherService;
+    this.classService = ClassService;
+    this.locationService = LocationService;
     this.historyService = HistoryService;
   }
 
   $onInit() {
-    this.teachers = this.teachersService.teachers;
-    this.classes = this.classesService.classes;
-    this.locations = this.locationsService.locations;
+    this.teachers = this.teacherService.teachers;
+    this.classes = this.classService.classes;
+    this.locations = this.locationService.locations;
     const now = new Date();
     this.classDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     this.datePickerOpened = false;
