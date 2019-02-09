@@ -6,7 +6,7 @@ class Item {
   constructor(id, name, price, quantity) {
     this.id = Number.parseInt(id, 10);
     this.name = name;
-    this.price = price;
+    this.price = price * 1;
     this.quantity = quantity;
   }
 
@@ -337,7 +337,7 @@ export class Cart {
 
   // Iterates through array of products to retrieve one with matching id
   productLookupById(id) {
-    return this.products.find(product => product.id === parseInt(id, 10));
+    return this.products.find(product => product._id === parseInt(id, 10));
   }
 
   // Clear the cartItems during checkout()
@@ -388,6 +388,7 @@ export class Cart {
   // Calculate the total cost of all items
   getTotalCost() {
     let total = 0;
+    console.log(this.cartItems);
     for(let cartItem of this.cartItems) {
       total += cartItem.getTotal();
     }
