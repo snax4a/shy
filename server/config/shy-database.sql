@@ -52,34 +52,40 @@ $BODY$;
 
 -- DROP TYPE public."enum_Users_provider";
 DO $$ BEGIN
-  CREATE TYPE public."enum_Users_provider" AS ENUM
-    ('twitter', 'facebook', 'google', 'local');
+  CREATE TYPE public.providers AS ENUM
+    ('google', 'local');
 EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
 -- DROP TYPE public."enum_Users_role";
 DO $$ BEGIN
-  CREATE TYPE public."enum_Users_role" AS ENUM
+  CREATE TYPE public.roles AS ENUM
     ('student', 'teacher', 'admin');
 EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
--- DROP SEQUENCE public."Users__id_seq1";
-CREATE SEQUENCE IF NOT EXISTS public."Users__id_seq1";
+-- DROP SEQUENCE public.users_seq;
+CREATE SEQUENCE IF NOT EXISTS public.users_seq;
 
 -- DROP TABLE public."Users";
 CREATE TABLE IF NOT EXISTS public."Users" (
-  _id integer PRIMARY KEY DEFAULT nextval('"Users__id_seq1"'::regclass),
-  role "enum_Users_role" NOT NULL DEFAULT 'student'::"enum_Users_role",
+  _id integer PRIMARY KEY DEFAULT nextval('users_seq'::regclass),
+  role roles NOT NULL DEFAULT 'student'::roles,
   "lastName" character varying(20) NOT NULL,
   "firstName" character varying(20) NOT NULL,
   email character varying(80) NOT NULL UNIQUE,
   "optOut" boolean NOT NULL DEFAULT false,
   phone character varying(23),
-  provider "enum_Users_provider" NOT NULL DEFAULT 'local'::"enum_Users_provider",
+  provider providers NOT NULL DEFAULT 'local'::providers,
   google json,
+  -- Remaining columns for Teacher's page
+  "displayOrder" integer, 
+  bio character varying(1500),
+  url character varying(1024),
+  "imageName" character varying(512),
+  image bytea,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now(),
   password character varying(88),
@@ -91,6 +97,9 @@ CREATE INDEX users_first_name ON public."Users" USING btree ("firstName");
 
 -- DROP INDEX public.users_last_name;
 CREATE INDEX users_last_name ON public."Users" USING btree ("lastName");
+
+-- DROP INDEX public.users_teachers_display;
+CREATE INDEX users_teachers_display ON public."Users" USING btree ("displayOrder", role);
 
 -- DROP TRIGGER updated_at ON public."Users";
 CREATE TRIGGER updated_at BEFORE UPDATE ON public."Users"
@@ -158,18 +167,19 @@ CREATE TABLE IF NOT EXISTS public.locations (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.classes_active;
+-- DROP INDEX public.locations_active;
 CREATE INDEX locations_active ON public.locations USING btree ("active");
 
 -- DROP TRIGGER updated_at ON public.locations;
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.locations
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
-CREATE SEQUENCE IF NOT EXISTS public."Announcements__id_seq";
+--DROP SEQUENCE public.announcements_seq;
+CREATE SEQUENCE IF NOT EXISTS public.announcements_seq;
 
 -- DROP TABLE public."Announcements";
 CREATE TABLE IF NOT EXISTS public."Announcements" (
-  _id integer PRIMARY KEY DEFAULT nextval('"Announcements__id_seq"'::regclass),
+  _id integer PRIMARY KEY DEFAULT nextval('announcements_seq'::regclass),
   section character varying(100) NOT NULL,
   title character varying(100) NOT NULL,
   description character varying(512) NOT NULL,
@@ -193,11 +203,12 @@ CREATE TRIGGER updated_at
   FOR EACH ROW
   EXECUTE PROCEDURE public.updated_at();
 
-CREATE SEQUENCE IF NOT EXISTS public."Attendances__id_seq";
+-- DROP SEQUENCE public.attendances_seq;
+CREATE SEQUENCE IF NOT EXISTS public.attendances_seq;
 
 -- DROP TABLE public."Attendances";
 CREATE TABLE IF NOT EXISTS public."Attendances" (
-  _id integer PRIMARY KEY DEFAULT nextval('"Attendances__id_seq"'::regclass),
+  _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
   "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
   location character varying(20) NOT NULL,
@@ -269,12 +280,12 @@ CREATE INDEX orders_recipient_email
 CREATE TRIGGER updated_at BEFORE UPDATE ON public."Orders"
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
--- DROP SEQUENCE public."Purchases__id_seq";
-CREATE SEQUENCE IF NOT EXISTS public."Purchases__id_seq";
+-- DROP SEQUENCE public.purchases_seq;
+CREATE SEQUENCE IF NOT EXISTS public.purchases_seq;
 
 -- DROP TABLE public."Purchases";
 CREATE TABLE public."Purchases" (
-  _id integer PRIMARY KEY DEFAULT nextval('"Purchases__id_seq"'::regclass),
+  _id integer PRIMARY KEY DEFAULT nextval('purchases_seq'::regclass),
   "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   quantity integer NOT NULL,
   method character varying(16) NOT NULL,
@@ -294,12 +305,12 @@ CREATE INDEX purchases_purchased ON public."Purchases" USING btree (purchased, "
 CREATE TRIGGER updated_at BEFORE UPDATE ON public."Purchases"
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
--- DROP SEQUENCE public."Schedules__id_seq";
-CREATE SEQUENCE IF NOT EXISTS public."Schedules__id_seq";
+-- DROP SEQUENCE public.schedules_seq;
+CREATE SEQUENCE IF NOT EXISTS public.schedules_seq;
 
 -- DROP TABLE public."Schedules";
 CREATE TABLE IF NOT EXISTS public."Schedules" (
-  _id integer PRIMARY KEY DEFAULT nextval('"Schedules__id_seq"'::regclass),
+  _id integer PRIMARY KEY DEFAULT nextval('schedules_seq'::regclass),
   location character varying(20) NOT NULL,
   day integer NOT NULL,
   title character varying(100) NOT NULL,
