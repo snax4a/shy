@@ -35,6 +35,9 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
           ng-message(when='required') Please enter the email address.
           ng-message(when='email') Please provide a valid email address.
           ng-message(when='server') {{ $ctrl.errors.email }}
+      .form-group.col-md-6
+        label(for='optOut') Opt-out
+        select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
       .form-group.col-md-6(ng-show='$ctrl.isAdmin()')
         label(for='provider') Provider
         select.form-control(name='provider', id='provider', ng-model='$ctrl.user.provider')
@@ -54,9 +57,31 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
           option(value='admin') Administrator
           option(value='student') Student
           option(value='teacher') Teacher
-      .form-group.col-md-6
-        label(for='optOut') Opt-out
-        select.form-control(name='optOut', id='optOut', ng-model='$ctrl.user.optOut', ng-options="(item?'Yes':'No') for item in [true, false]")
+      div(ng-if='$ctrl.isAdmin() && $ctrl.user.role !== "student"')
+        .form-group.col-md-6
+          label(for='displayOrder') Teacher's page display order
+          input.form-control(type='number', name='displayOrder', id='displayOrder', ng-model='$ctrl.user.displayOrder', maxlength='2', placeholder='Number')
+          ng-messages.help-block.has-error(for='form.displayOrder.$error', ng-show='form.displayOrder.$dirty || form.$submitted', role='alert')
+            ng-message(when='number') Please enter an integer representing the order this teacher will appear.
+        .form-group.col-md-6
+          label(for='imageName') Image name
+          input.form-control(type='text', name='imageName', id='imageName', ng-model='$ctrl.user.image.$ngfName', maxlength='512', placeholder='Image filename')
+        .form-group.col-md-6
+          label(for='image') Teacher photo
+          input.form-control(type='file', id='image', name='image', ngf-select='', ng-model='$ctrl.user.image', ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size='100KB', ngf-min-height='276', ngf-max-height='276', ngf-min-width='236', ngf-max-width='236', ngf-resize='{width: 236, height: 276}', ngf-model-invalid='errorFile')
+          ng-messages.help-block.has-error(for='form.image.$error', ng-show='form.image.$dirty || form.$submitted', role='alert')
+            ng-message(when='maxSize') Please select a photo that is less than 100K.
+            ng-message(when='minHeight') The image must be 276 pixels high.
+            ng-message(when='maxHeight') The image must be 276 pixels high.
+            ng-message(when='minWidth') The image must be 236 pixels wide.
+            ng-message(when='maxWidth') The image must be 236 pixels wide.
+          img(ng-show='form.image.$valid', ngf-thumbnail='$ctrl.user.image')
+        .form-group.col-md-6
+          label(for='bio') Bio
+          textarea.form-control(id='bio', name='bio', ng-model='$ctrl.user.bio', rows='3', placeholder="Teacher's bio")
+        .form-group.col-md-6
+          label(for='url') Teacher's private URL
+          textarea.form-control(id='url', name='url', ng-model='$ctrl.user.url', rows='3', placeholder="URL to teacher's website")
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

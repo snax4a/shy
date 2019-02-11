@@ -10,6 +10,9 @@ import ngRoute from 'angular-route'; // _index.html, *.routes.js
 import ngSanitize from 'angular-sanitize'; // read URLs from JSON
 import ngAria from 'angular-aria'; // aria-hidden, aria-labeledby, aria-label, etc.
 
+// 3rd Party extensions
+import ngFileUpload from 'ng-file-upload';
+
 // Configuration-related (mostly for routing)
 import { appConfig } from './app.config';
 
@@ -83,6 +86,7 @@ angular.module('shyApp', [
   ngRoute,
   ngMessages,
   ngSanitize,
+  ngFileUpload,
   AmPmFilter,
   DayToDateFilter,
   HtmlIdFilter,
