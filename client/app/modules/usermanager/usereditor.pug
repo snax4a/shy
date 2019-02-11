@@ -71,10 +71,10 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
           input.form-control(type='file', id='image', name='image', ngf-select='', ng-model='$ctrl.user.image', ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size='100KB', ngf-min-height='276', ngf-max-height='276', ngf-min-width='236', ngf-max-width='236', ngf-resize='{width: 236, height: 276}', ngf-model-invalid='errorFile')
           ng-messages.help-block.has-error(for='form.image.$error', ng-show='form.image.$dirty || form.$submitted', role='alert')
             ng-message(when='maxSize') Please select a photo that is less than 100K.
-            ng-message(when='minHeight') The image must be 276 pixels high.
-            ng-message(when='maxHeight') The image must be 276 pixels high.
-            ng-message(when='minWidth') The image must be 236 pixels wide.
-            ng-message(when='maxWidth') The image must be 236 pixels wide.
+            ng-message(when='minHeight') The image must be 236 x 276 pixels.
+            ng-message(when='maxHeight') The image must be 236 x 276 pixels.
+            ng-message(when='minWidth') The image must be 236 x 276 pixels.
+            ng-message(when='maxWidth') The image must be 236 x 276 pixels.
           img(ng-show='form.image.$valid', ngf-thumbnail='$ctrl.user.image')
         .form-group.col-md-6
           label(for='bio') Bio
