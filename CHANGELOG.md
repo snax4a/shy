@@ -1,8 +1,9 @@
 # Product Backlog
-* [High] Implement Cypress to replace Protractor and Karma
-* [Bug] Admin/Announcements - invalid times causes 500 error
+* [High] Extend user management to include info for Teacher's page (store images in Postgres)
+* [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* [Bug] Admin/Announcements - invalid times causes 500 error
 * Replaced mocha/chai/karma/sinon with jest
 * Ported angularjs-toast to project (ES6 conversion) so it's easier to test
 * [Bug] Teachers should not be able to get email, phone, or google in user.controller.js:index()
