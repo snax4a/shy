@@ -74,6 +74,19 @@ describe('User API Integration Tests:', () => {
         }));
   });
 
+  describe('2.5 GET /api/user/teachers - controller.getTeachers()', () => {
+    test('should get an array of teachers', () =>
+      request(app)
+        .get('/api/user/teachers')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(async res => {
+          let teachers = res.body;
+          expect(Array.isArray(teachers)).toBe(true);
+          return teachers;
+        }));
+  });
+
   describe('2. GET /api/user/unsubscribe/:email - controller.unsubscribe() - opt out', () => {
     test('should unsubscribe the user from the newsletter updating the database and SendInBlue', () =>
       request(app)

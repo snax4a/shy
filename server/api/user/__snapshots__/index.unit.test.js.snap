@@ -72,6 +72,31 @@ Array [
   },
   Layer {
     "handle": [Function],
+    "keys": Array [],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/teachers\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
+        "get": true,
+      },
+      "path": "/teachers",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "get",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+  Layer {
+    "handle": [Function],
     "keys": Array [
       Object {
         "name": "email",

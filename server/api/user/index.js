@@ -7,6 +7,7 @@ const router = Router();
 
 router.get('/', auth.hasRole('teacher'), asyncWrapper(controller.index)); // teacher/admin - get users
 router.get('/me', auth.isAuthenticated(), asyncWrapper(controller.me)); // any authenticated user - retrieve profile
+router.get('/teachers', asyncWrapper(controller.getTeachers));
 router.get('/unsubscribe/:email', asyncWrapper(controller.unsubscribe));
 
 router.post('/', asyncWrapper(controller.create)); // sign-up and login

@@ -84,6 +84,7 @@ export async function authenticateLocal(email, unencryptedPassword) {
   return user;
 }
 
+// Called by server/auth/index.js
 export async function googleUserFind(googleId) {
   if(!googleId) return false; // Missing parameter
   const sql = `
@@ -96,7 +97,7 @@ export async function googleUserFind(googleId) {
 
 // Gets list of users with balances using filter (teacher or admin-only)
 export async function index(req, res) {
-  const sqlForAdmins = req.user.role == 'admin' ? 'email, phone, provider, google,' : '';
+  const sqlForAdmins = req.user.role == 'admin' ? 'email, phone, provider, google, bio, url, "displayOrder", "imageName", image,' : '';
   const sql = `
     SELECT _id,
       role,
@@ -128,6 +129,13 @@ export async function getUser(field, fieldValue) {
   return rows[0];
 }
 
+export async function getTeachers(req, res) {
+  const sql = `SELECT "displayOrder", "firstName", "lastName", bio, url, "imageName", image
+    FROM "Users" WHERE role IN ('admin', 'teacher') ORDER BY "displayOrder", "lastName", "firstName";`;
+  const { rows } = await db.query(sql, []);
+  return res.status(200).send(rows);
+}
+
 // Gets attributes for logged-in user
 export async function me(req, res) {
   const { _id } = req.user;
@@ -138,7 +146,8 @@ export async function me(req, res) {
 // Used by user.controller.js:create() and /server/auth/index.js
 export async function createUser(user) {
   // Anything undefined gets treated as a NULL in parameterized query below (which is great)
-  const { firstName, lastName, email, phone, optOut, passwordNew, passwordConfirm, role, provider, google } = user;
+  const { firstName, lastName, email, phone, optOut, passwordNew,
+    passwordConfirm, role, provider, google, displayOrder, bio, url, imageName, image } = user;
 
   // Check to make sure passwordNew and Confirm match (or are both undefined)
   if(passwordNew !== passwordConfirm) userPasswordMismatchError();
@@ -156,11 +165,13 @@ export async function createUser(user) {
   // If someone with the same email exists, global error handler will take it
   const sql = `
     INSERT INTO "Users"
-      ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google)
-      VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10) RETURNING _id, role, email, "firstName", "lastName", phone, "optOut", provider, google;`;
+      ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google, "displayOrder", bio, url, "imageName", image)
+      VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, LOWER($14), $15) RETURNING _id, role, email,
+      "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageName", image;`;
 
   try {
-    const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword, role || 'student', provider || 'local', googleParam]);
+    const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword,
+      role || 'student', provider || 'local', googleParam, displayOrder, bio, url, imageName, image]);
     const createdUser = rows[0];
     return createdUser;
   } catch(err) {
@@ -219,10 +230,12 @@ export async function forgotPassword(req, res) {
 }
 
 async function updateUser(user) {
-  const { _id, role, email, firstName, lastName, phone, optOut, provider, google, passwordNew, passwordConfirm } = user;
+  console.log('UPDATE USER', user); // TODO: Remove
+  const { _id, role, email, firstName, lastName, phone, optOut, provider, google, passwordNew, passwordConfirm,
+    displayOrder, bio, url, imageName, image } = user;
 
   // Start with a limited set of parameters for the update (add as needed)
-  let arrParams = [_id, role, email, firstName, lastName, phone, optOut, provider, google];
+  let arrParams = [_id, role, email, firstName, lastName, phone, optOut, provider, google, displayOrder, bio, url, imageName, image];
   let sqlPasswordUpdate = '';
 
   // Password can be changed if local
@@ -233,12 +246,13 @@ async function updateUser(user) {
     const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
     arrParams.push(newEncryptedPassword);
     arrParams.push(newSalt);
-    sqlPasswordUpdate = ', password = $10, salt = $11';
+    sqlPasswordUpdate = ', password = $15, salt = $16';
   }
 
-  const sql = `UPDATE "Users" SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6, "optOut" = $7, provider = $8, google = $9${sqlPasswordUpdate}
+  const sql = `UPDATE "Users" SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6,
+    "optOut" = $7, provider = $8, google = $9, "displayOrder" = $10, bio = $11, url = $12, "imageName" = LOWER($13), image = $14${sqlPasswordUpdate}
     WHERE _id = $1
-    RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google;`;
+    RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageName", image;`;
 
   let result;
   try {
@@ -280,14 +294,19 @@ export async function update(req, res) {
 export async function upsert(req, res) {
   const _id = parseInt(req.params.id, 10);
   const isNew = _id === 0;
-
+  console.log('UPSERT', req); // TODO: Remove
   if(req.user.role === 'teacher') {
     // Remove properties teachers cannot modify
+    Reflect.deleteProperty(req.body, 'bio');
+    Reflect.deleteProperty(req.body, 'displayOrder');
+    Reflect.deleteProperty(req.body, 'google');
+    Reflect.deleteProperty(req.body, 'image');
+    Reflect.deleteProperty(req.body, 'imageName');
     Reflect.deleteProperty(req.body, 'passwordNew');
     Reflect.deleteProperty(req.body, 'passwordConfirm');
-    Reflect.deleteProperty(req.body, 'role');
     Reflect.deleteProperty(req.body, 'provider');
-    Reflect.deleteProperty(req.body, 'google');
+    Reflect.deleteProperty(req.body, 'role');
+    Reflect.deleteProperty(req.body, 'url');
   }
 
   if(isNew) {
@@ -425,7 +444,7 @@ ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
 
 // Called by integration test
 export async function roleSet(email, role) {
-  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider;';
+  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider, bio, url, "displayOrder", "imageName", image;';
   const { rows } = await db.query(sql, [email, role]);
   if(rows.length === 0) userMissingError();
   return rows[0];
