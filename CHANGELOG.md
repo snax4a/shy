@@ -1,5 +1,5 @@
 # Product Backlog
-* [High] Extend user management to include info for Teacher's page (store images in Postgres)
+* [High] Should I use multer or formidable? Create an /upload route?
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>

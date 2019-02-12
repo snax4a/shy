@@ -24,6 +24,11 @@ export default app => {
     app.use(require('cors')());
   }
 
+  app.set('appPath', path.join(config.root, 'client'));
+  // Server-side views only (and we don't currently have any)
+  app.set('views', `${config.root}/server/views`);
+  app.set('view engine', 'pug');
+
   if(env === 'production') {
     // Redirect to HTTPS if HTTP
     app.use((req, res, next) => {
@@ -33,10 +38,7 @@ export default app => {
         return next();
       }
     });
-  }
 
-  app.set('appPath', path.join(config.root, 'client'));
-  if(env === 'production') {
     // Send pre-compressed .gz or .br files if they exist
     app.use('/', expressStaticGzip(app.get('appPath')));
   }
@@ -49,10 +51,6 @@ export default app => {
       if(mimeType === 'text/html' || mimeType == 'application/json') res.setHeader('Cache-Control', 'public, max-age=0');
     }
   }));
-
-  // Server-side views only (and we don't currently have any)
-  app.set('views', `${config.root}/server/views`);
-  app.set('view engine', 'pug');
 
   app.use(compression());
 

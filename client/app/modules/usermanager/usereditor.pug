@@ -1,4 +1,4 @@
-form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+form(name='form', ng-submit="$ctrl.submitUser(form)", enctype='multipart/form-data', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
       span(aria-hidden='true') &times;
@@ -76,6 +76,7 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
             ng-message(when='minWidth') The image must be 236 x 276 pixels.
             ng-message(when='maxWidth') The image must be 236 x 276 pixels.
           img(ng-show='form.image.$valid', ngf-thumbnail='$ctrl.user.image')
+          | {{ $ctrl.user.image | json }}
         .form-group.col-md-6
           label(for='bio') Bio
           textarea.form-control(id='bio', name='bio', ng-model='$ctrl.user.bio', rows='3', placeholder="Teacher's bio")

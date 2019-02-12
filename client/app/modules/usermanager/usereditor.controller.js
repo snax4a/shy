@@ -97,7 +97,7 @@ export class UserEditorController {
       // Make a copy of this.user in case upsert fails
       let upsertedUser = new this.User();
       angular.copy(this.user, upsertedUser);
-      console.log('this.user', this.user); // TODO: Remove
+      console.log('this.user', this.user.image); // TODO: Remove
       Reflect.deleteProperty(upsertedUser, 'balance'); // Isn't processed by API anyway
       if(!this.isAdmin()) { // Only admins can update these fields (also enforced on server)
         Reflect.deleteProperty(upsertedUser, 'bio');
