@@ -1,4 +1,4 @@
-export class WorkshopsService {
+export class WorkshopService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;

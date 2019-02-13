@@ -1,17 +1,17 @@
 export class WorkshopsComponent {
   /*@ngInject*/
-  constructor($timeout, $window, $anchorScroll, toast, WorkshopsService, NewsletterService) {
+  constructor($timeout, $window, $anchorScroll, toast, WorkshopService, NewsletterService) {
     this.$timeout = $timeout;
     this.$window = $window;
     this.$anchorScroll = $anchorScroll;
     this.toast = toast;
-    this.WorkshopsService = WorkshopsService;
-    this.NewsletterService = NewsletterService;
+    this.workshopService = WorkshopService;
+    this.newsletterService = NewsletterService;
   }
 
   $onInit() {
     this.subscriber = {};
-    this.workshops = this.WorkshopsService.workshops;
+    this.workshops = this.workshopService.workshops;
     this.twitterLoad();
     this.$timeout(this.$anchorScroll, 100);
   }
@@ -94,7 +94,7 @@ export class WorkshopsComponent {
   async subscribe(form) {
     if(form.$valid) {
       try {
-        const message = await this.NewsletterService.subscribe(this.subscriber);
+        const message = await this.newsletterService.subscribe(this.subscriber);
         this.$timeout(() => { // using async/await runs outside of digest cycle
           this.toast({
             duration: 5000,
