@@ -6,8 +6,9 @@ export class TeacherService {
   }
 
   async getTeachers() {
-    const { data } = await this.$http.get('/assets/data/teachers.json');
+    const { data } = await this.$http.get('/api/user/teachers');
     this.teachers = data;
+    console.log(this.teachers);
     return this.teachers;
   }
 

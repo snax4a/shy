@@ -1,8 +1,10 @@
 # Product Backlog
-* [High] Remove nosubs filter
+* [High] Implement workshopsmanager with database back-end
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Replace teachers.json with API call
+* Remove nosubs filter
 * [Bug] If an existing teacher photo is replaced, delete the old photo when saving.
 * /server/api/file implementation
 * [Bug] Admin/Announcements - invalid times causes 500 error

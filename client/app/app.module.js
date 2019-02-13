@@ -53,7 +53,6 @@ import JsonTextDirective from './directives/json-text/json-text.directive'; // u
 // Filters
 import DayToDateFilter from './filters/daytodate/daytodate.filter'; // classes.component.js
 import HtmlIdFilter from './filters/htmlid/htmlid.filter'; // classes.component.js, locations.component.js, teachers.component.js, workshops.component.js
-import NoSubsFilter from './filters/nosubs/nosubs.filter'; // teachers.component.js
 import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter'; // locations.component.js
 import UpcomingFilter from './filters/upcoming/upcoming.filter'; // workshops.component.js
 import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager.component.js
@@ -88,7 +87,6 @@ angular.module('shyApp', [
   ngFileUpload,
   DayToDateFilter,
   HtmlIdFilter,
-  NoSubsFilter,
   TrustedUrlFilter,
   UpcomingFilter,
   WeekdayFilter,

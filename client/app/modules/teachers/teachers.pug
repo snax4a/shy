@@ -1,9 +1,10 @@
 .container
   h1 Teachers
-  hr(ng-repeat-start='teacher in $ctrl.faculty | nosubs')
-  .row(ng-repeat-end)
+  .row(ng-if='teacher.displayOrder', ng-repeat='teacher in $ctrl.faculty')
+    hr
     .col-md-2.col-md-offset-2
-      img.img-responsive.teacher(src='{{teacher.photo}}', alt="Teacher's photo")
+      span(ng-if='teacher.imageId')
+        img.img-responsive.teacher(ng-src='/api/file/{{ teacher.imageId }}' alt="Photo of Teacher")
     .col-md-6
       h2(id='{{teacher.firstName + teacher.lastName | htmlid}}') {{teacher.firstName}} {{teacher.lastName}}
       |  {{teacher.bio}} 
