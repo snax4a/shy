@@ -497,9 +497,10 @@
 		"expires": "2019-04-06T16:00-04:00",
 		"title": "Mat to Marathon with Stefanie Zito and Mandy Kull",
 		"photo": "/assets/images/workshops/runners.jpg",
-		"description": "Running is a uniquely invigorating movement for us as humans. The repetitive demands of this practice can, however, take a toll on the body. Yoga can offer incredible movement variety to cross train and compliment your running routine, particularly as you train for long distances. Join Mandy and Stefanie this marathon season for a blend of essential movement maintenance to supplement and sustain your running schedule. See how attention to breath, inventive uses of props, and strategic self-massage work can help you go the distance!",
+		"description": "Mat to Marathon: Running is a uniquely invigorating movement for us as humans. The repetitive demands of this practice can, however, take a toll on the body. Yoga can offer incredible movement variety to cross train and compliment your running routine, particularly as you train for long distances. Join Mandy and Stefanie this marathon season for a blend of essential movement maintenance to supplement and sustain your running schedule. See how attention to breath, inventive uses of props, and strategic self-massage work can help you go the distance!<br><br>Marathon to Mat: Whether you're winding down from a relay, the half, the full, or simply your regular laps around the neighborhood, this practice will offer release and recovery. Designed with runners in mind, this recovery practice will focus on stretching, calming breath, and the ease of unnecessary tension in the body to promote longterm running health.",
 		"sections": [
 			{
+				"title": "Mat to Marathon",
 				"start": "2019-04-06T14:00-04:00",
 				"expires": "2019-04-06T16:00-04:00",
 				"productID": 106,
@@ -514,6 +515,7 @@
         }
 			},
 			{
+				"title": "Marathon to Mat",
 				"start": "2019-05-11T14:00-04:00",
 				"expires": "2019-05-11T16:00-04:00",
 				"productID": 107,
@@ -528,11 +530,12 @@
         }
 			},
 			{
-				"title": "both sessions, $50",
+				"title": "Both April 6th and May 11th sessions",
+				"hideDate": true,
 				"start": "2019-05-11T14:00-04:00",
 				"expires": "2019-05-11T16:00-04:00",
-				"productID": 107,
-				"cost": 30,
+				"productID": 108,
+				"cost": 50,
 				"location": "East Liberty",
         "address": {
           "streetAddress": "5923 Baum Boulevard",
@@ -541,7 +544,7 @@
           "addressRegion": "PA",
           "addressCountry": "US"
         }
-			},
+			}
 		]
 	}
 ]
