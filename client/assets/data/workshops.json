@@ -415,7 +415,8 @@
 		"description": "Lori Brungard,  E-RYT 200, has been practicing yoga for 30 years. Since 1997, Lori has spent over a year in India studying with her teacher Sri K. Pattabhi Jois, and holds an Authorized Level II teaching certificate through KPJAYI. Her essay about practicing with Guruji appears in the book, Strength and Grace. She originally learned the many facets of yoga through a year long certification in Jivamukti Yoga with Sharon Gannon and David Life in 1999, and directed the Mysore Ashtanga program there from 2016-2018. Lori has been an Adjunct Lecturer at Hunter College in NYC since 2008, where she created a curriculum for an ongoing course in Ashtanga Yoga. In addition, she developed courses as resources for serious students and teachers for a 200 hour Ashtanga Sadhana Intensive, and as co-director of Ashtanga Yoga Shala from 2002-2007.",
 		"sections": [
 			{
-				"title": "Sthira Sukham Asanam – Yoga Sutra II.46: What does a yoga assist do? It takes the existing sthira and sukha qualities in the student’s body and mind, and enhances them. This is done non-verbally, which can often be a more direct form of communication. The teacher must first establish these qualities in him/herself in order to transmit them to the student. Good adjustments start with a solid asana practice on the part of the teacher. The same qualities that create a good personal asana create a good assist. We will learn how to cultivate these qualities both individually and in relation to others, applying specific exercises directly to hands on assists in a variety of common poses.",
+				"title": "Sthira Sukham Asanam",
+				"description": "Yoga Sutra II.46: What does a yoga assist do? It takes the existing sthira and sukha qualities in the student’s body and mind, and enhances them. This is done non-verbally, which can often be a more direct form of communication. The teacher must first establish these qualities in him/herself in order to transmit them to the student. Good adjustments start with a solid asana practice on the part of the teacher. The same qualities that create a good personal asana create a good assist. We will learn how to cultivate these qualities both individually and in relation to others, applying specific exercises directly to hands on assists in a variety of common poses.",
 				"start": "2019-04-26T14:00-04:00",
 				"expires": "2019-04-26T16:00-04:00",
 				"productID": 9,
@@ -430,7 +431,8 @@
         }
 			},
 			{
-				"title": "Ashtanga Yantra: The standing poses are fundamental to all levels of Ashtanga practice. Each one relates to other poses that occur later on in the Primary Series in different orientations in space. By juxtaposing the similar poses, we can gain deeper insight into the underlying principles at work, and how to overcome the challenges of each asana, creating a multi-dimensional, kinesthetic experience of the meditative power of the yantra. The goal is detailed in Patanjali’s Yoga Sutras: involution toward the bindu, the central point of stillness.",
+				"title": "Ashtanga Yantra",
+				"description": "The standing poses are fundamental to all levels of Ashtanga practice. Each one relates to other poses that occur later on in the Primary Series in different orientations in space. By juxtaposing the similar poses, we can gain deeper insight into the underlying principles at work, and how to overcome the challenges of each asana, creating a multi-dimensional, kinesthetic experience of the meditative power of the yantra. The goal is detailed in Patanjali’s Yoga Sutras: involution toward the bindu, the central point of stillness.",
 				"start": "2019-04-26T18:00-04:00",
 				"expires": "2019-04-26T20:00-04:00",
 				"productID": 10,
