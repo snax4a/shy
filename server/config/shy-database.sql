@@ -465,18 +465,24 @@ CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
 -- DROP VIEW public.workshop_sections
 CREATE OR REPLACE VIEW public.workshop_sections AS
   SELECT row_to_json(w) FROM (
-    -- must calculate expires via MAX()
-    SELECT title, description, "imageId",
+    SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS expires,
       (
         SELECT array_to_json(array_agg(row_to_json(s))) FROM (
-          SELECT title, starts, ends, "productId", products.price, locations.name AS location,
-            locations.address, locations.city, locations.state, locations."zipCode",
-            'US' AS country
-          FROM sections INNER JOIN products ON sections."productId" = products._id
-            INNER JOIN locations on sections."locationId" = locations._id WHERE ends > CURRENT_TIMESTAMP
+          SELECT title, starts AS start, ends AS expires,
+            "productId", products.price AS cost, locations.name AS location,
+            locations.address AS "streetAddress",
+            locations.city AS "addressLocality", locations.state AS "addressRegion",
+            locations."zipCode" AS "postalCode",
+            'US' AS "addressCountry"
+          FROM sections
+            INNER JOIN products ON sections."productId" = products._id
+            INNER JOIN locations on sections."locationId" = locations._id
+          WHERE
+            sections."workshopId" = workshops._id AND
+            ends > CURRENT_TIMESTAMP
           ORDER BY starts
         ) s
-      ) s
+      ) AS sections
     FROM workshops
   ) w;
 
