@@ -97,7 +97,7 @@ export async function googleUserFind(googleId) {
 
 // Gets list of users with balances using filter (teacher or admin-only)
 export async function index(req, res) {
-  const sqlForAdmins = req.user.role == 'admin' ? 'email, phone, provider, google, bio, url, "displayOrder", "imageName", image,' : '';
+  const sqlForAdmins = req.user.role == 'admin' ? 'email, phone, provider, google, bio, url, "displayOrder", "imageId",' : '';
   const sql = `
     SELECT _id,
       role,
@@ -130,7 +130,7 @@ export async function getUser(field, fieldValue) {
 }
 
 export async function getTeachers(req, res) {
-  const sql = `SELECT "displayOrder", "firstName", "lastName", bio, url, "imageName", image
+  const sql = `SELECT "displayOrder", "firstName", "lastName", bio, url, "imageId"
     FROM "Users" WHERE role IN ('admin', 'teacher') ORDER BY "displayOrder", "lastName", "firstName";`;
   const { rows } = await db.query(sql, []);
   return res.status(200).send(rows);
@@ -147,7 +147,7 @@ export async function me(req, res) {
 export async function createUser(user) {
   // Anything undefined gets treated as a NULL in parameterized query below (which is great)
   const { firstName, lastName, email, phone, optOut, passwordNew,
-    passwordConfirm, role, provider, google, displayOrder, bio, url, imageName, image } = user;
+    passwordConfirm, role, provider, google, displayOrder, bio, url, imageId } = user;
 
   // Check to make sure passwordNew and Confirm match (or are both undefined)
   if(passwordNew !== passwordConfirm) userPasswordMismatchError();
@@ -166,12 +166,12 @@ export async function createUser(user) {
   const sql = `
     INSERT INTO "Users"
       ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google, "displayOrder", bio, url, "imageName", image)
-      VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, LOWER($14), $15) RETURNING _id, role, email,
-      "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageName", image;`;
+      VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING _id, role, email,
+      "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageId";`;
 
   try {
     const { rows } = await db.query(sql, [firstName, lastName, email, phone, optOut, salt, encryptedPassword,
-      role || 'student', provider || 'local', googleParam, displayOrder, bio, url, imageName, image]);
+      role || 'student', provider || 'local', googleParam, displayOrder, bio, url, imageId]);
     const createdUser = rows[0];
     return createdUser;
   } catch(err) {
@@ -232,10 +232,10 @@ export async function forgotPassword(req, res) {
 async function updateUser(user) {
   console.log('UPDATE USER', user); // TODO: Remove
   const { _id, role, email, firstName, lastName, phone, optOut, provider, google, passwordNew, passwordConfirm,
-    displayOrder, bio, url, imageName, image } = user;
+    displayOrder, bio, url, imageId } = user;
 
   // Start with a limited set of parameters for the update (add as needed)
-  let arrParams = [_id, role, email, firstName, lastName, phone, optOut, provider, google, displayOrder, bio, url, imageName, image];
+  let arrParams = [_id, role, email, firstName, lastName, phone, optOut, provider, google, displayOrder, bio, url, imageId];
   let sqlPasswordUpdate = '';
 
   // Password can be changed if local
@@ -246,13 +246,13 @@ async function updateUser(user) {
     const newEncryptedPassword = await encryptPassword(passwordNew, newSalt);
     arrParams.push(newEncryptedPassword);
     arrParams.push(newSalt);
-    sqlPasswordUpdate = ', password = $15, salt = $16';
+    sqlPasswordUpdate = ', password = $14, salt = $15';
   }
 
   const sql = `UPDATE "Users" SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6,
-    "optOut" = $7, provider = $8, google = $9, "displayOrder" = $10, bio = $11, url = $12, "imageName" = LOWER($13), image = $14${sqlPasswordUpdate}
+    "optOut" = $7, provider = $8, google = $9, "displayOrder" = $10, bio = $11, url = $12, "imageId" =$13${sqlPasswordUpdate}
     WHERE _id = $1
-    RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageName", image;`;
+    RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageId";`;
 
   let result;
   try {
@@ -300,8 +300,7 @@ export async function upsert(req, res) {
     Reflect.deleteProperty(req.body, 'bio');
     Reflect.deleteProperty(req.body, 'displayOrder');
     Reflect.deleteProperty(req.body, 'google');
-    Reflect.deleteProperty(req.body, 'image');
-    Reflect.deleteProperty(req.body, 'imageName');
+    Reflect.deleteProperty(req.body, 'imageId');
     Reflect.deleteProperty(req.body, 'passwordNew');
     Reflect.deleteProperty(req.body, 'passwordConfirm');
     Reflect.deleteProperty(req.body, 'provider');
@@ -444,7 +443,7 @@ ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
 
 // Called by integration test
 export async function roleSet(email, role) {
-  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider, bio, url, "displayOrder", "imageName", image;';
+  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider, bio, url, "displayOrder", "imageId";';
   const { rows } = await db.query(sql, [email, role]);
   if(rows.length === 0) userMissingError();
   return rows[0];

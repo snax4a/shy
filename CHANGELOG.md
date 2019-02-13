@@ -1,8 +1,9 @@
 # Product Backlog
-* [High] Should I use multer or formidable? Create an /upload route?
+* [Bug] If an existing teacher photo is replaced, delete the old photo when saving.
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* /server/api/file implementation
 * [Bug] Admin/Announcements - invalid times causes 500 error
 * Replaced mocha/chai/karma/sinon with jest
 * Ported angularjs-toast to project (ES6 conversion) so it's easier to test

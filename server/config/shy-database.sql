@@ -66,6 +66,21 @@ EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
+
+-- DROP SEQUENCE public.files_seq;
+CREATE SEQUENCE IF NOT EXISTS public.files_seq;
+
+-- DROP TABLE public.files;
+CREATE TABLE IF NOT EXISTS public.files (
+  _id integer PRIMARY KEY DEFAULT nextval('files_seq'::regclass),
+  name character varying(512) NOT NULL,
+  type character varying(20) NOT NULL,
+  data bytea
+);
+
+-- DROP INDEX public.users_first_name;
+CREATE INDEX files_name ON public.files USING btree (name);
+
 -- DROP SEQUENCE public.users_seq;
 CREATE SEQUENCE IF NOT EXISTS public.users_seq;
 
@@ -84,8 +99,7 @@ CREATE TABLE IF NOT EXISTS public."Users" (
   "displayOrder" integer, 
   bio character varying(1500),
   url character varying(1024),
-  "imageName" character varying(512),
-  image bytea,
+  imageId integer REFERENCES files(_id) ON UPDATE CASCADE ON DELETE CASCADE,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now(),
   password character varying(88),

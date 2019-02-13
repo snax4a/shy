@@ -1,4 +1,4 @@
-form(name='form', ng-submit="$ctrl.submitUser(form)", enctype='multipart/form-data', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
   .modal-header
     button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
       span(aria-hidden='true') &times;
@@ -64,19 +64,15 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", enctype='multipart/form-da
           ng-messages.help-block.has-error(for='form.displayOrder.$error', ng-show='form.displayOrder.$dirty || form.$submitted', role='alert')
             ng-message(when='number') Please enter an integer representing the order this teacher will appear.
         .form-group.col-md-6
-          label(for='imageName') Image name
-          input.form-control(type='text', name='imageName', id='imageName', ng-model='$ctrl.user.image.$ngfName', maxlength='512', placeholder='Image filename')
-        .form-group.col-md-6
-          label(for='image') Teacher photo
-          input.form-control(type='file', id='image', name='image', ngf-select='', ng-model='$ctrl.user.image', ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size='100KB', ngf-min-height='276', ngf-max-height='276', ngf-min-width='236', ngf-max-width='236', ngf-resize='{width: 236, height: 276}', ngf-model-invalid='errorFile')
-          ng-messages.help-block.has-error(for='form.image.$error', ng-show='form.image.$dirty || form.$submitted', role='alert')
+          label(for='photo') Teacher photo
+          input.form-control(ngf-select='$ctrl.uploadPhoto($file)', type='file', id='photo', name='photo', ng-model='$ctrl.user.photo', ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size='100KB', ngf-min-height='276', ngf-max-height='276', ngf-min-width='236', ngf-max-width='236', ngf-resize='{width: 236, height: 276}', ngf-model-invalid='errorFile')
+          ng-messages.help-block.has-error(for='form.photo.$error', ng-show='form.photo.$dirty || form.$submitted', role='alert')
             ng-message(when='maxSize') Please select a photo that is less than 100K.
             ng-message(when='minHeight') The image must be 236 x 276 pixels.
             ng-message(when='maxHeight') The image must be 236 x 276 pixels.
             ng-message(when='minWidth') The image must be 236 x 276 pixels.
             ng-message(when='maxWidth') The image must be 236 x 276 pixels.
-          img(ng-show='form.image.$valid', ngf-thumbnail='$ctrl.user.image')
-          | {{ $ctrl.user.image | json }}
+          img(ng-if='$ctrl.user.imageId', src='/api/file/{{ $ctrl.user.imageId }}')
         .form-group.col-md-6
           label(for='bio') Bio
           textarea.form-control(id='bio', name='bio', ng-model='$ctrl.user.bio', rows='3', placeholder="Teacher's bio")
