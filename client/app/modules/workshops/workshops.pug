@@ -19,8 +19,7 @@
     .col-md-7
       a(id='{{ workshop.title | htmlid | limitTo: 20 }}')
       h4 {{ workshop.title }}
-      p
-        | {{ workshop.description }}
+      p(ng-bind-html='workshop.description')
       p
         tweet(url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', text='{{ workshop.title }} #shyoga')
       p(ng-repeat='section in workshop.sections | upcoming', ng-init="event = $ctrl.getEvent(workshop, section)")
