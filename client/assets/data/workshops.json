@@ -512,16 +512,7 @@
           "addressRegion": "PA",
           "addressCountry": "US"
         }
-			}
-		]
-	},
-
-	{
-		"expires": "2019-05-11T16:00-04:00",
-		"title": "Marathon to Mat with Stefanie Zito and Mandy Kull",
-		"photo": "/assets/images/workshops/runners.jpg",
-		"description": "Whether you're winding down from a relay, the half, the full, or simply your regular laps around the neighborhood, this practice will offer release and recovery. Designed with runners in mind, this recovery practice will focus on stretching, calming breath, and the ease of unnecessary tension in the body to promote longterm running health.",
-		"sections": [
+			},
 			{
 				"start": "2019-05-11T14:00-04:00",
 				"expires": "2019-05-11T16:00-04:00",
@@ -535,7 +526,22 @@
           "addressRegion": "PA",
           "addressCountry": "US"
         }
-			}
+			},
+			{
+				"title": "both sessions, $50",
+				"start": "2019-05-11T14:00-04:00",
+				"expires": "2019-05-11T16:00-04:00",
+				"productID": 107,
+				"cost": 30,
+				"location": "East Liberty",
+        "address": {
+          "streetAddress": "5923 Baum Boulevard",
+          "addressLocality": "Pittsburgh",
+          "postalCode": "15206",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
+			},
 		]
 	}
 ]
