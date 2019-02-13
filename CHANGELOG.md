@@ -1,8 +1,9 @@
 # Product Backlog
-* [Bug] If an existing teacher photo is replaced, delete the old photo when saving.
+* [High] Remove nosubs filter
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* [Bug] If an existing teacher photo is replaced, delete the old photo when saving.
 * /server/api/file implementation
 * [Bug] Admin/Announcements - invalid times causes 500 error
 * Replaced mocha/chai/karma/sinon with jest

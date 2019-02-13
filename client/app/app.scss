@@ -122,7 +122,6 @@ h2 {
 
 // Component styles are injected through gulp inject:scss task
 /* inject:scss */
-@import 'components/admin/admin';
 @import 'components/banner/banner';
 @import 'components/checkout/checkout';
 @import 'components/confirmation/confirmation';
@@ -132,6 +131,7 @@ h2 {
 @import 'components/profile/profile';
 @import 'components/signup/signup';
 @import 'components/terms/terms';
+@import 'modules/admin/admin';
 @import 'modules/classes/classes';
 @import 'modules/home/home';
 @import 'modules/locations/locations';

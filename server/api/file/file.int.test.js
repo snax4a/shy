@@ -32,30 +32,23 @@ describe('File API:', () => {
   );
 
   // file.controller.js:upload
-  describe('POST /api/file', () => {
-    let newFile = {
-      name: 'test-file.jpg',
-      type: 'image/jpg',
-      data: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='
-    };
-
-    // Gives a 500 error rather than 401 if authorization header is not provided
+  describe('POST /api/file/upload', () => {
     test('should respond with a 401 when not authenticated', done =>
       request(app)
-        .post('/api/file')
-        .send(newFile)
+        .post('/api/file/upload')
+        .attach('file', 'client/favicon.png')
         .expect(401, done)
     );
 
-    test('should upsert the class when admin is authenticated and return a non-zero ID', () =>
+    test('should upload file when admin is authenticated and return a non-zero ID', () =>
       request(app)
-        .post('/api/file')
+        .post('/api/file/upload')
         .set('authorization', `Bearer ${tokenAdmin}`)
-        .send(newFile)
+        .attach('file', 'client/favicon.png')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
-          newFileID = res.body._id;
+          newFileID = res.body.id;
           expect(newFileID).toBeGreaterThan(0);
         })
     );
@@ -77,11 +70,11 @@ describe('File API:', () => {
 
   // file.controller.js:index
   describe('GET /api/file/:id', () =>
-    test('should respond with an image', () =>
+    test('should respond with a file', () =>
       request(app)
         .get(`/api/file/${newFileID}`)
         .expect(200)
-        .expect('Content-Type', /jpg/)
+        .expect('Content-Type', /png/)
     )
   );
 

@@ -4,12 +4,13 @@ import angular from 'angular'; // for angular copy
 // Controller for modal dialog for editing users
 export class UserEditorController {
   /*@ngInject*/
-  constructor($timeout, $uibModalInstance, Auth, User, Upload, userSelectedForEditing) {
+  constructor($timeout, $uibModalInstance, Auth, User, Upload, FileService, userSelectedForEditing) {
     // Dependencies
     this.$timeout = $timeout;
     this.$uibModalInstance = $uibModalInstance;
     this.Auth = Auth;
     this.User = User;
+    this.fileService = FileService;
     this.uploadService = Upload;
     this.userSelectedForEditing = userSelectedForEditing; // should always be $resource
 
@@ -34,7 +35,7 @@ export class UserEditorController {
         }, response => {
           if(response.status > 0) console.log(`${response.status}: ${response.data}`);
         }, evt => {
-          // Math.min is to fix IE which reports 200% sometimes
+          // Math.min fixes IE bug which reports 200% under certain conditions
           this.uploadProgress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total, 10));
         });
     }
@@ -67,6 +68,8 @@ export class UserEditorController {
       this.User.upsert(upsertedUser)
         .$promise
         .then(user => { // Resource object with all the user fields except password and salt
+          // If a new image was uploaded, delete the old one in the database (server file system is ephemeral)
+          if(this.userSelectedForEditing.imageId !== this.user.imageId) this.fileService.delete(this.userSelectedForEditing.imageId);
           // Graft the edited user back the original
           angular.extend(this.userSelectedForEditing, user);
           return this.$uibModalInstance.close();

@@ -28,6 +28,7 @@ import TeacherTrainingModule from './modules/teachertraining/teachertraining.mod
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
 import LoginModule from './modules/login/login.module';
+import AdminModule from './modules/admin/admin.module';
 import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
 import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
@@ -50,7 +51,6 @@ import CompareToDirective from './directives/compare-to/compare-to.directive'; /
 import JsonTextDirective from './directives/json-text/json-text.directive'; // usereditor.pug
 
 // Filters
-import AmPmFilter from './filters/ampm/ampm.filter'; // classes.component.js, schedulemanager.component.js
 import DayToDateFilter from './filters/daytodate/daytodate.filter'; // classes.component.js
 import HtmlIdFilter from './filters/htmlid/htmlid.filter'; // classes.component.js, locations.component.js, teachers.component.js, workshops.component.js
 import NoSubsFilter from './filters/nosubs/nosubs.filter'; // teachers.component.js
@@ -70,7 +70,6 @@ import CheckoutComponent from './components/checkout/checkout.component';
 import ConfirmationComponent from './components/confirmation/confirmation.component';
 import PrivacyComponent from './components/privacy/privacy.component';
 import TermsComponent from './components/terms/terms.component';
-import AdminComponent from './components/admin/admin.component';
 import SignupComponent from './components/signup/signup.component';
 import ProfileComponent from './components/profile/profile.component';
 
@@ -87,7 +86,6 @@ angular.module('shyApp', [
   ngMessages,
   ngSanitize,
   ngFileUpload,
-  AmPmFilter,
   DayToDateFilter,
   HtmlIdFilter,
   NoSubsFilter,
@@ -120,19 +118,19 @@ angular.module('shyApp', [
   ProductManagerModule,
   ClassManagerModule,
   LocationManagerModule,
+  AdminModule,
   ShynetModule,
   BannerComponent,
   FooterComponent,
   GoogleButtonComponent,
   JsonLdComponent,
-  TweetComponent,
-  AdminComponent,
   CheckoutComponent,
   ConfirmationComponent,
   PrivacyComponent,
   TermsComponent,
   SignupComponent,
-  ProfileComponent
+  ProfileComponent,
+  TweetComponent
 ])
   .config(appConfig)
   .run(($rootScope, $location, $route, Auth) => {

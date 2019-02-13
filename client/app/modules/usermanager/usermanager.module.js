@@ -8,6 +8,7 @@ import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import { UserManagerComponent } from './usermanager.component';
 import { HistoryService } from '../../services/history.service';
 
+
 export default angular.module('shyApp.usermanager', [CompareToDirective, JsonTextDirective, PaginationDirective, UibAlertDirective, UibDatepickerPopupDirective, UibModalDirective])
   .service('HistoryService', HistoryService)
   .component('usermanager', {
