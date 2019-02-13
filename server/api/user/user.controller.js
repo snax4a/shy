@@ -165,7 +165,7 @@ export async function createUser(user) {
   // If someone with the same email exists, global error handler will take it
   const sql = `
     INSERT INTO "Users"
-      ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google, "displayOrder", bio, url, "imageName", image)
+      ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google, "displayOrder", bio, url, "imageId")
       VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING _id, role, email,
       "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageId";`;
 
