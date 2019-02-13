@@ -248,7 +248,7 @@ gulp.task('eslint:tests', done => {
 // Wait until server is responding then open browser on client to our starting page
 gulp.task('start:client', done => {
   whenServerReady(() => {
-    opn(`http://localhost:${config.browserSyncPort}`, {app: 'google chrome'});
+    opn(`http://localhost:${config.browserSyncPort}`/*, {app: 'google chrome'}*/);
     done();
   });
 });
