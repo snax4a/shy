@@ -187,6 +187,7 @@ CREATE TABLE IF NOT EXISTS public.sections (
   "workshopId" integer NOT NULL REFERENCES workshops(_id) ON UPDATE CASCADE ON DELETE CASCADE,
   title character varying(256),
   description character varying(1024),
+  "hideDate" boolean DEFAULT false,
   starts timestamp with time zone NOT NULL,
   ends timestamp with time zone NOT NULL,
   "productId" integer REFERENCES products(_id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -468,7 +469,7 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
     SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS expires,
       (
         SELECT array_to_json(array_agg(row_to_json(s))) FROM (
-          SELECT title, starts AS start, ends AS expires,
+          SELECT title, description, "hideDate" as nodate, starts AS start, ends AS expires,
             "productId", products.price AS cost, locations.name AS location,
             locations.address AS "streetAddress",
             locations.city AS "addressLocality", locations.state AS "addressRegion",
