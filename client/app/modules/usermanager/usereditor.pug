@@ -72,7 +72,8 @@ form(name='form', ng-submit="$ctrl.submitUser(form)", novalidate='', ng-model-op
             ng-message(when='maxHeight') The image must be 236 x 276 pixels.
             ng-message(when='minWidth') The image must be 236 x 276 pixels.
             ng-message(when='maxWidth') The image must be 236 x 276 pixels.
-          img(ng-if='$ctrl.user.imageId', src='/api/file/{{ $ctrl.user.imageId }}')
+          span(ng-if='$ctrl.user.imageId')
+            img(ng-src='/api/file/{{ $ctrl.user.imageId }}' alt="Photo of Teacher")
         .form-group.col-md-6
           label(for='bio') Bio
           textarea.form-control(id='bio', name='bio', ng-model='$ctrl.user.bio', rows='3', placeholder="Teacher's bio")

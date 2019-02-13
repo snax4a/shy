@@ -23,8 +23,8 @@ export async function upload(req, res) {
       const { rows } = await db.query(sql, [name, type, fileData]);
       _id = rows[0]._id;
       res.send({ id: _id });
-      // TODO: remove next line
-      console.log(`Uploaded ${name} to ${path} and inserted into database (ID = ${_id})`);
+      // console.log(`Uploaded ${name} to ${path} and inserted into database (ID = ${_id})`);
+      // No need to delete the file uploaded as Heroku has an ephemeral file system
     });
   });
 }
@@ -44,10 +44,10 @@ export async function download(req, res) {
   return rows[0];
 }
 
-// Deletes an image (admin-only)
+// Deletes a file from the database (admin-only)
 export async function destroy(req, res) {
   const _id = req.params.id;
   const sql = 'DELETE FROM files WHERE _id = $1;';
   await db.query(sql, [_id]);
-  res.status(204).send({ message: `Image ${_id} deleted.`});
+  res.status(204).send({ message: `File ${_id} deleted.`});
 }

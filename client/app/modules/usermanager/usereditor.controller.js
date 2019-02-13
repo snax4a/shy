@@ -26,7 +26,7 @@ export class UserEditorController {
   uploadPhoto(file) {
     if(file) {
       this.uploadService.upload({
-        url: 'http://localhost:3000/api/file/upload',
+        url: '/api/file/upload',
         data: { file }
       })
         .then(response => {

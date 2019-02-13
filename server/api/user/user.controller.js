@@ -230,7 +230,6 @@ export async function forgotPassword(req, res) {
 }
 
 async function updateUser(user) {
-  console.log('UPDATE USER', user); // TODO: Remove
   const { _id, role, email, firstName, lastName, phone, optOut, provider, google, passwordNew, passwordConfirm,
     displayOrder, bio, url, imageId } = user;
 
@@ -294,7 +293,6 @@ export async function update(req, res) {
 export async function upsert(req, res) {
   const _id = parseInt(req.params.id, 10);
   const isNew = _id === 0;
-  console.log('UPSERT', req); // TODO: Remove
   if(req.user.role === 'teacher') {
     // Remove properties teachers cannot modify
     Reflect.deleteProperty(req.body, 'bio');
