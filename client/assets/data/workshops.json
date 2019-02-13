@@ -8,7 +8,7 @@
 			{
 				"title": "Full Moon",
 				"start": "2019-02-22T18:30-05:00",
-				"expires": "2019-02-23T20:00-05:00",
+				"expires": "2019-02-22T20:00-05:00",
 				"productID": 23,
 				"cost": 20,
 				"location": "North Hills",
@@ -23,7 +23,7 @@
 			{
 				"title": "New Moon",
 				"start": "2019-03-08T18:30-05:00",
-				"expires": "2019-03-09T20:00-05:00",
+				"expires": "2019-03-08T20:00-05:00",
 				"productID": 17,
 				"cost": 20,
 				"location": "North Hills",
@@ -38,7 +38,7 @@
 			{
 				"title": "Full Moon",
 				"start": "2019-03-22T18:30-04:00",
-				"expires": "2019-03-23T20:00-04:00",
+				"expires": "2019-03-22T20:00-04:00",
 				"productID": 18,
 				"cost": 20,
 				"location": "North Hills",
@@ -53,7 +53,7 @@
 			{
 				"title": "New Moon",
 				"start": "2019-04-05T18:30-04:00",
-				"expires": "2019-04-06T20:00-04:00",
+				"expires": "2019-04-05T20:00-04:00",
 				"productID": 19,
 				"cost": 20,
 				"location": "North Hills",
@@ -68,7 +68,7 @@
 			{
 				"title": "Full Moon",
 				"start": "2019-04-19T18:30-04:00",
-				"expires": "2019-04-20T20:00-04:00",
+				"expires": "2019-04-19T20:00-04:00",
 				"productID": 20,
 				"cost": 20,
 				"location": "North Hills",
@@ -83,7 +83,7 @@
 			{
 				"title": "New Moon",
 				"start": "2019-05-03T18:30-04:00",
-				"expires": "2019-05-04T20:00-04:00",
+				"expires": "2019-05-03T20:00-04:00",
 				"productID": 21,
 				"cost": 20,
 				"location": "North Hills",
@@ -98,7 +98,7 @@
 			{
 				"title": "Full Moon",
 				"start": "2019-05-17T18:30-04:00",
-				"expires": "2019-05-18T20:00-04:00",
+				"expires": "2019-05-17T20:00-04:00",
 				"productID": 27,
 				"cost": 20,
 				"location": "North Hills",
@@ -135,7 +135,7 @@
 			},
 			{
 				"start": "2019-04-26T18:30-04:00",
-				"expires": "2019-04-27T20:00-04:00",
+				"expires": "2019-04-26T20:00-04:00",
 				"productID": 55,
 				"cost": 20,
 				"location": "North Hills",

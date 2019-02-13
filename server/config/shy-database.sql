@@ -50,7 +50,7 @@ BEGIN
 END;
 $BODY$;
 
--- DROP TYPE public."enum_Users_provider";
+-- DROP TYPE public.providers;
 DO $$ BEGIN
   CREATE TYPE public.providers AS ENUM
     ('google', 'local');
@@ -58,14 +58,13 @@ EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
--- DROP TYPE public."enum_Users_role";
+-- DROP TYPE public.roles;
 DO $$ BEGIN
   CREATE TYPE public.roles AS ENUM
     ('student', 'teacher', 'admin');
 EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
-
 
 -- DROP SEQUENCE public.files_seq;
 CREATE SEQUENCE IF NOT EXISTS public.files_seq;
@@ -158,6 +157,50 @@ CREATE INDEX classes_active ON public.classes USING btree ("active");
 -- DROP TRIGGER updated_at ON public.classes;
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.classes
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
+-- DROP SEQUENCE public.workshops_seq;
+CREATE SEQUENCE IF NOT EXISTS public.workshops_seq;
+
+-- DROP TABLE public.workshops;
+CREATE TABLE IF NOT EXISTS public.workshops (
+  _id integer PRIMARY KEY DEFAULT nextval('workshops_seq'),
+  title character varying(256) NOT NULL UNIQUE,
+  description character varying(1024) NOT NULL,
+  "imageId" integer REFERENCES files(_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
+  "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
+);
+
+-- DROP TRIGGER updated_at ON public.workshops;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.workshops
+  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
+-- DROP INDEX public.workshops_active;
+CREATE INDEX workshops_title ON public.workshops USING btree (title);
+
+-- DROP SEQUENCE public.sections_seq;
+CREATE SEQUENCE IF NOT EXISTS public.sections_seq;
+
+-- DROP TABLE public.sections;
+CREATE TABLE IF NOT EXISTS public.sections (
+  _id integer PRIMARY KEY DEFAULT nextval('sections_seq'),
+  "workshopId" integer NOT NULL REFERENCES workshops(_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  title character varying(256),
+  description character varying(1024),
+  starts timestamp with time zone NOT NULL,
+  ends timestamp with time zone NOT NULL,
+  "productId" integer REFERENCES products(_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  "locationId" integer REFERENCES locations(_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
+  "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
+);
+
+-- DROP TRIGGER updated_at ON public.sections;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.sections
+  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+
+-- DROP INDEX public.sections_active;
+CREATE INDEX sections_active ON public.sections USING btree (starts, title);
 
 -- DROP SEQUENCE public.locations_seq;
 CREATE SEQUENCE IF NOT EXISTS public.locations_seq;
@@ -418,6 +461,24 @@ CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
   WHERE "Attendances".attended >= '2017-01-01'::date
   GROUP BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text))
   ORDER BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text));
+
+-- DROP VIEW public.workshop_sections
+CREATE OR REPLACE VIEW public.workshop_sections AS
+  SELECT row_to_json(w) FROM (
+    -- must calculate expires via MAX()
+    SELECT title, description, "imageId",
+      (
+        SELECT array_to_json(array_agg(row_to_json(s))) FROM (
+          SELECT title, starts, ends, "productId", products.price, locations.name AS location,
+            locations.address, locations.city, locations.state, locations."zipCode",
+            'US' AS country
+          FROM sections INNER JOIN products ON sections."productId" = products._id
+            INNER JOIN locations on sections."locationId" = locations._id WHERE ends > CURRENT_TIMESTAMP
+          ORDER BY starts
+        ) s
+      ) s
+    FROM workshops
+  ) w;
 
 -- DROP FUNCTION public.zero_old_passes();
 CREATE OR REPLACE FUNCTION public.zero_old_passes() RETURNS void
