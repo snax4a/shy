@@ -7,8 +7,6 @@ export async function index(req, res) {
 }
 
 // Ingests JSON representation of workshop including sections (broken out from upsert() for testing)
-// TODO: Replicate json_snapshot_upsert from https://github.com/nstuyvesant/baldr/blob/master/db_create.sql#L236
-// See https://github.com/nstuyvesant/baldr/blob/master/routes/api.controller.js#L22 for
 export async function upsertWorkshop(workshop) {
   const { rows } = await db.query('SELECT workshop_upsert($1::json)', [workshop]);
   const { _id, imageId } = rows[0];
