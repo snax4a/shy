@@ -175,9 +175,6 @@ CREATE TABLE IF NOT EXISTS public.workshops (
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.workshops
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
--- DROP INDEX public.workshops_active;
-CREATE INDEX workshops_title ON public.workshops USING btree (title);
-
 -- DROP SEQUENCE public.sections_seq;
 CREATE SEQUENCE IF NOT EXISTS public.sections_seq;
 
@@ -188,10 +185,10 @@ CREATE TABLE IF NOT EXISTS public.sections (
   title character varying(256),
   description character varying(1024),
   "hideDate" boolean DEFAULT false,
-  starts timestamp with time zone NOT NULL,
-  ends timestamp with time zone NOT NULL,
-  "productId" integer REFERENCES products(_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  "locationId" integer REFERENCES locations(_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  starts timestamp(0) with time zone NOT NULL,
+  ends timestamp(0) with time zone NOT NULL,
+  "productId" integer REFERENCES products(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  "locationId" integer REFERENCES locations(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
@@ -241,7 +238,7 @@ CREATE TABLE IF NOT EXISTS public."Announcements" (
   section character varying(100) NOT NULL,
   title character varying(100) NOT NULL,
   description character varying(512) NOT NULL,
-  expires timestamp with time zone NOT NULL DEFAULT CURRENT_DATE + INTERVAL '1' MONTH,
+  expires timestamp(0) with time zone NOT NULL DEFAULT CURRENT_DATE + INTERVAL '1' MONTH,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now(),
 );
@@ -373,8 +370,8 @@ CREATE TABLE IF NOT EXISTS public."Schedules" (
   day integer NOT NULL,
   title character varying(100) NOT NULL,
   teacher character varying(40) NOT NULL,
-  "startTime" time without time zone NOT NULL,
-  "endTime" time without time zone NOT NULL,
+  "startTime" time(0) without time zone NOT NULL,
+  "endTime" time(0) without time zone NOT NULL,
   canceled boolean NOT NULL DEFAULT false,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
@@ -469,8 +466,8 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
     SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS expires,
       (
         SELECT array_to_json(array_agg(row_to_json(s))) FROM (
-          SELECT title, description, "hideDate" as nodate, starts AS start, ends AS expires,
-            "productId", products.price AS cost, locations.name AS location,
+          SELECT title, description, "hideDate" , starts, ends,
+            "productId", products.price, locations.name AS location,
             locations.address AS "streetAddress",
             locations.city AS "addressLocality", locations.state AS "addressRegion",
             locations."zipCode" AS "postalCode",
@@ -486,6 +483,55 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
       ) AS sections
     FROM workshops
   ) w;
+
+-- Insert workshop record or update if one exists
+CREATE OR REPLACE FUNCTION workshop_upsert(character varying(256), character varying(1024), integer, OUT workshop_id integer) AS $$
+BEGIN
+  INSERT INTO workshops(title, description, "imageId") VALUES ($1, $2, $3)
+    ON CONFLICT (title) DO UPDATE SET title = $1, description = $2, "imageId" = 3 -- re-update in order to get id
+    RETURNING _id INTO workshop_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Upsert workshop in JSON format
+CREATE OR REPLACE FUNCTION public.workshop_upsert_json(
+	input json,
+	OUT done boolean)
+    RETURNS boolean
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$DECLARE
+    v_workshop_id integer := workshop_upsert(
+      (input->>'title')::varchar(256),
+      (input->>'description')::varchar(1024),
+      (input->>'imageId')::integer
+    );
+BEGIN
+  -- Delete records related to existing workshop (overwrite)
+  DELETE FROM sections WHERE "workshopId" = v_workshop_id;
+
+    -- Add sections
+	IF (input->'sections')::text <> 'null' THEN
+    WITH s AS (
+      SELECT
+        v_workshop_id AS "workshopId",
+        (value->>'title')::varchar(256) AS title,
+        (value->>'description')::varchar(1024) AS description,
+        (value->>'hideDate')::boolean AS "hideDate",
+        (value->>'starts')::timestamptz(0) AS starts,
+        (value->>'ends')::timestamptz(0) AS ends,
+        (value->>'productId')::integer AS "productId",
+        (value->>'locationId')::integer AS "locationId"
+      FROM json_array_elements(input->'sections')
+    )
+    INSERT INTO sections("workshopId", "hideDate", title, description, starts, ends, "productId", "locationId") SELECT "workshopId", "hideDate", title, description, starts, ends, "productId", "locationId" FROM s;
+	END IF;
+
+  done := TRUE;
+END;
+$BODY$;
 
 -- DROP FUNCTION public.zero_old_passes();
 CREATE OR REPLACE FUNCTION public.zero_old_passes() RETURNS void
