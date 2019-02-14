@@ -463,7 +463,7 @@ CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
 -- DROP VIEW public.workshop_sections
 CREATE OR REPLACE VIEW public.workshop_sections AS
   SELECT row_to_json(w) FROM (
-    SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS expires,
+    SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
       (
         SELECT array_to_json(array_agg(row_to_json(s))) FROM (
           SELECT title, description, "hideDate" , starts, ends,
