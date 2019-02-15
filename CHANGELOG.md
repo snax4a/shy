@@ -3,6 +3,7 @@
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Fixed tweet button digest cycle issue
 * Cleaned up app.module.js to remove components, etc. that don't need to be directly loaded
 * Removed upcoming filter
 * Implement workshopsmanager with database back-end
