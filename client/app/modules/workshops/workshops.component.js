@@ -21,9 +21,25 @@ export class WorkshopsComponent {
     this.workshops = await this.workshopService.workshopsGet();
   }
 
+  twitterLoadScript(d, s, id) {
+    let js;
+    let fjs = d.getElementsByTagName(s)[0];
+    let t = window.twttr || {};
+    if(d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = '//platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = f => {
+      t._e.push(f);
+    };
+    return t;
+  }
+
   twitterLoad() {
     if(window.twttr === undefined) {
-      this.twitterLoadScript(document, 'script', 'twitter-wjs');
+      this.$timeout(() => this.twitterLoadScript(document, 'script', 'twitter-wjs'));
     } else {
       this.$timeout(() => window.twttr.widgets.load());
     }
@@ -71,22 +87,6 @@ export class WorkshopsComponent {
         url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`
       }
     };
-  }
-
-  twitterLoadScript(d, s, id) {
-    let js;
-    let fjs = d.getElementsByTagName(s)[0];
-    let t = window.twttr || {};
-    if(d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = '//platform.twitter.com/widgets.js';
-    fjs.parentNode.insertBefore(js, fjs);
-    t._e = [];
-    t.ready = f => {
-      t._e.push(f);
-    };
-    return t;
   }
 
   setFocus(fieldID) {
