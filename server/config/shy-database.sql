@@ -460,14 +460,14 @@ CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
   GROUP BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text))
   ORDER BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text));
 
--- DROP VIEW public.workshop_sections
+DROP VIEW IF EXISTS public.workshop_sections;
 CREATE OR REPLACE VIEW public.workshop_sections AS
-  SELECT row_to_json(w) FROM (
-    SELECT title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
+  SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM (
+    SELECT workshops._id, title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
       (
         SELECT array_to_json(array_agg(row_to_json(s))) FROM (
-          SELECT title, description, "hideDate" , starts, ends,
-            "productId", products.price, locations.name AS location,
+          SELECT sections._id, title, description, "hideDate" , starts, ends,
+            "productId", products.price, "locationId", locations.name AS location,
             locations.address AS "streetAddress",
             locations.city AS "addressLocality", locations.state AS "addressRegion",
             locations."zipCode" AS "postalCode",
@@ -485,52 +485,64 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
   ) w;
 
 -- Insert workshop record or update if one exists
-CREATE OR REPLACE FUNCTION workshop_upsert(character varying(256), character varying(1024), integer, OUT workshop_id integer) AS $$
-BEGIN
-  INSERT INTO workshops(title, description, "imageId") VALUES ($1, $2, $3)
-    ON CONFLICT (title) DO UPDATE SET title = $1, description = $2, "imageId" = 3 -- re-update in order to get id
-    RETURNING _id INTO workshop_id;
-END;
-$$ LANGUAGE plpgsql;
-
--- Upsert workshop in JSON format
-CREATE OR REPLACE FUNCTION public.workshop_upsert_json(
-	input json,
-	OUT done boolean)
-    RETURNS boolean
+CREATE OR REPLACE FUNCTION public.workshop_upsert(
+	integer,
+	character varying,
+	character varying,
+	integer,
+	OUT workshop_id integer)
+    RETURNS integer
     LANGUAGE 'plpgsql'
 
     COST 100
     VOLATILE 
-AS $BODY$DECLARE
-    v_workshop_id integer := workshop_upsert(
+AS $BODY$
+BEGIN
+  IF $1 = 0 THEN
+    INSERT INTO workshops(title, description, "imageId") VALUES ($2, $3, $4) RETURNING _id INTO workshop_id;
+  ELSE
+    UPDATE workshops SET title = $2, description = $3, "imageId" = $4 WHERE _id = $1 RETURNING _id INTO workshop_id;
+  END IF;
+END;
+$BODY$;
+
+-- Upsert workshop in JSON format
+DROP FUNCTION public.workshop_upsert_json(json);
+CREATE OR REPLACE FUNCTION public.workshop_upsert_json(
+	input json, OUT id integer)
+    RETURNS integer
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$
+  BEGIN
+    id := workshop_upsert(
+      (input->>'_id')::integer,
       (input->>'title')::varchar(256),
       (input->>'description')::varchar(1024),
       (input->>'imageId')::integer
     );
-BEGIN
-  -- Delete records related to existing workshop (overwrite)
-  DELETE FROM sections WHERE "workshopId" = v_workshop_id;
-
+    -- Delete records related to existing workshop (overwrite)
+    DELETE FROM sections WHERE "workshopId" = id;
     -- Add sections
-	IF (input->'sections')::text <> 'null' THEN
-    WITH s AS (
-      SELECT
-        v_workshop_id AS "workshopId",
-        (value->>'title')::varchar(256) AS title,
-        (value->>'description')::varchar(1024) AS description,
-        (value->>'hideDate')::boolean AS "hideDate",
-        (value->>'starts')::timestamptz(0) AS starts,
-        (value->>'ends')::timestamptz(0) AS ends,
-        (value->>'productId')::integer AS "productId",
-        (value->>'locationId')::integer AS "locationId"
-      FROM json_array_elements(input->'sections')
-    )
-    INSERT INTO sections("workshopId", "hideDate", title, description, starts, ends, "productId", "locationId") SELECT "workshopId", "hideDate", title, description, starts, ends, "productId", "locationId" FROM s;
-	END IF;
-
-  done := TRUE;
-END;
+    IF (input->'sections')::text <> 'null' THEN
+      WITH s AS (
+        SELECT
+          id AS "workshopId",
+          (value->>'title')::varchar(256) AS title,
+          (value->>'description')::varchar(1024) AS description,
+          (value->>'hideDate')::boolean AS "hideDate",
+          (value->>'starts')::timestamptz(0) AS starts,
+          (value->>'ends')::timestamptz(0) AS ends,
+          (value->>'productId')::integer AS "productId",
+          (value->>'locationId')::integer AS "locationId"
+        FROM json_array_elements(input->'sections')
+      )
+      INSERT INTO sections("workshopId", "hideDate", title, description, starts, ends, "productId", "locationId")
+        SELECT "workshopId", "hideDate", title, description, starts, ends, "productId", "locationId" FROM s;
+    END IF;
+  END;
 $BODY$;
 
 -- DROP FUNCTION public.zero_old_passes();
@@ -551,7 +563,7 @@ BEGIN
       student_balances WHERE balance > 0;
   
   -- Eliminate students who bought a card within the last 12 months
-    DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT "UserId" FROM "Purchases" WHERE "createdAt" >= cutoff);
+  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT "UserId" FROM "Purchases" WHERE "createdAt" >= cutoff);
 
   -- Insert negative purchase to expire class cards
 	INSERT INTO "Purchases" ("UserId", quantity, method, notes, "createdAt", "updatedAt")

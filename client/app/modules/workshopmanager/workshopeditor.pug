@@ -1,0 +1,39 @@
+form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-model-options="{'timezone':'US/Eastern', 'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title {{ $ctrl.workshop._id === 0 ? 'New':'Edit'}} Workshop
+  .modal-body
+    .row
+      .form-group.col-md-12
+        label(for='title') Title
+        input.form-control(type='text', name='title', id='title', ng-model='$ctrl.workshop.title', required='true', autofocus='', maxlength='256', ng-change='$ctrl.clearServerError(form,"title")', server-error='')
+        ng-messages.help-block.has-error(for='form.title.$error', ng-show='form.title.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please provide a workshop title.
+    .row
+      .form-group.col-md-12
+        label(for='description') Description
+        textarea.form-control(id='description', name='description', required='true', maxlength='1024', ng-model='$ctrl.workshop.description', rows='9', placeholder='Workshop description')
+        ng-messages.help-block.has-error(for='form.description.$error', ng-show='form.description.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a workshop description.
+    .row
+      .form-group.col-md-12
+        label(for='photo') Workshop photo
+        input.form-control(ngf-select='$ctrl.uploadPhoto($file)', type='file', id='photo', name='photo', ng-model='$ctrl.workshop.photo', ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size='460KB', ngf-min-height='392', ngf-max-height='392', ngf-min-width='520', ngf-max-width='520', ngf-resize='{width: 392, height: 520}', ngf-model-invalid='errorFile')
+        ng-messages.help-block.has-error(for='form.photo.$error', ng-show='form.photo.$dirty || form.$submitted', role='alert')
+          ng-message(when='maxSize') Please select a photo that is less than 100K.
+          ng-message(when='minHeight') The image must be 392 x 520 pixels.
+          ng-message(when='maxHeight') The image must be 392 x 520 pixels.
+          ng-message(when='minWidth') The image must be 392 x 520 pixels.
+          ng-message(when='maxWidth') The image must be 392 x 520 pixels.
+        span(ng-if='$ctrl.workshop.imageId')
+          img(ng-src='/api/file/{{ $ctrl.workshop.imageId }}' alt="Workshop photo")
+    .row
+      .form-group.col-md-12
+        label(for='sections') Sections running through {{ $ctrl.workshop.ends | date:'short':'US/Eastern' }} (US/Eastern)
+        textarea.form-control(id='sections', name='sections', required='true', json-text='', ng-model='$ctrl.workshop.sections', rows='5', placeholder='Sections as JSON')
+        ng-messages.help-block.has-error(for='form.sections.$error', ng-show='form.sections.$dirty || form.$submitted', role='alert')
+          ng-message(when='required') Please enter a workshop description.
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
+    button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save

@@ -1,0 +1,26 @@
+.row.tab-spacer
+  .col-md-12
+    a.btn.btn-warning(id='new', ng-click='$ctrl.workshopCreate()')
+      span.fas.fa-plus-circle
+      |&nbsp;New Workshop
+    br
+    br
+    p(ng-show='$ctrl.workshops.length==0') No workshops
+    table.table.table-striped(ng-hide='$ctrl.workshops.length==0')
+      thead
+        th &nbsp;
+        th ID
+        th Title
+        th 
+      tbody
+        tr(ng-repeat='workshop in $ctrl.workshops')
+          td
+            a.edit(ng-click='$ctrl.workshopEdit(workshop)')
+                span.fas.fa-pencil-alt 
+          td(style='width: 40px;')
+            a.edit(ng-click='$ctrl.workshopEdit(workshop)') {{ workshop._id }}
+          td
+            a.edit(ng-click='$ctrl.workshopEdit(workshop)') {{ workshop.title }}
+          td
+            a.trash(ng-click='$ctrl.workshopDelete(workshop)')
+              span.far.fa-trash-alt

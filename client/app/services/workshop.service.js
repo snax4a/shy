@@ -5,10 +5,20 @@ export class WorkshopService {
     this.initialized = this.initialize(); // promise used by route
   }
 
-  async getWorkshops() {
-    const { data } = await this.$http.get('/assets/data/workshops.json');
+  async workshopsGet() {
+    const { data } = await this.$http.get('/api/workshop');
     this.workshops = data;
     return this.workshops;
+  }
+
+  async workshopUpsert(workshop) {
+    const { data } = await this.$http.put(`/api/workshop/${workshop._id}`, workshop);
+    return data.id;
+  }
+
+  async workshopDelete(workshop) {
+    await this.$http.delete(`/api/workshop/${workshop._id}`);
+    return workshop._id;
   }
 
   async initialize() {

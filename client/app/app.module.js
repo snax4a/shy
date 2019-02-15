@@ -31,11 +31,6 @@ import LoginModule from './modules/login/login.module';
 import AdminModule from './modules/admin/admin.module';
 import ShynetModule from './modules/shynet/shynet.module';
 import UserManagerModule from './modules/usermanager/usermanager.module'; // admin.component.js, shynet.component.js
-import AnnouncementManagerModule from './modules/announcementmanager/announcementmanager.module'; // admin.component.js
-import ScheduleManagerModule from './modules/schedulemanager/schedulemanager.module'; // admin.component.js
-import ProductManagerModule from './modules/productmanager/productmanager.module'; // admin.component.js
-import ClassManagerModule from './modules/classmanager/classmanager.module'; // classes.component.js, admin.component.js
-import LocationManagerModule from './modules/locationmanager/locationmanager.module'; // admin.component.js
 
 // Directives
 // UI-Bootstrap optional dependencies: ngAnimate (for animations), ngTouch (for swipe)
@@ -111,11 +106,6 @@ angular.module('shyApp', [
   TeachersModule,
   TeacherTrainingModule,
   UserManagerModule,
-  AnnouncementManagerModule,
-  ScheduleManagerModule,
-  ProductManagerModule,
-  ClassManagerModule,
-  LocationManagerModule,
   AdminModule,
   ShynetModule,
   BannerComponent,

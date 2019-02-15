@@ -1,8 +1,10 @@
 # Product Backlog
-* [High] Implement workshopsmanager with database back-end
+* [High] Replace angular.copy with spread assignment, and angular.extend with Object.assign()
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
+* [High] Cleanup app.module.js to remove components, etc. that don't need to be directly loaded
 
 <a name="1.0.17"></a>
+* Implement workshopsmanager with database back-end
 * Replace teachers.json with API call
 * Remove nosubs filter
 * [Bug] If an existing teacher photo is replaced, delete the old photo when saving.
