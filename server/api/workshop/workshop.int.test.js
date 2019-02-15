@@ -32,20 +32,19 @@ describe('Workshop API:', () => {
   );
 
   // workshop.controller.js:upsert
-  describe('POST /api/workshop/:id', () => {
+  describe('PUT /api/workshop/:id', () => {
     let newWorkshop = {
       _id: 0,
       title: 'Sample Workshop',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       imageId: null,
-      expires: '2019-03-30T00:00:00+00:00',
       sections: [
         {
           title: 'Test Section',
           description: 'Test Section Description',
-          nodate: false,
-          start: '2019-03-29T22:30:00+00:00',
-          expires: '2019-03-30T00:00:00+00:00',
+          hideDate: false,
+          starts: '2019-03-29T22:30:00+00:00',
+          ends: '2019-03-30T00:00:00+00:00',
           productId: 63,
           locationId: 3
         }
@@ -67,8 +66,7 @@ describe('Workshop API:', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
-          // TODO: check imageId as well
-          newWorkshopID = res.body._id;
+          newWorkshopID = res.body.id;
           expect(newWorkshopID).toBeGreaterThan(0);
         })
     );
