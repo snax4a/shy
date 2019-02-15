@@ -4,6 +4,7 @@
 * [High] Cleanup app.module.js to remove components, etc. that don't need to be directly loaded
 
 <a name="1.0.17"></a>
+* Removed upcoming filter
 * Implement workshopsmanager with database back-end
 * Replace teachers.json with API call
 * Remove nosubs filter

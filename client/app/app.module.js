@@ -49,7 +49,6 @@ import JsonTextDirective from './directives/json-text/json-text.directive'; // u
 import DayToDateFilter from './filters/daytodate/daytodate.filter'; // classes.component.js
 import HtmlIdFilter from './filters/htmlid/htmlid.filter'; // classes.component.js, locations.component.js, teachers.component.js, workshops.component.js
 import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter'; // locations.component.js
-import UpcomingFilter from './filters/upcoming/upcoming.filter'; // workshops.component.js
 import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager.component.js
 
 // Sub-page components
@@ -83,7 +82,6 @@ angular.module('shyApp', [
   DayToDateFilter,
   HtmlIdFilter,
   TrustedUrlFilter,
-  UpcomingFilter,
   WeekdayFilter,
   UibAlertDirective,
   UibCarouselDirective,

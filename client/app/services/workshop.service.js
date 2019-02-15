@@ -2,6 +2,7 @@ export class WorkshopService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
+    this.workshops = [];
     this.initialized = this.initialize(); // promise used by route
   }
 

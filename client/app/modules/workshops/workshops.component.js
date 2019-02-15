@@ -11,9 +11,14 @@ export class WorkshopsComponent {
 
   $onInit() {
     this.subscriber = {};
-    this.workshops = this.workshopService.workshops;
+    this.workshops = [];
+    this.workshopsGet();
     this.twitterLoad();
     this.$timeout(this.$anchorScroll, 100);
+  }
+
+  async workshopsGet() {
+    this.workshops = await this.workshopService.workshopsGet();
   }
 
   twitterLoad() {
@@ -43,25 +48,25 @@ export class WorkshopsComponent {
         name: `Schoolhouse Yoga, ${section.location} Studio`,
         address: {
           '@type': 'PostalAddress',
-          streetAddress: section.address.streetAddress,
-          addressLocality: section.address.addressLocality,
-          postalCode: section.address.postalCode,
-          addressRegion: section.address.addressRegion,
-          addressCountry: section.address.addressCountry
+          streetAddress: section.streetAddress,
+          addressLocality: section.addressLocality,
+          postalCode: section.postalCode,
+          addressRegion: section.addressRegion,
+          addressCountry: section.addressCountry
         }
       },
-      image: `https://www.schoolhouseyoga.com${workshop.photo}`,
+      image: `https://www.schoolhouseyoga.com/api/file/${workshop.imageId}`,
       description: workshop.description,
       url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`,
-      startDate: section.start,
-      endDate: section.expires,
+      startDate: section.starts,
+      endDate: section.ends,
       offers: {
         '@type': 'Offer',
         name: workshop.title,
-        price: `${section.cost}.00`,
+        price: `${section.price}.00`,
         priceCurrency: 'USD',
         validFrom: now.toISOString(),
-        priceValidUntil: section.expires,
+        priceValidUntil: section.ends,
         availability: 'http://schema.org/InStock',
         url: `https://www.schoolhouseyoga.com/workshops#${this.condenseName(workshop.title)}`
       }

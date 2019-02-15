@@ -12,25 +12,25 @@
           ng-messages.help-block.has-error(for='subscriberform.email.$error', ng-show='subscriberform.email.$dirty || subscriberform.$submitted', role='alert')
             ng-message(when='required') Please provide an email address.
             ng-message(when='email') Please provide a valid email address.
-  hr(ng-repeat-start='workshop in $ctrl.workshops | upcoming')
+  hr(ng-repeat-start='workshop in $ctrl.workshops')
   .row
     .col-md-5
-      img.img-responsive.workshop-photo(src='{{workshop.photo}}', alt='Yoga workshop photo')
+      img.img-responsive.workshop-photo(ng-src='/api/file/{{ workshop.imageId }}', alt='Yoga workshop photo')
     .col-md-7
       a(id='{{ workshop.title | htmlid | limitTo: 20 }}')
       h4 {{ workshop.title }}
       p(ng-bind-html='workshop.description')
       p
         tweet(url='https://www.schoolhouseyoga.com/workshops#{{workshop.title | htmlid | limitTo: 20}}', text='{{ workshop.title }} #shyoga')
-      p(ng-repeat='section in workshop.sections | upcoming', ng-init="event = $ctrl.getEvent(workshop, section)")
-        paynow(product='{{ section.productID }}')
+      p(ng-repeat='section in workshop.sections', ng-init="event = $ctrl.getEvent(workshop, section)")
+        paynow(product='{{ section.productId }}')
         span(ng-if='section.title')
           b {{ section.title }} 
           span(ng-if='section.description') {{ section.description }}
           br
-        b(ng-if='!section.nodate') {{ section.start | date:'EEEE, MMMM d' }} &nbsp;&nbsp;| &nbsp;&nbsp;
-        span(ng-if='!section.nodate') {{ section.start | date:'shortTime' }} - {{ section.expires | date:'shortTime' }} &nbsp;&nbsp;|&nbsp;&nbsp; 
-        | {{ section.cost | currency:"$":0 }}
+        b(ng-if='!section.hideDate') {{ section.starts | date:'EEEE, MMMM d' }} &nbsp;&nbsp;| &nbsp;&nbsp;
+        span(ng-if='!section.hideDate') {{ section.starts | date:'shortTime' }} - {{ section.ends | date:'shortTime' }} &nbsp;&nbsp;|&nbsp;&nbsp; 
+        | {{ section.price | currency:"$":0 }}
         br
         a(href='/locations#{{ section.location | htmlid }}') {{ section.location }}
         jsonld(data='event')
