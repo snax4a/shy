@@ -35,28 +35,18 @@ import UserManagerModule from './modules/usermanager/usermanager.module'; // adm
 // Directives
 // UI-Bootstrap optional dependencies: ngAnimate (for animations), ngTouch (for swipe)
 import UibAlertDirective from 'angular-ui-bootstrap/src/alert'; // usermanager.component.js, workshops.component.js
-import UibCarouselDirective from 'angular-ui-bootstrap/src/carousel/index-nocss.js'; // main.component.js
-import UibCollapseDirective from 'angular-ui-bootstrap/src/collapse'; // navbar.component.js
 import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopup/index-nocss.js'; // announcementmanager.component.js, shynet.component.js, usermanager.component.js
-import UibDropDownDirective from 'angular-ui-bootstrap/src/dropdown/index-nocss.js'; // navbar.component.js
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js'; // announcementmanager.component.js, login.component.js, navbar.component.js, schedulemanager.component.js, shynet.component.js, usermanager.component.js
-import UibTabsDirective from 'angular-ui-bootstrap/src/tabs'; // admin.component.js
-import PaginationDirective from 'angular-utils-pagination'; // usermanager.component.js
 import CompareToDirective from './directives/compare-to/compare-to.directive'; // profile.component.js, signup.component.js, usermanager.component.js
-import JsonTextDirective from './directives/json-text/json-text.directive'; // usereditor.pug
+import JsonTextDirective from './directives/json-text/json-text.directive'; // usereditor.pug, workshopeditor.pug
 
 // Filters
-import DayToDateFilter from './filters/daytodate/daytodate.filter'; // classes.component.js
 import HtmlIdFilter from './filters/htmlid/htmlid.filter'; // classes.component.js, locations.component.js, teachers.component.js, workshops.component.js
-import TrustedUrlFilter from './filters/trustedurl/trustedurl.filter'; // locations.component.js
-import WeekdayFilter from './filters/weekday/weekday.filter'; // schedulemanager.component.js
 
 // Sub-page components
 import BannerComponent from './components/banner/banner.component'; // _index.html
 import FooterComponent from './components/footer/footer.component'; // _index.html
-import GoogleButtonComponent from './components/google-button/google-button.component';
-import JsonLdComponent from './components/jsonld/jsonld.component'; // workshops.component.js
-import TweetComponent from './components/tweet/tweet.component'; // workshops.component.js
+import GoogleButtonComponent from './components/google-button/google-button.component'; // login.component, profile.component.js, signup.component.js
 
 // Page components - lazy-loaded via ngRoute
 import CheckoutComponent from './components/checkout/checkout.component';
@@ -79,18 +69,10 @@ angular.module('shyApp', [
   ngMessages,
   ngSanitize,
   ngFileUpload,
-  DayToDateFilter,
   HtmlIdFilter,
-  TrustedUrlFilter,
-  WeekdayFilter,
   UibAlertDirective,
-  UibCarouselDirective,
-  UibCollapseDirective,
   UibDatepickerPopupDirective,
-  UibDropDownDirective,
   UibModalDirective,
-  UibTabsDirective,
-  PaginationDirective,
   CompareToDirective,
   JsonTextDirective,
   AuthModule,
@@ -109,14 +91,12 @@ angular.module('shyApp', [
   BannerComponent,
   FooterComponent,
   GoogleButtonComponent,
-  JsonLdComponent,
   CheckoutComponent,
   ConfirmationComponent,
   PrivacyComponent,
   TermsComponent,
   SignupComponent,
-  ProfileComponent,
-  TweetComponent
+  ProfileComponent
 ])
   .config(appConfig)
   .run(($rootScope, $location, $route, Auth) => {
