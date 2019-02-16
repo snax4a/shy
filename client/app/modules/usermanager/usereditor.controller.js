@@ -1,5 +1,4 @@
 /*eslint no-sync:0 */
-import angular from 'angular'; // for angular copy
 
 // Controller for modal dialog for editing users
 export class UserEditorController {
@@ -21,7 +20,7 @@ export class UserEditorController {
     this.uploadProgress = 0;
     this.isAdmin = this.Auth.isAdminSync;
     // Make a copy so changes aren't made unless we Submit
-    if(this.userSelectedForEditing) angular.copy(this.userSelectedForEditing, this.user);
+    if(this.userSelectedForEditing) this.user = { ...this.userSelectedForEditing };
   }
 
   uploadPhoto(file) {
@@ -50,9 +49,9 @@ export class UserEditorController {
   submitUser(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Make a copy of this.user in case upsert fails
-      let upsertedUser = new this.User();
-      angular.copy(this.user, upsertedUser);
+      // Make a copy of this.user in case of server-side error (like duplicate email addresses)
+      let upsertedUser = { ...this.user };
+
       Reflect.deleteProperty(upsertedUser, 'balance'); // Isn't processed by API anyway
       if(!this.isAdmin()) { // Only admins can update these fields (also enforced on server)
         Reflect.deleteProperty(upsertedUser, 'bio');
@@ -71,7 +70,7 @@ export class UserEditorController {
           // If a new image was uploaded, delete the old one in the database (server file system is ephemeral)
           if(this.userSelectedForEditing.imageId !== this.user.imageId) this.fileService.delete(this.userSelectedForEditing.imageId);
           // Graft the edited user back the original
-          angular.extend(this.userSelectedForEditing, user);
+          Object.assign(this.userSelectedForEditing, user);
           return this.$uibModalInstance.close();
         })
         .catch(response => {

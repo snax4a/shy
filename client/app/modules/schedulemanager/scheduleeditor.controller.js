@@ -1,5 +1,3 @@
-import angular from 'angular'; // angular copy
-
 // Note: if any picklists ever fail to load, may need to have admin component wait for Classes, Teachers, and Location service to initialize
 export class ScheduleEditorController {
   /*@ngInject*/
@@ -15,28 +13,25 @@ export class ScheduleEditorController {
     this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     this.submitted = false;
     this.errors = {};
-    this.scheduleItem = {};
+    this.scheduleItem = { ...this.scheduleItemSelectedForEditing };
     this.options = {
       timeSecondsFormat: 'ss',
       timeStripZeroSeconds: true,
       timezone: 'UTC'
     };
-
-    angular.copy(this.scheduleItemSelectedForEditing, this.scheduleItem);
   }
 
   async submitScheduleItem(form) {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedScheduleItem = {};
-      angular.copy(this.scheduleItem, upsertedScheduleItem);
+      let upsertedScheduleItem = { ...this.scheduleItem };
 
       // Set _id to generated one (for inserts) or existing (for updates)
       upsertedScheduleItem._id = await this.classService.scheduleItemUpsert(upsertedScheduleItem);
 
       // Graft the edited scheduled item back the original
-      angular.extend(this.scheduleItemSelectedForEditing, upsertedScheduleItem);
+      Object.assign(this.scheduleItemSelectedForEditing, upsertedScheduleItem);
       this.$uibModalInstance.close();
 
       // Successful - return promise

@@ -1,5 +1,3 @@
-import angular from 'angular'; // for angular.copy
-
 export class ClassEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, ClassService, classSelectedForEditing) {
@@ -11,21 +9,19 @@ export class ClassEditorController {
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.class = {};
-    angular.copy(this.classSelectedForEditing, this.class);
+    this.class = { ...this.classSelectedForEditing };
   }
 
   async submitClass(form) {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedClass = {};
-      angular.copy(this.class, upsertedClass);
-
+      let upsertedClass = { ...this.class };
       upsertedClass._id = await this.classService.classUpsert(upsertedClass);
 
       // Graft the edited class back the original
-      angular.extend(this.classSelectedForEditing, upsertedClass);
+      Object.assign(this.classSelectedForEditing, upsertedClass);
+
       this.$uibModalInstance.close();
 
       // Success

@@ -1,5 +1,3 @@
-import angular from 'angular'; // for angular.copy
-
 export class LocationEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, LocationService, locationSelectedForEditing) {
@@ -11,21 +9,18 @@ export class LocationEditorController {
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.location = {};
-    angular.copy(this.locationSelectedForEditing, this.location);
+    this.location = { ...this.locationSelectedForEditing };
   }
 
   async submitLocation(form) {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedLocation = {};
-      angular.copy(this.location, upsertedLocation);
-
+      let upsertedLocation = { ...this.location };
       upsertedLocation._id = await this.locationService.locationUpsert(upsertedLocation);
 
       // Graft the edited location back the original
-      angular.extend(this.locationSelectedForEditing, upsertedLocation);
+      Object.assign(this.locationSelectedForEditing, upsertedLocation);
       this.$uibModalInstance.close();
 
       // Success

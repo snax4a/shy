@@ -1,5 +1,3 @@
-import angular from 'angular'; // for angular.copy
-
 export class AnnouncementEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, AnnouncementService, announcementSelectedForEditing) {
@@ -20,7 +18,7 @@ export class AnnouncementEditorController {
       minDate: new Date(),
       startingDay: 1
     };
-    angular.copy(this.announcementSelectedForEditing, this.announcement);
+    this.announcement = { ...this.announcementSelectedForEditing };
     // Convert ISO 8601 to a JavaScript date (if needed)
     if(typeof this.announcement.expires === 'string') this.announcement.expires = Date.parse(this.announcement.expires);
   }
@@ -33,13 +31,12 @@ export class AnnouncementEditorController {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedAnnouncement = {};
-      angular.copy(this.announcement, upsertedAnnouncement);
+      let upsertedAnnouncement = { ...this.announcement };
 
       upsertedAnnouncement._id = await this.announcementService.announcementUpsert(upsertedAnnouncement);
 
       // Graft the edited announcement back the original
-      angular.extend(this.announcementSelectedForEditing, upsertedAnnouncement);
+      Object.assign(this.announcementSelectedForEditing, upsertedAnnouncement);
       this.$uibModalInstance.close();
 
       // Success

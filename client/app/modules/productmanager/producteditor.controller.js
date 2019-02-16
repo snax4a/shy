@@ -1,5 +1,3 @@
-import angular from 'angular'; // for angular.copy
-
 export class ProductEditorController {
   /*@ngInject*/
   constructor($uibModalInstance, ProductService, productSelectedForEditing) {
@@ -12,21 +10,18 @@ export class ProductEditorController {
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.product = {};
-    angular.copy(this.productSelectedForEditing, this.product);
+    this.product = { ...this.productSelectedForEditing };
   }
 
   async submitProduct(form) {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedProduct = {};
-      angular.copy(this.product, upsertedProduct);
-
+      let upsertedProduct = { ...this.product };
       upsertedProduct._id = await this.productService.productUpsert(upsertedProduct);
 
       // Graft the edited product back the original
-      angular.extend(this.productSelectedForEditing, upsertedProduct);
+      Object.assign(this.productSelectedForEditing, upsertedProduct);
       this.$uibModalInstance.close();
 
       // Success

@@ -1,5 +1,3 @@
-import angular from 'angular'; // for angular.copy
-
 // Controller for modal dialog - History Editor
 export class HistoryEditorController {
   /*@ngInject*/
@@ -11,8 +9,7 @@ export class HistoryEditorController {
     this.classService = ClassService;
     this.locationService = LocationService;
     this.historyItemToEdit = historyItemToEdit;
-    this.historyItem = {};
-    angular.copy(this.historyItemToEdit, this.historyItem);
+    this.historyItem = { ...this.historyItemToEdit };
     this.historyItem.when = Date.parse(this.historyItem.when); // Convert ISO 8601 date string to JavaScript date
 
     // Initializations - not in $onInit since not it's own component
@@ -39,8 +36,7 @@ export class HistoryEditorController {
     this.submitted = true;
     if(form.$valid) {
       // Adjust for differences between server and client
-      let updatedHistoryItem = {};
-      angular.copy(this.historyItem, updatedHistoryItem);
+      let updatedHistoryItem = { ...this.historyItem };
       updatedHistoryItem.when = new Date(this.historyItem.when).toISOString();
       updatedHistoryItem.purchased = updatedHistoryItem.when;
       updatedHistoryItem.attended = updatedHistoryItem.when;
@@ -58,7 +54,7 @@ export class HistoryEditorController {
           }
 
           // Graft historyItem back
-          angular.extend(this.historyItemToEdit, updatedHistoryItem);
+          Object.assign(this.historyItemToEdit, updatedHistoryItem);
 
           this.$uibModalInstance.close();
           return null;

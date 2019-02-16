@@ -1,8 +1,9 @@
 # Product Backlog
-* [High] Replace angular.copy with spread assignment, and angular.extend with Object.assign()
+* [High] Implement UI for workshop sections in workshopeditor.pug and controller
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Replaced angular.extend with Object.assign()
 * Fixed tweet button digest cycle issue
 * Cleaned up app.module.js to remove components, etc. that don't need to be directly loaded
 * Removed upcoming filter
