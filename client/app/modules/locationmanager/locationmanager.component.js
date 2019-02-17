@@ -59,7 +59,7 @@ export class LocationManagerComponent {
       controllerAs: '$ctrl',
       controller: LocationEditorController,
       resolve: {
-        locationSelectedForEditing: () => location
+        locationBeforeEdits: () => location
       }
     });
     // Stub for anything that needs to happen after closing dialog

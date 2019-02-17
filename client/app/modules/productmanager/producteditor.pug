@@ -7,9 +7,10 @@ form(name='form', ng-submit="$ctrl.submitProduct(form)", novalidate='', ng-model
     .row
       .form-group.col-md-12
         label(for='productName') Name
-        input.form-control(type='text', name='productName', id='productName', ng-model='$ctrl.product.name', maxlength='100', autofocus='', required='true', placeholder='Product name')
+        input.form-control(type='text', name='productName', id='productName', ng-model='$ctrl.product.name', ng-change='$ctrl.clearServerError(form,"productName")', server-error='', maxlength='100', autofocus='', required='true', placeholder='Product name')
         ng-messages.help-block.has-error(for='form.productName.$error', ng-show='form.productName.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the product name.
+          ng-message(when='server') {{ $ctrl.errors.productName }}
       .form-group.col-md-12
         label(for='price') Price
         input.form-control(type='number', name='price', id='price', ng-model='$ctrl.product.price', maxlength='10', required='true', placeholder='Price')

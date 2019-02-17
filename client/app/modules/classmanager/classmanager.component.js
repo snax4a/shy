@@ -50,7 +50,7 @@ export class ClassManagerComponent {
       controllerAs: '$ctrl',
       controller: ClassEditorController,
       resolve: {
-        classSelectedForEditing: () => thisClass
+        classBeforeEdits: () => thisClass
       }
     });
     // Stub for anything that needs to happen after closing dialog

@@ -1,37 +1,47 @@
 export class ClassEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, ClassService, classSelectedForEditing) {
+  constructor($timeout, $uibModalInstance, ClassService, classBeforeEdits) {
     // Dependencies
+    this.$timeout = $timeout; // force digest cycle for error messages
     this.$uibModalInstance = $uibModalInstance;
     this.classService = ClassService;
-    this.classSelectedForEditing = classSelectedForEditing;
+    this.classBeforeEdits = classBeforeEdits;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.class = { ...this.classSelectedForEditing };
+    this.class = { ...this.classBeforeEdits };
   }
 
   async submitClass(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Make a copy of this.user or upsert fails
-      let upsertedClass = { ...this.class };
-      upsertedClass._id = await this.classService.classUpsert(upsertedClass);
+      try {
+        this.class._id = await this.classService.classUpsert(this.class);
+        // Graft the edited class back the original
+        Object.assign(this.classBeforeEdits, this.class);
 
-      // Graft the edited class back the original
-      Object.assign(this.classSelectedForEditing, upsertedClass);
+        this.$uibModalInstance.close();
 
-      this.$uibModalInstance.close();
-
-      // Success
-      return true;
+        // Success
+        return true;
+      } catch(err) {
+        this.$timeout(() => {
+          form.className.$setValidity('server', false);
+          this.errors.className = 'That class name is already being used. Please choose another.';
+        });
+      }
     }
   }
 
+  // Reset server-side error status
+  clearServerError(form, fieldName) {
+    form[fieldName].$setValidity('server', true);
+  }
+
   cancel() {
-    if(!this.classSelectedForEditing._id) {
-      this.classSelectedForEditing.shouldBeDeleted = true;
+    if(!this.classBeforeEdits._id) {
+      this.classBeforeEdits.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();
   }

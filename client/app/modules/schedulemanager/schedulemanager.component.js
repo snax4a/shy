@@ -22,7 +22,7 @@ export class ScheduleManagerComponent {
       controllerAs: '$ctrl',
       controller: ScheduleEditorController,
       resolve: {
-        scheduleItemSelectedForEditing: () => scheduleItem
+        scheduleItemBeforeEdits: () => scheduleItem
       }
     });
     // Stub for anything that needs to happen after closing dialog

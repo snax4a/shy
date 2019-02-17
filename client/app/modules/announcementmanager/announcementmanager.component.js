@@ -54,7 +54,7 @@ export class AnnouncementManagerComponent {
       controllerAs: '$ctrl',
       controller: AnnouncementEditorController,
       resolve: {
-        announcementSelectedForEditing: () => announcement
+        announcementBeforeEdits: () => announcement
       }
     });
     // Stub for anything that needs to happen after closing dialog

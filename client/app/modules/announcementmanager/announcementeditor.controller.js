@@ -1,14 +1,13 @@
 export class AnnouncementEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, AnnouncementService, announcementSelectedForEditing) {
+  constructor($uibModalInstance, AnnouncementService, announcementBeforeEdits) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.announcementService = AnnouncementService;
-    this.announcementSelectedForEditing = announcementSelectedForEditing;
+    this.announcementBeforeEdits = announcementBeforeEdits;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
-    this.errors = {};
     this.announcement = {};
     this.datePickerOpened = false;
     this.dateOptions = {
@@ -18,7 +17,7 @@ export class AnnouncementEditorController {
       minDate: new Date(),
       startingDay: 1
     };
-    this.announcement = { ...this.announcementSelectedForEditing };
+    this.announcement = { ...this.announcementBeforeEdits };
     // Convert ISO 8601 to a JavaScript date (if needed)
     if(typeof this.announcement.expires === 'string') this.announcement.expires = Date.parse(this.announcement.expires);
   }
@@ -31,12 +30,10 @@ export class AnnouncementEditorController {
     this.submitted = true;
     if(form.$valid) {
       // Make a copy of this.user or upsert fails
-      let upsertedAnnouncement = { ...this.announcement };
-
-      upsertedAnnouncement._id = await this.announcementService.announcementUpsert(upsertedAnnouncement);
+      this.announcement._id = await this.announcementService.announcementUpsert(this.announcement);
 
       // Graft the edited announcement back the original
-      Object.assign(this.announcementSelectedForEditing, upsertedAnnouncement);
+      Object.assign(this.announcementBeforeEdits, this.announcement);
       this.$uibModalInstance.close();
 
       // Success
@@ -45,8 +42,8 @@ export class AnnouncementEditorController {
   }
 
   cancel() {
-    if(!this.announcementSelectedForEditing._id) {
-      this.announcementSelectedForEditing.shouldBeDeleted = true;
+    if(!this.announcementBeforeEdits._id) {
+      this.announcementBeforeEdits.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();
   }

@@ -7,9 +7,10 @@ form(name='form', ng-submit="$ctrl.submitLocation(form)", novalidate='', ng-mode
     .row
       .form-group.col-md-12
         label(for='locationName') Name
-        input.form-control(type='text', name='locationName', id='locationName', ng-model='$ctrl.location.name', maxlength='100', autofocus='', required='true', placeholder='Location name')
+        input.form-control(type='text', name='locationName', id='locationName', ng-model='$ctrl.location.name', ng-change='$ctrl.clearServerError(form,"locationName")', server-error='', maxlength='100', autofocus='', required='true', placeholder='Location name')
         ng-messages.help-block.has-error(for='form.locationName.$error', ng-show='form.locationName.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the location name.
+          ng-message(when='server') {{ $ctrl.errors.locationName }}
       .form-group.col-md-12
         label(for='address') Address
         input.form-control(name='address', id='address', ng-model='$ctrl.location.address', maxlength='128', required='true', placeholder='Street address')

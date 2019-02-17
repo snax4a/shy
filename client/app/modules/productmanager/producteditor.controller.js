@@ -1,37 +1,44 @@
 export class ProductEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, ProductService, productSelectedForEditing) {
+  constructor($timeout, $uibModalInstance, ProductService, productBeforeEdits) {
     // Dependencies
+    this.$timeout = $timeout;
     this.$uibModalInstance = $uibModalInstance;
     this.productService = ProductService;
-    this.productSelectedForEditing = productSelectedForEditing;
-    this.productSelectedForEditing.price = this.productSelectedForEditing.price * 1;
+    this.productBeforeEdits = productBeforeEdits;
+    this.productBeforeEdits.price = this.productBeforeEdits.price * 1;
 
     // Initializations - not in $onInit since not it's own component
     this.submitted = false;
     this.errors = {};
-    this.product = { ...this.productSelectedForEditing };
+    this.product = { ...this.productBeforeEdits };
   }
 
   async submitProduct(form) {
     this.submitted = true;
     if(form.$valid) {
-      // Make a copy of this.user or upsert fails
-      let upsertedProduct = { ...this.product };
-      upsertedProduct._id = await this.productService.productUpsert(upsertedProduct);
+      try {
+        // Make a copy of this.user or upsert fails
+        this.product._id = await this.productService.productUpsert(this.product);
 
-      // Graft the edited product back the original
-      Object.assign(this.productSelectedForEditing, upsertedProduct);
-      this.$uibModalInstance.close();
+        // Graft the edited product back the original
+        Object.assign(this.productBeforeEdits, this.product);
+        this.$uibModalInstance.close();
 
-      // Success
-      return true;
+        // Success
+        return true;
+      } catch(err) {
+        this.$timeout(() => {
+          form.productName.$setValidity('server', false);
+          this.errors.productName = 'That product name is already being used. Please choose another.';
+        });
+      }
     }
   }
 
   cancel() {
-    if(!this.productSelectedForEditing._id) {
-      this.productSelectedForEditing.shouldBeDeleted = true;
+    if(!this.productBeforeEdits._id) {
+      this.productBeforeEdits.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();
   }

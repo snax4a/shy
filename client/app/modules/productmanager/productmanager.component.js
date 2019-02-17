@@ -50,7 +50,7 @@ export class ProductManagerComponent {
       controllerAs: '$ctrl',
       controller: ProductEditorController,
       resolve: {
-        productSelectedForEditing: () => product
+        productBeforeEdits: () => product
       }
     });
     // Stub for anything that needs to happen after closing dialog
