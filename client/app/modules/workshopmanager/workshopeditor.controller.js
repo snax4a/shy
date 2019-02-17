@@ -1,11 +1,11 @@
 export class WorkshopEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, Upload, FileService, workshopSelectedForEditing, WorkshopService, LocationService, ProductService) {
+  constructor($uibModalInstance, Upload, FileService, workshopBeforeEdits, WorkshopService, LocationService, ProductService) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.uploadService = Upload;
     this.fileService = FileService;
-    this.workshopSelectedForEditing = workshopSelectedForEditing;
+    this.workshopBeforeEdits = workshopBeforeEdits;
     this.workshopService = WorkshopService;
     this.locationService = LocationService;
     this.productService = ProductService;
@@ -14,13 +14,18 @@ export class WorkshopEditorController {
     this.submitted = false;
     this.errors = {};
     this.uploadProgress = 0;
-    // this.options = {
-    //   timeSecondsFormat: 'ss',
-    //   timeStripZeroSeconds: true,
-    //   timezone: 'UTC'
-    // };
-    this.workshopBeforeEdits = workshopSelectedForEditing;
+    this.options = {
+      timeSecondsFormat: 'ss',
+      timeStripZeroSeconds: true
+    };
+    this.workshopBeforeEdits = workshopBeforeEdits;
     this.workshop = { ...this.workshopBeforeEdits };
+    console.log(this.workshop.sections);
+    for(let section in this.workshop.sections) {
+      const thisSection = this.workshop.sections[section];
+      thisSection.starts = new Date(thisSection.starts);
+      thisSection.ends = new Date(thisSection.ends);
+    }
   }
 
   uploadPhoto(file) {
@@ -70,8 +75,8 @@ export class WorkshopEditorController {
   }
 
   cancel() {
-    if(!this.workshopSelectedForEditing._id) {
-      this.workshopSelectedForEditing.shouldBeDeleted = true;
+    if(!this.workshopBeforeEdits._id) {
+      this.workshopBeforeEdits.shouldBeDeleted = true;
     }
     this.$uibModalInstance.close();
   }

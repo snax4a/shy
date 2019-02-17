@@ -27,7 +27,7 @@ export class WorkshopManagerComponent {
       controllerAs: '$ctrl',
       controller: WorkshopEditorController,
       resolve: {
-        workshopSelectedForEditing: () => workshop
+        workshopBeforeEdits: () => workshop
       }
     });
     // Stub for anything that needs to happen after closing dialog

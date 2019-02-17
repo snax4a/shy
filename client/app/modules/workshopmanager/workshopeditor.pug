@@ -33,10 +33,9 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
         b Sections running through {{ $ctrl.workshop.ends | date:'short':'US/Eastern' }} (US/Eastern)
         table.table.table-striped
           thead
-            th &nbsp;
-            th When
+            th(style='width:200px;') When
             th Location
-            th Price
+            th(style='width:100px;') Price
             th &nbsp;
           tbody(ng-if='!$ctrl.workshop.sections || $ctrl.workshop.sections.length ===0')
             tr
@@ -44,12 +43,14 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
           tbody(ng-if='$ctrl.workshop.sections && $ctrl.workshop.sections.length > 0')
             tr(ng-repeat='section in $ctrl.workshop.sections')
               td
-                a.edit(ng-click='$ctrl.SectionEdit(section)')
-                  span.fas.fa-pencil-alt
-              td
                 a.edit(ng-click='$ctrl.SectionEdit(section)') {{ section.starts | date: 'short' }} - {{ section.ends | date: 'short' }}
+                br
+                input.form-control(type='datetime-local', name='starts', id='starts', ng-model='section.starts', ng-model-options='$ctrl.options', required='true')
+                input.form-control(type='datetime-local', name='ends', id='ends', ng-model='section.ends', ng-model-options='$ctrl.options', required='true')
+
               td {{ section.location }}
-              td {{ section.price | currency:"$":0 }}
+              td
+                input.form-control(type='number', name='price', id='price', ng-model='section.price', required='true')
               td
                 a.trash(ng-click='$ctrl.sectionDelete(section)')
                   span.far.fa-trash-alt
