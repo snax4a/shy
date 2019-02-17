@@ -29,11 +29,35 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
         span(ng-if='$ctrl.workshop.imageId')
           img(ng-src='/api/file/{{ $ctrl.workshop.imageId }}' alt="Workshop photo")
     .row
+      .col-md-12
+        b Sections running through {{ $ctrl.workshop.ends | date:'short':'US/Eastern' }} (US/Eastern)
+        table.table.table-striped
+          thead
+            th &nbsp;
+            th When
+            th Location
+            th Price
+            th &nbsp;
+          tbody(ng-if='!$ctrl.workshop.sections || $ctrl.workshop.sections.length ===0')
+            tr
+              td No sections have been added to this workshop
+          tbody(ng-if='$ctrl.workshop.sections && $ctrl.workshop.sections.length > 0')
+            tr(ng-repeat='section in $ctrl.workshop.sections')
+              td
+                a.edit(ng-click='$ctrl.SectionEdit(section)')
+                  span.fas.fa-pencil-alt
+              td
+                a.edit(ng-click='$ctrl.SectionEdit(section)') {{ section.starts | date: 'short' }} - {{ section.ends | date: 'short' }}
+              td {{ section.location }}
+              td {{ section.price | currency:"$":0 }}
+              td
+                a.trash(ng-click='$ctrl.sectionDelete(section)')
+                  span.far.fa-trash-alt
+    .row
       .form-group.col-md-12
-        label(for='sections') Sections running through {{ $ctrl.workshop.ends | date:'short':'US/Eastern' }} (US/Eastern)
         textarea.form-control(id='sections', name='sections', required='true', json-text='', ng-model='$ctrl.workshop.sections', rows='5', placeholder='Sections as JSON')
         ng-messages.help-block.has-error(for='form.sections.$error', ng-show='form.sections.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter a workshop description.
+          ng-message(when='required') Please enter workshop sections.
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save
