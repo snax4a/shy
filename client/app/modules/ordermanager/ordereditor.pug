@@ -1,0 +1,60 @@
+//- View-only form
+form(name='form', ng-model-options="{'timezone':'US/Eastern', 'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+  .modal-header
+    button.close(type='button', aria-label='Close' ng-click='$ctrl.cancel()')
+      span(aria-hidden='true') &times;
+    h4.modal-title Order {{ $ctrl.order.orderNumber }}
+  .modal-body
+    .row
+      .col-md-12 Paid via Credit Card ({{ $ctrl.order.last4 }}) on {{ $ctrl.order.createdAt | date:'short' }}
+    .row
+      .col-md-6
+        b Purchaser:
+        br
+        | {{ $ctrl.order.purchaserFirstName }} {{ $ctrl.order.purchaserLastName }}
+        br
+        | {{ $ctrl.order.purchaserEmail }}
+        br
+        | {{ $ctrl.order.purchaserPhone }}    
+      .col-md-6
+        b Recipient:
+        br
+        | {{ $ctrl.order.recipientFirstName }} {{ $ctrl.order.recipientLastName }}
+        br
+        | {{ $ctrl.order.recipientAddress }}
+        | {{ $ctrl.order.recipientCity }}, {{ $ctrl.order.recipientState }} {{ $ctrl.order.recipientZipCode }}
+        br
+        | {{ $ctrl.order.recipientEmail }}
+        br
+        | {{ $ctrl.order.recipientPhone }}
+    .row
+      .col-md-12
+        table.table.table-striped
+          thead
+            tr
+              th Item
+              th Qty
+              th Each
+              th.right Cost
+          tbody
+            tr(ng-repeat='item in $ctrl.order.itemsOrdered track by $index')
+              td {{ item.name }}
+              td {{ item.quantity }}
+              td {{ item.price | currency:"$":0 }}
+              td.right {{ item.quantity * item.price | currency:"$":0 }}
+          tfoot
+            tr
+              th.right(colspan='3') Grand Total
+              th.right {{ $ctrl.order.amount | currency:"$":0 }}
+    .row(ng-if='$ctrl.order.gift || $ctrl.order.instructions')
+      .col-md-12
+        b Order comments:
+        br
+        | {{ $ctrl.order.gift ? 'Send gift card via ' + $ctrl.order.sendVia : '' }}
+    .row(ng-if='$ctrl.order.instructions')
+      .col-md-12
+        b Instructions:
+        br
+        | {{ $ctrl.order.instructions }}
+  .modal-footer
+    button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel

@@ -291,3 +291,11 @@ export async function create(req, res) {
 
   return null;
 }
+
+export async function find(req, res) {
+  const sql = `SELECT * FROM "Orders"
+    WHERE "purchaserEmail" ILIKE $1 || '%' OR "recipientEmail" ILIKE $1 || '%' OR "orderNumber" ILIKE $1 || '%' OR "purchaserLastName" ILIKE $1 || '%'
+    ORDER BY "createdAt" DESC;`;
+  const { rows } = await db.query(sql, [req.query.find]);
+  return res.status(200).send(rows);
+}

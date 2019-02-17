@@ -61,5 +61,16 @@ describe('Order API:', () =>
       expect(firstName).toBe('John');
       expect(lastName).toBe('Doe');
     });
+
+    test('should return an array of orders when provided with search parameter', () =>
+      request(app)
+        .get(`/api/order/?find=${confirmation.customer.lastName}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          const orders = res.body;
+          expect(Array.isArray(orders)).toBe(true);
+        })
+    );
   })
 );

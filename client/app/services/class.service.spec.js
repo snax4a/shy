@@ -1,16 +1,16 @@
 /* global describe, test, beforeEach, inject, expect */
 
-// describe('Service: ClassServices', function() {
+// describe('Service: ClassService', function() {
 //   // load the service's module
-//   beforeEach(module('shyApp.schedule'));
+//   beforeEach(module('shyApp.class'));
 
 //   // instantiate service
-//   let ClassServices;
-//   beforeEach(inject(function(_ClassServices_) {
-//     ClassServices = _ClassServices_;
+//   let ClassService;
+//   beforeEach(inject(function(_ClassService_) {
+//     ClassService = _ClassService_;
 //   }));
 
 //   it('should do something', function() {
-//     expect(!!ClassServices).to.be.true;
+//     expect(!!ClassService).to.be.true;
 //   });
 // });

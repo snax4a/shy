@@ -11,6 +11,31 @@ Array [
     "regexp": /\\^\\\\/\\?\\$/i,
     "route": Route {
       "methods": Object {
+        "get": true,
+      },
+      "path": "/",
+      "stack": Array [
+        Layer {
+          "handle": [Function],
+          "keys": Array [],
+          "method": "get",
+          "name": "<anonymous>",
+          "params": undefined,
+          "path": undefined,
+          "regexp": /\\^\\\\/\\?\\$/i,
+        },
+      ],
+    },
+  },
+  Layer {
+    "handle": [Function],
+    "keys": Array [],
+    "name": "bound dispatch",
+    "params": undefined,
+    "path": undefined,
+    "regexp": /\\^\\\\/\\?\\$/i,
+    "route": Route {
+      "methods": Object {
         "post": true,
       },
       "path": "/",

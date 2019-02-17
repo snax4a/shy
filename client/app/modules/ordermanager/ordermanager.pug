@@ -1,0 +1,36 @@
+.row.tab-spacer
+  form.form(name='form', ng-submit='$ctrl.search(form)', novalidate='', ng-model-options="{'updateOn': 'default blur', 'debounce': {'default': 200, 'blur': 0}}")
+    .col-lg-5
+      .form-group
+        label.sr-only Find Order
+        .input-group
+          input.form-control(name='searchText', id='searchText', type='search', ng-model='$ctrl.searchText', ng-minlength='3', required='', autofocus='', placeholder='Order number, last name or email')
+          span.input-group-btn
+            button.btn.btn-primary(id='search', type='submit')
+              span.fas.fa-search
+              |&nbsp;Search
+        ng-messages.help-block.has-error(for='form.searchText.$error', ng-show='form.searchText.$dirty || form.$submitted', role='alert')
+          ng-message(when='required,minlength') Please enter at least the first three characters of an order number or last name, or email address.
+.row
+  .col-lg-6
+    table.table.table-striped
+      thead
+        th &nbsp;
+        th Order
+        th Ordered
+        th Purchaser
+        th(style='width:80px;') Amount
+      tbody(ng-if='!$ctrl.orders || $ctrl.orders.length === 0')
+        tr
+          td(colspan='5') No orders match the search criteria
+      tbody
+        tr(dir-paginate='order in $ctrl.orders | itemsPerPage:8', pagination-id='orders')
+          td
+            a.edit(ng-click='$ctrl.orderEdit(order)')
+                span.fas.fa-pencil-alt 
+          td
+            a.edit(ng-click='$ctrl.orderEdit(order)') {{ order.orderNumber }}
+          td {{ order.createdAt | date:'short':'US/Eastern' }}
+          td {{ order.purchaserLastName }}, {{ order.purchaserFirstName }}
+          td.right {{ order.amount | currency:"$":0 }}
+    dir-pagination-controls(pagination-id='orders', max-size='5', direction-links='true', boundary-links='true')
