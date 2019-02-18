@@ -1,11 +1,12 @@
 // Note: if any picklists ever fail to load, may need to have admin component wait for Classes, Teachers, and Location service to initialize
 export class ScheduleEditorController {
   /*@ngInject*/
-  constructor($uibModalInstance, scheduleItemBeforeEdits, teachers, classes, locations) {
+  constructor($uibModalInstance, scheduleItemBeforeEdits, teachers, ClassService, classes, locations) {
     // Dependencies
     this.$uibModalInstance = $uibModalInstance;
     this.scheduleItemBeforeEdits = scheduleItemBeforeEdits;
     this.teachers = teachers;
+    this.classService = ClassService;
     this.classes = classes;
     this.locations = locations;
 

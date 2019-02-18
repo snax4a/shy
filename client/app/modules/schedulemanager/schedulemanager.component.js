@@ -26,6 +26,7 @@ export class ScheduleManagerComponent {
       resolve: {
         scheduleItemBeforeEdits: () => scheduleItem,
         teachers: () => this.teacherService.teachers,
+        ClassService: () => this.classService,
         classes: () => this.classService.classes,
         locations: () => this.locationService.locations
       }
