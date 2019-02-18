@@ -32,9 +32,9 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
           |&nbsp;New Section
         table.table.table-striped
           thead
-            th(style='width:200px;') What & When
-            th Location & Product
-            th(style='width:100px;') Price
+            th.col-md-5 What & When
+            th.col-md-4 Location & Product
+            th.col-md-2 Price
             th &nbsp;
           tbody(ng-if='!$ctrl.workshop.sections || $ctrl.workshop.sections.length ===0')
             tr
@@ -42,23 +42,29 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
           tbody(ng-if='$ctrl.workshop.sections && $ctrl.workshop.sections.length > 0')
             tr(ng-repeat='section in $ctrl.workshop.sections')
               td
-                input.form-control(type='text', name='title', id='title', ng-model='section.title', placeholder='Title (optional)')
-                textarea.form-control(name='description', id='description', ng-model='section.description', rows='2', placeholder='Description (optional)')
-                input.form-control(type='datetime-local', name='starts', id='starts', ng-model='section.starts', ng-model-options='$ctrl.options', required='true', placeholder='Starts')
-                input.form-control(type='datetime-local', name='ends', id='ends', ng-model='section.ends', ng-model-options='$ctrl.options', required='true', placeholder='Ends')
-                br
+                .form-group
+                  input.form-control(type='text', name='title', id='title', ng-model='section.title', placeholder='Title (optional)')
+                .form-group
+                  textarea.form-control(name='description', id='description', ng-model='section.description', rows='2', placeholder='Description (optional)')
+                .form-group
+                  input.form-control(type='datetime-local', name='starts', id='starts', ng-model='section.starts', ng-model-options='$ctrl.options', required='true', placeholder='Starts')
+                .form-group
+                  input.form-control(type='datetime-local', name='ends', id='ends', ng-model='section.ends', ng-model-options='$ctrl.options', required='true', placeholder='Ends')
                 label
                   input(type='checkbox', name='hideDate', id='hideDate', ng-model='section.hideDate') 
-                  | &nbsp;Hide
+                  | &nbsp;Hide dates for this section
               td
-                select.form-control(name='location', id='location', ng-model='section.locationId', ng-options="location._id as location.name for location in $ctrl.locations | orderBy: 'name'")
-                ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
-                  ng-message(when='required') Please select a location.
-                select.form-control(name='product', id='product', ng-model='section.productId', ng-options="product._id as product.name for product in $ctrl.products | orderBy: 'name'")
-                ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
-                  ng-message(when='required') Please select a product.
+                .form-group
+                  select.form-control(name='location', id='location', ng-model='section.locationId', ng-options="location._id as location.name for location in $ctrl.locations | orderBy: 'name'")
+                  ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
+                    ng-message(when='required') Please select a location.
+                .form-group
+                  select.form-control(name='product', id='product', ng-model='section.productId', ng-options="product._id as product.name for product in $ctrl.products | orderBy: 'name'")
+                  ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
+                    ng-message(when='required') Please select a product.
               td
-                input.form-control.right(type='number', name='price', id='price', ng-model='section.price', required='true')
+                .form-group
+                  input.form-control.right(type='number', name='price', id='price', ng-model='section.price', required='true')
               td
                 a.trash(ng-click='$ctrl.sectionDelete(section)')
                   span.far.fa-trash-alt

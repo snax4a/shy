@@ -1,8 +1,8 @@
 # Product Backlog
-* [High] Replace ng-hide and ng-show with ng-if for compatibility with Angular 7
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Improved spacing of section fields on workshopeditor.pug
 * Removed direct references to services in scheduleditor.pug
 * Implemented editing of workshop sections in workshopeditor.pug and controller
 * Fixed *editor.controller.js to remove extra variable on save
