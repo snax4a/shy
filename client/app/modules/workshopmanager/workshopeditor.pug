@@ -38,7 +38,7 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
             th &nbsp;
           tbody(ng-if='!$ctrl.workshop.sections || $ctrl.workshop.sections.length ===0')
             tr
-              td No sections have been added to this workshop
+              td(colspan='4') No sections have been added to this workshop
           tbody(ng-if='$ctrl.workshop.sections && $ctrl.workshop.sections.length > 0')
             tr(ng-repeat='section in $ctrl.workshop.sections')
               td

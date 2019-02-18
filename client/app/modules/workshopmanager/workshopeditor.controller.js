@@ -74,6 +74,7 @@ export class WorkshopEditorController {
   }
 
   sectionCreate() {
+    if(!this.workshop.sections) this.workshop.sections = [];
     this.workshop.sections.push({ locationId: 1, price: 30 });
   }
 
