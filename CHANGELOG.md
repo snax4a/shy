@@ -2,6 +2,7 @@
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Add 12 hours before workshops disappear
 * Improved spacing of section fields on workshopeditor.pug
 * Removed direct references to services in scheduleditor.pug
 * Implemented editing of workshop sections in workshopeditor.pug and controller
