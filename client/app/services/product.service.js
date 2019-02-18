@@ -2,6 +2,7 @@ export class ProductService {
   /*@ngInject*/
   constructor($http) {
     this.$http = $http;
+    this.products = [];
     this.initialized = this.initialize(); // promise used by route
   }
 
@@ -18,7 +19,8 @@ export class ProductService {
     let suffix = '';
     if(activeOnly) suffix = '/active';
     const { data } = await this.$http.get(`/api/product${suffix}`);
-    return data;
+    this.products = data;
+    return this.products;
   }
 
   async productDelete(product) {

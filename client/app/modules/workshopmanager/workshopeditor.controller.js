@@ -7,10 +7,10 @@ export class WorkshopEditorController {
     this.fileService = FileService;
     this.workshopBeforeEdits = workshopBeforeEdits;
     this.workshopService = WorkshopService;
-    this.locationService = LocationService;
-    this.productService = ProductService;
 
     // Initializations - not in $onInit since not it's own component
+    this.locations = LocationService.locations;
+    this.products = ProductService.products;
     this.submitted = false;
     this.errors = {};
     this.uploadProgress = 0;
@@ -20,7 +20,6 @@ export class WorkshopEditorController {
     };
     this.workshopBeforeEdits = workshopBeforeEdits;
     this.workshop = { ...this.workshopBeforeEdits };
-    console.log(this.workshop.sections);
     for(let section in this.workshop.sections) {
       const thisSection = this.workshop.sections[section];
       thisSection.starts = new Date(thisSection.starts);
@@ -72,6 +71,14 @@ export class WorkshopEditorController {
   // Reset server-side error status
   clearServerError(form, fieldName) {
     form[fieldName].$setValidity('server', true);
+  }
+
+  sectionCreate() {
+    this.workshop.sections.push({ locationId: 1, price: 30 });
+  }
+
+  sectionDelete(section) {
+    this.workshop.sections.splice(this.workshop.sections.indexOf(section), 1);
   }
 
   cancel() {

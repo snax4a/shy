@@ -27,11 +27,13 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
           img(ng-src='/api/file/{{ $ctrl.workshop.imageId }}' alt="Workshop photo")
     .row
       .col-md-12
-        b Sections running through {{ $ctrl.workshop.ends | date:'short':'US/Eastern' }} (US/Eastern)
+        a.btn.btn-warning(id='new', ng-click='$ctrl.sectionCreate()')
+          span.fas.fa-plus-circle
+          |&nbsp;New Section
         table.table.table-striped
           thead
-            th(style='width:200px;') When
-            th Location
+            th(style='width:200px;') What & When
+            th Location & Product
             th(style='width:100px;') Price
             th &nbsp;
           tbody(ng-if='!$ctrl.workshop.sections || $ctrl.workshop.sections.length ===0')
@@ -49,19 +51,17 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
                   input(type='checkbox', name='hideDate', id='hideDate', ng-model='section.hideDate') 
                   | &nbsp;Hide
               td
-                select.form-control(name='location', id='location', ng-model='section.location', ng-options="location.name as location.name for location in $ctrl.locationService.locations | orderBy: 'name'")
+                select.form-control(name='location', id='location', ng-model='section.locationId', ng-options="location._id as location.name for location in $ctrl.locations | orderBy: 'name'")
                 ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
                   ng-message(when='required') Please select a location.
+                select.form-control(name='product', id='product', ng-model='section.productId', ng-options="product._id as product.name for product in $ctrl.products | orderBy: 'name'")
+                ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
+                  ng-message(when='required') Please select a product.
               td
                 input.form-control.right(type='number', name='price', id='price', ng-model='section.price', required='true')
               td
                 a.trash(ng-click='$ctrl.sectionDelete(section)')
                   span.far.fa-trash-alt
-    .row
-      .form-group.col-md-12
-        textarea.form-control(id='sections', name='sections', required='true', json-text='', ng-model='$ctrl.workshop.sections', rows='5', placeholder='Sections as JSON')
-        ng-messages.help-block.has-error(for='form.sections.$error', ng-show='form.sections.$dirty || form.$submitted', role='alert')
-          ng-message(when='required') Please enter workshop sections.
   .modal-footer
     button.btn.btn-default(id='cancel', type='button', ng-click="$ctrl.cancel()") Cancel
     button.btn.btn-warning(id='save', type='submit', style='width:70px;') Save
