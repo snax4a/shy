@@ -1,8 +1,8 @@
 # Product Backlog
-* [High] Implement editing of workshop sections in workshopeditor.pug and controller
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Implemented editing of workshop sections in workshopeditor.pug and controller
 * Fixed *editor.controller.js to remove extra variable on save
 * Replaced angular.extend with Object.assign()
 * Fixed tweet button digest cycle issue
