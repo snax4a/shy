@@ -2,10 +2,12 @@ import { ScheduleEditorController } from './scheduleeditor.controller';
 
 export class ScheduleManagerComponent {
   /*@ngInject*/
-  constructor($timeout, $uibModal, ClassService) {
+  constructor($timeout, $uibModal, ClassService, TeacherService, LocationService) {
     this.$timeout = $timeout; // Pull async function results into digest cycle
     this.$uibModal = $uibModal;
     this.classService = ClassService;
+    this.teacherService = TeacherService;
+    this.locationService = LocationService;
   }
 
   async $onInit() {
@@ -22,7 +24,10 @@ export class ScheduleManagerComponent {
       controllerAs: '$ctrl',
       controller: ScheduleEditorController,
       resolve: {
-        scheduleItemBeforeEdits: () => scheduleItem
+        scheduleItemBeforeEdits: () => scheduleItem,
+        teachers: () => this.teacherService.teachers,
+        classes: () => this.classService.classes,
+        locations: () => this.locationService.locations
       }
     });
     // Stub for anything that needs to happen after closing dialog

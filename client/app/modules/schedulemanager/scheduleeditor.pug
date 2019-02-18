@@ -7,7 +7,7 @@ form(name='form', ng-submit="$ctrl.submitScheduleItem(form)", novalidate='', ng-
     .row
       .form-group.col-md-12
         label(for='location') Studio
-        select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locationService.locations | orderBy:'name'")
+        select.form-control(name='location', id='location', ng-model='$ctrl.scheduleItem.location', ng-options="location.name as location.name for location in $ctrl.locations | orderBy:'name'")
         ng-messages.help-block.has-error(for='form.location.$error', ng-show='form.location.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please enter the studio name.
     .row
@@ -31,12 +31,12 @@ form(name='form', ng-submit="$ctrl.submitScheduleItem(form)", novalidate='', ng-
     .row
       .form-group.col-md-6
         label(for='className') Class Name
-        select.form-control(name='className', id='className', ng-model='$ctrl.scheduleItem.title', ng-options="course.name as course.name for course in $ctrl.classService.classes | orderBy: 'name'")
+        select.form-control(name='className', id='className', ng-model='$ctrl.scheduleItem.title', ng-options="course.name as course.name for course in $ctrl.classes | orderBy: 'name'")
         ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please select a class.
       .form-group.col-md-6
         label(for='teacher') Teacher
-        select.form-control(name='teacher', id='teacher', ng-model='$ctrl.scheduleItem.teacher', ng-options="teacher.firstName + ' ' + teacher.lastName as teacher.firstName + ' ' + teacher.lastName for teacher in $ctrl.teacherService.teachers | orderBy:'lastName'")
+        select.form-control(name='teacher', id='teacher', ng-model='$ctrl.scheduleItem.teacher', ng-options="teacher.firstName + ' ' + teacher.lastName as teacher.firstName + ' ' + teacher.lastName for teacher in $ctrl.teachers | orderBy:'lastName'")
         ng-messages.help-block.has-error(for='form.teacher.$error', ng-show='form.teacher.$dirty || form.$submitted', role='alert')
           ng-message(when='required') Please select the teacher.
       .form-group.col-md-6
