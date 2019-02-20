@@ -58,7 +58,7 @@
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.3.1",
     "angular-mocks": "~1.7.7",
-    "autoprefixer": "^9.4.7",
+    "autoprefixer": "^9.4.8",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-angularjs-annotate": "^0.10.0",
