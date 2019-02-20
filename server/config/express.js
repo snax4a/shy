@@ -98,7 +98,7 @@ export default app => {
     const stripAnsi = require('strip-ansi');
     const webpack = require('webpack');
     const makeWebpackConfig = require('../../webpack.make').default;
-    const webpackConfig = makeWebpackConfig({ DEV: true });
+    const webpackConfig = makeWebpackConfig('development');
     const compiler = webpack(webpackConfig);
     const browserSync = require('browser-sync').create();
 

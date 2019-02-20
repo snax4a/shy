@@ -162,7 +162,7 @@ gulp.task('inject:scss', () =>
 
 // Use Webpack to build and output to dist
 gulp.task('webpack:dist', done => {
-  let compiler = webpack(makeWebpackConfig({ BUILD: true }));
+  let compiler = webpack(makeWebpackConfig('production'));
   compiler.run((err, stats) => {
     if(err) return done(err);
     plugins.util.log(stats.toString({
