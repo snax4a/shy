@@ -10,7 +10,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
-  const webpackDebug = false; // If true, show webpack configuration after it compiles
+  const webpackDebug = true; // If true, show webpack configuration after it compiles
   const analyzeBundles = false; // If true, create visualization showing size of modules
   const development = mode === 'development'; // when called by server/config/express.js:101
   const production = mode === 'production'; // when called by gulpfile.babel.js:'webpack:dist':165
@@ -30,9 +30,7 @@ export default function makeWebpackConfig(mode) {
       rules: [
         {
           test: /\.js$/,
-          include: [
-            path.resolve(__dirname, 'client/')
-          ],
+          include: [path.resolve(__dirname, 'client/')],
           exclude: /node_modules/,
           use: [
             {
@@ -68,14 +66,15 @@ export default function makeWebpackConfig(mode) {
             path.resolve(__dirname, 'client/app/app.scss')
           ],
           use: [
-            development ? 'style-loader' : MiniCssExtractPlugin.loader,
+            // In development, CSS is in app.bundle.js. In production, CSS is in app.[hash].css.
+            MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader' // https://github.com/webpack-contrib/css-loader
             },
             { // Shrinks CSS file by 12K
               loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
               options: {
-                plugins: () => [autoprefixer({browsers: ['last 2 versions']})]
+                plugins: () => [autoprefixer({ browsers: ['last 2 versions'] })]
               }
             },
             {
@@ -130,10 +129,11 @@ export default function makeWebpackConfig(mode) {
       // Generate index.html from _index.html with references to generated JS and CSS with hashes in their names
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
-        filename: '../client/index.html',
+        filename: production ? 'index.html' : 'client/index.html',
         alwaysWriteToDisk: true // property from HtmlWebpackHarddiskPlugin
       }),
 
+      // Cypress e2e tests needs index.html to be written to client/ (otherwise, not needed)
       new HtmlWebpackHarddiskPlugin() // add alwaysWriteToDisk property for HtmlWebpackPlugin
     ]
   };
@@ -141,7 +141,7 @@ export default function makeWebpackConfig(mode) {
   // Generate visualization to examine size of modules included in project
   if(analyzeBundles) {
     config.plugins.push(
-      new BundleAnalyzerPlugin({analyzerMode: 'static'})
+      new BundleAnalyzerPlugin({ analyzerMode: 'static' })
     );
   }
 

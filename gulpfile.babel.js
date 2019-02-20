@@ -26,10 +26,7 @@ const paths = {
     scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
     styles: [`${clientPath}/app/**/*.scss`],
     mainStyle: `${clientPath}/app/app.scss`,
-    views: `${clientPath}/app/**/*.pug`,
-    mainView: `${clientPath}/index.html`,
-    test: [`${clientPath}/app/**/*.{spec,mock,test}.js`],
-    e2e: ['cypress/**/*.spec.js']
+    test: [`${clientPath}/app/**/*.{spec,mock,test}.js`]
   },
   server: {
     scripts: [`${serverPath}/**/!(*.spec|*.integration|*.test).js`],
@@ -288,7 +285,7 @@ gulp.task('watch', () => {
 // Delete everything from dist folder
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: true }));
 
-// Filtes to copy to dist/client without processing
+// Files to copy to dist/client without processing
 gulp.task('copy:dist:client', () =>
   gulp.src([
     `${clientPath}/favicon.png`,
