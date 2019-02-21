@@ -36,7 +36,7 @@ describe('File API:', () => {
     test('should respond with a 401 when not authenticated', done =>
       request(app)
         .post('/api/file/upload')
-        .attach('file', 'client/favicon.png')
+        .attach('file', 'client/assets/images/seal-panel.png')
         .expect(401, done)
     );
 
@@ -44,7 +44,7 @@ describe('File API:', () => {
       request(app)
         .post('/api/file/upload')
         .set('authorization', `Bearer ${tokenAdmin}`)
-        .attach('file', 'client/favicon.png')
+        .attach('file', 'client/assets/images/seal-panel.png')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {

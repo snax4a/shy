@@ -1,7 +1,9 @@
 # Product Backlog
+* [Bug] revRewrite of index.html fails to identify non-relative images
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Replaced gulp-rev-replace with gulp-rev-rewrite
 * Add 12 hours before workshops disappear
 * Improved spacing of section fields on workshopeditor.pug
 * Removed direct references to services in scheduleditor.pug

@@ -4,6 +4,7 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -137,6 +138,32 @@ export default function makeWebpackConfig(mode) {
       new HtmlWebpackHarddiskPlugin() // add alwaysWriteToDisk property for HtmlWebpackPlugin
     ]
   };
+
+  if(production) {
+    config.plugins.push(
+      new FaviconsWebpackPlugin({
+        logo: './client/assets/images/seal.svg',
+        prefix: 'assets/images/icons/', // or 'assets/icons-[hash]/' if I need to do cache-busting
+        inject: true,
+        title: 'Schoolhouse Yoga',
+        icons: {
+          // Defaults
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          favicons: true,
+          firefox: true,
+          windows: false,
+          // Overrides
+          coast: false,
+          yandex: false,
+          //Missing
+          opengraph: true,
+          twitter: true
+        }
+      })
+    );
+  }
 
   // Generate visualization to examine size of modules included in project
   if(analyzeBundles) {

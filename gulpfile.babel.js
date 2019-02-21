@@ -288,11 +288,7 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: 
 // Files to copy to dist/client without processing
 gulp.task('copy:dist:client', () =>
   gulp.src([
-    `${clientPath}/favicon.png`,
-    `${clientPath}/favicon.ico`,
     `${clientPath}/sitemap.xml`,
-    `${clientPath}/apple-touch-icon.png`,
-    `${clientPath}/apple-touch-icon-120.png`,
     `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.well-known/*`,
@@ -349,10 +345,11 @@ gulp.task('build:images', () =>
 gulp.task('image:cache-busting', () =>
   gulp.src([
     `${paths.dist}/${clientPath}/app.*.js`,
+    `${paths.dist}/${clientPath}/index.html`,
     `${paths.dist}/${clientPath}/leta.html`,
     `${paths.dist}/${clientPath}/assets/data/*.json`
   ], { base: `${paths.dist}/${clientPath}` })
-    .pipe(plugins.revReplace({
+    .pipe(plugins.revRewrite({
       replaceInExtensions: ['.html', '.js', '.json'],
       manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)
     }))
