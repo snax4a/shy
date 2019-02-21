@@ -10,6 +10,10 @@ import path from 'path';
 import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import webpack from 'webpack';
+
+import { stream as favicons } from 'favicons';
+import fancyLog from 'fancy-log';
+
 import makeWebpackConfig from './webpack.make';
 
 let plugins = gulpLoadPlugins();
@@ -22,6 +26,7 @@ const paths = {
   client: {
     assets: `${clientPath}/assets/**/*`,
     images: `${clientPath}/assets/images/**/*`,
+    svgIcon: `${clientPath}/assets/images/seal.svg`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
     scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
     styles: [`${clientPath}/app/**/*.scss`],
@@ -322,13 +327,37 @@ gulp.task('copy:dist:server', () =>
     .pipe(gulp.dest(paths.dist))
 );
 
+gulp.task('build:icons', () =>
+  gulp.src(paths.client.svgIcon)
+    .pipe(favicons({
+      appName: 'Schoolhouse Yoga',
+      appShortName: 'Schoolhouse Yoga',
+      appDescription: 'Discover the best yoga classes and teacher training in Pittsburgh. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga.',
+      developerName: 'Nate Stuyvesant',
+      background: '#020307',
+      path: `${paths.dist}/${clientPath}/`, //'favicons/',
+      url: 'https://www.schoolhouseyoga.com',
+      display: 'standalone',
+      orientation: 'portrait',
+      scope: '/',
+      start_url: '/',
+      version: 1.0,
+      logging: false,
+      html: 'index.html',
+      pipeHTML: true,
+      replace: true
+    }))
+    .on('error', fancyLog)
+    .pipe(gulp.dest('./'))
+);
+
 // Shrink images and output cache-busted names
 gulp.task('build:images', () =>
   gulp.src(paths.client.images)
     .pipe(plugins.imagemin([
       plugins.imagemin.optipng({ optimizationLevel: 5 }),
       plugins.imagemin.jpegtran({ progressive: true }),
-      plugins.imagemin.gifsicle({ interlaced: true }),
+      // plugins.imagemin.gifsicle({ interlaced: true }), // Not using GIFs
       plugins.imagemin.svgo({plugins: [{ removeViewBox: false }]})
     ]))
     // Rename images to avoid browser caching
@@ -363,6 +392,7 @@ gulp.task('build',
     'inject:scss',
     'transpile:server',
     'build:images',
+    'build:icons',
     'copy:fonts',
     gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
     'image:cache-busting'

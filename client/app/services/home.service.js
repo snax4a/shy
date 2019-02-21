@@ -23,10 +23,10 @@ export class HomeService {
 
   getSlides() {
     this.slides = [
-      { src: '/assets/images/home/closeup1.jpg' },
-      { src: '/assets/images/home/closeup2.jpg' },
-      { src: '/assets/images/home/closeup3.jpg' },
-      { src: '/assets/images/home/closeup4.jpg' }
+      { src: '/assets/images/home1.jpg' },
+      { src: '/assets/images/home2.jpg' },
+      { src: '/assets/images/home3.jpg' },
+      { src: '/assets/images/home4.jpg' }
     ];
     return this.slides;
   }

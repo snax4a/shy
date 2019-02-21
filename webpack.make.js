@@ -4,14 +4,14 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+// import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
-  const webpackDebug = true; // If true, show webpack configuration after it compiles
+  const webpackDebug = false; // If true, show webpack configuration after it compiles
   const analyzeBundles = false; // If true, create visualization showing size of modules
   const development = mode === 'development'; // when called by server/config/express.js:101
   const production = mode === 'production'; // when called by gulpfile.babel.js:'webpack:dist':165
@@ -139,31 +139,28 @@ export default function makeWebpackConfig(mode) {
     ]
   };
 
-  if(production) {
-    config.plugins.push(
-      new FaviconsWebpackPlugin({
-        logo: './client/assets/images/seal.svg',
-        prefix: 'assets/images/icons/', // or 'assets/icons-[hash]/' if I need to do cache-busting
-        inject: true,
-        title: 'Schoolhouse Yoga',
-        icons: {
-          // Defaults
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          favicons: true,
-          firefox: true,
-          windows: false,
-          // Overrides
-          coast: false,
-          yandex: false,
-          //Missing
-          opengraph: true,
-          twitter: true
-        }
-      })
-    );
-  }
+  // if(production) {
+  //   config.plugins.push(
+  //     new FaviconsWebpackPlugin({
+  //       logo: './client/assets/images/seal.svg',
+  //       prefix: './', // or 'assets/icons-[hash]/' if I need to do cache-busting
+  //       inject: true,
+  //       title: 'Schoolhouse Yoga',
+  //       icons: {
+  //         // Defaults
+  //         android: true,
+  //         appleIcon: true,
+  //         appleStartup: true,
+  //         favicons: true,
+  //         windows: true,
+  //         firefox: false,
+  //         // Overrides
+  //         coast: false,
+  //         yandex: false
+  //       }
+  //     })
+  //   );
+  // }
 
   // Generate visualization to examine size of modules included in project
   if(analyzeBundles) {
