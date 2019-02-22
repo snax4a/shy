@@ -11,7 +11,7 @@ import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import webpack from 'webpack';
 
-import { stream as favicons } from 'favicons';
+import { stream as favicons, config as faviconsConfig } from 'favicons';
 import fancyLog from 'fancy-log';
 
 import makeWebpackConfig from './webpack.make';
@@ -327,29 +327,200 @@ gulp.task('copy:dist:server', () =>
     .pipe(gulp.dest(paths.dist))
 );
 
-gulp.task('build:icons', () =>
-  gulp.src(paths.client.svgIcon)
+// Generate icons from an SVG (could use sharp instead)
+gulp.task('build:icons', () => {
+  faviconsConfig.icons.android = {
+    'android-chrome-192x192.png': {
+      width: 192,
+      height: 192,
+      transparent: true,
+      rotate: false,
+      mask: false
+    },
+    'android-chrome-512x512.png': {
+      width: 512,
+      height: 512,
+      transparent: true,
+      rotate: false,
+      mask: false
+    }
+  };
+  faviconsConfig.files.android['manifest.json'].icons = [
+    {
+      src: 'android-chrome-192x192.png',
+      sizes: '192x192',
+      type: 'image/png'
+    },
+    {
+      src: 'android-chrome-512x512.png',
+      sizes: '512x512',
+      type: 'image/png'
+    }
+  ];
+  faviconsConfig.icons.appleIcon = {
+    'apple-touch-icon.png': { // iPhone Retina
+      width: 180,
+      height: 180,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-icon-1024x1024.png': { // App store and Schema logo
+      width: 1024,
+      height: 1024,
+      transparent: false,
+      rotate: false,
+      mask: false
+    }
+  };
+  // Note: Apple recommends not using the startup image as branding but to make the app seem more responsive by using a screenshot
+  faviconsConfig.icons.appleStartup = {
+    'apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
+      width: 2048,
+      height: 2732,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
+      width: 2732,
+      height: 2048,
+      transparent: false,
+      rotate: true,
+      mask: false
+    },
+    'apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
+      width: 1668,
+      height: 2224,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
+      width: 2224,
+      height: 1668,
+      transparent: false,
+      rotate: true,
+      mask: false
+    },
+    'apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
+      width: 1242,
+      height: 2688,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
+      width: 2688,
+      height: 1242,
+      transparent: false,
+      rotate: true,
+      mask: false
+    },
+    'apple-touch-startup-image-1125x2436.png': { // iPhone X/XS portrait
+      width: 1125,
+      height: 2436,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2436x1125.png': { // iPhone X/XS landscape
+      width: 2436,
+      height: 1125,
+      transparent: false,
+      rotate: true,
+      mask: false
+    },
+    'apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
+      width: 828,
+      height: 1792,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
+      width: 1792,
+      height: 828,
+      transparent: false,
+      rotate: true,
+      mask: false
+    }
+  };
+  faviconsConfig.icons.favicons = {
+    'favicon-32x32.png': {
+      width: 32,
+      height: 32,
+      transparent: true,
+      rotate: false,
+      mask: false
+    },
+    'favicon-48x48.png': {
+      width: 48,
+      height: 48,
+      transparent: true,
+      rotate: false,
+      mask: false
+    },
+    'favicon-96x96.png': {
+      width: 96,
+      height: 96,
+      transparent: true,
+      rotate: false,
+      mask: false
+    }
+  };
+  faviconsConfig.icons.windows = {
+    'mstile-70x70.png': {
+      width: 128,
+      height: 128,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'mstile-150x150.png': {
+      width: 270,
+      height: 270,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'mstile-310x150.png': {
+      width: 558,
+      height: 270,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'mstile-310x310.png': {
+      width: 558,
+      height: 558,
+      transparent: false,
+      rotate: false,
+      mask: false
+    }
+  };
+
+  return gulp.src(paths.client.svgIcon)
     .pipe(favicons({
       appName: 'Schoolhouse Yoga',
-      appShortName: 'Schoolhouse Yoga',
+      appShortName: 'SHY',
       appDescription: 'Discover the best yoga classes and teacher training in Pittsburgh. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga.',
       developerName: 'Nate Stuyvesant',
-      background: '#020307',
-      path: `${paths.dist}/${clientPath}/`, //'favicons/',
-      url: 'https://www.schoolhouseyoga.com',
-      display: 'standalone',
-      orientation: 'portrait',
-      scope: '/',
+      path: '', // set icon paths to website base href
       start_url: '/',
-      version: 1.0,
-      logging: false,
-      html: 'index.html',
-      pipeHTML: true,
-      replace: true
+      icons: {
+        appleIcon: { background: '#5f4884', offset: 5 },
+        coast: false, // latest can use the SVG icon
+        firefox: false, // latest can use the SVG icon
+        appleStartup: { offset: 5 },
+        windows: { background: '#5f4884', offset: 7 },
+        favicons: true,
+        yandex: false
+      }
     }))
     .on('error', fancyLog)
-    .pipe(gulp.dest('./'))
-);
+    .pipe(gulp.dest(`${paths.dist}/${clientPath}/`));
+});
 
 // Shrink images and output cache-busted names
 gulp.task('build:images', () =>
