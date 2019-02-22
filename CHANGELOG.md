@@ -1,5 +1,7 @@
 # Product Backlog
-* [Bug] revRewrite of index.html fails to identify non-relative images
+* [High] Webpack plugins: UglifyJS optimized?
+* [High] Webpack loaders: html-loader with pug-html-loader, sass-loader, are babel settings optimized for 2019?
+* [High] Change apple-startup-images to be screenshots for devices. Correct 12.9 iPad portrait view and iPad Air 1 (both)
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>

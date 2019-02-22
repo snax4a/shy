@@ -375,46 +375,32 @@ gulp.task('build:icons', () => {
   };
   // Note: Apple recommends not using the startup image as branding but to make the app seem more responsive by using a screenshot
   faviconsConfig.icons.appleStartup = {
-    'apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
-      width: 2048,
-      height: 2732,
-      transparent: false,
-      rotate: false,
-      mask: false
-    },
-    'apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
-      width: 2732,
+    'apple-touch-startup-image-1536x2048.png': { // iPad Air A1475 portrait
+      width: 1536,
       height: 2048,
       transparent: false,
-      rotate: true,
+      rotate: false,
       mask: false
     },
-    'apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
-      width: 1668,
-      height: 2224,
+    'apple-touch-startup-image-2048x1536.png': { // iPad Air A1475 landscape
+      width: 2048,
+      height: 1536,
       transparent: false,
       rotate: false,
       mask: false
     },
-    'apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
-      width: 2224,
-      height: 1668,
-      transparent: false,
-      rotate: true,
-      mask: false
-    },
-    'apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
-      width: 1242,
-      height: 2688,
+    'apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
+      width: 1792,
+      height: 828,
       transparent: false,
       rotate: false,
       mask: false
     },
-    'apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
-      width: 2688,
-      height: 1242,
+    'apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
+      width: 828,
+      height: 1792,
       transparent: false,
-      rotate: true,
+      rotate: false,
       mask: false
     },
     'apple-touch-startup-image-1125x2436.png': { // iPhone X/XS portrait
@@ -428,21 +414,49 @@ gulp.task('build:icons', () => {
       width: 2436,
       height: 1125,
       transparent: false,
-      rotate: true,
+      rotate: false,
       mask: false
     },
-    'apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
-      width: 828,
-      height: 1792,
+    'apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
+      width: 1668,
+      height: 2224,
       transparent: false,
       rotate: false,
       mask: false
     },
-    'apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
-      width: 1792,
-      height: 828,
+    'apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
+      width: 2224,
+      height: 1668,
       transparent: false,
-      rotate: true,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
+      width: 2048,
+      height: 2732,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
+      width: 2732,
+      height: 2048,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
+      width: 1242,
+      height: 2688,
+      transparent: false,
+      rotate: false,
+      mask: false
+    },
+    'apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
+      width: 2688,
+      height: 1242,
+      transparent: false,
+      rotate: false,
       mask: false
     }
   };
