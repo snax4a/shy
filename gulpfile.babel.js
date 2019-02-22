@@ -562,9 +562,7 @@ gulp.task('build',
     'clean:dist',
     'inject:scss',
     'transpile:server',
-    'build:images',
-    'build:icons',
-    'copy:fonts',
+    gulp.parallel('build:images', 'build:icons', 'copy:fonts'),
     gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
     'image:cache-busting'
   )
