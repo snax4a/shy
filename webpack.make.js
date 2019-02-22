@@ -51,11 +51,6 @@ export default function makeWebpackConfig(mode) {
         },
 
         {
-          test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([?]?.*)$/,
-          loader: 'file-loader' // copies to dist, renaming with asset hash to ensure the latest version is downloaded
-        },
-
-        {
           test: /\.pug$/,
           use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
         },
@@ -130,7 +125,7 @@ export default function makeWebpackConfig(mode) {
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
         template: 'client/_index.html',
         filename: production ? 'index.html' : 'client/index.html',
-        alwaysWriteToDisk: true // property from HtmlWebpackHarddiskPlugin
+        alwaysWriteToDisk: true // property from HtmlWebpackHarddiskPlugin (only needed for e2e testing with Cypress)
       }),
 
       // Cypress e2e tests needs index.html to be written to client/ (otherwise, not needed)
