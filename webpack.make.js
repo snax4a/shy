@@ -40,7 +40,7 @@ export default function makeWebpackConfig(mode) {
                 plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate'],
                 presets: [
                   ['@babel/preset-env', {
-                    targets: '> 1%',
+                    targets: '> 2%',
                     // useBuiltIns: 'usage', // adds 22K
                     loose: false // true reduces size by 2K, false requires @babel-runtime
                   }]
@@ -69,7 +69,7 @@ export default function makeWebpackConfig(mode) {
             { // Shrinks CSS file by 12K
               loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
               options: {
-                plugins: () => [autoprefixer({ browsers: ['last 2 versions'] })]
+                plugins: () => [autoprefixer({ browsers: ['> 2%'] })]
               }
             },
             {

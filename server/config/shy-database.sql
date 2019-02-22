@@ -477,7 +477,7 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
             INNER JOIN locations on sections."locationId" = locations._id
           WHERE
             sections."workshopId" = workshops._id AND
-            ends > CURRENT_TIMESTAMP + interval '12 hours'
+            ends > CURRENT_TIMESTAMP - interval '12 hours'
           ORDER BY starts
         ) s
       ) AS sections

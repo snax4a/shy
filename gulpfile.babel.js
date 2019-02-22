@@ -10,9 +10,9 @@ import path from 'path';
 import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import webpack from 'webpack';
-
 import { stream as favicons, config as faviconsConfig } from 'favicons';
 import fancyLog from 'fancy-log';
+import Pageres from 'pageres';
 
 import makeWebpackConfig from './webpack.make';
 
@@ -25,7 +25,7 @@ const serverPath = 'server';
 const paths = {
   client: {
     assets: `${clientPath}/assets/**/*`,
-    images: `${clientPath}/assets/images/**/*`,
+    images: `${clientPath}/assets/images/**/!(seal*)`, // Don't cache-bust seal/logos
     svgIcon: `${clientPath}/assets/images/seal.svg`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
     scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
@@ -41,7 +41,8 @@ const paths = {
       unit: [`${serverPath}/**/*.spec.js`]
     }
   },
-  dist: 'dist'
+  dist: 'dist',
+  logo: `${clientPath}/assets/images/seal.svg` // To be copied
 };
 
 // Helper functions
@@ -297,6 +298,7 @@ gulp.task('copy:dist:client', () =>
     `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.well-known/*`,
+    paths.logo,
     paths.client.assets,
     `!${paths.client.images}`
   ], { dot: true, base: `${clientPath}/` })
@@ -327,60 +329,50 @@ gulp.task('copy:dist:server', () =>
     .pipe(gulp.dest(paths.dist))
 );
 
+// Generate Apple startup images
+gulp.task('build:startup-images', () =>
+  new Pageres({ filename: 'z-apple-touch-startup-image-<%= size %>', delay: 1, crop: true })
+    .src('https://www.schoolhouseyoga.com', ['375x812', '812x375', '414x896', '896x414'], { scale: 3 })
+    //.src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436', '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'])
+    .dest(`${paths.dist}/${clientPath}/`)
+    .run()
+);
+
 // Generate icons from an SVG (could use sharp instead)
 gulp.task('build:icons', () => {
   faviconsConfig.icons.android = {
-    'android-chrome-192x192.png': {
+    './assets/images/seal-transparent-192x192.png': {
       width: 192,
-      height: 192,
-      transparent: true,
-      rotate: false,
-      mask: false
+      height: 192
     },
-    'android-chrome-512x512.png': {
+    './assets/images/seal-transparent-512x512.png': {
       width: 512,
-      height: 512,
-      transparent: true,
-      rotate: false,
-      mask: false
+      height: 512
     }
   };
   faviconsConfig.files.android['manifest.json'].icons = [
     {
-      src: 'android-chrome-192x192.png',
+      src: '/assets/images/seal-transparent-192x192.png',
       sizes: '192x192',
       type: 'image/png'
     },
     {
-      src: 'android-chrome-512x512.png',
+      src: '/assets/images/seal-transparent-512x512.png',
       sizes: '512x512',
       type: 'image/png'
     }
   ];
   faviconsConfig.icons.appleIcon = {
-    'apple-touch-icon.png': { // iPhone Retina
+    'apple-touch-icon.png': { // iPhone Retina & default size
       width: 180,
-      height: 180,
-      transparent: false,
-      rotate: false,
-      mask: false
-    },
-    'apple-touch-icon-1024x1024.png': { // App store and Schema logo
-      width: 1024,
-      height: 1024,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 180
     }
   };
   // Note: Apple recommends not using the startup image as branding but to make the app seem more responsive by using a screenshot
   faviconsConfig.icons.appleStartup = {
     'apple-touch-startup-image-1536x2048.png': { // iPad Air A1475 portrait
       width: 1536,
-      height: 2048,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2048
     },
     'apple-touch-startup-image-2048x1536.png': { // iPad Air A1475 landscape
       width: 2048,
@@ -460,29 +452,22 @@ gulp.task('build:icons', () => {
       mask: false
     }
   };
+
   faviconsConfig.icons.favicons = {
-    'favicon-32x32.png': {
-      width: 32,
-      height: 32,
-      transparent: true,
-      rotate: false,
-      mask: false
+    'favicon.ico': { // Old browsers
+      sizes: [
+        { width: 16, height: 16 },
+        { width: 32, height: 32 },
+        { width: 48, height: 48 }
+      ]
     },
-    'favicon-48x48.png': {
-      width: 48,
-      height: 48,
-      transparent: true,
-      rotate: false,
-      mask: false
-    },
-    'favicon-96x96.png': {
-      width: 96,
-      height: 96,
-      transparent: true,
-      rotate: false,
-      mask: false
+    './assets/images/seal-transparent-1024x1024.png': { // App Store
+      width: 1024,
+      height: 1024
     }
   };
+  const util = require('util');
+  console.log(util.inspect(faviconsConfig.files.windows['browserconfig.xml'], { showHidden: false, depth: null }));
   faviconsConfig.icons.windows = {
     'mstile-70x70.png': {
       width: 128,
@@ -576,7 +561,7 @@ gulp.task('build',
     'clean:dist',
     'inject:scss',
     'transpile:server',
-    gulp.parallel('build:images', 'build:icons', 'copy:fonts'),
+    gulp.parallel('build:images', /*'build:startup-images', */'build:icons', 'copy:fonts'),
     gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
     'image:cache-busting'
   )
