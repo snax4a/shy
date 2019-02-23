@@ -143,7 +143,7 @@ const buildConfirmationEmail = confirmation => {
             <table style="width:100%">
               <tr>
                 <td class="seal-container">
-                  <a href="https://www.schoolhouseyoga.com"><img class="seal" src="https://www.schoolhouseyoga.com/assets/images/seal-transparent-512x512.png", srcset="https://www.schoolhouseyoga.com/assets/images/seal.svg" alt="Schoolhouse Yoga Seal"></a>
+                  <a href="https://www.schoolhouseyoga.com"><img class="seal" src="https://www.schoolhouseyoga.com/assets/images/seal-transparent-512x512.png", srcset="https://www.schoolhouseyoga.com/assets/images/logo.svg" alt="Schoolhouse Yoga Seal"></a>
                 </td>
                 <td style="vertical-align:middle;padding-top:20px;">
                   <p>
