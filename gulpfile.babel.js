@@ -350,6 +350,7 @@ gulp.task('build:icons', () => {
       height: 512
     }
   };
+
   faviconsConfig.files.android['manifest.json'].icons = [
     {
       src: '/assets/images/seal-transparent-192x192.png',
@@ -362,94 +363,63 @@ gulp.task('build:icons', () => {
       type: 'image/png'
     }
   ];
+
   faviconsConfig.icons.appleIcon = {
     'apple-touch-icon.png': { // iPhone Retina & default size
       width: 180,
       height: 180
     }
   };
+
   // Note: Apple recommends not using the startup image as branding but to make the app seem more responsive by using a screenshot
   faviconsConfig.icons.appleStartup = {
-    'apple-touch-startup-image-1536x2048.png': { // iPad Air A1475 portrait
+    './assets/images/apple-touch-startup-image-1536x2048.png': { // iPad Air A1475 portrait
       width: 1536,
       height: 2048
     },
-    'apple-touch-startup-image-2048x1536.png': { // iPad Air A1475 landscape
+    './assets/images/apple-touch-startup-image-2048x1536.png': { // iPad Air A1475 landscape
       width: 2048,
-      height: 1536,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 1536
     },
-    'apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
+    './assets/images/apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
       width: 1792,
-      height: 828,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 828
     },
-    'apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
+    './assets/images/apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
       width: 828,
-      height: 1792,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 1792
     },
-    'apple-touch-startup-image-1125x2436.png': { // iPhone X/XS portrait
+    './assets/images/apple-touch-startup-image-1125x2436.png': { // iPhone X/XS portrait
       width: 1125,
-      height: 2436,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2436
     },
-    'apple-touch-startup-image-2436x1125.png': { // iPhone X/XS landscape
+    './assets/images/apple-touch-startup-image-2436x1125.png': { // iPhone X/XS landscape
       width: 2436,
-      height: 1125,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 1125
     },
-    'apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
+    './assets/images/apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
       width: 1668,
-      height: 2224,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2224
     },
-    'apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
+    './assets/images/apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
       width: 2224,
-      height: 1668,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 1668
     },
-    'apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
+    './assets/images/apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
       width: 2048,
-      height: 2732,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2732
     },
-    'apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
+    './assets/images/apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
       width: 2732,
-      height: 2048,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2048
     },
-    'apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
+    './assets/images/apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
       width: 1242,
-      height: 2688,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 2688
     },
-    'apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
+    './assets/images/apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
       width: 2688,
-      height: 1242,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 1242
     }
   };
 
@@ -466,36 +436,39 @@ gulp.task('build:icons', () => {
       height: 1024
     }
   };
-  const util = require('util');
-  console.log(util.inspect(faviconsConfig.files.windows['browserconfig.xml'], { showHidden: false, depth: null }));
+
+  faviconsConfig.files.windows['browserconfig.xml'] = [{
+    name: 'browserconfig',
+    children: [{
+      name: 'msapplication',
+      children: [{
+        name: 'tile',
+        children: [
+          { name: 'square70x70logo', attrs: { src: '/assets/images/mstile-70x70.png' } },
+          { name: 'square150x150logo', attrs: { src: '/assets/images/mstile-150x150.png' } },
+          { name: 'wide310x150logo', attrs: { src: '/assets/images/mstile-310x150.png' } },
+          { name: 'square310x310logo', attrs: { src: '/assets/images/mstile-310x310.png' } },
+          { name: 'TileColor', text: '#5f4884' }
+        ]}
+      ]}
+    ]}
+  ];
   faviconsConfig.icons.windows = {
-    'mstile-70x70.png': {
+    './assets/images/mstile-70x70.png': {
       width: 128,
-      height: 128,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 128
     },
-    'mstile-150x150.png': {
+    './assets/images/mstile-150x150.png': {
       width: 270,
-      height: 270,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 270
     },
-    'mstile-310x150.png': {
+    './assets/images/mstile-310x150.png': {
       width: 558,
-      height: 270,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 270
     },
-    'mstile-310x310.png': {
+    './assets/images/mstile-310x310.png': {
       width: 558,
-      height: 558,
-      transparent: false,
-      rotate: false,
-      mask: false
+      height: 558
     }
   };
 
