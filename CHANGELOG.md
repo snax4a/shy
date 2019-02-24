@@ -5,6 +5,8 @@
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Fixed issue with class links
+* Switched to sharp for generation of most icons
 * Replaced gulp-rev-replace with gulp-rev-rewrite
 * Add 12 hours before workshops disappear
 * Improved spacing of section fields on workshopeditor.pug
