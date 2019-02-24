@@ -344,41 +344,49 @@ gulp.task('build:startup-images', () =>
 // dist/client/assets/images must exist first as sharp won't create directories
 gulp.task('build:icons-sharp', async() => {
   const render = renderConfig => {
-    const { image, width, height, name, background, scale } = renderConfig;
+    // Pull in values from config and set defaults
+    const { image, width } = renderConfig; // required
     if(!image || !width) throw new Error('Gulp error in \'build:icons-sharp\': The parameters image and width are required.');
-    const _scale = scale || 100;
-    const _width = 2 * Math.round(width / 2); // round to nearest even
-    const _height = height ? 2 * Math.round(height / 2) : _width; // round to nearest even (if supplied) or use _width
-    const _name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${_height}.png`;
-    const logoLength = 2 * Math.round(_width * _scale / 100 / 2); // Round to nearest even number
-    const paddingTopBottom = Math.abs((_height - logoLength) / 2);
-    const paddingLeftRight = Math.abs((_width - logoLength) / 2);
+    let { height, name, scale, background } = renderConfig; // optional
+    height = height || width; // assume a square if not provided
+    name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${height}.png`;
+    scale = scale || 100;
 
-    // console.log(`PNG: ${_width}x${_height}, logo: ${logoLength}x${logoLength}, padding top/bottom: ${paddingTopBottom}, left/right: ${paddingLeftRight}, background: ${background}`);
+    // Calculate width & height of scaled square logo (rounded)
+    const smallerLength = Math.min(width, height);
+    const logoLength = Math.round(smallerLength * scale / 100);
+
+    // Calculate padding to center scaled logo within width x height box
+    const top = Math.floor((height - logoLength) / 2); // if fractional, smaller padding at the top
+    const bottom = Math.ceil((height - logoLength) / 2);
+    const left = Math.floor((width - logoLength) / 2); // if fractional, smaller padding on left
+    const right = Math.ceil((width - logoLength) / 2);
+
+    // console.log(`width: ${width}, height: ${height}, logo: ${logoLength}x${logoLength}, scale: ${scale}, top: ${top}, bottom: ${bottom}, left: ${left}, right: ${right}, background: ${background}`);
 
     if(background) {
       return image.clone()
         .resize(logoLength)
         .extend({
-          top: paddingTopBottom,
-          bottom: paddingTopBottom,
-          left: paddingLeftRight,
-          right: paddingLeftRight,
+          top,
+          bottom,
+          left,
+          right,
           background
         })
         .flatten({ background })
-        .toFile(_name);
+        .toFile(name);
     }
     return image.clone()
       .resize(logoLength)
       .extend({
-        top: paddingTopBottom,
-        bottom: paddingTopBottom,
-        left: paddingLeftRight,
-        right: paddingLeftRight,
-        background: { r: 0, g: 0, b: 0, alpha: 0 }
+        top,
+        bottom,
+        left,
+        right,
+        background: { r: 0, g: 0, b: 0, alpha: 0 } // add transparent pixels
       })
-      .toFile(_name);
+      .toFile(name);
   };
 
   const image = sharp(paths.client.svgIcon);
@@ -393,7 +401,7 @@ gulp.task('build:icons-sharp', async() => {
     render({ image, width: 192, ...android }), // Android
     render({ image, width: 270, ...edge }), // Edge 150x150
     render({ image, width: 512, ...android }), // Android
-    render({ image, width: 558, height: 270, ...edge }), // Edge 310x150 - errors
+    render({ image, width: 558, height: 270, ...edge }), // Edge 310x150
     render({ image, width: 558, ...edge }), // Edge 310x310
     render({ image, width: 1024, background: '#fff' }), // Schema.org logo
     render({ image, width: 1536, height: 2048, ...startup }), // iOS startup logo - iPad Air A1475 portrait
@@ -417,8 +425,10 @@ gulp.task('build:icons', () => {
     'favicon.ico': { // Old browsers
       sizes: [
         { width: 16, height: 16 },
+        { width: 24, height: 24 },
         { width: 32, height: 32 },
-        { width: 48, height: 48 }
+        { width: 48, height: 48 },
+        { width: 64, height: 64 }
       ]
     }
   };
