@@ -37,14 +37,13 @@ export default function makeWebpackConfig(mode) {
               loader: 'babel-loader',
               options: {
                 babelrc: false, // use .babelrc for tools and server transpile only
-                plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate'],
                 presets: [
                   ['@babel/preset-env', {
                     targets: '> 2%',
-                    // useBuiltIns: 'usage', // adds 22K
-                    loose: false // true reduces size by 2K, false requires @babel-runtime
+                    loose: true // reduces size by 4K
                   }]
-                ]
+                ],
+                plugins: ['@babel/plugin-transform-runtime', 'angularjs-annotate']
               }
             }
           ]
