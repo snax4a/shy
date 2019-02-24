@@ -11,6 +11,7 @@ import ClassApi from './api/class';
 import LocationApi from './api/location';
 import FileApi from './api/file';
 import WorkshopApi from './api/workshop';
+import ReportApi from './api/report';
 import Auth from './auth';
 
 export default app => {
@@ -25,6 +26,7 @@ export default app => {
   app.use('/api/location', LocationApi);
   app.use('/api/file', FileApi);
   app.use('/api/workshop', WorkshopApi);
+  app.use('/api/report', ReportApi);
   app.use('/auth', Auth);
 
   // Return Apple's merchant ID domain association file
