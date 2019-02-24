@@ -25,7 +25,7 @@
 
     .col-sm-6(style='padding-top:24px;')
       div(ng-repeat="class in $ctrl.classes | orderBy:'name'")
-        a(id='{{ class.title.split(" ").join("") | lowercase }}')
+        a(id='{{ class.name.split(" ").join("") | lowercase }}')
         h2 {{ class.name }} 
         p {{ class.description }}
 
