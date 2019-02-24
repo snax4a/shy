@@ -11,7 +11,9 @@ import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import webpack from 'webpack';
 import { stream as favicons, config as faviconsConfig } from 'favicons';
-import fancyLog from 'fancy-log';
+import sharp from 'sharp';
+
+import flog from 'fancy-log';
 import Pageres from 'pageres';
 
 import makeWebpackConfig from './webpack.make';
@@ -25,8 +27,8 @@ const serverPath = 'server';
 const paths = {
   client: {
     assets: `${clientPath}/assets/**/*`,
-    images: `${clientPath}/assets/images/**/!(seal*)`, // Don't cache-bust seal/logos
-    svgIcon: `${clientPath}/assets/images/seal.svg`,
+    images: `${clientPath}/assets/images/**/!(logo*)`, // Don't cache-bust logo
+    svgIcon: `${clientPath}/assets/images/logo.svg`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
     scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
     styles: [`${clientPath}/app/**/*.scss`],
@@ -41,8 +43,7 @@ const paths = {
       unit: [`${serverPath}/**/*.spec.js`]
     }
   },
-  dist: 'dist',
-  logo: `${clientPath}/assets/images/seal.svg` // To be copied
+  dist: 'dist'
 };
 
 // Helper functions
@@ -295,12 +296,14 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: 
 gulp.task('copy:dist:client', () =>
   gulp.src([
     `${clientPath}/sitemap.xml`,
+    `${clientPath}/manifest.json`,
+    `${clientPath}/browserconfig.xml`,
     `${clientPath}/leta.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.well-known/*`,
-    paths.logo,
     paths.client.assets,
-    `!${paths.client.images}`
+    `!${paths.client.images}`,
+    paths.client.svgIcon,
   ], { dot: true, base: `${clientPath}/` })
     .pipe(gulp.dest(`${paths.dist}/${clientPath}`))
 );
@@ -338,91 +341,78 @@ gulp.task('build:startup-images', () =>
     .run()
 );
 
+// dist/client/assets/images must exist first as sharp won't create directories
+gulp.task('build:icons-sharp', async() => {
+  const render = renderConfig => {
+    const { image, width, height, name, background, scale } = renderConfig;
+    if(!image || !width) throw new Error('Gulp error in \'build:icons-sharp\': The parameters image and width are required.');
+    const _scale = scale || 100;
+    const _width = 2 * Math.round(width / 2); // round to nearest even
+    const _height = height ? 2 * Math.round(height / 2) : _width; // round to nearest even (if supplied) or use _width
+    const _name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${_height}.png`;
+    const logoLength = 2 * Math.round(_width * _scale / 100 / 2); // Round to nearest even number
+    const paddingTopBottom = Math.abs((_height - logoLength) / 2);
+    const paddingLeftRight = Math.abs((_width - logoLength) / 2);
+
+    // console.log(`PNG: ${_width}x${_height}, logo: ${logoLength}x${logoLength}, padding top/bottom: ${paddingTopBottom}, left/right: ${paddingLeftRight}, background: ${background}`);
+
+    if(background) {
+      return image.clone()
+        .resize(logoLength)
+        .extend({
+          top: paddingTopBottom,
+          bottom: paddingTopBottom,
+          left: paddingLeftRight,
+          right: paddingLeftRight,
+          background
+        })
+        .flatten({ background })
+        .toFile(_name);
+    }
+    return image.clone()
+      .resize(logoLength)
+      .extend({
+        top: paddingTopBottom,
+        bottom: paddingTopBottom,
+        left: paddingLeftRight,
+        right: paddingLeftRight,
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
+      })
+      .toFile(_name);
+  };
+
+  const image = sharp(paths.client.svgIcon);
+  const defaultBackground = { background: '#5f4884' };
+  const android = { };
+  const iOS = { ...defaultBackground, scale: 95 };
+  const edge = { ...defaultBackground, scale: 70 };
+  const startup = { background: '#fff', scale: 75 };
+  return Promise.all([
+    render({ image, width: 128, ...edge }), // Edge 70x70
+    render({ image, width: 180, name: 'apple-touch-icon.png', ...iOS }), // iOS
+    render({ image, width: 192, ...android }), // Android
+    render({ image, width: 270, ...edge }), // Edge 150x150
+    render({ image, width: 512, ...android }), // Android
+    render({ image, width: 558, height: 270, ...edge }), // Edge 310x150 - errors
+    render({ image, width: 558, ...edge }), // Edge 310x310
+    render({ image, width: 1024, background: '#fff' }), // Schema.org logo
+    render({ image, width: 1536, height: 2048, ...startup }), // iOS startup logo - iPad Air A1475 portrait
+    render({ image, width: 2048, height: 1536, ...startup }), // iOS startup logo - iPad Air A1475 portrait
+    render({ image, width: 828, height: 1792, ...startup }), // iOS startup logo - iPhone XR portrait
+    render({ image, width: 1792, height: 828, ...startup }), // iOS startup logo - iPhone XR landscape
+    render({ image, width: 1125, height: 2436, ...startup }), // iOS startup logo - iPhone X/XS portrait
+    render({ image, width: 2436, height: 1125, ...startup }), // iOS startup logo - iPhone X/XS landscape
+    render({ image, width: 1668, height: 2224, ...startup }), // iOS startup logo - 10.5 iPad Pro portrait
+    render({ image, width: 2224, height: 1668, ...startup }), // iOS startup logo - 10.5 iPad Pro landscape
+    render({ image, width: 2048, height: 2732, ...startup }), // iOS startup logo - 12.9 iPad Pro portrait
+    render({ image, width: 2732, height: 2048, ...startup }), // iOS startup logo - 12.9 iPad Pro landscape
+    render({ image, width: 1242, height: 2688, ...startup }), // iOS startup logo - iPhone XS Max portrait
+    render({ image, width: 2688, height: 1242, ...startup }) // iOS startup logo - iPhone XS Max landscape
+  ]);
+});
+
 // Generate icons from an SVG (could use sharp instead)
 gulp.task('build:icons', () => {
-  faviconsConfig.icons.android = {
-    './assets/images/seal-transparent-192x192.png': {
-      width: 192,
-      height: 192
-    },
-    './assets/images/seal-transparent-512x512.png': {
-      width: 512,
-      height: 512
-    }
-  };
-
-  faviconsConfig.files.android['manifest.json'].icons = [
-    {
-      src: '/assets/images/seal-transparent-192x192.png',
-      sizes: '192x192',
-      type: 'image/png'
-    },
-    {
-      src: '/assets/images/seal-transparent-512x512.png',
-      sizes: '512x512',
-      type: 'image/png'
-    }
-  ];
-
-  faviconsConfig.icons.appleIcon = {
-    'apple-touch-icon.png': { // iPhone Retina & default size
-      width: 180,
-      height: 180
-    }
-  };
-
-  // Note: Apple recommends not using the startup image as branding but to make the app seem more responsive by using a screenshot
-  faviconsConfig.icons.appleStartup = {
-    './assets/images/apple-touch-startup-image-1536x2048.png': { // iPad Air A1475 portrait
-      width: 1536,
-      height: 2048
-    },
-    './assets/images/apple-touch-startup-image-2048x1536.png': { // iPad Air A1475 landscape
-      width: 2048,
-      height: 1536
-    },
-    './assets/images/apple-touch-startup-image-1792x828.png': { // iPhone XR landscape
-      width: 1792,
-      height: 828
-    },
-    './assets/images/apple-touch-startup-image-828x1792.png': { // iPhone XR portrait
-      width: 828,
-      height: 1792
-    },
-    './assets/images/apple-touch-startup-image-1125x2436.png': { // iPhone X/XS portrait
-      width: 1125,
-      height: 2436
-    },
-    './assets/images/apple-touch-startup-image-2436x1125.png': { // iPhone X/XS landscape
-      width: 2436,
-      height: 1125
-    },
-    './assets/images/apple-touch-startup-image-1668x2224.png': { // 10.5 iPad Pro portrait
-      width: 1668,
-      height: 2224
-    },
-    './assets/images/apple-touch-startup-image-2224x1668.png': { // 10.5 iPad Pro landscape
-      width: 2224,
-      height: 1668
-    },
-    './assets/images/apple-touch-startup-image-2048x2732.png': { // 12.9 iPad Pro portrait
-      width: 2048,
-      height: 2732
-    },
-    './assets/images/apple-touch-startup-image-2732x2048.png': { // 12.9 iPad Pro landscape
-      width: 2732,
-      height: 2048
-    },
-    './assets/images/apple-touch-startup-image-1242x2688.png': { // iPhone XS Max portrait
-      width: 1242,
-      height: 2688
-    },
-    './assets/images/apple-touch-startup-image-2688x1242.png': { // iPhone XS Max landscape
-      width: 2688,
-      height: 1242
-    }
-  };
-
   faviconsConfig.icons.favicons = {
     'favicon.ico': { // Old browsers
       sizes: [
@@ -430,45 +420,6 @@ gulp.task('build:icons', () => {
         { width: 32, height: 32 },
         { width: 48, height: 48 }
       ]
-    },
-    './assets/images/seal-transparent-1024x1024.png': { // App Store
-      width: 1024,
-      height: 1024
-    }
-  };
-
-  faviconsConfig.files.windows['browserconfig.xml'] = [{
-    name: 'browserconfig',
-    children: [{
-      name: 'msapplication',
-      children: [{
-        name: 'tile',
-        children: [
-          { name: 'square70x70logo', attrs: { src: '/assets/images/mstile-70x70.png' } },
-          { name: 'square150x150logo', attrs: { src: '/assets/images/mstile-150x150.png' } },
-          { name: 'wide310x150logo', attrs: { src: '/assets/images/mstile-310x150.png' } },
-          { name: 'square310x310logo', attrs: { src: '/assets/images/mstile-310x310.png' } },
-          { name: 'TileColor', text: '#5f4884' }
-        ]}
-      ]}
-    ]}
-  ];
-  faviconsConfig.icons.windows = {
-    './assets/images/mstile-70x70.png': {
-      width: 128,
-      height: 128
-    },
-    './assets/images/mstile-150x150.png': {
-      width: 270,
-      height: 270
-    },
-    './assets/images/mstile-310x150.png': {
-      width: 558,
-      height: 270
-    },
-    './assets/images/mstile-310x310.png': {
-      width: 558,
-      height: 558
     }
   };
 
@@ -481,16 +432,17 @@ gulp.task('build:icons', () => {
       path: '', // set icon paths to website base href
       start_url: '/',
       icons: {
-        appleIcon: { background: '#5f4884', offset: 5 },
+        android: false,
+        appleIcon: false,
         coast: false, // latest can use the SVG icon
         firefox: false, // latest can use the SVG icon
-        appleStartup: { offset: 5 },
-        windows: { background: '#5f4884', offset: 7 },
+        appleStartup: false,
+        windows: false,
         favicons: true,
         yandex: false
       }
     }))
-    .on('error', fancyLog)
+    .on('error', flog)
     .pipe(gulp.dest(`${paths.dist}/${clientPath}/`));
 });
 
@@ -536,7 +488,8 @@ gulp.task('build',
     'transpile:server',
     gulp.parallel('build:images', /*'build:startup-images', */'build:icons', 'copy:fonts'),
     gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
-    'image:cache-busting'
+    'image:cache-busting',
+    'build:icons-sharp'
   )
 );
 
