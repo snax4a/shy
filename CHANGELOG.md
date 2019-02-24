@@ -1,4 +1,6 @@
 # Product Backlog
+* [High] Add iCal to Classes and Workshops (ical-generator)
+* [High] Dashboard - attendances per school (last 90), top classes (last 90), top instructors (last 90)
 * [High] Webpack plugins: UglifyJS optimized?
 * [High] Webpack loaders: sass-loader, are babel settings optimized for 2019?
 * [High] Change apple-startup-images to be screenshots for devices.
