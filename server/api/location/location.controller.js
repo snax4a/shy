@@ -27,7 +27,7 @@ export async function upsertLocation(location) {
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING _id;`;
   } else {
     sql = `UPDATE locations SET name = $2, address = $3, city = $4, state = $5, "zipCode" = $6, map = $7,
-      street = $8, $directions = $9, review = $10, note1 = $11, note2 = $12, active = $13 WHERE _id = $1 RETURNING _id;`;
+      street = $8, directions = $9, review = $10, note1 = $11, note2 = $12, active = $13 WHERE _id = $1 RETURNING _id;`;
     arrParams.unshift(_id);
   }
   const { rows } = await db.query(sql, arrParams);
