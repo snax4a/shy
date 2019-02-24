@@ -91,9 +91,7 @@ export default function makeWebpackConfig(mode) {
           parallel: true,
           sourceMap: true
         }),
-        new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: { /*safe: true,*/ discardComments: { removeAll: true } }
-        })
+        new OptimizeCSSAssetsPlugin()
       ]
     },
 
