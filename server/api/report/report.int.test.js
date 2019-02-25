@@ -34,7 +34,7 @@ describe('Report API:', () => {
   describe('GET /api/report', () =>
     test('should respond with a 401 when not authenticated', done =>
       request(app)
-        .get('/api/report')
+        .get('/api/report/?name=top10students')
         .expect(401, done)
     )
   );
@@ -43,7 +43,7 @@ describe('Report API:', () => {
   describe('GET /api/report', () =>
     test('should respond with JSON array', () =>
       request(app)
-        .get('/api/report')
+        .get('/api/report/?name=top10students')
         .set('authorization', `Bearer ${tokenAdmin}`)
         .expect(200)
         .expect('Content-Type', /json/)
