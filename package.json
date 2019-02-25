@@ -30,6 +30,7 @@
     "bootstrap-sass": "~3.4.1",
     "braintree": "^2.15.0",
     "braintree-web": "^3.42.0",
+    "chart.js": "^2.7.3",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.3",
     "connect-pg-simple": "^5.0.0",

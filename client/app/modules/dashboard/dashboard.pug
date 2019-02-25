@@ -1,27 +1,44 @@
 .row.tab-spacer
   .col-md-6
-    h2 Top 10 Classes (Last 90 days)
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th Location
-          th Class
-          th Teacher
-          th #
-      tbody(ng-repeat='top10class in $ctrl.top10classes')
-        tr
-          td {{ top10class.location }}
-          td {{ top10class.className }}
-          td {{ top10class.teacher }}
-          td {{ top10class.count }}
+    h2 Top 10 Attended Classes (Last 90 days)
+    table.table.table-condensed.table-striped
+      tr
+        th Location
+        th Class
+        th Teacher
+        th #
+      tr(ng-repeat='top10class in $ctrl.top10classes')
+        td {{ top10class.location }}
+        td {{ top10class.className }}
+        td {{ top10class.teacher }}
+        td {{ top10class.count }}
+  .col-md-6
+    h2 Bottom 10 Attended Classes (Last 90 days)
+    table.table.table-condensed.table-striped
+      tr
+        th Location
+        th Class
+        th #
+      tr(ng-repeat='bottom10class in $ctrl.bottom10classes')
+        td {{ bottom10class.location }}
+        td {{ bottom10class.className }}
+        td {{ bottom10class.count }}
   .col-md-6
     h2 Top 10 Students (Last 90 days)
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th Name
-          th #
-      tbody(ng-repeat='top10student in $ctrl.top10students')
-        tr
-          td {{ top10student.lastName }}, {{ top10student.firstName }}
-          td {{ top10student.count }}
+    table.table.table-condensed.table-striped
+      tr
+        th Name
+        th #
+      tr(ng-repeat='top10student in $ctrl.top10students')
+        td {{ top10student.lastName }}, {{ top10student.firstName }}
+        td {{ top10student.count }}
+  .col-md-6
+    h2 Attendances by location (Last 90 days)
+    br
+    canvas.chart.chart-doughnut(id='doughnut', chart-data='$ctrl.piedata', chart-labels='$ctrl.pielabels')
+.row
+  .col-12
+    h2 Attendances by location (Last 90 days)
+    br
+    //- canvas.chart.chart-line(id='chart', chart-series='$ctrl.lineseries' chart-data='$ctrl.linedata', chart-labels='$ctrl.linelabels')
+    pre {{ $ctrl.attendancelast90 | json }}
