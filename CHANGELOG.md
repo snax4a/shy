@@ -1,6 +1,6 @@
 # Product Backlog
 * [High] Add iCal to Classes and Workshops (ical-generator)
-* [High] Dashboard - Add tc-angular-chartjs (2 yrs old) or angular-chartjs (4 yrs old)
+* [High] Dashboard - Add angular-chart.js, tc-angular-chartjs (2 yrs old) or angular-chartjs (4 yrs old)
 * [High] Change apple-startup-images to be screenshots for devices.
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
