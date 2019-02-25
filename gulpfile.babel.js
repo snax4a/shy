@@ -344,13 +344,18 @@ gulp.task('build:startup-images', () =>
 // dist/client/assets/images must exist first as sharp won't create directories
 gulp.task('build:icons-sharp', async() => {
   const render = renderConfig => {
-    // Pull in values from config and set defaults
-    const { image, width } = renderConfig; // required
+    const { image, width } = renderConfig; // required properties
+
     if(!image || !width) throw new Error('Gulp error in \'build:icons-sharp\': The parameters image and width are required.');
-    let { height, name, scale, background } = renderConfig; // optional
-    height = height || width; // assume a square if not provided
-    name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${height}.png`;
+
+    const clone = image.clone(); // Do not change original
+
+    let { height, name, scale, background } = renderConfig; // optional properties
+
     scale = scale || 100;
+    height = height || width; // assume a square if height not provided
+    // If name is provided, assume dist/client, else dist/client/assets/images
+    name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${height}.png`;
 
     // Calculate width & height of scaled square logo (rounded)
     const smallerLength = Math.min(width, height);
@@ -362,40 +367,30 @@ gulp.task('build:icons-sharp', async() => {
     const left = Math.floor((width - logoLength) / 2); // if fractional, smaller padding on left
     const right = Math.ceil((width - logoLength) / 2);
 
-    // console.log(`width: ${width}, height: ${height}, logo: ${logoLength}x${logoLength}, scale: ${scale}, top: ${top}, bottom: ${bottom}, left: ${left}, right: ${right}, background: ${background}`);
-
-    if(background) {
-      return image.clone()
-        .resize(logoLength)
-        .extend({
-          top,
-          bottom,
-          left,
-          right,
-          background
-        })
-        .flatten({ background })
-        .toFile(name);
-    }
-    return image.clone()
+    clone
       .resize(logoLength)
       .extend({
         top,
         bottom,
         left,
         right,
-        background: { r: 0, g: 0, b: 0, alpha: 0 } // add transparent pixels
-      })
-      .toFile(name);
+        background: background ? background : { r: 0, g: 0, b: 0, alpha: 0 }
+      });
+
+    if(background) clone.flatten({ background });
+
+    return clone.toFile(name);
   };
 
   const image = sharp(paths.client.svgIcon);
-  const defaultBackground = { background: '#5f4884' };
-  const android = { };
-  const iOS = { ...defaultBackground, scale: 95 };
-  const edge = { ...defaultBackground, scale: 70 };
+  const themeBackground = { background: '#5f4884' }; // Lavender when a background is needed
+  const android = { }; // Android devices use the defaults
+  const iOS = { ...themeBackground, scale: 95 };
+  const edge = { ...themeBackground, scale: 70 };
   const startup = { background: '#fff', scale: 75 };
-  return Promise.all([
+  const schema = { background: '#fff' };
+
+  return await Promise.all([
     render({ image, width: 128, ...edge }), // Edge 70x70
     render({ image, width: 180, name: 'apple-touch-icon.png', ...iOS }), // iOS
     render({ image, width: 192, ...android }), // Android
@@ -403,7 +398,7 @@ gulp.task('build:icons-sharp', async() => {
     render({ image, width: 512, ...android }), // Android
     render({ image, width: 558, height: 270, ...edge }), // Edge 310x150
     render({ image, width: 558, ...edge }), // Edge 310x310
-    render({ image, width: 1024, background: '#fff' }), // Schema.org logo
+    render({ image, width: 1024, ...schema }), // Schema.org logo
     render({ image, width: 1536, height: 2048, ...startup }), // iOS startup logo - iPad Air A1475 portrait
     render({ image, width: 2048, height: 1536, ...startup }), // iOS startup logo - iPad Air A1475 portrait
     render({ image, width: 828, height: 1792, ...startup }), // iOS startup logo - iPhone XR portrait
