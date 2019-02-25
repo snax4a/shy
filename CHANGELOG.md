@@ -1,10 +1,11 @@
 # Product Backlog
 * [High] Add iCal to Classes and Workshops (ical-generator)
-* [High] Dashboard - attendances per school (last 90), top classes (last 90), top instructors (last 90)
+* [High] Dashboard - Add tc-angular-chartjs (2 yrs old) or angular-chartjs (4 yrs old)
 * [High] Change apple-startup-images to be screenshots for devices.
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Added basic Dashboard to Admin
 * Removed 8-class pass option
 * Fixed issue with class links
 * Switched to sharp for generation of most icons
