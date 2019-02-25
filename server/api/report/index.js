@@ -5,6 +5,6 @@ import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async fu
 
 const router = Router();
 
-router.get('/', hasRole('admin'), asyncWrapper(controller.index));
+router.get('/', /*hasRole('admin'), */asyncWrapper(controller.index));
 
 export default router;
