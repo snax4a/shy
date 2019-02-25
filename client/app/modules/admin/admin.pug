@@ -1,19 +1,21 @@
 .container
   h1 Website Administration
   uib-tabset(active='active')
-    uib-tab(id='users', index='0', heading='Users')
+    uib-tab(id='dashboard', index='0', heading='Dashboard')
+      dashboard
+    uib-tab(id='users', index='1', heading='Users')
       usermanager
-    uib-tab(id='announcements', index='1', heading='Announcements')
+    uib-tab(id='announcements', index='2', heading='Announcements')
       announcementmanager
-    uib-tab(id='schedule', index='2', heading='Class Schedule')
+    uib-tab(id='schedule', index='3', heading='Class Schedule')
       schedulemanager
-    uib-tab(id='orders', index='3', heading='Orders')
+    uib-tab(id='orders', index='4', heading='Orders')
       ordermanager
-    uib-tab(id='products', index='4', heading='Products')
+    uib-tab(id='products', index='5', heading='Products')
       productmanager
-    uib-tab(id='classes', index='5', heading='Classes')
+    uib-tab(id='classes', index='6', heading='Classes')
       classmanager
-    uib-tab(id='workshops', index='6', heading='Workshops')
+    uib-tab(id='workshops', index='7', heading='Workshops')
       workshopmanager
-    uib-tab(id='locations', index='7', heading='Locations')
+    uib-tab(id='locations', index='8', heading='Locations')
       locationmanager

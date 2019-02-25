@@ -11,13 +11,14 @@ import ProductManagerModule from '../../modules/productmanager/productmanager.mo
 import ClassManagerModule from '../../modules/classmanager/classmanager.module';
 import WorkshopManagerModule from '../../modules/workshopmanager/workshopmanager.module';
 import LocationManagerModule from '../../modules/locationmanager/locationmanager.module';
+import DashboardModule from '../../modules/dashboard/dashboard.module';
 import { FileService } from '../../services/file.service';
 
 export default angular.module('shyApp.admin', [
   ngRoute, AnnouncementManagerModule, UibTabsDirective,
   UserManagerModule, ScheduleManagerModule, OrderManagerModule,
   ProductManagerModule, ClassManagerModule, WorkshopManagerModule,
-  LocationManagerModule
+  LocationManagerModule, DashboardModule
 ])
   .service('FileService', FileService)
   .config(routes)
