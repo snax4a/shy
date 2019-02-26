@@ -8,6 +8,8 @@ export class DashboardComponent {
 
   $onInit() {
     return Promise.all([ // get data in parallel
+      this.teacherpay(),
+      this.attendeesnhpq(),
       this.top10classes(),
       this.bottom10classes(),
       this.attendancelast18m(),
@@ -67,6 +69,20 @@ export class DashboardComponent {
             }
           }
         };
+      });
+  }
+
+  teacherpay() {
+    return this.dashboardService.reportGet('teacherpay')
+      .then(data => {
+        this.teacherpay = data;
+      });
+  }
+
+  attendeesnhpq() {
+    return this.dashboardService.reportGet('attendeesnhpq')
+      .then(data => {
+        this.attendeesnhpq = data;
       });
   }
 }

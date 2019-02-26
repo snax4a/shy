@@ -12,7 +12,7 @@ import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
   const webpackDebug = false; // If true, show webpack configuration after it compiles
-  const analyzeBundles = true; // If true, create visualization showing size of modules
+  const analyzeBundles = false; // If true, create visualization showing size of modules
   const development = mode === 'development'; // when called by server/config/express.js:101
   const production = mode === 'production'; // when called by gulpfile.babel.js:'webpack:dist':165
 

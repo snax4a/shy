@@ -27,6 +27,11 @@ export async function index(req, res) {
       WHERE attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '18 months' AND attended < date_trunc('month', CURRENT_DATE)
       GROUP BY location, month
       ORDER BY location, month;`,
+    attendeesnhpq: 'SELECT count FROM attendees_nh_pq;',
+    teacherpay: `SELECT teacher, date_trunc('month', attended)::date AS month, COUNT(*) AS count, COUNT(*) * 5 as amount FROM "Attendances"
+      WHERE attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
+      GROUP BY teacher, month
+      ORDER BY teacher, month;`
   };
 
   const reportName = req.query.name;

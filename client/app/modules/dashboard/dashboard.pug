@@ -1,5 +1,30 @@
 .row.tab-spacer
   .col-md-6
+    h2 Teacher Reimbursement (Last month)
+    table.table.table-condensed.table-striped
+      tr
+        th Teacher
+        th Students
+        th Amount
+      tr(ng-repeat='teacherpay in $ctrl.teacherpay')
+        td {{ teacherpay.teacher }}
+        td {{ teacherpay.count }}
+        td {{ teacherpay.amount | currency:"$":0 }}
+    //- br
+    h2 Top 10 Students (Last 90 days)
+    table.table.table-condensed.table-striped
+      tr
+        th Name
+        th #
+      tr(ng-repeat='top10student in $ctrl.top10students')
+        td {{ top10student.lastName }}, {{ top10student.firstName }}
+        td {{ top10student.count }}
+  .col-md-6
+    h2 Attendance by location (Last 90 days)
+    br
+    canvas.chart.chart-doughnut(id='doughnut', chart-data='$ctrl.piedata', chart-labels='$ctrl.pielabels', chart-options='{ legend: { display: true }}', chart-colors='["#00FF00","#0000FF","#00FFFF"]')
+    br
+  .col-md-6
     h2 Top 10 Attended Classes (Last 90 days)
     table.table.table-condensed.table-striped
       tr
@@ -24,20 +49,10 @@
         td {{ bottom10class.className }}
         td {{ bottom10class.count }}
   .col-md-6
-    h2 Top 10 Students (Last 90 days)
-    table.table.table-condensed.table-striped
-      tr
-        th Name
-        th #
-      tr(ng-repeat='top10student in $ctrl.top10students')
-        td {{ top10student.lastName }}, {{ top10student.firstName }}
-        td {{ top10student.count }}
-  .col-md-6
-    h2 Attendances by location (Last 90 days)
-    br
-    canvas.chart.chart-doughnut(id='doughnut', chart-data='$ctrl.piedata', chart-labels='$ctrl.pielabels', chart-options='{ legend: { display: true }}', chart-colors='["#00FF00","#0000FF","#00FFFF"]')
+    h2 North Hills Attendances (Previous quarter)
+    h1(style='font-size: 72px;margin-top:5px;') {{ $ctrl.attendeesnhpq[0].count | number }}
 .row
   .col-12
-    h2 Attendances by location (Last 18 months)
+    h2 Attendance by location (Last 18 months)
     br
     canvas.chart.chart-line(id='chart', chart-options='$ctrl.chart.options', chart-series='$ctrl.chart.series', chart-data='$ctrl.chart.data', chart-labels='$ctrl.chart.labels', chart-colors='["#0000FF","#00FFFF","#00FF00"]')
