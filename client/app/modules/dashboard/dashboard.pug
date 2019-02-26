@@ -35,9 +35,9 @@
   .col-md-6
     h2 Attendances by location (Last 90 days)
     br
-    canvas.chart.chart-doughnut(id='doughnut', chart-data='$ctrl.piedata', chart-labels='$ctrl.pielabels', chart-options='{ legend: { display: true }}')
+    canvas.chart.chart-doughnut(id='doughnut', chart-data='$ctrl.piedata', chart-labels='$ctrl.pielabels', chart-options='{ legend: { display: true }}', chart-colors='["#00FF00","#0000FF","#00FFFF"]')
 .row
   .col-12
     h2 Attendances by location (Last 18 months)
     br
-    canvas.chart.chart-line(id='chart', chart-options='$ctrl.chart.options', chart-series='$ctrl.chart.series' chart-data='$ctrl.chart.data', chart-labels='$ctrl.chart.labels')
+    canvas.chart.chart-line(id='chart', chart-options='$ctrl.chart.options', chart-series='$ctrl.chart.series', chart-data='$ctrl.chart.data', chart-labels='$ctrl.chart.labels', chart-colors='["#0000FF","#00FFFF","#00FF00"]')
