@@ -7,11 +7,12 @@ import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
 
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
   const webpackDebug = false; // If true, show webpack configuration after it compiles
-  const analyzeBundles = false; // If true, create visualization showing size of modules
+  const analyzeBundles = true; // If true, create visualization showing size of modules
   const development = mode === 'development'; // when called by server/config/express.js:101
   const production = mode === 'production'; // when called by gulpfile.babel.js:'webpack:dist':165
 
@@ -117,6 +118,8 @@ export default function makeWebpackConfig(mode) {
 
       // Define process.env.NODE_ENV, https://webpack.js.org/plugins/define-plugin/#src/components/Sidebar/Sidebar.jsx
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
+
+      new MomentLocalesPlugin(), // strip all locales except en
 
       // Generate index.html from _index.html with references to generated JS and CSS with hashes in their names
       new HtmlWebpackPlugin({ // https://github.com/ampedandwired/html-webpack-plugin
