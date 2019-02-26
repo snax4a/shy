@@ -23,8 +23,8 @@ export async function index(req, res) {
       GROUP BY "Users"."lastName", "Users"."firstName"
       ORDER BY COUNT(*) DESC
       LIMIT 10;`,
-    attendancelast90: `SELECT location, date_trunc('month', attended)::date AS month, COUNT(*) FROM "Attendances"
-      WHERE attended > CURRENT_DATE - INTERVAL '90 days'
+    attendancelast18m: `SELECT location, date_trunc('month', attended)::date AS month, COUNT(*) FROM "Attendances"
+      WHERE attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '18 months' AND attended < date_trunc('month', CURRENT_DATE)
       GROUP BY location, month
       ORDER BY location, month;`,
   };

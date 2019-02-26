@@ -1,89 +1,72 @@
 export class DashboardComponent {
   /*@ngInject*/
-  constructor(DashboardService) {
+  constructor($timeout, DashboardService) {
+    this.$timeout = $timeout;
     this.dashboardService = DashboardService;
+    this.chart = {};
   }
 
   $onInit() {
-    this.reportsGet();
+    return Promise.all([ // get data in parallel
+      this.top10classes(),
+      this.bottom10classes(),
+      this.attendancelast18m(),
+      this.top10students(),
+      this.schoolspie()
+    ]);
   }
 
-  async reportsGet() {
-    this.top10classes = await this.dashboardService.reportGet('top10classes');
-    this.bottom10classes = await this.dashboardService.reportGet('bottom10classes');
-    this.top10students = await this.dashboardService.reportGet('top10students');
-    this.schoolspie = await this.dashboardService.reportGet('schoolspie');
-    this.piedata = this.schoolspie.map(({ count }) => count);
-    this.pielabels = this.schoolspie.map(({ location }) => location);
-    this.attendancelast90 = await this.dashboardService.reportGet('attendancelast90');
+  top10classes() {
+    return this.dashboardService.reportGet('top10classes')
+      .then(data => {
+        this.top10classes = data;
+      });
+  }
 
-    // [
-    //   {
-    //     "location": "East Liberty",
-    //     "month": "2018-11-01T00:00:00.000Z",
-    //     "count": "30"
-    //   },
-    //   {
-    //     "location": "East Liberty",
-    //     "month": "2018-12-01T00:00:00.000Z",
-    //     "count": "496"
-    //   },
-    //   {
-    //     "location": "North Hills",
-    //     "month": "2018-11-01T00:00:00.000Z",
-    //     "count": "46"
-    //   },
-    //   {
-    //     "location": "North Hills",
-    //     "month": "2018-12-01T00:00:00.000Z",
-    //     "count": "436"
-    //   }
-    // ]
+  bottom10classes() {
+    return this.dashboardService.reportGet('bottom10classes')
+      .then(data => {
+        this.bottom10classes = data;
+      });
+  }
 
-    const groupBy = function(objArray, key) {
-      return objArray.reduce(function(rv, x) {
-        (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
-      }, {});
-    };
+  top10students() {
+    return this.dashboardService.reportGet('top10students')
+      .then(data => {
+        this.top10students = data;
+      });
+  }
 
-    console.log(groupBy(this.attendancelast90, 'location'));
+  schoolspie() {
+    return this.dashboardService.reportGet('schoolspie')
+      .then(data => {
+        this.piedata = data.map(({ count }) => count);
+        this.pielabels = data.map(({ location }) => location);
+      });
+  }
 
-    // const nest = (items, id = null, groupBy = 'location') =>
-    //   items
-    //     .filter(item => item[groupBy] === id)
-    //     .map(item => ({ ...item, children: nest(items, item.id) }));
-    // // One top level comment
-    // const comments = [
-    //   { id: 1, location: null },
-    //   { id: 2, location: 1 },
-    //   { id: 3, location: 1 },
-    //   { id: 4, location: 2 },
-    //   { id: 5, location: 4 }
-    // ];
-    // const nestedComments = nest(comments);
-    // console.log(nestedComments);
-    const series = Array.from(new Set(this.attendancelast90.map(x => x.location)));
-    const labels = Array.from(new Set(this.attendancelast90.map(x => new Date(x.month).toLocaleDateString())));
-    let data = [];
-    const chartData = {
-      series,
-      labels,
-      data
-    };
-    console.log(chartData);
-      // .map(location => {
-      //   return {
-      //     series: location,
-      //     //labels: new Date(this.attendancelast90.find(d => d.location === location).month),
-      //     data: Array.from(this.attendancelast90.find(d => d.location === location).count)
-      //   };
-      // });
-    // this.lineseries = Array.from(new Set(this.attendancelast90.map(x => x.location)));
-    // this.linedata = [];
-    // for(let location in this.lineseries) {
-    //   this.linedata.push(this.attendancelast90.map(x => x.count));
-    // }
-    //this.linelabels = this.attendancelast90.map(({ month }) => new Date(month));
+  attendancelast18m() {
+    return this.dashboardService.reportGet('attendancelast18m')
+      .then(rawdata => {
+        const series = Array.from(new Set(rawdata.map(x => x.location)));
+        const labels = Array.from(new Set(rawdata.map(x => x.month.substring(0, 7))));
+        let data = [];
+        for(let location in series) {
+          const locationData = rawdata.filter(x => x.location === series[location]);
+          data.push(locationData.map(x => parseInt(x.count, 10)));
+        }
+        this.chart = {
+          series,
+          labels,
+          data,
+          options: {
+            scales: {
+              yAxes: [{
+                stacked: true
+              }]
+            }
+          }
+        };
+      });
   }
 }
