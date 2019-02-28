@@ -9,6 +9,7 @@ export class ClassesComponent {
 
   $onInit() {
     this.classSchedule = this.classService.classSchedule;
+    console.log(this.classSchedule);
     this.classes = this.classService.classes;
     this.locations = this.locationService.locations;
     this.$timeout(this.$anchorScroll, 100);
