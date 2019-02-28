@@ -8,7 +8,7 @@ function nest(flatScheduleItems) {
   let currentDay;
   let dayIndex;
 
-  for(let i = 0; i < flatScheduleItems.length; i++) {
+  for(let i in flatScheduleItems) {
     let row = flatScheduleItems[i];
     if(currentLocation !== row.location) {
       locationIndex++; // zero first time through
@@ -65,12 +65,9 @@ function nest(flatScheduleItems) {
 // Gets a list of Schedule items
 export async function index(req, res) {
   const { flat } = req.query;
-  const sql = `
-    SELECT
-      _id, location, day, title, teacher,
-      CURRENT_DATE + "startTime" AS "startTime",
-      CURRENT_DATE + "endTime" AS "endTime",
-      canceled
+  const sql = `SELECT _id, location, day, title, teacher, canceled
+      , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "startTime") AS "startTime"
+      , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "endTime") AS "endTime"
     FROM "Schedules"
     ORDER BY location, day, "startTime";`;
   const { rows } = await db.query(sql, []);

@@ -16,8 +16,7 @@ export class ScheduleEditorController {
     this.scheduleItem = { ...this.scheduleItemBeforeEdits };
     this.options = {
       timeSecondsFormat: 'ss',
-      timeStripZeroSeconds: true,
-      timezone: 'UTC'
+      timeStripZeroSeconds: true
     };
   }
 

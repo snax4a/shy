@@ -31,9 +31,9 @@
           td
             a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.teacher }}
           td
-            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.startTime | date:'shortTime' :'UTC' }}
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.startTime | date:'shortTime' }}
           td
-            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.endTime  | date:'shortTime': 'UTC' }}
+            a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.endTime  | date:'shortTime' }}
           td
             a.edit(ng-click='$ctrl.scheduleItemEdit(scheduleItem)') {{ scheduleItem.canceled ? 'Yes' : 'No'}}
           td
