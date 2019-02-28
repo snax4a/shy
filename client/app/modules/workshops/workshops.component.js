@@ -10,39 +10,14 @@ export class WorkshopsComponent {
   }
 
   $onInit() {
-    this.subscriber = {};
-    this.workshops = [];
     this.workshopsGet();
-    this.$timeout(this.$anchorScroll, 100);
+    this.subscriber = {};
   }
 
   async workshopsGet() {
     this.workshops = await this.workshopService.workshopsGet();
-    this.twitterLoad();
-  }
-
-  twitterLoadScript(d, s, id) {
-    let js;
-    let fjs = d.getElementsByTagName(s)[0];
-    let t = window.twttr || {};
-    if(d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = '//platform.twitter.com/widgets.js';
-    fjs.parentNode.insertBefore(js, fjs);
-    t._e = [];
-    t.ready = f => {
-      t._e.push(f);
-    };
-    return t;
-  }
-
-  twitterLoad() {
-    if(window.twttr === undefined) {
-      this.$timeout(() => this.twitterLoadScript(document, 'script', 'twitter-wjs'));
-    } else {
-      this.$timeout(() => window.twttr.widgets.load());
-    }
+    this.$timeout(() => this.$window.twttr.widgets.load(), 500);
+    this.$timeout(this.$anchorScroll, 100);
   }
 
   condenseName(name) {
