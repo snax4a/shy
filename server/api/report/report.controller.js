@@ -8,9 +8,10 @@ export async function index(req, res) {
       GROUP BY "className", location, teacher
       ORDER by count(*) DESC
       LIMIT 10;`,
-    bottom10classes: `SELECT location, "className", count(*) from "Attendances"
-      WHERE attended > CURRENT_DATE - INTERVAL '90 days'
-      GROUP BY "className", location
+    bottom10classes: `SELECT location, "className", teacher, count(*) from "Attendances"
+      INNER JOIN "Users" on "Attendances".teacher = "Users"."lastName" || ', ' || "Users"."firstName"
+      WHERE attended > CURRENT_DATE - INTERVAL '90 days' AND "Users"."displayOrder" IS NOT NULL
+      GROUP BY "className", teacher, location
       ORDER by count(*) ASC
       LIMIT 10;`,
     schoolspie: `SELECT location, count(*) from "Attendances"
