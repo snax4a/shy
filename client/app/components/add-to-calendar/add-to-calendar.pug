@@ -1,0 +1,19 @@
+span(uib-dropdown='', on-toggle='toggled(open)', ng-if='!$ctrl.edge')
+  a(href='#', uib-dropdown-toggle='', alt='Add to calendar')
+    span.far.fa-calendar-plus
+    | &nbsp;
+    span(ng-if='!$ctrl.mini') Add to Calendar
+    span.caret
+  ul.dropdown-menu(uib-dropdown-menu='' role='menu')
+    li(role='menuitem')
+      a(download='event.ics', href='{{ $ctrl.icsFile }}', target='_blank')
+        span.fab.fa-apple 
+        | &nbsp;&nbsp;Apple Calendar
+    li(role='menuitem')
+      a(download='event.ics', href='{{ $ctrl.icsFile }}', target='_blank')
+        span.fab.fa-windows 
+        | &nbsp;&nbsp;Microsoft Outlook
+    li(role='menuitem')
+      a(href='{{ $ctrl.google }}', target='_blank')
+        span.fab.fa-google 
+        | &nbsp;&nbsp;Google Calendar

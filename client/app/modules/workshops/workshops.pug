@@ -29,9 +29,11 @@
           span(ng-if='section.description') {{ section.description }}
           br
         b(ng-if='!section.hideDate') {{ section.starts | date:'EEEE, MMMM d' }} &nbsp;&nbsp;| &nbsp;&nbsp;
-        span(ng-if='!section.hideDate') {{ section.starts | date:'shortTime' }} - {{ section.ends | date:'shortTime' }} &nbsp;&nbsp;|&nbsp;&nbsp; 
-        | {{ section.price | currency:"$":0 }}
+        span(ng-if='!section.hideDate') {{ section.starts | date:'shortTime' }} - {{ section.ends | date:'shortTime' }} 
+        | &nbsp;&nbsp;|&nbsp;&nbsp; {{ section.price | currency:"$":0 }}
         br
-        a(href='/locations#{{ section.location | htmlid }}') {{ section.location }}
+        a(href='/locations#{{ section.location | htmlid }}') {{ section.location }} 
+        span(ng-if='!section.hideDate') &nbsp;&nbsp;
+          addtocalendar(title='workshop.title', description='workshop.description', location='section.location', starts='section.starts', ends='section.ends', weekly='false', mini='false')
         jsonld(data='event')
   span(ng-repeat-end)

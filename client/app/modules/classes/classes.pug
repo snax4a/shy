@@ -8,25 +8,26 @@
     .col-sm-6
       table.table.table-striped.table-hover
         //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
-        tbody(ng-repeat='studio in $ctrl.classSchedule')
+        tbody(ng-repeat='studio in $ctrl.classSchedule'/*, ng-model-options="{'timezone':'UTC'}"*/)
           tr
             td.location(colspan='3')
-              a(id='{{studio.location | htmlid}}')
-              h2.studio {{studio.location}}
+              a(id='{{ studio.location | htmlid }}')
+              h2.studio {{ studio.location }}
           tr(ng-repeat-start='day in studio.days')
-            td.day(colspan='3') {{day.day | daytodate | date:'fullDate'}}
+            td.day(colspan='3') {{ day.day | daytodate | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
-            td.time(ng-class='{canceled: class.canceled===true}') {{ class.startTime | date:'shortTime' : 'UTC' }}-{{ class.endTime | date:'shortTime' : 'UTC' }}
+            td.time(ng-class='{canceled: class.canceled===true}')
+              addtocalendar(title='class.title', description='class.teacher', location='studio.location', starts='class.startTime', ends='class.endTime', weekly='true', mini='true') 
+              | &nbsp;{{ class.startTime | date:'shortTime'  }}-{{ class.endTime | date:'shortTime' }}
             td(ng-class='{canceled: class.canceled===true}')
-              a(href='/classes#{{class.title | htmlid}}') {{class.title}} 
+              a(href='/classes#{{ class.title | htmlid }}') {{ class.title }} 
               span(ng-if='class.canceled===true') (Canceled)
             td(ng-class='{canceled: class.canceled===true}') 
-              a(href='/teachers#{{ class.teacher | htmlid }}') {{class.teacher}}
-
+              a(href='/teachers#{{ class.teacher | htmlid }}') {{ class.teacher }}
     .col-sm-6(style='padding-top:24px;')
       div(ng-repeat="class in $ctrl.classes | orderBy:'name'")
         a(id='{{ class.name.split(" ").join("") | lowercase }}')
         h2 {{ class.name }} 
         p {{ class.description }}
-
-script(src='dates.js')
+    .col-6
+      pre {{$ctrl.classSchedule | json }}
