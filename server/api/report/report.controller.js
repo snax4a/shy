@@ -29,10 +29,18 @@ export async function index(req, res) {
       GROUP BY location, month
       ORDER BY location, month;`,
     attendeesnhpq: 'SELECT count FROM attendees_nh_pq;',
-    teacherpay: `SELECT teacher, date_trunc('month', attended)::date AS month, COUNT(*) AS count, COUNT(*) * 5 as amount FROM "Attendances"
-      WHERE attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
-      GROUP BY teacher, month
-      ORDER BY teacher, month;`
+    teacherpay: `SELECT teacher, SUM(count) AS count, SUM(amount) AS amount FROM
+      ( SELECT teacher, "className", attended, COUNT(*) AS count,
+          CASE
+            WHEN COUNT(*) < 5 THEN 25
+            ELSE COUNT(*) * 5
+          END as amount
+        FROM "Attendances"
+        WHERE
+          attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
+        GROUP BY teacher, "className", attended) a
+      GROUP by teacher
+      ORDER BY teacher;`
   };
 
   const reportName = req.query.name;
