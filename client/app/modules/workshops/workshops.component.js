@@ -13,12 +13,12 @@ export class WorkshopsComponent {
     this.subscriber = {};
     this.workshops = [];
     this.workshopsGet();
-    this.twitterLoad();
     this.$timeout(this.$anchorScroll, 100);
   }
 
   async workshopsGet() {
     this.workshops = await this.workshopService.workshopsGet();
+    this.twitterLoad();
   }
 
   twitterLoadScript(d, s, id) {
