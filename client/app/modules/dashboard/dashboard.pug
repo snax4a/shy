@@ -43,10 +43,12 @@
       tr
         th Location
         th Class
+        th Teacher
         th #
       tr(ng-repeat='bottom10class in $ctrl.bottom10classes')
         td {{ bottom10class.location }}
         td {{ bottom10class.className }}
+        td {{ bottom10class.teacher }}
         td {{ bottom10class.count }}
   .col-md-6
     h2 North Hills Attendances (Previous quarter)
