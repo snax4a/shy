@@ -55,5 +55,5 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 [angularjs-url]: https://angularjs.org
 [node]: https://img.shields.io/badge/nodejs-10.15.1-green.svg
 [node-url]: https://nodejs.org
-[postgresql]: https://img.shields.io/badge/postgresql-11.1.0-blue.svg
+[postgresql]: https://img.shields.io/badge/postgresql-11.2.0-blue.svg
 [postgresql-url]: https://www.postgresql.org
