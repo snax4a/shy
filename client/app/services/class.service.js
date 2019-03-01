@@ -37,9 +37,71 @@ export class ClassService {
     }
   }
 
-  async scheduleGet(flat) {
-    const { data } = await this.$http.get(`/api/schedule${flat ? '?flat=true' : ''}`);
+  nest(flatScheduleItems) {
+    let nestedScheduleItems = [];
+    let currentLocation;
+    let locationIndex = -1; // assume none
+    let currentDay;
+    let dayIndex;
+
+    for(let i in flatScheduleItems) {
+      let row = flatScheduleItems[i];
+      if(currentLocation !== row.location) {
+        locationIndex++; // zero first time through
+        dayIndex = 0; // Start days over for new location
+        nestedScheduleItems.push({
+          location: row.location,
+          days: [
+            {
+              day: row.day,
+              classes: [
+                {
+                  title: row.title,
+                  teacher: row.teacher,
+                  startTime: row.startTime,
+                  endTime: row.endTime,
+                  canceled: row.canceled
+                }
+              ]
+            }
+          ]
+        });
+      } else {
+        if(currentDay !== row.day) {
+          dayIndex++;
+          nestedScheduleItems[locationIndex].days.push({
+            day: row.day,
+            classes: [
+              {
+                title: row.title,
+                teacher: row.teacher,
+                startTime: row.startTime,
+                endTime: row.endTime,
+                canceled: row.canceled
+              }
+            ]
+          });
+        } else {
+          nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
+            title: row.title,
+            teacher: row.teacher,
+            startTime: row.startTime,
+            endTime: row.endTime,
+            canceled: row.canceled
+          });
+        }
+        currentDay = row.day;
+      }
+      currentDay = row.day;
+      currentLocation = row.location;
+    }
+    return nestedScheduleItems;
+  }
+
+  async scheduleGet() {
+    const { data } = await this.$http.get('/api/schedule');
     this.classSchedule = data;
+    this.classScheduleNested = this.nest(data);
     this.convertDateStringsToDates(this.classSchedule);
     return this.classSchedule;
   }
