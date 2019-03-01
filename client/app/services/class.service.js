@@ -111,8 +111,20 @@ export class ClassService {
     return scheduleItem._id;
   }
 
+  toUTC(date) {
+    const hoursOffset = date.getTimezoneOffset() / 60;
+    const d = new Date();
+    d.setHours(date.getHours() - hoursOffset);
+    d.setMinutes(date.getMinutes());
+    d.setSeconds(0, 0);
+    return d;
+  }
+
   async scheduleItemUpsert(scheduleItem) {
-    const { data } = await this.$http.put(`/api/schedule/${scheduleItem._id}`, scheduleItem);
+    const scheduleItemClone = { ...scheduleItem };
+    scheduleItemClone.startTime = this.toUTC(scheduleItem.startTime);
+    scheduleItemClone.endTime = this.toUTC(scheduleItem.endTime);
+    const { data } = await this.$http.put(`/api/schedule/${scheduleItemClone._id}`, scheduleItemClone);
     return scheduleItem._id === 0 ? data._id : scheduleItem._id;
   }
 
