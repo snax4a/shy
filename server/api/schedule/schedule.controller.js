@@ -2,6 +2,16 @@ import db from '../../utils/db';
 
 // Gets a list of Schedule items
 export async function index(req, res) {
+  // Not used but a great way to let PostgreSQL create the nested JSON
+  // SELECT array_to_json(array_agg("LocationClasses" ORDER BY Location)) AS "FullSchedule" FROM (
+  //   SELECT location, json_build_object('location', location, 'days', array_to_json(array_agg("LocationDayClasses" ORDER BY day))) AS "LocationClasses"
+  //   FROM (
+  //       SELECT location, day, json_build_object('day', day, 'classes', array_to_json(array_agg(json_build_object('title', title, 'teacher', teacher,'starts', timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "startTime") AS "startTime", 'ends', timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "endTime") AS "endTime", 'cancelled', canceled) ORDER BY "startTime"))) as "LocationDayClasses"
+  //       FROM "Schedules"
+  //       GROUP BY location, day
+  //   ) T1
+  //   GROUP BY location
+  // ) T2
   const sql = `SELECT _id, location, day, title, teacher, canceled
       , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "startTime") AS "startTime"
       , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "endTime") AS "endTime"
