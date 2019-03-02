@@ -1,7 +1,7 @@
 # Product Backlog
 * [Medium] Adjust responsive layout to look better on small devices and extend to safe area on new iPhones
-* [High] Change apple-startup-images to be screenshots for devices.
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
+* [Low] Change apple-startup-images to be screenshots for devices. Unless images generated on desktop can match devices, give up.
 
 <a name="1.0.17"></a>
 * Added CSV download to Teachers Reimbursement
