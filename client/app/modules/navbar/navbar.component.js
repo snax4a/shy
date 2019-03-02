@@ -18,21 +18,21 @@ export class NavbarComponent {
     this.isCollapsed = true;
     this.menu = [
       {
-        title: 'Classes',
+        title: 'Schedule',
         link: '/classes'
       },
       {
         title: 'Workshops',
         link: '/workshops'
       },
-      {
-        title: 'Locations',
-        link: '/locations'
-      },
-      {
-        title: 'Teachers',
-        link: '/teachers'
-      },
+      // {
+      //   title: 'Locations',
+      //   link: '/locations'
+      // },
+      // {
+      //   title: 'Teachers',
+      //   link: '/teachers'
+      // },
       {
         title: 'Cart',
         link: '/checkout'
