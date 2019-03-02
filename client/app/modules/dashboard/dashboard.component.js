@@ -85,4 +85,8 @@ export class DashboardComponent {
         this.attendeesnhpq = data;
       });
   }
+
+  downloadCSV() {
+    
+  }
 }
