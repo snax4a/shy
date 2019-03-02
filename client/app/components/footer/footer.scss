@@ -16,9 +16,10 @@ img {
 }
 
  footer a {
-	color: $shy-orange; // $shy-orange (should be)
+	margin-right: 15px;
+	color: $shy-lavender;
 }
 
 footer a:hover {
-	color: #fff;
+	color: $shy-orange;
 }
