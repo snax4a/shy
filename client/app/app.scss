@@ -19,9 +19,10 @@ $fa-font-path: '/assets/fonts/';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-/**
- * App-wide Styles
- */
+// xs < 750px
+// sm 750px - 969px
+// md 970px - 1169px
+// lg 1170px+
  
 .browserupgrade {
   margin: 0.2em 0;
