@@ -1,6 +1,8 @@
 .row.tab-spacer
   .col-md-6
-    h2 Teacher Reimbursement (Last month)
+    h2 Teacher Reimbursement (Last month) 
+      a(href='', ng-href='/api/report/csv', download='teachers.csv', target="_self")
+        span.fas.fa-file-csv
     table.table.table-condensed.table-striped
       tr
         th Teacher
@@ -10,7 +12,6 @@
         td {{ teacherpay.teacher }}
         td {{ teacherpay.count }}
         td {{ teacherpay.amount | currency:"$":0 }}
-    //- br
     h2 Top 10 Students (Last 90 days)
     table.table.table-condensed.table-striped
       tr
