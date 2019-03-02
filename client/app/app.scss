@@ -23,10 +23,6 @@ $fa-font-path: '/assets/fonts/';
  * App-wide Styles
  */
  
- .container {
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
- }
-
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
