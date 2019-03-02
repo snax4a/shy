@@ -86,7 +86,8 @@ export class DashboardComponent {
       });
   }
 
-  downloadCSV() {
-    
+  csvGet() {
+    return this.dashboardService.csvGet()
+      .then(() => true); // done
   }
 }

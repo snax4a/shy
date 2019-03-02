@@ -2,7 +2,7 @@ import db from '../../utils/db';
 
 export async function csv(req, res) {
   await db.toCsv(res, `
-    SELECT location, teacher, "className", attended, COUNT(*) AS count,
+    SELECT location, "className" AS class, teacher, attended, COUNT(*) AS students,
       CASE
         WHEN COUNT(*) < 5 THEN 25
         ELSE COUNT(*) * 5
@@ -10,7 +10,7 @@ export async function csv(req, res) {
     FROM "Attendances"
     WHERE
       attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
-    GROUP BY location, teacher, "className", attended ORDER BY location, teacher, "className"`);
+    GROUP BY location, teacher, "className", attended ORDER BY location, attended`);
 }
 
 // Returns JSON based on querystring params

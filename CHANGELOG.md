@@ -1,8 +1,10 @@
 # Product Backlog
+* [Medium] Adjust responsive layout to look better on small devices and extend to safe area on new iPhones
 * [High] Change apple-startup-images to be screenshots for devices.
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 
 <a name="1.0.17"></a>
+* Added CSV download to Teachers Reimbursement
 * [Bug] Classes page intermittently gets a flat schedule
 * Added Dashboard with angular-chart.js
 * Added iCal to Classes and Workshops (ical-generator)
