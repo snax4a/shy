@@ -335,9 +335,9 @@ gulp.task('copy:dist:server', () =>
 // Generate Apple startup images
 gulp.task('build:startup-images', () =>
   new Pageres({ filename: 'z-apple-touch-startup-image-<%= size %>', delay: 1, crop: true })
-    .src('https://www.schoolhouseyoga.com', ['375x812', '812x375', '414x896', '896x414'], { scale: 3 })
-    //.src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436', '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'])
-    .dest(`${paths.dist}/${clientPath}/`)
+    .src('https://www.schoolhouseyoga.com', ['375x812', '812x375', '414x896', '896x414'], { scale: 3})
+    //.src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436', '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'], { scale: 2})
+    .dest(`${paths.dist}/${clientPath}/assets/images/`)
     .run()
 );
 
@@ -430,10 +430,6 @@ gulp.task('build:icons', () => {
 
   return gulp.src(paths.client.svgIcon)
     .pipe(favicons({
-      appName: 'Schoolhouse Yoga',
-      appShortName: 'SHY',
-      appDescription: 'Discover the best yoga classes and teacher training in Pittsburgh. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga.',
-      developerName: 'Nate Stuyvesant',
       path: '', // set icon paths to website base href
       start_url: '/',
       icons: {
