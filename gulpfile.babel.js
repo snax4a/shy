@@ -145,7 +145,7 @@ gulp.task('env:test', done => {
 });
 
 // Add imports of all SCSS files to bottom of client/app/app.scss and return stream
-gulp.task('inject:scss', () =>
+gulp.task('client:inject:scss', () =>
   gulp.src(paths.client.mainStyle)
     .pipe(plugins.inject(
       gulp.src(
@@ -165,7 +165,7 @@ gulp.task('inject:scss', () =>
 );
 
 // Use Webpack to build and output to dist
-gulp.task('webpack:dist', done => {
+gulp.task('webpack', done => {
   let compiler = webpack(makeWebpackConfig('production'));
   compiler.run((err, stats) => {
     if(err) return done(err);
@@ -194,7 +194,7 @@ gulp.task('webpack:dist', done => {
 });
 
 // Minimal transpiliation since we're using nodeJS > 7 (mainly imports)
-gulp.task('transpile:server', () =>
+gulp.task('dist:server:transpile', () =>
   gulp.src(paths.server.scripts)
     .pipe(transpileServer())
     .pipe(gulp.dest(`${paths.dist}/${serverPath}`))
@@ -290,10 +290,10 @@ gulp.task('watch', () => {
 });
 
 // Delete everything from dist folder
-gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: true }));
+gulp.task('dist:reset', () => del([`${paths.dist}/!(.git*|Procfile)**`], { dot: true }));
 
 // Files to copy to dist/client without processing
-gulp.task('copy:dist:client', () =>
+gulp.task('dist:client', () =>
   gulp.src([
     `${clientPath}/sitemap.xml`,
     `${clientPath}/manifest.json`,
@@ -309,7 +309,7 @@ gulp.task('copy:dist:client', () =>
 );
 
 // Copy FontAwesome woff2 and woff fonts to dist/assets/fonts
-gulp.task('copy:fonts', () =>
+gulp.task('dist:client:assets:fonts', () =>
   gulp.src([
     'node_modules/@fortawesome/fontawesome-free/webfonts/*.woff*'
   ])
@@ -317,7 +317,7 @@ gulp.task('copy:fonts', () =>
 );
 
 // Files to copy to dist without processing
-gulp.task('copy:dist', () =>
+gulp.task('dist:root', () =>
   gulp.src([
     'package*.json', // package.json and package-lock.json
   ], { cwdbase: true })
@@ -325,7 +325,7 @@ gulp.task('copy:dist', () =>
 );
 
 // Files to copy to dist/server without processing
-gulp.task('copy:dist:server', () =>
+gulp.task('dist:server', () =>
   gulp.src([
     paths.server.esm
   ], { cwdbase: true })
@@ -342,7 +342,7 @@ gulp.task('build:startup-images', () =>
 );
 
 // dist/client/assets/images must exist first as sharp won't create directories
-gulp.task('build:icons-sharp', async() => {
+gulp.task('dist:client:assets:images:icons', async() => {
   const render = renderConfig => {
     const { image, width } = renderConfig; // required properties
 
@@ -415,7 +415,7 @@ gulp.task('build:icons-sharp', async() => {
 });
 
 // Generate icons from an SVG (could use sharp instead)
-gulp.task('build:icons', () => {
+gulp.task('dist:client:favicons', () => {
   faviconsConfig.icons.favicons = {
     'favicon.ico': { // Old browsers
       sizes: [
@@ -448,7 +448,7 @@ gulp.task('build:icons', () => {
 });
 
 // Shrink images and output cache-busted names
-gulp.task('build:images', () =>
+gulp.task('dist:client:assets:images', () =>
   gulp.src(paths.client.images)
     .pipe(plugins.imagemin([
       plugins.imagemin.optipng({ optimizationLevel: 5 }),
@@ -467,7 +467,7 @@ gulp.task('build:images', () =>
 );
 
 // Update references to images with cache-busted names
-gulp.task('image:cache-busting', () =>
+gulp.task('dist:client:image:cache-busting', () =>
   gulp.src([
     `${paths.dist}/${clientPath}/app.*.js`,
     `${paths.dist}/${clientPath}/index.html`,
@@ -484,20 +484,20 @@ gulp.task('image:cache-busting', () =>
 // Create the build in dist
 gulp.task('build',
   gulp.series(
-    'clean:dist',
-    'inject:scss',
-    'transpile:server',
-    gulp.parallel('build:images', /*'build:startup-images', */'build:icons', 'copy:fonts'),
-    gulp.parallel('copy:dist', 'copy:dist:server', 'copy:dist:client', 'webpack:dist'),
-    'image:cache-busting',
-    'build:icons-sharp'
+    'dist:reset',
+    'client:inject:scss',
+    'dist:server:transpile',
+    gulp.parallel('dist:client:assets:images', 'dist:client:favicons', 'dist:client:assets:fonts'),
+    gulp.parallel('dist:root', 'dist:server', 'dist:client', 'webpack'),
+    'dist:client:image:cache-busting',
+    'dist:client:assets:images:icons'
   )
 );
 
 // Run nodemon with debugging (server/config/express.js runs webpack.make.js)
 gulp.task('serve',
   gulp.series(
-    gulp.parallel('eslint', 'eslint:tests', 'inject:scss', 'copy:fonts', 'env:common'),
+    gulp.parallel('eslint', 'eslint:tests', 'client:inject:scss', 'dist:client:assets:fonts', 'env:common'),
     gulp.parallel('start:server', 'start:client'),
     'watch'
   )
@@ -536,7 +536,7 @@ gulp.task('debug:build', done => {
 });
 
 // Run end-to-end testing using Cypress
-// gulp.task('test:e2e', gulp.parallel('webpack:dist', 'env:common', 'env:test', 'start:server', 'webdriver_update'), () => {
+// gulp.task('test:e2e', gulp.parallel('webpack', 'env:common', 'env:test', 'start:server', 'webdriver_update'), () => {
 // });
 
 // Push build to Heroku via git
