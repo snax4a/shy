@@ -299,6 +299,7 @@ gulp.task('dist:client', () =>
     `${clientPath}/manifest.json`,
     `${clientPath}/browserconfig.xml`,
     `${clientPath}/leta.html`,
+    `${clientPath}/test.html`,
     `${clientPath}/robots.txt`,
     `${clientPath}/.well-known/*`,
     paths.client.assets,
@@ -472,6 +473,7 @@ gulp.task('dist:client:image:cache-busting', () =>
     `${paths.dist}/${clientPath}/app.*.js`,
     `${paths.dist}/${clientPath}/index.html`,
     `${paths.dist}/${clientPath}/leta.html`,
+    `${paths.dist}/${clientPath}/test.html`,
     `${paths.dist}/${clientPath}/assets/data/*.json`
   ], { base: `${paths.dist}/${clientPath}` })
     .pipe(plugins.revRewrite({
