@@ -1,24 +1,29 @@
 .container
-  .col-sm-3.col-md-2
-    img.img-responsive(src='/assets/images/logo.svg', alt='Seal of Schoolhouse Yoga', srcset='/assets/images/logo.svg')
-  .col-sm-9.col-md-10.footer-text
+  .col-sm-4.col-md-3
+    img.img-responsive(src='/assets/images/logo.svg', alt='Schoolhouse Yoga logo', srcset='/assets/images/logo.svg')
+  .col-sm-8.col-md-7.footer-text
     p(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
-      a(ng-href='/locations#squirrelhill', itemprop='url') Squirrel Hill
-      a(ng-href='/locations#eastliberty', itemprop='url') East Liberty
-      a(ng-href='/locations#northhills', itemprop='url') North Hills
-      a(ng-href='/classes', itemprop='url') Class Schedule
+      a.btn.social(ng-href='/classes', alt='Schedule for Yoga Classes in Squirrel Hill, East Liberty, and North Hills', itemprop='url')
+        span.far.fa-calendar-alt.fa-2x
+      a(ng-href='/classes', alt='Class Schedule', itemprop='url') Class Schedule
+    p(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
+      a.btn.social(ng-href='/locations', alt='Directions to our Pittsburgh yoga schools', itemprop='url')
+        span.fas.fa-map-marker-alt.fa-2x
+      a(ng-href='/locations#squirrelhill', alt='Directions to Squirrel Hill school', itemprop='url') Squirrel Hill
+      a(ng-href='/locations#eastliberty', alt='Directions to East Liberty school', itemprop='url') East Liberty
+      a(ng-href='/locations#northhills', alt='Directions to North Hills school', itemprop='url') North Hills
     p
-      a.btn.social(href='https://twitter.com/schoolhouseyoga', target='_blank') 
+      a.btn.social(href='https://twitter.com/schoolhouseyoga', alt='Twitter', target='_blank') 
         span.fab.fa-twitter.fa-2x
-      a.btn.social(href='https://facebook.com/schoolhouseyoga', target='_blank') 
+      a.btn.social(href='https://facebook.com/schoolhouseyoga', alt='Facebook', target='_blank') 
         span.fab.fa-facebook-f.fa-2x
-      a.btn.social(href='https://instagram.com/schoolhouseyoga', target='_blank') 
+      a.btn.social(href='https://instagram.com/schoolhouseyoga', alt='Instagram', target='_blank') 
         span.fab.fa-instagram.fa-2x
-      a.btn.social(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') 
+      a.btn.social(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', alt='YouTube', target='_blank') 
         span.fab.fa-youtube.fa-2x
     p(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
-      a(href='/privacy', itemprop='url') Privacy Policy
-      a(href='/terms', itemprop='url') Terms of Use
+      a(href='/privacy', alt='Privacy Policy', itemprop='url') Privacy Policy
+      a(href='/terms', alt='Terms of use', itemprop='url') Terms of Use
     p(itemscope='', itemtype='http://schema.org/WPFooter') &copy; 
       span(itemprop='copyrightYear') 2019
       |  
