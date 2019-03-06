@@ -26,6 +26,7 @@ footer a:hover {
 
 a.social {
 	padding: 10px 0 0 0;
+	// margin-bottom: 10px;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
@@ -39,4 +40,10 @@ a.social:hover {
 	color: $brand-primary;
 	background-color: #fff;
 	border-color: #fff;
+}
+
+@media (max-width: 768px) {
+	.col-xs-12.right, .col-xs-12.left {
+			text-align: center;
+	 } 
 }

@@ -3,5 +3,4 @@ disallow: /login
 disallow: /admin
 disallow: /shynet
 disallow: /profile
-disallow: /cart
 sitemap: https://www.schoolhouseyoga.com/sitemap.xml
