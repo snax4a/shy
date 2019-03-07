@@ -16,6 +16,8 @@
         div(uib-slide='', ng-repeat='slide in $ctrl.slides', active='active', index='$index')
           img.img-responsive(ng-src='{{slide.src}}', alt='Person practicing at one of our Pittsburgh yoga schools')
   .row
+    h1.col-md-6 Frequently-asked questions
+  .row
     .faqs
       article(ng-repeat='faq in $ctrl.faqs', itemscope='', itemtype='http://schema.org/Article')
         h2(ng-bind-html='faq.question', itemprop='name headline')
