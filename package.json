@@ -105,7 +105,7 @@
     "sass-loader": "^7.1.0",
     "sharp": "^0.21.3",
     "shelljs": "^0.8.3",
-    "strip-ansi": "^5.0.0",
+    "strip-ansi": "^5.1.0",
     "style-loader": "^0.23.1",
     "supertest": "^3.4.2",
     "uglifyjs-webpack-plugin": "^2.1.2",
