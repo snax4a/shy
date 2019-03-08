@@ -15,26 +15,34 @@ export class ClassService {
     return this.classes;
   }
 
-  // Undo JSON representation of date
+  // Create dates from times (always uses today's date because it's thrown away later)
   convertDateStringsToDates(schedule) {
-    const flat = !schedule[0].hasOwnProperty('days');
-    if(flat) {
-      for(let scheduleItem in schedule) {
-        const thisScheduleItem = schedule[scheduleItem];
-        thisScheduleItem.startTime = new Date(thisScheduleItem.startTime);
-        thisScheduleItem.endTime = new Date(thisScheduleItem.endTime);
-      }
-      return;
+    for(let scheduleItem in schedule) {
+      const thisScheduleItem = schedule[scheduleItem];
+      const today = new Date();
+      const midnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      thisScheduleItem.startTime = this.addTime(midnight, thisScheduleItem.startTime);
+      thisScheduleItem.endTime = this.addTime(midnight, thisScheduleItem.endTime);
     }
-    for(let location in schedule) {
-      for(let day in schedule[location].days) {
-        for(let section in schedule[location].days[day].classes) {
-          const thisSection = schedule[location].days[day].classes[section];
-          thisSection.startTime = new Date(thisSection.startTime);
-          thisSection.endTime = new Date(thisSection.endTime);
-        }
-      }
-    }
+    return;
+  }
+
+  nextDateForDOW(dayOfWeek) {
+    let result = new Date();
+    result.setDate(result.getDate() + (dayOfWeek + 7 - result.getDay()) % 7);
+    // Clear time so we can add starts and ends
+    result.setHours(0);
+    result.setMinutes(0);
+    result.setSeconds(0);
+    return result;
+  }
+
+  addTime(date, time) {
+    let result = new Date(date);
+    const hours = parseInt(time.substring(0, 2), 10);
+    const mins = parseInt(time.substring(3, 5), 10);
+    result.setHours(hours, mins);
+    return result;
   }
 
   nest(flatScheduleItems) {
@@ -54,12 +62,13 @@ export class ClassService {
           days: [
             {
               day: row.day,
+              date: this.nextDateForDOW(row.day),
               classes: [
                 {
                   title: row.title,
                   teacher: row.teacher,
-                  startTime: row.startTime,
-                  endTime: row.endTime,
+                  startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
+                  endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),
                   canceled: row.canceled
                 }
               ]
@@ -71,12 +80,13 @@ export class ClassService {
           dayIndex++;
           nestedScheduleItems[locationIndex].days.push({
             day: row.day,
+            date: this.nextDateForDOW(row.day),
             classes: [
               {
                 title: row.title,
                 teacher: row.teacher,
-                startTime: row.startTime,
-                endTime: row.endTime,
+                startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
+                endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),
                 canceled: row.canceled
               }
             ]
@@ -85,8 +95,8 @@ export class ClassService {
           nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
             title: row.title,
             teacher: row.teacher,
-            startTime: row.startTime,
-            endTime: row.endTime,
+            startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
+            endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),
             canceled: row.canceled
           });
         }
@@ -111,19 +121,14 @@ export class ClassService {
     return scheduleItem._id;
   }
 
-  toUTC(date) {
-    const hoursOffset = date.getTimezoneOffset() / 60;
-    const d = new Date();
-    d.setHours(date.getHours() - hoursOffset);
-    d.setMinutes(date.getMinutes());
-    d.setSeconds(0, 0);
-    return d;
+  toPgTime(date) {
+    return date.toTimeString().substring(0, 5);
   }
 
   async scheduleItemUpsert(scheduleItem) {
     const scheduleItemClone = { ...scheduleItem };
-    scheduleItemClone.startTime = this.toUTC(scheduleItem.startTime);
-    scheduleItemClone.endTime = this.toUTC(scheduleItem.endTime);
+    scheduleItemClone.startTime = this.toPgTime(scheduleItem.startTime);
+    scheduleItemClone.endTime = this.toPgTime(scheduleItem.endTime);
     const { data } = await this.$http.put(`/api/schedule/${scheduleItemClone._id}`, scheduleItemClone);
     return scheduleItem._id === 0 ? data._id : scheduleItem._id;
   }
@@ -141,7 +146,7 @@ export class ClassService {
 
   async initialize() {
     try {
-      await Promise.all([this.classesGet(), this.scheduleGet()]);
+      await Promise.all([this.classesGet(true), this.scheduleGet()]);
       return true;
     } catch(err) {
       return false;

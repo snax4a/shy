@@ -12,11 +12,7 @@ export async function index(req, res) {
   //   ) T1
   //   GROUP BY location
   // ) T2
-  const sql = `SELECT _id, location, day, title, teacher, canceled
-      , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "startTime") AS "startTime"
-      , timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "endTime") AS "endTime"
-    FROM "Schedules"
-    ORDER BY location, day, "startTime";`;
+  const sql = 'SELECT _id, location, day, title, teacher, "startTime", "endTime", canceled FROM "Schedules" ORDER BY location, day, "startTime";';
   const { rows } = await db.query(sql, []);
   res.status(200).send(rows);
 }
@@ -30,17 +26,15 @@ export async function upsert(req, res) {
   if(isNew) {
     sql = `INSERT INTO "Schedules"
       (location, day, title, teacher, "startTime", "endTime", canceled)
-      VALUES ($1, $2, $3, $4,
-        timezone('UTC', $5),
-        timezone('UTC', $6),
-        $7) RETURNING _id;`;
+      VALUES ($1, $2, $3, $4, $5::time without time zone, $6::time without time zone, $7)
+      RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE "Schedules"
         SET location = $1, day = $2, title = $3, teacher = $4,
-        "startTime" = timezone('UTC', $5),
-        "endTime" = timezone('UTC', $6),
+        "startTime" = $5::time without time zone,
+        "endTime" = $6::time without time zone,
         canceled = $7
       WHERE _id = $8 RETURNING _id;`;
   }

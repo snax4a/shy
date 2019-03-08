@@ -14,11 +14,11 @@
               a(id='{{ studio.location | htmlid }}')
               h2.studio {{ studio.location }}
           tr(ng-repeat-start='day in studio.days')
-            td.day(colspan='3') {{ day.day | daytodate | date:'fullDate' }}
+            td.day(colspan='3') {{ day.date | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
             td.time(ng-class='{canceled: class.canceled===true}')
               addtocalendar(title='class.title', description='class.teacher', location='studio.location', starts='class.startTime', ends='class.endTime', weekly='true', mini='true') 
-              | &nbsp;{{ class.startTime | date:'shortTime'  }}-{{ class.endTime | date:'shortTime' }}
+              | &nbsp;{{ class.startTime | date:'shortTime' }}-{{ class.endTime | date:'shortTime' }}
             td(ng-class='{canceled: class.canceled===true}')
               a(href='/classes#{{ class.title | htmlid }}') {{ class.title }} 
               span(ng-if='class.canceled===true') (Canceled)
