@@ -345,11 +345,10 @@ gulp.task('build:startup-images', () =>
 // dist/client/assets/images must exist first as sharp won't create directories
 gulp.task('dist:client:assets:images:icons', async() => {
   const render = renderConfig => {
-    const { image, width } = renderConfig; // required properties
+    const image = sharp(paths.client.svgIcon);
+    const { width } = renderConfig; // required properties
 
-    if(!image || !width) throw new Error('Gulp error in \'build:icons-sharp\': The parameters image and width are required.');
-
-    const clone = image.clone(); // Do not change original
+    if(!width) throw new Error('Gulp error in \'dist:client:assets:images:icons\': Width is a required parameter.');
 
     let { height, name, scale, background } = renderConfig; // optional properties
 
@@ -368,7 +367,7 @@ gulp.task('dist:client:assets:images:icons', async() => {
     const left = Math.floor((width - logoLength) / 2); // if fractional, smaller padding on left
     const right = Math.ceil((width - logoLength) / 2);
 
-    clone
+    image
       .resize(logoLength)
       .extend({
         top,
@@ -378,12 +377,12 @@ gulp.task('dist:client:assets:images:icons', async() => {
         background: background ? background : { r: 0, g: 0, b: 0, alpha: 0 }
       });
 
-    if(background) clone.flatten({ background });
+    if(background) image.flatten({ background });
 
-    return clone.toFile(name);
+    return image.toFile(name);
   };
 
-  const image = sharp(paths.client.svgIcon);
+
   const themeBackground = { background: '#5f4884' }; // Lavender when a background is needed
   const android = { }; // Android devices use the defaults
   const iOS = { ...themeBackground, scale: 95 };
@@ -392,26 +391,26 @@ gulp.task('dist:client:assets:images:icons', async() => {
   const schema = { background: '#fff' };
 
   return await Promise.all([
-    render({ image, width: 128, ...edge }), // Edge 70x70
-    render({ image, width: 180, name: 'apple-touch-icon.png', ...iOS }), // iOS
-    render({ image, width: 192, ...android }), // Android
-    render({ image, width: 270, ...edge }), // Edge 150x150
-    render({ image, width: 512, ...android }), // Android
-    render({ image, width: 558, height: 270, ...edge }), // Edge 310x150
-    render({ image, width: 558, ...edge }), // Edge 310x310
-    render({ image, width: 1024, ...schema }), // Schema.org logo
-    render({ image, width: 1536, height: 2048, ...startup }), // iOS startup logo - iPad Air A1475 portrait
-    render({ image, width: 2048, height: 1536, ...startup }), // iOS startup logo - iPad Air A1475 portrait
-    render({ image, width: 828, height: 1792, ...startup }), // iOS startup logo - iPhone XR portrait
-    render({ image, width: 1792, height: 828, ...startup }), // iOS startup logo - iPhone XR landscape
-    render({ image, width: 1125, height: 2436, ...startup }), // iOS startup logo - iPhone X/XS portrait
-    render({ image, width: 2436, height: 1125, ...startup }), // iOS startup logo - iPhone X/XS landscape
-    render({ image, width: 1668, height: 2224, ...startup }), // iOS startup logo - 10.5 iPad Pro portrait
-    render({ image, width: 2224, height: 1668, ...startup }), // iOS startup logo - 10.5 iPad Pro landscape
-    render({ image, width: 2048, height: 2732, ...startup }), // iOS startup logo - 12.9 iPad Pro portrait
-    render({ image, width: 2732, height: 2048, ...startup }), // iOS startup logo - 12.9 iPad Pro landscape
-    render({ image, width: 1242, height: 2688, ...startup }), // iOS startup logo - iPhone XS Max portrait
-    render({ image, width: 2688, height: 1242, ...startup }) // iOS startup logo - iPhone XS Max landscape
+    render({ width: 128, ...edge }), // Edge 70x70
+    render({ width: 180, name: 'apple-touch-icon.png', ...iOS }), // iOS
+    render({ width: 192, ...android }), // Android
+    render({ width: 270, ...edge }), // Edge 150x150
+    render({ width: 512, ...android }), // Android
+    render({ width: 558, height: 270, ...edge }), // Edge 310x150
+    render({ width: 558, ...edge }), // Edge 310x310
+    render({ width: 1024, ...schema }), // Schema.org logo
+    render({ width: 1536, height: 2048, ...startup }), // iOS startup logo - iPad Air A1475 portrait
+    render({ width: 2048, height: 1536, ...startup }), // iOS startup logo - iPad Air A1475 portrait
+    render({ width: 828, height: 1792, ...startup }), // iOS startup logo - iPhone XR portrait
+    render({ width: 1792, height: 828, ...startup }), // iOS startup logo - iPhone XR landscape
+    render({ width: 1125, height: 2436, ...startup }), // iOS startup logo - iPhone X/XS portrait
+    render({ width: 2436, height: 1125, ...startup }), // iOS startup logo - iPhone X/XS landscape
+    render({ width: 1668, height: 2224, ...startup }), // iOS startup logo - 10.5 iPad Pro portrait
+    render({ width: 2224, height: 1668, ...startup }), // iOS startup logo - 10.5 iPad Pro landscape
+    render({ width: 2048, height: 2732, ...startup }), // iOS startup logo - 12.9 iPad Pro portrait
+    render({ width: 2732, height: 2048, ...startup }), // iOS startup logo - 12.9 iPad Pro landscape
+    render({ width: 1242, height: 2688, ...startup }), // iOS startup logo - iPhone XS Max portrait
+    render({ width: 2688, height: 1242, ...startup }) // iOS startup logo - iPhone XS Max landscape
   ]);
 });
 
