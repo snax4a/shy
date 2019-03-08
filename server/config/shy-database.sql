@@ -363,13 +363,15 @@ CREATE TRIGGER updated_at BEFORE UPDATE ON public."Purchases"
 -- DROP SEQUENCE public.schedules_seq;
 CREATE SEQUENCE IF NOT EXISTS public.schedules_seq;
 
--- DROP TABLE public."Schedules";
-CREATE TABLE IF NOT EXISTS public."Schedules" (
+-- DROP TABLE public.schedules;
+CREATE TABLE IF NOT EXISTS public.schedules (
   _id integer PRIMARY KEY DEFAULT nextval('schedules_seq'::regclass),
   location character varying(20) NOT NULL,
+  location_id integer,
   day integer NOT NULL,
   title character varying(100) NOT NULL,
   teacher character varying(40) NOT NULL,
+  teacher_id integer,
   "startTime" time(0) without time zone NOT NULL,
   "endTime" time(0) without time zone NOT NULL,
   canceled boolean NOT NULL DEFAULT false,
@@ -378,10 +380,10 @@ CREATE TABLE IF NOT EXISTS public."Schedules" (
 );
 
 -- DROP INDEX public.schedules_location_day_start_time;
-CREATE INDEX schedules_location_day_start_time ON public."Schedules" USING btree (location, day, "startTime");
+CREATE INDEX schedules_location_day_start_time ON public.schedules USING btree (location, day, "startTime");
 
--- DROP TRIGGER updated_at ON public."Schedules";
-CREATE TRIGGER updated_at BEFORE UPDATE ON public."Schedules"
+-- DROP TRIGGER updated_at ON public.schedules;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.schedules
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
 -- DROP TABLE public.sessions

@@ -7,12 +7,12 @@ export async function index(req, res) {
   //   SELECT location, json_build_object('location', location, 'days', array_to_json(array_agg("LocationDayClasses" ORDER BY day))) AS "LocationClasses"
   //   FROM (
   //       SELECT location, day, json_build_object('day', day, 'classes', array_to_json(array_agg(json_build_object('title', title, 'teacher', teacher,'starts', timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "startTime") AS "startTime", 'ends', timezone('US/Eastern', now()::date + ((day + 6 - EXTRACT(dow from now())::int) % 7) + "endTime") AS "endTime", 'cancelled', canceled) ORDER BY "startTime"))) as "LocationDayClasses"
-  //       FROM "Schedules"
+  //       FROM schedules
   //       GROUP BY location, day
   //   ) T1
   //   GROUP BY location
   // ) T2
-  const sql = 'SELECT _id, location, day, title, teacher, "startTime", "endTime", canceled FROM "Schedules" ORDER BY location, day, "startTime";';
+  const sql = 'SELECT _id, location, day, title, teacher, "startTime", "endTime", canceled FROM schedules ORDER BY location, day, "startTime";';
   const { rows } = await db.query(sql, []);
   res.status(200).send(rows);
 }
@@ -24,14 +24,14 @@ export async function upsert(req, res) {
   let sql;
   const isNew = _id === 0;
   if(isNew) {
-    sql = `INSERT INTO "Schedules"
+    sql = `INSERT INTO schedules
       (location, day, title, teacher, "startTime", "endTime", canceled)
       VALUES ($1, $2, $3, $4, $5::time without time zone, $6::time without time zone, $7)
       RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
-      UPDATE "Schedules"
+      UPDATE schedules
         SET location = $1, day = $2, title = $3, teacher = $4,
         "startTime" = $5::time without time zone,
         "endTime" = $6::time without time zone,
@@ -44,7 +44,7 @@ export async function upsert(req, res) {
 
 export async function destroy(req, res) {
   const _id = req.params.id;
-  const sql = 'DELETE FROM "Schedules" WHERE _id = $1;';
+  const sql = 'DELETE FROM schedules WHERE _id = $1;';
   await db.query(sql, [_id]);
   return res.status(204).send({ message: `Schedule Item ${_id} deleted.`});
 }
