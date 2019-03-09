@@ -107,7 +107,7 @@
     "shelljs": "^0.8.3",
     "strip-ansi": "^5.1.0",
     "style-loader": "^0.23.1",
-    "supertest": "^3.4.2",
+    "supertest": "^4.0.0",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.1.0",
