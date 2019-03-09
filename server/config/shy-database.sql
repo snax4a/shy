@@ -366,18 +366,25 @@ CREATE SEQUENCE IF NOT EXISTS public.schedules_seq;
 -- DROP TABLE public.schedules;
 CREATE TABLE IF NOT EXISTS public.schedules (
   _id integer PRIMARY KEY DEFAULT nextval('schedules_seq'::regclass),
-  location character varying(20) NOT NULL,
-  location_id integer,
+  location_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
   day integer NOT NULL,
-  title character varying(100) NOT NULL,
-  teacher character varying(40) NOT NULL,
-  teacher_id integer,
+  class_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  teacher_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
   "startTime" time(0) without time zone NOT NULL,
   "endTime" time(0) without time zone NOT NULL,
   canceled boolean NOT NULL DEFAULT false,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
+
+DROP VIEW IF EXISTS public.schedules_index;
+CREATE OR REPLACE VIEW public.schedules_index AS
+  SELECT schedules._id, location_id, locations.name AS location, day, class_id, classes.name AS title, schedules.teacher_id, "Users"."firstName" || ' ' || "Users"."lastName" AS teacher, "startTime", "endTime", canceled
+  FROM schedules
+  LEFT JOIN locations ON schedules.location_id = locations._id
+  LEFT JOIN "Users" ON schedules.teacher_id = "Users"._id
+  LEFT JOIN classes ON schedules.class_id = classes._id
+  ORDER BY locations.name, day, "startTime";
 
 -- DROP INDEX public.schedules_location_day_start_time;
 CREATE INDEX schedules_location_day_start_time ON public.schedules USING btree (location, day, "startTime");
