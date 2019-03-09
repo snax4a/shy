@@ -110,7 +110,7 @@ export async function index(req, res) {
       (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase
       ON "user"._id = purchase."UserId"
       LEFT OUTER JOIN
-        (SELECT "Attendances"."UserId", COUNT("Attendances"._id) AS attendances FROM "Attendances" GROUP BY "Attendances"."UserId") attendance
+        (SELECT attendances."UserId", COUNT(attendances._id) AS attendances FROM attendances GROUP BY attendances."UserId") attendance
         ON "user"._id = attendance."UserId"
     WHERE "user"."firstName" ILIKE $1 || '%' OR "user"."lastName" ILIKE $1 || '%' OR "user"."email" ILIKE $1 || '%'
     ORDER BY "user"."lastName", "user"."firstName";`;

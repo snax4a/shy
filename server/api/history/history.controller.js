@@ -5,16 +5,16 @@ export async function attendees(req, res) {
   const { attended, location, teacher, className } = req.query;
   const sql = `
     SELECT
-      "Attendances"._id,
-      "Attendances"."UserId",
+      attendances._id,
+      attendances."UserId",
       INITCAP("Users"."lastName" || ', ' || "Users"."firstName") AS name
     FROM
-      "Attendances" INNER JOIN "Users" ON "Attendances"."UserId" = "Users"._id
+      attendances INNER JOIN "Users" ON attendances."UserId" = "Users"._id
     WHERE
-      "Attendances".attended = $1::DATE AND
-      "Attendances".location = $2 AND
-      "Attendances".teacher = $3 AND
-      "Attendances"."className" = $4
+      attendances.attended = $1::DATE AND
+      attendances.location = $2 AND
+      attendances.teacher = $3 AND
+      attendances."className" = $4
     ORDER BY "Users"."lastName", "Users"."firstName";`;
   const { rows } = await db.query(sql, [attended, location, teacher, className]);
   res.status(200).send(rows);
@@ -37,19 +37,19 @@ export async function index(req, res) {
       history.quantity,
       (SUM(history.quantity) OVER (PARTITION BY history."UserId" ORDER BY history."when"))::integer AS balance
     FROM (
-      SELECT "Attendances"._id,
-        "Attendances"."UserId",
+      SELECT attendances._id,
+        attendances."UserId",
         'A'::text AS type,
-        "Attendances".attended AS when,
-        "Attendances".location,
-        "Attendances"."className",
-        "Attendances".teacher,
+        attendances.attended AS when,
+        attendances.location,
+        attendances."className",
+        attendances.teacher,
         NULL AS "paymentMethod",
         NULL AS notes,
-        ((((('Attended '::text || "Attendances"."className"::text) || ' in '::text) || "Attendances".location::text) || ' ('::text) || "Attendances".teacher::text) || ')'::text AS what,
+        ((((('Attended '::text || attendances."className"::text) || ' in '::text) || attendances.location::text) || ' ('::text) || attendances.teacher::text) || ')'::text AS what,
         '-1'::integer AS quantity
-      FROM "Attendances"
-      WHERE "Attendances"."UserId" = $1
+      FROM attendances
+      WHERE attendances."UserId" = $1
       UNION
       SELECT "Purchases"._id,
         "Purchases"."UserId",
@@ -84,7 +84,7 @@ export async function create(req, res) {
   } else {
     const { attended, location, className, teacher } = req.body;
     arrParams.push(attended, location, className, teacher);
-    sql = `INSERT INTO "Attendances" ("UserId", attended, location, "className", teacher)
+    sql = `INSERT INTO attendances ("UserId", attended, location, "className", teacher)
       VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   }
 
@@ -108,7 +108,7 @@ export async function update(req, res) {
   } else {
     const { attended, location, className, teacher } = req.body;
     arrParams.push(attended, location, className, teacher);
-    sql = `UPDATE "Attendances" SET
+    sql = `UPDATE attendances SET
       "UserId" = $2, attended = $3::date, location = $4,
       "className" = $5, teacher = $6
       WHERE _id = $1;`;
@@ -127,7 +127,7 @@ export async function destroy(req, res) {
   if(type == 'P') {
     sql = 'DELETE FROM "Purchases" WHERE _id = $1;';
   } else {
-    sql = 'DELETE FROM "Attendances" WHERE _id = $1;';
+    sql = 'DELETE FROM attendances WHERE _id = $1;';
   }
 
   await db.query(sql, [_id]);

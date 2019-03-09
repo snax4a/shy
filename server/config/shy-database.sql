@@ -261,8 +261,8 @@ CREATE TRIGGER updated_at
 -- DROP SEQUENCE public.attendances_seq;
 CREATE SEQUENCE IF NOT EXISTS public.attendances_seq;
 
--- DROP TABLE public."Attendances";
-CREATE TABLE IF NOT EXISTS public."Attendances" (
+-- DROP TABLE public.attendances;
+CREATE TABLE IF NOT EXISTS public.attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
   "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
@@ -275,22 +275,22 @@ CREATE TABLE IF NOT EXISTS public."Attendances" (
 
 -- DROP INDEX public.attendances__user_id;
 CREATE INDEX attendances_user_id
-  ON public."Attendances" USING btree ("UserId");
+  ON public.attendances USING btree ("UserId");
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_class
-  ON public."Attendances" USING btree (location, teacher, "className", attended);
+  ON public.attendances USING btree (location, teacher, "className", attended);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_student_history
-  ON public."Attendances" USING btree ("UserId", attended);
+  ON public.attendances USING btree ("UserId", attended);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_teacher_history
-  ON public."Attendances" USING btree (teacher, attended);
+  ON public.attendances USING btree (teacher, attended);
 
--- DROP TRIGGER updated_at ON public."Attendances";
-CREATE TRIGGER updated_at BEFORE UPDATE ON public."Attendances" FOR EACH ROW
+-- DROP TRIGGER updated_at ON public.attendances;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.attendances FOR EACH ROW
   EXECUTE PROCEDURE public.updated_at();
 
 -- DROP TABLE public.orders;
@@ -402,30 +402,30 @@ CREATE TABLE sessions (
 
 -- DROP VIEW public.attendances_full_info;
 CREATE OR REPLACE VIEW public.attendances_full_info AS
-  SELECT "Attendances".teacher,
-    "Attendances"."className",
-    "Attendances".location,
-    "Attendances".attended,
+  SELECT attendances.teacher,
+    attendances."className",
+    attendances.location,
+    attendances.attended,
     ("Users"."lastName"::text || ', '::text) || "Users"."firstName"::text AS student
-  FROM "Attendances"
-    JOIN "Users" ON "Attendances"."UserId" = "Users"._id;
+  FROM attendances
+    JOIN "Users" ON attendances."UserId" = "Users"._id;
 
 -- DROP VIEW public.attendees_nh_pq;
 CREATE OR REPLACE VIEW public.attendees_nh_pq AS
   SELECT count(*) AS count
-  FROM "Attendances"
-  WHERE "Attendances".location::text = 'North Hills'::text AND "Attendances".attended >= date_trunc('quarter'::text, (date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date - 1)::timestamp with time zone)::date AND "Attendances".attended < date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date;
+  FROM attendances
+  WHERE attendances.location::text = 'North Hills'::text AND attendances.attended >= date_trunc('quarter'::text, (date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date - 1)::timestamp with time zone)::date AND attendances.attended < date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date;
 
 -- DROP VIEW public.attendees_per_class;
 CREATE OR REPLACE VIEW public.attendees_per_class AS
-  SELECT "Attendances".location,
-    "Attendances"."className",
-    "Attendances".teacher,
-    "Attendances".attended,
-    count("Attendances"."UserId") AS students
-  FROM "Attendances"
-  GROUP BY "Attendances".location, "Attendances"."className", "Attendances".teacher, "Attendances".attended
-  ORDER BY "Attendances".location, "Attendances".attended;
+  SELECT attendances.location,
+    attendances."className",
+    attendances.teacher,
+    attendances.attended,
+    count(attendances."UserId") AS students
+  FROM attendances
+  GROUP BY attendances.location, attendances."className", attendances.teacher, attendances.attended
+  ORDER BY attendances.location, attendances.attended;
 
 -- DROP VIEW public.student_balances;
 CREATE OR REPLACE VIEW public.student_balances AS
@@ -434,11 +434,11 @@ CREATE OR REPLACE VIEW public.student_balances AS
     (( SELECT COALESCE(sum("Purchases".quantity), 0::bigint) AS purchases
            FROM "Purchases"
           WHERE "Purchases"."UserId" = "Users"._id)) + (( SELECT - count(*) AS attendances
-           FROM "Attendances"
-          WHERE "Attendances"."UserId" = "Users"._id)) AS balance,
-    ( SELECT max("Attendances".attended) AS max_class_date
-           FROM "Attendances"
-          WHERE "Attendances"."UserId" = "Users"._id) AS last_attended,
+           FROM attendances
+          WHERE attendances."UserId" = "Users"._id)) AS balance,
+    ( SELECT max(attendances.attended) AS max_class_date
+           FROM attendances
+          WHERE attendances."UserId" = "Users"._id) AS last_attended,
     ( SELECT max("Purchases"."createdAt") AS max_purchased_on
            FROM "Purchases"
           WHERE "Purchases"."UserId" = "Users"._id) AS last_purchase,
@@ -461,13 +461,13 @@ CREATE OR REPLACE VIEW public.students_who_owe AS
 
 -- DROP VIEW public.studio_analysis_pycy;
 CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
-  SELECT "Attendances".location,
-    to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text) AS year_month,
+  SELECT attendances.location,
+    to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text) AS year_month,
     count(*) AS attendances
-  FROM "Attendances"
-  WHERE "Attendances".attended >= '2017-01-01'::date
-  GROUP BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text))
-  ORDER BY "Attendances".location, (to_char("Attendances".attended::timestamp with time zone, 'YYYY-MM'::text));
+  FROM attendances
+  WHERE attendances.attended >= '2017-01-01'::date
+  GROUP BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text))
+  ORDER BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text));
 
 DROP VIEW IF EXISTS public.workshop_sections;
 CREATE OR REPLACE VIEW public.workshop_sections AS
