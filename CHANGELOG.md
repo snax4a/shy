@@ -1,11 +1,11 @@
 # Product Backlog
 * [Bug] Add new Schedule Item - new preselected values and saving with blanks doesn't display errors
-* [Bug] New Schedule Item defaults Starts and Ends to current time (including seconds)
 * [Bug] Hamburger menu appears in safe area on iPhone 10+ and is not accessible
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 * [Low] Change apple-startup-images to be screenshots for devices. Unless images generated on desktop can match devices, give up.
 
 <a name="1.0.18"></a>
+* [Bug] New Schedule Item defaults Starts and Ends to current time (including seconds)
 * Added constraints for location_id, teacher_id, and class_id
 * Dropped title, location, and teacher columns from schedules table
 * Updated teacher, location, and title after dropdown has changed (scheduleeditor.controller line 28)
