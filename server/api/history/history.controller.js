@@ -51,19 +51,19 @@ export async function index(req, res) {
       FROM attendances
       WHERE attendances."UserId" = $1
       UNION
-      SELECT "Purchases"._id,
-        "Purchases"."UserId",
+      SELECT purchases._id,
+        purchases."UserId",
         'P'::text AS type,
-        "Purchases".purchased AS "when",
+        purchases.purchased AS "when",
         NULL AS location,
         NULL AS "className",
         NULL AS teacher,
-        "Purchases".method AS "paymentMethod",
-        "Purchases".notes,
-        'Purchased '::text || "Purchases".quantity::text || ' class pass ('::text || "Purchases".method::text || ') - '::text || "Purchases".notes::text AS what,
-        "Purchases".quantity
-      FROM "Purchases"
-      WHERE "Purchases"."UserId" = $1) history
+        purchases.method AS "paymentMethod",
+        purchases.notes,
+        'Purchased '::text || purchases.quantity::text || ' class pass ('::text || purchases.method::text || ') - '::text || purchases.notes::text AS what,
+        purchases.quantity
+      FROM purchases
+      WHERE purchases."UserId" = $1) history
     ORDER BY history."UserId", history."when" DESC;`;
 
   const { rows } = await db.query(sql, [id]);
@@ -79,7 +79,7 @@ export async function create(req, res) {
   if(type == 'P') {
     const { quantity, method, notes, purchased } = req.body;
     arrParams.push(quantity, method, notes, purchased);
-    sql = `INSERT INTO "Purchases" ("UserId", quantity, method, notes, purchased)
+    sql = `INSERT INTO purchases ("UserId", quantity, method, notes, purchased)
       VALUES ($1, $2, $3, $4, $5) RETURNING _id;`;
   } else {
     const { attended, location, className, teacher } = req.body;
@@ -101,7 +101,7 @@ export async function update(req, res) {
   if(type == 'P') {
     const { quantity, method, notes, purchased } = req.body;
     arrParams.push(quantity, method, notes, purchased);
-    sql = `UPDATE "Purchases" SET
+    sql = `UPDATE purchases SET
       "UserId" = $2, quantity = $3, method = $4,
       notes = $5, purchased = $6::date
       WHERE _id = $1;`;
@@ -125,7 +125,7 @@ export async function destroy(req, res) {
   let sql;
 
   if(type == 'P') {
-    sql = 'DELETE FROM "Purchases" WHERE _id = $1;';
+    sql = 'DELETE FROM purchases WHERE _id = $1;';
   } else {
     sql = 'DELETE FROM attendances WHERE _id = $1;';
   }

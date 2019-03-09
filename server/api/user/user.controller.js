@@ -107,7 +107,7 @@ export async function index(req, res) {
       ${sqlForAdmins}
       (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
     FROM "Users" "user" LEFT OUTER JOIN
-      (SELECT "Purchases"."UserId", SUM("Purchases".quantity) AS purchases FROM "Purchases" GROUP BY "Purchases"."UserId") purchase
+      (SELECT purchases."UserId", SUM(purchases.quantity) AS purchases FROM purchases GROUP BY purchases."UserId") purchase
       ON "user"._id = purchase."UserId"
       LEFT OUTER JOIN
         (SELECT attendances."UserId", COUNT(attendances._id) AS attendances FROM attendances GROUP BY attendances."UserId") attendance

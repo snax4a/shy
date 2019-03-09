@@ -338,8 +338,8 @@ CREATE TRIGGER updated_at BEFORE UPDATE ON public.orders
 -- DROP SEQUENCE public.purchases_seq;
 CREATE SEQUENCE IF NOT EXISTS public.purchases_seq;
 
--- DROP TABLE public."Purchases";
-CREATE TABLE public."Purchases" (
+-- DROP TABLE public.purchases;
+CREATE TABLE public.purchases (
   _id integer PRIMARY KEY DEFAULT nextval('purchases_seq'::regclass),
   "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   quantity integer NOT NULL,
@@ -351,13 +351,13 @@ CREATE TABLE public."Purchases" (
 );
 
 -- DROP INDEX public.purchases__user_id;
-CREATE INDEX purchases_user_id ON public."Purchases" USING btree ("UserId");
+CREATE INDEX purchases_user_id ON public.purchases USING btree ("UserId");
 
 -- DROP INDEX public.purchases_purchased;
-CREATE INDEX purchases_purchased ON public."Purchases" USING btree (purchased, "UserId");
+CREATE INDEX purchases_purchased ON public.purchases USING btree (purchased, "UserId");
 
--- DROP TRIGGER updated_at ON public."Purchases";
-CREATE TRIGGER updated_at BEFORE UPDATE ON public."Purchases"
+-- DROP TRIGGER updated_at ON public.purchases;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.purchases
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
 -- DROP SEQUENCE public.schedules_seq;
@@ -431,17 +431,17 @@ CREATE OR REPLACE VIEW public.attendees_per_class AS
 CREATE OR REPLACE VIEW public.student_balances AS
   SELECT "Users"._id,
     ("Users"."lastName"::text || ', '::text) || "Users"."firstName"::text AS student,
-    (( SELECT COALESCE(sum("Purchases".quantity), 0::bigint) AS purchases
-           FROM "Purchases"
-          WHERE "Purchases"."UserId" = "Users"._id)) + (( SELECT - count(*) AS attendances
+    (( SELECT COALESCE(sum(purchases.quantity), 0::bigint) AS purchases
+           FROM purchases
+          WHERE purchases."UserId" = "Users"._id)) + (( SELECT - count(*) AS attendances
            FROM attendances
           WHERE attendances."UserId" = "Users"._id)) AS balance,
     ( SELECT max(attendances.attended) AS max_class_date
            FROM attendances
           WHERE attendances."UserId" = "Users"._id) AS last_attended,
-    ( SELECT max("Purchases"."createdAt") AS max_purchased_on
-           FROM "Purchases"
-          WHERE "Purchases"."UserId" = "Users"._id) AS last_purchase,
+    ( SELECT max(purchases."createdAt") AS max_purchased_on
+           FROM purchases
+          WHERE purchases."UserId" = "Users"._id) AS last_purchase,
     "Users".email,
     "Users"."optOut"
   FROM "Users"
@@ -572,10 +572,10 @@ BEGIN
       student_balances WHERE balance > 0;
   
   -- Eliminate students who bought a card within the last 12 months
-  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT "UserId" FROM "Purchases" WHERE "createdAt" >= cutoff);
+  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT "UserId" FROM purchases WHERE "createdAt" >= cutoff);
 
   -- Insert negative purchase to expire class cards
-	INSERT INTO "Purchases" ("UserId", quantity, method, notes, "createdAt", "updatedAt")
+	INSERT INTO purchases ("UserId", quantity, method, notes, "createdAt", "updatedAt")
 	SELECT
 	  _id,
 	  - balance,
