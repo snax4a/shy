@@ -7,15 +7,15 @@ export async function attendees(req, res) {
     SELECT
       attendances._id,
       attendances."UserId",
-      INITCAP("Users"."lastName" || ', ' || "Users"."firstName") AS name
+      INITCAP(users."lastName" || ', ' || users."firstName") AS name
     FROM
-      attendances INNER JOIN "Users" ON attendances."UserId" = "Users"._id
+      attendances INNER JOIN users ON attendances."UserId" = users._id
     WHERE
       attendances.attended = $1::DATE AND
       attendances.location = $2 AND
       attendances.teacher = $3 AND
       attendances."className" = $4
-    ORDER BY "Users"."lastName", "Users"."firstName";`;
+    ORDER BY users."lastName", users."firstName";`;
   const { rows } = await db.query(sql, [attended, location, teacher, className]);
   res.status(200).send(rows);
 }

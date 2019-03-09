@@ -72,7 +72,7 @@ function encryptPassword(password, salt) {
 // Used by passport (could be used elsewhere in this controller) - returns false or an authenticated user
 export async function authenticateLocal(email, unencryptedPassword) {
   if(!unencryptedPassword || !email) return false; // Missing parameter
-  const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google, password, salt FROM "Users" WHERE LOWER(email) = LOWER($1);';
+  const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google, password, salt FROM users WHERE LOWER(email) = LOWER($1);';
   const { rows } = await db.query(sql, [email]);
   if(rows.length === 0) return false; // User not found
   const user = rows[0];
@@ -88,7 +88,7 @@ export async function authenticateLocal(email, unencryptedPassword) {
 export async function googleUserFind(googleId) {
   if(!googleId) return false; // Missing parameter
   const sql = `
-    SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google ->> 'id' AS "googleId" FROM "Users" WHERE provider = 'google' AND google ->> 'id' = $1;`;
+    SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google ->> 'id' AS "googleId" FROM users WHERE provider = 'google' AND google ->> 'id' = $1;`;
   const { rows } = await db.query(sql, [googleId]);
   if(rows.length === 0) return false; // User not found
   const user = rows[0];
@@ -106,7 +106,7 @@ export async function index(req, res) {
       "optOut",
       ${sqlForAdmins}
       (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
-    FROM "Users" "user" LEFT OUTER JOIN
+    FROM users "user" LEFT OUTER JOIN
       (SELECT purchases."UserId", SUM(purchases.quantity) AS purchases FROM purchases GROUP BY purchases."UserId") purchase
       ON "user"._id = purchase."UserId"
       LEFT OUTER JOIN
@@ -120,8 +120,8 @@ export async function index(req, res) {
 
 export async function getUser(field, fieldValue) {
   const sqlStatements = {
-    _id: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM "Users" WHERE _id = $1;',
-    email: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM "Users" WHERE email = $1;'
+    _id: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM users WHERE _id = $1;',
+    email: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM users WHERE email = $1;'
   };
   const sql = sqlStatements[field];
   if(!sql) userBadParameterError();
@@ -131,7 +131,7 @@ export async function getUser(field, fieldValue) {
 
 export async function getTeachers(req, res) {
   const sql = `SELECT _id, "displayOrder", "firstName", "lastName", bio, url, "imageId"
-    FROM "Users" WHERE role IN ('admin', 'teacher') ORDER BY "displayOrder", "lastName", "firstName";`;
+    FROM users WHERE role IN ('admin', 'teacher') ORDER BY "displayOrder", "lastName", "firstName";`;
   const { rows } = await db.query(sql, []);
   return res.status(200).send(rows);
 }
@@ -164,7 +164,7 @@ export async function createUser(user) {
 
   // If someone with the same email exists, global error handler will take it
   const sql = `
-    INSERT INTO "Users"
+    INSERT INTO users
       ("firstName", "lastName", email, phone, "optOut", salt, password, role, provider, google, "displayOrder", bio, url, "imageId")
       VALUES ($1, $2, LOWER($3), $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING _id, role, email,
       "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageId";`;
@@ -199,7 +199,7 @@ export async function forgotPassword(req, res) {
   const { email } = req.body;
 
   // Check whether user exists and what provider (as we can only do forgot password for local)
-  let sql = 'SELECT provider FROM "Users" WHERE email = $1;';
+  let sql = 'SELECT provider FROM users WHERE email = $1;';
   const { rows } = await db.query(sql, [email]);
   if(rows.length === 0) userMissingError();
   if(rows[0].provider !== 'local') userGoogleChangeError();
@@ -210,7 +210,7 @@ export async function forgotPassword(req, res) {
   const encryptedPassword = await encryptPassword(newPassword, salt);
 
   // Update the user record
-  sql = 'UPDATE "Users" SET password = $1, salt = $2 WHERE email = $3;';
+  sql = 'UPDATE users SET password = $1, salt = $2 WHERE email = $3;';
   await db.query(sql, [encryptedPassword, salt, email]);
 
   // Build and send email
@@ -248,7 +248,7 @@ async function updateUser(user) {
     sqlPasswordUpdate = ', password = $14, salt = $15';
   }
 
-  const sql = `UPDATE "Users" SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6,
+  const sql = `UPDATE users SET role = $2, email = LOWER($3), "firstName" = $4, "lastName" = $5, phone = $6,
     "optOut" = $7, provider = $8, google = $9, "displayOrder" = $10, bio = $11, url = $12, "imageId" =$13${sqlPasswordUpdate}
     WHERE _id = $1
     RETURNING _id, email, role, "firstName", "lastName", phone, "optOut", provider, google, "displayOrder", bio, url, "imageId";`;
@@ -333,8 +333,8 @@ export async function upsert(req, res) {
 export async function destroyUser(field, fieldValue) {
   // Do it the long way to prevent SQL injection
   const sqlStatements = {
-    _id: 'DELETE FROM "Users" WHERE _id = $1;',
-    email: 'DELETE FROM "Users" WHERE email = $1;'
+    _id: 'DELETE FROM users WHERE _id = $1;',
+    email: 'DELETE FROM users WHERE email = $1;'
   };
   const sql = sqlStatements[field];
   if(!sql) userBadParameterError();
@@ -354,7 +354,7 @@ export async function contactUpsert(user, overrideName) {
   // OverrideName == true replaces existing first and last name
   const overrideNameSql = overrideName ? '"firstName" = $2, "lastName" = $3, ' : '';
   const overridePhoneSql = user.phone ? 'phone = $4, ' : '';
-  const sql = `INSERT INTO "Users"
+  const sql = `INSERT INTO users
   (email, "firstName", "lastName", phone, "optOut")
   VALUES (LOWER($1), $2, $3, $4, $5)
   ON CONFLICT (email) DO UPDATE
@@ -402,7 +402,7 @@ export async function subscribe(req, res) {
 
 // Upsert subscriber to opt out (unsubscribe)
 export async function unsubscribe(req, res) {
-  const sql = 'UPDATE "Users" SET "optOut" = true WHERE email = $1;';
+  const sql = 'UPDATE users SET "optOut" = true WHERE email = $1;';
   await Promise.all([
     db.query(sql, [req.params.email]),
     sibOptOut(req.params.email)
@@ -441,7 +441,7 @@ ${(optOut ? 'Does not want to s' : 'S')}ubscribe to newsletter`
 
 // Called by integration test
 export async function roleSet(email, role) {
-  const sql = 'UPDATE "Users" SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider, bio, url, "displayOrder", "imageId";';
+  const sql = 'UPDATE users SET role = $2 WHERE email = $1 RETURNING _id, "firstName", "lastName", email, phone, "optOut", provider, google, provider, bio, url, "displayOrder", "imageId";';
   const { rows } = await db.query(sql, [email, role]);
   if(rows.length === 0) userMissingError();
   return rows[0];

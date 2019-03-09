@@ -83,8 +83,8 @@ CREATE INDEX files_name ON public.files USING btree (name);
 -- DROP SEQUENCE public.users_seq;
 CREATE SEQUENCE IF NOT EXISTS public.users_seq;
 
--- DROP TABLE public."Users";
-CREATE TABLE IF NOT EXISTS public."Users" (
+-- DROP TABLE public.users;
+CREATE TABLE IF NOT EXISTS public.users (
   _id integer PRIMARY KEY DEFAULT nextval('users_seq'::regclass),
   role roles NOT NULL DEFAULT 'student'::roles,
   "lastName" character varying(20) NOT NULL,
@@ -106,16 +106,16 @@ CREATE TABLE IF NOT EXISTS public."Users" (
 );
 
 -- DROP INDEX public.users_first_name;
-CREATE INDEX users_first_name ON public."Users" USING btree ("firstName");
+CREATE INDEX users_first_name ON public.users USING btree ("firstName");
 
 -- DROP INDEX public.users_last_name;
-CREATE INDEX users_last_name ON public."Users" USING btree ("lastName");
+CREATE INDEX users_last_name ON public.users USING btree ("lastName");
 
 -- DROP INDEX public.users_teachers_display;
-CREATE INDEX users_teachers_display ON public."Users" USING btree ("displayOrder", role);
+CREATE INDEX users_teachers_display ON public.users USING btree ("displayOrder", role);
 
--- DROP TRIGGER updated_at ON public."Users";
-CREATE TRIGGER updated_at BEFORE UPDATE ON public."Users"
+-- DROP TRIGGER updated_at ON public.users;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.users
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
 -- DROP SEQUENCE public.products_seq;
@@ -264,7 +264,7 @@ CREATE SEQUENCE IF NOT EXISTS public.attendances_seq;
 -- DROP TABLE public.attendances;
 CREATE TABLE IF NOT EXISTS public.attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
-  "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  "UserId" integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
   location character varying(20) NOT NULL,
   "className" character varying(80) NOT NULL,
@@ -341,7 +341,7 @@ CREATE SEQUENCE IF NOT EXISTS public.purchases_seq;
 -- DROP TABLE public.purchases;
 CREATE TABLE public.purchases (
   _id integer PRIMARY KEY DEFAULT nextval('purchases_seq'::regclass),
-  "UserId" integer NOT NULL REFERENCES "Users"(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  "UserId" integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   quantity integer NOT NULL,
   method character varying(16) NOT NULL,
   notes character varying(256),
@@ -379,10 +379,10 @@ CREATE TABLE IF NOT EXISTS public.schedules (
 
 DROP VIEW IF EXISTS public.schedules_index;
 CREATE OR REPLACE VIEW public.schedules_index AS
-  SELECT schedules._id, location_id, locations.name AS location, day, class_id, classes.name AS title, schedules.teacher_id, "Users"."firstName" || ' ' || "Users"."lastName" AS teacher, "startTime", "endTime", canceled
+  SELECT schedules._id, location_id, locations.name AS location, day, class_id, classes.name AS title, schedules.teacher_id, users."firstName" || ' ' || users."lastName" AS teacher, "startTime", "endTime", canceled
   FROM schedules
   LEFT JOIN locations ON schedules.location_id = locations._id
-  LEFT JOIN "Users" ON schedules.teacher_id = "Users"._id
+  LEFT JOIN users ON schedules.teacher_id = users._id
   LEFT JOIN classes ON schedules.class_id = classes._id
   ORDER BY locations.name, day, "startTime";
 
@@ -406,9 +406,9 @@ CREATE OR REPLACE VIEW public.attendances_full_info AS
     attendances."className",
     attendances.location,
     attendances.attended,
-    ("Users"."lastName"::text || ', '::text) || "Users"."firstName"::text AS student
+    (users."lastName"::text || ', '::text) || users."firstName"::text AS student
   FROM attendances
-    JOIN "Users" ON attendances."UserId" = "Users"._id;
+    JOIN users ON attendances."UserId" = users._id;
 
 -- DROP VIEW public.attendees_nh_pq;
 CREATE OR REPLACE VIEW public.attendees_nh_pq AS
@@ -429,23 +429,23 @@ CREATE OR REPLACE VIEW public.attendees_per_class AS
 
 -- DROP VIEW public.student_balances;
 CREATE OR REPLACE VIEW public.student_balances AS
-  SELECT "Users"._id,
-    ("Users"."lastName"::text || ', '::text) || "Users"."firstName"::text AS student,
+  SELECT users._id,
+    (users."lastName"::text || ', '::text) || users."firstName"::text AS student,
     (( SELECT COALESCE(sum(purchases.quantity), 0::bigint) AS purchases
            FROM purchases
-          WHERE purchases."UserId" = "Users"._id)) + (( SELECT - count(*) AS attendances
+          WHERE purchases."UserId" = users._id)) + (( SELECT - count(*) AS attendances
            FROM attendances
-          WHERE attendances."UserId" = "Users"._id)) AS balance,
+          WHERE attendances."UserId" = users._id)) AS balance,
     ( SELECT max(attendances.attended) AS max_class_date
            FROM attendances
-          WHERE attendances."UserId" = "Users"._id) AS last_attended,
+          WHERE attendances."UserId" = users._id) AS last_attended,
     ( SELECT max(purchases."createdAt") AS max_purchased_on
            FROM purchases
-          WHERE purchases."UserId" = "Users"._id) AS last_purchase,
-    "Users".email,
-    "Users"."optOut"
-  FROM "Users"
-  ORDER BY "Users"."lastName", "Users"."firstName";
+          WHERE purchases."UserId" = users._id) AS last_purchase,
+    users.email,
+    users."optOut"
+  FROM users
+  ORDER BY users."lastName", users."firstName";
 
 -- DROP VIEW public.students_who_owe;
 CREATE OR REPLACE VIEW public.students_who_owe AS
