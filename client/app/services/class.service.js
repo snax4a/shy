@@ -29,7 +29,7 @@ export class ClassService {
 
   nextDateForDOW(dayOfWeek) {
     let result = new Date();
-    result.setDate(result.getDate() + (dayOfWeek + 7 - result.getDay()) % 7);
+    result.setDate(result.getDate() + (dayOfWeek + 6 - result.getDay()) % 7);
     // Clear time so we can add starts and ends
     result.setHours(0);
     result.setMinutes(0);
