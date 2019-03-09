@@ -32,7 +32,7 @@ export async function index(req, res) {
       GROUP BY location
       ORDER by count(*) DESC;`,
     top10students: `SELECT users."lastName", users."firstName", COUNT(*) FROM attendances
-      INNER JOIN users ON attendances."UserId" = users._id
+      INNER JOIN users ON attendances.user_id = users._id
       WHERE attended > CURRENT_DATE - INTERVAL '90 days'
       GROUP BY users."lastName", users."firstName"
       ORDER BY COUNT(*) DESC

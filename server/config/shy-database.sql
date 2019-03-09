@@ -264,7 +264,7 @@ CREATE SEQUENCE IF NOT EXISTS public.attendances_seq;
 -- DROP TABLE public.attendances;
 CREATE TABLE IF NOT EXISTS public.attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
-  "UserId" integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
   location character varying(20) NOT NULL,
   "className" character varying(80) NOT NULL,
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS public.attendances (
 
 -- DROP INDEX public.attendances__user_id;
 CREATE INDEX attendances_user_id
-  ON public.attendances USING btree ("UserId");
+  ON public.attendances USING btree (user_id);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_class
@@ -283,7 +283,7 @@ CREATE INDEX attendances_class
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_student_history
-  ON public.attendances USING btree ("UserId", attended);
+  ON public.attendances USING btree (user_id, attended);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_teacher_history
@@ -341,7 +341,7 @@ CREATE SEQUENCE IF NOT EXISTS public.purchases_seq;
 -- DROP TABLE public.purchases;
 CREATE TABLE public.purchases (
   _id integer PRIMARY KEY DEFAULT nextval('purchases_seq'::regclass),
-  "UserId" integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   quantity integer NOT NULL,
   method character varying(16) NOT NULL,
   notes character varying(256),
@@ -351,10 +351,10 @@ CREATE TABLE public.purchases (
 );
 
 -- DROP INDEX public.purchases__user_id;
-CREATE INDEX purchases_user_id ON public.purchases USING btree ("UserId");
+CREATE INDEX purchases_user_id ON public.purchases USING btree (user_id);
 
 -- DROP INDEX public.purchases_purchased;
-CREATE INDEX purchases_purchased ON public.purchases USING btree (purchased, "UserId");
+CREATE INDEX purchases_purchased ON public.purchases USING btree (purchased, user_id);
 
 -- DROP TRIGGER updated_at ON public.purchases;
 CREATE TRIGGER updated_at BEFORE UPDATE ON public.purchases
@@ -408,7 +408,7 @@ CREATE OR REPLACE VIEW public.attendances_full_info AS
     attendances.attended,
     (users."lastName"::text || ', '::text) || users."firstName"::text AS student
   FROM attendances
-    JOIN users ON attendances."UserId" = users._id;
+    JOIN users ON attendances.user_id = users._id;
 
 -- DROP VIEW public.attendees_nh_pq;
 CREATE OR REPLACE VIEW public.attendees_nh_pq AS
@@ -422,7 +422,7 @@ CREATE OR REPLACE VIEW public.attendees_per_class AS
     attendances."className",
     attendances.teacher,
     attendances.attended,
-    count(attendances."UserId") AS students
+    count(attendances.user_id) AS students
   FROM attendances
   GROUP BY attendances.location, attendances."className", attendances.teacher, attendances.attended
   ORDER BY attendances.location, attendances.attended;
@@ -433,15 +433,15 @@ CREATE OR REPLACE VIEW public.student_balances AS
     (users."lastName"::text || ', '::text) || users."firstName"::text AS student,
     (( SELECT COALESCE(sum(purchases.quantity), 0::bigint) AS purchases
            FROM purchases
-          WHERE purchases."UserId" = users._id)) + (( SELECT - count(*) AS attendances
+          WHERE purchases.user_id = users._id)) + (( SELECT - count(*) AS attendances
            FROM attendances
-          WHERE attendances."UserId" = users._id)) AS balance,
+          WHERE attendances.user_id = users._id)) AS balance,
     ( SELECT max(attendances.attended) AS max_class_date
            FROM attendances
-          WHERE attendances."UserId" = users._id) AS last_attended,
+          WHERE attendances.user_id = users._id) AS last_attended,
     ( SELECT max(purchases."createdAt") AS max_purchased_on
            FROM purchases
-          WHERE purchases."UserId" = users._id) AS last_purchase,
+          WHERE purchases.user_id = users._id) AS last_purchase,
     users.email,
     users."optOut"
   FROM users
@@ -572,10 +572,10 @@ BEGIN
       student_balances WHERE balance > 0;
   
   -- Eliminate students who bought a card within the last 12 months
-  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT "UserId" FROM purchases WHERE "createdAt" >= cutoff);
+  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT user_id FROM purchases WHERE "createdAt" >= cutoff);
 
   -- Insert negative purchase to expire class cards
-	INSERT INTO purchases ("UserId", quantity, method, notes, "createdAt", "updatedAt")
+	INSERT INTO purchases (user_id, quantity, method, notes, "createdAt", "updatedAt")
 	SELECT
 	  _id,
 	  - balance,

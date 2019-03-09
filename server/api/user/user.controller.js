@@ -107,11 +107,11 @@ export async function index(req, res) {
       ${sqlForAdmins}
       (COALESCE(purchase.purchases, 0) - COALESCE(attendance.attendances, 0))::int AS balance
     FROM users "user" LEFT OUTER JOIN
-      (SELECT purchases."UserId", SUM(purchases.quantity) AS purchases FROM purchases GROUP BY purchases."UserId") purchase
-      ON "user"._id = purchase."UserId"
+      (SELECT purchases.user_id, SUM(purchases.quantity) AS purchases FROM purchases GROUP BY purchases.user_id) purchase
+      ON "user"._id = purchase.user_id
       LEFT OUTER JOIN
-        (SELECT attendances."UserId", COUNT(attendances._id) AS attendances FROM attendances GROUP BY attendances."UserId") attendance
-        ON "user"._id = attendance."UserId"
+        (SELECT attendances.user_id, COUNT(attendances._id) AS attendances FROM attendances GROUP BY attendances.user_id) attendance
+        ON "user"._id = attendance.user_id
     WHERE "user"."firstName" ILIKE $1 || '%' OR "user"."lastName" ILIKE $1 || '%' OR "user"."email" ILIKE $1 || '%'
     ORDER BY "user"."lastName", "user"."firstName";`;
   const { rows } = await db.query(sql, [req.query.filter]);
