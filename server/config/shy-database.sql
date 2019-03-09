@@ -266,8 +266,11 @@ CREATE TABLE IF NOT EXISTS public.attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
   user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
+  location_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT
   location character varying(20) NOT NULL,
+  class_id integer NOT NULL REFERENCES classes(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
   "className" character varying(80) NOT NULL,
+  teacher_id integer NOT NULL REFERENCES users(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
   teacher character varying(40) NOT NULL,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
@@ -280,6 +283,9 @@ CREATE INDEX attendances_user_id
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_class
   ON public.attendances USING btree (location, teacher, "className", attended);
+
+CREATE INDEX attendances_fkeys
+  ON public.attendances USING btree (location_id, teacher_id, class_id, attended);
 
 -- DROP INDEX public.attendances_attended;
 CREATE INDEX attendances_student_history
