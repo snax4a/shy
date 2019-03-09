@@ -293,8 +293,8 @@ CREATE INDEX attendances_teacher_history
 CREATE TRIGGER updated_at BEFORE UPDATE ON public."Attendances" FOR EACH ROW
   EXECUTE PROCEDURE public.updated_at();
 
--- DROP TABLE public."Orders";
-CREATE TABLE IF NOT EXISTS public."Orders" (
+-- DROP TABLE public.orders;
+CREATE TABLE IF NOT EXISTS public.orders (
   "orderNumber" character varying(12) PRIMARY KEY,
   amount numeric(10,2) NOT NULL,
   gift boolean NOT NULL,
@@ -321,18 +321,18 @@ CREATE TABLE IF NOT EXISTS public."Orders" (
 
 -- DROP INDEX public.orders_order_number;
 CREATE INDEX orders_order_number
-  ON public."Orders" USING btree ("orderNumber");
+  ON public.orders USING btree ("orderNumber");
 
 -- DROP INDEX public.orders_purchaser_email;
 CREATE INDEX orders_purchaser_email
-  ON public."Orders" USING btree ("purchaserEmail");
+  ON public.orders USING btree ("purchaserEmail");
 
 -- DROP INDEX public.orders_recipient_email;
 CREATE INDEX orders_recipient_email
-  ON public."Orders" USING btree ("recipientEmail");
+  ON public.orders USING btree ("recipientEmail");
 
--- DROP TRIGGER updated_at ON public."Orders";
-CREATE TRIGGER updated_at BEFORE UPDATE ON public."Orders"
+-- DROP TRIGGER updated_at ON public.orders;
+CREATE TRIGGER updated_at BEFORE UPDATE ON public.orders
   FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
 
 -- DROP SEQUENCE public.purchases_seq;

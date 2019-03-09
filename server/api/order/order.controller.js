@@ -235,7 +235,7 @@ const saveToDB = async confirmation => {
     JSON.stringify(confirmation.customFields.items)
   ];
 
-  const orderInsertSQL = `INSERT INTO "Orders" (
+  const orderInsertSQL = `INSERT INTO orders (
     "orderNumber", amount, instructions, gift, "sendVia",
     "purchaserFirstName", "purchaserLastName", "purchaserEmail",
     "purchaserPhone", last4, "recipientFirstName", "recipientLastName",
@@ -293,7 +293,7 @@ export async function create(req, res) {
 }
 
 export async function find(req, res) {
-  const sql = `SELECT * FROM "Orders"
+  const sql = `SELECT * FROM orders
     WHERE "purchaserEmail" ILIKE $1 || '%' OR "recipientEmail" ILIKE $1 || '%' OR "orderNumber" ILIKE $1 || '%' OR "purchaserLastName" ILIKE $1 || '%'
     ORDER BY "createdAt" DESC;`;
   const { rows } = await db.query(sql, [req.query.find]);
