@@ -34,7 +34,7 @@ function nest(flatAnnouncements) {
 
 // Returns list of Announcements
 export async function index(req, res) {
-  const { rows } = await db.query('SELECT _id, section, title, description, expires FROM "Announcements" WHERE expires > CURRENT_DATE ORDER BY section, expires;', []);
+  const { rows } = await db.query('SELECT _id, section, title, description, expires FROM announcements WHERE expires > CURRENT_DATE ORDER BY section, expires;', []);
   return req.query.flat ? res.status(200).send(rows) : res.status(200).send(nest(rows));
 }
 
@@ -44,9 +44,9 @@ export async function upsertAnnouncement(announcement) {
   let arrParams = [section, title, description, new Date(expires).toISOString()];
   let sql;
   if(isNew) {
-    sql = 'INSERT INTO "Announcements" (section, title, description, expires) VALUES ($1, $2, $3, $4::date) RETURNING _id;';
+    sql = 'INSERT INTO announcements (section, title, description, expires) VALUES ($1, $2, $3, $4::date) RETURNING _id;';
   } else {
-    sql = 'UPDATE "Announcements" SET section = $2, title = $3, description = $4, expires = $5::date WHERE _id = $1 RETURNING _id;';
+    sql = 'UPDATE announcements SET section = $2, title = $3, description = $4, expires = $5::date WHERE _id = $1 RETURNING _id;';
     arrParams.unshift(_id);
   }
   const { rows } = await db.query(sql, arrParams);
@@ -62,7 +62,7 @@ export async function upsert(req, res) {
 // Deletes announcement (admin-only)
 export async function destroy(req, res) {
   const _id = req.params.id;
-  const sql = 'DELETE FROM "Announcements" WHERE _id = $1;';
+  const sql = 'DELETE FROM announcements WHERE _id = $1;';
   await db.query(sql, [_id]);
   res.status(204).send({ message: `Announcement ${_id} deleted.`});
 }

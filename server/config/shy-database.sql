@@ -232,8 +232,8 @@ CREATE TRIGGER updated_at BEFORE UPDATE ON public.locations
 --DROP SEQUENCE public.announcements_seq;
 CREATE SEQUENCE IF NOT EXISTS public.announcements_seq;
 
--- DROP TABLE public."Announcements";
-CREATE TABLE IF NOT EXISTS public."Announcements" (
+-- DROP TABLE public.announcements;
+CREATE TABLE IF NOT EXISTS public.announcements (
   _id integer PRIMARY KEY DEFAULT nextval('announcements_seq'::regclass),
   section character varying(100) NOT NULL,
   title character varying(100) NOT NULL,
@@ -245,16 +245,16 @@ CREATE TABLE IF NOT EXISTS public."Announcements" (
 
 -- DROP INDEX public.announcements_expires;
 CREATE INDEX IF NOT EXISTS announcements_expires
-  ON public."Announcements" USING btree (expires);
+  ON public.announcements USING btree (expires);
 
 -- DROP INDEX public.announcements_section_title;
 CREATE INDEX IF NOT EXISTS announcements_section_title
-  ON public."Announcements" USING btree (section, title);
+  ON public.announcements USING btree (section, title);
 
--- DROP TRIGGER updated_at ON public."Announcements";
+-- DROP TRIGGER updated_at ON public.announcements;
 CREATE TRIGGER updated_at
   BEFORE UPDATE 
-  ON public."Announcements"
+  ON public.announcements
   FOR EACH ROW
   EXECUTE PROCEDURE public.updated_at();
 
