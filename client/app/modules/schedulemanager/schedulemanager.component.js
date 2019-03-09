@@ -45,14 +45,16 @@ export class ScheduleManagerComponent {
   }
 
   scheduleItemCreate() {
+    const today = new Date();
+    const defaultTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours());
     let scheduleItem = {
       _id: 0,
-      location: 'Squirrel Hill',
-      day: 1,
-      teacher: 'Leta Koontz',
-      title: 'Ashtanga Yoga',
-      startTime: new Date(),
-      endTime: new Date(),
+      location_id: 1,
+      day: today.getDay() + 1,
+      teacher_id: 29738,
+      class_id: 1,
+      startTime: defaultTime,
+      endTime: defaultTime,
       canceled: false
     };
 
