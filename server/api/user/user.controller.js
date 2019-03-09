@@ -130,7 +130,7 @@ export async function getUser(field, fieldValue) {
 }
 
 export async function getTeachers(req, res) {
-  const sql = `SELECT "displayOrder", "firstName", "lastName", bio, url, "imageId"
+  const sql = `SELECT _id, "displayOrder", "firstName", "lastName", bio, url, "imageId"
     FROM "Users" WHERE role IN ('admin', 'teacher') ORDER BY "displayOrder", "lastName", "firstName";`;
   const { rows } = await db.query(sql, []);
   return res.status(200).send(rows);

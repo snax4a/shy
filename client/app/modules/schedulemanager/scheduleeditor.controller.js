@@ -26,6 +26,13 @@ export class ScheduleEditorController {
       // Set _id to generated one (for inserts) or existing (for updates)
       this.scheduleItem._id = await this.classService.scheduleItemUpsert(this.scheduleItem);
 
+      // Update looked up names for list so we don't need to refresh the page
+      const thisTeacher = this.teachers.find(x => x._id === this.scheduleItem.teacher_id);
+      this.scheduleItem.teacher = `${thisTeacher.firstName} ${thisTeacher.lastName}`;
+      const thisLocation = this.locations.find(x => x._id === this.scheduleItem.location_id);
+      this.scheduleItem.location = thisLocation.name;
+      const thisClass = this.classes.find(x => x._id === this.scheduleItem.class_id);
+      this.scheduleItem.title = thisClass.name;
       // Graft the edited scheduled item back the original
       Object.assign(this.scheduleItemBeforeEdits, this.scheduleItem);
       this.$uibModalInstance.close();

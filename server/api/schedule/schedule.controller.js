@@ -12,27 +12,27 @@ export async function index(req, res) {
   //   ) T1
   //   GROUP BY location
   // ) T2
-  const sql = 'SELECT _id, location, day, title, teacher, "startTime", "endTime", canceled FROM schedules ORDER BY location, day, "startTime";';
+  const sql = 'SELECT * FROM schedules_index;';
   const { rows } = await db.query(sql, []);
   res.status(200).send(rows);
 }
 
 // Updates or creates schedule item (admin-only)
 export async function upsert(req, res) {
-  const { _id, location, day, title, teacher, startTime, endTime, canceled } = req.body;
-  let arrParams = [location, day, title, teacher, startTime, endTime, canceled];
+  const { _id, location_id, day, class_id, teacher_id, startTime, endTime, canceled } = req.body;
+  let arrParams = [location_id, day, class_id, teacher_id, startTime, endTime, canceled];
   let sql;
   const isNew = _id === 0;
   if(isNew) {
     sql = `INSERT INTO schedules
-      (location, day, title, teacher, "startTime", "endTime", canceled)
+      (location_id, day, class_id, teacher_id, "startTime", "endTime", canceled)
       VALUES ($1, $2, $3, $4, $5::time without time zone, $6::time without time zone, $7)
       RETURNING _id;`;
   } else {
     arrParams.push(_id);
     sql = `
       UPDATE schedules
-        SET location = $1, day = $2, title = $3, teacher = $4,
+        SET location_id = $1, day = $2, class_id = $3, teacher_id = $4,
         "startTime" = $5::time without time zone,
         "endTime" = $6::time without time zone,
         canceled = $7
