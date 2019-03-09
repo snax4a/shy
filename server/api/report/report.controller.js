@@ -53,7 +53,8 @@ export async function index(req, res) {
           attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
         GROUP BY teacher, "className", attended) a
       GROUP by teacher
-      ORDER BY teacher;`
+      ORDER BY teacher;`,
+    studentsWhoOwe: 'SELECT student, email, balance, last_attended, last_purchase from students_who_owe order by balance LIMIT 10;'
   };
 
   const reportName = req.query.name;

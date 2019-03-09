@@ -12,14 +12,17 @@
         td {{ teacherpay.teacher }}
         td {{ teacherpay.count }}
         td {{ teacherpay.amount | currency:"$":0 }}
-    h2 Top 10 Students (Last 90 days)
+    h2 Students Who Owe
     table.table.table-condensed.table-striped
       tr
         th Name
-        th #
-      tr(ng-repeat='top10student in $ctrl.top10students')
-        td {{ top10student.lastName }}, {{ top10student.firstName }}
-        td {{ top10student.count }}
+        th Last Class
+        th Balance
+      tr(ng-repeat='student in $ctrl.studentsWhoOwe')
+        td
+          a(href='mailto:{{ student.email }}') {{ student.student }}
+        td {{ student.last_attended | date:'shortDate' }}
+        td {{ student.balance }}
   .col-md-6
     h2 Attendance by location (Last 90 days)
     br

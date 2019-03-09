@@ -13,7 +13,7 @@ export class DashboardComponent {
       this.top10classes(),
       this.bottom10classes(),
       this.attendancelast18m(),
-      this.top10students(),
+      this.studentsWhoOwe(),
       this.schoolspie()
     ]);
   }
@@ -36,6 +36,13 @@ export class DashboardComponent {
     return this.dashboardService.reportGet('top10students')
       .then(data => {
         this.top10students = data;
+      });
+  }
+
+  studentsWhoOwe() {
+    return this.dashboardService.reportGet('studentsWhoOwe')
+      .then(data => {
+        this.studentsWhoOwe = data;
       });
   }
 
