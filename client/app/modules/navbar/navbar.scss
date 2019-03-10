@@ -3,6 +3,10 @@
 	margin-bottom: 0px;
 }
 
+.navbar .container {
+	padding-top: env(safe-area-inset-top);
+}
+
 .navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .dropdown-menu > li > a:hover {
 	color: orange;
 }

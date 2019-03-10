@@ -1,11 +1,11 @@
 # Product Backlog
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
 * [High] Normalize attendances
-* [Bug] Hamburger menu appears in safe area on iPhone 10+ and is not accessible
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 * [Low] Change apple-startup-images to be screenshots for devices. Unless images generated on desktop can match devices, give up.
 
 <a name="1.0.18"></a>
+* [Bug] Hamburger menu appeared in safe area on iPhone 10+ and is not accessible
 * [Bug] Added new Schedule Item - new preselected values and saving with blanks doesn't display errors
 * Made data updates to eliminate old locations and classes, added foreign keys to old attendance records
 * Added Students Who Owe to Dashboard
