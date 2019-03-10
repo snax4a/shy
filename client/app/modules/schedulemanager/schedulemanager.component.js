@@ -51,7 +51,7 @@ export class ScheduleManagerComponent {
       _id: 0,
       location_id: 1,
       day: today.getDay() + 1,
-      teacher_id: undefined, //29738,
+      teacher_id: 29738,
       class_id: 1,
       startTime: defaultTime,
       endTime: defaultTime,

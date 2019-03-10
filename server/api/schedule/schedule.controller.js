@@ -1,5 +1,15 @@
 import db from '../../utils/db';
 
+class ScheduleError extends Error {
+  constructor(message, path, status) {
+    super(message);
+    this.message = message;
+    this.status = status;
+    this.name = 'ScheduleError';
+    this.errors = [{ message, path }];
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 // Gets a list of Schedule items
 export async function index(req, res) {
   // Not used but a great way to let PostgreSQL create the nested JSON
@@ -38,8 +48,13 @@ export async function upsert(req, res) {
         canceled = $7
       WHERE _id = $8 RETURNING _id;`;
   }
-  const { rows } = await db.query(sql, arrParams);
-  return res.status(200).send({ _id: isNew ? rows[0]._id : _id });
+  try {
+    const { rows } = await db.query(sql, arrParams);
+    return res.status(200).send({ _id: isNew ? rows[0]._id : _id });
+  } catch(err) {
+    let fields = err.message.match(/(teacher|location|class)/ig);
+    throw new ScheduleError(err.message, fields[0], 503);
+  }
 }
 
 export async function destroy(req, res) {

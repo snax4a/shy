@@ -11,7 +11,7 @@ class UserError extends Error {
     this.message = message;
     this.status = status;
     this.name = 'UserError';
-    this.errors = [{message, path}];
+    this.errors = [{ message, path }];
     Error.captureStackTrace(this, this.constructor);
   }
 }
