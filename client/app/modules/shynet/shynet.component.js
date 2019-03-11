@@ -42,7 +42,7 @@ export class SHYnetComponent {
       .then(() => {
         // For usermanager to update balance
         this.user = {
-          _id: attendee.UserId,
+          _id: attendee.userId,
           ts: new Date().getTime() // forces user to be different even if _id is not
         };
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array

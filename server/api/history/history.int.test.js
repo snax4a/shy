@@ -34,7 +34,7 @@ describe('History API:', () => {
   // history.controller.js:update
   describe('POST /api/history', () => {
     let newHistoryItem = {
-      UserId: 24601, // should dynamically create user
+      userId: 24601, // should dynamically create user
       type: 'P',
       quantity: 3,
       method: 'Cash',
@@ -68,7 +68,7 @@ describe('History API:', () => {
   describe('PUT /api/history/:id', () => {
     let newHistoryItem = {
       _id: 295707,
-      UserId: 24601, // should dynamically create user
+      userId: 24601, // should dynamically create user
       type: 'P',
       quantity: 3,
       method: 'Cash',

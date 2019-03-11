@@ -12,7 +12,7 @@ export class ClassAdderController {
     const now = new Date();
     this.purchase = {
       type: 'P',
-      UserId: this.userGettingClasses._id,
+      userId: this.userGettingClasses._id,
       quantity: 1,
       method: 'Cash',
       notes: '',

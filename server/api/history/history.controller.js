@@ -6,7 +6,7 @@ export async function attendees(req, res) {
   const sql = `
     SELECT
       attendances._id,
-      attendances.user_id,
+      attendances.user_id AS "userId",
       INITCAP(users."lastName" || ', ' || users."firstName") AS name
     FROM
       attendances INNER JOIN users ON attendances.user_id = users._id
@@ -25,7 +25,7 @@ export async function index(req, res) {
   const { id } = req.params;
   const sql = `
     SELECT history._id,
-      history.user_id,
+      history."userId",
       history.type,
       history."when",
       history.location,
@@ -35,10 +35,10 @@ export async function index(req, res) {
       history.notes,
       history.what,
       history.quantity,
-      (SUM(history.quantity) OVER (PARTITION BY history.user_id ORDER BY history."when"))::integer AS balance
+      (SUM(history.quantity) OVER (PARTITION BY history."userId" ORDER BY history."when"))::integer AS balance
     FROM (
       SELECT attendances._id,
-        attendances.user_id,
+        attendances.user_id AS "userId",
         'A'::text AS type,
         attendances.attended AS when,
         attendances.location,
@@ -52,7 +52,7 @@ export async function index(req, res) {
       WHERE attendances.user_id = $1
       UNION
       SELECT purchases._id,
-        purchases.user_id,
+        purchases.user_id AS "userId",
         'P'::text AS type,
         purchases.purchased AS "when",
         NULL AS location,
@@ -64,7 +64,7 @@ export async function index(req, res) {
         purchases.quantity
       FROM purchases
       WHERE purchases.user_id = $1) history
-    ORDER BY history.user_id, history."when" DESC;`;
+    ORDER BY history."userId", history."when" DESC;`;
 
   const { rows } = await db.query(sql, [id]);
   res.status(200).send(rows);
@@ -72,8 +72,8 @@ export async function index(req, res) {
 
 // Create history item (Attendance or Purchase) for a user
 export async function create(req, res) {
-  const { UserId, type } = req.body;
-  let arrParams = [UserId];
+  const { userId, type } = req.body;
+  let arrParams = [userId];
   let sql;
 
   if(type == 'P') {
@@ -94,8 +94,8 @@ export async function create(req, res) {
 
 // Update history item based on its _id and type
 export async function update(req, res) {
-  const { _id, type, UserId } = req.body;
-  let arrParams = [_id, UserId];
+  const { _id, type, userId } = req.body;
+  let arrParams = [_id, userId];
   let sql;
 
   if(type == 'P') {

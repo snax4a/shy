@@ -26,7 +26,7 @@ export class UserManagerComponent {
   $onChanges(changes) {
     // Skip if first firing of $onChanges or users array is empty
     if(!changes.user.currentValue || this.users.length == 0) return;
-    // Get UserId that was deleted (ignoring ts property)
+    // Get userId that was deleted (ignoring ts property)
     const userId = changes.user.currentValue._id;
     // Find that userId in displayed users (if they are)
     const index = this.users.findIndex(element => element._id === userId);
@@ -157,7 +157,7 @@ export class UserManagerComponent {
     }
 
     // Check to see if student is already in this.parent.attendees array
-    const found = this.parent.attendees.findIndex(element => element.UserId === user._id) !== -1;
+    const found = this.parent.attendees.findIndex(element => element.userId === user._id) !== -1;
     if(found) {
       this.alerts.push({
         type: 'alert-warning',
@@ -168,7 +168,7 @@ export class UserManagerComponent {
 
     const historyItem = {
       type: 'A',
-      UserId: user._id,
+      userId: user._id,
       attended: classDate,
       location,
       className,
@@ -237,7 +237,7 @@ export class UserManagerComponent {
     this.historyService.historyItemDelete(historyItem)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
-        let elementPos = this.users.map(x => x._id).indexOf(historyItem.UserId);
+        let elementPos = this.users.map(x => x._id).indexOf(historyItem.userId);
         let userFound = this.users[elementPos];
         userFound.balance -= historyItem.quantity;
         return userFound.balance;
