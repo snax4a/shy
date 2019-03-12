@@ -1,25 +1,20 @@
 .banner(tabindex='-1')
   .container
     .row
-      .col-lg-1.visible-lg
-      .col-lg-3.col-sm-4
+      .col-lg-2.col-sm-3.col-sm-offset-3.hidden-xs
         h2 Teacher Training
         h3 Spread the love
         a.btn.btn-warning(href='/teachertraining', alt='Yoga Teacher Training (in full)', type='button') More info
-      br.visible-xs
-      .col-lg-1.visible-lg
-      .col-lg-3.col-sm-4
-        h2 Classes
-        h3 Show yourself some love
+      .col-lg-offset-1.col-md-2.col-sm-3.col-sm-offset-0.col-xs-offset-6.passes
+        h2 Class Passes
+        h3 Treat yourself
         .btn-group
           a.btn.btn-warning(ng-click='$ctrl.addItem(4)', alt='Twelve class pass', type='button') 12
           a.btn.btn-warning(ng-click='$ctrl.addItem(2)', alt='Four class pass', type='button') 4
           a.btn.btn-warning(ng-click='$ctrl.addItem(1)', alt='One class pass', type='button') 1
-      br.visible-xs
-      .col-lg-1.visible-lg
-      .col-lg-3.col-sm-4
+      .col-lg-2.col-md-offset-1.col-sm-3.hidden-xs
         h2 Gift Cards
-        h3 Give the gift of good health
+        h3 The gift of good health
         .btn-group
           a.btn.btn-warning(ng-click='$ctrl.addItem(8)', alt='Gift card - Twelve classes', type='button') 12
           a.btn.btn-warning(ng-click='$ctrl.addItem(6)', alt='Gift card - Four classes', type='button') 4

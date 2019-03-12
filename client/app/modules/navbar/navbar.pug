@@ -7,16 +7,24 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/', ng-class='{active: $ctrl.isActive("/")}') Schoolhouse Yoga
-        //- img(src='/assets/images/logo.svg', srcset='/assets/images/logo.svg', alt='Schoolhouse Yoga Pittsburgh seal' style='height:170px; width: 170px;')
+      a.navbar-brand(href='/', ng-class='{active: $ctrl.isActive("/")}') 
+        img(src='/assets/images/logo-192x192.png', srcset='/assets/images/logo.svg', alt='Schoolhouse Yoga Pittsburgh seal' style='height:170px; width: 170px;')
     #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
         li(ng-class='{active: $ctrl.isActive("/classes")}')
           a(ng-href='/classes', ng-click='$ctrl.isCollapsed = true', itemprop='url') Classes
         li(ng-class='{active: $ctrl.isActive("/workshops")}')
           a(ng-href='/workshops', ng-click='$ctrl.isCollapsed = true', itemprop='url') Workshops
+        li.visible-xs(ng-class='{active: $ctrl.isActive("/teachertraining")}')
+          a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true', itemprop='url') 200-hour Teacher Training
+        li.visible-xs(ng-class='{active: $ctrl.isActive("/locations")}')
+          a(ng-href='/locations', ng-click='$ctrl.isCollapsed = true', itemprop='url') Directions
+        li.visible-xs(ng-class='{active: $ctrl.isActive("/teachers")}')
+          a(ng-href='/teachers', ng-click='$ctrl.isCollapsed = true', itemprop='url') Teachers
         li(ng-if='$ctrl.Cart.getTotalItems() > 0', ng-class='{active: $ctrl.isActive("/cart")}')
-          a(ng-href='/checkout', ng-click='$ctrl.isCollapsed = true', itemprop='url') Cart 
+          a(ng-href='/checkout', ng-click='$ctrl.isCollapsed = true', itemprop='url')
+            span.fas.fa-shopping-cart 
+            | &nbsp;Cart 
             span.badge {{ $ctrl.Cart.getTotalItems() }}
         li(ng-show='$ctrl.isAdmin()', ng-class='{active: $ctrl.isActive("/admin")}')
           a(href='/admin', itemprop='url') Admin

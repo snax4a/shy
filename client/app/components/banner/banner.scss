@@ -2,7 +2,7 @@
 	color: $shy-lavender;
   background-color:  $brand-primary;
   padding: 20px 0;
-	margin-bottom: 0;
+	margin-bottom: 30px;
 
 	h2 {
 		color: #fff;
@@ -15,4 +15,10 @@
 		margin-top: 0;
 		margin-bottom: 7px;
 	}
+}
+
+@media (max-width: 768px) {
+	.passes {
+		text-align: right;
+	 } 
 }
