@@ -28,6 +28,7 @@ const paths = {
   client: {
     assets: `${clientPath}/assets/**/*`,
     images: `${clientPath}/assets/images/**/!(logo*)`, // Don't cache-bust logo
+    videos: `${clientPath}/assets/videos/*.mp4`,
     svgIcon: `${clientPath}/assets/images/logo.svg`,
     revManifest: `${clientPath}/assets/rev-manifest.json`,
     scripts: [`${clientPath}/**/!(*.spec|*.mock|*.test).js`],
@@ -317,6 +318,12 @@ gulp.task('dist:client:assets:fonts', () =>
     .pipe(gulp.dest(`${clientPath}/assets/fonts`))
 );
 
+// Currently, copy only the SHY video
+gulp.task('dist:client:assets:videos', () =>
+  gulp.src(paths.client.videos)
+    .pipe(gulp.dest(`${clientPath}/assets/videos`))
+);
+
 // Files to copy to dist without processing
 gulp.task('dist:root', () =>
   gulp.src([
@@ -488,7 +495,7 @@ gulp.task('build',
     'dist:reset',
     'client:inject:scss',
     'dist:server:transpile',
-    gulp.parallel('dist:client:assets:images', 'dist:client:favicons', 'dist:client:assets:fonts'),
+    gulp.parallel('dist:client:assets:images', 'dist:client:favicons', 'dist:client:assets:fonts', 'dist:client:assets:videos'),
     gulp.parallel('dist:root', 'dist:server', 'dist:client', 'webpack'),
     'dist:client:image:cache-busting',
     'dist:client:assets:images:icons'
