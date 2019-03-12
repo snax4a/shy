@@ -16,28 +16,6 @@ export class NavbarComponent {
     this.isAdminOrTeacher = this.Auth.isAdminOrTeacherSync;
     this.getCurrentUser = this.Auth.getCurrentUserSync;
     this.isCollapsed = true;
-    this.menu = [
-      {
-        title: 'Schedule',
-        link: '/classes'
-      },
-      {
-        title: 'Workshops',
-        link: '/workshops'
-      },
-      // {
-      //   title: 'Locations',
-      //   link: '/locations'
-      // },
-      // {
-      //   title: 'Teachers',
-      //   link: '/teachers'
-      // },
-      {
-        title: 'Cart',
-        link: '/checkout'
-      }
-    ];
   }
 
   isActive(route) {
