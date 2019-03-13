@@ -352,7 +352,8 @@ gulp.task('build:startup-images', () =>
 // dist/client/assets/images must exist first as sharp won't create directories
 gulp.task('dist:client:assets:images:icons', async() => {
   const render = renderConfig => {
-    const image = sharp(paths.client.svgIcon);
+    //const image = sharp(paths.client.svgIcon);
+    const image = sharp('client/assets/images/logo.svg');
     const { width } = renderConfig; // required properties
 
     if(!width) throw new Error('Gulp error in \'dist:client:assets:images:icons\': Width is a required parameter.');
@@ -388,7 +389,6 @@ gulp.task('dist:client:assets:images:icons', async() => {
 
     return image.toFile(name);
   };
-
 
   const themeBackground = { background: '#5f4884' }; // Lavender when a background is needed
   const android = { }; // Android devices use the defaults
