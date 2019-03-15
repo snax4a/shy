@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-static-top(itemscope='', itemtype='http://schema.org/SiteNavigationElement')
+.navbar.navbar-default.navbar-static-top
   .container
     .navbar-header
       button.navbar-toggle(type='button', ng-click='$ctrl.isCollapsed = !$ctrl.isCollapsed')
@@ -12,27 +12,27 @@
     #navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
         li(ng-class='{active: $ctrl.isActive("/classes")}')
-          a(ng-href='/classes', ng-click='$ctrl.isCollapsed = true', itemprop='url') Classes
+          a(ng-href='/classes', ng-click='$ctrl.isCollapsed = true') Classes
         li(ng-class='{active: $ctrl.isActive("/workshops")}')
-          a(ng-href='/workshops', ng-click='$ctrl.isCollapsed = true', itemprop='url') Workshops
+          a(ng-href='/workshops', ng-click='$ctrl.isCollapsed = true') Workshops
         li.visible-xs(ng-class='{active: $ctrl.isActive("/teachertraining")}')
-          a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true', itemprop='url') 200-hour Teacher Training
+          a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true') 200-hour Teacher Training
         li.visible-xs(ng-class='{active: $ctrl.isActive("/locations")}')
-          a(ng-href='/locations', ng-click='$ctrl.isCollapsed = true', itemprop='url') Directions
+          a(ng-href='/locations', ng-click='$ctrl.isCollapsed = true') Directions
         li.visible-xs(ng-class='{active: $ctrl.isActive("/teachers")}')
-          a(ng-href='/teachers', ng-click='$ctrl.isCollapsed = true', itemprop='url') Teachers
+          a(ng-href='/teachers', ng-click='$ctrl.isCollapsed = true') Teachers
         li(ng-if='$ctrl.Cart.getTotalItems() > 0', ng-class='{active: $ctrl.isActive("/cart")}')
-          a(ng-href='/checkout', ng-click='$ctrl.isCollapsed = true', itemprop='url')
+          a(ng-href='/checkout', ng-click='$ctrl.isCollapsed = true')
             span.fas.fa-shopping-cart 
             | &nbsp;Cart 
             span.badge {{ $ctrl.Cart.getTotalItems() }}
         li(ng-show='$ctrl.isAdmin()', ng-class='{active: $ctrl.isActive("/admin")}')
-          a(href='/admin', itemprop='url') Admin
+          a(href='/admin') Admin
         li(ng-show='$ctrl.isAdminOrTeacher()', ng-class='{active: $ctrl.isActive("/shynet")}')
-          a(href='/shynet', itemprop='url') SHYnet
+          a(href='/shynet') SHYnet
       ul.nav.navbar-nav.navbar-right
         li(ng-show='!$ctrl.isLoggedIn()')
-          a(href='/login', itemprop='url') Login
+          a(href='/login') Login
         li(uib-dropdown='', ng-show='$ctrl.isLoggedIn()')
           a(id='username', href='#', uib-dropdown-toggle='') 
             span.fas.fa-user 

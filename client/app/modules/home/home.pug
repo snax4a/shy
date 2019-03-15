@@ -3,12 +3,12 @@
     .col-md-4
       .callout(ng-if='($ctrl.announcementList).length > 0')
         h1.heading Announcements
-        div(ng-repeat='item in $ctrl.announcementList', itemscope='', itemtype='http://schema.org/Article')
+        div(ng-repeat='item in $ctrl.announcementList')
           h2(ng-if='item.announcements.length > 0') {{item.section}}
           p(ng-repeat='announcement in item.announcements')
-            b(itemprop='name headline') {{ announcement.title }} 
+            b {{ announcement.title }} 
             | - 
-            span(ng-bind-html='announcement.description', itemprop='articleBody')
+            span(ng-bind-html='announcement.description')
         br
         a.btn.btn-warning(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') Watch our video!
     .col-md-8
@@ -19,6 +19,6 @@
     h1.col-md-6 Frequently-asked questions
   .row
     .faqs
-      article(ng-repeat='faq in $ctrl.faqs', itemscope='', itemtype='http://schema.org/Article')
-        h2(ng-bind-html='faq.question', itemprop='name headline')
-        p(ng-bind-html='faq.answer', itemprop='articleBody')
+      article(ng-repeat='faq in $ctrl.faqs')
+        h2(ng-bind-html='faq.question')
+        p(ng-bind-html='faq.answer')

@@ -76,7 +76,8 @@
         };
       
         return t;
-      }(document, "script", "twitter-wjs"));</script>
+      }(document, "script", "twitter-wjs"));
+    </script>
     <script type="application/ld+json">
       {
         "@context": "http://schema.org/",
@@ -98,7 +99,7 @@
             "email": "info@schoolhouseyoga.com",
             "brand": {
               "@type": "Brand",
-              "name": "Schoolhouse Yoga"
+              "name": "Schoolhouse Yoga Pittsburgh"
             },
             "address": {
               "@type": "PostalAddress",
@@ -246,31 +247,61 @@
               "name": "Yoga Class Passes",
               "itemListElement": [
                 {
-                  "@type": "Offer",
+                  "@type": "Product",
                   "name": "Twelve class pass",
-                  "price": "100.00",
-                  "priceCurrency": "USD",
-                  "priceValidUntil": "2019-03-01",
-                  "availability": "http://schema.org/InStock",
-                  "url": "https://www.schoolhouseyoga.com/buy/4"
+                  "image": "https://www.schoolhouseyoga.com/assets/images/home1.jpg",
+                  "description": "Twelve yoga classes at Schoolhouse Yoga. Good for 6 months.",
+                  "sku": 3,
+                  "brand": {
+                    "@type": "Brand",
+                    "name": "Schoolhouse Yoga Pittsburgh"
+                  },
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "100.00",
+                    "priceCurrency": "USD",
+                    "priceValidUntil": "2019-03-31",
+                    "availability": "http://schema.org/InStock",
+                    "url": "https://www.schoolhouseyoga.com/buy/4"
+                  }
                 },
                 {
-                  "@type": "Offer",
-                  "name": "Eight class pass",
-                  "price": "80.00",
-                  "priceCurrency": "USD",
-                  "priceValidUntil": "2019-03-01",
-                  "availability": "http://schema.org/InStock",
-                  "url": "https://www.schoolhouseyoga.com/buy/3"
-                },
-                {
-                  "@type": "Offer",
+                  "@type": "Product",
                   "name": "Four class pass",
-                  "price": "50.00",
-                  "priceCurrency": "USD",
-                  "priceValidUntil": "2019-03-01",
-                  "availability": "http://schema.org/InStock",
-                  "url": "https://www.schoolhouseyoga.com/buy/2"
+                  "description": "Four yoga classes at Schoolhouse Yoga. Good for 6 months.",
+                  "image": "https://www.schoolhouseyoga.com/assets/images/home2.jpg",
+                  "sku": 2,
+                  "brand": {
+                    "@type": "Brand",
+                    "name": "Schoolhouse Yoga Pittsburgh"
+                  },
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "50.00",
+                    "priceCurrency": "USD",
+                    "priceValidUntil": "2019-03-31",
+                    "availability": "http://schema.org/InStock",
+                    "url": "https://www.schoolhouseyoga.com/buy/2"
+                  }
+                },
+                {
+                  "@type": "Product",
+                  "name": "One class pass",
+                  "description": "One yoga class at Schoolhouse Yoga. Good for 6 months.",
+                  "image": "https://www.schoolhouseyoga.com/assets/images/home3.jpg",
+                  "sku": 1,
+                  "brand": {
+                    "@type": "Brand",
+                    "name": "Schoolhouse Yoga Pittsburgh"
+                  },
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "15.00",
+                    "priceCurrency": "USD",
+                    "priceValidUntil": "2019-03-31",
+                    "availability": "http://schema.org/InStock",
+                    "url": "https://www.schoolhouseyoga.com/buy/1"
+                  }
                 }
               ]
             }
@@ -295,7 +326,7 @@
       }
     </script>
   <link href="/app.css" rel="stylesheet"></head>
-  <body itemscope itemtype="http://schema.org/WebPage">
+  <body>
     <navbar></navbar>
     <banner></banner>
     <div ng-view=""></div>
