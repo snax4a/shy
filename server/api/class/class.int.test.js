@@ -25,11 +25,11 @@ describe('Class API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // class.controller.js:upsert
   describe('PUT /api/class/:id', () => {
@@ -63,7 +63,7 @@ describe('Class API:', () => {
   });
 
   // class.controller.js:index
-  describe('GET /api/class', () =>
+  describe('GET /api/class', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/class')
@@ -73,8 +73,8 @@ describe('Class API:', () => {
           const classes = res.body;
           expect(Array.isArray(classes)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // class.controller.js:destroy
   describe('DELETE /api/class/:id', () => {

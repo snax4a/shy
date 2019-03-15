@@ -25,11 +25,11 @@ describe('File API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // file.controller.js:upload
   describe('POST /api/file/upload', () => {
@@ -55,7 +55,7 @@ describe('File API:', () => {
   });
 
   // file.controller.js:index
-  describe('GET /api/file', () =>
+  describe('GET /api/file', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/file')
@@ -65,18 +65,18 @@ describe('File API:', () => {
           const files = res.body;
           expect(Array.isArray(files)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // file.controller.js:index
-  describe('GET /api/file/:id', () =>
+  describe('GET /api/file/:id', () => {
     test('should respond with a file', () =>
       request(app)
         .get(`/api/file/${newFileID}`)
         .expect(200)
-        .expect('Content-Type', /png/)
-    )
-  );
+        .expect('Content-Type', /svg/)
+    );
+  });
 
   // file.controller.js:destroy
   describe('DELETE /api/file/:id', () => {

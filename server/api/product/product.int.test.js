@@ -25,11 +25,11 @@ describe('Product API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // product.controller.js:upsert
   describe('PUT /api/product/:id', () => {
@@ -63,7 +63,7 @@ describe('Product API:', () => {
   });
 
   // product.controller.js:index
-  describe('GET /api/product', () =>
+  describe('GET /api/product', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/product')
@@ -73,8 +73,8 @@ describe('Product API:', () => {
           const products = res.body;
           expect(Array.isArray(products)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // announcement.controller.js:destroy
   describe('DELETE /api/product/:id', () => {

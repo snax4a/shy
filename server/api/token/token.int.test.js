@@ -3,8 +3,8 @@
 import app from '../../app';
 import request from 'supertest';
 
-describe('Token API:', () =>
-  describe('GET /api/token', () =>
+describe('Token API:', () => {
+  describe('GET /api/token', () => {
     test('should respond with a client token that is 2052 characters or more', done =>
       request(app)
         .get('/api/token')
@@ -15,6 +15,6 @@ describe('Token API:', () =>
           expect(res.text).toHaveLength(2052);
           done();
         })
-    )
-  )
-);
+    );
+  });
+});

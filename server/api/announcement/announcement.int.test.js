@@ -25,11 +25,11 @@ describe('Announcement API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // announcement.controller.js:upsert
   describe('PUT /api/announcement/:id', () => {
@@ -64,7 +64,7 @@ describe('Announcement API:', () => {
   });
 
   // announcement.controller.js:index
-  describe('GET /api/announcement', () =>
+  describe('GET /api/announcement', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/announcement')
@@ -74,8 +74,8 @@ describe('Announcement API:', () => {
           const announcements = res.body;
           expect(Array.isArray(announcements)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // announcement.controller.js:destroy
   describe('DELETE /api/announcement/:id', () => {

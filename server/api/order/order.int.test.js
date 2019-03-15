@@ -5,7 +5,7 @@ import { destroyUser } from '../user/user.controller';
 
 import * as sib from '../../utils/sendinblue'; // for mocking
 
-describe('Order API:', () =>
+describe('Order API:', () => {
   describe('POST /api/order', () => {
     let confirmation;
     const sibMock = jest.spyOn(sib, 'sibSubmit');
@@ -72,5 +72,5 @@ describe('Order API:', () =>
           expect(Array.isArray(orders)).toBe(true);
         })
     );
-  })
-);
+  });
+});

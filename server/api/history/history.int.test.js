@@ -25,11 +25,11 @@ describe('History API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // history.controller.js:update
   describe('POST /api/history', () => {

@@ -25,11 +25,11 @@ describe('Workshop API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // workshop.controller.js:upsert
   describe('PUT /api/workshop/:id', () => {
@@ -73,7 +73,7 @@ describe('Workshop API:', () => {
   });
 
   // workshop.controller.js:index
-  describe('GET /api/workshop', () =>
+  describe('GET /api/workshop', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/workshop')
@@ -83,8 +83,8 @@ describe('Workshop API:', () => {
           const workshops = res.body;
           expect(Array.isArray(workshops)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // workshop.controller.js:destroy
   describe('DELETE /api/workshop/:id', () => {

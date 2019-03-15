@@ -24,23 +24,23 @@ describe('Report API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // report.controller.js:index
-  describe('GET /api/report', () =>
+  describe('GET /api/report', () => {
     test('should respond with a 401 when not authenticated', done =>
       request(app)
         .get('/api/report/?name=top10students')
         .expect(401, done)
-    )
-  );
+    );
+  });
 
   // report.controller.js:index
-  describe('GET /api/report', () =>
+  describe('GET /api/report', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/report/?name=top10students')
@@ -51,6 +51,6 @@ describe('Report API:', () => {
           const reportResults = res.body;
           expect(Array.isArray(reportResults)).toBe(true);
         })
-    )
-  );
+    );
+  });
 });

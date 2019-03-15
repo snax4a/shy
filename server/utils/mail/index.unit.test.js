@@ -2,7 +2,7 @@
 import mail from './index';
 import * as sib from '../sendinblue';
 
-describe('EMAIL Util', () =>
+describe('EMAIL Util', () => {
   test('should call sibSubmit in server/utils/sendinblue/index.js', async() => {
     const sibMock = jest.spyOn(sib, 'sibSubmit');
     sibMock.mockImplementation(() => 'Calling sibSubmit()');
@@ -17,5 +17,5 @@ describe('EMAIL Util', () =>
     const method = 'POST';
     const url = '/v3/smtp/email';
     expect(sibMock).toHaveBeenCalledWith(method, url, testMessage);
-  })
-);
+  });
+});

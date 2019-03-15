@@ -25,11 +25,11 @@ describe('Location API:', () => {
       })
   );
 
-  describe('POST /auth/local', () =>
+  describe('POST /auth/local', () => {
     test('should authenticate the administrator and get token with length of 164', () =>
       expect(tokenAdmin).toHaveLength(164)
-    )
-  );
+    );
+  });
 
   // location.controller.js:upsert
   describe('PUT /api/location/:id', () => {
@@ -72,7 +72,7 @@ describe('Location API:', () => {
   });
 
   // location.controller.js:index
-  describe('GET /api/location', () =>
+  describe('GET /api/location', () => {
     test('should respond with JSON array', () =>
       request(app)
         .get('/api/location')
@@ -82,8 +82,8 @@ describe('Location API:', () => {
           const locations = res.body;
           expect(Array.isArray(locations)).toBe(true);
         })
-    )
-  );
+    );
+  });
 
   // announcement.controller.js:destroy
   describe('DELETE /api/location/:id', () => {
