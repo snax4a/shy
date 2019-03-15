@@ -29,12 +29,12 @@ describe('Schedule API:', () => {
   describe('PUT /api/schedule/:id', () => {
     let newScheduleItem = {
       _id: 0,
-      location: 'Test',
-      day: 1,
-      title: 'Yoga 1',
-      teacher: 'Jane Doe',
-      startTime: '2019-01-01T09:00', // date is ignored
-      endTime: '2019-01-01T10:30', // date is ignored
+      location_id: 1,
+      day: 6,
+      teacher_id: 29738,
+      class_id: 1,
+      startTime: '18:00',
+      endTime: '18:00',
       canceled: false
     };
 
