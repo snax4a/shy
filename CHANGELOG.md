@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Add hyperlinks to location from /classes for each school
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
 * [High] Normalize attendances
 * [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
