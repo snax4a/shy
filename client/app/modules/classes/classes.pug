@@ -8,11 +8,11 @@
     .col-sm-6
       table.table.table-striped.table-hover
         //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
-        tbody(ng-repeat='studio in $ctrl.classSchedule'/*, ng-model-options="{'timezone':'UTC'}"*/)
+        tbody(ng-repeat='studio in $ctrl.classSchedule')
           tr
             td.location(colspan='3')
-              a(id='{{ studio.location | htmlid }}')
-              h2.studio {{ studio.location }}
+              h2.studio
+                a(id='{{ studio.location | htmlid }}', href='/locations#{{ studio.location | htmlid }}') {{ studio.location }}
           tr(ng-repeat-start='day in studio.days')
             td.day(colspan='3') {{ day.date | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
