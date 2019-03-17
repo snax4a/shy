@@ -66,6 +66,7 @@ export class ClassService {
               classes: [
                 {
                   title: row.title,
+                  description: row.description,
                   teacher: row.teacher,
                   startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
                   endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),
@@ -84,6 +85,7 @@ export class ClassService {
             classes: [
               {
                 title: row.title,
+                description: row.description,
                 teacher: row.teacher,
                 startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
                 endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),
@@ -94,6 +96,7 @@ export class ClassService {
         } else {
           nestedScheduleItems[locationIndex].days[dayIndex].classes.push({
             title: row.title,
+            description: row.description,
             teacher: row.teacher,
             startTime: this.addTime(this.nextDateForDOW(row.day), row.startTime),
             endTime: this.addTime(this.nextDateForDOW(row.day), row.endTime),

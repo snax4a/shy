@@ -1,0 +1,6 @@
+.model-content
+  .modal-header
+    button.close(type='button', ng-click='$ctrl.cancel()') &times;
+    h2#modal-label.modal-title {{ $ctrl.title }}
+  .modal-body {{ $ctrl.description }}
+  

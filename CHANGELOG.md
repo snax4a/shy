@@ -1,11 +1,11 @@
 # Product Backlog
-* [High] Add collapse for class descriptions into schedule
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
 * [High] Normalize attendances
-* [High] Implement Cypress to replace Protractor and Karma for end-to-end testing
 * [Low] Change apple-startup-images to be screenshots for devices. Unless images generated on desktop can match devices, give up.
 
 <a name="1.0.18"></a>
+* Display dialogs for class descriptions
+* Implemented Cypress to replace Protractor and Karma for end-to-end testing
 * Added hyperlinks to location from /classes for each school
 * [Bug] Hamburger menu appeared in safe area on iPhone 10+ and is not accessible
 * [Bug] Added new Schedule Item - new preselected values and saving with blanks doesn't display errors
@@ -22,7 +22,7 @@
 * Dropped title, location, and teacher columns from schedules table
 * Updated teacher, location, and title after dropdown has changed (scheduleeditor.controller line 28)
 * Fixed server/api/schedule/schedule.controller.js:upsert to use location_id and teacher_id
-* Fixed client/app/modules/schedulemanager/scheduleeditor.pug, controller and service to use foreign keys
+* Fixed client/app/modules/schedulemanager/scheduleeditor.pug, c  ontroller and service to use foreign keys
 * Added foreign key contraints to schedules.location_id and teacher_id on Heroku and localhost
 
 <a name="1.0.17"></a>

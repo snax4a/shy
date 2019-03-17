@@ -5,7 +5,7 @@
     .btn-group(role='group', aria-label='locations')
       a.btn.btn-primary(ng-repeat='location in $ctrl.locations', href='#{{ location.name | htmlid }}') {{ location.name }}
   .row
-    .col-sm-6
+    .col-md-8
       table.table.table-striped.table-hover
         //- One tbody per studio so we can nest 3 levels (ng-repeat-start/end only works w/2 levels)
         tbody(ng-repeat='studio in $ctrl.classSchedule')
@@ -16,16 +16,14 @@
           tr(ng-repeat-start='day in studio.days')
             td.day(colspan='3') {{ day.date | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
-            td.time(ng-class='{canceled: class.canceled===true}')
+            td.time(ng-class='{ canceled: class.canceled===true }')
               addtocalendar(title='class.title', description='class.teacher', location='studio.location', starts='class.startTime', ends='class.endTime', weekly='true', mini='true') 
               | &nbsp;{{ class.startTime | date:'shortTime' }}-{{ class.endTime | date:'shortTime' }}
-            td(ng-class='{canceled: class.canceled===true}')
-              a(href='/classes#{{ class.title | htmlid }}') {{ class.title }} 
+            td(ng-class='{ canceled: class.canceled===true }')
+              a(href='#', ng-click='$ctrl.classDescriptionOpen(class.title, class.description)') {{ class.title }}
               span(ng-if='class.canceled===true') (Canceled)
-            td(ng-class='{canceled: class.canceled===true}') 
+              span(ng-if='class.showDescription')
+                br
+                | {{ class.description }}
+            td(ng-class='{ canceled: class.canceled===true }') 
               a(href='/teachers#{{ class.teacher | htmlid }}') {{ class.teacher }}
-    .col-sm-6(style='padding-top:24px;')
-      div(ng-repeat="class in $ctrl.classes | orderBy:'name'")
-        a(id='{{ class.name.split(" ").join("") | lowercase }}')
-        h2 {{ class.name }} 
-        p {{ class.description }}

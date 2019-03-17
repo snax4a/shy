@@ -383,14 +383,25 @@ CREATE TABLE IF NOT EXISTS public.schedules (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
-DROP VIEW IF EXISTS public.schedules_index;
+DROP VIEW public.schedules_index;
 CREATE OR REPLACE VIEW public.schedules_index AS
-  SELECT schedules._id, location_id, locations.name AS location, day, class_id, classes.name AS title, schedules.teacher_id, users."firstName" || ' ' || users."lastName" AS teacher, "startTime", "endTime", canceled
-  FROM schedules
-  LEFT JOIN locations ON schedules.location_id = locations._id
-  LEFT JOIN users ON schedules.teacher_id = users._id
-  LEFT JOIN classes ON schedules.class_id = classes._id
-  ORDER BY locations.name, day, "startTime";
+ SELECT schedules._id,
+    schedules.location_id,
+    locations.name AS location,
+    schedules.day,
+    schedules.class_id,
+    classes.name AS title,
+    schedules.teacher_id,
+    (users."firstName"::text || ' '::text) || users."lastName"::text AS teacher,
+    schedules."startTime",
+    schedules."endTime",
+    schedules.canceled,
+    classes.description
+   FROM schedules
+     LEFT JOIN locations ON schedules.location_id = locations._id
+     LEFT JOIN users ON schedules.teacher_id = users._id
+     LEFT JOIN classes ON schedules.class_id = classes._id
+  ORDER BY locations.name, schedules.day, schedules."startTime";
 
 -- DROP INDEX public.schedules_location_day_start_time;
 CREATE INDEX schedules_location_day_start_time ON public.schedules USING btree (location, day, "startTime");
