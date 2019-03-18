@@ -33,3 +33,7 @@
   font-weight: bold;
   background-color: #fff;
 }
+
+.modal-dialog {
+	padding-top: env(safe-area-inset-top);
+}
