@@ -52,6 +52,7 @@ export default function makeWebpackConfig(mode) {
 
         {
           test: /\.pug$/,
+          //use: ['pug-loader']
           use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
         },
 
