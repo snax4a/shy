@@ -1,6 +1,5 @@
 import angular from 'angular';
 
-/*@ngInject*/
 export function weekdayFilter() {
   return input => {
     // Converts a day of the week to the next date for that day

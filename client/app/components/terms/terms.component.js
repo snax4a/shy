@@ -3,7 +3,6 @@ import routes from './terms.routes';
 import ngRoute from 'angular-route';
 
 export class TermsComponent {
-  /*@ngInject*/
 }
 
 export default angular.module('shyApp.terms', [ngRoute])

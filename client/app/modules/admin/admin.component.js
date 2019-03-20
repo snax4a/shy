@@ -1,3 +1,1 @@
-export class AdminComponent {
-  /*@ngInject*/
-}
+export class AdminComponent {}
