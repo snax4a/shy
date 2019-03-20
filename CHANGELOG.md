@@ -1,9 +1,11 @@
 # Product Backlog
+* [High] Display dialog for teachers, get rid of Teachers page
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
 * [High] Normalize attendances
 * [Low] Change apple-startup-images to be screenshots for devices. Unless images generated on desktop can match devices, give up.
 
 <a name="1.0.18"></a>
+* Got rid of line that cuts through logo when hamburger menu is displayed
 * Display dialogs for class descriptions
 * Implemented Cypress to replace Protractor and Karma for end-to-end testing
 * Added hyperlinks to location from /classes for each school
