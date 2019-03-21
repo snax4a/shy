@@ -52,7 +52,8 @@ export default function makeWebpackConfig(mode) {
 
         {
           test: /\.pug$/,
-          //use: ['pug-loader']
+          // use: ['pug-loader'] // not working
+          // use: ['html-loader?attrs=false', 'pug-html-loader'] // works
           use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
         },
 
@@ -118,7 +119,8 @@ export default function makeWebpackConfig(mode) {
       }),
 
       // Define process.env.NODE_ENV, https://webpack.js.org/plugins/define-plugin/#src/components/Sidebar/Sidebar.jsx
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
+      // TODO: test to see if needed (mode property may do it automatically)
+      //new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
 
       new MomentLocalesPlugin(), // strip all locales except en
 

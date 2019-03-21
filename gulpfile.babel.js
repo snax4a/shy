@@ -344,52 +344,51 @@ gulp.task('dist:server', () =>
 gulp.task('build:startup-images', () =>
   new Pageres({ filename: 'z-apple-touch-startup-image-<%= size %>', delay: 1, crop: true })
     .src('https://www.schoolhouseyoga.com', ['375x812', '812x375', '414x896', '896x414'], { scale: 3})
-    .src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436', '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'], { scale: 2})
+    .src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436',
+      '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'], { scale: 2})
     .dest(`${paths.dist}/${clientPath}/assets/images/`)
     .run()
 );
 
-// dist/client/assets/images must exist first as sharp won't create directories
-gulp.task('dist:client:assets:images:icons', async() => {
-  const render = renderConfig => {
-    //const image = sharp(paths.client.svgIcon);
-    const image = sharp('client/assets/images/logo.svg');
-    const { width } = renderConfig; // required properties
+async function render(renderConfig) {
+  const { width } = renderConfig; // required properties
 
-    if(!width) throw new Error('Gulp error in \'dist:client:assets:images:icons\': Width is a required parameter.');
+  if(!width) throw new Error('Gulp error in \'dist:client:assets:images:icons\': Width is a required parameter.');
 
-    let { height, name, scale, background } = renderConfig; // optional properties
+  let { height, name, scale, background } = renderConfig; // optional properties
 
-    scale = scale || 100;
-    height = height || width; // assume a square if height not provided
-    // If name is provided, assume dist/client, else dist/client/assets/images
-    name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${height}.png`;
+  scale = scale || 100;
+  height = height || width; // assume a square if height not provided
+  // If name provided, assume dist/client, else dist/client/assets/images
+  name = name ? `./${paths.dist}/${clientPath}/${name}` : `./${paths.dist}/${clientPath}/assets/images/logo-${width}x${height}.png`;
 
-    // Calculate width & height of scaled square logo (rounded)
-    const smallerLength = Math.min(width, height);
-    const logoLength = Math.round(smallerLength * scale / 100);
+  // Calculate width & height of scaled square logo (rounded)
+  const smallerLength = Math.min(width, height);
+  const logoLength = Math.round(smallerLength * scale / 100);
 
-    // Calculate padding to center scaled logo within width x height box
-    const top = Math.floor((height - logoLength) / 2); // if fractional, smaller padding at the top
-    const bottom = Math.ceil((height - logoLength) / 2);
-    const left = Math.floor((width - logoLength) / 2); // if fractional, smaller padding on left
-    const right = Math.ceil((width - logoLength) / 2);
+  // Calculate padding to center scaled logo within width x height box
+  const top = Math.floor((height - logoLength) / 2); // if fractional, smaller padding at the top
+  const bottom = Math.ceil((height - logoLength) / 2);
+  const left = Math.floor((width - logoLength) / 2); // if fractional, smaller padding on left
+  const right = Math.ceil((width - logoLength) / 2);
 
-    image
-      .resize(logoLength)
-      .extend({
-        top,
-        bottom,
-        left,
-        right,
-        background: background ? background : { r: 0, g: 0, b: 0, alpha: 0 }
-      });
+  const image = sharp(paths.client.svgIcon);
+  image
+    .resize(logoLength)
+    .extend({
+      top,
+      bottom,
+      left,
+      right,
+      background: background ? background : { r: 0, g: 0, b: 0, alpha: 0 }
+    });
 
-    if(background) image.flatten({ background });
+  if(background) image.flatten({ background });
 
-    return image.toFile(name);
-  };
+  return await image.toFile(name);
+}
 
+async function generateIcons() {
   const themeBackground = { background: '#5f4884' }; // Lavender when a background is needed
   const android = { }; // Android devices use the defaults
   const iOS = { ...themeBackground, scale: 95 };
@@ -419,7 +418,10 @@ gulp.task('dist:client:assets:images:icons', async() => {
     render({ width: 1242, height: 2688, ...startup }), // iOS startup logo - iPhone XS Max portrait
     render({ width: 2688, height: 1242, ...startup }) // iOS startup logo - iPhone XS Max landscape
   ]);
-});
+}
+
+// dist/client/assets/images must exist first as sharp won't create directories
+gulp.task('dist:client:assets:images:icons', generateIcons);
 
 // Generate icons from an SVG (could use sharp instead)
 gulp.task('dist:client:favicons', () => {
