@@ -1,4 +1,5 @@
 import ClassDescriptionModalController from './classdescriptionmodal.controller';
+import TeacherModalController from './teachermodal.controller';
 
 export class ClassesComponent {
   /*@ngInject*/
@@ -27,6 +28,28 @@ export class ClassesComponent {
       resolve: {
         title: () => title,
         description: () => description
+      }
+    });
+
+    // Stub for anything that needs to happen after closing dialog
+    modalDialog.result.then(() => {
+    });
+  }
+
+  // Use UI-Bootstrap to open a modal
+  teacherOpen(firstName, lastName, imageId, bio, url) {
+    let modalDialog = this.$uibModal.open({
+      template: require('./teachermodal.pug'),
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      controllerAs: '$ctrl',
+      controller: TeacherModalController,
+      resolve: {
+        firstName: () => firstName,
+        lastName: () => lastName,
+        imageId: () => imageId,
+        bio: () => bio,
+        url: () => url,
       }
     });
 

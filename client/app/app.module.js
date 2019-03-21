@@ -23,7 +23,6 @@ import HomeModule from './modules/home/home.module';
 import ClassesModule from './modules/classes/classes.module';
 import WorkshopsModule from './modules/workshops/workshops.module';
 import LocationsModule from './modules/locations/locations.module';
-import TeachersModule from './modules/teachers/teachers.module';
 import TeacherTrainingModule from './modules/teachertraining/teachertraining.module';
 import CartModule from './modules/cart/cart.module';
 import AuthModule from './modules/auth/auth.module';
@@ -83,7 +82,6 @@ angular.module('shyApp', [
   ClassesModule,
   WorkshopsModule,
   LocationsModule,
-  TeachersModule,
   TeacherTrainingModule,
   UserManagerModule,
   AdminModule,

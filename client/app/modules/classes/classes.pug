@@ -26,4 +26,4 @@
                 br
                 | {{ class.description }}
             td(ng-class='{ canceled: class.canceled===true }') 
-              a(href='/teachers#{{ class.teacher | htmlid }}') {{ class.teacher }}
+              a(href='#', ng-click='$ctrl.teacherOpen(class.teacherFirstName, class.teacherLastName, class.teacherImageId, class.teacherBio, class.teacherUrl)') {{ class.teacherFirstName }} {{ class.teacherLastName }}
