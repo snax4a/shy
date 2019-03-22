@@ -12,10 +12,7 @@ import shelljs from 'shelljs';
 import webpack from 'webpack';
 import { stream as favicons, config as faviconsConfig } from 'favicons';
 import sharp from 'sharp';
-
 import flog from 'fancy-log';
-import Pageres from 'pageres';
-
 import makeWebpackConfig from './webpack.make';
 
 let plugins = gulpLoadPlugins();
@@ -338,16 +335,6 @@ gulp.task('dist:server', () =>
     paths.server.esm
   ], { cwdbase: true })
     .pipe(gulp.dest(paths.dist))
-);
-
-// Generate Apple startup images
-gulp.task('build:startup-images', () =>
-  new Pageres({ filename: 'z-apple-touch-startup-image-<%= size %>', delay: 1, crop: true })
-    .src('https://www.schoolhouseyoga.com', ['375x812', '812x375', '414x896', '896x414'], { scale: 3})
-    .src('https://www.schoolhouseyoga.com', ['1536x2048', '2048x1536', '1792x828', '828x1792', '1125x2436',
-      '2436x1125', '1668x2224', '2224x1668', '2048x2732', '2732x2048', '1242x2688', '2688x1242'], { scale: 2})
-    .dest(`${paths.dist}/${clientPath}/assets/images/`)
-    .run()
 );
 
 async function render(renderConfig) {
