@@ -103,7 +103,6 @@
     "pageres": "^5.1.0",
     "postcss-loader": "^3.0.0",
     "pug-html-loader": "^1.1.5",
-    "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "sharp": "^0.22.0",
     "shelljs": "^0.8.3",

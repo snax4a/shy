@@ -52,9 +52,7 @@ export default function makeWebpackConfig(mode) {
 
         {
           test: /\.pug$/,
-          // use: ['pug-loader'] // not working
-          // use: ['html-loader?attrs=false', 'pug-html-loader'] // works
-          use: ['raw-loader', 'pug-html-loader'] // https://github.com/willyelm/pug-html-loader
+          use: ['html-loader?attrs=false', 'pug-html-loader'] // works
         },
 
         {
