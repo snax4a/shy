@@ -5,9 +5,11 @@ import UibDatepickerPopupDirective from 'angular-ui-bootstrap/src/datepickerPopu
 import UibModalDirective from 'angular-ui-bootstrap/src/modal/index-nocss.js';
 import UserManagerModule from '../../modules/usermanager/usermanager.module';
 import { SHYnetComponent } from './shynet.component';
+import { TeacherService } from '../../services/teacher.service';
 
 export default angular.module('shyApp.shynet', [ngRoute, UibDatepickerPopupDirective, UibModalDirective, UserManagerModule])
   .config(routes)
+  .service('TeacherService', TeacherService)
   .component('shynet', {
     template: require('./shynet.pug'),
     controller: SHYnetComponent
