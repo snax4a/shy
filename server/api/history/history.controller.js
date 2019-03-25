@@ -64,7 +64,7 @@ export async function index(req, res) {
         purchases.quantity
       FROM purchases
       WHERE purchases.user_id = $1) history
-    ORDER BY history."userId", history."when" DESC;`;
+    ORDER BY history."when" DESC;`;
 
   const { rows } = await db.query(sql, [id]);
   res.status(200).send(rows);

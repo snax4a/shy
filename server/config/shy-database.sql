@@ -17,10 +17,7 @@ SELECT pid, pg_terminate_backend(pid)
 FROM pg_stat_activity 
 WHERE datname = 'shy' AND pid <> pg_backend_pid();
 
--- Dangerous!
-DROP DATABASE IF EXISTS shy;
-
--- Create database
+--DROP DATABASE IF EXISTS shy;
 CREATE DATABASE shy WITH 
   OWNER = postgres
   ENCODING = 'UTF8'
@@ -37,8 +34,8 @@ COMMENT ON DATABASE shy IS 'Schoolhouse Yoga Database';
 -- Support for encryption
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- DROP FUNCTION public.updated_at();
-CREATE OR REPLACE FUNCTION public.updated_at()
+DROP FUNCTION IF EXISTS updated_at();
+CREATE FUNCTION updated_at()
   RETURNS trigger
   LANGUAGE 'plpgsql'
   COST 100
@@ -50,41 +47,41 @@ BEGIN
 END;
 $BODY$;
 
--- DROP TYPE public.providers;
+-- DROP TYPE IF EXISTS providers;
 DO $$ BEGIN
-  CREATE TYPE public.providers AS ENUM
+  CREATE TYPE providers AS ENUM
     ('google', 'local');
 EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
--- DROP TYPE public.roles;
+-- DROP TYPE IF EXISTS roles;
 DO $$ BEGIN
-  CREATE TYPE public.roles AS ENUM
+  CREATE TYPE roles AS ENUM
     ('student', 'teacher', 'admin');
 EXCEPTION
   WHEN duplicate_object THEN null;
 END $$;
 
--- DROP SEQUENCE public.files_seq;
-CREATE SEQUENCE IF NOT EXISTS public.files_seq;
+-- DROP SEQUENCE IF EXISTS files_seq;
+CREATE SEQUENCE IF NOT EXISTS files_seq;
 
--- DROP TABLE public.files;
-CREATE TABLE IF NOT EXISTS public.files (
+-- DROP TABLE IF EXISTS files;
+CREATE TABLE IF NOT EXISTS files (
   _id integer PRIMARY KEY DEFAULT nextval('files_seq'::regclass),
   name character varying(512) NOT NULL,
   type character varying(20) NOT NULL,
   data bytea
 );
 
--- DROP INDEX public.users_first_name;
-CREATE INDEX files_name ON public.files USING btree (name);
+DROP INDEX IF EXISTS users_first_name;
+CREATE INDEX files_name ON files USING btree (name);
 
--- DROP SEQUENCE public.users_seq;
-CREATE SEQUENCE IF NOT EXISTS public.users_seq;
+-- DROP SEQUENCE IF EXISTS users_seq;
+CREATE SEQUENCE IF NOT EXISTS users_seq;
 
--- DROP TABLE public.users;
-CREATE TABLE IF NOT EXISTS public.users (
+-- DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users (
   _id integer PRIMARY KEY DEFAULT nextval('users_seq'::regclass),
   role roles NOT NULL DEFAULT 'student'::roles,
   "lastName" character varying(20) NOT NULL,
@@ -105,24 +102,24 @@ CREATE TABLE IF NOT EXISTS public.users (
   salt character varying(24)
 );
 
--- DROP INDEX public.users_first_name;
-CREATE INDEX users_first_name ON public.users USING btree ("firstName");
+DROP INDEX IF EXISTS users_first_name;
+CREATE INDEX users_first_name ON users USING btree ("firstName");
 
--- DROP INDEX public.users_last_name;
-CREATE INDEX users_last_name ON public.users USING btree ("lastName");
+DROP INDEX IF EXISTS users_last_name;
+CREATE INDEX users_last_name ON users USING btree ("lastName");
 
--- DROP INDEX public.users_teachers_display;
-CREATE INDEX users_teachers_display ON public.users USING btree ("displayOrder", role);
+DROP INDEX IF EXISTS users_teachers_display;
+CREATE INDEX users_teachers_display ON users USING btree ("displayOrder", role);
 
--- DROP TRIGGER updated_at ON public.users;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.users
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON users;
+CREATE TRIGGER updated_at BEFORE UPDATE ON users
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.products_seq;
-CREATE SEQUENCE IF NOT EXISTS public.products_seq;
+-- DROP SEQUENCE IF EXISTS products_seq;
+CREATE SEQUENCE IF NOT EXISTS products_seq;
 
--- DROP TABLE public.products;
-CREATE TABLE IF NOT EXISTS public.products (
+-- DROP TABLE products;
+CREATE TABLE IF NOT EXISTS products (
   _id integer PRIMARY KEY DEFAULT nextval('products_seq'),
   name character varying(256) NOT NULL UNIQUE,
   price numeric(10,2) NOT NULL DEFAULT 0,
@@ -131,18 +128,18 @@ CREATE TABLE IF NOT EXISTS public.products (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.products_active;
-CREATE INDEX products_active ON public.products USING btree ("active");
+DROP INDEX IF EXISTS products_active;
+CREATE INDEX products_active ON products USING btree ("active");
 
--- DROP TRIGGER updated_at ON public.products;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.products
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON products;
+CREATE TRIGGER updated_at BEFORE UPDATE ON products
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.classes_seq;
-CREATE SEQUENCE IF NOT EXISTS public.classes_seq;
+-- DROP SEQUENCE IF EXISTS classes_seq;
+CREATE SEQUENCE IF NOT EXISTS classes_seq;
 
--- DROP TABLE public.classes;
-CREATE TABLE IF NOT EXISTS public.classes (
+-- DROP TABLE IF EXISTS classes;
+CREATE TABLE IF NOT EXISTS classes (
   _id integer PRIMARY KEY DEFAULT nextval('classes_seq'),
   name character varying(256) NOT NULL UNIQUE,
   description character varying(1024) NOT NULL,
@@ -151,18 +148,18 @@ CREATE TABLE IF NOT EXISTS public.classes (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.classes_active;
-CREATE INDEX classes_active ON public.classes USING btree ("active");
+DROP INDEX IF EXISTS classes_active;
+CREATE INDEX classes_active ON classes USING btree ("active");
 
--- DROP TRIGGER updated_at ON public.classes;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.classes
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON classes;
+CREATE TRIGGER updated_at BEFORE UPDATE ON classes
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.workshops_seq;
-CREATE SEQUENCE IF NOT EXISTS public.workshops_seq;
+-- DROP SEQUENCE IF EXISTS workshops_seq;
+CREATE SEQUENCE IF NOT EXISTS workshops_seq;
 
--- DROP TABLE public.workshops;
-CREATE TABLE IF NOT EXISTS public.workshops (
+-- DROP TABLE IF EXISTS workshops;
+CREATE TABLE IF NOT EXISTS workshops (
   _id integer PRIMARY KEY DEFAULT nextval('workshops_seq'),
   title character varying(256) NOT NULL UNIQUE,
   description character varying(1024) NOT NULL,
@@ -171,15 +168,15 @@ CREATE TABLE IF NOT EXISTS public.workshops (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP TRIGGER updated_at ON public.workshops;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.workshops
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON workshops;
+CREATE TRIGGER updated_at BEFORE UPDATE ON workshops
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.sections_seq;
-CREATE SEQUENCE IF NOT EXISTS public.sections_seq;
+-- DROP SEQUENCE IF EXISTS sections_seq;
+CREATE SEQUENCE IF NOT EXISTS sections_seq;
 
--- DROP TABLE public.sections;
-CREATE TABLE IF NOT EXISTS public.sections (
+-- DROP TABLE IF EXISTS sections;
+CREATE TABLE IF NOT EXISTS sections (
   _id integer PRIMARY KEY DEFAULT nextval('sections_seq'),
   "workshopId" integer NOT NULL REFERENCES workshops(_id) ON UPDATE CASCADE ON DELETE CASCADE,
   title character varying(256),
@@ -193,18 +190,18 @@ CREATE TABLE IF NOT EXISTS public.sections (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP TRIGGER updated_at ON public.sections;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.sections
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON sections;
+CREATE TRIGGER updated_at BEFORE UPDATE ON sections
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP INDEX public.sections_active;
-CREATE INDEX sections_active ON public.sections USING btree (starts, title);
+DROP INDEX IF EXISTS sections_active;
+CREATE INDEX sections_active ON sections USING btree (starts, title);
 
--- DROP SEQUENCE public.locations_seq;
-CREATE SEQUENCE IF NOT EXISTS public.locations_seq;
+-- DROP SEQUENCE IF EXISTS locations_seq;
+CREATE SEQUENCE IF NOT EXISTS locations_seq;
 
--- DROP TABLE public.locations;
-CREATE TABLE IF NOT EXISTS public.locations (
+-- DROP TABLE IF EXISTS locations;
+CREATE TABLE IF NOT EXISTS locations (
   _id integer PRIMARY KEY DEFAULT nextval('locations_seq'),
   name character varying(256) NOT NULL UNIQUE,
   address character varying(256) NOT NULL,
@@ -222,18 +219,18 @@ CREATE TABLE IF NOT EXISTS public.locations (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.locations_active;
-CREATE INDEX locations_active ON public.locations USING btree ("active");
+DROP INDEX IF EXISTS locations_active;
+CREATE INDEX locations_active ON locations USING btree ("active");
 
--- DROP TRIGGER updated_at ON public.locations;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.locations
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON locations;
+CREATE TRIGGER updated_at BEFORE UPDATE ON locations
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
---DROP SEQUENCE public.announcements_seq;
-CREATE SEQUENCE IF NOT EXISTS public.announcements_seq;
+--DROP SEQUENCE IF EXISTS announcements_seq;
+CREATE SEQUENCE IF NOT EXISTS announcements_seq;
 
--- DROP TABLE public.announcements;
-CREATE TABLE IF NOT EXISTS public.announcements (
+-- DROP TABLE IF EXISTS announcements;
+CREATE TABLE IF NOT EXISTS announcements (
   _id integer PRIMARY KEY DEFAULT nextval('announcements_seq'::regclass),
   section character varying(100) NOT NULL,
   title character varying(100) NOT NULL,
@@ -243,26 +240,26 @@ CREATE TABLE IF NOT EXISTS public.announcements (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now(),
 );
 
--- DROP INDEX public.announcements_expires;
-CREATE INDEX IF NOT EXISTS announcements_expires
-  ON public.announcements USING btree (expires);
+DROP INDEX IF EXISTS announcements_expires;
+CREATE INDEX announcements_expires
+  ON announcements USING btree (expires);
 
--- DROP INDEX public.announcements_section_title;
-CREATE INDEX IF NOT EXISTS announcements_section_title
-  ON public.announcements USING btree (section, title);
+DROP INDEX IF EXISTS announcements_section_title;
+CREATE INDEX announcements_section_title
+  ON announcements USING btree (section, title);
 
--- DROP TRIGGER updated_at ON public.announcements;
+DROP TRIGGER IF EXISTS updated_at ON announcements;
 CREATE TRIGGER updated_at
   BEFORE UPDATE 
-  ON public.announcements
+  ON announcements
   FOR EACH ROW
-  EXECUTE PROCEDURE public.updated_at();
+  EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.attendances_seq;
-CREATE SEQUENCE IF NOT EXISTS public.attendances_seq;
+-- DROP SEQUENCE IF EXISTS attendances_seq;
+CREATE SEQUENCE IF NOT EXISTS attendances_seq;
 
--- DROP TABLE public.attendances;
-CREATE TABLE IF NOT EXISTS public.attendances (
+-- DROP TABLE IF EXISTS attendances;
+CREATE TABLE IF NOT EXISTS attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
   user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
@@ -276,31 +273,32 @@ CREATE TABLE IF NOT EXISTS public.attendances (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.attendances__user_id;
+DROP INDEX IF EXISTS attendances__user_id;
 CREATE INDEX attendances_user_id
-  ON public.attendances USING btree (user_id);
+  ON attendances USING btree (user_id);
 
--- DROP INDEX public.attendances_attended;
+DROP INDEX IF EXISTS attendances_attended;
 CREATE INDEX attendances_class
-  ON public.attendances USING btree (location, teacher, "className", attended);
+  ON attendances USING btree (location, teacher, "className", attended);
 
+DROP INDEX IF EXISTS attendances_fkeys;
 CREATE INDEX attendances_fkeys
-  ON public.attendances USING btree (location_id, teacher_id, class_id, attended);
+  ON attendances USING btree (location_id, teacher_id, class_id, attended);
 
--- DROP INDEX public.attendances_attended;
+DROP INDEX IF EXISTS attendances_attended;
 CREATE INDEX attendances_student_history
-  ON public.attendances USING btree (user_id, attended);
+  ON attendances USING btree (user_id, attended);
 
--- DROP INDEX public.attendances_attended;
+DROP INDEX IF EXISTS attendances_attended;
 CREATE INDEX attendances_teacher_history
-  ON public.attendances USING btree (teacher, attended);
+  ON attendances USING btree (teacher, attended);
 
--- DROP TRIGGER updated_at ON public.attendances;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.attendances FOR EACH ROW
-  EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON attendances;
+CREATE TRIGGER updated_at BEFORE UPDATE ON attendances FOR EACH ROW
+  EXECUTE PROCEDURE updated_at();
 
--- DROP TABLE public.orders;
-CREATE TABLE IF NOT EXISTS public.orders (
+-- DROP TABLE IF EXISTS orders;
+CREATE TABLE IF NOT EXISTS orders (
   "orderNumber" character varying(12) PRIMARY KEY,
   amount numeric(10,2) NOT NULL,
   gift boolean NOT NULL,
@@ -325,27 +323,27 @@ CREATE TABLE IF NOT EXISTS public.orders (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.orders_order_number;
+DROP INDEX IF EXISTS orders_order_number;
 CREATE INDEX orders_order_number
-  ON public.orders USING btree ("orderNumber");
+  ON orders USING btree ("orderNumber");
 
--- DROP INDEX public.orders_purchaser_email;
+DROP INDEX IF EXISTS orders_purchaser_email;
 CREATE INDEX orders_purchaser_email
-  ON public.orders USING btree ("purchaserEmail");
+  ON orders USING btree ("purchaserEmail");
 
--- DROP INDEX public.orders_recipient_email;
+DROP INDEX IF EXISTS orders_recipient_email;
 CREATE INDEX orders_recipient_email
-  ON public.orders USING btree ("recipientEmail");
+  ON orders USING btree ("recipientEmail");
 
--- DROP TRIGGER updated_at ON public.orders;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.orders
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON orders;
+CREATE TRIGGER updated_at BEFORE UPDATE ON orders
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.purchases_seq;
-CREATE SEQUENCE IF NOT EXISTS public.purchases_seq;
+-- DROP SEQUENCE IF EXISTS purchases_seq;
+CREATE SEQUENCE IF NOT EXISTS purchases_seq;
 
--- DROP TABLE public.purchases;
-CREATE TABLE public.purchases (
+-- DROP TABLE IF EXISTS purchases;
+CREATE TABLE IF NOT EXISTS purchases (
   _id integer PRIMARY KEY DEFAULT nextval('purchases_seq'::regclass),
   user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   quantity integer NOT NULL,
@@ -356,21 +354,21 @@ CREATE TABLE public.purchases (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
--- DROP INDEX public.purchases__user_id;
-CREATE INDEX purchases_user_id ON public.purchases USING btree (user_id);
+DROP INDEX IF EXISTS purchases__user_id;
+CREATE INDEX purchases_user_id ON purchases USING btree (user_id);
 
--- DROP INDEX public.purchases_purchased;
-CREATE INDEX purchases_purchased ON public.purchases USING btree (purchased, user_id);
+DROP INDEX IF EXISTS purchases_purchased;
+CREATE INDEX purchases_purchased ON purchases USING btree (purchased, user_id);
 
--- DROP TRIGGER updated_at ON public.purchases;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.purchases
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON purchases;
+CREATE TRIGGER updated_at BEFORE UPDATE ON purchases
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP SEQUENCE public.schedules_seq;
-CREATE SEQUENCE IF NOT EXISTS public.schedules_seq;
+-- DROP SEQUENCE IF EXISTS schedules_seq;
+CREATE SEQUENCE IF NOT EXISTS schedules_seq;
 
--- DROP TABLE public.schedules;
-CREATE TABLE IF NOT EXISTS public.schedules (
+-- DROP TABLE IF EXISTS schedules;
+CREATE TABLE IF NOT EXISTS schedules (
   _id integer PRIMARY KEY DEFAULT nextval('schedules_seq'::regclass),
   location_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
   day integer NOT NULL,
@@ -383,8 +381,8 @@ CREATE TABLE IF NOT EXISTS public.schedules (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
-DROP VIEW public.schedules_index;
-CREATE OR REPLACE VIEW public.schedules_index AS
+DROP VIEW IF EXISTS schedules_index;
+CREATE VIEW schedules_index AS
  SELECT schedules._id,
     schedules.location_id,
     locations.name AS location,
@@ -407,22 +405,22 @@ CREATE OR REPLACE VIEW public.schedules_index AS
      LEFT JOIN classes ON schedules.class_id = classes._id
   ORDER BY locations.name, schedules.day, schedules."startTime";
 
--- DROP INDEX public.schedules_location_day_start_time;
-CREATE INDEX schedules_location_day_start_time ON public.schedules USING btree (location, day, "startTime");
+DROP INDEX IF EXISTS schedules_location_day_start_time;
+CREATE INDEX schedules_location_day_start_time ON schedules USING btree (location, day, "startTime");
 
--- DROP TRIGGER updated_at ON public.schedules;
-CREATE TRIGGER updated_at BEFORE UPDATE ON public.schedules
-  FOR EACH ROW EXECUTE PROCEDURE public.updated_at();
+DROP TRIGGER IF EXISTS updated_at ON schedules;
+CREATE TRIGGER updated_at BEFORE UPDATE ON schedules
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
--- DROP TABLE public.sessions
-CREATE TABLE sessions (
+-- DROP TABLE IF EXISTS sessions
+CREATE TABLE IF NOT EXISTS sessions (
   sid character varying PRIMARY KEY,
   sess json NOT NULL,
   expire timestamp(6) without time zone NOT NULL
 );
 
--- DROP VIEW public.attendances_full_info;
-CREATE OR REPLACE VIEW public.attendances_full_info AS
+DROP VIEW IF EXISTS attendances_full_info;
+CREATE VIEW attendances_full_info AS
   SELECT attendances.teacher,
     attendances."className",
     attendances.location,
@@ -431,14 +429,14 @@ CREATE OR REPLACE VIEW public.attendances_full_info AS
   FROM attendances
     JOIN users ON attendances.user_id = users._id;
 
--- DROP VIEW public.attendees_nh_pq;
-CREATE OR REPLACE VIEW public.attendees_nh_pq AS
+DROP VIEW IF EXISTS attendees_nh_pq;
+CREATE VIEW attendees_nh_pq AS
   SELECT count(*) AS count
   FROM attendances
   WHERE attendances.location::text = 'North Hills'::text AND attendances.attended >= date_trunc('quarter'::text, (date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date - 1)::timestamp with time zone)::date AND attendances.attended < date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date;
 
--- DROP VIEW public.attendees_per_class;
-CREATE OR REPLACE VIEW public.attendees_per_class AS
+DROP VIEW IF EXISTS attendees_per_class;
+CREATE VIEW attendees_per_class AS
   SELECT attendances.location,
     attendances."className",
     attendances.teacher,
@@ -448,8 +446,8 @@ CREATE OR REPLACE VIEW public.attendees_per_class AS
   GROUP BY attendances.location, attendances."className", attendances.teacher, attendances.attended
   ORDER BY attendances.location, attendances.attended;
 
--- DROP VIEW public.student_balances;
-CREATE OR REPLACE VIEW public.student_balances AS
+DROP VIEW IF EXISTS student_balances;
+CREATE VIEW student_balances AS
   SELECT users._id,
     (users."lastName"::text || ', '::text) || users."firstName"::text AS student,
     (( SELECT COALESCE(sum(purchases.quantity), 0::bigint) AS purchases
@@ -468,8 +466,8 @@ CREATE OR REPLACE VIEW public.student_balances AS
   FROM users
   ORDER BY users."lastName", users."firstName";
 
--- DROP VIEW public.students_who_owe;
-CREATE OR REPLACE VIEW public.students_who_owe AS
+DROP VIEW IF EXISTS students_who_owe;
+CREATE VIEW students_who_owe AS
   SELECT student_balances._id,
     student_balances.student,
     student_balances.balance,
@@ -480,8 +478,8 @@ CREATE OR REPLACE VIEW public.students_who_owe AS
   FROM student_balances
   WHERE student_balances.balance < 0;
 
--- DROP VIEW public.studio_analysis_pycy;
-CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
+DROP VIEW IF EXISTS studio_analysis_pycy;
+CREATE VIEW studio_analysis_pycy AS
   SELECT attendances.location,
     to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text) AS year_month,
     count(*) AS attendances
@@ -490,8 +488,8 @@ CREATE OR REPLACE VIEW public.studio_analysis_pycy AS
   GROUP BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text))
   ORDER BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text));
 
-DROP VIEW IF EXISTS public.workshop_sections;
-CREATE OR REPLACE VIEW public.workshop_sections AS
+DROP VIEW IF EXISTS workshop_sections;
+CREATE VIEW workshop_sections AS
   SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM (
     SELECT workshops._id, title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
       (
@@ -515,36 +513,35 @@ CREATE OR REPLACE VIEW public.workshop_sections AS
   ) w;
 
 -- Insert workshop record or update if one exists
-CREATE OR REPLACE FUNCTION public.workshop_upsert(
+DROP FUNCTION IF EXISTS workshop_upsert(integer, character varying, character varying, integer)
+CREATE FUNCTION workshop_upsert(
 	integer,
 	character varying,
 	character varying,
 	integer,
 	OUT workshop_id integer)
-    RETURNS integer
-    LANGUAGE 'plpgsql'
-
-    COST 100
-    VOLATILE 
+  RETURNS integer
+  LANGUAGE 'plpgsql'
+  COST 100
+  VOLATILE 
 AS $BODY$
-BEGIN
-  IF $1 = 0 THEN
-    INSERT INTO workshops(title, description, "imageId") VALUES ($2, $3, $4) RETURNING _id INTO workshop_id;
-  ELSE
-    UPDATE workshops SET title = $2, description = $3, "imageId" = $4 WHERE _id = $1 RETURNING _id INTO workshop_id;
-  END IF;
-END;
+  BEGIN
+    IF $1 = 0 THEN
+      INSERT INTO workshops(title, description, "imageId") VALUES ($2, $3, $4) RETURNING _id INTO workshop_id;
+    ELSE
+      UPDATE workshops SET title = $2, description = $3, "imageId" = $4 WHERE _id = $1 RETURNING _id INTO workshop_id;
+    END IF;
+  END;
 $BODY$;
 
 -- Upsert workshop in JSON format
-DROP FUNCTION public.workshop_upsert_json(json);
-CREATE OR REPLACE FUNCTION public.workshop_upsert_json(
-	input json, OUT id integer)
-    RETURNS integer
-    LANGUAGE 'plpgsql'
+DROP FUNCTION IF EXISTS workshop_upsert_json(json);
+CREATE FUNCTION workshop_upsert_json(input json, OUT id integer)
+  RETURNS integer
+  LANGUAGE 'plpgsql'
 
-    COST 100
-    VOLATILE 
+  COST 100
+  VOLATILE 
 AS $BODY$
   BEGIN
     id := workshop_upsert(
@@ -575,39 +572,127 @@ AS $BODY$
   END;
 $BODY$;
 
--- DROP FUNCTION public.zero_old_passes();
-CREATE OR REPLACE FUNCTION public.zero_old_passes() RETURNS void
+DROP FUNCTION IF EXISTS zero_old_passes();
+CREATE FUNCTION zero_old_passes() RETURNS void
   LANGUAGE 'plpgsql'
   COST 100
   VOLATILE 
 AS $BODY$
+  DECLARE
+    cutoff timestamp := CURRENT_TIMESTAMP - INTERVAL '12 months';
+  BEGIN
+    -- Create temp table of active students with their balance
+    CREATE TEMPORARY TABLE IF NOT EXISTS student_balances_temp AS
+      SELECT
+        _id, balance
+      FROM
+        student_balances WHERE balance > 0;
+    
+    -- Eliminate students who bought a card within the last 12 months
+    DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT user_id FROM purchases WHERE "createdAt" >= cutoff);
 
-DECLARE
-  cutoff timestamp := CURRENT_TIMESTAMP - INTERVAL '12 months';
-BEGIN
-  -- Create temp table of active students with their balance
-  CREATE TEMPORARY TABLE IF NOT EXISTS student_balances_temp AS
+    -- Insert negative purchase to expire class cards
+    INSERT INTO purchases (user_id, quantity, method, notes, "createdAt", "updatedAt")
     SELECT
-      _id, balance
+      _id,
+      - balance,
+      'Expiration',
+      'After 12 months',
+      CURRENT_DATE, CURRENT_DATE
     FROM
-      student_balances WHERE balance > 0;
-  
-  -- Eliminate students who bought a card within the last 12 months
-  DELETE FROM student_balances_temp WHERE _id IN (SELECT DISTINCT user_id FROM purchases WHERE "createdAt" >= cutoff);
+      student_balances_temp;
+    DROP TABLE student_balances_temp;
+  END;
+$BODY$;
 
-  -- Insert negative purchase to expire class cards
-	INSERT INTO purchases (user_id, quantity, method, notes, "createdAt", "updatedAt")
+DROP FUNCTION IF EXISTS history_attendees(date, integer, integer, integer);
+CREATE FUNCTION history_attendees(
+	attended date,
+	"locationId" integer,
+	"teacherId" integer,
+	"classId" integer)
+    RETURNS TABLE(_id integer, "userId" integer, "userNameFull" character varying) 
+    LANGUAGE 'sql'
+
+    COST 100
+    VOLATILE 
+    ROWS 100
+AS $BODY$
+  SELECT
+    attendances._id,
+    attendances.user_id AS "userId",
+    INITCAP(users."lastName" || ', ' || users."firstName") AS "userNameFull"
+  FROM
+    attendances INNER JOIN users ON attendances.user_id = users._id
+  WHERE
+    attendances.attended = $1::DATE AND
+    attendances.location_id = $2 AND
+    attendances.teacher_id = $3 AND
+    attendances.class_id = $4
+  ORDER BY users."lastName", users."firstName";
+$BODY$;
+
+DROP FUNCTION IF EXISTS history_index(integer);
+CREATE FUNCTION history_index("userId" integer)
+  RETURNS TABLE(_id integer, "userId" integer, type character, "when" date, location character varying, "locationId" integer, "className" character varying, "classId" integer, teacher character varying, "teacherId" integer, "paymentMethod" character varying, notes character varying, what character varying, quantity integer, balance integer) 
+  LANGUAGE 'sql'
+  COST 100
+  VOLATILE 
+  ROWS 5000
+AS $BODY$
 	SELECT
-	  _id,
-	  - balance,
-	  'Expiration',
-	  'After 12 months',
-	  CURRENT_DATE, CURRENT_DATE
-	FROM
-	  student_balances_temp;
-	DROP TABLE student_balances_temp;
-END;
-
+    history._id,
+    history."userId",
+    history.type,
+    history."when",
+    history.location,
+    history."locationId",
+    history."className",
+    history."classId",
+    history.teacher,
+    history."teacherId",
+    history."paymentMethod",
+    history.notes,
+    history.what,
+    history.quantity,
+    (SUM(history.quantity) OVER (PARTITION BY history."userId" ORDER BY history."when"))::integer AS balance
+  FROM (
+    SELECT
+      attendances._id,
+      attendances.user_id AS "userId",
+      'A'::text AS type,
+      attendances.attended AS "when",
+      attendances.location,
+      attendances.location_id AS "locationId",
+      attendances."className",
+      attendances.class_id AS "classId",
+      attendances.teacher,
+      attendances.teacher_id AS "teacherId",
+      NULL AS "paymentMethod",
+      NULL AS notes,
+      ((((('Attended '::text || attendances."className"::text) || ' in '::text) || attendances.location::text) || ' ('::text) || attendances.teacher::text) || ')'::text AS what,
+      '-1'::integer AS quantity
+    FROM attendances
+    WHERE attendances.user_id = $1
+    UNION
+    SELECT purchases._id,
+      purchases.user_id AS "userId",
+      'P'::text AS type,
+      purchases.purchased AS "when",
+      NULL AS location,
+      NULL AS "locationId",
+      NULL AS "className",
+      NULL AS "classId",
+      NULL AS teacher,
+      NULL AS "teacherId",
+      purchases.method AS "paymentMethod",
+      purchases.notes,
+      'Purchased '::text || purchases.quantity::text || ' class pass ('::text || purchases.method::text || ') - '::text || purchases.notes::text AS what,
+      purchases.quantity
+    FROM purchases
+    WHERE purchases.user_id = $1
+  ) history
+  ORDER BY history."when" DESC;
 $BODY$;
 
 -- Update attendances with foreign keys
