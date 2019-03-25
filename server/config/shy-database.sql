@@ -609,3 +609,8 @@ BEGIN
 END;
 
 $BODY$;
+
+-- Update attendances with foreign keys
+UPDATE attendances SET location_id = (SELECT _id FROM locations WHERE locations.name = attendances.location) WHERE location_id IS NULL;
+UPDATE attendances SET teacher_id = (SELECT _id FROM users WHERE attendances.teacher = users."lastName" || ', ' || users."firstName") WHERE teacher_id IS NULL;
+UPDATE attendances SET class_id = (SELECT _id FROM classes WHERE classes.name = attendances."className") WHERE class_id IS NULL;
