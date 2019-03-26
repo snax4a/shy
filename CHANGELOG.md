@@ -1,6 +1,12 @@
 # Product Backlog
+* [High] Implement foreign keys for attendance
+  - Add to class: usermanager.pug -> usermanager.component.js:attendanceAdd() -> history.service.js:historyItemAdd() -> history.controller.js:create()
+  - Get attendees: shynet.pug -> shynet.component.js:attendeeLookup() -> history.service.js:attendeesGet() -> history.controller.js:index()
+  - Delete attendee: shynet.pug -> shynet.component.js:attendeeDelete() -> history.service.js:attendeeDelete() -> history.controller.js:destroy()
+  - History editor update: historyeditor.pug -> historyeditor.controller.js:submit() -> history.service.js:historyItemUpdate() -> history.controller.js:update()
+  - View student history: usermanager.pug -> usermanager.component.js:historyGet() -> history.service.js:historyItemsForUserGet() -> history.controllerjs:index()
+  - History item delete: usermanager.pug -> usermanager.component.js:historyItemDelete() -> history.service.js:historyItemDelete() -> history.controller.js:destroy()
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
-* [High] Normalize attendances
 
 <a name="1.0.18"></a>
 * Modal dialog for teachers, got rid of Teachers page
@@ -23,7 +29,7 @@
 * Dropped title, location, and teacher columns from schedules table
 * Updated teacher, location, and title after dropdown has changed (scheduleeditor.controller line 28)
 * Fixed server/api/schedule/schedule.controller.js:upsert to use location_id and teacher_id
-* Fixed client/app/modules/schedulemanager/scheduleeditor.pug, c  ontroller and service to use foreign keys
+* Fixed client/app/modules/schedulemanager/scheduleeditor.pug, controller and service to use foreign keys
 * Added foreign key contraints to schedules.location_id and teacher_id on Heroku and localhost
 
 <a name="1.0.17"></a>
