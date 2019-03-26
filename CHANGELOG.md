@@ -9,6 +9,7 @@
 * [Medium] Provide error message if admin tries to delete a Location or Class in use.
 
 <a name="1.0.18"></a>
+* Added drop pin icon nexts to studio name
 * Modal dialog for teachers, got rid of Teachers page
 * Got rid of line that cuts through logo when hamburger menu is displayed
 * Display dialogs for class descriptions

@@ -12,7 +12,9 @@
           tr
             td.location(colspan='3')
               h2.studio
-                a(id='{{ studio.location | htmlid }}', href='/locations#{{ studio.location | htmlid }}') {{ studio.location }}
+                a(id='{{ studio.location | htmlid }}', href='/locations#{{ studio.location | htmlid }}') 
+                  span.fas.fa-map-marker-alt 
+                  | &nbsp;{{ studio.location }}
           tr(ng-repeat-start='day in studio.days')
             td.day(colspan='3') {{ day.date | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
