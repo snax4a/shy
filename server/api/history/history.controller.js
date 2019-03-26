@@ -17,7 +17,12 @@ export async function attendees(req, res) {
       attendances."className" = $4
     ORDER BY users."lastName", users."firstName";`;
   const { rows } = await db.query(sql, [attended, location, teacher, className]);
-  res.status(200).send(rows);
+  return res.status(200).send(rows);
+
+  // const { attended, locationId, teacherId, classId } = req.query;
+  // const sql = 'SELECT _id, "userId", "userNameFull" FROM history_attendees($1, $2, $3, $4)';
+  // const { rows } = await db.query(sql, [attended, locationId, teacherId, classId]);
+  // return res.status(200).send(rows);
 }
 
 // Get a list of history items for a particular user with a running balance
@@ -67,7 +72,12 @@ export async function index(req, res) {
     ORDER BY history."when" DESC;`;
 
   const { rows } = await db.query(sql, [id]);
-  res.status(200).send(rows);
+  return res.status(200).send(rows);
+
+  // const sql = `SELECT _id, "userId", type, "when", location, "locationId", "className", "classId", teacher,
+  //   "teacherId", "paymentMethod", notes, what, quantity, balance FROM history_index($1);`;
+  // const { rows } = await db.query(sql, [id]);
+  // return res.status(200).send(rows);
 }
 
 // Create history item (Attendance or Purchase) for a user
