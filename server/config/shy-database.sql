@@ -662,17 +662,20 @@ AS $BODY$
       attendances.user_id AS "userId",
       'A'::text AS type,
       attendances.attended AS "when",
-      attendances.location,
+      locations.name AS location,
       attendances.location_id AS "locationId",
-      attendances."className",
+      classes.name AS "className",
       attendances.class_id AS "classId",
-      attendances.teacher,
+      users."lastName" || ', ' || users."firstName" AS teacher,
       attendances.teacher_id AS "teacherId",
       NULL AS "paymentMethod",
       NULL AS notes,
       ((((('Attended '::text || attendances."className"::text) || ' in '::text) || attendances.location::text) || ' ('::text) || attendances.teacher::text) || ')'::text AS what,
       '-1'::integer AS quantity
     FROM attendances
+      INNER JOIN locations ON attendances.location_id = locations._id
+      INNER JOIN classes ON attendances.class_id = classes._id
+      INNER JOIN users ON attendances.teacher_id = users._id
     WHERE attendances.user_id = $1
     UNION
     SELECT purchases._id,
