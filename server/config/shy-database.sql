@@ -108,8 +108,11 @@ CREATE INDEX users_first_name ON users USING btree ("firstName");
 DROP INDEX IF EXISTS users_last_name;
 CREATE INDEX users_last_name ON users USING btree ("lastName");
 
+DROP INDEX IF EXISTS users_role;
+CREATE INDEX users_role ON users USING btree (role);
+
 DROP INDEX IF EXISTS users_teachers_display;
-CREATE INDEX users_teachers_display ON users USING btree ("displayOrder", role);
+CREATE INDEX users_teachers_display ON users USING btree ("displayOrder");
 
 DROP TRIGGER IF EXISTS updated_at ON users;
 CREATE TRIGGER updated_at BEFORE UPDATE ON users
@@ -194,8 +197,11 @@ DROP TRIGGER IF EXISTS updated_at ON sections;
 CREATE TRIGGER updated_at BEFORE UPDATE ON sections
   FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
-DROP INDEX IF EXISTS sections_active;
-CREATE INDEX sections_active ON sections USING btree (starts, title);
+DROP INDEX IF EXISTS sections_starts;
+CREATE INDEX sections_starts ON sections USING btree (starts);
+
+DROP INDEX IF EXISTS sections_title;
+CREATE INDEX sections_title ON sections USING btree (title);
 
 -- DROP SEQUENCE IF EXISTS locations_seq;
 CREATE SEQUENCE IF NOT EXISTS locations_seq;
@@ -244,9 +250,13 @@ DROP INDEX IF EXISTS announcements_expires;
 CREATE INDEX announcements_expires
   ON announcements USING btree (expires);
 
-DROP INDEX IF EXISTS announcements_section_title;
-CREATE INDEX announcements_section_title
-  ON announcements USING btree (section, title);
+DROP INDEX IF EXISTS announcements_section;
+CREATE INDEX announcements_section
+  ON announcements USING btree (section);
+
+DROP INDEX IF EXISTS announcements_title;
+CREATE INDEX announcements_title
+  ON announcements USING btree (title);
 
 DROP TRIGGER IF EXISTS updated_at ON announcements;
 CREATE TRIGGER updated_at
@@ -270,13 +280,25 @@ CREATE TABLE IF NOT EXISTS attendances (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
+DROP INDEX IF EXISTS attendances_attended;
+CREATE INDEX attendances_attended
+  ON attendances USING btree (attended);
+
 DROP INDEX IF EXISTS attendances_user;
 CREATE INDEX attendances_user
-  ON attendances USING btree (attended, user_id);
+  ON attendances USING btree (user_id);
 
-DROP INDEX IF EXISTS attendances_fkeys;
-CREATE INDEX attendances_fkeys
-  ON attendances USING btree (attended, user_id, location_id, teacher_id, class_id);
+DROP INDEX IF EXISTS attendances_location;
+CREATE INDEX attendances_location
+  ON attendances USING btree (location_id);
+
+DROP INDEX IF EXISTS attendances_teacher;
+CREATE INDEX attendances_teacher
+  ON attendances USING btree (teacher_id);
+
+DROP INDEX IF EXISTS attendances_class;
+CREATE INDEX attendances_class
+  ON attendances USING btree (class_id);
 
 DROP TRIGGER IF EXISTS updated_at ON attendances;
 CREATE TRIGGER updated_at BEFORE UPDATE ON attendances FOR EACH ROW
@@ -339,11 +361,11 @@ CREATE TABLE IF NOT EXISTS purchases (
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
-DROP INDEX IF EXISTS purchases__user_id;
-CREATE INDEX purchases_user_id ON purchases USING btree (user_id);
+DROP INDEX IF EXISTS purchases_user;
+CREATE INDEX purchases_user ON purchases USING btree (user_id);
 
 DROP INDEX IF EXISTS purchases_purchased;
-CREATE INDEX purchases_purchased ON purchases USING btree (purchased, user_id);
+CREATE INDEX purchases_purchased ON purchases USING btree (purchased);
 
 DROP TRIGGER IF EXISTS updated_at ON purchases;
 CREATE TRIGGER updated_at BEFORE UPDATE ON purchases
@@ -365,6 +387,19 @@ CREATE TABLE IF NOT EXISTS schedules (
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
+
+DROP INDEX IF EXISTS schedules_location;
+CREATE INDEX schedules_location ON schedules USING btree (location_id);
+
+DROP INDEX IF EXISTS schedules_location_day_start_time;
+CREATE INDEX schedules_day ON schedules USING btree (day);
+
+DROP INDEX IF EXISTS schedules_start_time;
+CREATE INDEX schedules_start_time ON schedules USING btree ("startTime");
+
+DROP TRIGGER IF EXISTS updated_at ON schedules;
+CREATE TRIGGER updated_at BEFORE UPDATE ON schedules
+  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
 DROP VIEW IF EXISTS schedules_index;
 CREATE VIEW schedules_index AS
@@ -389,13 +424,6 @@ CREATE VIEW schedules_index AS
      LEFT JOIN users ON schedules.teacher_id = users._id
      LEFT JOIN classes ON schedules.class_id = classes._id
   ORDER BY locations.name, schedules.day, schedules."startTime";
-
-DROP INDEX IF EXISTS schedules_location_day_start_time;
-CREATE INDEX schedules_location_day_start_time ON schedules USING btree (location, day, "startTime");
-
-DROP TRIGGER IF EXISTS updated_at ON schedules;
-CREATE TRIGGER updated_at BEFORE UPDATE ON schedules
-  FOR EACH ROW EXECUTE PROCEDURE updated_at();
 
 -- DROP TABLE IF EXISTS sessions
 CREATE TABLE IF NOT EXISTS sessions (
@@ -598,7 +626,6 @@ CREATE FUNCTION history_attendees(
 	"classId" integer)
     RETURNS TABLE(_id integer, "userId" integer, "userNameFull" character varying) 
     LANGUAGE 'sql'
-
     COST 100
     VOLATILE 
     ROWS 100

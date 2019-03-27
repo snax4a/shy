@@ -2,6 +2,7 @@
 * [Medium] Admin -> Locations and Classes: delete a Location or Class in use, deletion is correctly blocked but no error message
 
 <a name="1.0.18"></a>
+* Optimized indexes
 * Implemented foreign keys for attendance
 * Added drop pin icon nexts to studio name
 * Modal dialog for teachers, got rid of Teachers page
