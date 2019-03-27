@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS attendances (
 
 DROP INDEX IF EXISTS attendances_attended;
 CREATE INDEX attendances_attended
-  ON attendances USING btree (attended);
+  ON attendances USING btree (attended DESC NULLS LAST);
 
 DROP INDEX IF EXISTS attendances_user;
 CREATE INDEX attendances_user
@@ -342,6 +342,10 @@ DROP INDEX IF EXISTS orders_recipient_email;
 CREATE INDEX orders_recipient_email
   ON orders USING btree ("recipientEmail");
 
+DROP INDEX IF EXISTS orders_created_at;
+CREATE INDEX orders_created_at
+  ON orders USING btree ("createdAt" DESC NULLS LAST);
+
 DROP TRIGGER IF EXISTS updated_at ON orders;
 CREATE TRIGGER updated_at BEFORE UPDATE ON orders
   FOR EACH ROW EXECUTE PROCEDURE updated_at();
@@ -365,7 +369,7 @@ DROP INDEX IF EXISTS purchases_user;
 CREATE INDEX purchases_user ON purchases USING btree (user_id);
 
 DROP INDEX IF EXISTS purchases_purchased;
-CREATE INDEX purchases_purchased ON purchases USING btree (purchased);
+CREATE INDEX purchases_purchased ON purchases USING btree (purchased DESC NULLS LAST);
 
 DROP TRIGGER IF EXISTS updated_at ON purchases;
 CREATE TRIGGER updated_at BEFORE UPDATE ON purchases

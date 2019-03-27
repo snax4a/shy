@@ -72,7 +72,7 @@ function encryptPassword(password, salt) {
 // Used by passport (could be used elsewhere in this controller) - returns false or an authenticated user
 export async function authenticateLocal(email, unencryptedPassword) {
   if(!unencryptedPassword || !email) return false; // Missing parameter
-  const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google, password, salt FROM users WHERE LOWER(email) = LOWER($1);';
+  const sql = 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google, password, salt FROM users WHERE email = LOWER($1);';
   const { rows } = await db.query(sql, [email]);
   if(rows.length === 0) return false; // User not found
   const user = rows[0];
@@ -121,7 +121,7 @@ export async function index(req, res) {
 export async function getUser(field, fieldValue) {
   const sqlStatements = {
     _id: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM users WHERE _id = $1;',
-    email: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM users WHERE email = $1;'
+    email: 'SELECT _id, role, email, "firstName", "lastName", phone, "optOut", provider, google FROM users WHERE email = LOWER($1);'
   };
   const sql = sqlStatements[field];
   if(!sql) userBadParameterError();
