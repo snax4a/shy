@@ -35,11 +35,11 @@ export class ScheduleEditorController {
           this.scheduleItem._id = id;
 
           // Update looked up names for list so we don't need to refresh the page
-          const thisTeacher = this.teachers.find(x => x._id === this.scheduleItem.teacher_id);
+          const thisTeacher = this.teachers.find(x => x._id === this.scheduleItem.teacherId);
           this.scheduleItem.teacher = `${thisTeacher.firstName} ${thisTeacher.lastName}`;
-          const thisLocation = this.locations.find(x => x._id === this.scheduleItem.location_id);
+          const thisLocation = this.locations.find(x => x._id === this.scheduleItem.locationId);
           this.scheduleItem.location = thisLocation.name;
-          const thisClass = this.classes.find(x => x._id === this.scheduleItem.class_id);
+          const thisClass = this.classes.find(x => x._id === this.scheduleItem.classId);
           this.scheduleItem.title = thisClass.name;
 
           // Graft the edited scheduled item back the original

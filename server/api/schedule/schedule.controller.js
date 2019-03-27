@@ -29,8 +29,8 @@ export async function index(req, res) {
 
 // Updates or creates schedule item (admin-only)
 export async function upsert(req, res) {
-  const { _id, location_id, day, class_id, teacher_id, startTime, endTime, canceled } = req.body;
-  let arrParams = [location_id, day, class_id, teacher_id, startTime, endTime, canceled];
+  const { _id, locationId, day, classId, teacherId, startTime, endTime, canceled } = req.body;
+  let arrParams = [locationId, day, classId, teacherId, startTime, endTime, canceled];
   let sql;
   const isNew = _id === 0;
   if(isNew) {

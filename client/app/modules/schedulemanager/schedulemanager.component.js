@@ -49,10 +49,10 @@ export class ScheduleManagerComponent {
     const defaultTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours());
     let scheduleItem = {
       _id: 0,
-      location_id: 1,
+      locationId: 1,
       day: today.getDay() + 1,
-      teacher_id: 29738,
-      class_id: 1,
+      teacherId: 29738,
+      classId: 1,
       startTime: defaultTime,
       endTime: defaultTime,
       canceled: false
