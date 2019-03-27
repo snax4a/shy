@@ -384,12 +384,12 @@ CREATE TABLE IF NOT EXISTS schedules (
 DROP VIEW IF EXISTS schedules_index;
 CREATE VIEW schedules_index AS
  SELECT schedules._id,
-    schedules.location_id,
+    schedules.location_id AS "locationId",
     locations.name AS location,
     schedules.day,
-    schedules.class_id,
+    schedules.class_id AS "classId",
     classes.name AS title,
-    schedules.teacher_id,
+    schedules.teacher_id AS "teacherId",
     users."firstName" as "teacherFirstName",
     users."lastName" as "teacherLastName",
     users.bio as "teacherBio",
@@ -634,22 +634,18 @@ $BODY$;
 
 DROP FUNCTION IF EXISTS history_index(integer);
 CREATE FUNCTION history_index("userId" integer)
-  RETURNS TABLE(_id integer, "userId" integer, type character, "when" date, location character varying, "locationId" integer, "className" character varying, "classId" integer, teacher character varying, "teacherId" integer, "paymentMethod" character varying, notes character varying, what character varying, quantity integer, balance integer) 
+  RETURNS TABLE(_id integer, type character, "when" date, "locationId" integer, "classId" integer, "teacherId" integer, "paymentMethod" character varying, notes character varying, what character varying, quantity integer, balance integer) 
   LANGUAGE 'sql'
   COST 100
   VOLATILE 
   ROWS 5000
 AS $BODY$
-	SELECT
+SELECT
     history._id,
-    history."userId",
     history.type,
     history."when",
-    history.location,
     history."locationId",
-    history."className",
     history."classId",
-    history.teacher,
     history."teacherId",
     history."paymentMethod",
     history.notes,
@@ -659,18 +655,15 @@ AS $BODY$
   FROM (
     SELECT
       attendances._id,
-      attendances.user_id AS "userId",
+	  attendances.user_id AS "userId",
       'A'::text AS type,
       attendances.attended AS "when",
-      locations.name AS location,
       attendances.location_id AS "locationId",
-      classes.name AS "className",
       attendances.class_id AS "classId",
-      users."lastName" || ', ' || users."firstName" AS teacher,
       attendances.teacher_id AS "teacherId",
       NULL AS "paymentMethod",
       NULL AS notes,
-      ((((('Attended '::text || attendances."className"::text) || ' in '::text) || attendances.location::text) || ' ('::text) || attendances.teacher::text) || ')'::text AS what,
+      ((((('Attended '::text || classes.name::text) || ' in '::text) || locations.name::text) || ' ('::text) || users."lastName" || ', ' || users."firstName") || ')'::text AS what,
       '-1'::integer AS quantity
     FROM attendances
       INNER JOIN locations ON attendances.location_id = locations._id
@@ -679,14 +672,11 @@ AS $BODY$
     WHERE attendances.user_id = $1
     UNION
     SELECT purchases._id,
-      purchases.user_id AS "userId",
+	  purchases.user_id AS "userId",
       'P'::text AS type,
       purchases.purchased AS "when",
-      NULL AS location,
       NULL AS "locationId",
-      NULL AS "className",
       NULL AS "classId",
-      NULL AS teacher,
       NULL AS "teacherId",
       purchases.method AS "paymentMethod",
       purchases.notes,
@@ -697,6 +687,90 @@ AS $BODY$
   ) history
   ORDER BY history."when" DESC;
 $BODY$;
+
+DROP VIEW IF EXISTS report_teachers_csv;
+CREATE VIEW report_teachers_csv AS
+  SELECT locations.name AS location, classes.name AS class, users."lastName" || ', ' || users."firstName" AS teacher, attended, COUNT(*) AS students,
+    CASE
+      WHEN COUNT(*) < 5 THEN 25
+      ELSE COUNT(*) * 5
+    END as amount
+  FROM attendances
+    INNER JOIN locations ON attendances.location_id = locations._id
+    INNER JOIN classes ON attendances.class_id = classes._id
+    INNER JOIN users ON attendances.teacher_id = users._id
+  WHERE
+    attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
+  GROUP BY locations.name, users._id, classes.name, attended
+  ORDER BY locations.name, attended;
+
+DROP VIEW IF EXISTS report_top_10_classes;
+CREATE VIEW report_top_10_classes AS
+  SELECT
+    locations.name AS location, classes.name AS "className", users."lastName" || ', ' || users."firstName" AS teacher, count(*)
+  FROM attendances
+    INNER JOIN locations ON attendances.location_id = locations._id
+    INNER JOIN classes ON attendances.class_id = classes._id
+    INNER JOIN users ON attendances.teacher_id = users._id
+  WHERE attended > CURRENT_DATE - INTERVAL '90 days'
+  GROUP BY classes.name, locations.name, users._id
+  ORDER by count(*) DESC
+  LIMIT 10;
+
+DROP VIEW IF EXISTS report_attendance_by_location;
+CREATE VIEW report_attendance_by_location AS
+  SELECT locations.name as location, count(*)
+  FROM attendances
+    INNER JOIN locations ON attendances.location_id = locations._id
+  WHERE attended > CURRENT_DATE - INTERVAL '90 days'
+  GROUP BY locations.name
+  ORDER by count(*) DESC;
+
+DROP VIEW IF EXISTS report_top_10_students;
+CREATE VIEW report_top_10_students AS
+  SELECT users."lastName", users."firstName", COUNT(*)
+  FROM attendances
+    INNER JOIN users ON attendances.user_id = users._id
+  WHERE attended > CURRENT_DATE - INTERVAL '90 days'
+  GROUP BY users."lastName", users."firstName"
+  ORDER BY COUNT(*) DESC
+  LIMIT 10;
+
+DROP VIEW IF EXISTS report_attendance_by_location_last18m;
+CREATE VIEW report_attendance_by_location_last18m AS
+  SELECT locations.name as location, date_trunc('month', attended)::date AS month, COUNT(*)
+  FROM attendances INNER JOIN locations ON attendances.location_id = locations._id
+  WHERE attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '18 months' AND attended < date_trunc('month', CURRENT_DATE)
+  GROUP BY locations.name, month
+  ORDER BY locations.name, month;
+
+DROP VIEW IF EXISTS report_teacher_reimbursement_lastm;
+CREATE VIEW report_teacher_reimbursement_lastm AS
+  SELECT teacher, SUM(count) AS count, SUM(amount) AS amount FROM
+    ( SELECT users."lastName" || ', ' || users."firstName" AS teacher, classes.name AS "className", attended, COUNT(*) AS count,
+        CASE
+          WHEN COUNT(*) < 5 THEN 25
+          ELSE COUNT(*) * 5
+        END as amount
+      FROM attendances
+        INNER JOIN users ON attendances.teacher_id = users._id
+        INNER JOIN classes ON attendances.class_id = classes._id
+      WHERE
+        attended >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AND attended < date_trunc('month', CURRENT_DATE)
+      GROUP BY classes.name, users."lastName", users."firstName", attended
+    ) a
+  GROUP by teacher
+  ORDER BY teacher;
+
+DROP VIEW IF EXISTS report_poorly_attended_classes;
+CREATE VIEW report_poorly_attended_classes AS
+  SELECT locations.name AS location, classes.name AS "className", count(*) from attendances
+    INNER JOIN locations ON attendances.location_id = locations._id
+    INNER JOIN classes ON attendances.class_id = classes._id
+  WHERE attended > CURRENT_DATE - INTERVAL '90 days'
+  GROUP BY locations.name, classes.name
+  ORDER by count(*) ASC
+  LIMIT 10;
 
 -- Update attendances with foreign keys
 UPDATE attendances SET location_id = (SELECT _id FROM locations WHERE locations.name = attendances.location) WHERE location_id IS NULL;
