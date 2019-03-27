@@ -68,8 +68,8 @@
 .row(ng-hide='$ctrl.historyItems.length==0')
   .col-md-12
     ul.nav.nav-tabs
-      li.active(role='presentation') 
-        a History: {{ $ctrl.historyFor }}
+      li.active(role='presentation')
+        a History: {{ $ctrl.user.lastName }}, {{ $ctrl.user.firstName }}
     table.table.table-striped.last
       thead
         th.col-left Date

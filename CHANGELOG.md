@@ -1,14 +1,8 @@
 # Product Backlog
-* [High] Implement foreign keys for attendance
-  - Add to class: usermanager.pug -> usermanager.component.js:attendanceAdd() -> history.service.js:historyItemAdd() -> history.controller.js:create()
-  - Get attendees: shynet.pug -> shynet.component.js:attendeeLookup() -> history.service.js:attendeesGet() -> history.controller.js:index()
-  - Delete attendee: shynet.pug -> shynet.component.js:attendeeDelete() -> history.service.js:attendeeDelete() -> history.controller.js:destroy()
-  - History editor update: historyeditor.pug -> historyeditor.controller.js:submit() -> history.service.js:historyItemUpdate() -> history.controller.js:update()
-  - View student history: usermanager.pug -> usermanager.component.js:historyGet() -> history.service.js:historyItemsForUserGet() -> history.controllerjs:index()
-  - History item delete: usermanager.pug -> usermanager.component.js:historyItemDelete() -> history.service.js:historyItemDelete() -> history.controller.js:destroy()
-* [Medium] Provide error message if admin tries to delete a Location or Class in use.
+* [Medium] Admin -> Locations and Classes: delete a Location or Class in use, deletion is correctly blocked but no error message
 
 <a name="1.0.18"></a>
+* Implemented foreign keys for attendance
 * Added drop pin icon nexts to studio name
 * Modal dialog for teachers, got rid of Teachers page
 * Got rid of line that cuts through logo when hamburger menu is displayed

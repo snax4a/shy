@@ -50,7 +50,11 @@ export class HistoryEditorController {
           if(updatedHistoryItem.type == 'P') {
             updatedHistoryItem.what = `Purchased ${updatedHistoryItem.quantity} class pass (${updatedHistoryItem.paymentMethod}) - ${updatedHistoryItem.notes}`;
           } else {
-            updatedHistoryItem.what = `Attended ${updatedHistoryItem.className} in ${updatedHistoryItem.location} (${updatedHistoryItem.teacher})`;
+            // Lookup values for foreign keys
+            const thisTeacher = this.teachers.find(x => x._id === updatedHistoryItem.teacherId);
+            const thisLocation = this.locations.find(x => x._id === updatedHistoryItem.locationId);
+            const thisClass = this.classes.find(x => x._id === updatedHistoryItem.classId);
+            updatedHistoryItem.what = `Attended ${thisClass.name} in ${thisLocation.name} (${thisTeacher.lastName}, ${thisTeacher.firstName})`;
           }
 
           // Graft historyItem back

@@ -16,7 +16,6 @@ export class UserManagerComponent {
     this.alerts = [];
     this.users = [];
     this.historyItems = [];
-    this.historyFor = '';
     this.reverse = false;
     this.sortKey = 'lastName';
     this.submitted = false;
@@ -26,12 +25,12 @@ export class UserManagerComponent {
   $onChanges(changes) {
     // Skip if first firing of $onChanges or users array is empty
     if(!changes.user.currentValue || this.users.length == 0) return;
-    // Get userId that was deleted (ignoring ts property)
+    // Get userId that was changed (ignoring ts property)
     const userId = changes.user.currentValue._id;
     // Find that userId in displayed users (if they are)
     const index = this.users.findIndex(element => element._id === userId);
-    // Credit the displayed user's balance since they were deleted
-    if(index !== -1) this.users[index].balance++;
+    // Alter displayed user's balance
+    if(index !== -1) this.users[index].balance = this.users[index].balance - changes.user.currentValue.balanceChange;
     this.historyHide(); // Hide the history since it's no longer valid
   }
 
@@ -83,6 +82,7 @@ export class UserManagerComponent {
 
   // Open a dialog for editing the selected history item
   modalHistoryEditor(historyItem) {
+    const originalQuantity = historyItem.quantity;
     let modalDialog = this.$uibModal.open({
       template: require('./historyeditor.pug'),
       ariaLabelledBy: 'modal-title',
@@ -97,6 +97,7 @@ export class UserManagerComponent {
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
       // If we added a history record, update the count in the grid
+      this.user.balance += historyItem.quantity - originalQuantity;
     });
   }
 
@@ -145,10 +146,10 @@ export class UserManagerComponent {
   }
 
   attendanceAdd(user) {
-    const { classDate, location, className, teacher } = this.parent;
+    const { attended, locationId, classId, teacherId } = this.parent;
 
     // Check to see if required fields have been selected
-    if(!(classDate && className && location && teacher)) {
+    if(!(attended && classId && locationId && teacherId)) {
       this.alerts.push({
         type: 'alert-warning',
         message: 'Please make sure the class, date, studio, and teacher are selected first.'
@@ -169,10 +170,10 @@ export class UserManagerComponent {
     const historyItem = {
       type: 'A',
       userId: user._id,
-      attended: classDate,
-      location,
-      className,
-      teacher
+      attended,
+      locationId,
+      classId,
+      teacherId
     };
 
     this.historyService.historyItemAdd(historyItem)
@@ -215,9 +216,9 @@ export class UserManagerComponent {
 
   // Get an array of purchases & attendances with a running balance
   historyGet(selectedUser) {
+    this.user = selectedUser; // Did not trigger $onChanges()
     this.historyService.historyItemsForUserGet(selectedUser._id)
       .then(historyItems => {
-        this.historyFor = `${selectedUser.lastName}, ${selectedUser.firstName}`;
         this.historyItems = historyItems;
         return null; // since we set component properties instead
       })
@@ -225,7 +226,6 @@ export class UserManagerComponent {
   }
 
   historyHide() {
-    this.historyFor = '';
     this.historyItems = [];
   }
 
@@ -237,10 +237,8 @@ export class UserManagerComponent {
     this.historyService.historyItemDelete(historyItem)
       .then(() => {
         this.historyItems.splice(this.historyItems.indexOf(historyItem), 1); // Remove history item from the array
-        let elementPos = this.users.map(x => x._id).indexOf(historyItem.userId);
-        let userFound = this.users[elementPos];
-        userFound.balance -= historyItem.quantity;
-        return userFound.balance;
+        this.user.balance -= historyItem.quantity;
+        return null; // resolve promise
       })
       .catch(response => console.error('Error', response));
   }

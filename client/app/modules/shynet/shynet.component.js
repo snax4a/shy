@@ -13,13 +13,13 @@ export class SHYnetComponent {
     this.classes = this.classService.classes;
     this.locations = this.locationService.locations;
     const now = new Date();
-    this.classDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    this.attended = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     this.datePickerOpened = false;
     this.dateOptions = {
       dateDisabled: false,
       formatYear: 'yyyy',
       maxDate: new Date(2020, 5, 22),
-      minDate: new Date(2013, 1, 1),
+      minDate: new Date(2014, 1, 1),
       startingDay: 1
     };
     this.submitted = false;
@@ -31,7 +31,7 @@ export class SHYnetComponent {
   }
 
   attendeeLookup() {
-    this.historyService.attendeesGet(this.classDate, this.location, this.className, this.teacher)
+    this.historyService.attendeesGet(this.attended, this.locationId, this.classId, this.teacherId)
       .then(attendees => {
         this.attendees = attendees;
       });
@@ -40,10 +40,10 @@ export class SHYnetComponent {
   attendeeDelete(attendee) {
     this.historyService.attendeeDelete(attendee)
       .then(() => {
-        // For usermanager to update balance
-        this.user = {
+        this.user = { // triggers $onChanges() in usermanager.component.js
           _id: attendee.userId,
-          ts: new Date().getTime() // forces user to be different even if _id is not
+          balanceChange: -1
+          //ts: new Date().getTime() // forces user to be different even if _id is not
         };
         this.attendees.splice(this.attendees.indexOf(attendee), 1); // Remove attendee from array
         return true;

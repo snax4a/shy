@@ -261,37 +261,22 @@ CREATE SEQUENCE IF NOT EXISTS attendances_seq;
 -- DROP TABLE IF EXISTS attendances;
 CREATE TABLE IF NOT EXISTS attendances (
   _id integer PRIMARY KEY DEFAULT nextval('attendances_seq'::regclass),
-  user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   attended date NOT NULL DEFAULT now(),
+  user_id integer NOT NULL REFERENCES users(_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   location_id integer NOT NULL REFERENCES locations(_id) ON UPDATE RESTRICT ON DELETE RESTRICT
-  location character varying(20) NOT NULL,
   class_id integer NOT NULL REFERENCES classes(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  "className" character varying(80) NOT NULL,
   teacher_id integer NOT NULL REFERENCES users(_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  teacher character varying(40) NOT NULL,
   "createdAt" timestamp with time zone NOT NULL DEFAULT now(),
   "updatedAt" timestamp with time zone NOT NULL DEFAULT now()
 );
 
-DROP INDEX IF EXISTS attendances__user_id;
-CREATE INDEX attendances_user_id
-  ON attendances USING btree (user_id);
-
-DROP INDEX IF EXISTS attendances_attended;
-CREATE INDEX attendances_class
-  ON attendances USING btree (location, teacher, "className", attended);
+DROP INDEX IF EXISTS attendances_user;
+CREATE INDEX attendances_user
+  ON attendances USING btree (attended, user_id);
 
 DROP INDEX IF EXISTS attendances_fkeys;
 CREATE INDEX attendances_fkeys
-  ON attendances USING btree (location_id, teacher_id, class_id, attended);
-
-DROP INDEX IF EXISTS attendances_attended;
-CREATE INDEX attendances_student_history
-  ON attendances USING btree (user_id, attended);
-
-DROP INDEX IF EXISTS attendances_attended;
-CREATE INDEX attendances_teacher_history
-  ON attendances USING btree (teacher, attended);
+  ON attendances USING btree (attended, user_id, location_id, teacher_id, class_id);
 
 DROP TRIGGER IF EXISTS updated_at ON attendances;
 CREATE TRIGGER updated_at BEFORE UPDATE ON attendances FOR EACH ROW
