@@ -1,8 +1,14 @@
 import db from '../../utils/db';
 
-// Returns JSON array of upcoming workshops in chronological order
+// Returns JSON array of all workshops in chronological order
 export async function index(req, res) {
-  const { rows } = await db.query('SELECT * FROM workshop_sections;', []);
+  const { rows } = await db.query('SELECT * FROM workshops_index;', []);
+  return res.status(200).send(rows[0].workshops);
+}
+
+// Returns JSON array of upcoming workshops in chronological order
+export async function active(req, res) {
+  const { rows } = await db.query('SELECT * FROM workshops_active;', []);
   return res.status(200).send(rows[0].workshops);
 }
 

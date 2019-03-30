@@ -505,29 +505,39 @@ CREATE VIEW studio_analysis_pycy AS
   GROUP BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text))
   ORDER BY attendances.location, (to_char(attendances.attended::timestamp with time zone, 'YYYY-MM'::text));
 
-DROP VIEW IF EXISTS workshop_sections;
-CREATE VIEW workshop_sections AS
-  SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM (
-    SELECT workshops._id, title, description, "imageId", (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
-      (
-        SELECT array_to_json(array_agg(row_to_json(s))) FROM (
-          SELECT sections._id, title, description, "hideDate" , starts, ends,
-            "productId", products.price, "locationId", locations.name AS location,
-            locations.address AS "streetAddress",
-            locations.city AS "addressLocality", locations.state AS "addressRegion",
-            locations."zipCode" AS "postalCode",
-            'US' AS "addressCountry"
-          FROM sections
-            INNER JOIN products ON sections."productId" = products._id
-            INNER JOIN locations on sections."locationId" = locations._id
-          WHERE
-            sections."workshopId" = workshops._id AND
-            ends > CURRENT_TIMESTAMP - interval '12 hours'
-          ORDER BY starts
-        ) s
-      ) AS sections
-    FROM workshops
-  ) w;
+DROP VIEW IF EXISTS sections_all;
+CREATE VIEW sections_all AS
+  SELECT "workshopId", sections._id, title, description, "hideDate", starts, ends,
+    "productId", products.price, "locationId", locations.name AS location,
+    locations.address AS "streetAddress",
+    locations.city AS "addressLocality", locations.state AS "addressRegion",
+    locations."zipCode" AS "postalCode",
+    'US' AS "addressCountry"
+  FROM sections
+    INNER JOIN products ON sections."productId" = products._id
+    INNER JOIN locations on sections."locationId" = locations._id
+  ORDER BY starts;
+
+DROP VIEW IF EXISTS workshops_index;
+CREATE VIEW workshops_index AS
+  SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM
+    (
+      SELECT workshops._id, title, description, "imageId",
+        (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
+        (SELECT array_to_json(array_agg(row_to_json(s))) FROM (SELECT * FROM sections_all WHERE sections_all."workshopId" = workshops._id) s) AS sections
+      FROM workshops
+    ) w;
+
+DROP VIEW IF EXISTS workshops_active;
+CREATE VIEW workshops_active AS
+  SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM
+    (
+      SELECT workshops._id, title, description, "imageId",
+        (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
+        (SELECT array_to_json(array_agg(row_to_json(s))) FROM (SELECT * FROM sections_all WHERE sections_all."workshopId" = workshops._id AND ends > CURRENT_TIMESTAMP - interval '12 hours') s) AS sections
+      FROM workshops
+    ) w
+    WHERE w.sections IS NOT NULL;
 
 -- Insert workshop record or update if one exists
 DROP FUNCTION IF EXISTS workshop_upsert(integer, character varying, character varying, integer)

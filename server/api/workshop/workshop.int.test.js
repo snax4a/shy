@@ -86,6 +86,20 @@ describe('Workshop API:', () => {
     );
   });
 
+  // workshop.controller.js:active
+  describe('GET /api/workshop/active', () => {
+    test('should respond with JSON array', () =>
+      request(app)
+        .get('/api/workshop/active')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          const workshops = res.body;
+          expect(Array.isArray(workshops)).toBe(true);
+        })
+    );
+  });
+
   // workshop.controller.js:destroy
   describe('DELETE /api/workshop/:id', () => {
     test('should respond with a 401 when not authenticated', done =>

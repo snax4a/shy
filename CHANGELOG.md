@@ -1,9 +1,9 @@
 # Product Backlog
-* [Bug] Past workshops display on /workshops page.
-* [Bug] Past workshop sections do not display on Admin -> Workshops -> worshopeditor.pug
 * [Medium] Admin -> Locations and Classes: delete a Location or Class in use, deletion is correctly blocked but no error message
 
 <a name="1.0.18"></a>
+* [Bug] Past workshops display on /workshops page.
+* [Bug] Past workshop sections do not display on Admin -> Workshops -> worshopeditor.pug
 * [Bug] Admin -> Locations -> Location editor - mouse up outside of dialog causes it to go away (on Chrome only) - possibly unhandled rejection - backdrop click
 * Optimized indexes
 * Implemented foreign keys for attendance

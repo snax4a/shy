@@ -15,7 +15,7 @@ export class WorkshopsComponent {
   }
 
   async workshopsGet() {
-    this.workshops = await this.workshopService.workshopsGet();
+    this.workshops = await this.workshopService.workshopsGet(true);
     this.$timeout(() => this.$window.twttr.widgets.load(), 500);
     this.$timeout(this.$anchorScroll, 100);
   }

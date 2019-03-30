@@ -6,8 +6,9 @@ export class WorkshopService {
     this.initialized = this.initialize(); // promise used by route
   }
 
-  async workshopsGet() {
-    const { data } = await this.$http.get('/api/workshop');
+  async workshopsGet(active) {
+    const suffix = active ? '/active' : '';
+    const { data } = await this.$http.get(`/api/workshop${suffix}`);
     this.workshops = data;
     return this.workshops;
   }
