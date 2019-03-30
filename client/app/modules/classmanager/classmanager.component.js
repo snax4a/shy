@@ -9,8 +9,14 @@ export class ClassManagerComponent {
   }
 
   $onInit() {
+    this.alerts = [];
     this.classesGet();
     this.submitted = false;
+  }
+
+  // close the alert by deleting the element in the array
+  closeAlert(index) {
+    this.alerts.splice(index, 1);
   }
 
   classRemoveFromList(thisClass) {
@@ -30,8 +36,14 @@ export class ClassManagerComponent {
   }
 
   async classDelete(thisClass) {
-    await this.classService.classDelete(thisClass);
-    this.$timeout(() => this.classRemoveFromList(thisClass));
+    try {
+      await this.classService.classDelete(thisClass);
+      this.$timeout(() => this.classRemoveFromList(thisClass));
+    } catch(err) {
+      if(err.statusText.includes('fkey')) {
+        this.$timeout(() => this.alerts.push({ type: 'alert-danger', message: `${thisClass.name} cannot be deleted unless there are no schedules or attendances using it.`}));
+      }
+    }
   }
 
   classEdit(thisClass) {

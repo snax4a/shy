@@ -1,7 +1,9 @@
 # Product Backlog
-* [Medium] Admin -> Locations and Classes: delete a Location or Class in use, deletion is correctly blocked but no error message
+* None
 
 <a name="1.0.18"></a>
+* [Bug] Attempt to delete class in Admin -> Classes did not display error message.
+* [Bug] Attempt to delete location in Admin -> Locations did not display error message.
 * [Bug] Past workshops display on /workshops page.
 * [Bug] Past workshop sections do not display on Admin -> Workshops -> worshopeditor.pug
 * [Bug] Admin -> Locations -> Location editor - mouse up outside of dialog causes it to go away (on Chrome only) - possibly unhandled rejection - backdrop click

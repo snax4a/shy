@@ -5,6 +5,7 @@
       |&nbsp;New Class
     br
     br
+    div(uib-alert='', ng-repeat="alert in $ctrl.alerts", ng-class='alert.type', close='$ctrl.closeAlert($index)') {{ alert.message }}
     p(ng-show='$ctrl.classes.length==0') No classes
     table.table.table-striped(ng-hide='$ctrl.classes.length==0')
       thead

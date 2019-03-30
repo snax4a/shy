@@ -9,8 +9,14 @@ export class LocationManagerComponent {
   }
 
   $onInit() {
+    this.alerts = [];
     this.locationsGet();
     this.submitted = false;
+  }
+
+  // close the alert by deleting the element in the array
+  closeAlert(index) {
+    this.alerts.splice(index, 1);
   }
 
   locationRemoveFromList(location) {
@@ -39,8 +45,14 @@ export class LocationManagerComponent {
   }
 
   async locationDelete(location) {
-    await this.locationService.locationDelete(location);
-    this.$timeout(() => this.locationRemoveFromList(location));
+    try {
+      await this.locationService.locationDelete(location);
+      this.$timeout(() => this.locationRemoveFromList(location));
+    } catch(err) {
+      if(err.statusText.includes('fkey')) {
+        this.$timeout(() => this.alerts.push({ type: 'alert-danger', message: `${location.name} cannot be deleted unless there are no classes, workshops or attendances using it.`}));
+      }
+    }
   }
 
   locationEdit(location) {
