@@ -19,6 +19,7 @@ export class ScheduleManagerComponent {
   modalScheduleEditor(scheduleItem) {
     let modalDialog = this.$uibModal.open({
       template: require('./scheduleeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

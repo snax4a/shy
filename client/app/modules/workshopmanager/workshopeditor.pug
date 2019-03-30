@@ -62,6 +62,10 @@ form(name='form', ng-submit="$ctrl.submitWorkshop(form)", novalidate='', ng-mode
                   select.form-control(name='product', id='product', ng-model='section.productId', ng-options="product._id as product.name for product in $ctrl.products | orderBy: 'name'")
                   ng-messages.help-block.has-error(for='form.className.$error', ng-show='form.className.$dirty || form.$submitted', role='alert')
                     ng-message(when='required') Please select a product.
+                  br
+                  | If using Safari, enter times in this format:
+                  br
+                  | 2019-04-26T18:30
               td
                 .form-group
                   input.form-control.right(type='number', name='price', id='price', ng-model='section.price', required='true')

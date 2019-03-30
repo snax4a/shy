@@ -45,6 +45,7 @@ export class ProductManagerComponent {
   modalProductEditor(product) {
     let modalDialog = this.$uibModal.open({
       template: require('./producteditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

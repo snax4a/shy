@@ -22,6 +22,7 @@ export class WorkshopManagerComponent {
   modalWorkshopEditor(workshop) {
     let modalDialog = this.$uibModal.open({
       template: require('./workshopeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

@@ -49,6 +49,7 @@ export class AnnouncementManagerComponent {
   modalAnnouncementEditor(announcement) {
     let modalDialog = this.$uibModal.open({
       template: require('./announcementeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

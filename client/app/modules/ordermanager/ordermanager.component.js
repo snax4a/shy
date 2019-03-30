@@ -39,6 +39,8 @@ export class OrderManagerComponent {
     });
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
+    }, () => {
+      console.log('Backdrop click');
     });
   }
 

@@ -45,6 +45,7 @@ export class ClassManagerComponent {
   modalClassEditor(thisClass) {
     let modalDialog = this.$uibModal.open({
       template: require('./classeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

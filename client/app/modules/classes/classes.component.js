@@ -33,6 +33,8 @@ export class ClassesComponent {
 
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
+    }, () => {
+      console.log('Backdrop click');
     });
   }
 
@@ -55,6 +57,8 @@ export class ClassesComponent {
 
     // Stub for anything that needs to happen after closing dialog
     modalDialog.result.then(() => {
+    }, () => {
+      console.log('Backdrop click');
     });
   }
 }

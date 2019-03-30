@@ -65,6 +65,7 @@ export class UserManagerComponent {
   modalClassAdder(user) {
     let modalDialog = this.$uibModal.open({
       template: require('./classadder.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
@@ -85,6 +86,7 @@ export class UserManagerComponent {
     const originalQuantity = historyItem.quantity;
     let modalDialog = this.$uibModal.open({
       template: require('./historyeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
@@ -105,6 +107,7 @@ export class UserManagerComponent {
   modalUserEditor(user) {
     let modalDialog = this.$uibModal.open({
       template: require('./usereditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',

@@ -54,6 +54,7 @@ export class LocationManagerComponent {
   modalLocationEditor(location) {
     let modalDialog = this.$uibModal.open({
       template: require('./locationeditor.pug'),
+      backdrop: false, // else mouseup outside of box dismisses dialog
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       controllerAs: '$ctrl',
