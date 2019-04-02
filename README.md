@@ -5,9 +5,7 @@
 
 # Schoolhouse Yoga Website
 
-Schoolhouse Yoga's website provides a home page, class schedule, workshop information, teachers' page,
-method to contact the school and a shopping cart tied to the Braintree payment gateway. This
-implementation uses Braintree for credit card and Apple Pay forms of payment.
+Schoolhouse Yoga's website provides the usual visual aspects of a yoga website plus a shopping cart written  (using Braintree's payment gateway including Apple Pay) and administration UI with a dashboard, content management, user, order, and attendance management. User logins can be local or OAuth. Project tooling includes Babel, Webpack, Gulp, browser-sync, pug, Sass, Jest, and Cypress.
 
 ## Getting Started
 
