@@ -5,7 +5,12 @@
 
 # Schoolhouse Yoga Website
 
-Schoolhouse Yoga's website provides the usual visual aspects of a yoga website plus a shopping cart written  (using Braintree's payment gateway including Apple Pay) and administration UI with a dashboard, content management, user, order, and attendance management. User logins can be local or OAuth. Project tooling includes Babel, Webpack, Gulp, browser-sync, pug, Sass, Jest, and Cypress.
+Schoolhouse Yoga's website provides the usual visual aspects of a yoga website plus:
+- Shopping cart written from scratch integrated with Braintree's payment gateway (including Apple Pay)
+- SendInBlue integration for transactional emails and newsletter user management
+- User logins via OAuth (Google supported currently) or local 
+- Administration UI with a dashboard, content management, user, order, and attendance management.
+- Project tooling including: Babel, Webpack, Gulp, browser-sync, pug, Sass, Jest, and Cypress.
 
 ## Getting Started
 
@@ -14,18 +19,18 @@ Schoolhouse Yoga's website provides the usual visual aspects of a yoga website p
 - [Git](https://git-scm.com/) (on macOS `brew install git`)
 - [Node.js 10.15.2 and npm 6.8.0](nodejs.org) (`brew install node@10`)
 - [PostgreSQL 11.2.0](http://postgresql.org) (`brew install postgresql`)
-- [pgAdmin4](https://www.postgresql.org/download/)
-- [Chrome >= 62] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
-- Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- [pgAdmin4](https://www.postgresql.org/download/) (avoid version 4.3 as it's very buggy - 4.2 is better)
+- [Chrome >= 59] (`brew install Caskroom/versions/google-chrome`) - used for headless testing
+- Get a free [Heroku](http://heroku.com) account and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) `brew install heroku`
 - Get a [Braintree](https://www.braintreepayments.com/sandbox) Sandbox account
 
 ### Project setup
 
-1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS). Remove any Chrome versions older than 59 or client testing will not work.
+1. Make sure prerequisites are installed for your operating system (commands above are mostly for macOS). Upgrade Chrome to 59+ or E2E testing will not work.
 
 2. Run `git clone https://github.com/nstuyvesant/shy.git` then connect to the /shy directory.
 
-3. Run `npm install -g gulp` to install Gulp.
+3. Run `npm install -g gulp` to install Gulp globally.
 
 4. Run `npm install` to install server dependencies.
 
@@ -35,7 +40,7 @@ Schoolhouse Yoga's website provides the usual visual aspects of a yoga website p
 
 7. Open pgAdmin and connect to localhost.
 
-8. In pgAdmin (or via psql), run `server/config/shy-database.sql` to create a database called `shy` then adjust the DATABASE_URL in .env to set the URI with your credentials for this database.
+8. Using pgAdmin (or psql), run `server/config/shy-database.sql` to create a database called `shy` then adjust the DATABASE_URL in .env to set the URI with your credentials for this database. If using Heroku PostgreSQL, connect to the database they provided you then run lines 35 to the end (can't create a database on Heroku via DDL).
 
 ## Running tests, creating builds & deploying to Heroku
 
@@ -45,7 +50,7 @@ Schoolhouse Yoga's website provides the usual visual aspects of a yoga website p
 
 3. Run `gulp serve` to start the server locally. Make sure PostgreSQL is running.
 
-4. Run `gulp deploy` if you are deploying to Heroku and have a Heroku account with the CLI installed. This will push the contents of /dist up to Heroku using git.
+4. Run `gulp deploy` to deploy to Heroku. This will push the contents of /dist up to Heroku using git.
 
 [express]: https://img.shields.io/badge/expressjs-4.16.4-blue.svg
 [express-url]: http://expressjs.com
