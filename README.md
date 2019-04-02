@@ -37,7 +37,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 7. Open pgAdmin and connect to localhost.
 
-8. Create a database called `shy` then adjust the DATABASE_URL in .env to set the URI with your credentials for this database.
+8. In pgAdmin (or via psql), run `server/config/shy-database.sql` to create a database called `shy` then adjust the DATABASE_URL in .env to set the URI with your credentials for this database.
 
 ## Running tests, creating builds & deploying to Heroku
 
@@ -51,7 +51,7 @@ implementation uses Braintree for credit card and Apple Pay forms of payment.
 
 [express]: https://img.shields.io/badge/expressjs-4.16.4-blue.svg
 [express-url]: http://expressjs.com
-[angularjs]: https://img.shields.io/badge/angularjs-1.7.6-red.svg
+[angularjs]: https://img.shields.io/badge/angularjs-1.7.8-red.svg
 [angularjs-url]: https://angularjs.org
 [node]: https://img.shields.io/badge/nodejs-10.15.2-green.svg
 [node-url]: https://nodejs.org
