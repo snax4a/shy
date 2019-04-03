@@ -29,7 +29,7 @@
     "axios": "^0.18.0",
     "bootstrap-sass": "~3.4.1",
     "braintree": "^2.16.0",
-    "braintree-web": "^3.44.0",
+    "braintree-web": "^3.44.1",
     "chart.js": "^2.8.0",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.4",
@@ -57,11 +57,11 @@
     "pug-loader": "^2.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
-    "@babel/runtime": "^7.4.2",
+    "@babel/runtime": "^7.4.3",
     "angular-mocks": "~1.7.8",
     "autoprefixer": "^9.5.0",
     "babel-eslint": "^10.0.1",
@@ -92,7 +92,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-harddisk-plugin": "~1.0.1",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.6.0",
+    "jest": "^24.7.0",
     "lazypipe": "^1.0.2",
     "mini-css-extract-plugin": "^0.5.0",
     "moment-locales-webpack-plugin": "^1.0.7",
@@ -111,7 +111,7 @@
     "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.1.0",
-    "webpack-dev-middleware": "^3.6.1"
+    "webpack-dev-middleware": "^3.6.2"
   },
   "engines": {
     "node": "~10.15.2",
