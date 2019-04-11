@@ -19,8 +19,6 @@
           a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true') 200-hour Teacher Training
         li.visible-xs(ng-class='{active: $ctrl.isActive("/locations")}')
           a(ng-href='/locations', ng-click='$ctrl.isCollapsed = true') Directions
-        li.visible-xs(ng-class='{active: $ctrl.isActive("/teachers")}')
-          a(ng-href='/teachers', ng-click='$ctrl.isCollapsed = true') Teachers
         li(ng-if='$ctrl.Cart.getTotalItems() > 0', ng-class='{active: $ctrl.isActive("/cart")}')
           a(ng-href='/checkout', ng-click='$ctrl.isCollapsed = true')
             span.fas.fa-shopping-cart 
