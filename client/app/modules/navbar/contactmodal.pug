@@ -15,13 +15,13 @@ form(name='form', ng-submit='$ctrl.messageSend(form)', novalidate='', ng-model-o
         ng-message(when='required') Please provide your last name.
     .form-group
       label.sr-only(for='email') Email address
-      input.form-control(name='email', ng-model='$ctrl.contact.email', type='email', maxlength='80', placeholder='Email', required='', tabindex='3', autocomplete='email')
+      input.form-control(name='email', ng-model='$ctrl.contact.email', type='email', maxlength='80', placeholder='email@example.com', required='', tabindex='3', autocomplete='email')
       ng-messages.help-block.has-error(for='form.email.$error', ng-show='form.email.$dirty || form.$submitted', role='alert')
         ng-message(when='required') Please provide your email address.
         ng-message(when='email') Please provide a valid email address.
     .form-group
       label.sr-only(for='phone') Phone number
-      input.form-control(name='phone', ng-model='$ctrl.contact.phone', type='tel', maxlength='80', placeholder='Phone', required='', tabindex='3', autocomplete='tel-national')
+      input.form-control(name='phone', ng-model='$ctrl.contact.phone', type='tel', maxlength='15', placeholder='412-555-1212', required='', tabindex='3', autocomplete='tel-national')
       ng-messages.help-block.has-error(for='form.phone.$error', ng-show='form.phone.$dirty || form.$submitted', role='alert')
         ng-message(when='required') Please provide your phone number.
     .form-group
