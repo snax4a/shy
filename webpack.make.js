@@ -8,6 +8,8 @@ import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
+import PurgecssPlugin from 'purgecss-webpack-plugin';
+import glob from 'glob-all';
 
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
@@ -91,7 +93,14 @@ export default function makeWebpackConfig(mode) {
           parallel: true,
           sourceMap: true
         }),
-        new OptimizeCSSAssetsPlugin()
+        new OptimizeCSSAssetsPlugin(),
+        // new PurgecssPlugin({
+        //   paths: glob.sync([
+        //     path.join(__dirname, './client/index.html'),
+        //     path.join(__dirname, './client/**/*.css'),
+        //     path.join(__dirname, './client/**/*.js')
+        //   ])
+        // })
       ]
     },
 
