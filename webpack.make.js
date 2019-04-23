@@ -8,8 +8,8 @@ import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
-import PurgecssPlugin from 'purgecss-webpack-plugin';
-import glob from 'glob-all';
+// import PurgecssPlugin from 'purgecss-webpack-plugin';
+// import glob from 'glob-all';
 
 // Called by gulpfile.babel.js, and server/config/express.js
 export default function makeWebpackConfig(mode) {
