@@ -31,7 +31,7 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`);
     this.icsFile = `data:text/calendar;charset=utf-8,${iCal}`;
-    this.google = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${starts}/${ends}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}`;
+    this.google = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${starts}/${ends}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}${this.weekly ? '&recur=RRULE:FREQ=WEEKLY' : ''}`;
   }
 
   getUid() {

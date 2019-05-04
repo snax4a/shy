@@ -19,7 +19,7 @@
             td.day(colspan='3') {{ day.date | date:'fullDate' }}
           tr(ng-repeat-end, ng-repeat='class in day.classes')
             td.time(ng-class='{ canceled: class.canceled===true }')
-              addtocalendar(title='class.title', description='class.teacher', location='studio.location', starts='class.startTime', ends='class.endTime', weekly='true', mini='true') 
+              addtocalendar(title='class.title', description='class.description', location='studio.location', starts='class.startTime', ends='class.endTime', weekly='true', mini='true') 
               | &nbsp;{{ class.startTime | date:'shortTime' }}-{{ class.endTime | date:'shortTime' }}
             td(ng-class='{ canceled: class.canceled===true }')
               a(href='#', ng-click='$ctrl.classDescriptionOpen(class.title, class.description)') {{ class.title }}
