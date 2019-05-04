@@ -529,15 +529,42 @@ CREATE VIEW workshops_index AS
     ) w;
 
 DROP VIEW IF EXISTS workshops_active;
-CREATE VIEW workshops_active AS
-  SELECT array_to_json(array_agg(row_to_json(w))) AS workshops FROM
-    (
-      SELECT workshops._id, title, description, "imageId",
-        (SELECT MAX(sections.ends) FROM sections WHERE sections."workshopId" = workshops._id) AS ends,
-        (SELECT array_to_json(array_agg(row_to_json(s))) FROM (SELECT * FROM sections_all WHERE sections_all."workshopId" = workshops._id AND ends > CURRENT_TIMESTAMP - interval '12 hours') s) AS sections
-      FROM workshops
-    ) w
-    WHERE w.sections IS NOT NULL;
+CREATE OR REPLACE VIEW workshops_active AS
+ SELECT array_to_json(array_agg(row_to_json(w.*))) AS workshops
+   FROM ( SELECT workshops._id,
+            workshops.title,
+            workshops.description,
+            workshops."imageId",
+            ( SELECT min(sections.starts) AS min
+                   FROM sections
+                  WHERE sections."workshopId" = workshops._id) AS starts,
+            ( SELECT max(sections.ends) AS max
+                   FROM sections
+                  WHERE sections."workshopId" = workshops._id) AS ends,
+            ( SELECT array_to_json(array_agg(row_to_json(s.*))) AS array_to_json
+                   FROM ( SELECT sections_all."workshopId",
+                            sections_all._id,
+                            sections_all.title,
+                            sections_all.description,
+                            sections_all."hideDate",
+                            sections_all.starts,
+                            sections_all.ends,
+                            sections_all."productId",
+                            sections_all.price,
+                            sections_all."locationId",
+                            sections_all.location,
+                            sections_all."streetAddress",
+                            sections_all."addressLocality",
+                            sections_all."addressRegion",
+                            sections_all."postalCode",
+                            sections_all."addressCountry"
+                           FROM sections_all
+                          WHERE sections_all."workshopId" = workshops._id AND sections_all.ends > (CURRENT_TIMESTAMP - '12:00:00'::interval)) s) AS sections
+           FROM workshops
+          ORDER BY (( SELECT min(sections.starts) AS min
+                   FROM sections
+                  WHERE sections."workshopId" = workshops._id))) w
+  WHERE w.sections IS NOT NULL;
 
 -- Insert workshop record or update if one exists
 DROP FUNCTION IF EXISTS workshop_upsert(integer, character varying, character varying, integer)
