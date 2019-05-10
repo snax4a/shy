@@ -6,8 +6,8 @@ import asyncWrapper from '../../middleware/async-wrapper'; // only wrap async fu
 
 const router = Router();
 
-router.get('/', cors(), asyncWrapper(controller.index));
-router.get('/active', asyncWrapper(controller.activeProducts));
+router.get('/', asyncWrapper(controller.index));
+router.get('/active', cors(), asyncWrapper(controller.activeProducts));
 router.put('/:id', hasRole('admin'), asyncWrapper(controller.upsert)); // admin, update existing product
 router.delete('/:id', hasRole('admin'), asyncWrapper(controller.destroy)); // admin, delete product
 
