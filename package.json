@@ -65,7 +65,7 @@
     "angular-mocks": "~1.7.8",
     "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.0.6",
     "babel-plugin-angularjs-annotate": "^0.10.0",
     "browser-sync": "^2.26.5",
     "bs-fullscreen-message": "^1.1.0",
