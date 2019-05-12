@@ -9,10 +9,11 @@ function nextDateForDOW(dayOfWeek) {
 }
 
 function addTime(date, time) {
+  const result = new Date(date);
   const hours = parseInt(time.substring(0, 2), 10);
   const mins = parseInt(time.substring(3, 5), 10);
-  date.setHours(hours, mins);
-  return date;
+  result.setHours(hours, mins);
+  return result;
 }
 
 function rowToClass(row) {
@@ -101,6 +102,7 @@ export class ClassService {
     this.classSchedule = data;
     this.classScheduleNested = nest(data);
     convertDateStringsToDates(this.classSchedule);
+    console.log(this.classSchedule)
     return this.classSchedule;
   }
 
