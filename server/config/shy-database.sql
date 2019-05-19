@@ -825,6 +825,15 @@ CREATE VIEW report_poorly_attended_classes AS
   ORDER by count(*) ASC
   LIMIT 10;
 
+DROP VIEW IF EXISTS report_revenue_last18m;
+CREATE VIEW report_revenue_last18m AS
+ SELECT date_trunc('month'::text, orders."createdAt")::date AS month,
+    sum(orders.amount) AS revenue
+   FROM orders
+  WHERE orders."createdAt" >= (date_trunc('month'::text, CURRENT_DATE::timestamp with time zone) - '1 year 6 mons'::interval) AND orders."updatedAt" < date_trunc('month'::text, CURRENT_DATE::timestamp with time zone)
+  GROUP BY (date_trunc('month'::text, orders."createdAt")::date)
+  ORDER BY (date_trunc('month'::text, orders."createdAt")::date);
+
 -- Update attendances with foreign keys (only for converting from legacy)
 -- UPDATE attendances SET location_id = (SELECT _id FROM locations WHERE locations.name = attendances.location) WHERE location_id IS NULL;
 -- UPDATE attendances SET teacher_id = (SELECT _id FROM users WHERE attendances.teacher = users."lastName" || ', ' || users."firstName") WHERE teacher_id IS NULL;

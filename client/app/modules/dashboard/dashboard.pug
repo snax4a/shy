@@ -58,3 +58,9 @@
   .col-12
     h2 Attendance by location (Last 18 months)
     canvas.chart.chart-line(id='chart', chart-options='$ctrl.chart.options', chart-series='$ctrl.chart.series', chart-data='$ctrl.chart.data', chart-labels='$ctrl.chart.labels', chart-colors='["#0000FF","#00FFFF","#00FF00"]')
+.row
+  .col-12 &nbsp;
+.row
+  .col-12
+    h2 Revenue (Last 18 months)
+    canvas.chart.chart-line(id='chart2', chart-options='$ctrl.chart2.options', chart-data='$ctrl.chart2.data', chart-labels='$ctrl.chart2.labels', chart-colors='["#00FF00"]', chart-dataset-override="$ctrl.chart2.datasetOverride")

@@ -102,7 +102,6 @@ export class ClassService {
     this.classSchedule = data;
     this.classScheduleNested = nest(data);
     convertDateStringsToDates(this.classSchedule);
-    console.log(this.classSchedule)
     return this.classSchedule;
   }
 

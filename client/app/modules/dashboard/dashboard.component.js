@@ -4,6 +4,7 @@ export class DashboardComponent {
     this.$timeout = $timeout;
     this.dashboardService = DashboardService;
     this.chart = {};
+    this.chart2 = {};
   }
 
   $onInit() {
@@ -14,7 +15,8 @@ export class DashboardComponent {
       this.bottom10classes(),
       this.attendancelast18m(),
       this.studentsWhoOwe(),
-      this.schoolspie()
+      this.schoolspie(),
+      this.revenuelast18m()
     ]);
   }
 
@@ -54,6 +56,43 @@ export class DashboardComponent {
       });
   }
 
+  revenuelast18m() {
+    const lineColor = '#00FF00';
+    const alpha = 0.25;
+    const backgroundColor = Color(lineColor)
+      .alpha(alpha)
+      .rgbString();
+
+    return this.dashboardService.reportGet('revenuelast18m')
+      .then(rawdata => {
+        this.chart2 = {
+          datasetOverride: {
+            label: 'Revenue',
+            pointBorderColor: '#fff',
+            pointBackgroundColor: lineColor,
+            borderColor: lineColor,
+            backgroundColor
+          },
+          labels: Array.from(new Set(rawdata.map(x => x.month.substring(0, 7)))),
+          data: rawdata.map(x => parseInt(x.revenue, 10)),
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  callback: value => `$${value.toLocaleString()}`
+                }
+              }]
+            },
+            tooltips: {
+              callbacks: {
+                label: tooltipItem => `$${tooltipItem.yLabel.toLocaleString()}`
+              }
+            }
+          }
+        };
+      });
+  }
+
   attendancelast18m() {
     return this.dashboardService.reportGet('attendancelast18m')
       .then(rawdata => {
@@ -71,6 +110,9 @@ export class DashboardComponent {
           options: {
             scales: {
               yAxes: [{
+                ticks: {
+                  callback: value => value.toLocaleString()
+                },
                 stacked: true
               }]
             }

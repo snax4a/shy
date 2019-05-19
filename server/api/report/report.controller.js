@@ -12,6 +12,7 @@ export async function index(req, res) {
     schoolspie: 'SELECT * FROM report_attendance_by_location;',
     top10students: 'SELECT * FROM report_top_10_students;',
     attendancelast18m: 'SELECT * FROM report_attendance_by_location_last18m;',
+    revenuelast18m: 'SELECT * FROM report_revenue_last18m',
     attendeesnhpq: 'SELECT count FROM attendees_nh_pq;',
     teacherpay: 'SELECT * FROM report_teacher_reimbursement_lastm;',
     studentsWhoOwe: 'SELECT student, email, balance, last_attended, last_purchase from students_who_owe order by balance LIMIT 10;'
