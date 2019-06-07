@@ -67,7 +67,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-angularjs-annotate": "^0.10.0",
-    "browser-sync": "^2.26.5",
+    "browser-sync": "^2.26.7",
     "bs-fullscreen-message": "^1.1.0",
     "css-loader": "^2.1.1",
     "cypress": "^3.3.1",
