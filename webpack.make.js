@@ -71,7 +71,7 @@ export default function makeWebpackConfig(mode) {
             { // Shrinks CSS file by 12K
               loader: 'postcss-loader', // https://github.com/postcss/postcss-loader
               options: {
-                plugins: () => [autoprefixer({ browsers: ['> 2%'] })]
+                plugins: () => [autoprefixer({ overrideBrowserslist: ['> 2%'] })]
               }
             },
             {
