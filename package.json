@@ -57,11 +57,11 @@
     "pug-loader": "^2.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
     "@babel/register": "^7.4.4",
-    "@babel/runtime": "^7.4.5",
+    "@babel/runtime": "^7.5.0",
     "angular-mocks": "~1.7.8",
     "autoprefixer": "^9.6.0",
     "babel-eslint": "^10.0.2",
@@ -85,7 +85,7 @@
     "gulp-load-plugins": "^2.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-rev": "^9.0.0",
-    "gulp-rev-rewrite": "^1.1.4",
+    "gulp-rev-rewrite": "^2.0.0",
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-util": "^3.0.8",
@@ -118,7 +118,7 @@
   },
   "engines": {
     "node": "~10.16.0",
-    "npm": "~6.9.2"
+    "npm": "~6.10.0"
   },
   "scripts": {
     "start": "node server",
