@@ -450,7 +450,7 @@ DROP VIEW IF EXISTS attendees_nh_pq;
 CREATE VIEW attendees_nh_pq AS
   SELECT count(*) AS count
   FROM attendances
-  WHERE attendances.location::text = 'North Hills'::text AND attendances.attended >= date_trunc('quarter'::text, (date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date - 1)::timestamp with time zone)::date AND attendances.attended < date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date;
+  WHERE attendances.location_id = 3 AND attendances.attended >= date_trunc('quarter'::text, (date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date - 1)::timestamp with time zone)::date AND attendances.attended < date_trunc('quarter'::text, 'now'::text::date::timestamp with time zone)::date;
 
 DROP VIEW IF EXISTS attendees_per_class;
 CREATE VIEW attendees_per_class AS
