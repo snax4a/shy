@@ -1,7 +1,7 @@
 import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
@@ -88,10 +88,8 @@ export default function makeWebpackConfig(mode) {
 
     optimization: {
       minimizer: [
-        new UglifyJsPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true
+        new TerserPlugin({
+          test: /\.js(\?.*)?$/i,
         }),
         new OptimizeCSSAssetsPlugin(),
         // new PurgecssPlugin({
