@@ -149,7 +149,7 @@ const buildConfirmationEmail = confirmation => {
                   <p>
                     <span class="company-name">Schoolhouse Yoga</span><br/>
                     Order ${confirmation.id}<br />
-                    Paid via credit card (${confirmation.creditCard.last4}) on ${new Date(confirmation.createdAt).toLocaleString('en-US', { timeZone: 'US/Eastern'})}
+                    Paid via credit card (${confirmation.creditCard.last4}) on ${new Date(confirmation.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York'})}
                   </p>
                   <table style="width:100%;margin-top:20px;">
                     <tr>
