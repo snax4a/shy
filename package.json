@@ -117,8 +117,8 @@
     "webpack-dev-middleware": "^3.7.0"
   },
   "engines": {
-    "node": "~12.9.0",
-    "npm": "~6.11.1"
+    "node": "~12.9.1",
+    "npm": "~6.11.2"
   },
   "scripts": {
     "start": "node server",
