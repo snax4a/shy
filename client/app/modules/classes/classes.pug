@@ -23,7 +23,7 @@
               | &nbsp;{{ class.startTime | date:'shortTime' }}-{{ class.endTime | date:'shortTime' }}
             td(ng-class='{ canceled: class.canceled===true }')
               a(href='#', ng-click='$ctrl.classDescriptionOpen(class.title, class.description)') {{ class.title }}
-              span(ng-if='class.canceled===true') (Canceled)
+              span(ng-if='class.canceled===true') &nbsp;(Canceled)
               span(ng-if='class.showDescription')
                 br
                 | {{ class.description }}
