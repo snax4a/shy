@@ -132,7 +132,10 @@ const transpileServer = lazypipe()
 
 // Read the .env file at the project root to set process.env
 gulp.task('env:common', done => {
-  dotenv.config();
+  const result = dotenv.config();
+  if (result.error) {
+    console.error('There was a problem reading the .env file.');
+  }
   done();
 });
 
