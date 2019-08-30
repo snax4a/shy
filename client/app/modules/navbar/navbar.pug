@@ -15,8 +15,10 @@
           a(ng-href='/classes', ng-click='$ctrl.isCollapsed = true') Classes
         li(ng-class='{active: $ctrl.isActive("/workshops")}')
           a(ng-href='/workshops', ng-click='$ctrl.isCollapsed = true') Workshops
-        li.visible-xs(ng-class='{active: $ctrl.isActive("/teachertraining")}')
-          a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true') 200-hour Teacher Training
+        li(ng-class='{active: $ctrl.isActive("/teachertraining")}')
+          a(ng-href='/teachertraining', ng-click='$ctrl.isCollapsed = true') Teacher Training
+        li(ng-class='{active: $ctrl.isActive("/onsite")}')
+          a(ng-href='/onsite', ng-click='$ctrl.isCollapsed = true') Onsite
         li.visible-xs(ng-class='{active: $ctrl.isActive("/locations")}')
           a(ng-href='/locations', ng-click='$ctrl.isCollapsed = true') Directions
         li(ng-if='$ctrl.Cart.getTotalItems() > 0', ng-class='{active: $ctrl.isActive("/cart")}')

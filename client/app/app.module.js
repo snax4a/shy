@@ -50,6 +50,7 @@ import GoogleButtonComponent from './components/google-button/google-button.comp
 // Page components - lazy-loaded via ngRoute
 import CheckoutComponent from './components/checkout/checkout.component';
 import ConfirmationComponent from './components/confirmation/confirmation.component';
+import OnsiteComponent from './components/onsite/onsite.component';
 import PrivacyComponent from './components/privacy/privacy.component';
 import TermsComponent from './components/terms/terms.component';
 import SignupComponent from './components/signup/signup.component';
@@ -91,6 +92,7 @@ angular.module('shyApp', [
   GoogleButtonComponent,
   CheckoutComponent,
   ConfirmationComponent,
+  OnsiteComponent,
   PrivacyComponent,
   TermsComponent,
   SignupComponent,
