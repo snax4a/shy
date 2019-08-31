@@ -48,13 +48,14 @@ const paths = {
 
 // Run Gulp task in a process with debugging, warning and deprecation tracing
 const gulpDebug = task => {
-  console.log('TASK', task);
+  console.log('DEBUG task: ', task);
   let spawn = require('child_process').spawn;
   spawn('node', [
     '--inspect-brk',
     '--trace-deprecation',
     '--trace-warnings',
-    path.join(__dirname, 'node_modules/gulp/bin/gulp.js'),
+    'node_modules/gulp/bin/gulp.js',
+    // path.join(__dirname, 'node_modules/gulp/bin/gulp.js'), // avoid __dirname and path.join for gulp globs
     task
   ], { stdio: 'inherit' });
 };
@@ -131,12 +132,12 @@ const transpileServer = lazypipe()
   .pipe(plugins.sourcemaps.write, '.');
 
 // Read the .env file at the project root to set process.env
-gulp.task('env:common', done => {
+gulp.task('env:common', cb => {
   const result = dotenv.config();
   if (result.error) {
-    console.error('There was a problem reading the .env file.');
+    cb(new Error('There was a problem reading the .env file.'));
   }
-  done();
+  cb();
 });
 
 // Change NODE_ENV to 'test'
