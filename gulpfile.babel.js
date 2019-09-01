@@ -6,7 +6,7 @@ import http from 'http';
 import lazypipe from 'lazypipe';
 import nodemon from 'nodemon';
 import opn from 'open';
-import path from 'path';
+// import path from 'path';
 import dotenv from 'dotenv';
 import shelljs from 'shelljs';
 import webpack from 'webpack';
